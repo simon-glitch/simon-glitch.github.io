@@ -4,13 +4,58 @@
 <meta charset="UTF-8">
 <title>Candy Cantagion</title>
 <style>
-
+#aaacandyb{
+  font-size:32px;
+  top:35%;
+  right:35%;
+  bottom:35%;
+  left:35%;
+  background:rgba(230,140,90,1);
+}
+#aaaupgradeb{
+  font-size:14px;
+  top:40%;
+  right:0%;
+  bottom:40%;
+  left:80%;
+  background:rgba(200,70,200,1);
+}
 </style>
 </head>
 <body>
-<h1>I will be making Candy Cantagion here!</h1>
+<button type="button" id="aaacandyb">Candy Corn</button>
+<h2>Candy Cantagion</h2>
+<div id="candyc"></div>
 <script>
-
+var bbbcandyb=document.getElementId("aaacandyb");
+var bbbcandyc=document.getElementId("aaacandyc");
+var bbbclickyield=1;
+var bbbcandy=0;
+bar bbbaddcandy=function(bbbamount){
+  bbbcandy+=bbbamount;
+  bbbcandyc.textContent=bbbcandy+"Candy";
+};
+bbbcandy.addEventListener("click",function(){ bbbaddcandy(bbbclickyield)});
+  //upgrade
+var bbbupgradeadded=0;
+var bbbupgradeowned=0;
+var bbbupgradebuy=function(){
+  if(bbbupgradeowned===0&&bbbcandy>=100){
+    bbbcandy-=100;
+    bbbclickyield*=2;
+    bbbupgradeowned=1;
+  }
+};
+var bbbupgradecheck=function(){
+  if(bbbcandy>=50&&upgradeadded===0){
+    var bbbupgradeb=document.createElement("button");
+    bbbupgradeb.setAttribute(aaaupgradeb,"Upgrade (costs 50)");
+    bbbupgradb.addEventListener("click",bbbupgradebuy);
+    document.appendChild(bbbupgradeb);
+    bbbupgradeadded=1;
+  }
+};
+window.setInterval(bbbupgradecheck,200);
 </script>
 </body>
 </html>
