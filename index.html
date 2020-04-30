@@ -4,69 +4,146 @@
 <meta charset="UTF-8">
 <title>Candy Cantagion</title>
 <style>
+h1{
+    position:relative;
+    top:-15px;
+}
+.aaared{
+    font-family:monospace;
+    color:#ff0000;
+}
+.aaagreen{
+    font-family:monospace;
+    color:#00aa22;
+}
 #aaacandyb{
   position:absolute;
   font-size:32px;
-  top:35%;
-  right:35%;
-  bottom:35%;
-  left:35%;
+  top:30%;
+  right:60%;
+  bottom:40%;
+  left:5%;
   background:rgba(230,140,90,1);
 }
-#aaaupgradeb{
+.aaaupgradeb{
   position:absolute;
-  font-size:14px;
-  top:40%;
-  right:0%;
-  bottom:40%;
-  left:80%;
-  background:rgba(200,70,200,1);
+  font-size:24px;
+  background:rgba(240, 100, 230,1);
 }
 #aaacandyc{
   position:absolute;
-  font-size:24px;
-  top:40%;
-  right:80%;
-  bottom:40%;
-  left:0%;
-  background:rgba(200,70,200,1);
+  font-size:32px;
+  top:15%;
+  bottom:75%;
+  left:5%;
+  background:rgba(240, 100, 230,1);
+}
+#aaaupgradesbox{
+  position:absolute;
+  font-size:20px;
+  border:6px solid rgba(107, 77, 32);
+  top:0%;
+  right:0%;
+  bottom:60%;
+  left:70%;
+  background:rgba(181, 130, 63,1);
+  overflow-y:scroll;
 }
 </style>
 </head>
 <body>
-<button type="button" id="aaacandyb">Candy Corn</button>
-<h2>Candy Cantagion</h2>
-<p id="aaacandyc">hey</p>
+
+
+<button type="button" id="aaacandyb" onclick="bbbaddcandy('bbbcandy',bbbclickyield)">Candy Corn</button>
+<h1 id="h1a">Candy Cantagion</h1>
+<div id="aaacandyc"><span style="color:rgba(240,100,230,1)">_</span>0 Candy<span style="color:rgba(240,100,230,1)">_</span></div>
+<div id="aaaupgradesbox">
+    <h3 style="position:relative;top:-15%;text-align:center;">Upgrades:</h3>
+</div>
+
 <script>
-var bbbcandyb=document.getElementById("aaacandyb");
+//our list of effects
+var bbbclickup=function(){
+  bbbclickyield*=2;
+};
+
+//these arrays store all our costs and unlock requirements of our upgrades.
+var bbbreqs=[uuu1[50],uuu2[],uuu3[],uuu4,uuu5[],uuu6[]];
+var bbbreqis=[uui1["bbbcandy"],uui2[],uui3[],uui4,uui5[],uui6[]];
+var bbbcostis=["bbbcandy"];
+var bbbcostns=["Candy"];
+
+//these arrays are here to let us store our things made by the new upgrade fuction as global variabes.
+var bbbupgradeowneds=[];
+var bbbupgradeaddeds=[];
+var bbbupgradechecks=[];
+var bbbupgradebuys=[];
+var bbbugradebs=[];
+var bbbupgradeefs=[bbbclickup];
+
+//we need to get our candy corn button working. It should give 1 candy when we click it.
 var bbbcandyc=document.getElementById("aaacandyc");
+var bbbupgradesbox=document.getElementById("aaaupgradesbox");
+//this is here to let us change the candy we get from clicking the candy corn.
 var bbbclickyield=1;
 var bbbcandy=0;
-bar bbbaddcandy=function(bbbamount){
-  bbbcandy+=bbbamount;
-  bbbcandyc.textContent=bbbcandy+"Candy";
+var bbbaddcandy=function(dddres,dddamount){
+  eval(dddres)+=dddamount;
+  //we want nice background colored underscores on our candy counter.
+  bbbcandyc.innerHTML="<span style='color:rgba(240,100,230,1)'>_</span>"+bbbcandy+" Candy<span style=color:rgba(240,100,230,1)>_</span>";
 };
-bbbcandyb.addEventListener("click",function(){ bbbaddcandy(bbbclickyield)});
-  //upgrade
-var bbbupgradeadded=0;
-var bbbupgradeowned=0;
-var bbbupgradebuy=function(){
-  if(bbbupgradeowned===0&&bbbcandy>=100){
-    bbbcandy-=100;
-    bbbclickyield*=2;
-    bbbupgradeowned=1;
+bbbupgradebuy1=function(){
+    if(bbbupgradeowneds[0]===0&&bbbcandy>=100){
+      bbbaddcandy(-100);
+      bbbclickyield*=2;
+      bbbupgradeowneds[0]=1;
+      bbbupgradeaddeds[2]=0;
+      var bbbchild = document.getElementById("aaaupgrade"+String(0));
+      bbbchild.parentNode.removeChild(bbbchild);
+    }
+  };
+var bbbnewupgradebutton=function(dddname,dddrequirement,dddcost,dddcosti,dddreq,dddreqi,dddupgradeid,dddfunctionid){
+  var bbbwhilemanager=0;
+  var bbballreqs="";
+  while(bbbwhilemanager<bbbcostis[dddcosti].length){
+    if(bbbwhilemanager>0){bbballcosts+="&&";}
+    bbballreqs+=bbbreqis[dddreqi][bbbwhilemanager]+">=" +String(bbbreqs[dddreq][bbbwhilemanager]);
+    bbbwhilemanager++;
   }
+  bbbupgradeaddeds[dddupgradeid]=0;
+  bbbupgradeowneds[dddupgradeid]=0;
+  bbbupgradebuys[dddupgradeid]=function(){
+    if(bbbupgradeowneds[dddupgradeid]===0&&eval(bbbcostis[dddcosti])>=dddcost{
+      bbbaddcandy(bbbcostis[dddcosti],-dddcost);
+      var bbbchild = document.getElementById("aaaupgrade"+String(dddupgradeid));
+      bbbchild.parentNode.removeChild(bbbchild);
+      bbbupgradeowneds[dddupgradeid]=1;
+      bbbupgradeaddeds[dddupgradeid]=2;
+      "bbbupgradeefs[dddfunctionid]()";
+    }
+  };
+  bbbupgradechecks[dddupgradeid]=function(){
+    //add our upgrade to the body. We want it to have a unique ID so that we can add our cost label.
+    if(eval(bbballreqs)&&bbbupgradeaddeds[dddupgradeid]===0&&bbbupgradeowneds[dddupgradeid]===0){
+      bbbupgradesbox.innerHTML+='<button id="aaaupgrade'+String(dddupgradeid)+'" class="aaaupgradeb" onclick="bbbupgradebuys['+String(dddupgradeid)+']()"></button>';
+      bbbupgradeaddeds[dddupgradeid]=1;
+    }
+    //add cost label
+      //red for not affordable
+    if(eval(bbbcostis[dddcosti])<dddcost&&bbbupgradeaddeds[dddupgradeid]===1){
+      var bbbupgradeb2=document.getElementById('aaaupgrade'+String(dddupgradeid));
+      bbbupgradeb2.innerHTML=String(dddname)+'<br><span class="aaared">'+String(dddcost)+String(bbbcostns[dddcosti])+'</span>';
+    }
+      //green for affrdable
+    else if(bbbupgradeaddeds[dddupgradeid]===1){
+      var bbbupgradeb3=document.getElementById('aaaupgrade'+String(dddupgradeid));
+      bbbupgradeb3.innerHTML=String(dddname)+'<br><span class="aaagreen">'+String(dddcost)+String(bbbcostns[dddcosti])+'</span>';
+    }
+  };
+  //repetatively check to see if we have unlocked the upgrade, and if we can afford it.
+  window.setInterval(bbbupgradechecks[dddupgradeid],1000);
 };
-var bbbupgradecheck=function(){
-  if(bbbcandy>=50&&upgradeadded===0){
-    var bbbupgradeb=document.createElement("button");
-    bbbupgradeb.setAttribute(aaaupgradeb,"Upgrade (costs 50)");
-    bbbupgradb.addEventListener("click",bbbupgradebuy);
-    document.appendChild(bbbupgradeb);
-    bbbupgradeadded=1;
-  }
-};
-window.setInterval(bbbupgradecheck,200);
+bbbnewupgradebutton("Big Clicks",0,0,0,0,0,0);
 </script>
 </body>
 </html>
