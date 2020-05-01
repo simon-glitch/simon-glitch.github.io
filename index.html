@@ -16,6 +16,14 @@ h1{
     font-family:monospace;
     color:#00aa22;
 }
+#aaacandyc{
+  position:absolute;
+  font-size:32px;
+  top:15%;
+  bottom:75%;
+  left:5%;
+  background:rgba(240, 100, 230,1);
+}
 #aaacandyb{
   position:absolute;
   font-size:32px;
@@ -28,15 +36,7 @@ h1{
 .aaaupgradeb{
   position:absolute;
   font-size:24px;
-  background:rgba(240, 100, 230,1);
-}
-#aaacandyc{
-  position:absolute;
-  font-size:32px;
-  top:15%;
-  bottom:75%;
-  left:5%;
-  background:rgba(240, 100, 230,1);
+  background:rgba(214, 183, 112,1);
 }
 #aaaupgradesbox{
   position:absolute;
@@ -49,101 +49,230 @@ h1{
   background:rgba(181, 130, 63,1);
   overflow-y:scroll;
 }
+.aaabuildingb{
+  position:absolute;
+  font-size:24px;
+  background:rgba(186, 133, 255,1);
+}
+#aaabuildingsbox{
+  position:absolute;
+  font-size:20px;
+  border:6px solid rgba(107, 77, 32);
+  top:45%;
+  right:0%;
+  bottom:0%;
+  left:70%;
+  background:rgba(50, 180, 200,1);
+  overflow-y:scroll;
+}
 </style>
 </head>
 <body>
 
 
-<button type="button" id="aaacandyb" onclick="bbbaddcandy('bbbcandy',bbbclickyield)">Candy Corn</button>
+<button type="button" id="aaacandyb" onclick="bbbaddcandy(bbbclickyield)">Candy Corn</button>
 <h1 id="h1a">Candy Cantagion</h1>
 <div id="aaacandyc"><span style="color:rgba(240,100,230,1)">_</span>0 Candy<span style="color:rgba(240,100,230,1)">_</span></div>
 <div id="aaaupgradesbox">
     <h3 style="position:relative;top:-15%;text-align:center;">Upgrades:</h3>
 </div>
+<div id="aaabuildingsbox">
+    <h3 style="position:relative;top:-15%;text-align:center;">Buildings:</h3>
+</div>
 
 <script>
+//the power fuction. We need this.
+var bbbpow=function(bbbnum1,bbbnum2){
+    var bbbnum3=0;
+    var bbbnum4=1;
+    while(bbbnum3<bbbnum2){
+        bbbnum4*=bbbnum1;
+        bbbnum3++;
+    }
+    return(bbbnum4);
+};
+//we need to get our candy corn button working. It should give 1 candy when we click it.
+var bbbcandyc=document.getElementById("aaacandyc");
+var bbbupgradesbox=document.getElementById("aaaupgradesbox");
+var bbbbuildingsbox=document.getElementById("aaabuildingsbox");
+//this is here to let us change the candy we get from clicking the candy corn.
+var bbbclickyield=1;
+var bbbcandy=0;
+var bbbaddcandy=function(dddamount){
+  bbbcandy+=dddamount;
+  //we want nice background colored underscores on our candy counter.
+  bbbcandyc.innerHTML="<span style='color:rgba(240,100,230,1)'>_</span>"+String(Math.floor(bbbcandy))+" Candy<span style=color:rgba(240,100,230,1)>_</span>";
+};
 //our list of effects
 var bbbclickup=function(){
   bbbclickyield*=2;
 };
-
-//these arrays store all our costs and unlock requirements of our upgrades.
-var bbbreqs=[uuu1[50],uuu2[],uuu3[],uuu4,uuu5[],uuu6[]];
-var bbbreqis=[uui1["bbbcandy"],uui2[],uui3[],uui4,uui5[],uui6[]];
-var bbbcostis=["bbbcandy"];
-var bbbcostns=["Candy"];
-
-//these arrays are here to let us store our things made by the new upgrade fuction as global variabes.
-var bbbupgradeowneds=[];
-var bbbupgradeaddeds=[];
-var bbbupgradechecks=[];
-var bbbupgradebuys=[];
-var bbbugradebs=[];
+//effects array
 var bbbupgradeefs=[bbbclickup];
 
-//we need to get our candy corn button working. It should give 1 candy when we click it.
-var bbbcandyc=document.getElementById("aaacandyc");
-var bbbupgradesbox=document.getElementById("aaaupgradesbox");
-//this is here to let us change the candy we get from clicking the candy corn.
-var bbbclickyield=1;
-var bbbcandy=0;
-var bbbaddcandy=function(dddres,dddamount){
-  eval(dddres)+=dddamount;
-  //we want nice background colored underscores on our candy counter.
-  bbbcandyc.innerHTML="<span style='color:rgba(240,100,230,1)'>_</span>"+bbbcandy+" Candy<span style=color:rgba(240,100,230,1)>_</span>";
-};
-bbbupgradebuy1=function(){
-    if(bbbupgradeowneds[0]===0&&bbbcandy>=100){
-      bbbaddcandy(-100);
-      bbbclickyield*=2;
-      bbbupgradeowneds[0]=1;
-      bbbupgradeaddeds[2]=0;
-      var bbbchild = document.getElementById("aaaupgrade"+String(0));
-      bbbchild.parentNode.removeChild(bbbchild);
+//these arrays are here to let us store some global variabes.
+var bbbaddres=[function(bbbunum){bbbaddcandy(bbbnum);}]
+var bbbarray=[0,1,2,3,4,5,6,7,8];
+bbbarray=["Baker","Bakers",60,bbbcandy,60,bbbcandy,bbbcandy,1];
+bbbbuildingname0=bbbarray[0];bbbbuildingnamep0=bbbarray[1];bbbbuildingcost0=bbbarray[2];bbbbuildingcosti0=bbbarray[3];bbbbuildingreq0=bbbarray[4];bbbbuildingreqi0=bbbarray[5];bbbbuildingearni0=bbbarray[6];bbbbuildingearn0=bbbarray[7];
+  bbbbuildingadded0=0;
+  bbbbuildingowned0=0;
+  bbbbuildingearn0=function(){
+    bbbaddres[0]((bbbbuildingearn0/5)*(bbbbuildingowned0));
+  };
+  bbbbuildingbuy0=function(){
+    var bbbbuildingcostb0=bbbbuildingcost0*(bbbpow(1.1,(bbbbuildingowned0)));
+    if(bbbcandy>=bbbbuildingcostb0){
+      bbbaddres[bbbcandy](-bbbbuildingcostb0);
+      bbbbuildingowned0++;
+    if(bbbbuildingowned0===1){bbbbbbbuildingname20=bbbbbbbuildingname0;}
+    else{bbbbbbbuildingname20=bbbbbbbuildingnamep0;}
     }
   };
-var bbbnewupgradebutton=function(dddname,dddrequirement,dddcost,dddcosti,dddreq,dddreqi,dddupgradeid,dddfunctionid){
-  var bbbwhilemanager=0;
-  var bbballreqs="";
-  while(bbbwhilemanager<bbbcostis[dddcosti].length){
-    if(bbbwhilemanager>0){bbballcosts+="&&";}
-    bbballreqs+=bbbreqis[dddreqi][bbbwhilemanager]+">=" +String(bbbreqs[dddreq][bbbwhilemanager]);
-    bbbwhilemanager++;
-  }
-  bbbupgradeaddeds[dddupgradeid]=0;
-  bbbupgradeowneds[dddupgradeid]=0;
-  bbbupgradebuys[dddupgradeid]=function(){
-    if(bbbupgradeowneds[dddupgradeid]===0&&eval(bbbcostis[dddcosti])>=dddcost{
-      bbbaddcandy(bbbcostis[dddcosti],-dddcost);
-      var bbbchild = document.getElementById("aaaupgrade"+String(dddupgradeid));
-      bbbchild.parentNode.removeChild(bbbchild);
-      bbbupgradeowneds[dddupgradeid]=1;
-      bbbupgradeaddeds[dddupgradeid]=2;
-      "bbbupgradeefs[dddfunctionid]()";
-    }
-  };
-  bbbupgradechecks[dddupgradeid]=function(){
-    //add our upgrade to the body. We want it to have a unique ID so that we can add our cost label.
-    if(eval(bbballreqs)&&bbbupgradeaddeds[dddupgradeid]===0&&bbbupgradeowneds[dddupgradeid]===0){
-      bbbupgradesbox.innerHTML+='<button id="aaaupgrade'+String(dddupgradeid)+'" class="aaaupgradeb" onclick="bbbupgradebuys['+String(dddupgradeid)+']()"></button>';
-      bbbupgradeaddeds[dddupgradeid]=1;
+  bbbbuildingcheck0=function(){
+    //add our building to the body. We want it to have a unique ID so that we can add our cost label.
+    if(bbbbuildingreqi0>=bbbbuildingreq0&&bbbbuildingadded0===0&&bbbbuildingowned0===0){
+      bbbbuildingsbox.innerHTML+='<button id="aaabuilding0" class="aaabuildingb" onclick="bbbbuildingbuy0"></button>';
+      bbbbuildingadded0=1;
+      bbbbbbbuildingname20=bbbbbbbuildingnamep0;
     }
     //add cost label
-      //red for not affordable
-    if(eval(bbbcostis[dddcosti])<dddcost&&bbbupgradeaddeds[dddupgradeid]===1){
-      var bbbupgradeb2=document.getElementById('aaaupgrade'+String(dddupgradeid));
-      bbbupgradeb2.innerHTML=String(dddname)+'<br><span class="aaared">'+String(dddcost)+String(bbbcostns[dddcosti])+'</span>';
+    var bbbbuildingcostb0=bbbbuildingcost0*(bbbpow(1.1,bbbbuildingowned0));
+    ////red for not affordable
+    if(bbbcandy<bbbbuildingcostb0&&bbbbuildingadded0===1){
+      var bbbbuildingb2=document.getElementById('aaabuilding0');
+      bbbbuildingb2.innerHTML=String(bbbbuildingowned0)+' '+String(bbbbbbbuildingname20)+'<br><span class="aaared">'+String(Math.ceil(bbbbuildingcostb0))+' '+String(bbbbuildingcostn0)+'</span>';
     }
-      //green for affrdable
-    else if(bbbupgradeaddeds[dddupgradeid]===1){
-      var bbbupgradeb3=document.getElementById('aaaupgrade'+String(dddupgradeid));
-      bbbupgradeb3.innerHTML=String(dddname)+'<br><span class="aaagreen">'+String(dddcost)+String(bbbcostns[dddcosti])+'</span>';
+    ////green for affrdable
+    else if(bbbbuildingadded0===1){
+      var bbbbuildingb3=document.getElementById('aaabuilding0');
+      bbbbuildingb3.innerHTML=String(bbbbuildingowned0)+' '+bbbbbbbuildingname20+'<br><span class="aaagreen">'+String(Math.ceil(bbbbuildingcostb0))+' '+String(bbbcostn0)+'</span>';
+    }
+  };
+  //repetatively check to see if we have unlocked the building, and if we can afford it.
+  window.setInterval(bbbbuildingcheck0,1000);
+  window.setInterval(bbbbuildingearn0,200);
+
+
+bbbarray=["Candy Cake",100,bbbcandy,50,bbbcandy,0];
+bbbupgradename0=bbbarray[0];bbbupgradecost0=bbbarray[1];bbbupgradecosti0=bbbarray[2];bbbupgradereq0=bbbarray[3];bbbupgradereqi0=bbbarray[4];bbbupgradeef0=bbbarray[5];
+  bbbupgradeadded0=0;
+  bbbupgradeowned0=0;
+  bbbupgradebuy0=function(){
+    if(bbbupgradeowned0===0&&bbbcandy>=bbbupgradecost0){
+      bbbaddres[0](bbbupgradecost0);
+      var bbbchild = document.getElementById("aaaupgrade0");
+      bbbchild.parentNode.removeChild(bbbchild);
+      bbbupgradeowned0=1;
+      bbbupgradeadded0=2;
+      bbbupgradeefs[0]();
+    }
+  };
+  bbbupgradecheck0=function(){
+    //add our upgrade to the body. We want it to have a unique ID so that we can add our cost label.
+    if(bbbupgradereqi0>=bbbupgradereq0&&bbbupgradeadded0===0&&bbbupgradeowned0===0){
+      bbbupgradesbox.innerHTML+='<button id="aaaupgrade0" class="aaaupgradeb" onclick="bbbupgradebuys0()"></button>';
+      bbbupgradeadded0=1;
+    }
+    //add cost label
+    ////red for not affordable
+    if(bbbcandy<bbbupgradecost0&&bbbupgradeadded0===1){
+      var bbbupgradeb2=document.getElementById('aaaupgrade0');
+      bbbupgradeb2.innerHTML=bbbupgradename0+'<br><span class="aaared">'+String(Math.ceil(bbbupgradecost0))+' '+bbbcostn0+'</span>';
+    }
+    ////green for affrdable
+    else if(bbbupgradeadded0===1){
+      var bbbupgradeb3=document.getElementById('aaaupgrade0');
+      bbbupgradeb3.innerHTML=bbbupgradename0+'<br><span class="aaagreen">'+String(Math.ceil(bbbupgradecost))+' '+bbbcostn0+'</span>';
     }
   };
   //repetatively check to see if we have unlocked the upgrade, and if we can afford it.
-  window.setInterval(bbbupgradechecks[dddupgradeid],1000);
-};
-bbbnewupgradebutton("Big Clicks",0,0,0,0,0,0);
+  window.setInterval(bbbupgradecheck0,1000);
+
+//buidings: buildingname,buildingnamep,buildingcost,buildingcosti,buildingreq,buildingreqi,bbbbuildingearni,dddearn
+//upgrades: upgradename,upgradecost,upgradecosti,upgradereq,upgradereqi,bbbupgradeef
+
+/*
+bbbarray=[0,1,2,3,4,5,6,7];
+bbbbuildingname#=bbbarray[0];bbbbuildingnamep#=bbbarray[1];bbbbuildingcost#=bbbarray[2];bbbbuildingcosti#=bbbarray[3];bbbbuildingreq#=bbbarray[4];bbbbuildingreqi#=bbbarray[5];bbbbuildingearni#=bbbarray[6];bbbbuildingearn#=bbbarray[7];
+  bbbbuildingadded#=0;
+  bbbbuildingowned#=0;
+  bbbbuildingearn#=function(){
+    bbbaddres[#]((bbbbuildingearn#/5)*(bbbbuildingowned#));
+  };
+  bbbbuildingbuy#=function(){
+    var bbbbuildingcostb#=bbbbuildingcost#*(bbbpow(1.1,(bbbbuildingowned#)));
+    if(bbbbuildingcosti#>=bbbbuildingcostb#){
+      bbbaddres[bbbbuildingcosti#](-bbbbuildingcostb#);
+      bbbbuildingowned#++;
+    if(bbbbuildingowned#===1){bbbbbbbuildingname2#=bbbbbbbuildingname#;}
+    else{bbbbbbbuildingname2#=bbbbbbbuildingnamep#;}
+    }
+  };
+  bbbbuildingcheck#=function(){
+    //add our building to the body. We want it to have a unique ID so that we can add our cost label.
+    if(bbbbuildingreqi#>=bbbbuildingreq#&&bbbbuildingadded#===0&&bbbbuildingowned#===0){
+      bbbbuildingsbox.innerHTML+='<button id="aaabuilding#" class="aaabuildingb" onclick="bbbbuildingbuy#"></button>';
+      bbbbuildingadded#=1;
+      bbbbbbbuildingname2#=bbbbbbbuildingnamep#;
+    }
+    //add cost label
+    var bbbbuildingcostb#=bbbbuildingcost#*(bbbpow(1.1,bbbbuildingowned#));
+    ////red for not affordable
+    if(bbbbuildingcosti#<bbbbuildingcostb#&&bbbbuildingadded#===1){
+      var bbbbuildingb2=document.getElementById('aaabuilding#');
+      bbbbuildingb2.innerHTML=String(bbbbuildingowned#)+' '+String(bbbbbbbuildingname2#)+'<br><span class="aaared">'+String(Math.ceil(bbbbuildingcostb#))+' '+String(bbbbuildingcostn#)+'</span>';
+    }
+    ////green for affrdable
+    else if(bbbbuildingadded#===1){
+      var bbbbuildingb3=document.getElementById('aaabuilding#');
+      bbbbuildingb3.innerHTML=String(bbbbuildingowned#)+' '+bbbbbbbuildingname2#+'<br><span class="aaagreen">'+String(Math.ceil(bbbbuildingcostb#))+' '+String(bbbcostn#)+'</span>';
+    }
+  };
+  //repetatively check to see if we have unlocked the building, and if we can afford it.
+  window.setInterval(bbbbuildingcheck#,1000);
+  window.setInterval(bbbbuildingearn#,200);
+
+
+bbbarray=[0,1,2,3,4,5];
+bbbupgradename#=bbbarray[0];bbbupgradecost#=bbbarray[1];bbbupgradecosti#=bbbarray[2];bbbupgradereq#=bbbarray[3];bbbupgradereqi#=bbbarray[4];bbbupgradeef#=bbbarray[5];
+  bbbupgradeadded#=0;
+  bbbupgradeowned#=0;
+  bbbupgradebuy#=function(){
+    if(bbbupgradeowned#===0&&bbbupgradecosti#>=bbbupgradecost#){
+      bbbaddres[#](bbbupgradecost#);
+      var bbbchild = document.getElementById("aaaupgrade#");
+      bbbchild.parentNode.removeChild(bbbchild);
+      bbbupgradeowned#=1;
+      bbbupgradeadded#=2;
+      bbbupgradeefs[#]();
+    }
+  };
+  bbbupgradecheck#=function(){
+    //add our upgrade to the body. We want it to have a unique ID so that we can add our cost label.
+    if(bbbupgradereqi#>=bbbupgradereq#&&bbbupgradeadded#===0&&bbbupgradeowned#===0){
+      bbbupgradesbox.innerHTML+='<button id="aaaupgrade#" class="aaaupgradeb" onclick="bbbupgradebuys#()"></button>';
+      bbbupgradeadded#=1;
+    }
+    //add cost label
+    ////red for not affordable
+    if(bbbupgradecosti#<bbbupgradecost#&&bbbupgradeadded#===1){
+      var bbbupgradeb2=document.getElementById('aaaupgrade#');
+      bbbupgradeb2.innerHTML=bbbupgradename#+'<br><span class="aaared">'+String(Math.ceil(bbbupgradecost#))+' '+bbbcostn#+'</span>';
+    }
+    ////green for affrdable
+    else if(bbbupgradeadded#===1){
+      var bbbupgradeb3=document.getElementById('aaaupgrade#');
+      bbbupgradeb3.innerHTML=bbbupgradename#+'<br><span class="aaagreen">'+String(Math.ceil(bbbupgradecost))+' '+bbbcostn#+'</span>';
+    }
+  };
+  //repetatively check to see if we have unlocked the upgrade, and if we can afford it.
+  window.setInterval(bbbupgradecheck#,1000);
+  
+//buidings: buildingname,buildingnamep,buildingcost,buildingcosti,buildingreq,buildingreqi,bbbbuildingearni,dddearn
+//upgrades: upgradename,upgradecost,upgradecosti,upgradereq,upgradereqi,bbbupgradeef
+*/
+
 </script>
 </body>
 </html>
