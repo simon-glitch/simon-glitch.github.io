@@ -111,56 +111,58 @@ var bbbclickup=function(){
 var bbbupgradeefs=[bbbclickup];
 
 //these arrays are here to let us store some global variabes.
-var bbbaddres=[function(bbbunum){bbbaddcandy(bbbnum);}]
+
+//upgrades and buildings
 var bbbarray=[0,1,2,3,4,5,6,7,8];
 bbbarray=["Baker","Bakers",60,bbbcandy,60,bbbcandy,bbbcandy,1];
-bbbbuildingname0=bbbarray[0];bbbbuildingnamep0=bbbarray[1];bbbbuildingcost0=bbbarray[2];bbbbuildingcosti0=bbbarray[3];bbbbuildingreq0=bbbarray[4];bbbbuildingreqi0=bbbarray[5];bbbbuildingearni0=bbbarray[6];bbbbuildingearn0=bbbarray[7];
-  bbbbuildingadded0=0;
-  bbbbuildingowned0=0;
-  bbbbuildingearn0=function(){
-    bbbaddres[0]((bbbbuildingearn0/5)*(bbbbuildingowned0));
+var bbbbuildingname0=bbbarray[0];var bbbbuildingnamep0=bbbarray[1];var bbbbuildingcost0=bbbarray[2];/*buildingcosti*/;var bbbbuildingreq0=bbbarray[4];/*builgingreqi*/;/*bbbbuildingearni0*/;var bbbbuildingearn0=bbbarray[7];
+  var bbbbuildingadded0=0;
+  var bbbbuildingowned0=0;
+  bbbbuildingearnf0=function(){
+    bbbaddcandy((bbbbuildingearn0/5)*(bbbbuildingowned0));
   };
   bbbbuildingbuy0=function(){
     var bbbbuildingcostb0=bbbbuildingcost0*(bbbpow(1.1,(bbbbuildingowned0)));
     if(bbbcandy>=bbbbuildingcostb0){
-      bbbaddres[bbbcandy](-bbbbuildingcostb0);
+      bbbaddcandy(-bbbbuildingcostb0);
       bbbbuildingowned0++;
-    if(bbbbuildingowned0===1){bbbbbbbuildingname20=bbbbbbbuildingname0;}
-    else{bbbbbbbuildingname20=bbbbbbbuildingnamep0;}
+    if(bbbbuildingowned0===1){bbbbuilding2name0=bbbbuildingname0;}
+    else{bbbbuilding2name0=bbbbuildingnamep0;}
     }
   };
   bbbbuildingcheck0=function(){
     //add our building to the body. We want it to have a unique ID so that we can add our cost label.
-    if(bbbbuildingreqi0>=bbbbuildingreq0&&bbbbuildingadded0===0&&bbbbuildingowned0===0){
-      bbbbuildingsbox.innerHTML+='<button id="aaabuilding0" class="aaabuildingb" onclick="bbbbuildingbuy0"></button>';
+    if(bbbcandy>=bbbbuildingreq0&&bbbbuildingadded0===0&&bbbbuildingowned0===0){
+      bbbbuildingsbox.innerHTML+='<button id="aaabuilding0" class="aaabuildingb" onclick="bbbbuildingbuy0()"></button>';
       bbbbuildingadded0=1;
-      bbbbbbbuildingname20=bbbbbbbuildingnamep0;
+      var bbbbuilding2name0=bbbbuildingnamep0;
     }
     //add cost label
     var bbbbuildingcostb0=bbbbuildingcost0*(bbbpow(1.1,bbbbuildingowned0));
+    if(bbbbuildingowned0===1){var bbbbuilding2name0=bbbbuildingname0;} else{var bbbbuilding2name0=bbbbuildingnamep0;}
     ////red for not affordable
     if(bbbcandy<bbbbuildingcostb0&&bbbbuildingadded0===1){
       var bbbbuildingb2=document.getElementById('aaabuilding0');
-      bbbbuildingb2.innerHTML=String(bbbbuildingowned0)+' '+String(bbbbbbbuildingname20)+'<br><span class="aaared">'+String(Math.ceil(bbbbuildingcostb0))+' '+String(bbbbuildingcostn0)+'</span>';
+      bbbbuildingb2.innerHTML=String(bbbbuildingowned0)+' '+bbbbuilding2name0+'<br><span class="aaared">'+String(Math.ceil(bbbbuildingcostb0))+' Candy</span>';
     }
     ////green for affrdable
     else if(bbbbuildingadded0===1){
       var bbbbuildingb3=document.getElementById('aaabuilding0');
-      bbbbuildingb3.innerHTML=String(bbbbuildingowned0)+' '+bbbbbbbuildingname20+'<br><span class="aaagreen">'+String(Math.ceil(bbbbuildingcostb0))+' '+String(bbbcostn0)+'</span>';
+      bbbbuildingb3.innerHTML=String(bbbbuildingowned0)+' '+bbbbuilding2name0+'<br><span class="aaagreen">'+String(Math.ceil(bbbbuildingcostb0))+' Candy</span>';
     }
   };
   //repetatively check to see if we have unlocked the building, and if we can afford it.
   window.setInterval(bbbbuildingcheck0,1000);
-  window.setInterval(bbbbuildingearn0,200);
+  window.setInterval(bbbbuildingearnf0,200);
 
 
 bbbarray=["Candy Cake",100,bbbcandy,50,bbbcandy,0];
-bbbupgradename0=bbbarray[0];bbbupgradecost0=bbbarray[1];bbbupgradecosti0=bbbarray[2];bbbupgradereq0=bbbarray[3];bbbupgradereqi0=bbbarray[4];bbbupgradeef0=bbbarray[5];
-  bbbupgradeadded0=0;
-  bbbupgradeowned0=0;
-  bbbupgradebuy0=function(){
+var bbbupgradename0=bbbarray[0];var bbbupgradecost0=bbbarray[1];/*bbbupgradecosti*/;var bbbupgradereq0=bbbarray[3];/*bbbupgradereqi*/;var bbbupgradeef0=bbbarray[5];
+  var bbbupgradeadded0=0;
+  var bbbupgradeowned0=0;
+  var bbbupgradebuy0=function(){
     if(bbbupgradeowned0===0&&bbbcandy>=bbbupgradecost0){
-      bbbaddres[0](bbbupgradecost0);
+      bbbaddcandy(bbbupgradecost0);
       var bbbchild = document.getElementById("aaaupgrade0");
       bbbchild.parentNode.removeChild(bbbchild);
       bbbupgradeowned0=1;
@@ -168,22 +170,22 @@ bbbupgradename0=bbbarray[0];bbbupgradecost0=bbbarray[1];bbbupgradecosti0=bbbarra
       bbbupgradeefs[0]();
     }
   };
-  bbbupgradecheck0=function(){
+  var bbbupgradecheck0=function(){
     //add our upgrade to the body. We want it to have a unique ID so that we can add our cost label.
-    if(bbbupgradereqi0>=bbbupgradereq0&&bbbupgradeadded0===0&&bbbupgradeowned0===0){
-      bbbupgradesbox.innerHTML+='<button id="aaaupgrade0" class="aaaupgradeb" onclick="bbbupgradebuys0()"></button>';
+    if(bbbcandy>=bbbupgradereq0&&bbbupgradeadded0===0&&bbbupgradeowned0===0){
+      bbbupgradesbox.innerHTML+='<button id="aaaupgrade0" class="aaaupgradeb" onclick="bbbupgradebuy0()"></button>';
       bbbupgradeadded0=1;
     }
     //add cost label
     ////red for not affordable
     if(bbbcandy<bbbupgradecost0&&bbbupgradeadded0===1){
       var bbbupgradeb2=document.getElementById('aaaupgrade0');
-      bbbupgradeb2.innerHTML=bbbupgradename0+'<br><span class="aaared">'+String(Math.ceil(bbbupgradecost0))+' '+bbbcostn0+'</span>';
+      bbbupgradeb2.innerHTML=bbbupgradename0+'<br><span class="aaared">'+String(Math.ceil(bbbupgradecost0))+' Candy</span>';
     }
     ////green for affrdable
     else if(bbbupgradeadded0===1){
       var bbbupgradeb3=document.getElementById('aaaupgrade0');
-      bbbupgradeb3.innerHTML=bbbupgradename0+'<br><span class="aaagreen">'+String(Math.ceil(bbbupgradecost))+' '+bbbcostn0+'</span>';
+      bbbupgradeb3.innerHTML=bbbupgradename0+'<br><span class="aaagreen">'+String(Math.ceil(bbbupgradecost0))+' Candy</span>';
     }
   };
   //repetatively check to see if we have unlocked the upgrade, and if we can afford it.
@@ -194,53 +196,54 @@ bbbupgradename0=bbbarray[0];bbbupgradecost0=bbbarray[1];bbbupgradecosti0=bbbarra
 
 /*
 bbbarray=[0,1,2,3,4,5,6,7];
-bbbbuildingname#=bbbarray[0];bbbbuildingnamep#=bbbarray[1];bbbbuildingcost#=bbbarray[2];bbbbuildingcosti#=bbbarray[3];bbbbuildingreq#=bbbarray[4];bbbbuildingreqi#=bbbarray[5];bbbbuildingearni#=bbbarray[6];bbbbuildingearn#=bbbarray[7];
-  bbbbuildingadded#=0;
-  bbbbuildingowned#=0;
-  bbbbuildingearn#=function(){
+var bbbbuildingname0=bbbarray[0];var bbbbuildingnamep0=bbbarray[1];var bbbbuildingcost0=bbbarray[2];/8buildingcosti88/;var bbbbuildingreq0=bbbarray[4];/8builgingreqi8/;/8bbbbuildingearni8/;var bbbbuildingearn0=bbbarray[7];
+  var bbbbuildingadded#=0;
+  var bbbbuildingowned#=0;
+  var bbbbuildingearnf#=function(){
     bbbaddres[#]((bbbbuildingearn#/5)*(bbbbuildingowned#));
   };
-  bbbbuildingbuy#=function(){
+  var bbbbuildingbuy#=function(){
     var bbbbuildingcostb#=bbbbuildingcost#*(bbbpow(1.1,(bbbbuildingowned#)));
     if(bbbbuildingcosti#>=bbbbuildingcostb#){
-      bbbaddres[bbbbuildingcosti#](-bbbbuildingcostb#);
+      bbbaddres#(-bbbbuildingcostb#);
       bbbbuildingowned#++;
-    if(bbbbuildingowned#===1){bbbbbbbuildingname2#=bbbbbbbuildingname#;}
-    else{bbbbbbbuildingname2#=bbbbbbbuildingnamep#;}
+    if(bbbbuildingowned#===1){bbbbuilding2name#=bbbbuildingname#;}
+    else{bbbbuilding2name#=bbbbuildingnamep#;}
     }
   };
-  bbbbuildingcheck#=function(){
+  var bbbbuildingcheck#=function(){
     //add our building to the body. We want it to have a unique ID so that we can add our cost label.
     if(bbbbuildingreqi#>=bbbbuildingreq#&&bbbbuildingadded#===0&&bbbbuildingowned#===0){
-      bbbbuildingsbox.innerHTML+='<button id="aaabuilding#" class="aaabuildingb" onclick="bbbbuildingbuy#"></button>';
+      bbbbuildingsbox.innerHTML+='<button id="aaabuilding#" class="aaabuildingb" onclick="bbbbuildingbuy#()"></button>';
       bbbbuildingadded#=1;
-      bbbbbbbuildingname2#=bbbbbbbuildingnamep#;
     }
     //add cost label
     var bbbbuildingcostb#=bbbbuildingcost#*(bbbpow(1.1,bbbbuildingowned#));
+    if(bbbbuildingowned#===1){var bbbbuilding2name#=bbbbuildingname#;}
+    else{var bbbbuilding2name#=bbbbuildingnamep#;}
     ////red for not affordable
     if(bbbbuildingcosti#<bbbbuildingcostb#&&bbbbuildingadded#===1){
       var bbbbuildingb2=document.getElementById('aaabuilding#');
-      bbbbuildingb2.innerHTML=String(bbbbuildingowned#)+' '+String(bbbbbbbuildingname2#)+'<br><span class="aaared">'+String(Math.ceil(bbbbuildingcostb#))+' '+String(bbbbuildingcostn#)+'</span>';
+      bbbbuildingb2.innerHTML=String(bbbbuildingowned#)+' '+bbbbuilding2name#+'<br><span class="aaared">'+String(Math.ceil(bbbbuildingcostb#))+' buildingcostn#</span>';
     }
     ////green for affrdable
     else if(bbbbuildingadded#===1){
       var bbbbuildingb3=document.getElementById('aaabuilding#');
-      bbbbuildingb3.innerHTML=String(bbbbuildingowned#)+' '+bbbbbbbuildingname2#+'<br><span class="aaagreen">'+String(Math.ceil(bbbbuildingcostb#))+' '+String(bbbcostn#)+'</span>';
+      bbbbuildingb3.innerHTML=String(bbbbuildingowned#)+' '+bbbbuilding2name#+'<br><span class="aaagreen">'+String(Math.ceil(bbbbuildingcostb#))+' buildingcostn#</span>';
     }
   };
   //repetatively check to see if we have unlocked the building, and if we can afford it.
   window.setInterval(bbbbuildingcheck#,1000);
-  window.setInterval(bbbbuildingearn#,200);
+  window.setInterval(bbbbuildingearnf#,200);
 
 
 bbbarray=[0,1,2,3,4,5];
-bbbupgradename#=bbbarray[0];bbbupgradecost#=bbbarray[1];bbbupgradecosti#=bbbarray[2];bbbupgradereq#=bbbarray[3];bbbupgradereqi#=bbbarray[4];bbbupgradeef#=bbbarray[5];
-  bbbupgradeadded#=0;
-  bbbupgradeowned#=0;
-  bbbupgradebuy#=function(){
+var bbbupgradename#=bbbarray[0];var bbbupgradecost#=bbbarray[1];/8bbbupgradecosti8/;var bbbupgradereq#=bbbarray[3];/8bbbupgradereqi8/;var bbbupgradeef#=bbbarray[5];
+  var bbbupgradeadded#=0;
+  var bbbupgradeowned#=0;
+  var bbbupgradebuy#=function(){
     if(bbbupgradeowned#===0&&bbbupgradecosti#>=bbbupgradecost#){
-      bbbaddres[#](bbbupgradecost#);
+      bbbaddres#(bbbupgradecost#);
       var bbbchild = document.getElementById("aaaupgrade#");
       bbbchild.parentNode.removeChild(bbbchild);
       bbbupgradeowned#=1;
@@ -248,7 +251,7 @@ bbbupgradename#=bbbarray[0];bbbupgradecost#=bbbarray[1];bbbupgradecosti#=bbbarra
       bbbupgradeefs[#]();
     }
   };
-  bbbupgradecheck#=function(){
+  var bbbupgradecheck#=function(){
     //add our upgrade to the body. We want it to have a unique ID so that we can add our cost label.
     if(bbbupgradereqi#>=bbbupgradereq#&&bbbupgradeadded#===0&&bbbupgradeowned#===0){
       bbbupgradesbox.innerHTML+='<button id="aaaupgrade#" class="aaaupgradeb" onclick="bbbupgradebuys#()"></button>';
@@ -258,19 +261,16 @@ bbbupgradename#=bbbarray[0];bbbupgradecost#=bbbarray[1];bbbupgradecosti#=bbbarra
     ////red for not affordable
     if(bbbupgradecosti#<bbbupgradecost#&&bbbupgradeadded#===1){
       var bbbupgradeb2=document.getElementById('aaaupgrade#');
-      bbbupgradeb2.innerHTML=bbbupgradename#+'<br><span class="aaared">'+String(Math.ceil(bbbupgradecost#))+' '+bbbcostn#+'</span>';
+      bbbupgradeb2.innerHTML=bbbupgradename#+'<br><span class="aaared">'+String(Math.ceil(bbbupgradecost#))+' Candy</span>';
     }
     ////green for affrdable
     else if(bbbupgradeadded#===1){
       var bbbupgradeb3=document.getElementById('aaaupgrade#');
-      bbbupgradeb3.innerHTML=bbbupgradename#+'<br><span class="aaagreen">'+String(Math.ceil(bbbupgradecost))+' '+bbbcostn#+'</span>';
+      bbbupgradeb3.innerHTML=bbbupgradename#+'<br><span class="aaagreen">'+String(Math.ceil(bbbupgradecost#))+' Candy</span>';
     }
   };
   //repetatively check to see if we have unlocked the upgrade, and if we can afford it.
   window.setInterval(bbbupgradecheck#,1000);
-  
-//buidings: buildingname,buildingnamep,buildingcost,buildingcosti,buildingreq,buildingreqi,bbbbuildingearni,dddearn
-//upgrades: upgradename,upgradecost,upgradecosti,upgradereq,upgradereqi,bbbupgradeef
 */
 
 </script>
