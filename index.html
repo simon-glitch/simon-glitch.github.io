@@ -5,8 +5,8 @@
 <title>Candy Cantagion</title>
 <style>
 h1{
-    position:relative;
-    top:-15px;
+    position:absolute;
+    top:-3%;
 }
 .aaared{
     font-family:monospace;
@@ -19,19 +19,21 @@ h1{
 #aaacandyc{
   position:absolute;
   font-size:32px;
-  top:15%;
-  bottom:75%;
-  left:5%;
-  background:rgba(240, 100, 230,1);
+  top:2.2%;
+  bottom:85%;
+  left:55%;
+  background:transparent;
 }
 #aaacandyb{
   position:absolute;
   font-size:32px;
-  top:30%;
-  right:60%;
+  top:15%;
+  right:0%;
   bottom:40%;
-  left:5%;
-  background:rgba(230,140,90,1);
+  left:53%;
+  width:43%;
+  height:43%;
+  background:url();
 }
 .aaaupgradeb{
   position:relative;
@@ -43,10 +45,10 @@ h1{
   position:absolute;
   font-size:20px;
   border:6px solid rgba(107, 77, 32);
-  top:0%;
-  right:0%;
-  bottom:60%;
-  left:70%;
+  top:60%;
+  right:50%;
+  bottom:5%;
+  left:4%;
   background:rgba(181, 130, 63,1);
   overflow-y:scroll;
 }
@@ -59,13 +61,22 @@ h1{
 #aaabuildingsbox{
   position:absolute;
   font-size:20px;
-  border:6px solid rgba(107, 77, 32);
-  top:45%;
-  right:0%;
-  bottom:0%;
-  left:70%;
+  border:6px solid rgb(31, 96, 105);
+  top:15%;
+  right:50%;
+  bottom:42%;
+  left:4%;
   background:rgba(50, 180, 200,1);
   overflow-y:scroll;
+}
+#aaahelpicon{
+  position:absolute;
+  top:1%;    
+  left:44%;
+  width:50px;
+  height:50px;
+  border-radius:50%;
+  background:rgb(26, 114, 201);
 }
 </style>
 </head>
@@ -74,12 +85,15 @@ h1{
 
 <button type="button" id="aaacandyb" onclick="bbbaddcandy(bbbclickyield)">Candy Corn</button>
 <h1 id="h1a">Candy Cantagion</h1>
-<div id="aaacandyc"><span style="color:rgba(240,100,230,1)">_</span>0 Candy<span style="color:rgba(240,100,230,1)">_</span></div>
+<div id="aaacandyc">0 Candy</div>
 <div id="aaaupgradesbox">
     <h3 style="position:relative;top:-15%;text-align:center;">Upgrades:</h3>
 </div>
 <div id="aaabuildingsbox">
     <h3 style="position:relative;top:-10%;text-align:center;">Buildings:</h3>
+</div>
+<div id="aaahelpicon">
+   <button id="aaahelpiconq" style="background:transparent;border-color:transparent;font-style:arial;font-size:43px;color:rgb(255, 255, 255);text-align:center;width:100%;height:100%" onclick="ssshelptoggle()">?</button>
 </div>
 
 <script>
@@ -103,7 +117,7 @@ var bbbcandy=0;
 var bbbaddcandy=function(dddamount){
   bbbcandy+=dddamount;
   //we want nice background colored underscores on our candy counter.
-  bbbcandyc.innerHTML="<span style='color:rgba(240,100,230,1)'>_</span>"+String(Math.floor(bbbcandy))+" Candy<span style=color:rgba(240,100,230,1)>_</span>";
+  bbbcandyc.innerHTML=String(Math.floor(bbbcandy))+" Candy"
 };
 //our list of effects
 var bbbclickup=function(){
@@ -112,11 +126,30 @@ var bbbclickup=function(){
 //effects array
 var bbbupgradeefs=[bbbclickup];
 
+
+
 //this is our help menu function
 var bbbhelp=0;
+var ssshelpmenu=function(dddnumh){
+    bbbaddcandy(1000);
+};
+var ssshelptoggle=function(){
+    if(bbbhelp===0){
+      bbbhelp=1;
+      var ssshelpiconchange=document.getElementById("aaahelpiconq");
+      ssshelpiconchange.style.color="rgb(0, 43, 130)";
+      window.alert("Help mode is now on. Click a button to see what it does. Click the ? you just clicked to turn off help mode.");
+    }
+    else{
+      bbbhelp=0;
+      var ssshelpiconchange=document.getElementById("aaahelpiconq");
+      ssshelpiconchange.style.color="white";
+    }
+};
+
 //upgrades and buildings
 var bbbarray=[0,1,2,3,4,5,6,7,8];
-bbbarray=["Baker","Bakers",10,bbbcandy,0.1,bbbcandy,bbbcandy,1];
+bbbarray=["Baker","Bakers",10,bbbcandy,10,bbbcandy,bbbcandy,0.1];
 var bbbbuildingname0=bbbarray[0];var bbbbuildingnamep0=bbbarray[1];var bbbbuildingcost0=bbbarray[2];/*buildingcosti*/;var bbbbuildingreq0=bbbarray[4];/*builgingreqi*/;/*bbbbuildingearni0*/;var bbbbuildingearn0=bbbarray[7];
   var bbbbuildingadded0=0;
   var bbbbuildingowned0=0;
@@ -167,7 +200,7 @@ var bbbbuildingname1=bbbarray[0];var bbbbuildingnamep1=bbbarray[1];var bbbbuildi
   };
   var bbbbuildingbuy1=function(){
     var bbbbuildingcostb1=bbbbuildingcost1*(bbbpow(1.1,(bbbbuildingowned1)));
-    if(bbbcandy>=bbbbuildingcostb1){
+    if(bbbcandy>=bbbbuildingcostb1&&bbbhelp===0){
       bbbaddcandy(-bbbbuildingcostb1);
       bbbbuildingowned1++;
     if(bbbbuildingowned1===1){bbbbuilding2name1=bbbbuildingname1;}
@@ -209,7 +242,7 @@ var bbbbuildingname2=bbbarray[0];var bbbbuildingnamep2=bbbarray[1];var bbbbuildi
   };
   var bbbbuildingbuy2=function(){
     var bbbbuildingcostb2=bbbbuildingcost2*(bbbpow(1.1,(bbbbuildingowned2)));
-    if(bbbcandy>=bbbbuildingcostb2){
+    if(bbbcandy>=bbbbuildingcostb2&&bbbhelp===0){
       bbbaddcandy(-bbbbuildingcostb2);
       bbbbuildingowned2++;
     if(bbbbuildingowned2===1){bbbbuilding2name2=bbbbuildingname2;}
@@ -251,7 +284,7 @@ var bbbbuildingname3=bbbarray[0];var bbbbuildingnamep3=bbbarray[1];var bbbbuildi
   };
   var bbbbuildingbuy3=function(){
     var bbbbuildingcostb3=bbbbuildingcost3*(bbbpow(1.1,(bbbbuildingowned3)));
-    if(bbbcandy>=bbbbuildingcostb3){
+    if(bbbcandy>=bbbbuildingcostb3&&bbbhelp===0){
       bbbaddcandy(-bbbbuildingcostb3);
       bbbbuildingowned3++;
     if(bbbbuildingowned3===1){bbbbuilding2name3=bbbbuildingname3;}
@@ -293,7 +326,7 @@ var bbbbuildingname4=bbbarray[0];var bbbbuildingnamep4=bbbarray[1];var bbbbuildi
   };
   var bbbbuildingbuy4=function(){
     var bbbbuildingcostb4=bbbbuildingcost4*(bbbpow(1.1,(bbbbuildingowned4)));
-    if(bbbcandy>=bbbbuildingcostb4){
+    if(bbbcandy>=bbbbuildingcostb4&&bbbhelp===0){
       bbbaddcandy(-bbbbuildingcostb4);
       bbbbuildingowned4++;
     if(bbbbuildingowned4===1){bbbbuilding2name4=bbbbuildingname4;}
@@ -335,7 +368,7 @@ var bbbbuildingname5=bbbarray[0];var bbbbuildingnamep5=bbbarray[1];var bbbbuildi
   };
   var bbbbuildingbuy5=function(){
     var bbbbuildingcostb5=bbbbuildingcost5*(bbbpow(1.1,(bbbbuildingowned5)));
-    if(bbbcandy>=bbbbuildingcostb5){
+    if(bbbcandy>=bbbbuildingcostb5&&bbbhelp===0){
       bbbaddcandy(-bbbbuildingcostb5);
       bbbbuildingowned5++;
     if(bbbbuildingowned5===1){bbbbuilding2name5=bbbbuildingname5;}
@@ -377,7 +410,7 @@ var bbbbuildingname6=bbbarray[0];var bbbbuildingnamep6=bbbarray[1];var bbbbuildi
   };
   var bbbbuildingbuy6=function(){
     var bbbbuildingcostb6=bbbbuildingcost6*(bbbpow(1.1,(bbbbuildingowned6)));
-    if(bbbcandy>=bbbbuildingcostb6){
+    if(bbbcandy>=bbbbuildingcostb6&&bbbhelp===0){
       bbbaddcandy(-bbbbuildingcostb6);
       bbbbuildingowned6++;
     if(bbbbuildingowned6===1){bbbbuilding2name6=bbbbuildingname6;}
@@ -578,3 +611,6 @@ var bbbupgradename#=bbbarray[0];var bbbupgradecost#=bbbarray[1];/8bbbupgradecost
 </script>
 </body>
 </html>
+
+
+
