@@ -1,616 +1,113 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Candy Cantagion</title>
+    <head>
+        <meta charset="utf-8">
+        <title>Fun.Stuff</title>
 <style>
-h1{
+.aaaout0{
+    position:fixed;
+    top:25%;
+    bottom:25%;
+    left:25%;
+    right:25%;
+    background-image:radial-gradient(rgba(0,0,0,0.9),rgba(10,10,10,0.7));
+    padding:6px;
+    border-radius:20px;
+    border:solid 3px rgba(0,0,0,0.2);
+    font-size:24px;
+    color:white;
+    overflow:auto;
+}
+#aaakillbutton{
+    position:fixed;
+    top:0%;
+    right:0%;
+    background-color:black;
+    color:#f55;
+    border:solid 6px white;
+    border-radius:25px;
+    height:50px;
+    width:50px;
+    font-size:20px;
+    z-index:1;
+}
+#backgron{
     position:absolute;
-    top:-3%;
+    width:100%;
+    top:0%;
+    left:0%;
+    right:0%;
+    bottom:0%;
+    z-index:-2;
 }
-.aaared{
-    font-family:monospace;
-    color:#ff0000;
-}
-.aaagreen{
-    font-family:monospace;
-    color:#00aa22;
-}
-#aaacandyc{
-  position:absolute;
-  font-size:32px;
-  top:2.2%;
-  bottom:85%;
-  left:55%;
-  background:transparent;
-}
-#aaacandyb{
-  position:absolute;
-  font-size:32px;
-  top:15%;
-  right:0%;
-  bottom:40%;
-  left:53%;
-  width:43%;
-  height:43%;
-  background:url();
-}
-.aaaupgradeb{
-  position:relative;
-  top:-30px;
-  font-size:24px;
-  background:rgba(214, 183, 112,1);
-}
-#aaaupgradesbox{
-  position:absolute;
-  font-size:20px;
-  border:6px solid rgba(107, 77, 32);
-  top:60%;
-  right:50%;
-  bottom:5%;
-  left:4%;
-  background:rgba(181, 130, 63,1);
-  overflow-y:scroll;
-}
-.aaabuildingb{
-  position:relative;
-  top:-25px;
-  font-size:24px;
-  background:rgba(247, 135, 255,1);
-}
-#aaabuildingsbox{
-  position:absolute;
-  font-size:20px;
-  border:6px solid rgb(31, 96, 105);
-  top:15%;
-  right:50%;
-  bottom:42%;
-  left:4%;
-  background:rgba(50, 180, 200,1);
-  overflow-y:scroll;
-}
-#aaahelpicon{
-  position:absolute;
-  top:1%;    
-  left:44%;
-  width:50px;
-  height:50px;
-  border-radius:50%;
-  background:rgb(26, 114, 201);
-}
+
 </style>
-</head>
-<body>
+    </head>
+    <body>
+<!--
+Button plans:
+Console (inserts typed code into script)
+Line selector (tells the console which *line* to put the code on.)
+Really nice Include constructer!
 
-
-<button type="button" id="aaacandyb" onclick="bbbaddcandy(bbbclickyield)">Candy Corn</button>
-<h1 id="h1a">Candy Cantagion</h1>
-<div id="aaacandyc">0 Candy</div>
-<div id="aaaupgradesbox">
-    <h3 style="position:relative;top:-15%;text-align:center;">Upgrades:</h3>
-</div>
-<div id="aaabuildingsbox">
-    <h3 style="position:relative;top:-10%;text-align:center;">Buildings:</h3>
-</div>
-<div id="aaahelpicon">
-   <button id="aaahelpiconq" style="background:transparent;border-color:transparent;font-style:arial;font-size:43px;color:rgb(255, 255, 255);text-align:center;width:100%;height:100%" onclick="ssshelptoggle()">?</button>
-</div>
-
+-->
+<button onclick="sssdel()" id="aaakillbutton">X</button>
+<button onclick="sssoh()">Hey</button>
+<div id="aaaoutboxs"></div>
+<img id="backgron" src="https://images.pexels.com/photos/110854/pexels-photo-110854.jpeg">
+<img src="https://i.imgur.com/dLKASOT.png">
+<input type="text" id="aaatxt">
+<button onclick="bbbev()" id="aaaeval">Eval</button>
 <script>
-//the power fuction. We need this.
-var bbbpow=function(bbbnum1,bbbnum2){
-    var bbbnum3=0;
-    var bbbnum4=1;
-    while(bbbnum3<bbbnum2){
-        bbbnum4*=bbbnum1;
-        bbbnum3++;
-    }
-    return(bbbnum4);
-};
-//we need to get our candy corn button working. It should give 1 candy when we click it.
-var bbbcandyc=document.getElementById("aaacandyc");
-var bbbupgradesbox=document.getElementById("aaaupgradesbox");
-var bbbbuildingsbox=document.getElementById("aaabuildingsbox");
-//this is here to let us change the candy we get from clicking the candy corn.
-var bbbclickyield=1;
-var bbbcandy=0;
-var bbbaddcandy=function(dddamount){
-  bbbcandy+=dddamount;
-  //we want nice background colored underscores on our candy counter.
-  bbbcandyc.innerHTML=String(Math.floor(bbbcandy))+" Candy"
-};
-//our list of effects
-var bbbclickup=function(){
-  bbbclickyield*=2;
-};
-//effects array
-var bbbupgradeefs=[bbbclickup];
 
 
 
-//this is our help menu function
-var bbbhelp=0;
-var ssshelpmenu=function(dddnumh){
-    bbbaddcandy(1000);
-};
-var ssshelptoggle=function(){
-    if(bbbhelp===0){
-      bbbhelp=1;
-      var ssshelpiconchange=document.getElementById("aaahelpiconq");
-      ssshelpiconchange.style.color="rgb(0, 43, 130)";
-      window.alert("Help mode is now on. Click a button to see what it does. Click the ? you just clicked to turn off help mode.");
-    }
-    else{
-      bbbhelp=0;
-      var ssshelpiconchange=document.getElementById("aaahelpiconq");
-      ssshelpiconchange.style.color="white";
-    }
+var ppp1;
+
+var zzzimage1="https://images.pexels.com/photos/110854/pexels-photo-110854.jpeg";
+var zzzimage2="https://i.imgur.com/Uh2pXW0.png";
+var bbbouts=0;
+var sssclick=0;
+var sssdel=function(){
+        document.getElementById("aaaoutboxs").innerHTML="";
 };
 
-//upgrades and buildings
-var bbbarray=[0,1,2,3,4,5,6,7,8];
-bbbarray=["Baker","Bakers",10,bbbcandy,10,bbbcandy,bbbcandy,0.1];
-var bbbbuildingname0=bbbarray[0];var bbbbuildingnamep0=bbbarray[1];var bbbbuildingcost0=bbbarray[2];/*buildingcosti*/;var bbbbuildingreq0=bbbarray[4];/*builgingreqi*/;/*bbbbuildingearni0*/;var bbbbuildingearn0=bbbarray[7];
-  var bbbbuildingadded0=0;
-  var bbbbuildingowned0=0;
-  bbbbuildingearnf0=function(){
-    bbbaddcandy((bbbbuildingearn0/5)*(bbbbuildingowned0));
-  };
-  bbbbuildingbuy0=function(){
-    var bbbbuildingcostb0=bbbbuildingcost0*(bbbpow(1.1,(bbbbuildingowned0)));
-    if(bbbcandy>=bbbbuildingcostb0&&bbbhelp===0){
-      bbbaddcandy(-bbbbuildingcostb0);
-      bbbbuildingowned0++;
-    if(bbbbuildingowned0===1){bbbbuilding2name0=bbbbuildingname0;}
-    else{bbbbuilding2name0=bbbbuildingnamep0;}
-    }
-    else if(bbbhelp===1){ssshelpmenu(0);}
-  };
-  bbbbuildingcheck0=function(){
-    //add our building to the body. We want it to have a unique ID so that we can add our cost label.
-    if(bbbcandy>=bbbbuildingreq0&&bbbbuildingadded0===0&&bbbbuildingowned0===0){
-      bbbbuildingsbox.innerHTML+='<button id="aaabuilding0" class="aaabuildingb" onclick="bbbbuildingbuy0()"></button>';
-      bbbbuildingadded0=1;
-      var bbbbuilding2name0=bbbbuildingnamep0;
-    }
-    //add cost label
-    var bbbbuildingcostb0=bbbbuildingcost0*(bbbpow(1.1,bbbbuildingowned0));
-    if(bbbbuildingowned0===1){var bbbbuilding2name0=bbbbuildingname0;} else{var bbbbuilding2name0=bbbbuildingnamep0;}
-    ////red for not affordable
-    if(bbbcandy<bbbbuildingcostb0&&bbbbuildingadded0===1){
-      var bbbbuildingb2=document.getElementById('aaabuilding0');
-      bbbbuildingb2.innerHTML=String(bbbbuildingowned0)+' '+bbbbuilding2name0+'<br><span class="aaared">'+String(Math.ceil(bbbbuildingcostb0))+' Candy</span>';
-    }
-    ////green for affrdable
-    else if(bbbbuildingadded0===1){
-      var bbbbuildingb3=document.getElementById('aaabuilding0');
-      bbbbuildingb3.innerHTML=String(bbbbuildingowned0)+' '+bbbbuilding2name0+'<br><span class="aaagreen">'+String(Math.ceil(bbbbuildingcostb0))+' Candy</span>';
-    }
-  };
-  //repetatively check to see if we have unlocked the building, and if we can afford it.
-  window.setInterval(bbbbuildingcheck0,1000);
-  window.setInterval(bbbbuildingearnf0,200);
-/*-----------------------------------------------------------------------------------------------------------------------------------------*/
-var bbbarray=['Collector','Collectors',100,bbbcandy,10,bbbbuildingowned0,bbbcandy,1];
-var bbbbuildingname1=bbbarray[0];var bbbbuildingnamep1=bbbarray[1];var bbbbuildingcost1=bbbarray[2];/*buildingcosti*/;var bbbbuildingreq1=bbbarray[4];/*builgingreqi*/;/*bbbbuildingearni*/;var bbbbuildingearn1=bbbarray[7];
-  var bbbbuildingadded1=0;
-  var bbbbuildingowned1=0;
-  var bbbbuildingearnf1=function(){
-    bbbaddcandy((bbbbuildingearn1/5)*(bbbbuildingowned1));
-  };
-  var bbbbuildingbuy1=function(){
-    var bbbbuildingcostb1=bbbbuildingcost1*(bbbpow(1.1,(bbbbuildingowned1)));
-    if(bbbcandy>=bbbbuildingcostb1&&bbbhelp===0){
-      bbbaddcandy(-bbbbuildingcostb1);
-      bbbbuildingowned1++;
-    if(bbbbuildingowned1===1){bbbbuilding2name1=bbbbuildingname1;}
-    else{bbbbuilding2name1=bbbbuildingnamep1;}
-    }
-    else if(bbbhelp===1){ssshelpmenu(1);}
-  };
-  var bbbbuildingcheck1=function(){
-    //add our building to the body. We want it to have a unique ID so that we can add our cost label.
-    if(bbbbuildingowned0>=bbbbuildingreq1&&bbbbuildingadded1===0&&bbbbuildingowned1===0){
-      bbbbuildingsbox.innerHTML+='<button id="aaabuilding1" class="aaabuildingb" onclick="bbbbuildingbuy1()"></button>';
-      bbbbuildingadded1=1;
-    }
-    //add cost label
-    var bbbbuildingcostb1=bbbbuildingcost1*(bbbpow(1.1,bbbbuildingowned1));
-    if(bbbbuildingowned1===1){var bbbbuilding2name1=bbbbuildingname1;}
-    else{var bbbbuilding2name1=bbbbuildingnamep1;}
-    ////red for not affordable
-    if(bbbcandy<bbbbuildingcostb1&&bbbbuildingadded1===1){
-      var bbbbuildingb2=document.getElementById('aaabuilding1');
-      bbbbuildingb2.innerHTML=String(bbbbuildingowned1)+' '+bbbbuilding2name1+'<br><span class="aaared">'+String(Math.ceil(bbbbuildingcostb1))+' Candy</span>';
-    }
-    ////green for affrdable
-    else if(bbbbuildingadded1===1){
-      var bbbbuildingb3=document.getElementById('aaabuilding1');
-      bbbbuildingb3.innerHTML=String(bbbbuildingowned1)+' '+bbbbuilding2name1+'<br><span class="aaagreen">'+String(Math.ceil(bbbbuildingcostb1))+' Candy</span>';
-    }
-  };
-  //repetatively check to see if we have unlocked the building, and if we can afford it.
-  window.setInterval(bbbbuildingcheck1,1000);
-  window.setInterval(bbbbuildingearnf1,200);
-/*-----------------------------------------------------------------------------------------------------------------------------------------*/
-bbbarray=['Coop','Coops',1000,bbbcandy,10,bbbbuildingowned1,bbbcandy,8];
-var bbbbuildingname2=bbbarray[0];var bbbbuildingnamep2=bbbarray[1];var bbbbuildingcost2=bbbarray[2];/*buildingcosti*/;var bbbbuildingreq2=bbbarray[4];/*builgingreqi*/;/*bbbbuildingearni*/;var bbbbuildingearn2=bbbarray[7];
-  var bbbbuildingadded2=0;
-  var bbbbuildingowned2=0;
-  var bbbbuildingearnf2=function(){
-    bbbaddcandy((bbbbuildingearn2/5)*(bbbbuildingowned2));
-  };
-  var bbbbuildingbuy2=function(){
-    var bbbbuildingcostb2=bbbbuildingcost2*(bbbpow(1.1,(bbbbuildingowned2)));
-    if(bbbcandy>=bbbbuildingcostb2&&bbbhelp===0){
-      bbbaddcandy(-bbbbuildingcostb2);
-      bbbbuildingowned2++;
-    if(bbbbuildingowned2===1){bbbbuilding2name2=bbbbuildingname2;}
-    else{bbbbuilding2name2=bbbbuildingnamep2;}
-    }
-    else if(bbbhelp===1){ssshelpmenu(2);}
-  };
-  var bbbbuildingcheck2=function(){
-    //add our building to the body. We want it to have a unique ID so that we can add our cost label.
-    if(bbbbuildingowned1>=bbbbuildingreq2&&bbbbuildingadded2===0&&bbbbuildingowned2===0){
-      bbbbuildingsbox.innerHTML+='<button id="aaabuilding2" class="aaabuildingb" onclick="bbbbuildingbuy2()"></button>';
-      bbbbuildingadded2=1;
-    }
-    //add cost label
-    var bbbbuildingcostb2=bbbbuildingcost2*(bbbpow(1.1,bbbbuildingowned2));
-    if(bbbbuildingowned2===1){var bbbbuilding2name2=bbbbuildingname2;}
-    else{var bbbbuilding2name2=bbbbuildingnamep2;}
-    ////red for not affordable
-    if(bbbcandy<bbbbuildingcostb2&&bbbbuildingadded2===1){
-      var bbbbuildingb2=document.getElementById('aaabuilding2');
-      bbbbuildingb2.innerHTML=String(bbbbuildingowned2)+' '+bbbbuilding2name2+'<br><span class="aaared">'+String(Math.ceil(bbbbuildingcostb2))+' Candy</span>';
-    }
-    ////green for affrdable
-    else if(bbbbuildingadded2===1){
-      var bbbbuildingb3=document.getElementById('aaabuilding2');
-      bbbbuildingb3.innerHTML=String(bbbbuildingowned2)+' '+bbbbuilding2name2+'<br><span class="aaagreen">'+String(Math.ceil(bbbbuildingcostb2))+' Candy</span>';
-    }
-  };
-  //repetatively check to see if we have unlocked the building, and if we can afford it.
-  window.setInterval(bbbbuildingcheck2,1000);
-  window.setInterval(bbbbuildingearnf2,200);
-/*-----------------------------------------------------------------------------------------------------------------------------------------*/
-bbbarray=['Farm','Farms',10000,bbbcandy,10,bbbbuildingowned2,bbbcandy,77];
-var bbbbuildingname3=bbbarray[0];var bbbbuildingnamep3=bbbarray[1];var bbbbuildingcost3=bbbarray[2];/*buildingcosti*/;var bbbbuildingreq3=bbbarray[4];/*builgingreqi*/;/*bbbbuildingearni*/;var bbbbuildingearn3=bbbarray[7];
-  var bbbbuildingadded3=0;
-  var bbbbuildingowned3=0;
-  var bbbbuildingearnf3=function(){
-    bbbaddcandy((bbbbuildingearn3/5)*(bbbbuildingowned3));
-  };
-  var bbbbuildingbuy3=function(){
-    var bbbbuildingcostb3=bbbbuildingcost3*(bbbpow(1.1,(bbbbuildingowned3)));
-    if(bbbcandy>=bbbbuildingcostb3&&bbbhelp===0){
-      bbbaddcandy(-bbbbuildingcostb3);
-      bbbbuildingowned3++;
-    if(bbbbuildingowned3===1){bbbbuilding2name3=bbbbuildingname3;}
-    else{bbbbuilding2name3=bbbbuildingnamep3;}
-    }
-    else if(bbbhelp===1){ssshelpmenu(3);}
-  };
-  var bbbbuildingcheck3=function(){
-    //add our building to the body. We want it to have a unique ID so that we can add our cost label.
-    if(bbbbuildingowned2>=bbbbuildingreq3&&bbbbuildingadded3===0&&bbbbuildingowned3===0){
-      bbbbuildingsbox.innerHTML+='<button id="aaabuilding3" class="aaabuildingb" onclick="bbbbuildingbuy3()"></button>';
-      bbbbuildingadded3=1;
-    }
-    //add cost label
-    var bbbbuildingcostb3=bbbbuildingcost3*(bbbpow(1.1,bbbbuildingowned3));
-    if(bbbbuildingowned3===1){var bbbbuilding2name3=bbbbuildingname3;}
-    else{var bbbbuilding2name3=bbbbuildingnamep3;}
-    ////red for not affordable
-    if(bbbcandy<bbbbuildingcostb3&&bbbbuildingadded3===1){
-      var bbbbuildingb2=document.getElementById('aaabuilding3');
-      bbbbuildingb2.innerHTML=String(bbbbuildingowned3)+' '+bbbbuilding2name3+'<br><span class="aaared">'+String(Math.ceil(bbbbuildingcostb3))+' Candy</span>';
-    }
-    ////green for affrdable
-    else if(bbbbuildingadded3===1){
-      var bbbbuildingb3=document.getElementById('aaabuilding3');
-      bbbbuildingb3.innerHTML=String(bbbbuildingowned3)+' '+bbbbuilding2name3+'<br><span class="aaagreen">'+String(Math.ceil(bbbbuildingcostb3))+' Candy</span>';
-    }
-  };
-  //repetatively check to see if we have unlocked the building, and if we can afford it.
-  window.setInterval(bbbbuildingcheck3,1000);
-  window.setInterval(bbbbuildingearnf3,200);
-/*-----------------------------------------------------------------------------------------------------------------------------------------*/
-bbbarray=['Factory','Factories',100000,bbbcandy,10,bbbbuildingowned3,bbbcandy,710];
-var bbbbuildingname4=bbbarray[0];var bbbbuildingnamep4=bbbarray[1];var bbbbuildingcost4=bbbarray[2];/*buildingcosti*/;var bbbbuildingreq4=bbbarray[4];/*builgingreqi*/;/*bbbbuildingearni*/;var bbbbuildingearn4=bbbarray[7];
-  var bbbbuildingadded4=0;
-  var bbbbuildingowned4=0;
-  var bbbbuildingearnf4=function(){
-    bbbaddcandy((bbbbuildingearn4/5)*(bbbbuildingowned4));
-  };
-  var bbbbuildingbuy4=function(){
-    var bbbbuildingcostb4=bbbbuildingcost4*(bbbpow(1.1,(bbbbuildingowned4)));
-    if(bbbcandy>=bbbbuildingcostb4&&bbbhelp===0){
-      bbbaddcandy(-bbbbuildingcostb4);
-      bbbbuildingowned4++;
-    if(bbbbuildingowned4===1){bbbbuilding2name4=bbbbuildingname4;}
-    else{bbbbuilding2name4=bbbbuildingnamep4;}
-    }
-    else if(bbbhelp===1){ssshelpmenu(4);}
-  };
-  var bbbbuildingcheck4=function(){
-    //add our building to the body. We want it to have a unique ID so that we can add our cost label.
-    if(bbbbuildingowned3>=bbbbuildingreq4&&bbbbuildingadded4===0&&bbbbuildingowned4===0){
-      bbbbuildingsbox.innerHTML+='<button id="aaabuilding4" class="aaabuildingb" onclick="bbbbuildingbuy4()"></button>';
-      bbbbuildingadded4=1;
-    }
-    //add cost label
-    var bbbbuildingcostb4=bbbbuildingcost4*(bbbpow(1.1,bbbbuildingowned4));
-    if(bbbbuildingowned4===1){var bbbbuilding2name4=bbbbuildingname4;}
-    else{var bbbbuilding2name4=bbbbuildingnamep4;}
-    ////red for not affordable
-    if(bbbcandy<bbbbuildingcostb4&&bbbbuildingadded4===1){
-      var bbbbuildingb2=document.getElementById('aaabuilding4');
-      bbbbuildingb2.innerHTML=String(bbbbuildingowned4)+' '+bbbbuilding2name4+'<br><span class="aaared">'+String(Math.ceil(bbbbuildingcostb4))+' Candy</span>';
-    }
-    ////green for affrdable
-    else if(bbbbuildingadded4===1){
-      var bbbbuildingb3=document.getElementById('aaabuilding4');
-      bbbbuildingb3.innerHTML=String(bbbbuildingowned4)+' '+bbbbuilding2name4+'<br><span class="aaagreen">'+String(Math.ceil(bbbbuildingcostb4))+' Candy</span>';
-    }
-  };
-  //repetatively check to see if we have unlocked the building, and if we can afford it.
-  window.setInterval(bbbbuildingcheck4,1000);
-  window.setInterval(bbbbuildingearnf4,200);
-/*-----------------------------------------------------------------------------------------------------------------------------------------*/
-bbbarray=['Restaraunt','Restaraunt',1000000,bbbcandy,10,bbbbuildingowned4,bbbcandy,6700];
-var bbbbuildingname5=bbbarray[0];var bbbbuildingnamep5=bbbarray[1];var bbbbuildingcost5=bbbarray[2];/*buildingcosti*/;var bbbbuildingreq5=bbbarray[4];/*builgingreqi*/;/*bbbbuildingearni*/;var bbbbuildingearn5=bbbarray[7];
-  var bbbbuildingadded5=0;
-  var bbbbuildingowned5=0;
-  var bbbbuildingearnf5=function(){
-    bbbaddcandy((bbbbuildingearn5/5)*(bbbbuildingowned5));
-  };
-  var bbbbuildingbuy5=function(){
-    var bbbbuildingcostb5=bbbbuildingcost5*(bbbpow(1.1,(bbbbuildingowned5)));
-    if(bbbcandy>=bbbbuildingcostb5&&bbbhelp===0){
-      bbbaddcandy(-bbbbuildingcostb5);
-      bbbbuildingowned5++;
-    if(bbbbuildingowned5===1){bbbbuilding2name5=bbbbuildingname5;}
-    else{bbbbuilding2name5=bbbbuildingnamep5;}
-    }
-    else if(bbbhelp===1){ssshelpmenu(5);}
-  };
-  var bbbbuildingcheck5=function(){
-    //add our building to the body. We want it to have a unique ID so that we can add our cost label.
-    if(bbbbuildingowned4>=bbbbuildingreq5&&bbbbuildingadded5===0&&bbbbuildingowned5===0){
-      bbbbuildingsbox.innerHTML+='<button id="aaabuilding5" class="aaabuildingb" onclick="bbbbuildingbuy5()"></button>';
-      bbbbuildingadded5=1;
-    }
-    //add cost label
-    var bbbbuildingcostb5=bbbbuildingcost5*(bbbpow(1.1,bbbbuildingowned5));
-    if(bbbbuildingowned5===1){var bbbbuilding2name5=bbbbuildingname5;}
-    else{var bbbbuilding2name5=bbbbuildingnamep5;}
-    ////red for not affordable
-    if(bbbcandy<bbbbuildingcostb5&&bbbbuildingadded5===1){
-      var bbbbuildingb2=document.getElementById('aaabuilding5');
-      bbbbuildingb2.innerHTML=String(bbbbuildingowned5)+' '+bbbbuilding2name5+'<br><span class="aaared">'+String(Math.ceil(bbbbuildingcostb5))+' Candy</span>';
-    }
-    ////green for affrdable
-    else if(bbbbuildingadded5===1){
-      var bbbbuildingb3=document.getElementById('aaabuilding5');
-      bbbbuildingb3.innerHTML=String(bbbbuildingowned5)+' '+bbbbuilding2name5+'<br><span class="aaagreen">'+String(Math.ceil(bbbbuildingcostb5))+' Candy</span>';
-    }
-  };
-  //repetatively check to see if we have unlocked the building, and if we can afford it.
-  window.setInterval(bbbbuildingcheck5,1000);
-  window.setInterval(bbbbuildingearnf5,200);
-/*-----------------------------------------------------------------------------------------------------------------------------------------*/
-bbbarray=['Store','Stores',10000000,bbbcandy,10,bbbbuildingowned5,bbbcandy,63000];
-var bbbbuildingname6=bbbarray[0];var bbbbuildingnamep6=bbbarray[1];var bbbbuildingcost6=bbbarray[2];/*buildingcosti*/;var bbbbuildingreq6=bbbarray[4];/*builgingreqi*/;/*bbbbuildingearni*/;var bbbbuildingearn6=bbbarray[7];
-  var bbbbuildingadded6=0;
-  var bbbbuildingowned6=0;
-  var bbbbuildingearnf6=function(){
-    bbbaddcandy((bbbbuildingearn6/5)*(bbbbuildingowned6));
-  };
-  var bbbbuildingbuy6=function(){
-    var bbbbuildingcostb6=bbbbuildingcost6*(bbbpow(1.1,(bbbbuildingowned6)));
-    if(bbbcandy>=bbbbuildingcostb6&&bbbhelp===0){
-      bbbaddcandy(-bbbbuildingcostb6);
-      bbbbuildingowned6++;
-    if(bbbbuildingowned6===1){bbbbuilding2name6=bbbbuildingname6;}
-    else{bbbbuilding2name6=bbbbuildingnamep6;}
-    }
-    else if(bbbhelp===1){ssshelpmenu(6);}
-  };
-  var bbbbuildingcheck6=function(){
-    //add our building to the body. We want it to have a unique ID so that we can add our cost label.
-    if(bbbbuildingowned5>=bbbbuildingreq6&&bbbbuildingadded6===0&&bbbbuildingowned6===0){
-      bbbbuildingsbox.innerHTML+='<button id="aaabuilding6" class="aaabuildingb" onclick="bbbbuildingbuy6()"></button>';
-      bbbbuildingadded6=1;
-    }
-    //add cost label
-    var bbbbuildingcostb6=bbbbuildingcost6*(bbbpow(1.1,bbbbuildingowned6));
-    if(bbbbuildingowned6===1){var bbbbuilding2name6=bbbbuildingname6;}
-    else{var bbbbuilding2name6=bbbbuildingnamep6;}
-    ////red for not affordable
-    if(bbbcandy<bbbbuildingcostb6&&bbbbuildingadded6===1){
-      var bbbbuildingb2=document.getElementById('aaabuilding6');
-      bbbbuildingb2.innerHTML=String(bbbbuildingowned6)+' '+bbbbuilding2name6+'<br><span class="aaared">'+String(Math.ceil(bbbbuildingcostb6))+' Candy</span>';
-    }
-    ////green for affrdable
-    else if(bbbbuildingadded6===1){
-      var bbbbuildingb3=document.getElementById('aaabuilding6');
-      bbbbuildingb3.innerHTML=String(bbbbuildingowned6)+' '+bbbbuilding2name6+'<br><span class="aaagreen">'+String(Math.ceil(bbbbuildingcostb6))+' Candy</span>';
-    }
-  };
-  //repetatively check to see if we have unlocked the building, and if we can afford it.
-  window.setInterval(bbbbuildingcheck6,1000);
-  window.setInterval(bbbbuildingearnf6,200);
-/*-----------------------------------------------------------------------------------------------------------------------------------------*/
-bbbarray=['Town','Towns',500,bbbcandy,100000000,bbbbuildingowned6,bbbcandy,590000];
-var bbbbuildingname7=bbbarray[0];var bbbbuildingnamep7=bbbarray[1];var bbbbuildingcost7=bbbarray[2];/*buildingcosti*/;var bbbbuildingreq7=bbbarray[4];/*builgingreqi*/;/*bbbbuildingearni*/;var bbbbuildingearn7=bbbarray[7];
-  var bbbbuildingadded7=0;
-  var bbbbuildingowned7=0;
-  var bbbbuildingearnf7=function(){
-    bbbaddcandy((bbbbuildingearn7/5)*(bbbbuildingowned7));
-  };
-  var bbbbuildingbuy7=function(){
-    var bbbbuildingcostb7=bbbbuildingcost7*(bbbpow(1.1,(bbbbuildingowned7)));
-    if(bbbcandy>=bbbbuildingcostb7&&bbbhelp===0){
-      bbbaddcandy(-bbbbuildingcostb7);
-      bbbbuildingowned7++;
-    if(bbbbuildingowned7===1){bbbbuilding2name7=bbbbuildingname7;}
-    else{bbbbuilding2name7=bbbbuildingnamep7;}
-    }
-    else if(bbbhelp===1){ssshelpmenu(7);}
-  };
-  var bbbbuildingcheck7=function(){
-    //add our building to the body. We want it to have a unique ID so that we can add our cost label.
-    if(bbbbuildingowned6>=bbbbuildingreq7&&bbbbuildingadded7===0&&bbbbuildingowned7===0){
-      bbbbuildingsbox.innerHTML+='<button id="aaabuilding7" class="aaabuildingb" onclick="bbbbuildingbuy7()"></button>';
-      bbbbuildingadded7=1;
-    }
-    //add cost label
-    var bbbbuildingcostb7=bbbbuildingcost7*(bbbpow(1.1,bbbbuildingowned7));
-    if(bbbbuildingowned7===1){var bbbbuilding2name7=bbbbuildingname7;}
-    else{var bbbbuilding2name7=bbbbuildingnamep7;}
-    ////red for not affordable
-    if(bbbcandy<bbbbuildingcostb7&&bbbbuildingadded7===1){
-      var bbbbuildingb2=document.getElementById('aaabuilding7');
-      bbbbuildingb2.innerHTML=String(bbbbuildingowned7)+' '+bbbbuilding2name7+'<br><span class="aaared">'+String(Math.ceil(bbbbuildingcostb7))+' Candy</span>';
-    }
-    ////green for affrdable
-    else if(bbbbuildingadded7===1){
-      var bbbbuildingb3=document.getElementById('aaabuilding7');
-      bbbbuildingb3.innerHTML=String(bbbbuildingowned7)+' '+bbbbuilding2name7+'<br><span class="aaagreen">'+String(Math.ceil(bbbbuildingcostb7))+' Candy</span>';
-    }
-  };
-  //repetatively check to see if we have unlocked the building, and if we can afford it.
-  window.setInterval(bbbbuildingcheck7,1000);
-  window.setInterval(bbbbuildingearnf7,200);
-
-/*-----------------------------------------------------------------------------------------------------------------------------------------*/
-
-var bbbarrayu=["Candy Cake",100,bbbcandy,50,bbbcandy,0];
-var bbbupgradename0=bbbarrayu[0];var bbbupgradecost0=bbbarrayu[1];/*bbbupgradecosti*/;var bbbupgradereq0=bbbarrayu[3];/*bbbupgradereqi*/;var bbbupgradeef0=bbbarrayu[5];
-  var bbbupgradeadded0=0;
-  var bbbupgradeowned0=0;
-  var bbbupgradebuy0=function(){
-    if(bbbupgradeowned0===0&&bbbcandy>=bbbupgradecost0&&bbbhelp===0){
-      bbbaddcandy(-bbbupgradecost0);
-      var bbbchild = document.getElementById("aaaupgrade0");
-      bbbchild.parentNode.removeChild(bbbchild);
-      bbbupgradeowned0=1;
-      bbbupgradeadded0=2;
-      bbbupgradeefs[0]();
-    }
-    else if(bbbhelp===1){ssshelpmenuu(0);}
-  };
-  var bbbupgradecheck0=function(){
-    //add our upgrade to the body. We want it to have a unique ID so that we can add our cost label.
-    if(bbbcandy>=bbbupgradereq0&&bbbupgradeadded0===0&&bbbupgradeowned0===0){
-      bbbupgradesbox.innerHTML+='<button id="aaaupgrade0" class="aaaupgradeb" onclick="bbbupgradebuy0()"></button>';
-      bbbupgradeadded0=1;
-    }
-    //add cost label
-    ////red for not affordable
-    if(bbbcandy<bbbupgradecost0&&bbbupgradeadded0===1){
-      var bbbupgradeb2=document.getElementById('aaaupgrade0');
-      bbbupgradeb2.innerHTML=bbbupgradename0+'<br><span class="aaared">'+String(Math.ceil(bbbupgradecost0))+' Candy</span>';
-    }
-    ////green for affrdable
-    else if(bbbupgradeadded0===1){
-      var bbbupgradeb3=document.getElementById('aaaupgrade0');
-      bbbupgradeb3.innerHTML=bbbupgradename0+'<br><span class="aaagreen">'+String(Math.ceil(bbbupgradecost0))+' Candy</span>';
-    }
-  };
-  //repetatively check to see if we have unlocked the upgrade, and if we can afford it.
-  window.setInterval(bbbupgradecheck0,1000);
-
-//buidings: buildingname,buildingnamep,buildingcost,buildingcosti,buildingreq,buildingreqi,bbbbuildingearni,dddearn
-//upgrades: upgradename,upgradecost,upgradecosti,upgradereq,upgradereqi,bbbupgradeef
-
-/*
-bbbarray=[0,1,2,3,4,5,6,7];
-var bbbbuildingname#=bbbarray[0];var bbbbuildingnamep#=bbbarray[1];var bbbbuildingcost#=bbbarray[2];/8buildingcosti8/;var bbbbuildingreq#=bbbarray[4];/8builgingreqi8/;/8bbbbuildingearni8/;var bbbbuildingearn#=bbbarray[7];
-  var bbbbuildingadded#=0;
-  var bbbbuildingowned#=0;
-  var bbbbuildingearnf#=function(){
-    bbbaddres#((bbbbuildingearn#/5)*(bbbbuildingowned#));
-  };
-  var bbbbuildingbuy#=function(){
-    var bbbbuildingcostb#=bbbbuildingcost#*(bbbpow(1.1,(bbbbuildingowned#)));
-    if(bbbbuildingcosti#>=bbbbuildingcostb#&&bbbhelp===0){
-      bbbaddres#(-bbbbuildingcostb#);
-      bbbbuildingowned#++;
-    if(bbbbuildingowned#===1){bbbbuilding2name#=bbbbuildingname#;}
-    else{bbbbuilding2name#=bbbbuildingnamep#;}
-    }
-    else if(bbbhelp===1){ssshelpmenu(#);}
-  };
-  var bbbbuildingcheck#=function(){
-    //add our building to the body. We want it to have a unique ID so that we can add our cost label.
-    if(bbbbuildingreqi#>=bbbbuildingreq#&&bbbbuildingadded#===0&&bbbbuildingowned#===0){
-      bbbbuildingsbox.innerHTML+='<button id="aaabuilding#" class="aaabuildingb" onclick="bbbbuildingbuy#()"></button>';
-      bbbbuildingadded#=1;
-    }
-    //add cost label
-    var bbbbuildingcostb#=bbbbuildingcost#*(bbbpow(1.1,bbbbuildingowned#));
-    if(bbbbuildingowned#===1){var bbbbuilding2name#=bbbbuildingname#;}
-    else{var bbbbuilding2name#=bbbbuildingnamep#;}
-    ////red for not affordable
-    if(bbbbuildingcosti#<bbbbuildingcostb#&&bbbbuildingadded#===1){
-      var bbbbuildingb2=document.getElementById('aaabuilding#');
-      bbbbuildingb2.innerHTML=String(bbbbuildingowned#)+' '+bbbbuilding2name#+'<br><span class="aaared">'+String(Math.ceil(bbbbuildingcostb#))+' buildingcostn#</span>';
-    }
-    ////green for affrdable
-    else if(bbbbuildingadded#===1){
-      var bbbbuildingb3=document.getElementById('aaabuilding#');
-      bbbbuildingb3.innerHTML=String(bbbbuildingowned#)+' '+bbbbuilding2name#+'<br><span class="aaagreen">'+String(Math.ceil(bbbbuildingcostb#))+' buildingcostn#</span>';
-    }
-  };
-  //repetatively check to see if we have unlocked the building, and if we can afford it.
-  window.setInterval(bbbbuildingcheck#,1000);
-  window.setInterval(bbbbuildingearnf#,200);
+var sss0=function(dddc,dddid,dddout){
+    var dddthing=document.createElement("div");
+    if(dddid==0){dddid="bbbout"+bbbouts;}
+    else{dddid="bbbout"+dddid;}
+    dddthing.id=dddid;
+    if(dddc="0"){dddc="aaaout0";}
+    dddthing.className=dddc;
+    dddthing.textContent=dddout;
+    document.getElementById("aaaoutboxs").appendChild(dddthing);
+    bbbouts++;
+};
+var sssd=function(myString){
+    return document.getElementById(myString);
+};
+sss0(0,0,1);
+var bbbev=function(){
+    var dddthing=sssd("aaatxt").value;
+    dddthing=String(document.body.innerHTML);
+    sss0(0,0,dddthing);
+};
 
 
-bbbarray=[0,1,2,3,4,5];
-var bbbupgradename#=bbbarray[0];var bbbupgradecost#=bbbarray[1];/8bbbupgradecosti8/;var bbbupgradereq#=bbbarray[3];/8bbbupgradereqi8/;var bbbupgradeef#=bbbarray[5];
-  var bbbupgradeadded#=0;
-  var bbbupgradeowned#=0;
-  var bbbupgradebuy#=function(){
-    if(bbbupgradeowned#===0&&bbbupgradecosti#>=bbbupgradecost#&&bbbhelp===0){
-      bbbaddres#(bbbupgradecost#);
-      var bbbchild = document.getElementById("aaaupgrade#");
-      bbbchild.parentNode.removeChild(bbbchild);
-      bbbupgradeowned#=1;
-      bbbupgradeadded#=2;
-      bbbupgradeefs[#]();
-      window.clearInterval(bbbupgradecheck#);
-    }
-    else if(bbbhelp===1){ssshelpmenuu(#);}
-  };
-  var bbbupgradecheck#=function(){
-    //add our upgrade to the body. We want it to have a unique ID so that we can add our cost label.
-    if(bbbupgradereqi#>=bbbupgradereq#&&bbbupgradeadded#===0&&bbbupgradeowned#===0){
-      bbbupgradesbox.innerHTML+='<button id="aaaupgrade#" class="aaaupgradeb" onclick="bbbupgradebuys#()"></button>';
-      bbbupgradeadded#=1;
-    }
-    //add cost label
-    ////red for not affordable
-    if(bbbupgradecosti#<bbbupgradecost#&&bbbupgradeadded#===1){
-      var bbbupgradeb2=document.getElementById('aaaupgrade#');
-      bbbupgradeb2.innerHTML=bbbupgradename#+'<br><span class="aaared">'+String(Math.ceil(bbbupgradecost#))+' Candy</span>';
-    }
-    ////green for affrdable
-    else if(bbbupgradeadded#===1){
-      var bbbupgradeb3=document.getElementById('aaaupgrade#');
-      bbbupgradeb3.innerHTML=bbbupgradename#+'<br><span class="aaagreen">'+String(Math.ceil(bbbupgradecost#))+' Candy</span>';
-    }
-  };
-  //repetatively check to see if we have unlocked the upgrade, and if we can afford it.
-  window.setInterval(bbbupgradecheck#,1000);
-*/
 
-</script>
-</body>
+var ppp2;
+var yyyupdate=function(){
+    var dddthing=String(document.body.innerHTML);
+    eval(dddthing.slice((dddthing.indexOf("ppp1"))-4,(dddthing.indexOf("ppp2")+4)));
+};
+var yyyadd=function(dddCommand){
+    var dddthing=String(document.body.innerHTML);
+    var dddn1=dddthing.slice((dddthing.indexOf("ppp1"))-4,(dddthing.indexOf("ppp2")+4));a
+    var dddn2=dddthing.slice(0,(dddthing.indexOf("ppp1"))-4);
+    var dddn3=dddthing.slice((dddthing.indexOf("ppp2"))+4);
+    document.body.innerHTML=dddn2+dddCommand+dddn1+dddn3;
+    yyyupdate();
+};
+yyyadd("var sssoh=function(){window.alert('Hey, this is working!');};");
+</script></body>
 </html>
-
-
-
