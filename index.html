@@ -1,116 +1,41 @@
+
 <!DOCTYPE html>
 <html>
-    <head>
-        <!--
-view-source:https://orteil.dashnet.org/igm/game.js
-/\ is where IGM's script is
-        -->
-        <meta charset="utf-8">
-        <title>Fun.Stuff</title>
-<style>
-.aaaout0{
-    position:fixed;
-    top:25%;
-    bottom:25%;
-    left:25%;
-    right:25%;
-    background-image:radial-gradient(rgba(0,0,0,0.9),rgba(10,10,10,0.7));
-    padding:6px;
-    border-radius:20px;
-    border:solid 3px rgba(0,0,0,0.2);
-    font-size:24px;
-    color:white;
-    overflow:auto;
-}
-#aaakillbutton{
-    position:fixed;
-    top:0%;
-    right:0%;
-    background-color:black;
-    color:#f55;
-    border:solid 6px white;
-    border-radius:50px;
-    height:100px;
-    width:100px;
-    font-size:80px;
-    z-index:1;
-}
-#backgron{
-    position:absolute;
-    width:100%;
-    top:0%;
-    left:0%;
-    right:0%;
-    bottom:0%;
-    z-index:-2;
-}
-
-</style>
-    </head>
-    <body>
+<head>
+<title>Idle Game Maker</title>
 <!--
-Button plans:
-Console (inserts typed code into script)
-Line selector (tells the console which *line* to put the code on.)
-Really nice Include constructer!
-
+Code and graphics copyright Orteil, 2017
+Feel free to alter this code to your liking, but please do not re-host it, do not profit from it and do not present it as your own.
 -->
-<button onclick="sssdel()" id="aaakillbutton" style="font-size:80px;">X</button>
-<button onclick="sssoh()" style="font-size:80px;">Hey</button>
-<div id="aaaoutboxs"></div>
-<img id="backgron" src="https://images.pexels.com/photos/110854/pexels-photo-110854.jpeg">
-<input type="text" id="aaatxt" style="height:50px;width:220px;">
-<button onclick="bbbev()" id="aaaeval">Eval</button>
-<script>
 
+<link rel="shortcut icon" href="img/favicon.ico" />
+<link href="lib/style.css?v=1" rel="stylesheet" type="text/css">
 
+</head>
 
-var ppp1;
+<body>
+<div id="wrap" class="outFrame">
+	<div id="topBar"></div>
 
-var zzzimage1="https://images.pexels.com/photos/110854/pexels-photo-110854.jpeg";
-var zzzimage2="https://i.imgur.com/Uh2pXW0.png";
-var bbbouts=0;
-var sssclick=0;
-var sssdel=function(){
-        document.getElementById("aaaoutboxs").innerHTML="";
-};
-
-var sss0=function(dddc,dddid,dddout){
-    var dddthing=document.createElement("div");
-    if(dddid==0){dddid="bbbout"+bbbouts;}
-    else{dddid="bbbout"+dddid;}
-    dddthing.id=dddid;
-    if(dddc="0"){dddc="aaaout0";}
-    dddthing.className=dddc;
-    dddthing.textContent=dddout;
-    document.getElementById("aaaoutboxs").appendChild(dddthing);
-    bbbouts++;
-};
-var sssd=function(myString){
-    return document.getElementById(myString);
-};
-sss0(0,0,1);
-var bbbev=function(){
-    var dddthing=sssd("aaatxt").value;
-    dddthing=String(document.body.innerHTML);
-    sss0(0,0,dddthing);
-};
-
-
-
-var ppp2;
-var yyyupdate=function(){
-    var dddthing=String(document.body.innerHTML);
-    eval(dddthing.slice((dddthing.indexOf("ppp1"))-4,(dddthing.indexOf("ppp2")+4)));
-};
-var yyyadd=function(dddCommand){
-    var dddthing=String(document.body.innerHTML);
-    var dddn1=dddthing.slice((dddthing.indexOf("ppp1"))-4,(dddthing.indexOf("ppp2")+4));a
-    var dddn2=dddthing.slice(0,(dddthing.indexOf("ppp1"))-4);
-    var dddn3=dddthing.slice((dddthing.indexOf("ppp2"))+4);
-    document.body.innerHTML=dddn2+dddCommand+dddn1+dddn3;
-    yyyupdate();
-};
-yyyadd("var sssoh=function(){window.alert('Hey, this is working!');};");
-</script></body>
+	<div id="code">
+	</div>
+	<div id="game">
+	</div>
+	
+	<div id="ad">
+		<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+		<!-- IGM responsive -->
+		<ins class="adsbygoogle"
+			 style="display:block"
+			 data-ad-client="ca-pub-8491708950677704"
+			 data-ad-slot="2107382385"
+			 data-ad-format="auto"></ins>
+		<script>
+		(adsbygoogle = window.adsbygoogle || []).push({});
+		</script>
+	</div>
+</div>
+</body>
 </html>
+
+<script src="lib/main.js?v=2"></script>
