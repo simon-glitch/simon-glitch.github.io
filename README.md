@@ -1,6 +1,4 @@
-# simon-glitch.github.io
-For Experimentation of Orteil's Idle Game Maker!
-Check http://orteil.dashnet.org
-Not meant for profit.
-NOT fully my work. only an alteration of IGM, made by Orteil.
-All right reserved to Orteil.
+Simon-glitch, a aite by Simanalix.
+contact me on reddit as u/Simanalix.
+Currently, the following pages are featured on this site (just 1 right now):
+- Idle Game Builder
