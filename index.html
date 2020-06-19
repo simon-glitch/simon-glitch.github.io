@@ -2,11 +2,10 @@
         <meta charset="utf-8">
         <title>Idle Game Generator</title>
 <style>
-*{background:white;font-size:24px ;font-family:monospace;}
-.aaainCLASS{color:white;background:black;height:24px;display:block;margin-left:8px;font-size:16px;font-family:monospace;overflow-x:scroll;}
-#aaain5{color:black;background:#2dd;content:"Let's generate a game!";font-size:60px;height:auto;border-radius:16px;padding:4px;}
-.aaainfoCLASS{border:4px solid blue;font-size:20px;margin:8px;padding:4px;font-family:merriweather, serif;}
-
+*{background:white;}
+.aaainCLASS{color:white;background:black;height:24px;display:block;margin-left:8px;font-size:16px;font-family:monospace;}
+#aaain5{color:black;background:#2dd;content:"Let's generate a game!";font-size:60px;height:100px;border-radius:16px;padding:5px;}
+.aaainfoCLASS{border:4px solid blue;font-size:20px;margin:8px;padding:4px;font-family:"Merriweather", serif;}
 
 
 </style></head><body>
@@ -14,18 +13,18 @@
 <h2>Idle Game Builder</h2>
 <p>This is a tool, by me, Simanalix, to build idle games for Idle Game Maker by having the computer do all of the work for you! Please give me feedback about this on Reddit.</p>
 <div class="aaainfoCLASS" >Buildings.<br>
-List all of your buildings, separated by enters. A building is listed as (). These all cost an amount of the base resource, and produce the base resource only.<br>
+List all of your buildings, separated by "●"s. A building is listed as (). These all cost an amount of the base resource, and produce the base resource only. <b>Put a "●" at the end too!</b><br>
 Alternative resource producers will be added soon. Each buildingsmust be typed as so:<ul>
 <li>Its ID (thing key),<li>its name (singular, shown to player), its plural name (shown to player),<li>its base production,<li>its base cost,<li>its requirement (put "none" to make this none), its icon,<li>its tags (put "none" to make this just the default buildingTAG),<li>its classes (put "none" to be just default buildingCLASS),<li>,its icon<li>and finally its description / flavor text.</ul>
 </div>
 <input type="text" id="aaain1" class="aaainCLASS">
-<div class="aaainfoCLASS">Main Resource<br>Make sure to write as so: Thing key, Singular name, Plural name, Tag, Class, Icon, and Description</div>
+<div class="aaainfoCLASS">Main Resource<br>Make sure to write as so: Thing key, Singular name, Plural name, Tag, Class, Icon, and Description.</div>
 <input type="text" id="aaain2" class="aaainCLASS">
 
 
-<div class="aaainfoCLASS">...</div>
+<div class="aaainfoCLASS">Put the Rest of your Buttons section right below here.</div>
 <input type="text" id="aaain3" class="aaainCLASS">
-<div class="aaainfoCLASS" >Building weight. This currently does nothing.</div>
+<div class="aaainfoCLASS" >Skip the following "..."s and text boxes directly below them (they all do nothing).</div>
 <input type="text" id="aaain4" class="aaainCLASS">
 <div class="aaainfoCLASS">...</div>
 <input type="text" id="aaain6" class="aaainCLASS">
@@ -35,7 +34,7 @@ Alternative resource producers will be added soon. Each buildingsmust be typed a
 <input type="text" id="aaain8" class="aaainCLASS">
 <div class="aaainfoCLASS">...</div>
 <input type="text" id="aaain9" class="aaainCLASS">
-<div class="aaainfoCLASS">Click the button below to make the game!</div>
+<div class="aaainfoCLASS">Click the button below to get the resources, buttons, and buildings sections of the game.</div>
 <button id="aaain5" class="aaainCLASS" onclick="sssgenerateagame();">Let's generate a game!</button>
 </div>
 
@@ -160,30 +159,120 @@ sssinclude.sssarrayuse=function(dddname,dddreplacers){
   return dddoutstring
 };
 
-sssinclude.sssmake("include1@☆a☆ ⊙This is a ☆a☆.");
+sssinclude.sssmake("include1@☆a☆@☆b☆ ⊙This is not a ☆a☆. Though, this is a ☆b☆");
+//ID , single name, plural name, base production, base cost, requirement, tag, class, icon, description / flavor text
 
-sssinclude.sssmake("building include1@☆new line☆@<@>@☆a☆@☆aS☆@☆aP☆@☆aBASE☆@☆res☆@☆resS☆@☆resP☆@☆flavor☆@☆req☆@☆icon☆@☆new line☆ ⊙*☆a☆ ☆new line☆ text:[☆a☆Amount] [?☆a☆ is 1|☆aS☆|☆aP☆]</>[?☆a☆Cost>☆res☆|<f23>☆a☆Cost</>|<#1a6>☆a☆Cost</#>] ☆resP☆ ☆new line☆ name:☆aS☆|☆aP☆ ☆new line☆ desc:T[?☆a☆Amount is 1|This is|These are] your [?☆a☆Amount is 1|☆aS☆|☆aP☆].<//>You own <b>[☆a☆Amount]</b> of these.</>Current price:[☆a☆Cost*bulkprice] ([(☆a☆Cost*bulkprice*100)/☆res☆] % of bank, [(☆a☆Cost*bulkprice)/(☆res☆:ps)] seconds of ☆resP☆)</>These originally produced ☆aBASE☆ ☆resP☆ per second.</>Now, each of these produce [?☆a☆PS<0.6|1 ☆resS☆ every [1/☆a☆PS] seconds|[☆a☆PS] ☆resP☆ per second].</>[☆a☆Amount] of these produce [?☆a☆PS*☆a☆Amount<0.6|1 ☆resS☆ every [1/(☆a☆PS*☆a☆Amount)] seconds|[☆a☆PS*☆a☆Amount] ☆resP☆ per second] total, [(☆a☆PS*☆a☆Amount*100)/(☆res☆:ps)] % of all ☆resS☆ production.</><q>☆flavor☆</q>So far, ☆a☆Moneyby [?☆a☆Moneyby is 1|☆res☆ has|☆resP☆ have] been produced by these.☆new line☆ on click:☆new line☆ anim glow☆new line☆ if(_>=_Cost*bulkprice and bulkamount>0)☆new line☆ yield bulkamount ☆a☆Amount☆new line☆ yield bulkamount buildingcount☆new line☆ lose bulkprice*☆a☆Cost ☆res☆ ☆new line☆ ☆a☆Cost is ☆a☆Cost*pow(1.15,bulkamount)☆new line☆ end☆new line☆ if(_>=-bulkamount and bulkamount<0)☆new line☆ lose -bulkamount ☆a☆Amount☆new line☆ lose -bulkamount buildingcount☆new line☆ yeild bulkprice*☆a☆Cost ☆res☆ ☆new line☆ ☆a☆Cost is ☆a☆Cost*pow(1.15,bulkamount)☆new line☆ end☆new line☆ end☆new line☆ req:☆req☆ ☆new line☆ icon:☆icon☆ ☆new line☆ tag:buildingTAG☆new line☆class:buidlingCLASS");
+//up to index 13 \/
 
-sssinclude.sssmake("building include2@☆a☆@☆new line☆ ⊙☆new line☆*☆a☆PS☆new line☆*☆a☆Cost☆new line☆*☆a☆Moneyby");
+sssinclude.sssmake("building include1@☆a☆@☆aS☆@☆aP☆@☆START PS☆@START COST@☆req☆@☆tag☆@☆class☆@☆icon☆@☆flavor☆@☆res☆@☆resS☆@☆resP☆@☆new line☆ ⊙*☆a☆ ☆new line☆ text:[☆a☆Amount] [?☆a☆ is 1|☆aS☆|☆aP☆]</>[?☆a☆Cost>☆res☆|<f23>☆a☆Cost</>|<#1a6>☆a☆Cost</#>] ☆resP☆ ☆new line☆ name:☆aS☆|☆aP☆ ☆new line☆ desc:T[?☆a☆Amount is 1|This is|These are] your [?☆a☆Amount is 1|☆aS☆|☆aP☆].<//>You own <b>[☆a☆Amount]</b> of these.</>Current price:[☆a☆Cost*bulkprice] ([(☆a☆Cost*bulkprice*100)/☆res☆] % of bank, [(☆a☆Cost*bulkprice)/(☆res☆:ps)] seconds of ☆resP☆)</>These originally produced ☆START PS☆ ☆resP☆ per second.</>Now, each of these produce [?☆a☆PS<0.6|1 ☆resS☆ every [1/☆a☆PS] seconds|[☆a☆PS] ☆resP☆ per second].</>[☆a☆Amount] of these produce [?☆a☆PS*☆a☆Amount<0.6|1 ☆resS☆ every [1/(☆a☆PS*☆a☆Amount)] seconds|[☆a☆PS*☆a☆Amount] ☆resP☆ per second] total, [(☆a☆PS*☆a☆Amount*100)/(☆res☆:ps)] % of all ☆resS☆ production.</><q>☆flavor☆</q>So far, ☆a☆Moneyby [?☆a☆Moneyby is 1|☆res☆ has|☆resP☆ have] been produced by these.☆new line☆ on click:☆new line☆ anim glow☆new line☆ if(_>=_Cost*bulkprice and bulkamount>0)☆new line☆ yield bulkamount ☆a☆Amount☆new line☆ yield bulkamount buildingcount☆new line☆ lose bulkprice*☆a☆Cost ☆res☆ ☆new line☆ ☆a☆Cost is ☆a☆Cost*pow(1.15,bulkamount)☆new line☆ end☆new line☆ if(_>=-bulkamount and bulkamount<0)☆new line☆ lose -bulkamount ☆a☆Amount☆new line☆ lose -bulkamount buildingcount☆new line☆ yeild bulkprice*☆a☆Cost ☆res☆ ☆new line☆ ☆a☆Cost is ☆a☆Cost*pow(1.15,bulkamount)☆new line☆ end☆new line☆ end☆new line☆ req:☆req☆ ☆new line☆ icon:☆icon☆ ☆new line☆ tags:buildingTAG, ☆tag☆☆new line☆class:buidlingCLASS ☆class☆");
 
-sssinclude.sssmake("building include3@☆a☆@☆res☆@☆new line☆ ⊙*☆a☆Amount☆new line☆ no buy☆new line☆ always hidden☆new line☆ on tick:☆new line☆ yield ☆a☆PS ☆res☆ ☆new line☆ yield ☆a☆PS ☆a☆Moneyby☆new line☆ end");
+//document.body.innerHTML=sssinclude.sssuse("building include1",["sentence of importance","1","2","3","4","5","6","7","8","9","10","11","12","<br>"]);
 
 
 
-//0 let's make a game!, 1 settings, 2 layout, 3 resources, 4 buttons, 5 buildings, 6 upgrades, 7 items, and finally 8 css.
 
-bbbsections=["","","","","","","","",""];
+
+
+
+
+
+
+
+sssinclude.sssmake("building include2@☆a☆@☆aS☆@☆aP☆@☆START PS☆@START COST@☆req☆@☆tag☆@☆class☆@☆icon☆@☆flavor☆@☆res☆@☆resS☆@☆resP☆@☆new line☆@ ⊙☆new line *☆a☆PS☆new line☆start with:☆START PS☆☆new line☆*☆a☆Cost☆new line☆start with:☆START COST☆☆new line☆*☆a☆Moneyby");
+
+sssinclude.sssmake("building include3@☆a☆@☆aS☆@☆aP☆@☆aBASE☆@◇1@☆req☆@☆tag☆@☆class☆@☆icon☆@☆flavor☆@☆res☆@☆resS☆@☆resP☆@☆new line☆@ ⊙*☆new line☆ ☆a☆Amount☆new line☆ no buy☆new line☆ always hidden☆new line☆ on tick:☆new line☆ yield ☆a☆PS ☆res☆ ☆new line☆ yield ☆a☆PS ☆a☆Moneyby☆new line☆ end");
+
+//Thing key, Singular name, Plural name, Tag, Class, Icon, and Description
+sssinclude.sssmake("mainres include@☆res☆@☆resS☆@☆resP☆@☆tag☆@☆class☆@☆icon☆@☆desc☆@☆new line☆@  ⊙*☆res☆☆new line☆name:☆new line☆desc:☆new line☆tags:☆tag☆☆new line☆class:☆class☆☆new line☆icon:☆icon☆");
+
+
+
+
+
+
+
+
+//- let's make a game!, - settings, - layout, 0 resources, 1 buttons, 2 buildings, 6 upgrades, 7 items, and finally 8 css.
+
+bbbsections=["","",""];
 function sssprintgamescript(){
   var dddstring=bbbsections[0];
   var dddindex=1;
-  while(dddindex<bbbsection.length){
+  while(dddindex<bbbsections.length){
     dddstring+="<br>"+bbbsections[dddindex];
     dddindex++;
+  }/*
+  dddstring=dddstring.replace(/</g,"&lt;");
+  dddstring=dddstring.replace(/>/g,"&gt;");
+  dddstring=dddstring.replace(/&lt;br&gt;/g,"<br>");*/
+  return dddstring;
+}
+var bbbgame={};
+function ssstransformres(){
+  var dddmainres=[];
+  var dddstringr;
+  dddstringr=sssreaduntil(sssf("aaain2").value,",");
+  var dddindexr=0;
+  while(dddindexr<7){
+    dddstringr=sssreaduntil(dddstringr[2],",");
+    dddmainres[dddindexr]=dddstringr[1];
+    dddindexr++;
   }
+  bbbgame.bbbmainres=dddmainres
 }
 
-function sssgenerateagame(){
-document.body.innerHTML=sssinclude.sssuse("building include1",["&lt;","&gt;","building1","Cursor","Cursors","0.1","cookie","Cookie","Cookies","Automatically. Clicks once every 10 seconds","cookies:max&gt;=15","","<br>"]);
+
+
+
+function ssstransformbuildings(){
+  var dddbuildings=[];
+  var dddstringb=[[""]];
+  dddstringb[0]=sssf("aaain1").value;
+  dddstringb[1]=bbbgame.bbbmainres;
+  var dddindexa=0;
+  var dddindexb=0;
+  dddstringb[2]=sssreaduntil(dddstringb[0],"●");
+  while(dddstringb[2][2].length>0){
+    dddbuildings[dddindexa]=[];
+    dddstringb[2][1]=sssreaduntil(dddstring2[2][1]);
+    while(dddstring[2][1][2].length>0){
+      dddbuildings[dddindexa][dddindexb]=dddstringb[2][1][1];
+      dddstringb[2][1]=sssreaduntil(dddstring2[2][1][2]);
+      dddindexb++;
+    }
+    dddstringb[2]=sssreadfor(dddstringb[2][2]);
+    dddindexa++;
+  }
+  //[Content,mainres,[index,[index,str bef,str aft],string after ☆]
+  bbbgame.bbbbuildings=dddbuildings;
 }
+function sssbuildingsfinal(){
+  var dddbuildings=bbbgame.bbbbuildings;
+  var dddindex=0;
+  while(dddindex<dddbuildings.length){
+    dddbuildings[dddindex][10]=bbbgame.bbbmainres[0];
+    dddbuildings[dddindex][11]=bbbgame.bbbmainres[1];
+    dddbuildings[dddindex][12]=bbbgame.bbbmainres[2];
+    dddindex++;
+  }
+  bbbsections[0]+=sssinclude.sssarrayuse("building include2",dddbuildings);/*
+  bbbsections[1]=sssinclude.sssuse("building include1",dddbuildings);
+  bbbsections[2]=sssinclude.sssuse("building include3",dddbuildings);*/
+}
+function sssresfinal(){
+  bbbgame.bbbmainres[7]="<br>";
+  bbbsections[0]+=sssinclude.sssuse("mainres include",bbbgame.bbbmainres)/*"hi"*/;
+}
+
+
+function sssgenerateagame(){
+  ssstransformres();
+  ssstransformbuildings();
+  sssresfinal();
+  sssbuildingsfinal();
+  window.alert("Our result is:\n"+JSON.stringify(bbbsections));
+
+}
+//ID , single name, plural name, base production, base cost, requirement, tag, class, icon, description / flavor text
 
 </script></body></html>
