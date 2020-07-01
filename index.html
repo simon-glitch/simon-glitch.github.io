@@ -53,9 +53,9 @@ function sssc(dddwhat,dddid,dddclass,dddwhere){
 function sssk(dddid){
     if(cccsssk) sssf(dddid).remove();
 }
-//short test
+/*short test
 sssc("p","aaap1","testel","aaamain");
-sssf("aaap1").innerHTML="They work!";
+sssf("aaap1").innerHTML="They work!";*/
 //quick output
 var bbbquickc;
 bbbquickc=0;
@@ -66,9 +66,11 @@ function sssquick(dddwhat){
     }
     ddd1=sssf("aaaquick");
     ddd1.innerHTML+="Output # "+bbbquickc+"<br>"+dddwhat+"<br>";
-    }
+}
+/*
 sssquick("test number 1");
 sssquick("test number 2");
+*/
 function ssschoose(dddwhat){
     return dddwhat[1+Math.floor(Math.random()*(dddwhat.length-1))];
 }
@@ -79,9 +81,9 @@ function ssschoosesome(dddwhat,dddstart,dddend){
     return dddwhat[dddstart+Math.floor(Math.random()*(dddwhat.length-dddstart))];
 }
 function sssinput(dddid,dddclass,dddtype,dddlabel){
-sssc("input",dddid,dddclass,0);
-var dddthis=sssf(dddid).outerHTML;
-sssf(dddid).outerHTML=dddthis.slice(0,dddthis.indexOf(">"))+" type='"+dddtype+"'>"+dddthis.slice(dddthis.indexOf(">")+1);
+  sssc("input",dddid,dddclass,0);
+  var dddthis=sssf(dddid).outerHTML;
+  sssf(dddid).outerHTML=dddthis.slice(0,dddthis.indexOf(">"))+" type='"+dddtype+"'>"+dddthis.slice(dddthis.indexOf(">")+1);
 }
 function ssssearchobjects(dddobjects,dddpname){
   var dddindex=0;
@@ -180,7 +182,7 @@ sssinclude.sssmake("building include1@☆a☆@☆aS☆@☆aP☆@☆START PS☆@S
 
 sssinclude.sssmake("building include2@☆a☆@☆aS☆@☆aP☆@☆START PS☆@START COST@☆req☆@☆tag☆@☆class☆@☆icon☆@☆flavor☆@☆res☆@☆resS☆@☆resP☆@☆new line☆ ⊙☆new line *☆a☆PS☆new line☆start with:☆START PS☆☆new line☆*☆a☆Cost☆new line☆start with:☆START COST☆☆new line☆*☆a☆Moneyby");
 
-sssinclude.sssmake("building include3@☆a☆@☆aS☆@☆aP☆@☆aBASE☆@◇1@☆req☆@☆tag☆@☆class☆@☆icon☆@☆flavor☆@☆res☆@☆resS☆@☆resP☆@☆new line☆ ⊙*☆new line☆ ☆a☆Amount☆new line☆ no buy☆new line☆ always hidden☆new line☆ on tick:☆new line☆ yield ☆a☆PS ☆res☆ ☆new line☆ yield ☆a☆PS ☆a☆Moneyby☆new line☆ end");
+sssinclude.sssmake("building include3@☆a☆@☆aS☆@☆aP☆@☆START PS☆@START COST@☆req☆@☆tag☆@☆class☆@☆icon☆@☆flavor☆@☆res☆@☆resS☆@☆resP☆@☆new line☆ ⊙*☆new line☆ ☆a☆Amount☆new line☆ no buy☆new line☆ always hidden☆new line☆ on tick:☆new line☆ yield ☆a☆PS ☆res☆ ☆new line☆ yield ☆a☆PS ☆a☆Moneyby☆new line☆ end");
 
 //Thing key, Singular name, Plural name, Tag, Class, Icon, and Description
 sssinclude.sssmake("mainres include@☆res☆@☆resS☆@☆resP☆@☆tag☆@☆class☆@☆icon☆@☆desc☆@☆new line☆  ⊙*☆res☆☆new line☆name:☆new line☆desc:☆new line☆tags:☆tag☆☆new line☆class:☆class☆☆new line☆icon:☆icon☆");
@@ -201,10 +203,10 @@ function sssprintgamescript(){
   while(dddindex<bbbsections.length){
     dddstring+="<br>"+bbbsections[dddindex];
     dddindex++;
-  }
-  dddstring=dddstring.replace(/</g,"&lt;");
-  dddstring=dddstring.replace(/>/g,"&gt;");
-  dddstring=dddstring.replace(/&lt;br&gt;/g,"<br>");
+  }/*
+  dddstring=dddstring.replace(/"<"/g,"&lt;");
+  dddstring=dddstring.replace(/">"/g,"&gt;");
+  dddstring=dddstring.replace(/"&lt;br&gt;"/g,"<br>");*/
   return dddstring;
 }
 var bbbgame={};
@@ -253,6 +255,7 @@ function sssbuildingsfinal(){
     dddbuildings[dddindex][10]=bbbgame.bbbmainres[0];
     dddbuildings[dddindex][11]=bbbgame.bbbmainres[1];
     dddbuildings[dddindex][12]=bbbgame.bbbmainres[2];
+   // dddbuildings[dddindex][13]="<br>"
     dddindex++;
   }
   bbbsections[0]+=sssinclude.sssarrayuse("building include2",dddbuildings);
@@ -273,6 +276,4 @@ function sssgenerateagame(){
   sssquick(JSON.stringify(bbbsections));
 
 }
-//ID , single name, plural name, base production, base cost, requirement, tag, class, icon, description / flavor text
-
-</script></body></html>
+</script></></html>
