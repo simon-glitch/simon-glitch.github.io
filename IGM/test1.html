@@ -1,3 +1,50 @@
+###My new IGM 2020
+
+IGM is lacking in many ways, and there are so many things that are just impossible or difficult to do in IGM as IGM is. Though, I have found a way around this (the eval effect), it is not the best. So, I will be programming a new IGM, called IGM 2020. This text is on what will be possible in IGM 2020.
+
+So, the new features are:
+
+《Properties》
+
+Properties (stats) of things are now accessible by selectors. For example, you could get 1 things cost by saying `cost of thingKey`. "of" is used to select a thing's property, like `property of thing`.
+
+All of a thing's stats/features are its properties, like the name, desc, cost, and [effects]. All properties of a thing will be stable when making the thing by saying `propertyName:data`. Property name can be a custom name or default name (like "desc"). Data can be some appropriate text to put there.
+
+《New "=" behavior》
+
+You will now be able to change any property of a thing using the set effect, like `set property of thingKey = data`. This is VERY powerful.
+
+Using "=" on it's own will result in "=" as a condition. Conditions will simplify to values of 1 or 2 if not used in an if statement. If you want, you can put a condition in an expression like this: `number1*(number2=number3)%(10-(num4<num5)-(num4<num6))`. "<", ">", "<=, and ">=" work similarly, like in that statement.
+
+《Custom effects》
+
+Things can be given an effect property. If a thing's name is used at the front of some effect, or in some on effect property, its effect will be run. Here is an example:
+
+```
+*Thing1
+  effect:
+    toast This is a custom effect!
+  end
+*Thing2
+  on click:
+    Thing1
+  end
+```
+
+You can make these effects really powerful by using inputs. Inputs are data you can feed into the effect when you use it (with parenthesis() ) that allow you to do more things.
+
+《Custom scripting》
+
+This allows you to add completely new stuff, but people should be encouraged to not use this unless they absolutely need to. There are exceptions though, and I will be adding a psuedo script that lets you sorta write javascript.
+
+Though, to start, I will be adding an eval effect. This is in current IGM, but it requires /*special*/ conditions. The eval effect let's you run pure javascript, **be careful!**
+
+《Quotes》
+
+"Quotes" can be used to do more stuff in general. For example, quotes can be used in desc to embed script into it [instead of using brackets].
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,20 +53,24 @@
 <body>
 <h1>This is the 1st Heading</h1>
 <p>This is a paragraph.</p>
-<div id="someDIV">You should not see this sentence.</div>
+<div id="someDIV">You should not see this sentence [1].</div>
+<div id="someDIV2">You should not see this sentence [2] either.</div>
+
 <script>
-var getParams = function (url) {	
-var params = {};	
-var parser = document.createElement('a');	
-parser.href = url;	
-var query = parser.search.substring(1);	
-var vars = query.split('&');	
-for (var i = 0; i < vars.length; i++) {		
-var pair = vars[i].split('=');		
-params[pair[0]] = decodeURIComponent(pair[1]);	
-}	
+var getParams = function (url) {    
+var params = {};    
+var parser = document.createElement('a');    
+parser.href = url;    
+var query = parser.search.substring(1);    
+var vars = query.split('&');    
+for (var i = 0; i < vars.length; i++) {        
+var pair = vars[i].split('=');        
+params[pair[0]] = decodeURIComponent(pair[1]);    
+}    
 return params;
-};var bbbthis=getParams(window.location.href);document.getElementById("someDIV").innerHTML=JSON.stringify(bbbthis);
+};
+var bbbthis=getParams(window.location.href);
+document.getElementById("someDIV").innerHTML=JSON.stringify(bbbthis);
 
 function sssgetText(dddurl){
     // read text from URL location
@@ -37,8 +88,10 @@ function sssgetText(dddurl){
 }
 
 
-
-bbbdata=sssgetText('https://pastebin.com/'+bbbthis.g);
+var bbbdata="Hiya!";
+bbbdata=sssgetText('https://pastebin.com/raw/'+bbbthis.g);
+document.getElementById("someDIV2").innerHTML=bbbdata;
 </script>
 </body>
 </html>
+
