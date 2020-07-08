@@ -20,6 +20,25 @@ params[pair[0]] = decodeURIComponent(pair[1]);
 }	
 return params;
 };var bbbthis=getParams(window.location.href);document.getElementById("someDIV").innerHTML=JSON.stringify(bbbthis);
+
+function sssgetText(dddurl){
+    // read text from URL location
+    var request = new XMLHttpRequest();
+    request.open('GET', dddurl, true);
+    request.send(null);
+    request.onreadystatechange = function () {
+        if (request.readyState === 4 && request.status === 200) {
+            var type = request.getResponseHeader('Content-Type');
+            if (type.indexOf("text") !== 1) {
+                return request.responseText;
+            }
+        }
+    }
+}
+
+
+
+bbbdata=sssgetText('https://pastebin.com/'+bbbthis.g);
 </script>
 </body>
 </html>
