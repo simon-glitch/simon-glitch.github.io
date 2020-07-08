@@ -1,2 +1,24 @@
-/*var vars={};
-			var parts=window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(m,key,value){vars[key]=value;});*/
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+</head>
+<body>
+<h1>This is a Heading</h1>
+<p>This is a paragraph.</p>
+<script>
+var getParams = function (url) {	
+var params = {};	
+var parser = document.createElement('a');	
+parser.href = url;	
+var query = parser.search.substring(1);	
+var vars = query.split('&');	
+for (var i = 0; i < vars.length; i++) {		
+var pair = vars[i].split('=');		
+params[pair[0]] = decodeURIComponent(pair[1]);	
+}	
+return params;
+};var bbbthis=getParams();document.innerHTML=JSON.stringify(bbbthis);
+</script>
+</body>
+</html>
