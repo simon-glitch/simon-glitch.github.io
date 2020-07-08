@@ -10,7 +10,7 @@
 <div id="someDIV2">You should not see this sentence [2] either.</div>
 
 <script>
-var getParams = function (url) {    
+var getParams = function (url) {
 var params = {};    
 var parser = document.createElement('a');    
 parser.href = url;    
@@ -26,6 +26,7 @@ var bbbthis=getParams(window.location.href);
 document.getElementById("someDIV").innerHTML=JSON.stringify(bbbthis);
 
 function sssgetText(dddurl){
+    /*
     // read text from URL location
     var request = new XMLHttpRequest();
     request.open('GET', dddurl, true);
@@ -37,12 +38,15 @@ function sssgetText(dddurl){
                 return request.responseText;
             }
         }
-    }
+    }*/
+    $url = "http://pastebin.com/raw.php?i="+dddurl;
+    $data = file_get_contents($url);
+    return $data
 }
 
 
 var bbbdata="Hiya!";
-bbbdata=sssgetText('https://pastebin.com/raw.php?i=MawLeRTx');
+bbbdata=sssgetText("MawLeRTx");
 document.getElementById("someDIV2").innerHTML=bbbdata;
 </script>
 </body>
