@@ -4,8 +4,9 @@
 <title>IGM Testing 1</title>
 </head>
 <body>
-<h1>This is a Heading</h1>
+<h1>This is the 1st Heading</h1>
 <p>This is a paragraph.</p>
+<div id="someDIV">You should not see this sentence.</div>
 <script>
 var getParams = function (url) {	
 var params = {};	
@@ -18,7 +19,7 @@ var pair = vars[i].split('=');
 params[pair[0]] = decodeURIComponent(pair[1]);	
 }	
 return params;
-};var bbbthis=getParams(window.location.href);document.innerHTML=JSON.stringify(bbbthis);
+};var bbbthis=getParams(window.location.href);document.getElementById("someDIV").innerHTML=JSON.stringify(bbbthis);
 </script>
 </body>
 </html>
