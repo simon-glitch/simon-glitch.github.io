@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Page Title</title>
+<title>IGM Testing 1</title>
 </head>
 <body>
 <h1>This is a Heading</h1>
@@ -18,7 +18,7 @@ var pair = vars[i].split('=');
 params[pair[0]] = decodeURIComponent(pair[1]);	
 }	
 return params;
-};var bbbthis=getParams();document.innerHTML=JSON.stringify(bbbthis);
+};var bbbthis=getParams(window.location.href);document.innerHTML=JSON.stringify(bbbthis);
 </script>
 </body>
 </html>
