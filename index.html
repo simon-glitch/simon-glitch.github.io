@@ -100,7 +100,13 @@ var bbbobjects=[{bbb1:4,bbb89:1001},{bbb45:6,bbb2:220.8,bbb3:"wow",bbb7x:67},{bb
 var bbbquick1=ssssearchobjects(bbbobjects,"45");
 
 function sssreaduntil(dddstring,dddcharacter){
-return [dddstring.indexOf(dddcharacter),dddstring.slice(0,dddstring.indexOf(dddcharacter)),dddstring.slice(dddstring.indexOf(dddcharacter)+1)];
+  if(dddstring.indexOf(dddcharacter)>-1){
+    //return 
+[dddstring.indexOf(dddcharacter),dddstring.slice(0,dddstring.indexOf(dddcharacter)),dddstring.slice(dddstring.indexOf(dddcharacter)+dddcharacter.length)];
+    return [dddstring.indexOf(dddcharacter),dddstring.slice(0,dddstring.indexOf(dddcharacter)),dddstring.slice(dddstring.indexOf(dddcharacter)+dddcharacter.length)];
+    } else {
+    return [-1,dddstring,""];
+  }
 }
 
 
@@ -168,12 +174,6 @@ sssinclude.sssmake("include1@☆a☆@☆b☆ ⊙This is not a ☆a☆. Though, t
 
 sssinclude.sssmake("building include1@☆a☆@☆aS☆@☆aP☆@☆START PS☆@START COST@☆req☆@☆tag☆@☆class☆@☆icon☆@☆flavor☆@☆res☆@☆resS☆@☆resP☆@☆new line☆ ⊙*☆a☆ ☆new line☆ text:[☆a☆Amount] [?☆a☆ is 1|☆aS☆|☆aP☆]</>[?☆a☆Cost>☆res☆|<f23>☆a☆Cost</>|<#1a6>☆a☆Cost</#>] ☆resP☆ ☆new line☆ name:☆aS☆|☆aP☆ ☆new line☆ desc:T[?☆a☆Amount is 1|This is|These are] your [?☆a☆Amount is 1|☆aS☆|☆aP☆].<//>You own <b>[☆a☆Amount]</b> of these.</>Current price:[☆a☆Cost*bulkprice] ([(☆a☆Cost*bulkprice*100)/☆res☆] % of bank, [(☆a☆Cost*bulkprice)/(☆res☆:ps)] seconds of ☆resP☆)</>These originally produced ☆START PS☆ ☆resP☆ per second.</>Now, each of these produce [?☆a☆PS<0.6|1 ☆resS☆ every [1/☆a☆PS] seconds|[☆a☆PS] ☆resP☆ per second].</>[☆a☆Amount] of these produce [?☆a☆PS*☆a☆Amount<0.6|1 ☆resS☆ every [1/(☆a☆PS*☆a☆Amount)] seconds|[☆a☆PS*☆a☆Amount] ☆resP☆ per second] total, [(☆a☆PS*☆a☆Amount*100)/(☆res☆:ps)] % of all ☆resS☆ production.</><q>☆flavor☆</q>So far, ☆a☆Moneyby [?☆a☆Moneyby is 1|☆res☆ has|☆resP☆ have] been produced by these.☆new line☆ on click:☆new line☆ anim glow☆new line☆ if(_>=_Cost*bulkprice and bulkamount>0)☆new line☆ yield bulkamount ☆a☆Amount☆new line☆ yield bulkamount buildingcount☆new line☆ lose bulkprice*☆a☆Cost ☆res☆ ☆new line☆ ☆a☆Cost is ☆a☆Cost*pow(1.15,bulkamount)☆new line☆ end☆new line☆ if(_>=-bulkamount and bulkamount<0)☆new line☆ lose -bulkamount ☆a☆Amount☆new line☆ lose -bulkamount buildingcount☆new line☆ yeild bulkprice*☆a☆Cost ☆res☆ ☆new line☆ ☆a☆Cost is ☆a☆Cost*pow(1.15,bulkamount)☆new line☆ end☆new line☆ end☆new line☆ req:☆req☆ ☆new line☆ icon:☆icon☆ ☆new line☆ tags:buildingTAG, ☆tag☆☆new line☆class:buidlingCLASS ☆class☆");
 
-//document.body.innerHTML=sssinclude.sssuse("building include1",["sentence of importance","1","2","3","4","5","6","7","8","9","10","11","12","<br>"]);
-
-
-
-
-
 
 
 
@@ -236,15 +236,18 @@ function ssstransformbuildings(){
   dddstringb[2]=sssreaduntil(dddstringb[0],"●");
   while(dddstringb[2][2].length>0){
     dddbuildings[dddindexa]=[];
-    dddstringb[2][1]=sssreaduntil(dddstring2[2][1]);
-    while(dddstring[2][1][2].length>0){
+    dddstringb[2][1]=sssreaduntil(dddstringb[2][1],",");
+    while(dddstringb[2][1][2].length>0){
       dddbuildings[dddindexa][dddindexb]=dddstringb[2][1][1];
-      dddstringb[2][1]=sssreaduntil(dddstring2[2][1][2]);
+      dddstringb[2][1]=sssreaduntil(dddstringb[2][1][2],",");
       dddindexb++;
     }
-    dddstringb[2]=sssreadfor(dddstringb[2][2]);
+    dddstringb[2]=sssreaduntil(dddstringb[2][2],"●");
+    dddindexb=0;
     dddindexa++;
   }
+
+
   //[Content,mainres,[index,[index,str bef,str aft],string after ☆]
   bbbgame.bbbbuildings=dddbuildings;
 }
@@ -255,12 +258,12 @@ function sssbuildingsfinal(){
     dddbuildings[dddindex][10]=bbbgame.bbbmainres[0];
     dddbuildings[dddindex][11]=bbbgame.bbbmainres[1];
     dddbuildings[dddindex][12]=bbbgame.bbbmainres[2];
-   // dddbuildings[dddindex][13]="<br>"
+    dddbuildings[dddindex][13]="<br>";
     dddindex++;
   }
   bbbsections[0]+=sssinclude.sssarrayuse("building include2",dddbuildings);
-  bbbsections[1]=sssinclude.sssuse("building include1",dddbuildings);
-  bbbsections[2]=sssinclude.sssuse("building include3",dddbuildings);
+  bbbsections[1]=sssinclude.sssarrayuse("building include1",dddbuildings);
+  bbbsections[2]=sssinclude.sssarrayuse("building include3",dddbuildings);
 }
 function sssresfinal(){
   bbbgame.bbbmainres[7]="<br>";
@@ -273,7 +276,10 @@ function sssgenerateagame(){
   ssstransformbuildings();
   sssresfinal();
   sssbuildingsfinal();
-  sssquick(sssprintgamescript());
+  sssquick(JSON.stringify(bbbsections));
 
 }
+
+
 </script></body></html>
+
