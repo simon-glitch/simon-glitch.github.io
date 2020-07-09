@@ -216,8 +216,8 @@ function ssstransformres(){
   dddstringr=sssreaduntil(sssf("aaain2").value,",");
   var dddindexr=0;
   while(dddindexr<7){
-    dddstringr=sssreaduntil(dddstringr[2],",");
     dddmainres[dddindexr]=dddstringr[1];
+    dddstringr=sssreaduntil(dddstringr[2],",");
     dddindexr++;
   }
   bbbgame.bbbmainres=dddmainres
@@ -282,4 +282,3 @@ function sssgenerateagame(){
 
 
 </script></body></html>
-
