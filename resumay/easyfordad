@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Resumen shenanigance</title>
+        <style id="aaaSTYLE">
+#aaamain{}
+
+
+        </style>
+    </head>
+    <body>
+<div id="aaaMAIN">
+    Hi.
+    <div id="aaaDIV1">Change?</div>
+</div>
+<script>var sssf=function(ddd1,ddd2){
+    if(ddd1===undefined){
+        ddd1=document.getElementById("aaaMAIN");
+    }
+    else{
+        ddd1=document.getElementById(ddd1);
+    }
+    if(ddd2===undefined){return ddd1}
+    else{eval(ddd2+"=ddd1")};
+}
+    var bbbMAIN;
+    sssf("aaaMAIN","bbbMAIN");
+    sssf("aaaDIV1").innerHTML="Hiya. This page's content was:<div style='border:2px solid blue;margin:1px;padding:2px;background-color:#9bf;'>"+bbbMAIN.innerHTML+"</div>";
+    sssf().innerHTML+=sssf("aaaSTYLE").innerHTML;
+    var bbbALLhtml=document.querySelectorAll("div");
+    sssf().innerHTML+=(bbbALLhtml[3].id);
+    var name = "codemzy";$.get('https://www.freecodecamp.com/' + name, function(response) {  window.alert(response);});
+    //sssf().innerHTML+="<div>"+bbb1+"</div>";
+</script>
+<script>
+    
+</script>
+</body>
+</html>
