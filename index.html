@@ -1,284 +1,40 @@
-<!DOCTYPE html><html><head>
+<!DOCTYPE html>
+<html>
+    <head>
         <meta charset="utf-8">
-        <title>Idle Game Generator</title>
-<style>
-*{background:white;}
-.aaainCLASS{color:white;background:black;height:24px;display:block;margin-left:8px;font-size:16px;font-family:monospace;}
-#aaain5{color:black;background:#2dd;content:"Let's generate a game!";font-size:60px;height:100px;border-radius:16px;padding:5px;}
-.aaainfoCLASS{border:4px solid blue;font-size:20px;margin:8px;padding:4px;font-family:"Merriweather", serif;}
+        <title>Resumen shenanigance</title>
+        <style id="aaaSTYLE">
+#aaamain{}
 
 
-</style></head><body>
-<div id="aaamain">
-<h2>Idle Game Builder</h2>
-<p>This is a tool, by me, Simanalix, to build idle games for Idle Game Maker by having the computer do all of the work for you! Please give me feedback about this on Reddit.</p>
-<div class="aaainfoCLASS" >Buildings.<br>
-List all of your buildings, separated by "●"s. A building is listed as (). These all cost an amount of the base resource, and produce the base resource only. <b>Put a "●" at the end too!</b><br>
-Alternative resource producers will be added soon. Each buildingsmust be typed as so:<ul>
-<li>Its ID (thing key),<li>its name (singular, shown to player), its plural name (shown to player),<li>its base production,<li>its base cost,<li>its requirement (put "none" to make this none), its icon,<li>its tags (put "none" to make this just the default buildingTAG),<li>its classes (put "none" to be just default buildingCLASS),<li>,its icon<li>and finally its description / flavor text.</ul>
+        </style>
+    </head>
+    <body>
+<div id="aaaMAIN">
+    Hi.
+    <div id="aaaDIV1">Change?</div>
 </div>
-<input type="text" id="aaain1" class="aaainCLASS">
-<div class="aaainfoCLASS">Main Resource<br>Make sure to write as so: Thing key, Singular name, Plural name, Tag, Class, Icon, and Description.</div>
-<input type="text" id="aaain2" class="aaainCLASS">
-
-
-<div class="aaainfoCLASS">Put the Rest of your Buttons section right below here.</div>
-<input type="text" id="aaain3" class="aaainCLASS">
-<div class="aaainfoCLASS" >Skip the following "..."s and text boxes directly below them (they all do nothing).</div>
-<input type="text" id="aaain4" class="aaainCLASS">
-<div class="aaainfoCLASS">...</div>
-<input type="text" id="aaain6" class="aaainCLASS">
-<div class="aaainfoCLASS" >...</div>
-<input type="text" id="aaain7" class="aaainCLASS">
-<div class="aaainfoCLASS">...</div>
-<input type="text" id="aaain8" class="aaainCLASS">
-<div class="aaainfoCLASS">...</div>
-<input type="text" id="aaain9" class="aaainCLASS">
-<div class="aaainfoCLASS">Click the button below to get the resources, buttons, and buildings sections of the game.</div>
-<button id="aaain5" class="aaainCLASS" onclick="sssgenerateagame();">Let's generate a game!</button>
-</div>
-
-<div id="aaaouts"></div>
+<script>var sssf=function(ddd1,ddd2){
+    if(ddd1===undefined){
+        ddd1=document.getElementById("aaaMAIN");
+    }
+    else{
+        ddd1=document.getElementById(ddd1);
+    }
+    if(ddd2===undefined){return ddd1}
+    else{eval(ddd2+"=ddd1")};
+}
+    var bbbMAIN;
+    sssf("aaaMAIN","bbbMAIN");
+    sssf("aaaDIV1").innerHTML="Hiya. This page's content was:<div style='border:2px solid blue;margin:1px;padding:2px;background-color:#9bf;'>"+bbbMAIN.innerHTML+"</div>";
+    sssf().innerHTML+=sssf("aaaSTYLE").innerHTML;
+    var bbbALLhtml=document.querySelectorAll("div");
+    sssf().innerHTML+=(bbbALLhtml[3].id);
+    var name = "codemzy";$.get('https://www.freecodecamp.com/' + name, function(response) {  window.alert(response);});
+    //sssf().innerHTML+="<div>"+bbb1+"</div>";
+</script>
 <script>
-function sssf(dddid){
-    return document.getElementById(dddid);
-}
-function sssc(dddwhat,dddid,dddclass,dddwhere){
-    dddwhat=document.createElement(dddwhat);
-    dddwhat.id=dddid;
-    dddwhat.className=dddclass;
-    if(dddwhere===0){document.body.appendChild(dddwhat);}
-    else{sssf(dddwhere).appendChild(dddwhat);}
-}
-function sssk(dddid){
-    if(cccsssk) sssf(dddid).remove();
-}
-/*short test
-sssc("p","aaap1","testel","aaamain");
-sssf("aaap1").innerHTML="They work!";*/
-//quick output
-var bbbquickc;
-bbbquickc=0;
-function sssquick(dddwhat){
-    bbbquickc++;
-    if(sssf("aaaquick")==null){
-        sssc("div","aaaquick","testel","aaaouts");
-    }
-    ddd1=sssf("aaaquick");
-    ddd1.innerHTML+="Output # "+bbbquickc+"<br>"+dddwhat+"<br>";
-}
-/*
-sssquick("test number 1");
-sssquick("test number 2");
-*/
-function ssschoose(dddwhat){
-    return dddwhat[1+Math.floor(Math.random()*(dddwhat.length-1))];
-}
-//dddwhat[dddend] is EXCLUSIVE, so it will never be returned.
-function ssschoosesome(dddwhat,dddstart,dddend){
-    if(dddstart==0){dddstart=1;}
-    if(dddend==0){dddend=dddwhat.length;}
-    return dddwhat[dddstart+Math.floor(Math.random()*(dddwhat.length-dddstart))];
-}
-function sssinput(dddid,dddclass,dddtype,dddlabel){
-  sssc("input",dddid,dddclass,0);
-  var dddthis=sssf(dddid).outerHTML;
-  sssf(dddid).outerHTML=dddthis.slice(0,dddthis.indexOf(">"))+" type='"+dddtype+"'>"+dddthis.slice(dddthis.indexOf(">")+1);
-}
-function ssssearchobjects(dddobjects,dddpname){
-  var dddindex=0;
-  var dddindexout=-1;
-  var dddstring="if(dddobjects[dddindex].bbb"+dddpname+"!=null){dddindexout=dddindex;}";
-;
-  while(dddindex<dddobjects.length&&dddindexout<0){
-    eval(dddstring);
-  dddindex++;
-  }
-  return dddindexout;
-}
-var bbbobjects=[{bbb1:4,bbb89:1001},{bbb45:6,bbb2:220.8,bbb3:"wow",bbb7x:67},{bbb1no:"anti yes?"},{bbb1a:"abc",bbb2a:"def",bbb3a:"ghi and maybe j"}];
-var bbbquick1=ssssearchobjects(bbbobjects,"45");
-
-function sssreaduntil(dddstring,dddcharacter){
-  if(dddstring.indexOf(dddcharacter)>-1){
-    //return 
-[dddstring.indexOf(dddcharacter),dddstring.slice(0,dddstring.indexOf(dddcharacter)),dddstring.slice(dddstring.indexOf(dddcharacter)+dddcharacter.length)];
-    return [dddstring.indexOf(dddcharacter),dddstring.slice(0,dddstring.indexOf(dddcharacter)),dddstring.slice(dddstring.indexOf(dddcharacter)+dddcharacter.length)];
-    } else {
-    return [-1,dddstring,""];
-  }
-}
-
-
-
-var sssinclude={};
-sssinclude.bbbincludes=[];
-sssinclude.sssmake=function(dddstring){
-  var dddthisindex=sssinclude.bbbincludes.length;
-  dddstring=sssreaduntil(dddstring,"⊙");
-  dddstring[1]=sssreaduntil(dddstring[1],"@");
-  var dddthis={};
-  dddthis.bbbkeys=[]
-  dddthis.bbbname=dddstring[1][1];
-  while(dddstring[1][2].length>0&&dddstring[1][0]>-1){
-      dddstring[1]=sssreaduntil(dddstring[1][2],"@");
-      dddthis.bbbkeys[dddthis.bbbkeys.length]=dddstring[1][1]
-  }
-  dddthis.bbbcontent=dddstring[2];
-  sssinclude.bbbincludes[dddthisindex]=dddthis;
-};
-
-
-
-sssinclude.sssuse=function(dddname,dddreplacers){
-  var dddindex=-1;
-  var dddindex2=0;
-  while(dddindex2<sssinclude.bbbincludes.length&&dddindex===-1){
-    if(sssinclude.bbbincludes[dddindex2].bbbname===dddname){
-      dddindex=dddindex2;
-    }
-    dddindex2++;
-  }
-  if(sssinclude.bbbincludes[dddindex]!==null){
-    var dddstring="";
-    var dddinfo=sssinclude.bbbincludes[dddindex];
-    var dddindex3=0;
-    var dddstring2;
-    var dddstring3;
-    dddstring=dddinfo.bbbcontent;
-    while(dddindex3<dddinfo.bbbkeys.length){
-      dddstring2=dddinfo.bbbkeys[dddindex3];
-      eval("dddstring=dddstring.replace(/"+dddstring2+"/g,dddreplacers[dddindex3])");
-      dddindex3++;
-    }
-    return dddstring;
-  }
-  else{return "INVALID INCLUDE! "+dddindex2;}
-};
-
-
-sssinclude.sssarrayuse=function(dddname,dddreplacers){
-  var dddindexm=0;
-  var dddoutstring="";
-  while(dddindexm<dddreplacers.length){
-    dddoutstring+=sssinclude.sssuse(dddname,dddreplacers[dddindexm])+"<br><br>";
-    dddindexm++;
-  }
-  return dddoutstring
-};
-
-sssinclude.sssmake("include1@☆a☆@☆b☆ ⊙This is not a ☆a☆. Though, this is a ☆b☆");
-//ID , single name, plural name, base production, base cost, requirement, tag, class, icon, description / flavor text
-
-//up to index 13 \/
-
-sssinclude.sssmake("building include1@☆a☆@☆aS☆@☆aP☆@☆START PS☆@START COST@☆req☆@☆tag☆@☆class☆@☆icon☆@☆flavor☆@☆res☆@☆resS☆@☆resP☆@☆new line☆ ⊙*☆a☆ ☆new line☆ text:[☆a☆Amount] [?☆a☆ is 1|☆aS☆|☆aP☆]</>[?☆a☆Cost>☆res☆|<f23>☆a☆Cost</>|<#1a6>☆a☆Cost</#>] ☆resP☆ ☆new line☆ name:☆aS☆|☆aP☆ ☆new line☆ desc:T[?☆a☆Amount is 1|This is|These are] your [?☆a☆Amount is 1|☆aS☆|☆aP☆].<//>You own <b>[☆a☆Amount]</b> of these.</>Current price:[☆a☆Cost*bulkprice] ([(☆a☆Cost*bulkprice*100)/☆res☆] % of bank, [(☆a☆Cost*bulkprice)/(☆res☆:ps)] seconds of ☆resP☆)</>These originally produced ☆START PS☆ ☆resP☆ per second.</>Now, each of these produce [?☆a☆PS<0.6|1 ☆resS☆ every [1/☆a☆PS] seconds|[☆a☆PS] ☆resP☆ per second].</>[☆a☆Amount] of these produce [?☆a☆PS*☆a☆Amount<0.6|1 ☆resS☆ every [1/(☆a☆PS*☆a☆Amount)] seconds|[☆a☆PS*☆a☆Amount] ☆resP☆ per second] total, [(☆a☆PS*☆a☆Amount*100)/(☆res☆:ps)] % of all ☆resS☆ production.</><q>☆flavor☆</q>So far, ☆a☆Moneyby [?☆a☆Moneyby is 1|☆res☆ has|☆resP☆ have] been produced by these.☆new line☆ on click:☆new line☆ anim glow☆new line☆ if(_>=_Cost*bulkprice and bulkamount>0)☆new line☆ yield bulkamount ☆a☆Amount☆new line☆ yield bulkamount buildingcount☆new line☆ lose bulkprice*☆a☆Cost ☆res☆ ☆new line☆ ☆a☆Cost is ☆a☆Cost*pow(1.15,bulkamount)☆new line☆ end☆new line☆ if(_>=-bulkamount and bulkamount<0)☆new line☆ lose -bulkamount ☆a☆Amount☆new line☆ lose -bulkamount buildingcount☆new line☆ yeild bulkprice*☆a☆Cost ☆res☆ ☆new line☆ ☆a☆Cost is ☆a☆Cost*pow(1.15,bulkamount)☆new line☆ end☆new line☆ end☆new line☆ req:☆req☆ ☆new line☆ icon:☆icon☆ ☆new line☆ tags:buildingTAG, ☆tag☆☆new line☆class:buidlingCLASS ☆class☆");
-
-
-
-
-
-
-
-sssinclude.sssmake("building include2@☆a☆@☆aS☆@☆aP☆@☆START PS☆@START COST@☆req☆@☆tag☆@☆class☆@☆icon☆@☆flavor☆@☆res☆@☆resS☆@☆resP☆@☆new line☆ ⊙☆new line *☆a☆PS☆new line☆start with:☆START PS☆☆new line☆*☆a☆Cost☆new line☆start with:☆START COST☆☆new line☆*☆a☆Moneyby");
-
-sssinclude.sssmake("building include3@☆a☆@☆aS☆@☆aP☆@☆START PS☆@START COST@☆req☆@☆tag☆@☆class☆@☆icon☆@☆flavor☆@☆res☆@☆resS☆@☆resP☆@☆new line☆ ⊙*☆new line☆ ☆a☆Amount☆new line☆ no buy☆new line☆ always hidden☆new line☆ on tick:☆new line☆ yield ☆a☆PS ☆res☆ ☆new line☆ yield ☆a☆PS ☆a☆Moneyby☆new line☆ end");
-
-//Thing key, Singular name, Plural name, Tag, Class, Icon, and Description
-sssinclude.sssmake("mainres include@☆res☆@☆resS☆@☆resP☆@☆tag☆@☆class☆@☆icon☆@☆desc☆@☆new line☆ ⊙*☆res☆☆new line☆name:☆new line☆desc:☆new line☆tags:☆tag☆☆new line☆class:☆class☆☆new line☆icon:☆icon☆");
-
-
-
-
-
-
-
-
-//- let's make a game!, - settings, - layout, 0 resources, 1 buttons, 2 buildings, 6 upgrades, 7 items, and finally 8 css.
-
-bbbsections=["","",""];
-function sssprintgamescript(){
-  var dddstring=bbbsections[0];
-  var dddindex=1;
-  while(dddindex<bbbsections.length){
-    dddstring+="<br>"+bbbsections[dddindex];
-    dddindex++;
-  }/*
-  dddstring=dddstring.replace(/"<"/g,"&lt;");
-  dddstring=dddstring.replace(/">"/g,"&gt;");
-  dddstring=dddstring.replace(/"&lt;br&gt;"/g,"<br>");*/
-  return dddstring;
-}
-var bbbgame={};
-function ssstransformres(){
-  var dddmainres=[];
-  var dddstringr;
-  dddstringr=sssreaduntil(sssf("aaain2").value,",");
-  var dddindexr=0;
-  while(dddindexr<7){
-    dddmainres[dddindexr]=dddstringr[1];
-    dddstringr=sssreaduntil(dddstringr[2],",");
-    dddindexr++;
-  }
-  bbbgame.bbbmainres=dddmainres
-}
-
-
-
-
-function ssstransformbuildings(){
-  var dddbuildings=[];
-  var dddstringb=[[""]];
-  dddstringb[0]=sssf("aaain1").value;
-  dddstringb[1]=bbbgame.bbbmainres;
-  var dddindexa=0;
-  var dddindexb=0;
-  dddstringb[2]=sssreaduntil(dddstringb[0],"●");
-  while(dddstringb[2][2].length>0){
-    dddbuildings[dddindexa]=[];
-    dddstringb[2][1]=sssreaduntil(dddstringb[2][1],",");
-    while(dddstringb[2][1][2].length>0){
-      dddbuildings[dddindexa][dddindexb]=dddstringb[2][1][1];
-      dddstringb[2][1]=sssreaduntil(dddstringb[2][1][2],",");
-      dddindexb++;
-    }
-    dddstringb[2]=sssreaduntil(dddstringb[2][2],"●");
-    dddindexb=0;
-    dddindexa++;
-  }
-
-
-  //[Content,mainres,[index,[index,str bef,str aft],string after ☆]
-  bbbgame.bbbbuildings=dddbuildings;
-}
-function sssbuildingsfinal(){
-  var dddbuildings=bbbgame.bbbbuildings;
-  var dddindex=0;
-  while(dddindex<dddbuildings.length){
-    dddbuildings[dddindex][10]=bbbgame.bbbmainres[0];
-    dddbuildings[dddindex][11]=bbbgame.bbbmainres[1];
-    dddbuildings[dddindex][12]=bbbgame.bbbmainres[2];
-    dddbuildings[dddindex][13]="<br>";
-    dddindex++;
-  }
-  bbbsections[0]+=sssinclude.sssarrayuse("building include2",dddbuildings);
-  bbbsections[1]=sssinclude.sssarrayuse("building include1",dddbuildings);
-  bbbsections[2]=sssinclude.sssarrayuse("building include3",dddbuildings);
-}
-function sssresfinal(){
-  bbbgame.bbbmainres[7]="<br>";
-  bbbsections[0]+=sssinclude.sssuse("mainres include",bbbgame.bbbmainres)/*"hi"*/;
-}
-
-
-function sssgenerateagame(){
-  ssstransformres();
-  ssstransformbuildings();
-  sssresfinal();
-  sssbuildingsfinal();
-  sssquick(JSON.stringify(bbbsections));
-
-}
-
-
-</script></body></html>
+    
+</script>
+</body>
+</html>
