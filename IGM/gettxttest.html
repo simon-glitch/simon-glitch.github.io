@@ -20,7 +20,7 @@ function sendData( data ) {
 
   const XHR = new XMLHttpRequest();
 
-  let urlEncodedData = "",
+  /*let urlEncodedData = "",
       urlEncodedDataPairs = [],
       name;
 
@@ -32,7 +32,7 @@ function sendData( data ) {
   // Combine the pairs into a single string and replace all %-encoded spaces to 
   // the '+' character; matches the behaviour of browser form submissions.
   urlEncodedData = urlEncodedDataPairs.join( '&' ).replace( /%20/g, '+' );
-
+*/
   // Define what happens on successful data submission
   XHR.addEventListener( 'load', function(event) {
     alert( 'Yeah! Data sent and response loaded.' );
@@ -50,8 +50,8 @@ function sendData( data ) {
   XHR.setRequestHeader( 'Content-Type', 'application/x-www-form-urlencoded' );
 
   //Finally, send our data.
-  XHR.send( urlEncodedData );
+  XHR.send(data);
 }
-sendData(["info","site was loaded"]);
+sendData(["site was ]);
 
 </script></body></html>
