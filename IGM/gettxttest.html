@@ -1,6 +1,7 @@
 <!DOCTYPE html><html><head><meta charset="utf-8"></head><body>
  <div id="aaaMAIN"></div>
 <script id="aaaSCRIPT">
+ document.getElememtById("aaaMAIN").innerHTML=document.getElementById("aaaSCRIPT").innerHTML
 var objXMLHttpRequest = new XMLHttpRequest();
 objXMLHttpRequest.onreadystatechange = function() {
   if(objXMLHttpRequest.readyState === 4) {
@@ -53,5 +54,4 @@ function sendData( data ) {
 }
 sendData(["info","site was loaded"]);
 
-  document.getElememtById("aaaMAIN").innerHTML=document.getElementById("aaaSCRIPT").innerHTML
 </script></body></html>
