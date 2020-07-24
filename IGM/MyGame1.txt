@@ -1,0 +1,182 @@
+/*
+Paste CODE:
+Pastebin:https://pastebin.com/
+Play at:http://orteil.dashnet.org/igm/?g=
+*/
+Let's make a game!
+  name:Space Society
+  by:Simanelix
+  desc:This is an incremental game in outer space.<//><b>You want to:</b<//><.>Collect energy.<.>Upgrade Colonies<.>Research as much as possible<.>An most importantly, have fun!
+  created:2020/7/23
+  updated:2020/7/23
+  version:0.20200723
+Settings
+//I don't know yet
+CSS
+#Game{
+  background-color:rgb(30,30,60);
+}
+.box{
+  position:absollute;
+  padding:3px;
+  margin:0px;
+  border:none;
+}
+//main button
+#box-b1{
+  top:0%;
+  left:0%;
+  width:100%;
+  height:100%;
+  z-index:343;
+  background-image:radial-gradient(rgba(,,,),rgba(,,,));
+}
+//resources
+#box-b2{
+  top:0%;
+  left:0%;
+  width:20%;
+  height:100%;
+  z-index:344;
+  background-image:radial-gradient(rgba(,,,),rgba(,,,));
+}
+//Menu Select Buttons
+  #box-b3{
+  top:0%;
+  left:60%;
+  width:40%;
+  height:30%;
+  z-index:344;
+  background-image:radial-gradient(rgba(,,,),rgba(,,,));
+}
+//buildings, upgrades, info, log (the Menu)
+#box-b4{
+  top:30%;
+  left:60%;
+  width:40%;
+  height:70%;
+  padding-top:10%;
+  z-index:344;
+  background-image:radial-gradient(rgba(,,,),rgba(,,,));
+}
+.achiev{
+  width:25%;
+  height:64px;
+  border:purple solid 4px;
+}
+.building{
+  //hide these
+  position:absolute;
+  display:none;
+  top:110%;
+  left:110%;
+}
+.thing-text{
+margin:2px;
+margin-left:50px;
+padding-right:50px;
+padding-top:3px;
+line-height:30px;
+font-size:26px;
+font-family:serif;
+}
+.button{
+  border:green solid 2px;
+  border-radius:20px;
+  height:40px;
+  width:25%;
+  padding-left:15px;
+  padding-right:15px;
+}
+.bigButton{
+#box-b1{
+  top:0%;
+  left:0%;
+  width:100%;
+  height:100%;
+  border:none;
+  margin:0;
+  padding:0;
+}
+.res{
+  background-image:linear-gradient(to right,rgba(0,0,0,0) 0%,rgba(0,0,0,0.6) 30%,rgba(0,0,0,1) 50%,rgba(0,0,0,0.6) 70%,rgba(0,0,0,0) 100%);
+  border:rgba(0,0,0,0.5) solid 2px;
+  margin:5px;
+  padding:2px;
+}
+.thing-icon{
+  margin:0px;
+  padding:0px;
+  height:48px;
+  width:48px;
+  border:blue solid 2px;
+}
+
+
+Layout
+*b1
+  contains:MAINbutton
+*b2
+  contains:Resources
+*b3
+  contains:tag:MENUbutton
+*b4
+  contains:tag:STOREbutton
+
+Resources
+
+*energy
+  name:Energy
+*TEMPLATE
+  always hidden
+*energyPC
+  start with:1
+
+Buttons
+
+*MAINbutton
+  name:Home Planet
+  desc:Click this to get [energyPC] energy.
+  on click:yield energyPC energy
+  class:bigButton hasFlares
+//Colonies
+*TEMPLATE
+tag:STOREbutton,BUILDINGbutton
+
+//Upgrades
+*TEMPLATE
+tag:STOREbutton,UPGRADEbutton
+
+//Info
+*TEMPLATE
+tag:STOREbutton,INFObutton
+
+//
+*TEMPLATE
+tag:MENUbutton
+
+
+
+Buildings
+
+Upgrades
+*ManagementU
+  on start:
+    toast Welcome! Click your home planet (in the middle of the screen)
+    earn A0
+  end
+  on tick:
+    if(energy>=10 and !have A1)
+      toast Click "Colonies" under "Menu Select", to select the Colonies Menu.
+      earn A1
+    end
+  on load:
+    if (!have A0) toast Welcome back!
+  end
+Achievements
+*A0
+  name:Welcome!
+  desc:Requirement:</>Start playing the game<//><#8888ff>Click your home planet (the big green and blue circle) to start making energy!</#></><#8888ff>Read the hints if you get confused.</#>
+*A1
+  name:The Beginning
+  desc:Requirement:</>Get 10 total energy
