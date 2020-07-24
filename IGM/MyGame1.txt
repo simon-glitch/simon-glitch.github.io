@@ -163,7 +163,7 @@ Upgrades
 *ManagementU
   on start:
     toast Welcome! Click your home planet (in the middle of the screen)
-    earn A0
+    yield A0
   end
   on tick:
     if(energy>=10 and !have A1)
