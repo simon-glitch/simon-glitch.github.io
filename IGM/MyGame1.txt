@@ -166,7 +166,7 @@ Upgrades
     yield A0
   end
   on tick:
-    if((10 energy) and !have A1)
+    if((energy>9.999 and A1>0)
       toast Click "Colonies" under "Menu Select", to select the Colonies Menu.
       earn A1
     end
