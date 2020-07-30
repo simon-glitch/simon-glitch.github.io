@@ -1,0 +1,156 @@
+<!DOCTYPE html><html><head><title>Site Builder</title><style id="aaaSTYLE">
+#aaaMAIN{
+  font-size:22px;
+  color:black;
+  background-color:pink;
+  /*background-image:;*/
+  overflow-y:scroll;
+  position:absolute;
+  top:0%;
+  left:0%;
+  height:100%;
+  width:100%;
+  padding:6px;
+  border:none;
+  margin:none;
+}
+div{line-height:28px;}
+#aaaMAIN div{
+  border:3px solid black;
+  border-radius:2px;
+}
+.term1{
+display:none;
+border:2px solid #6644ff;
+background-color:#aabbff;
+}
+</style></head><body><div id="aaaMAIN">
+<h1 id="aaaHEAD1">CSS builder</h1>
+<div>CSS is how webpage, like this one, get their style. Here, you can toy around with CSS and make a webpage <b>easily</b>.</div>
+<div>So, below there is a <div id="term1">box</div> where you can customize the CSS. Below that is a box where you can customize a mini web page inside this webpage.</div>
+<div id="aaaCSSuuu">/*Put your styling here.*/</div>
+<div id="aaaHTMLuuu">Build your webpage here.</div>
+
+<style id="aaaSTYLEuuu"></style>
+
+</div><script id="aaaSCRIPT">
+
+//Math functions
+function ssstonumber(dddwhat){
+  if(typeof dddwhat==="number"){return dddwhat}
+  else if(typeof dddwhat==="string"){
+    eval("var dddout="+dddwhat+";");return dddout;
+  }
+  else if(typeof dddwhat==="object"){
+    var dddout=[];
+    for(var i in dddwhat){
+      dddout.push(ssstonumber(dddwhat[i]));
+    }
+    return dddwhat;
+  }
+  else{return undefined;}
+}
+function sssround(dddnum,dddg){
+if(typeof dddg!=="number"){dddg=1;}
+return (Math.round(dddnum*dddg))/dddg;
+}
+
+//Powerful Helper functions
+
+
+//find dddw. If dddc is a true value, it will try to find anything by the selector dddw.
+function sssf(dddw,dddc){  
+  if(!dddw&&!dddc){
+    dddw="aaaMAIN";
+  }
+  if(dddc){
+    if(!dddw){return document.querySelectorAll("*");}
+    else{return document.querySelectorAll(dddw);}
+  }
+  else{
+    return document.getElementById(dddw);
+  }
+}
+//creat a new dddwhat, named dddid. It will be put in dddwhere (0 will put it at the end of the document, and no dddwhere will put it in "aaaMAIN").
+function sssc(dddwhat,dddid,dddclass,dddwhere){
+    dddwhat=document.createElement(dddwhat);
+    dddwhat.id=dddid;
+    dddwhat.className=dddclass;
+    if(dddwhere===0){document.body.appendChild(dddwhat);}
+    else{sssf(dddwhere).appendChild(dddwhat);}
+}
+function sssk(dddid,dddt){
+  if(dddt){
+    dddt=sssf(dddid,dddt);
+    for(dddid=0;dddid<dddt.length;dddid++){
+      dddt[dddid].remove();
+    }
+  }
+  else{sssf(dddid).remove();}
+}
+//quick output
+var bbbquickc;
+bbbquickc=0;
+function sssquick(dddwhat){
+    bbbquickc++;
+    if(sssf("aaaouts")==null){
+        sssc("div","aaaouts","testel");
+        dddwhat="<br>Outputs ready:<br>"+dddwhat
+    }
+    ddd1=sssf("aaaouts");
+    ddd1.innerHTML+="Output # "+bbbquickc+"<br>"+dddwhat+"<br>";
+}
+function sssAEL(dddwhat,dddevent,dddact){
+    sssquick([dddwhat,dddevent,dddact]);
+  dddwhat.addEventListener(dddevent,dddact)
+}
+
+//CSS builder
+
+function ssstoCSS(dddc2){
+  dddc2=[dddc2];
+  dddi=0;
+  while(dddc2[dddi].indexOf("/*")>-1&&dddc2[dddi].indexOf("*/")>-1){
+    dddc2.push(dddc2[dddi].slice(dddc2[dddi].indexOf("/*")+2));
+    dddc2[dddi]=dddc2[dddi].slice(0,dddc2[dddi].indexOf("/*"));
+    dddi++;
+    dddc2.push(dddc2[dddi].slice(dddc2[dddi].indexOf("*/")+2));
+    dddc2[dddi]=dddc2[dddi].slice(0,dddc2[dddi].indexOf("*/"));
+    dddi++;
+  }
+  for(var i01=1;i01<Math.ceil((dddc2.length)/2);i01++){
+    dddc2[0]+=dddc2[i01*2];
+  }  
+  dddc2=dddc2[0].split(/[\{\}]/);
+  sssquick(JSON.stringify(dddc2));
+  var dddc=[];
+  for(var i0=0;i0<Math.ceil((dddc2.length)/2);i0++){
+    dddc[i0]=dddc2[i0*2]
+    sssquick(JSON.stringify(dddc));
+  }
+  for(var i in dddc){
+    dddc[i]=dddc[i].split(/\n/);
+    sssquick("["+i+"] "+JSON.stringify(dddc));
+    for(var i2 in dddc[i]){
+      dddc[i][i2]=dddc[i][i2].trim().replace(/\./g,".aaauuu").replace(/\#/g,"#aaauuu").split(",");
+      sssquick("["+i+"] ["+i2+"] "+JSON.stringify(dddc));
+      for(var i3 in dddc[i][i2]){
+        if(dddc[i][i2][i3].trim().length>0){dddc[i][i2][i3]="aaaHTMLuuu "+dddc[i][i2][i3];}
+        sssquick("["+i+"] ["+i2+"] ["+i3+"] "+JSON.stringify(dddc));
+        if(i3>0){dddc[i][i2][0]+=ddd[i][i2][i3];}
+        sssquick(JSON.stringify(dddc));
+      }
+      if(i2>0){dddc[i][0][0]+=dddc[i][i2][0]}
+      sssquick(JSON.stringify(dddc));
+    }
+    if(i>0){dddc[0][0][0]+=dddc[i][0][0];}
+    if(i<dddc.length-1){dddc[0][0][0]+="{"+dddc2[(i*2)+1]+"}";}
+    sssquick(JSON.stringify(dddc));
+  }
+  dddc=dddc[0][0][0];
+  return dddc;
+}
+sssquick(ssstoCSS("div{widt/*random comment here*/h:100%;}\n#amazeballz{z-index:220;}"));
+sssAEL(sssf("aaaCSSuuu"),"click",function(){sssquick(ssstoCSS(sssf("aaaCSSuuu").innerHTML));});
+
+</script></body></html>
