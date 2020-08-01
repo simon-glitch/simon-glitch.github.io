@@ -3,13 +3,13 @@
 </title><style id="aaaSTYLE">
 *{
   color:black;
-  background-color:rgba(255,255,255,0.5);
-  /*This looks cool*/
+  background-color:rgba(255,255,255,0.4);
+  /*This looks cool
   background-image:
     linear-gradient(to right,rgba(0,0,0,0) 0% 50%,rgba(255,255,255,0.3) 50%,rgba(255,255,255,0) 100%),
     linear-gradient(to left,rgba(0,0,0,0) 0% 50%,rgba(255,255,255,0.3) 50%,rgba(255,255,255,0) 100%),
     linear-gradient(to bottom,rgba(0,0,0,0) 0% 50%,rgba(255,255,255,0.3) 50%,rgba(255,255,255,0) 100%),
-    linear-gradient(to top,rgba(0,0,0,0) 0% 50%,rgba(255,255,255,0.3) 50%,rgba(255,255,255,0) 100%);
+    linear-gradient(to top,rgba(0,0,0,0) 0% 50%,rgba(255,255,255,0.3) 50%,rgba(255,255,255,0) 100%);*/
 }
 #aaaMAIN{
   font-size:22px;
@@ -21,49 +21,56 @@
   top:0%;
   left:0%;
   height:100%;
-  width:100%;
+  max-width:100%;
   padding:6px;
   border:none;
   margin:none;
 }
 div{line-height:28px;}
 #aaaMAIN div{
-  border:5px solid black;
+  border:3px solid black;
   border-radius:2px;
+  margin-top:8px;
+  margin-bottom:8px;
 }
-#aaaOtherPages{background-color:rgba(200,80,0,0.5);}
-.listT,.listS,.listC,.listI{border:none;background-color:rgba(0,150,250,0.8);}
+#aaaOtherPages{background-color:rgba(200,80,0,0.4);}
+.listT,.listS,.listC,.listI{
+  border:none !important;
+  background:none !important;
+}
 .listT{
+padding-left:10px;
 font-size:30px;
 }
 .listS{
+margin-top:0px;
+padding-left:14px;
 font-weight:bold;
 color:rgb(40,0,180);
 }
 .listC{
+margin-top:0px;
+padding-left:18px;
+border:rgb(40,0,200) solid 2px !important;
 
 }
 .listI{
 
 }
-.shrinkCLASS{border:none;padding:0;margin:0;width:0;height:0;position:fixed;top:110%;left:0;}
-#aaaou{position:fixed;top:0%;left:0%;overflow-y:scroll;}
+.shrinkCLASS{border:none;padding:0;margin:0;width:0;height:0;position:fixed;top:110%;left:0%;}
+h1,h2,h3{
+border:none;
+border-radius:16px;
+padding:8px;
+margin-top:0px;
+margin-bottom:8px;
+}
+
+#aaaouts{position:fixed;top:110%;left:0%;overflow-y:scroll;}
 
 </style></head><body><div id="aaaMAIN">
 <div style="font-size:100px;font-weight:bold;color:rgb(180,0,0);line-height:140px;">!¡THIS SITE IS NOT FINISHED¡!</div>
-<h2 id="aaaHEAD1">Welcome to Simanelix's website!</h2>
-
-<!--
-List template:
-<div class="listT">Title:</div>
-  <div class="listS">Shrink</div>
-  <div class="listC">
-    <div class="listI">List Item</div>
-  </div>
--->
-
-
-<h3>About Me and My Site:</h3>
+<h2 id="aaaHEAD1">Welcome to Simanelix's website!</h2><h3>About Me and My Site:</h3>
   <div id="aaaAboutMySite">
     I am a programmer, and my site is home to my various projects. I like to make tools and trinkets, as well as fun games you can play right here on the site. Feel free to give me feedback on my Discord (), or my Subreddit (N/A yet). Below this will be a list of all my tools, games, and other pages (that are ready for public use). This site is on github (pages), which is a site where people can make code repositories. If you name a code repository &lt;your username&gt;.ion, it will become a website.
   </div>
@@ -136,14 +143,8 @@ function sssc(dddwhat,dddid,dddclass,dddwhere){
     if(dddwhere===0){document.body.appendChild(dddwhat);}
     else{sssf(dddwhere).appendChild(dddwhat);}
 }
-function sssk(dddid,dddt){
-  if(dddt){
-    dddt=sssf(dddid,dddt);
-    for(dddid=0;dddid<dddt.length;dddid++){
-      dddt[dddid].remove();
-    }
-  }
-  else{sssf(dddid).remove();}
+function sssk(dddid){
+    sssf(dddid).remove();
 }
 //quick output
 var bbbquickc;
@@ -160,11 +161,11 @@ function sssquick(dddwhat){
 function sssShrink(dddid){
   var ddds=sssf(dddid);
   if(ddds.innerHTML=="Shrink"){
-    sssf(dddid.replace("S","C")).className="listI shrinkCLASS";
+    sssf(dddid.replace("S","C")).className="listC shrinkCLASS";
     ddds.innerHTML="Expand";
   }
   else{
-    sssf(dddid.replace("S","C")).className="listI";
+    sssf(dddid.replace("S","C")).className="listC";
     ddds.innerHTML="Shrink";
   }
 }
