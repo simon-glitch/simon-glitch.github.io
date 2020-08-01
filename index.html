@@ -1,39 +1,188 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Resumen shenanigance</title>
-        <style id="aaaSTYLE">
-#aaamain{}
+<!DOCTYPE html><html><head><title id="aaaTITLE">
 
-
-        </style>
-    </head>
-    <body>
-<div id="aaaMAIN">
-    Hi.
-    <div id="aaaDIV1">Change?</div>
-</div>
-<script>var sssf=function(ddd1,ddd2){
-    if(ddd1===undefined){
-        ddd1=document.getElementById("aaaMAIN");
-    }
-    else{
-        ddd1=document.getElementById(ddd1);
-    }
-    if(ddd2===undefined){return ddd1}
-    else{eval(ddd2+"=ddd1")};
+</title><style id="aaaSTYLE">
+*{
+  color:black;
+  background-color:rgba(255,255,255,0.5);
+  /*This looks cool*/
+  background-image:
+    linear-gradient(to right,rgba(0,0,0,0) 0% 50%,rgba(255,255,255,0.3) 50%,rgba(255,255,255,0) 100%),
+    linear-gradient(to left,rgba(0,0,0,0) 0% 50%,rgba(255,255,255,0.3) 50%,rgba(255,255,255,0) 100%),
+    linear-gradient(to bottom,rgba(0,0,0,0) 0% 50%,rgba(255,255,255,0.3) 50%,rgba(255,255,255,0) 100%),
+    linear-gradient(to top,rgba(0,0,0,0) 0% 50%,rgba(255,255,255,0.3) 50%,rgba(255,255,255,0) 100%);
 }
-    var bbbMAIN;
-    sssf("aaaMAIN","bbbMAIN");
-    sssf("aaaDIV1").innerHTML="Hiya. This page's content was:<div style='border:2px solid blue;margin:1px;padding:2px;background-color:#9bf;'>"+bbbMAIN.innerHTML+"</div>";
-    sssf().innerHTML+=sssf("aaaSTYLE").innerHTML;
-    var bbbALLhtml=document.querySelectorAll("div");
-    sssf().innerHTML+=(bbbALLhtml[3].id);
-    sssf().innerHTML+="<div>Come on!</div>";
-</script>
-<script>
-var name = "codemzy";$.get('https://www.freecodecamp.com/' + name, function(response) {  alert(response);});    
-</script>
-</body>
-</html>
+#aaaMAIN{
+  font-size:22px;
+  color:black;
+  background-color:pink;
+  background-image:linear-gradient(188deg,rgba(176,210,209,0.27) 33%,rgba(199,120,250,0.21) 7%), linear-gradient(9deg,rgba(94,226,253,0.22) 55%,rgba(100,231,231,0.23) 79%), linear-gradient(319deg,rgba(93,189,190,0.26) 78%,rgba(219,229,42,0.26) 19%), linear-gradient(250deg,rgba(252,168,233,0.25) 40%,rgba(68,91,34,0.25) 4%), linear-gradient(284deg,rgba(117,86,0,0.26) 63%,rgba(253,68,243,0.23) 40%);
+  overflow-y:scroll;
+  position:absolute;
+  top:0%;
+  left:0%;
+  height:100%;
+  width:100%;
+  padding:6px;
+  border:none;
+  margin:none;
+}
+div{line-height:28px;}
+#aaaMAIN div{
+  border:5px solid black;
+  border-radius:2px;
+}
+#aaaOtherPages{background-color:rgba(200,80,0,0.5);}
+.listT,.listS,.listC,.listI{border:none;background-color:rgba(0,150,250,0.8);}
+.listT{
+font-size:30px;
+}
+.listS{
+font-weight:bold;
+color:rgb(40,0,180);
+}
+.listC{
+
+}
+.listI{
+
+}
+.shrinkCLASS{border:none;padding:0;margin:0;width:0;height:0;position:fixed;top:110%;left:0;}
+#aaaou{position:fixed;top:0%;left:0%;overflow-y:scroll;}
+
+</style></head><body><div id="aaaMAIN">
+<div style="font-size:100px;font-weight:bold;color:rgb(180,0,0);line-height:140px;">!¡THIS SITE IS NOT FINISHED¡!</div>
+<h2 id="aaaHEAD1">Welcome to Simanelix's website!</h2>
+
+<!--
+List template:
+<div class="listT">Title:</div>
+  <div class="listS">Shrink</div>
+  <div class="listC">
+    <div class="listI">List Item</div>
+  </div>
+-->
+
+
+<h3>About Me and My Site:</h3>
+  <div id="aaaAboutMySite">
+    I am a programmer, and my site is home to my various projects. I like to make tools and trinkets, as well as fun games you can play right here on the site. Feel free to give me feedback on my Discord (), or my Subreddit (N/A yet). Below this will be a list of all my tools, games, and other pages (that are ready for public use). This site is on github (pages), which is a site where people can make code repositories. If you name a code repository &lt;your username&gt;.ion, it will become a website.
+  </div>
+  <div id="aaaOtherPages">
+    So, this site has other pages, which are tools, games, and side-pages. Here is the list:
+
+    <div class="listT">Tools:</div>
+  <div class="listS" id="listS0">Shrink</div>
+  <div class="listC" id="listC0">
+    <div class="listI">SimanIGM</div>
+    <div class="listI">SimanIGE</div>
+    <div class="listI">CSS builder</div>
+    <div class="listI">IGM builder</div>
+  </div>
+<div class="listT">Games:</div>
+  <div class="listS" id="listS1">Shrink</div>
+  <div class="listC" id="listC1">
+    <div class="listI">none (sorry)</div>
+  </div>
+<div class="listT">Side-Pages:</div>
+  <div class="listS" id="listS2">Shrink</div>
+  <div class="listC" id="listC2">
+    <div class="listI">none (sorry)</div>
+  </div>
+  <div>This site on github:</div>
+  </div>
+</div><script id="aaaSCRIPT">
+
+//Math functions
+function ssstonumber(dddwhat){
+  if(typeof dddwhat==="number"){return dddwhat}
+  else if(typeof dddwhat==="string"){
+    eval("var dddout="+dddwhat+";");return dddout;
+  }
+  else if(typeof dddwhat==="object"){
+    var dddout=[];
+    for(var i in dddwhat){
+      dddout.push(ssstonumber(dddwhat[i]));
+    }
+    return dddwhat;
+  }
+  else{return undefined;}
+}
+function sssround(dddnum,dddg){
+if(typeof dddg!=="number"){dddg=1;}
+return (Math.round(dddnum*dddg))/dddg;
+}
+
+//Powerful Helper functions
+
+
+//find dddw. If dddc is a true value, it will try to find anything by the selector dddw.
+function sssf(dddw,dddc){  
+  if(!dddw&&!dddc){
+    dddw="aaaMAIN";
+  }
+  if(dddc){
+    if(!dddw){return document.querySelectorAll("*");}
+    else{return document.querySelectorAll(dddw);}
+  }
+  else{
+    return document.getElementById(dddw);
+  }
+}
+//creat a new dddwhat, named dddid. It will be put in dddwhere (0 will put it at the end of the document, and no dddwhere will put it in "aaaMAIN").
+function sssc(dddwhat,dddid,dddclass,dddwhere){
+    dddwhat=document.createElement(dddwhat);
+    dddwhat.id=dddid;
+    dddwhat.className=dddclass;
+    if(dddwhere===0){document.body.appendChild(dddwhat);}
+    else{sssf(dddwhere).appendChild(dddwhat);}
+}
+function sssk(dddid,dddt){
+  if(dddt){
+    dddt=sssf(dddid,dddt);
+    for(dddid=0;dddid<dddt.length;dddid++){
+      dddt[dddid].remove();
+    }
+  }
+  else{sssf(dddid).remove();}
+}
+//quick output
+var bbbquickc;
+bbbquickc=0;
+function sssquick(dddwhat){
+    bbbquickc++;
+    if(sssf("aaaouts")==null){
+        sssc("div","aaaouts","testel");
+        dddwhat="<br>Outputs ready:<br>"+dddwhat
+    }
+    ddd1=sssf("aaaouts");
+    ddd1.innerHTML+="Output # "+bbbquickc+"<br>"+dddwhat+"<br>";
+}
+function sssShrink(dddid){
+  var ddds=sssf(dddid);
+  if(ddds.innerHTML=="Shrink"){
+    sssf(dddid.replace("S","C")).className="listI shrinkCLASS";
+    ddds.innerHTML="Expand";
+  }
+  else{
+    sssf(dddid.replace("S","C")).className="listI";
+    ddds.innerHTML="Shrink";
+  }
+}
+
+//add an event listener (dddevent), to dddwhat, which does dddact.
+function sssAEL(dddwhat,dddevent,dddact){
+    sssquick([dddwhat,dddevent,dddact]);
+  dddwhat.addEventListener(dddevent,dddact)
+}
+
+
+//The Shrink "buttons"
+var bbbshrink=sssf(".listS",true);
+for(var i=0;i<bbbshrink.length;i++){
+eval('sssAEL(bbbshrink[i],"click",function(){sssShrink("'+bbbshrink[i].id+'");});');
+}    
+
+document.addEventListener("click",function(){sssquick("CLICK");});
+sssAEL(document,"copy",function(){sssquick("CLICK2");});
+
+</script></body></html>
