@@ -1,0 +1,211 @@
+<!DOCTYPE html><html id="aaaHTML"><head id="aaaHEAD">
+<meta charset="utf-8">
+<!--
+Please read copyright information at the end of this html. Here is a simple rund down of the copyright info:
+ 1 = Feel free to modify and reproduce my code, as long as you leave labels on anything by me of "made by Simanelix 343".
+ 2 = My content is NOT to be used by anyone except me for profit or transaction of currency, though you may advertise it.
+ 3 = When advertising, or reproducing my content, you may not include anything illegal (by US or international law)  in it.
+ 4 = #2 has an exception: my content may be used in transactions or for profit, if I have officially accepted it.
+ 5 = The actual copyright and legal info is at the bottom of this page!
+ 6 = Any code, HTML, or CSS not made by me has a comment saying:
+     "conetent by:"
+       <author>
+     "content is:"
+       <actual code / HTML / CSS / content>
+ 7 = All other code and content is made by me.
+-->
+<meta name="author" content="Simanelix">
+<title>I can write</title>
+<style id="aaaSTYLE">
+*{
+  padding:0;
+  margin:0;
+  box-sizing:border-box;
+}
+body{
+  background-color:#aaddff;
+  border:none !important;
+}
+#aaaMAIN{
+  /*aaaMAIN must contain everything*/
+  color:black;
+  font:30px/36px,sans serif;
+  display:box;
+  width:100%;
+  height:100%;
+  border:none !important;
+}
+</style></head><body id="aaaBODY"><div id="aaaMAIN">
+Story:
+</div><script id="aaaSCRIPT">
+
+//random number generation
+///bbbr1 and bbbr2 are the current "seeds".
+var bbbr1=20571996;
+var bbbr2=904000239;
+function sssr(ddd1,ddd2){
+  //check for parameters. The parameters will set the seeds to new values if they are there
+  if(typeof ddd1=="number"){bbbr1=ddd1;}
+  if(typeof ddd2=="number"){bbbr2=ddd2;}
+  //switch the 2 seeds
+  ddd1=bbbr2;
+  ddd2=bbbr1;
+  //store the 1st seed
+  bbbr1=ddds1;
+  //XOR shift, to "randomize" the 1st seed, using the 2nd seed
+  ddds1^=ddds1<<23;
+  ddds1^=ddds1>>17;
+  ddds1^=ddds0;
+  ddds1^=ddds0>>26;
+  //store the 1st seed
+  bbbr1=ddds1;
+  //turn our result into a float less than 1
+  return ((bbbr0+bbbr1)/(1<<29))%1;
+}
+
+
+
+
+//this is how many lines have been printed to the user.
+var bbbquick=0;
+//print a line to the user (ouput)
+function sssquick(dddstr){
+  document.getElementById("aaaMAIN").innerHTML+="<br>Ouput #"+bbbquick+":<br>"+dddstr;
+}
+
+
+//checks if a word matches another word (logically, by attributes)
+function sssCanBeSo(dddw1,dddw2){
+  var dddyes=false;
+  var dddw3;
+  var dddw4;
+  for(var i1=0;i1<dddw2.length;i1++){
+    sssquick("dddw2 at "+i1+" is:"+dddw2[i1]);
+    if(dddw2[i1].slice(0,5)=="must "){
+      sssquick("checking dddw3 for "+dddw2[i1].slice(5)+"...");
+      dddw3=dddw2[i1].slice(5).replace(/\W+/g,",").split(",");
+      sssquick("Our words pieces are "+dddw3);
+      dddw4=dddw2[i1].slice(5).replace(/^\w+/,"").replace(/\w+$/, "").replace(/\w+/g,",").split(",");
+      sssquick("Our words logic is "+dddw4);
+      var dddstate='dddw1.indexOf("'+dddw3[0]+'")>-1';
+      for(var i2=1;i2<dddw3.length;i2++){
+sssquick("building logic; at '"+dddstate+"' so far.");
+dddstate+=dddw4[i2-1] + 'dddw1.indexOf("'+dddw3[i2]+'")>-1';
+      }
+      sssquick("Let's check dddw2 for "+dddstate+"...");
+      eval('if('+dddstate+'){dddyes=true;}');
+    }
+  }
+  sssquick(dddw2+" does "+(dddyes?"":"not ")+"match "+dddw1);
+  return dddyes;
+}
+
+
+
+
+
+
+//the word generation function. This uses bbbwords, and some smart loops to turn dddstr into a complete sentence.
+
+var i;
+var _data={};
+var dddStr;
+var dddDo;
+function sssins(dddstr){
+  sssquick("_words is "+JSON.stringify(_words));
+  dddDo=[];
+  dddStr=[];
+  for(i=0;i<dddstr.length;i++){
+    sssquick("adding "+JSON.stringify(_words[dddstr[i]]._func)+" to action list.");
+    dddDo.push(_words[dddstr[i]]._func);
+  }
+  for(i=0;i<dddDo.length;i++){
+    dddDo[i]();
+  }
+  for(i=1;i<dddStr.length;i++){
+    dddStr[0]+=dddStr[i];
+  }
+  return dddStr[0];
+}
+
+//all words and all of their lovely functions
+var _words={
+  "noun":{
+    _func:function(){
+      _data._defNoun=true;
+      _data._currentNoun=_words["noun"]._list[Math.random() * _words["noun"]._list.length];
+       dddStr.push(_data._currentNoun)
+      _words["defArticle"]._func();
+    },
+    _list:[
+      {_base:"Dog",_info:[0,"alive","furry","social"]},
+      {_base:"Cat",_info:[0,"alive","furry","curious"]},
+      {_base:"Chair",_info:[0,"crafted","leg","back","sit in this","construct this"]}
+    ]
+  },
+  "verb":{
+    _func:function(){
+      dddStr.push("is");
+      if(_data._desc){dddDo.push(_words["adjective"]._func);}
+    },
+    _list:[
+      {_base:"",_info:[]}
+    ]
+  },
+  "adjective":{
+    _func:function(){
+      var dddsel=[];
+      var dddthis=_words["adjective"]._list;sssquick("dddthis is "+dddthis)
+      for(var i1=0;i1<dddthis.length;i1++){
+        if(sssCanBeSo(dddthis[i1]._info,_data._currentNoun._info)){dddsel.push(dddthis[i1]._base);}
+      }
+    dddStr.push(dddsel[Math.random()*dddsel.length]);
+    },
+    _list:[
+      {_base:"sleepy",_info:["must alive"]},
+      {_base:"broken",_info:[]},
+      {_base:"wooden",_info:["must crafted"]}
+    ]
+  },
+  "adverb": {
+    _func:function(){
+    },
+    _list:[
+      {_base:"",_info:[]}
+    ]
+  },
+  "defArticle": {
+    _func:function(){
+      
+    },
+    _list:[
+      {_base:"",_info:[]}
+    ]
+  },
+  "describe": {
+    _func:function(){
+      _data._desc=true;
+      _words["verb"]._func();
+    },
+    _list:[
+      {_base:"",_info:[]}
+    ]
+  }
+};
+
+
+
+
+
+//generate some stuff each time the user clicks
+document.addEventListener("click",function(){
+  sssquick("you clicked")
+  //sssquick(ssschoose(bbbwords["noun"].jjjc));
+  sssquick(sssins(["noun","describe"]));
+});
+
+
+sssquick(sssCanBeSo(["me","hello"],["must hi||hello"]));
+</script></body></html>
+
+
