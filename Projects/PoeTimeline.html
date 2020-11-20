@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Simon Willover">
+    <!--
+This HTML is made solely by Simon Willover. Feel free to copy and distribute, but don't make me look bad by doimg horrible or illagal things with my content. Also, none of this content is inteded to make profit off of anybody.
+Contact me by::
+  = Reddit: u/simanalix
+  = Discord: @Simanalix
+  = Youtube: Simon Willover
+  = Facebbook: Simon Willover
+  = sometimes I say Siman e lix, becuase some sites say Siman a lix is inappropriate
+    -->
+    <title>Poe Timeline</title>
+    <style>
+
+
+
+*{
+  margin:0px;
+  padding:0px;
+  box-sizing:border-box;
+}
+#aaaMAIN *{
+  text-shadow:2px 0px 2px rgba(244,244,244,0.5),0px 2px 2px rgba(244,244,244,0.5),-2px 0px 2px rgba(244,244,244,0.5);
+  font-size:32px;
+  font-family:serif
+}
+body,#aaaMAIN,#aaaBACK{
+  width:100%;
+  height:100%;
+}
+#aaaBACK{
+  
+}
+#aaaMAIN{
+  
+}
+#aaaconsole{
+  display:none
+}
+.line,.head{
+  border-radius:0.5em;
+}
+.line{
+  width:2em;
+  position:absolute;
+  left:0.5em;
+  top:0.2em;
+  bottom:0.2em;
+  border:3px dashed rgba(44,244,255,0.6);
+  background:linear-gradient(0deg,rgba(0,0,0,0),rgba(60,220,255,0.5),rgba(133,255,200,0.9)),repeating-linear-gradient(45deg,rgba(100,200,255,0),rgba(0,100,255,0.7) 1em,rgba(100,200,255,0) 2em);
+}
+.line .tab{
+  position:absolute;
+  width:0.6em;
+  height:0.2em;
+  left:1em;
+  background:transparent;
+  border-style:solid;
+  border-color:transparent transparent transparent blue;
+  border-width:0.2em 0em 0.2em 0.6em;
+}
+.head{
+  position:absolute;
+  left:3em;
+  right:0em;
+  top:0.25em;
+  height:1.5em;
+  color:red;
+}
+.head h1{
+  margin:0 0 auto;
+}
+.timeBox{
+  position:absolute;
+  background:radial-gradient(circle at 10% 65%,rgba(0,0,0,0) 0% 3%,rgba(66,66,66,0.2) 7%,rgba(77,77,77,0.8),rgba(0,0,0,0) 10%),radial-gradient(circle at 25% 20%,rgba(0,0,0,0) 0% 9%,rgba(66,66,66,0.5) 18%,rgba(44,44,44,0.7),rgba(0,0,0,0) 30%),radial-gradient(circle at 20% 90%,rgba(0,0,0,0) 0% 20%,rgba(66,66,66,0.4) 25%,rgba(44,44,44,0.2),rgba(0,0,0,0) 40%),radial-gradient(circle at 50% 20%,rgba(0,0,0,0) 0% 6%,rgb(66,66,66,0.5) 3%,rgba(44,44,44,0.1),rgba(0,0,0,0) 20%),radial-gradient(circle at 0% 70%,rgba(0,0,0,0) 0% 23%,rgba(66,66,66,0.3) 35%,rgba(44,44,44,0.3),rgba(0,0,0,0) 50%),radial-gradient(circle at 70% 15%,rgba(0,0,0,0) 0% 6%,rgba(66,66,66,0.9) 10%,rgba(11,11,11,0.4),rgba(0,0,0,0) 20%),radial-gradient(circle at 50% 80%,rgba(0,0,0,0) 0% 8%,rgba(66,66,66,0.5) 15%,rgba(44,44,44),rgba(0,0,0,0) 30%),radial-gradient(circle at 20% 20%,rgba(0,0,0,0) 0% 6%,rgba(66,66,66,0.2) 10%,rgba(44,44,44,0.3),rgba(0,0,0,0) 20%),linear-gradient(rgba(0,0,0,1),rgba(0,0,0,1));
+
+
+  border-radius:1em;
+  left:3.2em;
+  right:0.2em;
+  top:2em;
+  bottom:0.2em;
+}
+.time{
+  color:white;
+  text-shadow:4px 4px 8px blue,-4px 4px 8px cyan !important;
+  position:absolute;
+  left:0.4em;
+  right:0.2em;
+  top:0.4em;
+  bottom:0.2em;
+  opacity:0%;
+  transition:opacity 1s;
+}
+.fadeOut{
+  opacity:0%;
+  transition:opacity 1s;
+}
+.fadeIn{
+  opacity:100%;
+  transition:opacity 1s;
+}
+.hover.left.label{
+  position:relative;
+  top:-0.55em;
+  left:-3.2rem;
+  font-size:12px !important;
+  overflow:visible;
+}
+    </style>
+  </head>
+  <body>
+    <div id="aaaBACK">
+      <div id="aaaMAIN">
+
+
+
+
+
+<div id="aaaconsole"></div>
+
+      </div>
+    </div>
+    <script>
+
+var o={}
+var bbbelC=0;
+
+if(true){
+  let ddd=document.querySelectorAll("#aaaBACK *");
+  for(let i=0;i<ddd.length;i++){
+    if(!ddd[i].id.length){
+      ddd[i].id="aaa"+ddd[i].localName+(bbbelC++);
+    }
+    ddd[i].id=ddd[i].id.replace(/^(?!aaa)/,"aaa$&");
+    o["bbb"+ddd[i].id.slice(3)]={
+      0:ddd[i],
+      jjjref:"bbb"+ddd[i].id.slice(3),
+      jjjEL:{},
+      jjjELC:0
+    };
+  }
+}
+console.log("this is the main object",o);
+var bbblogmode=1;
+function f(dddid){
+  return o["bbb"+dddid];
+}
+function sssAEL(dddid,dddtype,dddfunction,dddname,dddbubble){
+  o["bbb"+dddid][0].addEventListener(dddtype,dddfunction,dddbubble);
+  if(dddname===undefined || dddname==""){
+    dddname="function"+(o["bbb"+dddid].jjjELC++);
+  }
+  o["bbb"+dddid].jjjEL["jjj"+dddname]={jjjtype:dddtype,jjjf:dddfunction};
+}
+function sssREL(dddid,dddname){
+  let ddd=f(dddid);
+  if(dddname===undefined){
+    for(let i in ddd.jjjEL){
+      ddd[0].removeEventListener(
+      ddd.jjjEL[i].jjjtype,
+      ddd.jjjEL[i].jjjf
+    );
+    }
+    f(dddid).jjjEL={};
+  }
+  else{
+    ddd[0].removeEventListener(
+      ddd.jjjEL["jjj"+dddname].jjjtype,
+      ddd.jjjEL["jjj"+dddname].jjjf
+    );
+    f(dddid).jjjEL["jjj"+dddname]=undefined;
+  }
+}
+
+var bbbOnFrame=[
+  [],[],0
+];
+var bbbdone=true
+var bbbFPS=100;
+var bbbfps=bbbFPS;
+var bbbexpected=0;
+var bbbframes=0;
+var bbbstartTime=new Date();
+var bbbstarttime=bbbstartTime.getTime();
+function sssFrame(){
+  if(bbbdone){
+    bbbdone=false;
+    bbbexpected+=bbbFPS;
+    bbbTime=new Date();
+    bbbtime=bbbTime.getTime();
+    while(bbbframes*62.5<bbbexpected){
+      bbbframes++;
+      for(let i=0;i<bbbOnFrame[1].length;i++){
+        bbbOnFrame[1][i]();
+      }
+    }
+    bbbdone=true;
+  }
+}
+window.setInterval(sssFrame,16);
+function sssOnFrame(dddf,dddname){
+  if(typeof dddname=="number"){
+    if(dddname<bbbOnFrame[2]){
+      dddname=bbbOnFrame[2];
+    }
+    else{
+      bbbOnFrame[2]=Math.round(dddname);
+    }
+  }
+  else if((typeof dddname=="string")?(dddname.length>0):(false)){
+    dddname=dddname.replace(/[^a-zA-Z0-9_]/g)
+  }
+  else{
+    dddname=bbbOnFrame[2];
+  }
+  let dddi=bbbOnFrame[0].indexOf(dddname);
+  if(dddi===-1){
+    bbbOnFrame[0].push(dddname)
+    bbbOnFrame[1].push(dddf);
+  }
+  else{
+    bbbOnFrame[1][dddi]=dddf;
+  }
+}
+var bbbupdaterC=0;
+function sssupdater(dddid,dddtxt){
+  f(dddid).jjjtxt=dddtxt;
+  let dddre=/\[(?<=\[)(\\\]|[^\]])*?(?=\])\]/;
+  let dddr=dddtxt.match(dddre);console.log(dddr)
+  let noLoop=0;
+  while(dddr!=null){
+    dddtxt=dddtxt.replace(dddr[0],"\"+("+dddr[0].replace(/\\(\[|\])/g,"$1").slice(1,-1)+")+\"");
+    console.log((noLoop+=1)+" : "+dddtxt);
+    if(noLoop>10){break;}
+    dddr=dddtxt.match(dddre);
+  }
+  eval("sssOnFrame(function(){f(\""+dddid+"\")[0].innerHTML=\""+dddtxt+" \" ;},\"updater\"+(bbbupdaterC+=1));");
+}
+var logC=0;
+function ssslog(dddwhat){
+  if(typeof dddwhat!=="object"){dddwhat=[dddwhat];}
+  for(let i in dddwhat){
+    if(bbblogmode){console.log(dddwhat[i]);}
+    f("console")[0].innerHTML+="<div class=\"par\">Output #"+(logC++)+":<div class=\"par\">"+dddwhat[i]+"</div></div>";
+  }
+}
+
+ssslog("testing...")
+
+var g={};
+
+function sssc(dddel,dddid,dddclass,dddparent){
+  dddel=document.createElement(dddel);
+  dddid=(
+    (dddid.length)?(dddid):(dddel.localName+(bbbelC++))
+  );
+  dddel.id="aaa"+dddid;
+  dddel.className=dddclass;
+  if(dddparent===undefined||dddparent==null||dddparent===""){dddparent="MAIN";}
+  f(dddparent)[0].appendChild(dddel);
+  o["bbb"+dddid]={
+    0:dddel,
+    jjjref:"bbb"+dddid,
+    jjjEL:{},
+    jjjELC:0
+  };
+  return dddel;
+}
+let timeline={
+  1809:"Poe is born on January 19th.",
+  1811:"Poe’s mother dies. John Allen adopts Poe, and names him <i>Edgar Allen Poe</i>.",
+  1825:"Poe becomes obsessed with Jane Stith Craig Stanard.",
+  1826:"Poe starts college at the University of Virginia.",
+  1827:"Poe joins the military and asks a printer to publish a book of his.",
+  1828:"Poe becomes an Artificer in the military.",
+  1829:"Poe becomes a Sergeant Major in the military. Poe’s stepmother dies. Poe makes another book of poems.",
+  1830:"Poe goes to West Point and excels in language.",
+  1831:"Poe skips classes on purpose and gets expelled.",
+  1832:"Poe moves in with his grandma.",
+  1833:"Poe wins a poem content and his poetry finally gets some recognition.",
+  1834:"Poe’s step dad, who adopted him, dies.",
+  1835:"Poe joins the <i>Southern Library Messenger</i> staff, and helps the magazine get popularity.",
+  1836:"Virginia Clemm becomes Poe’s wife. Poe tries publish his new book <i>Tales of the Folio Club</i>, but has poor luck.",
+  1837:"Pe quits working for the <i>Southern Library Messenger</i> and takes his family to New York.",
+  1838:"Poe writes and publishes his 1st novel: <i>The Narrative of Arthur Gordon Pym</i>. Poe is still having money problems though, and considers moving away from writing.",
+  1840:"Poe tries to start his own magazine, but can’t.",
+  1841:"Poe joins <i>Graham’s Magazine</i> and writes detective stories for it that get the magazine lots of popularity.",
+  1842:"Poe keeps writing, and quits working for <i>Graham’s Magazine</i>.",
+  1843:"Poe writes <i>The Gold Bug</i>, and it becomes popular. Poe is finally getting some fame.",
+  1845:"Poe writes <i>The Raven</i> and it is super popular. Poe is recognized by <i>Graham’s</i>, and starts being successful in life.",
+  1846:"Illness and depression force Poe to halt <i>The Broadway Journal</i>. Poe still keeps writing poems, stories and satirical works.",
+  1847:"Poe’s wife, Virginia Poe, dies of Tuberculosis, 5 years after showing symptoms of it. Poe begins an interest in cosmology.",
+  1848:"Poe starts giving lectures in various places, and gets praise for the quality of his lectures.",
+  1849:"Poe begins to feel sick, and dies on October 7th.",
+};
+var minTime=1800,maxTime=1850;
+var sequence=[];
+let ddd,dddi=0;
+var line=sssc("div","line","line");
+sssc("div","timesBox","timeBox");
+for(let i in timeline){
+  ddd=sssc("div","time"+i,"time","timesBox");
+  ddd.style.display="none";
+  ddd.innerHTML="<h3>"+i+"</h3>"+timeline[i];
+  o["bbbtime"+i].jjjtime=i;
+  sequence.push([parseInt(i),"bbbtime"+i,ddd]);
+  ddd=sssc("div","tab"+dddi,"tab","line")
+  ddd.style.top="calc("+(100*(i-minTime)/(maxTime-minTime))+"% - 0.25em)";
+  ddd.innerHTML="<div class=\"hover left label\">"+i+"</div>";
+  dddi++;
+}
+
+var bbblast=sequence[0][2];
+bbblast.style.display="block";
+bbblast.className="time fadeIn";
+var bbblasti=0;
+sssAEL("line","mousemove",function(e){
+  let dddn=minTime+(maxTime-minTime)*(e.clientY/line.offsetHeight);
+  let dddd=maxTime;
+  dddi=0;
+  for(let i=0;i<sequence.length;i++){
+    if(Math.abs(sequence[i][0]-dddn)<=dddd){
+      dddd=Math.abs(sequence[i][0]-dddn);
+      dddi=i;
+    }
+  }
+  if(dddi!==bbblasti){
+    let dddlast=bbblast;
+    dddlast.className="time";
+    window.setTimeout(function(){
+      dddlast.style.display="none";
+    },10000);
+    bbblast=sequence[dddi][2];
+    bbblast.style.display="block";
+    bbblast.className="time fadeIn";
+  }
+});
+sssc("div","head","head").innerHTML="<h1>Poe Timeline</h1>";
+    </script>
+  </body>
+</html>
