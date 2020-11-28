@@ -454,7 +454,6 @@ var sssclick=function(){
   }
   let ddd=bbbTime;
   ddd.setTime(ddd.getTime()+(365000*86400000));
-  document.cookie="bbbcookie="+JSON.stringify(s[0])+";"+"expires="+ddd.toUTCString()+";path=/";
   if(bbbexpClick){
     bbbexpClick=false;
     bbbtxt.value=document.cookie.slice(10);
@@ -465,7 +464,7 @@ var sssclick=function(){
       s[0]=JSON.parse(bbbtxt.value)
     }
   }
-  
+  document.cookie="bbbcookie="+JSON.stringify(s[0])+";"+"expires="+ddd.toUTCString()+";path=/";
 };
 sssOnFrame(sssclick,"input_check_next");
 
