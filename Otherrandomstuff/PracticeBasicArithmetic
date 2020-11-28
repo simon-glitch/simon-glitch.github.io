@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Simon Willover">
+    <!--
+This HTML is made solely by Simon Willover. Feel free to copy and distribute, but don't make me look bad by doimg horrible or illagal things with my content. Also, none of this content is inteded to make profit off of anybody.
+Contact me by::
+  = Reddit: u/simanalix
+  = Discord: @Simanalix
+  = Youtube: Simon Willover
+  = Facebbook: Simon Willover
+  = sometimes I say Siman e lix, becuase some sites say Siman a lix is inappropriate
+    -->
+    <title>Practice Basic Arithmetic</title>
+    <style>
+
+
+
+*{
+  margin:0px;
+  padding:0px;
+  box-sizing:border-box;
+}
+#aaaMAIN *{
+  text-shadow:2px 0px 2px rgba(244,244,244,0.5),0px 2px 2px rgba(244,244,244,0.5),-2px 0px 2px rgba(244,244,244,0.5);
+  font-size:24px;
+  font-family:sans-serif
+}
+body,#aaaMAIN,#aaaBACK{
+  position:absolute;
+  width:100%;
+  height:100%;
+}
+#aaaBACK{
+  background-image:conic-gradient(rgba(255,0,0,1),rgba(199,155,0,1),rgba(0,188,0,1),rgba(33,55,255,1),rgba(166,0,244,1),rgba(255,0,0,1));
+}
+#aaaMAIN{
+  background-image:radial-gradient(farthest-side,rgba(200,200,200,1),rgba(200,200,200,0));
+}
+#aaaleft,#aaaright{
+  display:inline-block;
+  width:50%;
+  position:relative;
+}
+.block{
+  display:block;
+  width:100%;
+}
+.normalHeight{
+  height:2em;
+  border-radius:1em;
+  border:none;
+  padding:0.2em;
+}
+div.normalHeight{
+  background-color:#aaf;
+}
+input.normalHeight{
+  background-color:lime;
+}
+button.normalHeight{
+  background-color:cyan;
+}
+.normalHeight:focus{
+  outline:none;
+  border-radius:0.5em;
+  border:1px solid blue;
+}
+#aaascore{
+  height:12em;
+}
+    </style>
+  </head>
+  <body>
+    <div id="aaaBACK">
+      <div id="aaaMAIN">
+
+
+
+
+
+<div id="aaaconsole"></div>
+
+      </div>
+    </div>
+    <script>
+
+var o={}
+var bbbelC=0;
+
+if(true){
+  let ddd=document.querySelectorAll("#aaaBACK *");
+  for(let i=0;i<ddd.length;i++){
+    if(!ddd[i].id.length){
+      ddd[i].id="aaa"+ddd[i].localName+(bbbelC++);
+    }
+    o["bbb"+ddd[i].id.replace(/^aaa/,"")]={
+      0:ddd[i],
+      jjjref:"bbb"+ddd[i].id.slice(3),
+      jjjEL:{},
+      jjjELC:0
+    };
+  }
+}
+console.log("this is the main object",o);
+var bbblogmode=1;
+function f(dddid){
+  return o["bbb"+dddid];
+}
+function sssAEL(dddid,dddtype,dddfunction,dddname,dddbubble){
+  o["bbb"+dddid][0].addEventListener(dddtype,dddfunction,dddbubble);
+  if(dddname===undefined || dddname==""){
+    dddname="function"+(o["bbb"+dddid].jjjELC++);
+  }
+  o["bbb"+dddid].jjjEL["jjj"+dddname]={jjjtype:dddtype,jjjf:dddfunction};
+}
+function sssREL(dddid,dddname){
+  let ddd=f(dddid);
+  if(dddname===undefined){
+    for(let i in ddd.jjjEL){
+      ddd[0].removeEventListener(
+      ddd.jjjEL[i].jjjtype,
+      ddd.jjjEL[i].jjjf
+    );
+    }
+    f(dddid).jjjEL={};
+  }
+  else{
+    ddd[0].removeEventListener(
+      ddd.jjjEL["jjj"+dddname].jjjtype,
+      ddd.jjjEL["jjj"+dddname].jjjf
+    );
+    f(dddid).jjjEL["jjj"+dddname]=undefined;
+  }
+}
+var bbbOnFrame=[
+  [],[],0
+];
+var bbbdone=true
+var bbbFPS=100;
+var bbbfps=bbbFPS;
+var bbbexpected=0;
+var bbbframes=0;
+var bbbstartTime=new Date();
+var bbbstarttime=bbbstartTime.getTime();
+function sssFrame(){
+  if(bbbdone){
+    bbbdone=false;
+    bbbexpected+=bbbFPS;
+    bbbTime=new Date();
+    bbbtime=bbbTime.getTime();
+    while(bbbframes*62.5<bbbexpected){
+      bbbframes++;
+      for(let i=0;i<bbbOnFrame[1].length;i++){
+        bbbOnFrame[1][i]();
+      }
+    }
+    bbbdone=true;
+  }
+}
+window.setInterval(sssFrame,16);
+/*window.setInterval(function(){
+  console.log(bbbframes/((bbbtime.getTime()-bbbstartTime.getTime())/1000));
+},1000);*/
+
+function sssOnFrame(dddf,dddname){
+  if(typeof dddname=="number"){
+    if(dddname<bbbOnFrame[2]){
+      dddname=bbbOnFrame[2];
+    }
+    else{
+      bbbOnFrame[2]=Math.round(dddname);
+    }
+  }
+  else if((typeof dddname=="string")?(dddname.length>0):(false)){
+    dddname=dddname.replace(/[^a-zA-Z0-9_]/g)
+  }
+  else{
+    dddname=bbbOnFrame[2];
+  }
+  let dddi=bbbOnFrame[0].indexOf(dddname);
+  if(dddi===-1){
+    bbbOnFrame[0].push(dddname)
+    bbbOnFrame[1].push(dddf);
+  }
+  else{
+    bbbOnFrame[1][dddi]=dddf;
+  }
+}
+var bbbupdaterC=0;
+function sssupdater(dddid,dddtxt){
+  f(dddid).jjjtxt=dddtxt;
+  let dddre=/\[(?<=\[)(\\\]|[^\]])*?(?=\])\]/;
+  let dddr=dddtxt.match(dddre);console.log(dddr)
+  let noLoop=0;
+  while(dddr!=null){
+    dddtxt=dddtxt.replace(dddr[0],"\"+("+dddr[0].replace(/\\(\[|\])/g,"$1").slice(1,-1)+")+\"");
+    console.log((noLoop+=1)+" : "+dddtxt);
+    if(noLoop>10){break;}
+    dddr=dddtxt.match(dddre);
+  }
+  eval("sssOnFrame(function(){f(\""+dddid+"\")[0].innerHTML=\""+dddtxt+" \" ;},\"updater\"+(bbbupdaterC+=1));");
+}
+var logC=0;
+function ssslog(...dddwhat){
+  for(let i in dddwhat){
+    if(bbblogmode){console.log(dddwhat[i]);}
+    f("console")[0].innerHTML+="<div class=\"par\">Output #"+(logC++)+":<div class=\"par\">"+dddwhat[i]+"</div></div>";
+  }
+}
+
+ssslog("testing...")
+
+var g={};
+
+function sssc(dddel,dddid,dddclass,dddparent){
+  dddel=document.createElement(dddel);
+  dddid=(
+    (dddid.length)?(dddid):(dddel.localName+(bbbelC++))
+  );
+  dddel.id="aaa"+dddid;
+  dddel.className=dddclass;
+  if(dddparent===undefined||dddparent==null||dddparent===""){dddparent="MAIN";}
+  let ddd=f(dddparent)
+  if(ddd==null){console.log(dddparent+" is not an existing thing.");return;}
+  else{ddd[0].appendChild(dddel);}
+  o["bbb"+dddid]={
+    0:dddel,
+    jjjref:"bbb"+dddid,
+    jjjEL:{},
+    jjjELC:0
+  };
+  return dddel;
+}
+function sssSelect(dddname,dddoptions,dddf,dddclass,dddparent){
+  let dddel=document.createElement("select");
+  dddname=(
+    (dddname.length)?(dddname):(dddel.localName+(bbbelC++))
+  );
+  dddel.id="aaa"+dddname;
+  dddel.className=dddclass;
+  if(dddparent===undefined||dddparent==null||dddparent===""){dddparent="MAIN";}
+  let ddd=f(dddparent)
+  if(ddd==null){
+    console.log(dddparent+" is not an existing thing.");
+    return;
+  }
+  else{
+    ddd[0].appendChild(dddel);
+  }
+  for(let i=1;i<dddoptions.length;i++){
+    if(typeof dddoptions[i]=="object"){
+      dddel.innerHTML+="<option value=\""+dddoptions[i][1]+"\">"+dddoptions[i][0]+"</option>";
+    }
+    else{
+      dddel.innerHTML+="<option value=\""+dddoptions[i]+"\">"+dddoptions[i]+"</option>";
+    }
+  }
+  dddel.addEventListener("input",dddf);
+  o["bbb"+dddname]={
+    0:dddel,
+    jjjref:"bbb"+dddname,
+    jjjEL:{},
+    jjjELC:0
+  };
+  return dddel;
+}
+
+/*variable set up*/
+var number1=1,number2=1,number3=2,O=1,D=4
+
+var s=[
+  ["Scores"],
+  ["Difficulty choice",["Genius",1],["Super Smart",2],["Hard",3],["Normal",4],["Easy",5],["Extra Easy",6],["Me Be Monkey",7]],
+  ["Operators",["+",1],["-",2],["×",3],["÷",4],["^",5]],
+  ["Check correctness functions",
+    function(){return number3-(number1+number2)<1 && number3-(number1+number2)>-1;},
+    function(){return number3-Math.abs(number1-number2)<1 && number3-Math.abs(number1+number2)>-1;},
+    function(){return number3/(number1*number2)<1.001 && number3/(number1+number2)>0.999;},
+    function(){return number3/(number1/number2)<1.001 && number3/(number1+number2)>0.999;},
+    function(){return Math.log(number3)/Math.log(Math.pow(number1,number2))<1.001 && Math.log(number3)/Math.log(Math.pow(number1,number2))>0.999;}
+  ],
+  ["Get new number functions",
+    function(){
+      return [Math.floor(Math.random()*s[0][D][O][5]),Math.floor(Math.random()*s[0][D][O][5])];
+    },
+    function(){
+      return [Math.floor(Math.random()*s[0][D][O][5]),Math.floor(Math.random()*s[0][D][O][5])];
+    },
+    function(){
+      return [Math.floor(Math.random()*s[0][D][O][5]),Math.floor(Math.random()*s[0][D][O][5])];
+    },
+    function(){
+      return [Math.floor(Math.random()*s[0][D][O][5]),1+Math.floor(Math.random()*Math.sqrt(s[0][D][O][5]))];
+    },
+    function(){
+      return [Math.floor(Math.random()*s[0][D][O][5])/s[0][D][O][5],Math.floor(Math.random()*s[0][D][O][5])/s[0][D][O][5]];
+    }
+  ],
+  /*speed requirements*/[0,0.1,0.2,0.5,1,2,5,10]
+];
+/*s[0][difficulty][operator] to get a score*/
+for(let i=1;i<s[1].length+1;i++){
+  s[0][i]=[0];
+  for(let ii=1;ii<s[2].length+1;ii++){
+    s[0][i][ii]=[
+      /*accuracy*/[1],
+      /*average acxuracy*/1,
+      /*time taken*/[1],
+      /*avaerage speed*/1,
+      /*score*/100,
+      /*number range*/10,
+      /*number range length*/4,
+      /*number range increase buffer*/8
+    ];
+  }
+}
+
+/*import / export*/
+sssc("div","left","");
+var bbbope,bbbdif;
+bbbdif=sssSelect("difficulty",s[1],function(){
+  bbbBtnClick=true;
+  bbbcalc=false;
+},"block normalHeight","left");
+bbbdif.value=D;
+var bbbDiv=sssc("div","score","block normalHeight","left");
+var bbbexp=sssc("button","exp","block normalHeight","left");
+bbbexp.innerHTML="《Export》";
+var bbbtxt=sssc("input","txt","block normalHeight","left");
+bbbtxt.type="text";
+var bbbimp=sssc("button","imp","block normalHeight","left");
+bbbimp.innerHTML="《Import》";
+var bbbexpClick=true
+bbbexp.addEventListener("click",function(){
+  bbbexpClick=true;
+});
+var bbbimpClick=true
+bbbimp.addEventListener("click",function(){
+  bbbimpClick=true;
+});
+
+/*basic buttons*/
+sssc("div","right","");
+var bbbn1=sssc("div","n1","block normalHeight","right");
+bbbope=sssSelect("operator",s[2],function(){
+  bbbBtnClick=true;
+  bbbcalc=false;
+},"block normalHeight","right");
+bbbope.value=O;
+var bbbn2=sssc("div","n1","block normalHeight","right");
+sssc("div","equals","block normalHeight","right").innerHTML="=";
+var bbbn3=sssc("input","n3","block normalHeight","right");
+bbbn3.type="number";
+bbbn3.addEventListener("keyup",function(e){
+  if(e.key==="Enter"){
+    bbbBtnClick=true;
+  }
+})
+var bbbBtn=sssc("button","Btn","block normalHeight","right");
+bbbBtn.innerHTML="《Next》"
+var bbbcalc=false;
+var bbbBtnClick=false;
+bbbBtn.addEventListener("click",function(){
+  bbbBtnClick=true;
+});
+
+
+var checkCalc=[0,
+  function(){return number3==number1+number2;},
+  function(){return number3==number1-number2;},
+  function(){return (number1*number2===0?number3===0:(number3>0.999*number1*number2 && number3<1.001*number1*number2));},
+  function(){return (number1===0?number3===0:(number3>0.999*number1/number2 && number3<1.001*number1/number2));}
+];
+
+/*《check》and《next》button*/
+var bbblastTime;
+var s_3=s[3];
+var s_4=s[4];
+var s_regex=JSON.stringify(s[0]).replace(/(?<=(\\\\)*)\\"/g,"\"").replace(/[0-9_]+(\.[0-9_]+)?/g,"[0-9_]+(\\.[0-9_]+)?");
+console.log(s_regex);
+var sssnextNN=function(){
+  O=Math.max(0,bbbope.value);
+  D=bbbdif.value;
+  bbblastTime=bbbtime;
+  /*toggle between《check》and《next》*/
+  bbbcalc=true;
+  bbbBtn.innerHTML="《Check Calculation》";
+  /*set up new random numbers*/
+  number1=s[4][O]();
+  number2=number1[1];
+  number1=number1[0];
+  bbbn1.innerHTML=number1;
+  bbbn2.innerHTML=number2;
+}
+var sssclick=function(){
+  if(bbbBtnClick){
+    bbbBtnClick=false;
+    number3=parseFloat(bbbn3.value);
+    bbbn3.value="";
+    if(bbbcalc){
+      /*toggle between《check》and《next》*/
+      bbbcalc = false;
+      bbbBtn.innerHTML="《Next》";
+      /*get speed*/
+      sp=bbbtime-bbblastTime;
+      /*record speed*/
+      for(let i=Math.min(s[0][D][O][2].length,99);i>0;i--){
+        s[0][D][O][2][i]=s[0][D][O][2][i-1];
+      }
+      s[0][D][O][2][0]=sp;
+      /*get accuracy*/
+      ac=checkCalc[O]();
+      /*record accuracy*/
+      for(let i=Math.min(s[0][D][O][0].length,99);i>0;i--){
+        s[0][D][O][0][i]=s[0][D][O][0][i-1];
+      }
+      s[0][D][O][0][0]=ac+0;
+      /*update score*/
+      s[0][D][O][4]+=Math.round(ac?(100000/sp):((0-sp)/100));
+      /*find new average accuracy*/
+      s[0][D][O][1]=0;
+      for(let i=0;i<s[0][D][O][0].length;i++){
+        s[0][D][O][1]+=s[0][D][O][0][i];
+      }
+      s[0][D][O][1]=Math.round(100*s[0][D][O][1]/s[0][D][O][0].length);
+      /*find new average speed*/
+      s[0][D][O][3]=0;
+      for(let i=0;i<s[0][D][O][2].length;i++){
+        s[0][D][O][3]+=s[0][D][O][2][i];
+      }
+      s[0][D][O][3]=Math.round(s[0][D][O][3]/s[0][D][O][2].length)/1000;
+      /*tell user their score(s)*/
+      bbbDiv.innerHTML="Score:"+s[0][D][O][4]+"<br>Average accuracy: "+s[0][D][O][1]+"%<br>Average Speed: "+s[0][D][O][3]+" seconds<br>You did that last operation "+(ac?"correctly":"wrong")+",<br>and took "+(sp/1000)+"seconds to do so.";
+      /*make numbers bigger if appropriate*/
+
+      if((s[0][D][O][7]-=1)<1 && s[0][D][O][1]>90 && s[0][D][O][3]/1000<s[5][D]*s[0][D][O][6]){
+        s[0][D][O][7]=8;
+        s[0][D][O][6]+=2;
+        s[0][D][O][5]*=10;
+      }
+      else if((s[0][D][O][1]<50 || s[0][D][O][3]/1000>2*s[5][D]*s[0][D][O][6] ) && s[0][D][O][6]>4 && !ac){
+        s[0][D][O][7]=12;
+        s[0][D][O][6]-=2;
+        s[0][D][O][5]/=10;
+        s[0][D][O][4]-=Math.round(sp/11);
+      }
+      
+    }
+    else{
+      sssnextNN();
+    }
+  }
+  let ddd=bbbTime;
+  ddd.setTime(ddd.getTime()+(365000*86400000));
+  document.cookie="bbbcookie="+JSON.stringify(s[0])+";"+"expires="+ddd.toUTCString()+";path=/";
+  if(bbbexpClick){
+    bbbexpClick=false;
+    bbbtxt.value=document.cookie.slice(10);
+  }
+  if(bbbimpClick){
+    bbbimpClick=false;
+    if(bbbtxt.value.length>0){
+      s[0]=JSON.parse(bbbtxt.value)
+    }
+  }
+  
+};
+sssOnFrame(sssclick,"input_check_next");
+
+
+
+    </script>
+  </body>
+</html>
