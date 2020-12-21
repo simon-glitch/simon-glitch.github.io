@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Simon Willover">
+    <!--
+This HTML is made solely by Simon Willover. Feel free to copy and distribute, but don't make me look bad by doing horrible or illagal things with my content. Also, none of this content is inteded to make profit off of anybody.
+Contact me by::
+  = Reddit: u/simanalix
+  = Discord: @Simanalix
+  = Youtube: Simon Willover
+  = Facebbook: Simon Willover
+  = sometimes I say Siman e lix, becuase some sites say Siman a lix is inappropriate
+    -->
+    <title id="aaaTITLE">IGM</title>
+    <style>
+
+
+
+*{
+  margin:0px;
+  padding:0px;
+  box-sizing:border-box;
+}
+#aaaMAIN *{
+  text-shadow:2px 0px 2px rgba(244,244,244,0.5),0px 2px 2px rgba(244,244,244,0.5),-2px 0px 2px rgba(244,244,244,0.5);
+  font-size:20px;
+  font-family:sans-serif
+}
+body,#aaaMAIN,#aaaBACK{
+  position:absolute;
+  width:100%;
+  height:100%;
+}
+#aaaBACK{
+  background-image:conic-gradient(rgba(255,0,0,1),rgba(199,155,0,1),rgba(0,188,0,1),rgba(33,55,255,1),rgba(166,0,244,1),rgba(255,0,0,1));
+}
+#aaaMAIN{
+  background-image:radial-gradient(farthest-side,rgba(200,200,200,1),rgba(200,200,200,0));
+}
+#aaaconsole{
+  display:none;
+}
+#aaain{
+  border:10px double red;
+  height:10em;
+  overflow-y:scroll;
+}
+#aaaload,#aaasave,#aaaplay,#aaavia div{
+  border-radius:0.5em;
+  background-color:#beb;
+  margin:0.2em;
+  padding:0.25em;
+}
+#aaaplay{
+  background-image:repeating-linear-gradient(-60deg,#e12f2f,#ed7197 60px,#f48ccb 140px,#e12f2f 200px);
+  border:4px solid #db3f5c;
+}
+#aaaviabox{
+  display:none;
+  justify-content:center;
+  align-items:center;
+  width:100%;
+  height:100%;
+  position:absolute;
+  z-index:1000;
+}
+#aaavia{
+  position:absolute;
+  border-radius:0.75em;
+  padding:1em;
+  border-color:#116;
+  background-color:#557;
+}
+#aaaviabox.active{
+  display:flex;
+}
+    </style>
+  </head>
+  <body>
+    <div id="aaaBACK">
+      <div id="aaaMAIN">
+
+<div id="in">Type your game file in here.</div>
+
+<div id="load">Load a saved game</div>
+<div id="save">Save this game</div>
+<div id="viabox">
+  <div id="via">
+    <div id="viahowto"></div>
+    <div id="viacookie"></div>
+    <div id="viafile"></div>
+  </div>
+</div>
+<div id="share">《Share button》</div>
+<div id="play">Play Game!</div>
+<div id="out">The game itself</div>
+
+<div id="console"></div>
+
+      </div>
+    </div>
+    <script>
+var messages=[
+  ["You can load a game's code from your web cookie, or a file on your computer","Load from web cookie","Upload file"],
+  ["You can save this game's code in the web cookie or on your computer","Save to cookie","Download .txt file"]
+];
+
+
+var o={}
+var bbbelC=0;
+
+if(true){
+  let ddd=document.querySelectorAll("title,#aaaBACK *");
+  for(let i=0;i<ddd.length;i++){
+    if(!ddd[i].id.length){
+      ddd[i].id="aaa"+ddd[i].localName+(bbbelC++);
+    }
+    ddd[i].id=ddd[i].id.replace(/^(?!aaa)/,"aaa$&");
+    o["bbb"+ddd[i].id.slice(3)]={
+      0:ddd[i],
+      jjjref:"bbb"+ddd[i].id.slice(3),
+      jjjEL:{},
+      jjjELC:0
+    };
+  }
+}
+console.log("this is the main object",o);
+var bbblogmode=1;
+function f(dddid){
+  return o["bbb"+dddid];
+}
+function sssAEL(dddid,dddtype,dddfunction,dddname,dddbubble){
+  o["bbb"+dddid][0].addEventListener(dddtype,dddfunction,dddbubble);
+  if(dddname===undefined || dddname==""){
+    dddname="function"+(o["bbb"+dddid].jjjELC++);
+  }
+  o["bbb"+dddid].jjjEL["jjj"+dddname]={jjjtype:dddtype,jjjf:dddfunction};
+}
+function sssREL(dddid,dddname){
+  let ddd=f(dddid);
+  if(dddname===undefined){
+    for(let i in ddd.jjjEL){
+      ddd[0].removeEventListener(
+      ddd.jjjEL[i].jjjtype,
+      ddd.jjjEL[i].jjjf
+    );
+    }
+    f(dddid).jjjEL={};
+  }
+  else{
+    ddd[0].removeEventListener(
+      ddd.jjjEL["jjj"+dddname].jjjtype,
+      ddd.jjjEL["jjj"+dddname].jjjf
+    );
+    f(dddid).jjjEL["jjj"+dddname]=undefined;
+  }
+}
+
+var bbbOnFrame=[
+  [],[],0
+];
+var bbbdone=true
+var bbbFPS=100;
+var bbbfps=bbbFPS;
+var bbbexpected=0;
+var bbbframes=0;
+var bbbstartTime=new Date();
+var bbbstarttime=bbbstartTime.getTime();
+function sssFrame(){
+  if(bbbdone){
+    bbbdone=false;
+    bbbexpected+=bbbFPS;
+    bbbTime=new Date();
+    bbbtime=bbbTime.getTime();
+    while(bbbframes*62.5<bbbexpected){
+      bbbframes++;
+      for(let i=0;i<bbbOnFrame[1].length;i++){
+        bbbOnFrame[1][i]();
+      }
+    }
+    bbbdone=true;
+  }
+}
+window.setInterval(sssFrame,16);
+function sssOnFrame(dddf,dddname){
+  if(typeof dddname=="number"){
+    if(dddname<bbbOnFrame[2]){
+      dddname=bbbOnFrame[2];
+    }
+    else{
+      bbbOnFrame[2]=Math.round(dddname);
+    }
+  }
+  else if((typeof dddname=="string")?(dddname.length>0):(false)){
+    dddname=dddname.replace(/[^a-zA-Z0-9_]/g)
+  }
+  else{
+    dddname=bbbOnFrame[2];
+  }
+  let dddi=bbbOnFrame[0].indexOf(dddname);
+  if(dddi===-1){
+    bbbOnFrame[0].push(dddname)
+    bbbOnFrame[1].push(dddf);
+  }
+  else{
+    bbbOnFrame[1][dddi]=dddf;
+  }
+}
+var bbbupdaterC=0;
+function sssupdater(dddid,dddtxt){
+  f(dddid).jjjtxt=dddtxt;
+  let dddre=/\[(?<=\[)(\\\]|[^\]])*?(?=\])\]/;
+  let dddr=dddtxt.match(dddre);console.log(dddr)
+  let noLoop=0;
+  while(dddr!=null){
+    dddtxt=dddtxt.replace(dddr[0],"\"+("+dddr[0].replace(/\\(\[|\])/g,"$1").slice(1,-1)+")+\"");
+    console.log((noLoop+=1)+" : "+dddtxt);
+    if(noLoop>10){break;}
+    dddr=dddtxt.match(dddre);
+  }
+  eval("sssOnFrame(function(){f(\""+dddid+"\")[0].innerHTML=\""+dddtxt+" \" ;},\"updater\"+(bbbupdaterC+=1));");
+}
+var logC=0;
+function ssslog(dddwhat){
+  if(typeof dddwhat!=="object"){dddwhat=[dddwhat];}
+  for(let i in dddwhat){
+    if(bbblogmode){console.log(dddwhat[i]);}
+    f("console")[0].innerHTML+="<div class=\"par\">Output #"+(logC++)+":<div class=\"par\">"+dddwhat[i]+"</div></div>";
+  }
+}
+
+ssslog("testing...")
+
+var g={};
+
+function sssc(dddel,dddid,dddclass,dddparent){
+  dddel=document.createElement(dddel);
+  dddid=(
+    (dddid.length)?(dddid):(dddel.localName+(bbbelC++))
+  );
+  dddel.id="aaa"+dddid;
+  dddel.className=dddclass;
+  if(dddparent===undefined||dddparent==null||dddparent===""){dddparent="MAIN";}
+  f(dddparent)[0].appendChild(dddel);
+  o["bbb"+dddid]={
+    0:dddel,
+    jjjref:"bbb"+dddid,
+    jjjEL:{},
+    jjjELC:0
+  };
+  return dddel;
+}
+
+save_or_load=-1;
+sssAEL("load","click",function(){
+  save_or_load=0;
+  f("viahowto")[0].innerHTML=messages[0][0];
+  f("viacookie")[0].innerHTML=messages[0][1];
+  f("viafile")[0].innerHTML=messages[0][2];
+  f("viabox")[0].classList.add("active");
+});
+sssAEL("save","click",function(){
+  save_or_load=1;
+  f("viahowto")[0].innerHTML=messages[1][0];
+  f("viacookie")[0].innerHTML=messages[1][1];
+  f("viafile")[0].innerHTML=messages[1][2];
+  f("viabox")[0].classList.add("active");
+});
+sssAEL("viacookie","click",function(){
+  if(save_or_load===0){
+    alert("this would open a menu showing you all of your games that are saved on your cookie");
+  }
+  else if(save_or_load===1){
+    alert("this would simply save the game's code on the cookie (along with any others that were already there)");
+  }
+  save_or_load=-1;
+  f("viabox")[0].classList.remove("active");
+});
+sssAEL("viafile","click",function(){
+  if(save_or_load===0){
+    alert("this would open your device's file select menu");
+  }
+  else if(save_or_load===1){
+    alert("this would download the game's code as a txt on your computer");
+  }
+  save_or_load=-1;
+  f("viabox")[0].classList.remove("active");
+});
+    </script>
+  </body>
+</html>
