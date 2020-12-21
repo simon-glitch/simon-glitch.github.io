@@ -1,3 +1,197 @@
-Hi!
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>IGM</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Simanelix">
+    <meta name="description" content="Fun and easy tool to make simple idle games; inspired by (is a clone of) Orteil's IGM.">
+  </head>
+  <body>
+    <textarea></textarea>
+    <button>Make game!</button>
+    <div>Output goes here.</div>
+    <script>
 
-Please wait just one moment.
+
+
+var obj={lines:[],things:{}};
+
+var newObj={};
+
+var errors="";
+
+var lineType="";
+var lineN=1;
+var truelineN=1;
+
+var slash=false,inQuotes=false,realQuotes=true,mlineComment=false,slineComment=false,star=false;
+
+var currentToken="",currentTokens=[],lastToken,dddend=false,propertyName="",propertyValue="",lineStr="";
+
+var currentSection="",currentThing="",currentProperty="",currentThingObj={},curretnSectionObj={};
+
+var ifStructure=[],ifMode=false,ifCount=0,anElse=false;
+
+const sectionFind=[
+  /let'?s? make (a )?games?!?/i,
+  /achieve(ments?|s)/i,
+  /buildings?/i,
+  /buttons?/i,
+  /(css|style)/i,
+  /includes?/,
+  /items?/i,
+  /res(ources?)?/i,
+  /settings?/i,
+  /shin(y|ies)/i,
+  /upgrades?/i
+]
+const defaultThings=["","about_info","","","","","","","","settings","",""]
+
+function interpret(text){
+  for(let i=0,char;i<text.length;i++){
+    char=text[i];
+    if(inQuotes){}
+    else{
+      if(mlineComment){
+        if(char==="/"){
+          if(slash){mlineComment=false;slash=false;}
+        }
+        else if(char==="*"){
+          slash=true;
+        }
+        else{slash=false;}
+      }
+      else if(slineComment){
+        if(char==="\n"){
+          slineComment=false;
+        }
+      }
+      else{
+        /*start of main, (outside of quotes and comments)*/
+        if(char==="/"){
+          if(slash){slineComment=true;}
+          else{slash=true;}
+        }
+        else if(char==="*"){
+          if(slash){
+            mlineComment=true;
+            slash=false;
+          }
+        }
+        if(!(mlineComment || slineComment)){
+          slash=false;
+          if(char=="\n"){
+            propertyName=propertyName.replace(/\s+(?=\b)/,"").replace(/\s+/g,"_");
+            lineStr=lineStr.match(/\s*(.*)\s*/)[1];
+            if(lineType==""){
+              let dddm=null,i=0;
+              for(i=0;dddm==null && i<sectionFind.length;i++){
+                dddm=lineStr.match(sectionFind[i]);
+              }
+              if(dddm!=null){
+                obj.things[currentThing]=currentThingObj;
+                lineType=dddm[0]+" Section (#"+i+")";
+                currentSection=i;
+                currentThing=defaultThings[i];
+                currentThingObj={};
+              }
+              else{
+                propertyName="";propertyValue=lineStr;
+              }
+            }
+            if(propertyValue!=null){
+              currentThingObj[propertyName]=propertyValue;
+            }
+            
+            if(lineType=="thingName"){
+              obj.things[currentThing]=currentThingObj;
+              currentThing=propertyValue.match(/(\w+)\s*.*/);
+              if(currentThing==null){errors+="invalid thing name:"+lineStr;return false;}
+              currentThing=currentThing[1];
+              currentThingObj={ref:currentThing};
+            }
+            
+            
+            
+            
+            obj.lines.push(lineN+" : "+lineType);
+            lineN++;
+            /*ends on ifs*/
+            if(dddend){
+              if(ifCount>0){
+                ifCount--;
+                dddend=true;
+              }
+              else{
+                dddend=false;
+              }
+            }
+            lineType=(((!dddend) && lineType=="action") || (lineType=="property" && propertyValue==""))?"action":"";
+            
+            
+            /*reset variables*/
+            ifMode=false;
+            anElse=false;
+            dddend=false;
+            currentToken="";
+            propertyValue="";
+            currentTokens=[];
+            lineStr="";
+          }
+          else if(lineType.search(/action|property|thingName/)==0){
+            if(char.search(/[a-z]/)==0){currentToken+=char;}
+            else{
+              currentTokens.push(currentToken);
+              currentToken="";
+            }
+            if(lineType=="action"){
+              if(currentToken=="end"){dddend=true;}
+              else if(currentToken=="if"){
+                ifMode=true;
+                ifCount++;
+              }
+              else if(currentToken=="else"){
+                anElse=true;
+              }
+            }
+            else{
+              propertyValue+=char;
+            }
+          }
+          else{
+            if(char==":"){lineType="property";propertyName=lineStr;currentToken="";}
+            else if(char=="*"){lineType="thingName";currentToken="";}
+            else if(char.search(/\w/)==0){currentToken+=char;}
+            else{
+              lastToken=currentToken;currentToken="";
+            }
+            
+            lineStr+=char;
+          }
+        }
+        /*end of main*/
+      }
+    }
+  }
+}
+var txt   =document.querySelector("textarea");
+var btn   =document.querySelector("button");
+var bbbout=document.querySelector("div");
+btn.addEventListener("click",function(){
+  let game=txt.value;
+  errors="";
+  obj={lines:[],things:{}};
+  //try{interpret(game);}catch(e){errors+=e;}
+  interpret(game);
+  console.log(game,obj,"errors:"+errors);
+  game=JSON.stringify(obj).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\n/g,"<br>").split(/['"]/g);
+  let dddout="";
+  for(let i=0;i<game.length;i++){
+    dddout+=(i&1)?("<span style=\"color:green\">&quot;"+game[i]+"&quot;</span>"):(game[i]);
+  }
+  bbbout.innerHTML=dddout;
+});
+
+    </script>
+  </body>
+</html>
