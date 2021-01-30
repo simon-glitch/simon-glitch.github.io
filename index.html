@@ -312,14 +312,15 @@ var SetCookie=function(){
 }
 try{GetCookie();} catch(e){alert("What kind of hacking are you doing?!");document.querySelector("html").innerHTML="<h>You caused this error:</h1><div>"+e;}
 
+for(let i=0;i<themes[0].length;i++){
+  createTheme(themes[0][i],themes[1][i]);
+}
 if(!doc_theme){
   let dddels=[];
   for(let i=0;i<themes[0].length;i++){
-    createTheme(themes[0][i],themes[1][i]);
     dddels.push(sssc("div","","",chooseTheme));
     dddels[i]._val=themes[0][i];
     dddels[i].onclick=function(){
-      btnSelect=this._val;
       doc_theme=this._val;
     };
     let dddf=function(){};
@@ -341,7 +342,7 @@ var stages=[function(){
 },function(){
   if(doc_theme){
     chooseTheme.remove();
-    selectTheme(btnSelect);
+    selectTheme(doc_theme);
     f=stages[2];
     sssc("div","MAIN").innerHTML=`
 <div id="head">
