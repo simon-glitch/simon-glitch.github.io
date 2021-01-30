@@ -249,9 +249,10 @@ var measureText=function(text,fontSize,fontFamily){
 
     </script>
     <script>
+var btnSelect,doc_username,doc_lastlogin,doc_theme,isSignedIn,d,D;
 
 var c=sssc("canvas");
-var ctx=c.getContext("2d"),d,D;
+var ctx=c.getContext("2d");
 c.style.display="none";
 
 const hpi=0.5*Math.PI,pi=Math.PI,thpi=1.5*Math.PI,tau=2*Math.PI;
@@ -281,7 +282,6 @@ var eqautionDraw=function(color,dddf){
   D.data=d;ctx.putImageData(D,0,0);
 };
 
-var btnSelect;
 var themes=new arrMap({
   light:   {bland:"white",textMain:"black",colorA:"#f11",colorB:"#a4d",high:"#aaa",medium:"#677",psi:"#2ce"},
   dark:    {bland:"black",textMain:"white",colorA:"#609",colorB:"#160",high:"#333",medium:"#656",psi:"#2ce"},
@@ -292,7 +292,6 @@ var selectThemeTemplate=`
 <div style="color:[=textMain=];background-color:[=bland=];" class="h"><div style="display:inline;padding:4px;border:4px solid [=colorB=];border-radius:8px;background-color:[=high=];">[=THEME=]</div>
 `;
 var chooseTheme=sssc("div","chooseTheme");
-var doc_username,doc_lastlogin,doc_theme;
 var GetCookie=function(){
   for(let i=0,arr=document.cookie.split(";"),ii,name,val;i<arr.length;i++){
     ii=arr[i].indexOf("=");
