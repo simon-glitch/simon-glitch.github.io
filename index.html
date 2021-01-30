@@ -306,7 +306,7 @@ var SetCookie=function(){
   let ddd=new Date();ddd.setUTCFullYear(ddd.getUTCFullYear()+1000);
   document.cookie=(isSignedIn?("username="+doc_username+"; lastlogin="+(new Date()).getTime()+"; "):"")+"theme="+doc_theme+"; "+"expires="+ddd.toUTCString();
 }
-
+GetCookie();
 
 if(!doc_theme){
   let dddels=[];
