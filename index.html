@@ -1,189 +1,367 @@
-<!DOCTYPE html><html><head><title id="aaaTITLE">
-
-</title><style id="aaaSTYLE">
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="author" content="Simanelix">
+    <title>Warrior game</title>
+    <style id="mainStyle">
+/*all of the CSS in here is subject to change*/
 *{
-  color:black;
-  background-color:rgba(255,255,255,0.4);
-  /*This looks cool
-  background-image:
-    linear-gradient(to right,rgba(0,0,0,0) 0% 50%,rgba(255,255,255,0.3) 50%,rgba(255,255,255,0) 100%),
-    linear-gradient(to left,rgba(0,0,0,0) 0% 50%,rgba(255,255,255,0.3) 50%,rgba(255,255,255,0) 100%),
-    linear-gradient(to bottom,rgba(0,0,0,0) 0% 50%,rgba(255,255,255,0.3) 50%,rgba(255,255,255,0) 100%),
-    linear-gradient(to top,rgba(0,0,0,0) 0% 50%,rgba(255,255,255,0.3) 50%,rgba(255,255,255,0) 100%);*/
+  padding:0px;
+  margin:0px;
+  box-sizing:border-box;
 }
-#aaaMAIN{
-  font-size:22px;
-  color:black;
-  background-color:pink;
-  background-image:linear-gradient(188deg,rgba(176,210,209,0.27) 33%,rgba(199,120,250,0.21) 7%), linear-gradient(9deg,rgba(94,226,253,0.22) 55%,rgba(100,231,231,0.23) 79%), linear-gradient(319deg,rgba(93,189,190,0.26) 78%,rgba(219,229,42,0.26) 19%), linear-gradient(250deg,rgba(252,168,233,0.25) 40%,rgba(68,91,34,0.25) 4%), linear-gradient(284deg,rgba(117,86,0,0.26) 63%,rgba(253,68,243,0.23) 40%);
-  overflow-y:scroll;
-  position:absolute;
+body{
+  background-color:/*bland*/;
+  color:/*mainText*/;
+}
+#chooseTheme{
   top:0%;
   left:0%;
+  width:100%;
   height:100%;
-  max-width:100%;
-  padding:6px;
+  position:absolute;
+}
+#chooseTheme{
+  display:flex;
+  align-items:stretch;
+  flex-direction:column;
+}
+#chooseTheme div{
+  flex-grow:1;
+  display:block;
+}
+#chooseTheme div>.h{
+  text-align:center;
+  font-size:30px;
+  padding:40px;
+  height:100%;
+  width:100%;
+}
+span{
+  padding:0px;
+  margin:0px;
+  display:inline;
   border:none;
-  margin:none;
+  z-index:-10;
 }
-div{line-height:28px;}
-#aaaMAIN div{
-  border:3px solid black;
-  border-radius:2px;
-  margin-top:8px;
-  margin-bottom:8px;
-}
-#aaaOtherPages{background-color:rgba(200,80,0,0.4);}
-.listT,.listS,.listC,.listI{
-  border:none !important;
-  background:none !important;
-}
-.listT{
-padding-left:10px;
-font-size:30px;
-}
-.listS{
-margin-top:0px;
-padding-left:14px;
-font-weight:bold;
-color:rgb(40,0,180);
-}
-.listC{
-margin-top:0px;
-padding-left:18px;
-border:rgb(40,0,200) solid 2px !important;
-
-}
-.listI{
-
-}
-.shrinkCLASS{border:none;padding:0;margin:0;width:0;height:0;position:fixed;top:110%;left:0%;}
-h1,h2,h3{
-border:none;
-border-radius:16px;
-padding:8px;
-margin-top:0px;
-margin-bottom:8px;
-}
-
-#aaaouts{position:fixed;top:110%;left:0%;overflow-y:scroll;}
-
-</style></head><body><div id="aaaMAIN">
-<div style="font-size:100px;font-weight:bold;color:rgb(180,0,0);line-height:140px;">!¡THIS SITE IS NOT FINISHED¡!</div>
-<h2 id="aaaHEAD1">Welcome to Simanelix's website!</h2><h3>About Me and My Site:</h3>
-  <div id="aaaAboutMySite">
-    I am a programmer, and my site is home to my various projects. I like to make tools and trinkets, as well as fun games you can play right here on the site. Feel free to give me feedback on my Discord (), or my Subreddit (N/A yet). Below this will be a list of all my tools, games, and other pages (that are ready for public use). This site is on github (pages), which is a site where people can make code repositories. If you name a code repository &lt;your username&gt;.ion, it will become a website.
-  </div>
-  <div id="aaaOtherPages">
-    So, this site has other pages, which are tools, games, and side-pages. Here is the list:
-
-    <div class="listT">Tools:</div>
-  <div class="listS" id="listS0">Shrink</div>
-  <div class="listC" id="listC0">
-    <div class="listI">SimanIGM</div>
-    <div class="listI">SimanIGE</div>
-    <div class="listI">CSS builder</div>
-    <div class="listI">IGM builder</div>
-  </div>
-<div class="listT">Games:</div>
-  <div class="listS" id="listS1">Shrink</div>
-  <div class="listC" id="listC1">
-    <div class="listI">none (sorry)</div>
-  </div>
-<div class="listT">Side-Pages:</div>
-  <div class="listS" id="listS2">Shrink</div>
-  <div class="listC" id="listC2">
-    <div class="listI">none (sorry)</div>
-  </div>
-  <div>This site on github:</div>
-  </div>
-</div><script id="aaaSCRIPT">
-
-//Math functions
-function ssstonumber(dddwhat){
-  if(typeof dddwhat==="number"){return dddwhat}
-  else if(typeof dddwhat==="string"){
-    eval("var dddout="+dddwhat+";");return dddout;
+    </style>
+  </head>
+  <body>
+    <script>
+window.arrMap=function(obj){
+  this[0]=[];
+  this[1]=[];
+  if(typeof obj=="object"){
+    this.fromObj(obj);
   }
-  else if(typeof dddwhat==="object"){
-    var dddout=[];
-    for(var i in dddwhat){
-      dddout.push(ssstonumber(dddwhat[i]));
-    }
-    return dddwhat;
-  }
-  else{return undefined;}
-}
-function sssround(dddnum,dddg){
-if(typeof dddg!=="number"){dddg=1;}
-return (Math.round(dddnum*dddg))/dddg;
-}
-
-//Powerful Helper functions
-
-
-//find dddw. If dddc is a true value, it will try to find anything by the selector dddw.
-function sssf(dddw,dddc){  
-  if(!dddw&&!dddc){
-    dddw="aaaMAIN";
-  }
-  if(dddc){
-    if(!dddw){return document.querySelectorAll("*");}
-    else{return document.querySelectorAll(dddw);}
+};
+function addProto(_proto,_class){
+  if(_class.prototype){
+    for(let i in _proto){_class.prototype[i]=_proto[i];}
   }
   else{
-    return document.getElementById(dddw);
+    for(let i in _proto){_class.__proto__[i]=_proto[i];}
   }
 }
-//creat a new dddwhat, named dddid. It will be put in dddwhere (0 will put it at the end of the document, and no dddwhere will put it in "aaaMAIN").
-function sssc(dddwhat,dddid,dddclass,dddwhere){
-    dddwhat=document.createElement(dddwhat);
-    dddwhat.id=dddid;
-    dddwhat.className=dddclass;
-    if(dddwhere===0){document.body.appendChild(dddwhat);}
-    else{sssf(dddwhere).appendChild(dddwhat);}
-}
-function sssk(dddid){
-    sssf(dddid).remove();
-}
-//quick output
-var bbbquickc;
-bbbquickc=0;
-function sssquick(dddwhat){
-    bbbquickc++;
-    if(sssf("aaaouts")==null){
-        sssc("div","aaaouts","testel");
-        dddwhat="<br>Outputs ready:<br>"+dddwhat
+(function(obj){
+  addProto(obj,arrMap);
+})({
+  i:-1,
+  Get:function(_prop){
+    this.i=this[0].indexOf(_prop);
+    if(this.i>-1){
+      return this[1][this.i];
     }
-    ddd1=sssf("aaaouts");
-    ddd1.innerHTML+="Output # "+bbbquickc+"<br>"+dddwhat+"<br>";
-}
-function sssShrink(dddid){
-  var ddds=sssf(dddid);
-  if(ddds.innerHTML=="Shrink"){
-    sssf(dddid.replace("S","C")).className="listC shrinkCLASS";
-    ddds.innerHTML="Expand";
+    return null;
+  },
+  Set:function(_prop,_val){
+    this.i=this[0].indexOf(_prop);
+    if(this.i>-1){
+      this[1][this.i]=_val;
+      return _val;
+    }
+    else{
+      this.i=this[0].length;
+      this[0].push(_prop);
+      this[1].push(_val);
+      return _val;
+    }
+  },
+  forEach:function(callBack){
+    for(let i=0,ii=true;ii && i<this[0].length;i++){
+      ii=!callBack(this[1][i],this[0][i],this[1]);
+    }
+  },
+  setForEach:function(callBack){
+    for(let i=0;i<this[0].length;i++){
+      this[i]=callBack(this[1][i],this[0][i],this[1]);
+    }
+    return this;
+  },
+  getForEach:function(callback){
+    let arr=new arrMap();
+    arr[0]=this[0];
+    arr[1]=this[1];
+    for(let i=0;i<this[0].length;i++){
+      arr[1][i]=callBack(arr[1][i],arr[0][i],arr[1]);
+    }
+    return arr;
+  },
+  getObj:function(){
+    let obj={};
+    for(let i=0,s;i<this[0].length;i++){
+      s=this[0][i];
+      obj[s.replace(/\W/g,"")]=this[1][i];
+    }
+    return obj;
+  },
+  fromObj:function(obj){
+    for(let i in obj){this[0].push(i);this[1].push(obj[i]);}
+  },
+  clearDuplicates:function(){
+    for(let i=this[0].length-1;i>-1;i--){
+      if(this[0].indexOf(this[0][i])<i){
+        this[0].splice(i,1);
+        this[1].splice(i,1);
+      }
+    }
+  },
+  Remove:function(name){
+    this.i=this[0].indexOf(name);
+    if(this.i>-1){
+      this[0].splice(this.i,1);
+      this[1].splice(this.i,1);
+    }
+  },
+  class:"arrMap"
+});
+    </script>
+    <script>
+var sssc=function(tagname,id,className,parent){
+  if((typeof parent==="object")?(!parent.appendChild):true){
+    parent=document.body;
   }
-  else{
-    sssf(dddid.replace("S","C")).className="listC";
-    ddds.innerHTML="Shrink";
+  let dddel=document.createElement(tagname);
+  dddel.id=id || "";
+  dddel.className=className || "";
+  parent.appendChild(dddel);
+  return dddel;
+};
+var f=function(){};
+
+var style=document.querySelector("#mainStyle");/*sssc("style")*/
+var baseStyle=style.innerHTML;
+var styleThemes=new arrMap();
+var createTheme=function(name,obj){
+  let ftext="function(){style.innerHTML=baseStyle";
+  for(let i in obj){
+    ftext+=".replace(/\\/\\*"+i+"\\*\\//g,\""+obj[i].replace(/\\\\/g,"\\\\").replace(/"/g,"\\\"")+"\")";
   }
+  ftext+=";}";
+  eval("styleThemes.Set(name,"+ftext+");");
+};
+var selectTheme=function(name){
+  styleThemes.Get(name)();
+};
+
+var updatees=new arrMap();
+
+const mspf=16;
+
+var startTime=new Date();
+var starttime=startTime.getTime();
+var now=startTime;
+var nowtime=now.getTime();
+var framesCompleted=0,framesTried=0,frameDone=true,frameTimes=[],lastFrameTime=now.getTime(),bbbPerform={
+  fps:0,
+  fp10s:0,
+  fpm:0,
+  expected_fps:Math.round(1000/mspf*100)/100,
+  expected_fp10s:Math.round(10000/mspf*100)/100,
+  expected_fpm:Math.round(60000/mspf*100)/100,
+  el:document.createElement("div"),
+};
+bbbPerform.text=function(){
+  return "<h3>bbbPerform info:</h3><div>"+this.fps+" frames this second ("+this.expected_fps+" expected), <br>"+this.fp10s+" frames this 10 seconds ("+this.expected_fp10s+" expected), <br>"+this.fpm+" frames this minute ("+this.expected_fpm+" expected).</div>";
+};
+bbbPerform.hide=function(){
+  this.el.remove();
+  updatees.Remove("bbbPerform");
+};
+bbbPerform.show=function(){
+  document.body.appendChild(this.el);
+  updatees.Set("bbbPerform",this);
+};
+
+
+
+for(let i=0;i<2048 /*frames saved*/ ;i++){
+  frameTimes[i]=0;
 }
 
-//add an event listener (dddevent), to dddwhat, which does dddact.
-function sssAEL(dddwhat,dddevent,dddact){
-    sssquick([dddwhat,dddevent,dddact]);
-  dddwhat.addEventListener(dddevent,dddact)
+
+window.setInterval(function(){
+  if(frameDone){
+    bbbPerform.fps=0;
+    bbbPerform.fp10s=0;
+    bbbPerform.fpm=0;
+    for(let i=2047;i>0;i--){
+      frameTimes[i]=frameTimes[i-1];
+    }
+    frameTimes[0]=nowtime-lastFrameTime;
+    for(let i=0,acc=0;i<2048 /*frames saved*/ ;i++){
+      if(frameTimes[i]>0){
+        if(acc<60000){bbbPerform.fpm++;}
+        if(acc<10000){bbbPerform.fp10s++;}
+        if(acc<1000){bbbPerform.fps++;}
+        acc+=frameTimes[0];
+      }
+    }
+    if(framesCompleted%16==0){for(let i=0;i<updatees[1].length;i++){
+      updatees[1][i].el.innerHTML=updatees[1][i].text();
+    }}
+    frameDone=false;
+    f();
+    framesCompleted++;
+    frameDone=true;
+  }
+  lastFrameTime=nowtime;
+  now=new Date();
+  nowtime=now.getTime();
+  framesTried++;
+},16);
+
+var buttons=new arrMap();
+
+var newButton=function(){
+  
+};
+var measureText=function(text,fontSize,fontFamily){
+  let dddel=document.createElement("span");
+  document.body.appendChild(dddel);
+  dddel.innerHTML=text;
+  dddel.style.fontSize=fontSize+"px";
+  dddel.style.fontFamily=fontFamily;
+  return dddel.offsetWidth;
+};
+
+
+    </script>
+    <script>
+
+var c=sssc("canvas");
+var ctx=c.getContext("2d"),d,D;
+c.style.display="none";
+
+const hpi=0.5*Math.PI,pi=Math.PI,thpi=1.5*Math.PI,tau=2*Math.PI;
+var eqautionDraw=function(color,dddf){
+  let isObj=(typeof color!=="object")
+  D=ctx.getImageData(0,0,c.width,c.height);d=D.data;
+  if(typeof color!=="object"){
+    ctx.fillStyle=color;
+    ctx.fillRect(0,0,1,1);
+    color=ctx.getImageData(0,0,1,1).data;
+  }
+  let ii=0,ix=0,iy=0,rx=0,ry=0,irx=1/c.width,iry=1/c.height;
+  for(iy=0;iy<c.height;iy++){
+    for(ix=0;ix<c.width;ix++){
+      if(dddf(rx,ry)){
+        d[ii]=color[0];
+        d[ii+1]=color[1];
+        d[ii+2]=color[2];
+        d[ii+3]=color[3];
+      }
+      rx+=irx;
+      ii+=4;
+    }
+    rx=0;
+    ry+=iry;
+  }
+  D.data=d;ctx.putImageData(D,0,0);
+};
+
+var btnSelect;
+var themes=new arrMap({
+  light:   {bland:"white",textMain:"black",colorA:"#f11",colorB:"#a4d",high:"#aaa",medium:"#677",psi:"#2ce"},
+  dark:    {bland:"black",textMain:"white",colorA:"#609",colorB:"#160",high:"#333",medium:"#656",psi:"#2ce"},
+  aquatic: {bland:"#9cd", textMain:"#060", colorA:"#31f",colorB:"#f72",high:"#aef",medium:"#579",psi:"#2ce"},
+  magmatic:{bland:"#cb2", textMain:"#400", colorA:"#ee9",colorB:"#95f",high:"#ba6",medium:"#965",psi:"#2ce"}
+});
+var selectThemeTemplate=`
+<div style="color:[=textMain=];background-color:[=bland=];" class="h"><div style="display:inline;padding:4px;border:4px solid [=colorB=];border-radius:8px;background-color:[=high=];">[=THEME=]</div>
+`;
+var chooseTheme=sssc("div","chooseTheme");
+var doc_username,doc_lastlogin,doc_theme;
+var GetCookie=function(){
+  for(let i=0,arr=document.cookie.split(";"),ii,name,val;i<arr.length;i++){
+    ii=arr[i].indexOf("=");
+    name=arr[i].slice(0,i);
+    val=arrr[i].splice(i);
+    if(name==="username"){doc_username=val;}
+    if(name==="lastlogin"){doc_lastlogin=val;}
+    if(name==="theme"){doc_theme=val;}
+  }
+};
+var SetCookie=function(){
+  let ddd=new Date();ddd.setUTCFullYear(a.getUTCFullYear()+1000);
+  document.cookie="expires="+ddd.toUTCString()+";"+(isSignedIn?("username="+doc_username+";lastlogin="+(new Date()).getTime()+";"):"")+"theme="+doc_theme+";";
 }
 
 
-//The Shrink "buttons"
-var bbbshrink=sssf(".listS",true);
-for(var i=0;i<bbbshrink.length;i++){
-eval('sssAEL(bbbshrink[i],"click",function(){sssShrink("'+bbbshrink[i].id+'");});');
-}    
+if(!doc_theme){
+  let dddels=[];
+  for(let i=0;i<themes[0].length;i++){
+    createTheme(themes[0][i],themes[1][i]);
+    dddels.push(sssc("div","","",chooseTheme));
+    dddels[i]._val=themes[0][i];
+    dddels[i].onclick=function(){
+      btnSelect=this._val;
+      doc_theme=this._val;
+    };
+    let dddf=function(){};
+    let ftext="function(){dddels[i].innerHTML=selectThemeTemplate";
+    for(let ii in themes[1][i]){
+      ftext+=".replace(/\\[="+ii+"=\\]/g,\""+themes[1][i][ii].replace(/\\\\/g,"\\\\").replace(/"/g,"\\\"")+"\")";
+    }
+    ftext+=".replace(/\\[=THEME=\\]/,\""+themes[0][i]+"\");};";console.log(ftext);
+    eval("dddf="+ftext+"");
+    dddf();
+  }
+  selectTheme("light");
+}
 
-document.addEventListener("click",function(){sssquick("CLICK");});
-sssAEL(document,"copy",function(){sssquick("CLICK2");});
+var stages=[function(){
+  if(nowtime-starttime>200){
+    f=window.stages[1];
+    }
+},function(){
+  if(doc_theme){
+    chooseTheme.remove();
+    selectTheme(btnSelect);
+    f=stages[2];
+    sssc("div","MAIN").innerHTML=`
+<div id="head">
+  <div><button>Theme</button></div>
+  <div><button>Background music</button><input type="checkbox"></div>
+  <div><button>Notifications</button><input type="checkbox"></div>
+  <div><button>Cookie</button></div>
+  <div><button>Account</button></div>
+</div>
+<div id="body"></div>
+<div id="triggerSettings"></div>
+    `;
+  }
+},function(){
+  if(framesCompleted%8==0){
+    SetCookie();
+  }
+}];
+f=stages[0];
 
-</script></body></html>
+var letsPlay=function(){};
+
+
+    </script>
+  </body>
+</html>
