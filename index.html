@@ -298,7 +298,7 @@ var GetCookie=function(){
     if(ii==-1){/*nasty junk, get rid of it!*/document.cookie=arr[i]+"=; expires=Sat, 30 Jan 2021 20:18:30 GMT;";}
     else{
       name=arr[i].slice(0,ii);
-      val=arr[i].slice(ii);
+      val=arr[i].slice(ii+1);
       if(name==="username"){doc_username=val;}
       if(name==="lastlogin"){doc_lastlogin=val;}
       if(name==="theme"){doc_theme=val;}
