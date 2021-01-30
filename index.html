@@ -295,18 +295,22 @@ var chooseTheme=sssc("div","chooseTheme");
 var GetCookie=function(){
   for(let i=0,arr=document.cookie.split(";"),ii,name,val;i<arr.length;i++){
     ii=arr[i].indexOf("=");
-    name=arr[i].slice(0,i);
-    val=arrr[i].splice(i);
-    if(name==="username"){doc_username=val;}
-    if(name==="lastlogin"){doc_lastlogin=val;}
-    if(name==="theme"){doc_theme=val;}
+    if(ii==-1){/*nasty junk, get rid of it!*/document.cookie=arr[i]+"=; expires=Sat, 30 Jan 2021 20:18:30 GMT;";}
+    else{
+      name=arr[i].slice(0,i);
+      val=arrr[i].splice(i);
+      if(name==="username"){doc_username=val;}
+      if(name==="lastlogin"){doc_lastlogin=val;}
+      if(name==="theme"){doc_theme=val;}
+      else{/*more junk to rid of!*/document.cookie=name+"=; expires=Sat, 30 Jan 2021 20:18:30 GMT;";}
+    }
   }
 };
 var SetCookie=function(){
   let ddd=new Date();ddd.setUTCFullYear(ddd.getUTCFullYear()+1000);
   document.cookie=(isSignedIn?("username="+doc_username+"; lastlogin="+(new Date()).getTime()+"; "):"")+"theme="+doc_theme+"; "+"expires="+ddd.toUTCString();
 }
-GetCookie();
+try{GetCookie();} catch(e){alert("What kind of hacking are you doing?!");document.querySelector("html").innerHTML="<h>You caused this error:</h1><div>"+e;}
 
 if(!doc_theme){
   let dddels=[];
