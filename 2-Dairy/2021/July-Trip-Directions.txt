@@ -1,0 +1,114 @@
+Here is our entire trip route from Grand Rapids to Boise: {
+    
+    From Grand Rapids to NAMPA INN AND SUITES via I-80 W.
+    
+    1 d 6 hr (1,975 mi)
+    1 d 6 hr in current traffic
+    
+    
+    1. Head north on Division Ave N toward Monroe Center St NE
+    2. Turn left onto the ramp to I-196 W
+    3. Merge onto I-196 W
+    4. Use the middle 2 lanes to stay on I-196 W
+    5. Keep right to stay on I-196 W
+    6. Keep right to continue on I-196 S/US-31 S, follow signs for I-94 W/Chicago/Niles
+    7. Keep right at the fork to stay on I-80 W, follow signs for Iowa
+    8. Keep left at the fork to stay on I-80 W
+    9. Take the I-80 W exit toward Davenport
+    10. Take exit 284 for County Rd Y40 toward Walcott/Plain View
+    11. Turn right onto 60th Ave/N Plainview Rd
+    12. Turn right
+    13. Turn right
+    14. Arrive at location: World's Largest Truck Stop
+    15. Head northwest toward 60th Ave/N Plainview Rd
+    16. Continue straight
+    17. Turn left toward 60th Ave/N Plainview Rd
+    18. Turn left onto 60th Ave/N Plainview Rd
+    19. Turn right onto the I-80 W/US-6 W ramp to Des Moines
+    20. Merge onto I-80 W/US-6 W
+    21. Keep right to stay on I-80 W
+    22. Keep right at the fork to stay on I-80 W, follow signs for Council Bluffs/Omaha
+    23. Take exit 8 toward E Kanesville Blvd
+    24. Keep right at the fork, follow signs for Business District/Community College/Council Bluffs/I-80
+    25. Merge onto E Kanesville Blvd
+    26. Turn right onto Oakland Ave
+    27. Turn left onto Lafayette Ave
+    28. Arrive at location: Lincoln Monument
+    29. Head southeast on Lafayette Ave toward Oakland Ave
+    30. Turn right onto Oakland Ave
+    31. Turn right onto W Kanesville Blvd
+    32. Turn left onto N 7th St
+    33. Slight right onto the I-29 N ramp to I-80 W/Omaha/Sioux City
+    34. Merge onto I-29 N
+    35. Use the right 2 lanes to take exit 51 for I-80 W toward Omaha
+    36. Keep left to stay on I-80 W
+    37. Keep left to stay on I-80 W
+    38. Keep left to stay on I-80 W
+    39. Keep left at the fork to stay on I-80 W
+    40. Keep right to stay on I-80 W
+    41. Take exit 83 for WY-372 toward La Barge Rd
+    42. Turn right onto WY-372 W/WY-374 W
+    43. Continue straight onto Fontenelle N
+    44. Sharp left onto Co Rd 313
+    45. Turn right onto US-189 N
+    46. Arrive at location: La Barge
+    47. Head north on US-189 N/Main St toward W 2nd Ave
+    48. Turn left onto Budd Ave
+    49. Arrive at location: Big Piney
+    50. Head east on Budd Ave toward S Fish St
+    51. Turn left onto US-189 N/Front St
+    52. Turn left onto US-189 N/US-191 N
+    53. At the traffic circle, take the 2nd exit onto US-26 W/US-89 S
+    54. Turn right onto US-26 W (signs for Idaho Falls)
+    55. Turn right onto A St
+    56. Continue straight to stay on A St
+    57. Arrive at location: Idaho Falls
+    58. Head southwest on Park Ave toward W Broadway St
+    59. Turn right onto W Broadway St
+    60. Use the right lane to take the ramp to Blackfoot/Pocatello
+    61. Merge onto I-15 S
+    62. Take exit 72 for I-86 W toward Twin Falls
+    63. Take exit 40 for ID-39 toward I-86BL/American Falls/Aberdeen
+    64. Turn right onto ID-39 N
+    65. Turn right to stay on ID-39 N
+    66. Arrive at location: American Falls Dam
+    67. Head west on ID-39 N toward W Lamb Weston Rd
+    68. Sharp left onto W Lamb Weston Rd
+    69. Turn left onto Fish Hatchery Rd
+    70. Continue straight
+    71. Turn right onto ID-39 S
+    72. Turn right onto Idaho St
+    73. Turn right onto Fort Hall Ave
+    74. Turn right onto the I-86 W/US-30 W ramp to Twin Falls
+    75. Merge onto I-86 W/US-30 W
+    76. Take exit 182 for State Route 50 toward Kimberly/Twin Falls
+    77. Turn left onto ID-50 S
+    78. Arrive at location: Hansen Bridge
+    79. Head southwest on ID-50 S toward E 3900 N Rd/Addison Ave
+    80. Turn right onto E 3900 N Rd/Addison Ave
+    81. Turn right onto 3500 E
+    82. Turn right onto 4050 North Rd
+    83. Turn left onto Twin Falls Grade
+    84. Arrive at location: Twin Falls Power Plant
+    85. Head northwest on Twin Falls Grade toward Glenna Dr
+    86. Turn right onto 4050 North Rd
+    87. Turn left onto E 3900 N Rd/Addison Ave E
+    88. Turn left onto ID-50 N
+    89. Turn left onto the I-84 W ramp to Jerome/Boise
+    90. Merge onto I-84 W
+    91. Keep left to stay on I-84 W
+    92. Keep left to stay on I-84 W
+    93. Take the exit toward Northside Blvd
+    94. Keep left to continue toward Northside Blvd
+    95. Turn left onto Northside Blvd
+    96. Turn right after Denny's (on the right) onto Shannon Dr
+    97. Turn right
+    98. Arrive at location: NAMPA INN AND SUITES
+    For the best route in current traffic visit https://maps.app.goo.gl/5pB8Jv56cAAaB5e88
+}
+
+
+And here is our entire trip from Boise back to Gradn Rapids: {
+    
+    
+}
