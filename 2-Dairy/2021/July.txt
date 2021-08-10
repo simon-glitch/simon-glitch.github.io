@@ -289,10 +289,225 @@ July 11th, 2021
     
     We drove right on through Minesota during the morning, and now we are in Wisconsin, which is apparently famous for cheese and dairy farming.
     
-    Over time, the comments are just making the diary more and more messy; maybe it will be too difficukt for simpletons like my dad to read! Complexity as a methodmof privacy is much better than just hiding something or giving it a password.
+    Over time, the comments are just making the diary more and more messy; maybe it will be too difficukt for simpletons like my dad to read! Complexity as a methodmof >{July 14th, 2021: I meant "method of" } privacy is much better than just hiding something or giving it a password.
     
+
+July 12th, 2021
+    (monday) We woke up in a meh-quality motel in Wisconsin. My dad made me a cup of coffee, but I didn't really like the flavor. Papa gave me and my dad a banana to split and eat. I also had a peanut butter and jelly sandwhich.
+    
+    >{July 20th, 2021: I wrote the next section of this entry **8** days later, on Tuesday, July 20th }
+    My dad stated that it would only take about 2 hours to get to Manitowoc from where we started this morning, and thus we did not need to rush. Papa didn't believe him, because my dad got that information from Google aps and Papa doesn't trust computers.
+    
+    Throughout the whole trip, both to Idaho, and back to Michigan, I have commented many times that I miss the dog, and hope she is OK. Around July 5th, Jane was moved from (Jamie and Derek)'s house to Judy's house, after Judy got out of the hospital. At Judy's Jane wasn't really wanting to eat, and my dad thinks the reason is that Jamie and Derek spoiled her too much.
+    I told my dad that it could be that Jane was depressed by by us leaving her for so long and that we some dogs suicide by starvation when they get depressed. I was very worrited that Jane might have been trying to suicide by starvation, and that we probably should have let Judy know.
+    
+    We detoured to Carr Valey during our trip so that we could visit Carr Valley Cheese Co, a cheese store. The cheese store had any kinds of cheese that I have never heard of, and lots of very high quality cheese, like:
+        = cheese curds
+        = goat cheese
+        = sheep cheese
+        = a mixture of cow, goat, and sheep cheese
+        = many flavors of cheese spreads
+    My dad spent plenty of money at the cheese place, and even bought a cheese slicer. The place had other things, like  jelly, syrup, honey, and even pickles, but it mainly sold cheese. There was also a cow cofa out front (it looked like a cow, but it was **not** made of cow). There was also a pretty tree surrounded by a flower bank behind the store.
+    The store itself was TINY, and they got a lot of business / customers.
+    
+    We eventually got on the SS Badger in Manitowoc. My dad and Papa kept egging at me, telling me it wuld be cold on the lake and that I should ware comething with long sleeves. I knew that would not be a problem, and I never put on a jacket or anything with long sleeves; I don't even remember bringing any long sleeves with me on the trip to begin with. When we got to the boarding dock, we had to wait through a long line to get on. We waited on the SS Badger for a long time before it even started moving, becuase we had to wait for all of the cars and a few late-comers to get on.
+    
+    
+    { section end }
+    
+
+July 13th, 2021
+    (tuesday) I am beginning to be much more optimistic about living with my dad, rather than just hating everything about him.. Today I still felt so tired, which means that I should have asked God for some energy; I just fasted from God today instead.
+    
+    I talked to Jeanette about living with her instead of my dad aong other things a whole bunch on Facebook Messenger.
+    
+    I kind of wish I would have been a bit more productive today, like Riemann's hypothesis or some really cool program, but all is still good.
+    
+    >{July 15, 2021: this next section of this entry was written 2 days later:}
+    
+    In the afternoon, I called Adrian and finally had a decent conversation with him. I told him he should call his dad and he decided he wanted to that immediately, so we ended our call and he tried to call his dad.
+    My and my dad made some exquisite goolosh for dinner.
+    
+    As the day came to a close, I called Adrian a 2nd time, and he informed me that his dad had not answered. I informed him that my samsung tablet was finally updating; then we started talking about ZapPap (a YouTuber) and Luigi's mansion ideas.
+    Once Adroid (i.e. my tableet) was updated, I started checking out the device and got really upset about a lot of the changes. I started ranting about every little change, and feel kinda bad for doing that to Adrian; I just don't get why Android had to change so many things, and I guess that made me forget why I don't want to rant about all of the changes.
+    Nontheless, I will list all of the changes in this new update for my device:
+        = Folders on the homescreen now have a new button added to the color picker menu that opens up the old color picker menu. The button is called "slider" becuase it opens up the normal HSV color picker, which has a 2D rectangle for Saturation and Value plus a slider for hue. I am really happy that the slider menu is back now, because I like to have my own custom hues rather than the small set of defulat folder colors. They also added number input boxes to the folder color picker.
+        = Many of the grey lines in the menus are gone. Remaining lines are now dotted instead of solid.
+        = The notifiactions menu now has a header on the main notifications section: "Alerting notifications", and notifications from social media are now called "Converstations". The extended menu for the quick options that are above the notifications -- it only has 2 rows instead of 3 now. However, when I click "reorder" to rearrage the quick options, I get 2 extra rows up top, which contain all quick options that aren't being used.
+        = The brightness sllider now has a downward arrow that gives me the outdoor mode toggle much more easily than before. The top bar of the screen is a bit bigger so I can actually read the darn thing.
+        = The black color that the OS uses is now a bit darker.
+    
+    { section end }
+
+July 14th, 2021
+    (wednesday) Today, I wrote the July 11th and July 12th entries.
+    
+
     By the way, the diary is and always will be free from here on out. I will add the file to github as soon as I can. You know what's cool about Github? It doesn't delete things immediately -- it records the past, so my diary will always be here, on Github pages.
 
+July 15th, 2021
+    (thursday) I was actually in quite a rush to see my friend, Adrian. Of course, it has been 5 and a 1/2 weeks since I saw him last!
+    
+    >{July 25th, 2021: I wrote in this brief section 10 days later: }
+    
+    I can't wait to see Adran tomorrow.
+    
+    I also can't wait to prove that Riemann's Hypothesis is true. I keep thinking about it, yet I still haven't really put the effort in!
+    
+    { section end }
+    
+    I called Adrian and his dad, and I managed to shedule Mike picking me up tomorrow. After reminding my dad many times, my dad should now know that he is allowing me to stay until Tuesday. I was actually super nice to my dad today, walking to the store to by him something, and doing other various things for him.
+    
+    You wouldn't believe how often my dad asks me to help him do something on his phone, the TV or his laptop computer. His phone is quite laggy and the TV is an Amazon TV, so using them is a very unpleasant experience full of many inconveniences that causes my dad to get very angry and throw a lot of insults. The most common is "You can't even fucking do [X]", which has extremely harmful follow ups like "you know this shit" and "a monkey could do it".
+    The worst part about these insults is that my dad always has the same very mean voice -- he even sounds mad when he tells me "I love you" implying "you aren't even worth loving, but I will tell you that I do anyways, even though telling you such an untrue lie is against my morals; I need to have an argument against your claims that I am mean to you so that I can make you feel like a piece of shit whose arguments aren't worth being listened to"!
+    
+    I really feel horrible about my dad. At least now I know my dad doesn't say things just to make me feel horrible. Whenever I come up with an idea, or prepose an argument for something, my dad always throws it down. He really hurts my feeling and makes me feel that I shouldn't even think about things. I am hard coded to think of new ideas andd find arguments for things; I will not stop doing that no matter how much my dad hurts my feelings.
+    
+    At least now I know that my dad just reacts to my ideas because he doesn't understand or he doesn't want to **SPEND** his time thinking about them. Sadly, my dad often says that he "wastes" time thinking about my arguments, which I always take to heart and think "Oh, well my arguments suck and I suck because I made them". Now I see that people and objects usually don't suck, aren't bad, and aren't stupid.
+    
+    If fact, lets explain the phenomenon of me not being stupid:
+      Some physical real noun that exists is only stupid under one condition:
+        Every single action involved in the noun and every situation where the noun is executing an action, the action is **always** stupid.
+      So, if you do any action that is NOT stupid, then you can NOT be stupid.
+      However, it is super infinitely easy for actions to be stupid. A stupid action is simply something that doesn't make sense or isn't worthwhile. For my dad, this is almost every action. For everyone else, this is 1 in 5 actions.
+    
+    >{July 24th, 2021: Today, I added another paragpraph to this entry }
+    Thought about cleaning the windows or the house in general but never did. In fact, I had an obsession over the idea of cleaning the house as a way to make myself feel better about all of the horrible things my dad has done to me in the house. Talking about cleaning or even rearranging the house really irritated my dad though, so I was forced to angrily hault [those] conversations I had with him.
+    
+
+July 16th, 2021
+    (friday)
+    
+    
+
+July 17th, 2021
+    (saturday) Go to Adrian's
+
+July 18th, 2021
+    (sunday) Main idea
+
+July 19th, 2021
+    (monday) I left Adrian's, and came home to discover that my dad is dogsitting Jamie's (Judy's daughter) Australian Shephard puppy. My dad keeps mistakenly calling the puppy a German Shephard instead of an Australian Shephard. I keep forgetting the puppy's name. The puppy is very naughty, and peed on my bedroom floor twice within the 1st 5 minutes after my arrival.
+    
+    My dad started playing a YouTube video about how to take care of Australian Shephard puppies, and apparently they are a pain. What really sucked is YouTube had autoplay on, and it was on the TV so I couldn't ignore it. With shaphard dogs, it is important to have consistent rules, set boundaries, be super strict, punish them when they do what  you want them to **NOT** do, and reward them only when they do what **DO** want them to do.
+    
+    My dad just kept on telling me to use a loud voice with the puppy, but I never did because I am too sympathetic.
+    
+    I sure do miss being away from my dad!
+
+July 20th, 2021
+    (tuesday) I did a bit of gaming and programming in the morning, but I spent most of the remainder of the day dealing with the puppy.
+    
+    The puppy tore a small hole in my comfortor blanket, and even tried to ruin my mockisins that Nana gave me! This puppy is so annoying!
+    
+    My dad keeps nagging the same phrases at me about taking care of the damn puppy. Today I was much more stern with it than I was yesterday.
+    
+    A good thing did happen today. I came to a higher understanding on important matters. While I was doing the dishes, I tarted reconsidering my opinions on my dad and everything. I call this a realization session. I don't know how to explain this, but I really reorganized my brain in this session. Now, I am signiifcatnly smarter than I was before.
+
+July 21st, 2021
+    (wednesday) We finally got rid of the puppy. Well, Judy and Angel (yeah; the person's name is literally "Angel", but she sure don't act like an angel; she is supposedly Judies step-grand-daughter, which makes her **not part of my family**.) came by and picked up the puppy, which belongs to Jamie and Derek (they are all related to Judy somehow, but I don't trust my memory of them).
+    
+    
+
+July 22nd, 2021
+    (thursday) I actuallly spent the day learning integrals, because they are important in solving Riemann's Hypothesis.
+    
+    My dad doesn't understand that I want to be a genius like many others are. There are some people that get PhDs by the time they are my age, which is just insane. These geniuses are only good at certain types of academic problems and exercizes, but they are so good at the exercizes that the are called geniuses and honored for that.
+    I am not the person that rushed past school, or gets amazing grades, but that's not my fault, and that's not even a fault at all. I want to be a jack of all trades, which I have not become **yet**. However, I am getting better all the time.
+    I am the only person who can modify their own brain to the level of complete control and seeing the actual nuerons. You would think that this would make my life easier, but I don't immediately realize what is wrong with me, and so problems linger due to not seeing them. Its interesting that total control does not give me perfection. Of course, some things are harder to program into myself than others are.
+    
+    I can visualize abstract ideas as reality so well now; its great. Now I just need abstract execution too.
 
 
+July 23rd, 2021
+    (friday) It has been over a week (9 days!) since I wrote the last entry. I didn't feel like writing much because I wanted to think about other things. I wasn't sure what I wanted to write. Now I have to decide. The July 15th entry was written today.
+    
+    >{July 27th, 2021: June 23rd was the day I realized that I had a conversaion with God, need to drop my preconceived notions about the world. I need to understand things for what they **are**, and part of that is dropping my current understanding of some things. }
+
+July 24th, 2021
+    (saturday) July 24th sounds a lot like July 4th. Sadly, I don't have the entire summer left, but at least I have 4 more weeks. This past month has felt like an eternity though, so its all good. I was planning on writing the July 19th - July 22nd entries yesterday, but I spent so long on July 15th because it was so important. In fact, quite a few of these last 7 days have been very important.
+    Typing on the mobbile keyboard really has given me quite few weird habits, one of which is using my index and middle fingers only.
+    
+    Bad news: I didn't set my alarm and missed my wendi'e interview. The interview was at 9:00am, but I felt stayed up late last night and felt sleepy 
+    Well, it doesn't help when your father just yells at you every day rather than helping you.
+    I guess if I really want to do ( this one time thing, which won't have mush of a long term reward, but the experience alone is worth it ) ... then I will have to ask my dad for help every day.
+    I bother my dad about things he is not interested in every day, so I think he will enjoy being bothered by me requiring his help every day.
+    Wendy’s fucking sucks anyway. The only jobs I would like would be Walmart or Amazon, because those jobs are just cool.
+    
+    Gosh, I really hate trying to apply for a job, its so stupid; I just wander about on the computer clicking through random menus and imaginary spaces; I don't get how this leads to a career
+    Online application fell too imaginary to lead to a real a job. Doing the job itself should be quite fun, even with all of the challenges included.
+    Well, when it comes to imaginary things becoming real, I guess 2i and 3i are imaginary, but I guess 2i x 3i = -6, and -6 is real. Also, i^i = sqrt( e^pi ) which is real and approximately 
+
+July 25th, 2021
+    (sunday) Today I just need to do the July 17th - July 19th entries, which were the blessed days I spent with Adrian.
+    
+    >{July 27th, 2021: But I didn't do them! Today, I appended the following paragraph to this entry: }
+    Today, I realized that I need to redo my mind's listening algorithm, to listen to people better. I have spent the day studying lots of math, and also spent some time reconsidering my preconceived notions about the world.
+
+
+July 26th, 2021
+    (monday) I really have been
+
+July 27th, 2021
+    (tuesday) I told Judy that I wish I would've thrown away her hair tie, so told me some things that I don't quite undersntand.  I have been considering various possibilites for what she could've meant, but I keep running into contradictions!
+    
+    So, yesyerday I commented that my dad is always rude to me, and today I have had the same "I don't like my dad" attitude. Judy has been also getting a "I don't like Judy" vibe from that, so she tried to talk it out with me.
+        = Judy told me about this kid named Jessis who has nothing and gets moved to a new foster care clinic every 3 months.
+        = I said that I would like to travel that much, and Judy told my that its not travel.
+        = Judy said that I have a lot of nice things that my parents and her pay for, and I don't earn any of the money for the things I have.
+        = Judy told me that with how rude I have been, I might not go to the beach tomorrow.
+    
+    While eating my lunch, I started thinking about how mean my dad is to me, and remembered that people usually don't do things just to mess with other people. I also remembered that my dad **truly** believes people do things just to mess with him, and I noticed that my dad doesn't like me asking him questions.
+    
+    So, me and my dad were talking about the costs of setting up for the olympics. He finished saying one thing, and as he started to say the next sentence, I started to repond to the prior sentence, and accidentally interrupted him. He got super mad and told me to "shut the fuck up". I wish I had an audio recording of this, but my personal testament will suffice. After my dad finished his sentence, he said "now you can blabber on about your stupidness".
+    
+    That statement was so emotional and dramatic that I could not let it stand; When I accidentally interrupted him earlier, I was going to tell him what I had just figured out: the costs for olympics setup is worth it because the city / its country gets to use all of the olympics structuures for whatever puposes they want once the olympics are over.
+    So, I told my dad that what I was going to say is **NOT** stupid, and that he should stop calling {all of sentences} stupid. My dad responded by bringing up my theory from yesterday about how the mowed grass got on the garage floor. There was **NO** reason for my dad to bring it up; apparently he brought it up just so he could say that my theory was **STUPID**.
+    My dad's response was basically saying "yes, everthing you say is stupid", because the last thing I said was that he should stop calling {everything I say} stupid, and he responded with a justification to call {something I said} stupid.
+    
+    I told my dad that the things I say are not stupid and others would agree; I told my dad that other people would defend the things they say just the same as I defend mine; I told my dad that I am not the only person who comes up wit theories, and theories are not (inherently, relatively, or absolutely) stupid.
+    My dad just sat there overflowing with anger, and I wasn't angry at all.
+    
+    I tried to end the conversation by telling my dad that he brought up the theory from yesterday, that he made himself angry, that he was the only person talking about stupid theories, which made him the only person saying anything stupid, and that he had done that just to get himself mad!
+    I am not mad or angry at my dad; I feel sorry for him. His life is sad.
+    
+
+
+I am going to Lake Michigan tomorrow
+
+July 28h, 2021:
+    (wednesday) I packed up for my trip, and got insulted by my dad again. This time he hated on a random comment I made. It really made me feel horrible at the time; it just felt like yet another reminder of how my dad acts like he hates me.
+    
+    I called Nana and she said she had everything set to go. I kept thinking: "After we go to the beach, I am finally going to get to see Grandma Willover; I can't wait!" We all went swimming, and player with a firsbi in the water. I really find tremedous joy in jumping in the water, and as we spent a very long amount of time in the slightly shallow water (it was only up to my shoulders -- about 5 feet -- at its deepest spot), I jumped so many times that I actually got a cramp!
+    = right calf cramp
+    = buried in the sand; they buried my feet, but I thought they were slow diggers, so I dug a hole to show em how to dig like a pro; I called em wussies; I made sarcastic comments about how I wanted to dig a hole deep enough to bury me (standing straght up, which would be super deep); they thought I was serious, so I had em actually bury me in the hole I dug (it was only deep enough to sit down in, not stand in)
+    = 
+    
+    Chriss and Cortny showed up (they were here at the same time, but they didn't travel together). Chriss is a friend of Grandma and Jeanette who adobted Winnie's puppies. Cortni is this new friend of Jeanette, and according to Grandma, Jeanette is into her.
+    
+    Gosh, I got some pretty bad sun burn from being out on the beach today.
+
+July 29th, 2021:
+    (thursday) I hung out with Grandma and Jeanette.
+
+July 30th, 2021:
+    (friday) I learned that Cortni has a daughter, named Noel (this name will be entioned like a billion times in the rest of this entry, especially with how short and memberable it is); Cortni left her daughter with Corni's sister, and apparently Cortni's daughtler likes hanging out with Cortni's nephew. I played A LOT of Skyrim today too.
+    
+    Chris is apparently buying Grandma's old grey car, and came over tonight with a cash payment for it. After watching the 1st episode of this cool show Loki together, me and Chris went out and jumped the grey car (which is his car now, I guess).
+    
+    After me and Chris jumped the grey car (charged its battery), Chris and I went in the garage to find a coat hanger. I didn't yet know why we needed it. Chris found a hanger and bent into a weird 3-sided square.
+    
+    After we got our hanger, me and him tried to get the grey car's front wheels propped up on some short ramps, so that he could easily reattach the exaust valve. He drove the car too far forward, so the ramps got stuck under its frame. Then he had to use jacks to bring up the car's frame so that we could get teh ramps out.
+    After failing his attempt at using the ramps, Chriss decided that he would just fix the exaust by reaching his hands under the car normally. Chriss decided he would just put the exaust back in its wire loop.
+    So, the exaust is a long valve running from the front of the car to the back and it has multiple sections. The weld between a middle section and the front section had rusted out, so the valve was hanging down and scraped the road whenever we drived. Plus, you could  hear the exaust gas coming out of the broken valve and it was annoyingly loud. Someone (Jeanette grandma) had tried to fix this by putting a metal loop under the car and having the valve hang from it, so that the valve wasn't dragging along the road.
+    Then, me and Chris went to the gas station with plans of going all the way to plainwell, but on the way, the exhaust fell out, so we had to reattach it. The 2nd time we attached, I finally learned the Chris had wanted {to use the coat hanger to support the exaust / hang the exaust pipe off of the coat hanger}.
+    
+    So, me and Chris went to the Taco Bell in plainewell, becuase they stay open much later, but they were closed, with it being 2:10am (on July 31st).
+    
+    Also, apparently Chris showed up and bought the grey car because his old red pickup truck broke down; Jeanette picked him up abd brought him here.
+
+July 31st, 2021:
+    (saturday) Seriously, I play too much Skyrim. So, today Cortni brought her daughter over. She seemed like a really nice kid at 1st; very social, quite when appropriate, and sweet.
+    
+    
 
