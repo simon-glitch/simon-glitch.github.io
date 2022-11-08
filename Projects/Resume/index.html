@@ -12,8 +12,177 @@
 <meta name="description" content="This is a resume of Daniel Conners, for any persons who are considering the employement of Mr. Conners.">
 <meta name="keywords" content="resume">
 
-<link rel="stylesheet" type="text/css" href="index.css" media=”screen” />
+<!-- <link rel="stylesheet" type="text/css" href="index.css" media=”screen” />
+ -->
+  <style>
+body{
+  font-family: "Tahoma", sans-serif;
+  font-size: 18px;
+  background: #e0e0e0;
+  padding: 0.8em;
+  color: black;
+}
 
+div, address{
+  padding: 0;
+  margin: 0;
+}
+p{
+  margin: 1em 0.5em;
+}
+ul, ol, li{
+  margin: 0;
+}
+div.center{
+  position: relative;
+  display: flex;
+  width: 100vw;
+  justify-content: center;
+}
+h1,h2,h3,h4,h5,h6{
+  margin-bottom: 0.25em;
+}
+h1:not(.standard){
+  display: inline;
+  background: white;
+  margin-bottom: 0.4em;
+  padding: 0.2em;
+}
+ul{
+  padding: 0 2em;
+}
+li{
+  font-style: normal;
+  padding: 0;
+}
+
+/* The switch - the box around the slider */
+.switch{
+  position: relative;
+  display: inline-block;
+  width: 2.5em;
+  height: 1.25em;
+}
+
+/* Hide default HTML checkbox */
+:is(.switch, .collapse) input{
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+input:checked + .slider{
+  background-color: currentcolor;
+}
+input:focus + .slider{
+  box-shadow: 0 0 0.3em currentcolor, 0 0 0.2em currentcolor;
+}
+input:checked + .slider:before{
+  transform: translateX(1em);
+}
+
+.cyan{
+  color: #2196F3
+}
+
+.slider, .collapse{
+  cursor: pointer;
+}
+
+/* Rounded sliders */
+.slider{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+.slider.round{
+  border-radius: 3em;
+  background-color: #ccc;
+}
+.slider.round:before{
+  border-radius: 3em;
+  position: absolute;
+  content: "";
+  height: 1em;
+  width: 1em;
+  left: 0.15em;
+  bottom: 0.15em;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+/*collapse and expand boxes*/
+.collapse svg{
+  position: absolute;
+  left: 0;
+  padding: none;
+  margin: none;
+  fill: currentcolor;
+  width: 1.25em;
+  height: 1.25em;
+  transform: rotate(0deg);
+  transition: transform 0.45s ease;
+}
+.teal{
+  color: rgb(10, 120, 60);
+}
+
+.collapse, .arrow{
+  padding: none;
+  margin: none;
+}
+.collapse{
+  position: relative;
+  top: 0%;
+  left: 0%;
+  display: inline-block;
+  width: 1.25em;
+  height: 1.25em;
+}
+input:checked + .arrow svg{
+  transform: rotate(180deg);
+  transition: transform 0.45s ease;
+}
+label svg:active{
+  fill: white;
+  stroke: currentcolor;
+  stroke-width: 1;
+}
+label svg:hover, input:is(:focus, :target) + * svg{
+  stroke: yellow;
+  stroke-width: 1;
+  filter: drop-shadow(0 0 5px black);
+}
+
+
+/*collapse and expand content with "shrunk" class*/
+.content{
+  box-sizing: border-box;
+  padding: 0;
+  background: white;
+  transform: scaleY(1);
+  overflow: scroll;
+  transition: height 0.7s ease;
+}
+body.snug .content{
+  height: 6em;
+}
+.content > div{
+  padding: 0.25em;
+  margin: 0;
+}
+.content.shrunk{
+  height: 0em;
+  transition: height 0.7s ease;
+}
+
+
+  </style>
 </head>
 
 <body>
