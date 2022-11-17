@@ -4,7 +4,7 @@
   el is an HTML element
   ael(eName, fName, f, el);
 */
-let ael, remove_listener, keysdown, keystates, key_events;
+var ael, remove_listener, keysdown, keystates, key_events;
 setup_ael: {
   let audience = {};
   ael = function(eName, fName, f, el){
@@ -60,7 +60,7 @@ setup_keyboard: {
   };
 }
 
-let frame;
+var frame;
 frame = {
   ready: true,
   mspf: 32,
