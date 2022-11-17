@@ -110,8 +110,8 @@ SCOPE_setup_logger: {
   };
 }
 
-
-Object.defineProperty(window, "to_html_safe", {
-  value: to_html_safe,
+let odf = function(name, value) Object.defineProperty(window, name, {
+  value: value,
   writeable: false,
 });
+odf("to_html_safe", to_html_safe); odf("log", log);
