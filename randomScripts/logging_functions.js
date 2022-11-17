@@ -14,7 +14,8 @@ var log, unlog, max_logs = 100;
 
 SCOPE_setup_logger: {
   // make error logging easier
-  Error.prototype.toString = function(){return "<p class = 'error'>"+ this.name +": "+ this.message +" {line "+ this.lineNumber +"}</p>"};
+  let err = (e)=>(typeof e.lineNumber==="number") ?(" {line "+ err(e.lineNumber) +"}") :"";
+  Error.prototype.toString = function(){return "<p class = 'error'>"+ this.name +": "+ this.message + err(this) +"</p>"};
   
   // the actual values of each log
   let logs = [];
