@@ -4,4 +4,14 @@ b{
 }
 /* all of our dynamic atomic styles go right down here: */
 
+@font-face {
+  font-family: "Courier New";
+  src: url(courier_new.woff);
+  font-weight: bold;
+}
 
+@font-face {
+  font-family: "Domine";
+  src: url(domine.woff);
+  font-weight: bold;
+}
