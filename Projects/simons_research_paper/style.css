@@ -1,7 +1,35 @@
-/*the whole paper is contained within a b element; SO I can use this to simply style it*/
+/* the whole paper is contained within a b element; SO I can use this to simply style it */
 b{
   background: white;
+  font-size: 1.15625em;
 }
+b.small_scale{
+  font-size: 1.125em;
+}
+
+button{
+  padding: 0.35em;
+  cursor: pointer;
+  transition: box-shadow 0.75s, border 0.75s;
+  box-shadow: 0 0 0em 0em darkgrey inset;
+  border: 0.35em solid grey;
+}
+button:is(:focus, :hover){
+  transition: box-shadow 0.75s, border 0.75s;
+  box-shadow: 0 0 0.25em 0.1em darkgrey inset;
+  border-color: #666;
+}
+button:active{
+  transition: box-shadow 0.2s, border-color 0.1s;
+  box-shadow: 0 0 0.25em 0.1em darkgrey inset;
+  border-color: #222;
+}
+
+/* WOW! I can't believe I have to be so specific and forceful on this!; */
+table.section:not(.a.b.c.d.e.f){
+  width: 80vw !important;
+}
+
 
 /* we gotta have them nice fonts, too! */
 @font-face {
@@ -20,6 +48,10 @@ b{
 
 /* all of our dynamic atomic styles go right down here: */
 
+.m-auto{
+  margin:auto;
+  display: block;
+}
 .w-n {font-weight:normal;}
 .o-b {overflow-wrap:break-word;}
 .o-h {overflow:hidden;}
@@ -30,7 +62,7 @@ b{
 .c-p2 {color:#8d009a;}
 .c-p1 {color:#e19d00;}
 .bt {background-color:transparent;}
-.bc-white {background-color:(#fff(fff)?|white);}
+.bc-white {background-color:#ffffff;}
 .Hw {font-weight:700;}
 .NTw {font-weight:400;}
 .Ns {font-style:normal;}
@@ -39,35 +71,36 @@ b{
 .v-bl {vertical-align:baseline;}
 .v-b {vertical-align:bottom;}
 .v-t {vertical-align:top;}
-.w-p1 {white-space:pre;}
-.w-p2 {white-space:pre-wrap;}
-.w-p{w-p1 w-p2}
+/*Google Docs has some kind of unnecessary white space thing; it's probably there for backwards compatability or something*/
+.w-p1, .w-p {white-space:normal;}
+.w-p2, .w-p {white-space:normal;}
 .lh {line-height:1.38;}
 .lh-s {line-height:1.2;}
-.mt {margin-top:0pt;}
-.mb {margin-bottom:0pt;}
-.ml {margin-left:0pt;}
-.mr {margin-right:0pt;}
-.mb-4 {margin-bottom:4pt;}
-.fs-12 {font-size:12pt;}
-.fs-16 {font-size:16pt;}
-.fs-18 {font-size:18pt;}
-.fs-28 {font-size:2(7.999\d+|8)pt;}
+.mt {margin-top:0em;}
+.mb {margin-bottom:0em;}
+.ml {margin-left:0em;}
+.mr {margin-right:0em;}
+.mb-4 {margin-bottom:0.33333333em;}
+.fs-12 {font-size:1.em;}
+.fs-16 {font-size:1.333333em;}
+.fs-18 {font-size:1.4em;}
+.fs-28 {font-size:2em;}
 .b-n {border:none;}
 .b-c {border-collapse:collapse;}
-.h0 {height:0pt}
-.pa {padding:5pt 5pt 5pt 5pt;}
-.b-l, .b-all {border-left:solid #000000 1pt;}
-.b-r, .b-all {border-right:solid #000000 1pt;}
-.b-t, .b-all {border-top:solid #000000 1pt;}
-.b-b, .b-all {border-bottom:solid #000000 1pt;}
-.pa-simon {padding:18pt 18pt 18pt 18pt;}
-.b-l-simon, .b-s-all {border-left:solid #d5c300 2.25pt;}
-.b-r-simon, .b-s-all {border-right:solid #d5c300 2.25pt;}
-.b-t-simon, .b-s-all {border-top:solid #d5c300 2.25pt;}
-.b-b-simon, .b-s-all {border-bottom:solid #d5c300 2.25pt;}
-.b-l-simon2, .b-s2-all {border-left:solid #416a90 2.25pt;}
-.b-r-simon2, .b-s2-all {border-right:solid #416a90 2.25pt;}
-.b-t-simon2, .b-s2-all {border-top:solid #416a90 2.25pt;}
-.b-b-simon2, .b-s2-all {border-bottom:solid #416a90 2.25pt;}
+.h0 {height:0em}
+.pa {padding:0.41666667em 0.41666667em 0.41666667em 0.41666667em;}
+.b-l, .b-all {border-left:solid #000000 0.08333333em;}
+.b-r, .b-all {border-right:solid #000000 0.08333333em;}
+.b-t, .b-all {border-top:solid #000000 0.08333333em;}
+.b-b, .b-all {border-bottom:solid #000000 0.08333333em;}
+.pa-simon {padding:1.5em 1.5em 1.5em 1.5em;}
+.b-l-simon, .b-s-all {border-left:solid #d5c300 0.1875em;}
+.b-r-simon, .b-s-all {border-right:solid #d5c300 0.1875em;}
+.b-t-simon, .b-s-all {border-top:solid #d5c300 0.1875em;}
+.b-b-simon, .b-s-all {border-bottom:solid #d5c300 0.1875em;}
+.b-l-simon2, .b-s2-all {border-left:solid #416a90 0.1875em;}
+.b-r-simon2, .b-s2-all {border-right:solid #416a90 0.1875em;}
+.b-t-simon2, .b-s2-all {border-top:solid #416a90 0.1875em;}
+.b-b-simon2, .b-s2-all {border-bottom:solid #416a90 0.1875em;}
+
 
