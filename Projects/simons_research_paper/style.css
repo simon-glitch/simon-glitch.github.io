@@ -1,0 +1,7 @@
+/*the whole paper is contained within a b element; SO I can use this to simply style it*/
+b{
+  background: white;
+}
+/* all of our dynamic atomic styles go right down here: */
+
+
