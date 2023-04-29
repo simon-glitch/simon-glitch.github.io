@@ -7,6 +7,7 @@ b.small_scale{
   font-size: 1.125em;
 }
 
+
 button{
   padding: 0.35em;
   cursor: pointer;
@@ -26,7 +27,7 @@ button:active{
 }
 
 /* WOW! I can't believe I have to be so specific and forceful on this!; */
-table.section:not(.a.b.c.d.e.f){
+.section:not(.aaa.aab.aac.aad.aae.aaf){
   width: 80vw !important;
 }
 
