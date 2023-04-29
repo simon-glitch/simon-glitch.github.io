@@ -2,8 +2,8 @@
 b{
   background: white;
 }
-/* all of our dynamic atomic styles go right down here: */
 
+/* we gotta have them nice fonts, too! */
 @font-face {
   font-family: "Courier New";
   src: url(courier_new.woff);
@@ -15,3 +15,59 @@ b{
   src: url(Domine-Medium.ttf);
   font-weight: bold;
 }
+
+
+
+/* all of our dynamic atomic styles go right down here: */
+
+.w-n {font-weight:normal;}
+.o-b {overflow-wrap:break-word;}
+.o-h {overflow:hidden;}
+.f-ta {font-family:Tahoma,sans-serif;}
+.f-os {font-family:Oswald,sans-serif;}
+.f-cn {font-family:'Courier New';}
+.c {color:#000000;}
+.c-p2 {color:#8d009a;}
+.c-p1 {color:#e19d00;}
+.bt {background-color:transparent;}
+.bc-white {background-color:(#fff(fff)?|white);}
+.Hw {font-weight:700;}
+.NTw {font-weight:400;}
+.Ns {font-style:normal;}
+.Nv {font-variant:normal;}
+.Nd {text-decoration:none;}
+.v-bl {vertical-align:baseline;}
+.v-b {vertical-align:bottom;}
+.v-t {vertical-align:top;}
+.w-p1 {white-space:pre;}
+.w-p2 {white-space:pre-wrap;}
+.w-p{w-p1 w-p2}
+.lh {line-height:1.38;}
+.lh-s {line-height:1.2;}
+.mt {margin-top:0pt;}
+.mb {margin-bottom:0pt;}
+.ml {margin-left:0pt;}
+.mr {margin-right:0pt;}
+.mb-4 {margin-bottom:4pt;}
+.fs-12 {font-size:12pt;}
+.fs-16 {font-size:16pt;}
+.fs-18 {font-size:18pt;}
+.fs-28 {font-size:2(7.999\d+|8)pt;}
+.b-n {border:none;}
+.b-c {border-collapse:collapse;}
+.h0 {height:0pt}
+.pa {padding:5pt 5pt 5pt 5pt;}
+.b-l, .b-all {border-left:solid #000000 1pt;}
+.b-r, .b-all {border-right:solid #000000 1pt;}
+.b-t, .b-all {border-top:solid #000000 1pt;}
+.b-b, .b-all {border-bottom:solid #000000 1pt;}
+.pa-simon {padding:18pt 18pt 18pt 18pt;}
+.b-l-simon, .b-s-all {border-left:solid #d5c300 2.25pt;}
+.b-r-simon, .b-s-all {border-right:solid #d5c300 2.25pt;}
+.b-t-simon, .b-s-all {border-top:solid #d5c300 2.25pt;}
+.b-b-simon, .b-s-all {border-bottom:solid #d5c300 2.25pt;}
+.b-l-simon2, .b-s2-all {border-left:solid #416a90 2.25pt;}
+.b-r-simon2, .b-s2-all {border-right:solid #416a90 2.25pt;}
+.b-t-simon2, .b-s2-all {border-top:solid #416a90 2.25pt;}
+.b-b-simon2, .b-s2-all {border-bottom:solid #416a90 2.25pt;}
+
