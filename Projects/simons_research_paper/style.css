@@ -34,8 +34,8 @@ button:active{
 
 /* we gotta have them nice fonts, too! */
 @font-face {
-  font-family: Courier New;
-  src: url('courier_new.woff');
+  font-family: CourierNew;
+  src: url('cour.tff');
 }
 
 @font-face {
@@ -55,8 +55,9 @@ button:active{
 .o-b {overflow-wrap:break-word;}
 .o-h {overflow:hidden;}
 .f-ta {font-family:Tahoma,sans-serif;}
+.f-do {font-family:'Domine',sans-serif;}
 .f-os {font-family:Oswald,sans-serif;}
-.f-cn {font-family:'Courier New';}
+.f-cn {font-family:'Domine';}
 .c {color:#000000;}
 .c-p2 {color:#8d009a;}
 .c-p1 {color:#e19d00;}
