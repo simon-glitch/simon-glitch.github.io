@@ -1,7 +1,7 @@
 /* the whole paper is contained within a b element; SO I can use this to simply style it */
 b{
   background: white;
-  font-size: 1.15625em;
+  font-size: 1.5em;
 }
 b.small_scale{
   font-size: 1.125em;
@@ -34,15 +34,13 @@ button:active{
 
 /* we gotta have them nice fonts, too! */
 @font-face {
-  font-family: "Courier New";
-  src: url(courier_new.woff);
-  font-weight: bold;
+  font-family: Courier New;
+  src: url('courier_new.woff');
 }
 
 @font-face {
-  font-family: "Domine";
-  src: url(Domine-Medium.ttf);
-  font-weight: bold;
+  font-family: Domine;
+  src: url('Domine-Medium.ttf');
 }
 
 
@@ -82,10 +80,11 @@ button:active{
 .ml {margin-left:0em;}
 .mr {margin-right:0em;}
 .mb-4 {margin-bottom:0.33333333em;}
-.fs-12 {font-size:1.em;}
-.fs-16 {font-size:1.333333em;}
-.fs-18 {font-size:1.4em;}
-.fs-28 {font-size:2em;}
+.fs-12 {font-size:1em;}
+/* .fs-acron {font-size:1.15em;} */
+.fs-16 {font-size:1.2em;}
+.fs-18 {font-size:1.3em;}
+.fs-28 {font-size:1.425em;}
 .b-n {border:none;}
 .b-c {border-collapse:collapse;}
 .h0 {height:0em}
@@ -103,5 +102,6 @@ button:active{
 .b-r-simon2, .b-s2-all {border-right:solid #416a90 0.1875em;}
 .b-t-simon2, .b-s2-all {border-top:solid #416a90 0.1875em;}
 .b-b-simon2, .b-s2-all {border-bottom:solid #416a90 0.1875em;}
+
 
 
