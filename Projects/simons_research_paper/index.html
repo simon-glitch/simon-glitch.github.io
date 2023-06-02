@@ -5,9 +5,28 @@
     <meta name="author" content="Simon Willover">
     <meta name="description" content="This is Simon Research Paper for Spring of 2023. This paper was written for his highschool, as part of a `course` with a ridiculous name.">
     <style>
-      html{
-        font-size: 4px; /* usually 0.25rem*/
+      /* :root and html *should* be the same */
+      :root{
+        font-size: 2.625px; /* usually 0.25rem*/
       }
+      html{
+        font-size: 2.625px; /* usually 0.25rem*/
+        width: 100vw;
+      }
+      body{
+        width: 90vw;
+      }
+      table{
+        width: 75vw;
+      }
+      a{
+        word-break: break-word;
+      }
+      
+      :is(*, p, span, div) :not(.a1.a2.a3.a4.a5.a6.a7.a8){
+        margin: auto;
+      }
+      
     </style>
     <!-- This is updated with each new version of my paper -->
     <!-- <link rel="stylesheet" href="style.css"> -->
