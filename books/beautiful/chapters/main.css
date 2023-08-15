@@ -11,9 +11,13 @@ body {
 }
 body *{
   text-shadow:
-    0 0 0.15em white,
-    0 0 0.15em white,
-    0 0 0.15em cyan
+    0 0 0.5em white,
+    0 0 0.35em white,
+    0 0 0.35em white,
+    0 0 0.35em white,
+    0 0 0.35em white,
+    0 0 0.35em white,
+    0 0 0.25em cyan
   ;
 }
 
