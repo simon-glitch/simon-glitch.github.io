@@ -6,7 +6,7 @@ body {
   background-color: #ddd;
   background-image: url('clouds-back.jpg');
   background-position: center;
-  background-repeat: no-repeat;
+  background-repeat: repeat;
   background-size: cover;
 }
 body *{
