@@ -1,0 +1,16 @@
+body {
+  background: white;
+  color: black;
+  font-family: Tahoma, Arial;
+  font-size: 24px;
+  background-color: #ddd;
+  background-image: url('clouds-back.jpg');
+}
+body *{
+  text-shadow:
+    0 0 0.15em white,
+    0 0 0.15em white,
+    0 0 0.15em cyan
+  ;
+}
+
