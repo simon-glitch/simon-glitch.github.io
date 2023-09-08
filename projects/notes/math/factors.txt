@@ -1,3 +1,73 @@
 
-As you know
+As you know, prime numbers are defined by the number of factors that they have.
+Let ff(n) = the number of distinct factors that n has.
+
+A number, p, is prime if:
+  ff(p) = 2
+
+Let's explore all of the ff(n) can = various values, z.
+
+z = 0:
+  there is no whole number which does not evenly divide other numbers
+  let's say that all non integers, and negative numbers (i.e. n ! \in double-stroke{Z}) have ff(n) = 0, because there is no positive integer n such that: n / m is a positive integer.
+
+
+
+z = Infinty:
+  ff(0) = infinity, because 0, when divided by any positive integer, = 0, and 0 itself qualifies as a positive integer.
+
+z = 1:
+  ff(n) = 1 only when n = 1
+  because 1 is the only number with just 1 factor (itself)
+  0p1
+
+z = 2:
+  ff(n) = 2 when n is prime
+  so, n can be 2, 3, 5, 7, 11, 13, 17, 19, 23 etc...
+  1p1
+
+z = 3:
+  ff(n) = 3 when n is a square of a prime
+  2p1
+
+z = 4:
+  1p1 1p2
+  3p1
+
+z = 5:
+  4p1
+
+z = 6:
+  2p1
+  5p1
+
+z = 7:
+  6p1
+
+z = 8
+  1p1 1p2 1p3
+  3p1 1p2
+  7p1
+
+z = 9
+  2p1 2p2
+
+z = 10
+  4p1 1p2
+  9p1
+
+z = 11
+  10p1
+
+You can probably notice the pattern here. The relationship between a number, n, and its distinct prime factors (p1, p2, p3, ...) can be determined by the factorization of z, where z = ff(n).
+
+
+Let's make things for interesting. Let's define gg(n):
+  gg (n) = how_many(k exist) such that (k is a factor of n; ff(k) is prime)
+  ggc(n) = how_many(k exist) such that (k is a factor of n; ff(k) is not prime)
+
+Finally, let's define hh(n):
+  hh(n) = size of set(  (all factors(n) ) .map ((v) => ff(v))  )
+
+
 
