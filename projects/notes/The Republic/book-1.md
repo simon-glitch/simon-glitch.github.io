@@ -33,7 +33,7 @@ But can you persuade us, if we refuse to listen to you? he said.
 
 [A torch race] **with horses!** I replied: That is a novelty. Will horsemen carry torches and pass them [from] one to another during the race?
 
-Yes, said Polemarchus, and not only so, but a festival will he celebrated at night, which you certainly ought to see. Let us rise soon after supper and see this festival; there will be a gathering of young men, and we will have a good talk. Stay then, and do not be perverse.
+Yes, said Polemarchus, and not ~~only so, but a~~ just that! A festival will he celebrated at night, which you certainly ought to see. ~~Let us~~ Let's rise soon after supper and see this festival; there will be a gathering of young men, and we will have a good talk. Stay then, and do not ~~be perverse~~ do anything weird.
 
 Glaucon said: I suppose, since you insist, that we must.
 * Very good, I replied.
