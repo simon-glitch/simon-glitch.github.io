@@ -8,12 +8,12 @@
 
 Socrates - GLAUCON
 
-I went down yesterday to the Piraeus with (Glaucon)[as] the son of Ariston, that I might offer up my prayers to the goddess; and also because I wanted to see in what manner they would celebrate the festival, which was a new thing. I was delighted with the procession of the inhabitants; but that of the Thracians was equally, if not more, beautiful. When we had finished our prayers and viewed the spectacle, we turned in the direction of the city; and at that instant Polemarchus the son of Cephalus chanced to catch sight of us from a distance as we were starting on our way home, and told his servant to run and bid us wait for him. The servant took hold of me by the cloak behind, and said: Polemarchus desires you to wait.
+I went down yesterday to the Piraeus with Glaucon ^(the son of Ariston), ~~that I might~~ so I could offer up my prayers to the goddess; and also because I wanted to see in what manner they would celebrate the festival, which was a new thing. I was delighted with the procession of the inhabitants; but that of the Thracians was equally, if not more, beautiful. When we had finished our prayers and viewed the spectacle, we turned in the direction of the city; and at that instant Polemarchus ^(the son of Cephalus) chanced to catch sight of us from a distance as we were starting on our way home, and told his servant to run and bid us wait for him. The servant took hold of me by the cloak behind, and said: Polemarchus desires you to wait.
 
 I turned round, and asked him where his master was.
 * There he is, said the youth, coming after you, if you will only wait.
 
-Certainly we will, said Glaucon; and in a few minutes Polemarchus appeared, and with him Adeimantus, Glaucon's brother, Niceratus the son of Nicias, and several others who had been at the procession.
+Certainly we will, said Glaucon; and in a few minutes Polemarchus appeared, and with him Adeimantus, Glaucon's brother, Niceratus ^(the son of Nicias), and several others who had been at the procession.
 
 Socrates - POLEMARCHUS - GLAUCON - ADEIMANTUS
 
@@ -40,7 +40,7 @@ Glaucon said: I suppose, since you insist, that we must.
 
 Glaucon - CEPHALUS - SOCRATES
 
-Accordingly we went with Polemarchus to his house; and there we found his brothers Lysias and Euthydemus, and with them Thrasymachus the Chalcedonian, Charmantides the Paeanian, and Cleitophon the son of Aristonymus. There too was Cephalus the father of Polemarchus, whom I had not seen for a long time, and I thought him very much aged. He was seated on a cushioned chair, and had a garland on his head, for he had been sacrificing in the court; and there were some other chairs in the room arranged in a semicircle, upon which we sat down by him. He saluted me eagerly, and then he said: --
+Accordingly we went with Polemarchus to his house; and there we found his brothers Lysias and Euthydemus, and with them Thrasymachus the Chalcedonian, Charmantides the Paeanian, and Cleitophon ^(the son of Aristonymus). There too was Cephalus the father of Polemarchus, whom I had not seen for a long time, and I thought him very much aged. He was seated on a cushioned chair, and had a garland on his head, for he had been sacrificing in the court; and there were some other chairs in the room arranged in a semicircle, upon which we sat down by him. He saluted me eagerly, and then he said: --
 
 You don't come to see me, Socrates, as often as you ought: If I were still able to go and see you I would not ask you to come to me. But at my age I can hardly get to the city, and therefore you should come oftener to the Piraeus. For let me tell you, that the more the pleasures of the body fade away, the greater to me is the pleasure and charm of conversation. Do not then deny my request, but make our house your resort and keep company with these young men; we are old friends, and you will be quite at home with us.
 
@@ -388,7 +388,7 @@ Certainly not, he said. Do you suppose that I call him who is mistaken the stron
 
 Yes, I said, my impression was that you did so, when you admitted that the ruler was not infallible but might be sometimes mistaken.
 
-You argue like an informer, Socrates. Do you mean, for example, that he who is mistaken about the sick is a physician in that he is mistaken? or that he who errs in arithmetic or grammar is an arithmetician or grammarian at the me when he is making the mistake, in respect of the mistake? True, we say that the physician or arithmetician or grammarian has made a mistake, but this is only a way of speaking; for the fact is that neither the grammarian nor any other person of skill ever makes a mistake in so far as he is what his name implies; they none of them err unless their skill fails them, and then they cease to be skilled artists. No artist or sage or ruler errs at the time when he is what his name implies; though he is commonly said to err, and I adopted the common mode of speaking. But to be perfectly accurate, since you are such a lover of accuracy, we should say that the ruler, in so far as he is the ruler, is unerring, and, being unerring, always commands that which is for his own interest; and the subject is required to execute his commands; and therefore, as I said at first and now repeat, justice is the interest of the stronger.
+You argue like an informer, Socrates. Do you mean, for example, that he who is mistaken about the sick is a physician in that he is mistaken? or that he who errs in arithmetic or grammar is an arithmetician or grammarian at the me when he is making the mistake, in respect of the mistake? True, we say that the physician or arithmetician or grammarian has made a mistake, but this is only a way of speaking; for the fact is that neither the grammarian nor any other per^(son of skill) ever makes a mistake in so far as he is what his name implies; they none of them err unless their skill fails them, and then they cease to be skilled artists. No artist or sage or ruler errs at the time when he is what his name implies; though he is commonly said to err, and I adopted the common mode of speaking. But to be perfectly accurate, since you are such a lover of accuracy, we should say that the ruler, in so far as he is the ruler, is unerring, and, being unerring, always commands that which is for his own interest; and the subject is required to execute his commands; and therefore, as I said at first and now repeat, justice is the interest of the stronger.
 
 Indeed, Thrasymachus, and do I really appear to you to argue like an informer?
 
@@ -470,7 +470,7 @@ And how am I to convince you, he said, if you are not already convinced by what 
 Heaven forbid! I said; I would only ask you to be consistent; or, if you change, change openly and let there be no deception. For I must remark, Thrasymachus, if you will recall what was previously said, that although you began by defining the true physician in an exact sense, you did not observe a like exactness when speaking of the shepherd; you thought that the shepherd as a shepherd tends the sheep not with a view to their own good, but like a mere diner or banqueter with a view to the pleasures of the table; or, again, as a trader for sale in the market, and not as a shepherd. Yet surely the art of the shepherd is concerned only with the good of his subjects; he has only to provide the best for them, since the perfection of the art is already ensured whenever all the requirements of it are satisfied. And that was what I was saying just now about the ruler. I conceived that the art of the ruler, considered as ruler, whether in a state or in private life, could only regard the good of his flock or subjects; whereas you seem to think that the rulers in states, that is to say, the true rulers, like being in authority.
 
 Think! Nay, I am sure of it.
-* Then why in the case of lesser offices do men never take them willingly without payment, unless under the idea that they govern for the advantage not of themselves but of others? Let me ask you a question: Are not the several arts different, by reason of their each having a separate function? And, my dear illustrious friend, do say what you think, that we may make a little progress.
+* Then why in the case of lesser offices do men never take them willingly without payment, unless under the idea that they govern for the advantage not of themselves but of others? Let me ask you a question: Are not the several arts different, by rea^(son of their) each having a separate function? And, my dear illustrious friend, do say what you think, that we may make a little progress.
 
 Yes, that is the difference, he replied.
 * And each art gives us a particular good and not merely a general one --medicine, for example, gives us health; navigation, safety at sea, and so on?
@@ -677,7 +677,7 @@ They will.
 * And suppose injustice abiding in a single person, would your wisdom say that she loses or that she retains her natural power?
 
 Let us assume that she retains her power.
-* Yet is not the power which injustice exercises of such a nature that wherever she takes up her abode, whether in a city, in an army, in a family, or in any other body, that body is, to begin with, rendered incapable of united action by reason of sedition and distraction; and does it not become its own enemy and at variance with all that opposes it, and with the just? Is not this the case?
+* Yet is not the power which injustice exercises of such a nature that wherever she takes up her abode, whether in a city, in an army, in a family, or in any other body, that body is, to begin with, rendered incapable of united action by rea^(son of sedition) and distraction; and does it not become its own enemy and at variance with all that opposes it, and with the just? Is not this the case?
 
 Yes, certainly.
 * And is not injustice equally fatal when existing in a single person; in the first place rendering him incapable of action because he is not at unity with himself, and in the second place making him an enemy to himself and the just? Is not that true, Thrasymachus?
