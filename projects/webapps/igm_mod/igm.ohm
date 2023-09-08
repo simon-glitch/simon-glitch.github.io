@@ -354,15 +354,16 @@ Game <: Arithmetic {
   Property_Name
     = listOf<letters, spaces>
   Property_Value
-    = (~Value_Function) (~Value_Expression) Value_String -- string
-    | (~Value_Function) Value_Expression -- expression
-    | Value_Function
+    = ((~(((~Value_Function) Value_Expression) | Value_Function)) Value_String) -- string
+    | ((~(Value_Function)) Value_Expression) -- expression
+    | (Value_Function)
   
+  // note to self: avoid expressions that can theoretically match nothing
   Value_Function
-    = Action? (line_break Action)*
+    = line_break* Action (line_break+ Action)*
   Value_Expression
-    = preposition_keyword Exp -- command_component
-    | Exp -- single_value
+    = (~end) number -- single_value
+    | preposition_keyword Exp -- command_component
   Value_String
     = ((~line_break) any)+
   Action
