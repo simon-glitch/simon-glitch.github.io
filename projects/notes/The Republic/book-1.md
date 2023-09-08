@@ -8,7 +8,7 @@
 
 Socrates - GLAUCON
 
-I went down yesterday to the Piraeus with Glaucon ^(the son of Ariston), ~~that I might~~ so I could offer up my prayers to the goddess; and also because I wanted to see in what manner they would celebrate the festival, which was a new thing. I was delighted with the procession of the inhabitants; but that of the Thracians was equally, if not more, beautiful. When we had finished our prayers and viewed the spectacle, we turned in the direction of the city; and at that instant Polemarchus ^(the son of Cephalus) chanced to catch sight of us from a distance as we were starting on our way home, and told his servant to run and bid us wait for him. The servant took hold of me by the cloak behind, and said: Polemarchus desires you to wait.
+I went down yesterday to the Piraeus with Glaucon ^(the son of Ariston), ~~that I might~~ so I could offer up my prayers to the goddess; and also because I wanted to see in what manner they would celebrate the festival, which was a new thing. I was delighted with the procession of the inhabitants; but that of the Thracians was equally, if not more, beautiful. When we had finished our prayers and viewed the spectacle, we turned in the direction of the city; and at that instant Polemarchus ^(the son of Cephalus) chanced to catch sight of us from a distance as we were starting on our way home, and told his servant to run and bid us wait for him. The servant took hold of me by the cloak behind, and said: Polemarchus ~~desires~~ wants you to wait.
 
 I turned round, and asked him where his master was.
 * There he is, said the youth, coming after you, if you will only wait.
@@ -31,7 +31,7 @@ But can you persuade us, if we refuse to listen to you? he said.
 * Then we are not going to listen; of that you may be assured.
 * Adeimantus added: Has no one told you of the torch-race on horseback in honour of the goddess which will take place in the evening?
 
-With horses! I replied: That is a novelty. Will horsemen carry torches and pass them one to another during the race?
+[A torch race] **with horses!** I replied: That is a novelty. Will horsemen carry torches and pass them [from] one to another during the race?
 
 Yes, said Polemarchus, and not only so, but a festival will he celebrated at night, which you certainly ought to see. Let us rise soon after supper and see this festival; there will be a gathering of young men, and we will have a good talk. Stay then, and do not be perverse.
 
