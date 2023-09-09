@@ -236,7 +236,10 @@ Arithmetic <: Regular_Expressions {
     | ident "(" Parameters_In_Paren ")" -- function_call
     | Exp
   assignment
-    = ("+" | "+" | "-" | "*" | "/" | "+" | "+")? "="
+    = ("+" | "-" | "*" | "/" | "%" | "&" | "|" | "^") "=" -- operation_equals
+    | ("<<" "<"? | ">>" ">"?) "=" -- shift_equals
+    | "=" (~"=") -- direct
+    | "===" -- equivalent_equals
   Assignment_Exp
     = "$"? Assignment_sub_Exp
   Assignment_sub_Exp
@@ -250,8 +253,8 @@ Arithmetic <: Regular_Expressions {
     = Logic_And_Exp -- calculation
 
   Logic_And_Exp
-    = Logic_And_Exp ("&&"  | " and " ) Logic_Or_Exp  -- logical_and
-    | Logic_And_Exp ("!&&" | " nand ") Logic_Or_Exp  -- logical_nand
+    = Logic_And_Exp ("!&&" | " nand ") Logic_Or_Exp  -- logical_nand
+    | Logic_And_Exp ("&&"  | " and " ) Logic_Or_Exp  -- logical_and
     | Logic_Or_Exp
   Logic_Or_Exp
     = Logic_Or_Exp ("!||"  | " nor " ) Equality_Exp  -- logical_nor
@@ -275,7 +278,11 @@ Arithmetic <: Regular_Expressions {
     | Bitwise_Exp
   
   Bitwise_Exp
-    = Bitwise_Exp "!&"  Add_Exp  -- nand
+    = Bitwise_Exp ">>>"  Add_Exp  -- unsinged_right_shift
+    | Bitwise_Exp "<<<"  Add_Exp  -- unsinged_left_shift
+    | Bitwise_Exp ">>"  Add_Exp  -- right_shift
+    | Bitwise_Exp "<<"  Add_Exp  -- left_shift
+    | Bitwise_Exp "!&"  Add_Exp  -- nand
     | Bitwise_Exp "&"   Add_Exp  -- and
     | Bitwise_Exp "!|"  Add_Exp  -- nor
     | Bitwise_Exp "!^|" Add_Exp  -- nxor
