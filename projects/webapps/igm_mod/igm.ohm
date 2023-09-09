@@ -310,6 +310,7 @@ Arithmetic <: Regular_Expressions {
     = date_Exp
     | reg_Exp
     | color_Exp
+    | Grid_Dim_Exp
     | Unit_Exp
     | Grid_Pos_Exp
     | Selector_Exp
@@ -319,6 +320,9 @@ Arithmetic <: Regular_Expressions {
     
   Unit_Exp
     = a_Unit_Exp<Pri_Exp>
+  // grid dimensions, for spreadsheets
+  Grid_Dim_Exp
+    = Single_Exp "by" Single_Exp
 }
 
 
