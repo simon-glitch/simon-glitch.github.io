@@ -3,7 +3,7 @@
     by Simanelix
       (Simon Glitch on GitHub)
     last updated:
-      Sep/5/2023
+      Sep/9/2023
     project started:
       Sep/1/2023
 */
@@ -341,10 +341,10 @@ Arithmetic <: Regular_Expressions {
   = ListOf<Exp, ",">
   
   Obj_Exp
-  = ListOf<Obj_Prop, ",">
+    = ListOf<Obj_Prop, ",">
   Obj_Prop
-  = ident ":" Exp -- informal
-  | string ":" Exp -- formal
+    = ident ":" Exp -- informal
+    | string ":" Exp -- formal
   // handles advanced data types, and falls back to right side unary if the data is a "simple" Exp
   Any_Exp
     = date_Exp
