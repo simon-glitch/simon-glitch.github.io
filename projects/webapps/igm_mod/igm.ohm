@@ -43,7 +43,7 @@ Basic_Data <: Base {
 
   // an identifier dot expression
   ident_dot  (an identifier dot expression)
-    = ident spaces "." spaces ident_dot
+    = ident spaces "." spaces ident_either
   ident_either
     = (~ident_dot) ident
     | ident_dot
@@ -247,7 +247,6 @@ Arithmetic <: Regular_Expressions {
     = ListOf<Exp, ",">
   
   Exp
-    // first line is an optimization for one when an "expression" is just a singleton
     = Logic_And_Exp -- calculation
 
   Logic_And_Exp
@@ -260,13 +259,19 @@ Arithmetic <: Regular_Expressions {
     | Logic_Or_Exp ("!^||" | " nxor ") Equality_Exp  -- logical_nxor
     | Logic_Or_Exp ("^||"  | " xor " ) Equality_Exp  -- logical_xor
     | Equality_Exp
+  
+  Angle_Bracket_Left
+    = "<" (~"<")
+  Angle_Bracket_Right
+    = ">" (~">")
+  
   Equality_Exp
     = Equality_Exp ("==" | "\\eq "  ) Bitwise_Exp  -- eq
     | Equality_Exp ("!=" | "\\ineq ") Bitwise_Exp  -- ineq
     | Equality_Exp ("<=" | "\\gt "  ) Bitwise_Exp  -- gt
     | Equality_Exp (">=" | "\\gte " ) Bitwise_Exp  -- gte
-    | Equality_Exp ("<"  | "\\lt "  ) Bitwise_Exp  -- lt
-    | Equality_Exp (">"  | "\\lte " ) Bitwise_Exp  -- lte
+    | Equality_Exp (Angle_Bracket_Left  | "\\lt " ) Bitwise_Exp  -- lt
+    | Equality_Exp (Angle_Bracket_Right | "\\lte ") Bitwise_Exp  -- lte
     | Bitwise_Exp
   
   Bitwise_Exp
@@ -290,13 +295,14 @@ Arithmetic <: Regular_Expressions {
 
   Exp_Exp
     = Exp_Exp ("^" | "**") Pri_Exp  -- power
-    | Pri_Exp
+    | Prib_Exp
 
   // used for handling left-side unaries
   //   defaults to Any_Exp if there is no unary and the A_Exp is not a basic type
-  A_Pri_Exp<A_Exp>
+  A_Pri_Exp<A_Exp, B_Exp>
     = Grid_Dim_Exp
     | Unit_Exp
+    | B_Exp
     | Single_Exp<A_Exp>
     // these unaries can be stacked; that might be a bad thing, but i am not sure; well see, i guess;
     | "++" Pri_Exp -- increment
@@ -306,8 +312,13 @@ Arithmetic <: Regular_Expressions {
     | ("!" | "no ") Pri_Exp  -- logical_not
     | "~" Pri_Exp  -- bitwise_not
     | Any_Exp
+  Prib_Exp
+    = A_Pri_Exp<Exp, end>
   Pri_Exp
-    = A_Pri_Exp<Exp>
+    = Pri_Exp_Sub -- sub
+    | Exp
+  Pri_Exp_Sub
+    = A_Pri_Exp<Exp, Exp>
   // doesn't use the nesting brackets from Pri_Exp
   Single_Exp_Exp
     = Single_Exp<Exp>
