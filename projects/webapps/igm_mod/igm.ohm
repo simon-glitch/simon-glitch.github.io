@@ -345,8 +345,9 @@ Game <: Arithmetic {
     = (~Property_Exp) Value_String -- invalid
     | Property_Exp
   Property_Exp
-    = Desc_Property_Name ":" Value_String 
-    | Property_Name ":" Property_Value
+    = "@" Value_String -- shorthand
+    | Desc_Property_Name ":" Value_String -- string
+    | Property_Name ":" Property_Value -- misc
   // I really am adding a lot of alternatives here
   //   should I really add this many alternative names?
   Desc_Property_Name
