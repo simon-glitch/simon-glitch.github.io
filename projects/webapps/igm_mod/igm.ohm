@@ -412,6 +412,7 @@ Game <: Arithmetic {
     = ("yield" | "gain" | "earn" | "win" | "grant") -- yield
     | "lose" -- lose
     | ("increase" | "lower" | "multiply") -- assignment
+    | ("if" | "else" | "elseif" | "end" | "while" | "for") -- condition_flow
     | "show"
     | "hide"
     | "light"
