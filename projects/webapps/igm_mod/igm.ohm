@@ -169,6 +169,9 @@ Data <: Basic_Data {
   html_Element_Exp
     = "<" ident ">" ((~("</")) any)* "</" ident ">"
   
+  // grid position (like icons[0,0])
+  Grid_Pos_Exp
+  = ident_either "[" NonEmptyListOf<decimal_int, ","> "]"
 }
 
 Regular_Expressions <: Data {
