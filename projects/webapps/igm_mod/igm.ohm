@@ -322,7 +322,7 @@ Arithmetic <: Regular_Expressions {
     = a_Unit_Exp<Pri_Exp>
   // grid dimensions, for spreadsheets
   Grid_Dim_Exp
-    = Single_Exp "by" Single_Exp
+    = Single_Exp<Exp> "by" Single_Exp<Exp>
 }
 
 
