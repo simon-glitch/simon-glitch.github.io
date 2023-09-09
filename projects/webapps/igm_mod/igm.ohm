@@ -285,7 +285,9 @@ Arithmetic <: Regular_Expressions {
   // used for handling left-side unaries
   //   defaults to Any_Exp if there is no unary and the A_Exp is not a basic type
   A_Pri_Exp<A_Exp>
-    = Single_Exp<A_Exp>
+    = Grid_Dim_Exp
+    | Unit_Exp
+    | Single_Exp<A_Exp>
     // these unaries can be stacked; that might be a bad thing, but i am not sure; well see, i guess;
     | "++" Pri_Exp -- increment
     | "--" Pri_Exp -- decrement
@@ -403,7 +405,7 @@ Game <: Arithmetic {
   //   = ListOf<Exp, ","> -- comma_separated
   //   | ListOf<Exp, ";"> -- semicolon_separated
   Parameters
-    = ListOf<Value_Expression, space>
+    = listOf<Value_Expression, space>
   command
     = "do " ident -- do
     | command_keyword
@@ -412,7 +414,6 @@ Game <: Arithmetic {
     = ("yield" | "gain" | "earn" | "win" | "grant") -- yield
     | "lose" -- lose
     | ("increase" | "lower" | "multiply") -- assignment
-    | ("if" | "else" | "elseif" | "end" | "while" | "for") -- condition_flow
     | "show"
     | "hide"
     | "light"
