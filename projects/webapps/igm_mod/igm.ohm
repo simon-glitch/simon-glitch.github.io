@@ -302,9 +302,17 @@ Arithmetic <: Regular_Expressions {
     | ident_either
     | string
     | "(" A_Exp ")"  -- paren
-    | "[" A_Exp "]"  -- array
-    | "{" A_Exp "}"  -- object
+    | "[" Array_Exp "]"  -- array
+    | "{" Obj_Exp "}"  -- json
 
+  Array_Exp
+  = ListOf<Exp, ",">
+  
+  Obj_Exp
+  = ListOf<Obj_Prop, ",">
+  Obj_Prop
+  = ident ":" Exp -- informal
+  | string ":" Exp -- formal
   // handles advanced data types, and falls back to right side unary if the data is a "simple" Exp
   Any_Exp
     = date_Exp
