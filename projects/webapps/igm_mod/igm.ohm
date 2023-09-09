@@ -121,12 +121,12 @@ Data <: Basic_Data {
       "." loose_month_Exp
       "." loose_day_Exp -- dots
   loose_day_Exp
-    = decimal_int decimal_int? -- day
+    = rawDigit rawDigit? -- day
   loose_month_Exp
-    = decimal_int decimal_int? -- month_number
+    = rawDigit rawDigit? -- month_number
     | month_name -- month_name
   loose_year_Exp
-    = decimal_int decimal_int (decimal_int decimal_int)? -- year
+    = rawDigit rawDigit rawDigit* -- year
 
   a_date_Exp<a_sep>
     = (true_year_Exp  a_sep true_month_Exp a_sep true_day_Exp  )
@@ -136,11 +136,11 @@ Data <: Basic_Data {
     | (true_day_Exp   a_sep true_year_Exp  a_sep true_month_Exp)
     | (true_day_Exp   a_sep true_month_Exp a_sep true_year_Exp )
   true_year_Exp
-    = decimal_int decimal_int decimal_int decimal_int -- year
+    = rawDigit rawDigit rawDigit rawDigit -- year
   true_month_Exp
     = month_name -- month
   true_day_Exp
-    = decimal_int decimal_int? -- day
+    = rawDigit rawDigit? -- day
   month_name
     = caseInsensitive<"jan"> caseInsensitive<"uary">?
     | caseInsensitive<"feb"> caseInsensitive<"uary">?
