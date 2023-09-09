@@ -320,6 +320,7 @@ Arithmetic <: Regular_Expressions {
 // Idle Game Maker game expressions
 Game <: Arithmetic {
   // now on to game's rules
+  // Game can literally be empty!
   Game
     = ListOf<Section, line_break>
   Section
@@ -349,8 +350,12 @@ Game <: Arithmetic {
   // I really am adding a lot of alternatives here
   //   should I really add this many alternative names?
   Desc_Property_Name
-    = caseInsensitive<"desc"> caseInsensitive<"ript">? caseInsensitive<"ion">? caseInsensitive<"s">? -- description
-    | (caseInsensitive<"id"> | caseInsensitive<"label"> | caseInsensitive<"text"> | caseInsensitive<"title"> | caseInsensitive<"name">?) caseInsensitive<"s">? -- name
+    = Author_Property_Name
+    | (caseInsensitive<"desc"> caseInsensitive<"ript">? caseInsensitive<"ion">? caseInsensitive<"s">?) -- description
+    | (caseInsensitive<"id"> | caseInsensitive<"label"> | caseInsensitive<"text"> | caseInsensitive<"title"> | caseInsensitive<"name">) caseInsensitive<"s">? -- name
+  Author_Property_Name
+    = caseInsensitive<"by">
+    | caseInsensitive<"author"> caseInsensitive<"s">? -- formal
   Property_Name
     = listOf<letters, spaces>
   Property_Value
@@ -365,6 +370,10 @@ Game <: Arithmetic {
     = (~end) number -- single_value
     | preposition_keyword Exp -- command_component
   Value_String
+    = string
+    | Value_String_Implied
+  // consider removing this?
+  Value_String_Implied
     = ((~line_break) any)+
   Action
     = (~Assignment_Exp) command Action_Parameters -- command
