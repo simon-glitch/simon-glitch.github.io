@@ -255,17 +255,27 @@ Arithmetic <: Regular_Expressions {
     | Logic_And_Exp ("!&&" | " nand ") Logic_Or_Exp  -- logical_nand
     | Logic_Or_Exp
   Logic_Or_Exp
-    = Logic_Or_Exp ("||"  | " or " ) Bitwise_Exp  -- logical_or
-    | Logic_Or_Exp ("!||" | " nor ") Bitwise_Exp  -- logical_nor
-    | Logic_Or_Exp ("^||" | " xor ") Bitwise_Exp  -- logical_xor
+    = Logic_Or_Exp ("!||"  | " nor " ) Equality_Exp  -- logical_nor
+    | Logic_Or_Exp ("||"   | " or "  ) Equality_Exp  -- logical_or
+    | Logic_Or_Exp ("!^||" | " nxor ") Equality_Exp  -- logical_nxor
+    | Logic_Or_Exp ("^||"  | " xor " ) Equality_Exp  -- logical_xor
+    | Equality_Exp
+  Equality_Exp
+    = Equality_Exp ("==" | "\\eq "  ) Bitwise_Exp  -- eq
+    | Equality_Exp ("!=" | "\\ineq ") Bitwise_Exp  -- ineq
+    | Equality_Exp ("<=" | "\\gt "  ) Bitwise_Exp  -- gt
+    | Equality_Exp (">=" | "\\gte " ) Bitwise_Exp  -- gte
+    | Equality_Exp ("<"  | "\\lt "  ) Bitwise_Exp  -- lt
+    | Equality_Exp (">"  | "\\lte " ) Bitwise_Exp  -- lte
     | Bitwise_Exp
   
   Bitwise_Exp
-    = Bitwise_Exp "&"  Add_Exp  -- and
-    | Bitwise_Exp "!&" Add_Exp  -- nand
-    | Bitwise_Exp "|"  Add_Exp  -- or
-    | Bitwise_Exp "!|" Add_Exp  -- nor
-    | Bitwise_Exp "^|" Add_Exp  -- xor
+    = Bitwise_Exp "!&"  Add_Exp  -- nand
+    | Bitwise_Exp "&"   Add_Exp  -- and
+    | Bitwise_Exp "!|"  Add_Exp  -- nor
+    | Bitwise_Exp "!^|" Add_Exp  -- nxor
+    | Bitwise_Exp "^|"  Add_Exp  -- xor
+    | Bitwise_Exp "|"   Add_Exp  -- or
     | Add_Exp
   
   Add_Exp
@@ -299,6 +309,8 @@ Arithmetic <: Regular_Expressions {
   Pri_Exp
     = A_Pri_Exp<Exp>
   // doesn't use the nesting brackets from Pri_Exp
+  Single_Exp_Exp
+    = Single_Exp<Exp>
   Single_Exp<A_Exp>
     = number
     | ident_either
