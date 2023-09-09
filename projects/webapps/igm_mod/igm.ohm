@@ -311,6 +311,7 @@ Arithmetic <: Regular_Expressions {
     | reg_Exp
     | color_Exp
     | Unit_Exp
+    | Grid_Pos_Exp
     | Selector_Exp
     | html_Element_Exp
     | Single_Exp<Exp> "++" -- increment
