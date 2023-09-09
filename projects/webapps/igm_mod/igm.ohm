@@ -171,7 +171,7 @@ Data <: Basic_Data {
   
   // grid position (like icons[0,0])
   Grid_Pos_Exp
-  = ident_either "[" NonEmptyListOf<decimal_int, ","> "]"
+  = ident_either "[" nonemptyListOf<decimal_int, ","> "]"
 }
 
 Regular_Expressions <: Data {
