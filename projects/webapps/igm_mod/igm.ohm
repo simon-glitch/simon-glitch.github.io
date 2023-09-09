@@ -373,8 +373,8 @@ Game <: Arithmetic {
   Value_Function
     = line_break* Action (line_break+ Action)*
   Value_Expression
-    = (~end) Any_Exp -- single_value
-    | preposition_keyword Any_Exp -- command_component
+    = (~end) Pri_Exp -- single_value
+    | preposition_keyword Pri_Exp -- command_component
   Value_String
     = string
     | Value_String_Implied
