@@ -425,10 +425,10 @@ Arithmetic <: Regular_Expressions {
     | Power_Exp
 
   Power_Exp  (20)
-    = Power_Exp (b<"**">  | "\\pow" ) Pri_Exp  -- power
-    | Power_Exp (b<"/-/"> | "\\log" ) Pri_Exp  -- log
-    | Power_Exp (b<"/%/"> | "\\root") Pri_Exp  -- root
-    | Pri_Exp
+    = Power_Exp (b<"**">  | "\\pow" ) Single_Exp  -- power
+    | Power_Exp (b<"/-/"> | "\\log" ) Single_Exp  -- log
+    | Power_Exp (b<"/%/"> | "\\root") Single_Exp  -- root
+    | Single_Exp
   unary_Op_Left
     = "++" -- increment
     | "--" -- decrement
@@ -458,37 +458,32 @@ Arithmetic <: Regular_Expressions {
   // used for handling left-side unaries
   //   defaults to Any_Exp if there is no unary and the A_Exp is not a basic type
   // todo: fix unaries in A_Pri_Exp and Any_Exp, by creating an actual unary class (and using operator precedence)
-  A_Pri_Exp<A_Exp, B_Exp>
-    = Grid_Dim_Exp
-    | Unit_Exp
-    | B_Exp
-    | unary_Op_Left+ Pri_Exp -- unary_op
-    | A_Any_Exp<A_Exp> -- any_other
-  // Prib_Exp cannot contain things from A_Single_Exp, such as (...), [...], etc...
-  Prib_Exp
-    = A_Pri_Exp<Exp, end>
-  Pri_Exp
-    = Pri_Exp_Sub -- sub
-    | Exp
-  Pri_Exp_Sub
-    = A_Pri_Exp<Exp, Exp>
+  Single_Exp
+    =       Grid_Dim_Exp
+    |           Unit_Exp
+    | unary_Op_Left+ Exp -- unary_op
+    |           date_Exp
+    |            reg_Exp
+    |          color_Exp
+    |       Grid_Pos_Exp
+    |   A_Simple_Exp<Exp> -- simple
+    |       Selector_Exp (~".") -- selector
+    |   html_Element_Exp
   // handles advanced data types, and falls back to right side unary if the data is a "simple" Exp
-  A_Any_Exp<A_Exp>
-    = date_Exp
-    | reg_Exp
-    | color_Exp
-    | Grid_Dim_Exp
-    | Unit_Exp
-    | Grid_Pos_Exp
-    | Selector_Exp (~".") -- selector
-    | html_Element_Exp
-    | A_Single_Exp<A_Exp> unary_Op_Right -- unary_op
-    | A_Single_Exp<A_Exp> -- singleton // (~unary_Op_Right)
-    
+  //  A_Any_Exp<A_Exp>
+  //    = date_Exp
+  //    | reg_Exp
+  //    | color_Exp
+  //    | Grid_Dim_Exp
+  //    | Unit_Exp
+  //    | Grid_Pos_Exp
+  //    | Selector_Exp (~".") -- selector
+  //    | html_Element_Exp
+  //    | A_Single_Exp<A_Exp> unary_Op_Right -- unary_op
+  //    | A_Single_Exp<A_Exp> -- singleton // (~unary_Op_Right)
+  
   // doesn't use the nesting brackets from Pri_Exp
-  Pri_Exp_Exp
-    = A_Single_Exp<Exp>
-  A_Single_Exp<A_Exp>
+  A_Simple_Exp<A_Exp>
     = number
     | ident_either
     | string
