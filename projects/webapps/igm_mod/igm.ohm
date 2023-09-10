@@ -235,11 +235,67 @@ Arithmetic <: Regular_Expressions {
     = ident assignment Exp -- assignment
     | ident "(" Parameters_In_Paren ")" -- function_call
     | Exp
+  binary_comparison  (a comparison)
+    = "=="
+    | "!="
+    | "<="
+    | ">="
+    | "<==>"
+  binary_operator  (binary operator, excluding comparisons)
+    = "||"
+    | "!||"
+    | "^||"
+    | "!^||"
+    | "&&"
+    | "!&&"
+    | "|"
+    | "!|"
+    | "^|"
+    | "!^|"
+    | "<"
+    | ">"
+    | ">>"
+    | "<<"
+    | ">>>"
+    | "<<<"
+    | "+"
+    | "-"
+    | "*"
+    | "/"
+    | "%"
+    | "/%"
+    | "%%"
+    | "^"
+    | "/-/"
+    | "/%/"
+    | "*+*"
+    | "/??/"
+    | "/^^/"
+    | "*^^*"
+    | "/?+/"
+    | "/?-/"
+    | "!*"
+    | "*|*"
+    | "/|/"
+    | "<+>"
+    | "<++>"
+    | "<+++>"
+  binary_operator_ender
+    = "|"
+    | "&"
+    | "^"
+    | ">"
+    | "<"
+    | "+"
+    | "-"
+    | "*" (~"/") -- not_comment_end
+    | "/" (~"*") -- not_comment_begin
+    | "%"
   assignment
     = ("+" | "-" | "*" | "/" | "%" | "&" | "|" | "^") "=" -- operation_equals
     | ("<<" "<"? | ">>" ">"?) "=" -- shift_equals
     | "=" (~"=") -- direct
-    | "===" -- equivalent_equals
+    | "===" -- compare_equals
   Assignment_Single_Exp
     = "$"? Assignment_sub_Exp
   Assignment_sub_Exp
