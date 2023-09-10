@@ -487,7 +487,7 @@ Arithmetic <: Regular_Expressions {
     
   // doesn't use the nesting brackets from Pri_Exp
   Pri_Exp_Exp
-    = Single_Exp<Exp>
+    = A_Single_Exp<Exp>
   A_Single_Exp<A_Exp>
     = number
     | ident_either
