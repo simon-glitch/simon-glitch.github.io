@@ -454,7 +454,7 @@ Arithmetic <: Regular_Expressions {
   Pri_Exp_Sub
     = A_Pri_Exp<Exp, Exp>
   // doesn't use the nesting brackets from Pri_Exp
-  Powergle_Exp_Exp
+  Pri_Exp_Exp
     = Single_Exp<Exp>
   Single_Exp<A_Exp>
     = number
