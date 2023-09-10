@@ -325,6 +325,8 @@ Arithmetic <: Regular_Expressions {
     = Logic_And_Exp -- calculation
   
   
+  // These are all of the binay and ternary operations, which take in operands, and have have an order of operations
+  // all of these operations are purely functional, except for assignment.
   Assignment_Exp  (1.0)
     = Assignment_Exp assignment Next_Exp
     | Next_Exp
@@ -337,7 +339,6 @@ Arithmetic <: Regular_Expressions {
   Digit_Sum_Exp  (2.1)
     = Digit_Sum_Exp "*+*" Next_Exp -- a
     | Next_Exp
-  
   Corpime_Exp  (3)
     = Corpime_Exp "/??/" Next_Exp -- is_coprime
     | Next_Exp
@@ -347,11 +348,9 @@ Arithmetic <: Regular_Expressions {
     | Combo_Prime_Exp "/?+/" Next_Exp -- is_prime_sum
     | Combo_Prime_Exp "/?-/" Next_Exp -- is_prime_diff
     | Next_Exp
-  
   Choice_Exp  (5)
     = Choice_Exp ( "!*" |  "\\choose") Next_Exp  -- choose
     | Next_Exp
-  
   Law_Cosines_Exp  (6.0)
     = Law_Cosines_Exp "%*%" Law_Cosines_Exp "*%*" Next_Exp -- d
     | Law_Cosines_Exp "%%*" Law_Cosines_Exp "*%%" Next_Exp -- c
@@ -385,7 +384,6 @@ Arithmetic <: Regular_Expressions {
     = Bitwise_Exp "!|" Next_Exp  -- nor
     | Bitwise_Exp  "|" Next_Exp  -- or
     | Next_Exp
-  
   Bitwise_Xor_Exp  (13)
     = Bitwise_Exp "!^|" Next_Exp  -- nxor
     | Bitwise_Exp  "^|" Next_Exp  -- xor
@@ -394,8 +392,6 @@ Arithmetic <: Regular_Expressions {
     = Bitwise_Exp "!&" Next_Exp  -- nand
     | Bitwise_Exp "&"  Next_Exp  -- and
     | Next_Exp
-  
-  
   Equality_Exp  (15)
     = Equality_Exp ("==" | "\\eq   ") Next_Exp  -- equal
     | Equality_Exp ("!=" | "\\ineq ") Next_Exp  -- inequal
@@ -407,22 +403,16 @@ Arithmetic <: Regular_Expressions {
     | Inequality_Exp (angle_Bracket_Left  | "\\gt"  ) Next_Exp  -- gt
     | Inequality_Exp ("<==>"              | "\\cmp" ) Next_Exp  -- cmp
     | Next_Exp
-  
-  
-  
-  
   Bitshift_Exp  (17)
     = Bitwise_Exp ">>>" Next_Exp  -- unsinged_right_shift
     | Bitwise_Exp "<<<" Next_Exp  -- unsinged_left_shift
     | Bitwise_Exp ">>"  Next_Exp  -- right_shift
     | Bitwise_Exp "<<"  Next_Exp  -- left_shift
     | Next_Exp
-  
   Add_Exp  (18)
     = Add_Exp "+" Mul_Exp  -- plus
     | Add_Exp "-" Mul_Exp  -- minus
     | Mul_Exp
-
   // todo: add  (~binary_operator_ender) to every operation, in order to prevent weird bugs
   Mul_Exp  (19)
     = Mul_Exp "*"  Power_Exp  -- times
