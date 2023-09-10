@@ -318,6 +318,9 @@ Arithmetic <: Regular_Expressions {
     = Logic_And_Exp -- calculation
   
   
+  Assignment_Exp
+    = Assignment_Exp assignment Next_Exp
+    | Next_Exp
   Equality_Exp
     = Equality_Exp ("==" | "\\eq   ") Next_Exp  -- equal
     | Equality_Exp ("!=" | "\\ineq ") Next_Exp  -- inequal
