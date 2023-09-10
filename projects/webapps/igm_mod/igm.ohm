@@ -330,8 +330,8 @@ Arithmetic <: Regular_Expressions {
     | Inequality_Exp ("<==>"              | "\\cmp" ) Next_Exp  -- cmp
     | Next_Exp
   Logic_And_Exp
-    = Logic_And_Exp ("!&&" | " nand ") Next_Exp  -- logical_nand
-    | Logic_And_Exp ( "&&" |  " and ") Next_Exp  -- logical_and
+    = Logic_And_Exp ("!&&" | " \\nand ") Next_Exp  -- logical_nand
+    | Logic_And_Exp ( "&&" |  " \\and ") Next_Exp  -- logical_and
     | Next_Exp
   Logic_Xor_Exp
     = Logic_Xor_Exp ("!^||" | " nxor ") Next_Exp  -- logical_nxor
@@ -344,6 +344,15 @@ Arithmetic <: Regular_Expressions {
   
   Ternary_Cond_Exp
     = Next_Exp "?" Ternary_Cond_Exp ":" Ternary_Cond_Exp  -- a
+    | Next_Exp
+  
+  SSA_Exp
+    = SSA_Exp "%**" SSA_Exp "**%" Next_Exp -- small
+    | SSA_Exp "%%%" SSA_Exp "***" Next_Exp -- large
+    | Next_Exp
+  Law_Cosines_Exp
+    = Law_Cosines_Exp "%*%" Law_Cosines_Exp "*%*" Next_Exp -- d
+    | Law_Cosines_Exp "%%*" Law_Cosines_Exp "*%%" Next_Exp -- c
     | Next_Exp
   
   Choice_Exp
