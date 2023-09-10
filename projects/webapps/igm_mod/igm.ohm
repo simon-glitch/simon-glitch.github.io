@@ -373,6 +373,27 @@ Arithmetic <: Regular_Expressions {
     = Logic_Or_Exp ("!||" | " nor ") Next_Exp  -- logical_nor
     | Logic_Or_Exp ( "||" |  " or ") Next_Exp  -- logical_or
     | Next_Exp
+  Logic_Xor_Exp  (10)
+    = Logic_Xor_Exp ("!^||" | " nxor ") Next_Exp  -- logical_nxor
+    | Logic_Xor_Exp ( "^||" |  " xor ") Next_Exp  -- logical_xor
+    | Next_Exp
+  Logic_And_Exp  (11)
+    = Logic_And_Exp ("!&&" | " \\nand ") Next_Exp  -- logical_nand
+    | Logic_And_Exp ( "&&" |  " \\and ") Next_Exp  -- logical_and
+    | Next_Exp
+  Bitwise_Or_Exp  (12)
+    = Bitwise_Exp "!|" Next_Exp  -- nor
+    | Bitwise_Exp  "|" Next_Exp  -- or
+    | Next_Exp
+  
+  Bitwise_Xor_Exp  (13)
+    = Bitwise_Exp "!^|" Next_Exp  -- nxor
+    | Bitwise_Exp  "^|" Next_Exp  -- xor
+    | Next_Exp
+  Bitwise_And_Exp  (14)
+    = Bitwise_Exp "!&" Next_Exp  -- nand
+    | Bitwise_Exp "&"  Next_Exp  -- and
+    | Next_Exp
   
   
   Equality_Exp  (15)
@@ -386,14 +407,6 @@ Arithmetic <: Regular_Expressions {
     | Inequality_Exp (angle_Bracket_Left  | "\\gt"  ) Next_Exp  -- gt
     | Inequality_Exp ("<==>"              | "\\cmp" ) Next_Exp  -- cmp
     | Next_Exp
-  Logic_And_Exp  (11)
-    = Logic_And_Exp ("!&&" | " \\nand ") Next_Exp  -- logical_nand
-    | Logic_And_Exp ( "&&" |  " \\and ") Next_Exp  -- logical_and
-    | Next_Exp
-  Logic_Xor_Exp  (10)
-    = Logic_Xor_Exp ("!^||" | " nxor ") Next_Exp  -- logical_nxor
-    | Logic_Xor_Exp ( "^||" |  " xor ") Next_Exp  -- logical_xor
-    | Next_Exp
   
   
   
@@ -403,19 +416,6 @@ Arithmetic <: Regular_Expressions {
     | Bitwise_Exp "<<<" Next_Exp  -- unsinged_left_shift
     | Bitwise_Exp ">>"  Next_Exp  -- right_shift
     | Bitwise_Exp "<<"  Next_Exp  -- left_shift
-    | Next_Exp
-  
-  Bitwise_And_Exp  (14)
-    = Bitwise_Exp "!&" Next_Exp  -- nand
-    | Bitwise_Exp "&"  Next_Exp  -- and
-    | Next_Exp
-  Bitwise_Xor_Exp  (13)
-    = Bitwise_Exp "!^|" Next_Exp  -- nxor
-    | Bitwise_Exp  "^|" Next_Exp  -- xor
-    | Next_Exp
-  Bitwise_Or_Exp  (12)
-    = Bitwise_Exp "!|" Next_Exp  -- nor
-    | Bitwise_Exp  "|" Next_Exp  -- or
     | Next_Exp
   
   Add_Exp  (18)
