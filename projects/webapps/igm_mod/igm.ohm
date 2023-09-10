@@ -433,6 +433,7 @@ Arithmetic <: Regular_Expressions {
 
   // used for handling left-side unaries
   //   defaults to Any_Exp if there is no unary and the A_Exp is not a basic type
+  // todo: fix unaries in A_Pri_Exp and Any_Exp, by creating an actual unary class (and using operator precedence)
   A_Pri_Exp<A_Exp, B_Exp>
     = Grid_Dim_Exp
     | Unit_Exp
@@ -465,7 +466,7 @@ Arithmetic <: Regular_Expressions {
     | "{" Obj_Exp "}"  -- json
 
   Array_Exp
-  = ListOf<Exp, ",">
+    = ListOf<Exp, ",">
   
   Obj_Exp
     = ListOf<Obj_Prop, ",">
