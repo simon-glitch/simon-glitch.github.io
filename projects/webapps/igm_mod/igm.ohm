@@ -240,7 +240,7 @@ Arithmetic <: Regular_Expressions {
     | ("<<" "<"? | ">>" ">"?) "=" -- shift_equals
     | "=" (~"=") -- direct
     | "===" -- equivalent_equals
-  Assignment_Exp
+  Assignment_Single_Exp
     = "$"? Assignment_sub_Exp
   Assignment_sub_Exp
     = ident spaces " is " Exp -- is
@@ -271,44 +271,37 @@ Arithmetic <: Regular_Expressions {
     = ">" (~">")
   
   Equality_Exp
-    = Equality_Exp ("==" | "\\eq "  ) Bitwise_Exp  -- eq
-    | Equality_Exp ("!=" | "\\ineq ") Bitwise_Exp  -- ineq
-    | Equality_Exp ("<=" | "\\gt "  ) Bitwise_Exp  -- gt
-    | Equality_Exp (">=" | "\\gte " ) Bitwise_Exp  -- gte
-    | Equality_Exp (Angle_Bracket_Left  | "\\lt " ) Bitwise_Exp  -- lt
-    | Equality_Exp (Angle_Bracket_Right | "\\lte ") Bitwise_Exp  -- lte
-    | Bitwise_Exp
+    = Equality_Exp ("==" | "\\eq "  ) Next_Exp  -- eq
+    | Equality_Exp ("!=" | "\\ineq ") Next_Exp  -- ineq
+    | Equality_Exp ("<=" | "\\gt "  ) Next_Exp  -- gt
+    | Equality_Exp (">=" | "\\gte " ) Next_Exp  -- gte
+    | Equality_Exp (Angle_Bracket_Left  | "\\lt " ) Next_Exp  -- lt
+    | Equality_Exp (Angle_Bracket_Right | "\\lte ") Next_Exp  -- lte
+    | Next_Exp
   
   Ternary_Cond_Exp
     = Next_Exp "?" Ternary_Cond_Exp ":" Ternary_Cond_Exp  -- unsinged_right_shift
-  
-  
-    = Bitwise_Exp ">>>" Add_Exp  -- unsinged_right_shift
-    | Bitwise_Exp "<<<" Add_Exp  -- unsinged_left_shift
-    | Bitwise_Exp ">>"  Add_Exp  -- right_shift
-    | Bitwise_Exp "<<"  Add_Exp  -- left_shift
-  
+    | Next_Exp
+    
   Bitshift_Exp
     = Bitwise_Exp ">>>" Next_Exp  -- unsinged_right_shift
     | Bitwise_Exp "<<<" Next_Exp  -- unsinged_left_shift
     | Bitwise_Exp ">>"  Next_Exp  -- right_shift
     | Bitwise_Exp "<<"  Next_Exp  -- left_shift
+    | Next_Exp
   
-  
-  Bitshift_Exp
-    = Bitwise_Exp ">>>"  Add_Exp  -- unsinged_right_shift
-    | Bitwise_Exp "<<<"  Add_Exp  -- unsinged_left_shift
-    | Bitwise_Exp ">>"  Add_Exp  -- right_shift
-    | Bitwise_Exp "<<"  Add_Exp  -- left_shift
-  
-  Bitwise_Exp
-    = Bitwise_Exp "!&"  Add_Exp  -- nand
-    | Bitwise_Exp "&"   Add_Exp  -- and
-    | Bitwise_Exp "!^|"  Add_Exp  -- nxor
-    | Bitwise_Exp "^|"  Add_Exp  -- xor
-    | Bitwise_Exp "!|" Add_Exp  -- nor
-    | Bitwise_Exp "|"   Add_Exp  -- or
-    | Add_Exp
+  Bitwise_And_Exp
+    = Bitwise_Exp "!&" Next_Exp  -- nand
+    | Bitwise_Exp "&"  Next_Exp  -- and
+    | Next_Exp
+  Bitwise_Xor_Exp
+    = Bitwise_Exp "!^|" Next_Exp  -- nxor
+    | Bitwise_Exp  "^|" Next_Exp  -- xor
+    | Next_Exp
+  Bitwise_Or_Exp
+    = Bitwise_Exp "!|" Next_Exp  -- nor
+    | Bitwise_Exp  "|" Next_Exp  -- or
+    | Next_Exp
   
   Add_Exp
     = Add_Exp "+" Mul_Exp  -- plus
@@ -446,8 +439,8 @@ Game <: Arithmetic {
   Value_String_Implied
     = ((~line_break) any)+
   Action
-    = (~Assignment_Exp) command Action_Parameters -- command
-    | Assignment_Exp
+    = (~Assignment_Single_Exp) command Action_Parameters -- command
+    | Assignment_Single_Exp
   Action_Parameters
     = "(" Parameters_In_Paren ")" -- in_paren
     | Parameters
