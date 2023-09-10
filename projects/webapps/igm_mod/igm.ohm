@@ -480,7 +480,7 @@ Arithmetic <: Regular_Expressions {
     | Grid_Dim_Exp
     | Unit_Exp
     | Grid_Pos_Exp
-    | Selector_Exp
+    | Selector_Exp (~".") -- selector
     | html_Element_Exp
     | A_Single_Exp<A_Exp> unary_Op_Right -- unary_op
     | A_Single_Exp<A_Exp> -- singleton // (~unary_Op_Right)
