@@ -438,15 +438,8 @@ Arithmetic <: Regular_Expressions {
     = Grid_Dim_Exp
     | Unit_Exp
     | B_Exp
-    | Single_Exp<A_Exp>
-    // these unaries can be stacked; that might be a bad thing, but i am not sure; well see, i guess;
-    | "++" Pri_Exp -- increment
-    | "--" Pri_Exp -- decrement
-    | "+" Pri_Exp  -- pos
-    | "-" Pri_Exp  -- neg
-    | ("!" | "no ") Pri_Exp  -- logical_not
-    | "~" Pri_Exp  -- bitwise_not
-    | Any_Exp
+    | unary_Op_Left+ Pri_Exp -- unary_op
+    | A_Any_Exp<A_Exp> -- any_other
   Prib_Exp
     = A_Pri_Exp<Exp, end>
   Pri_Exp
@@ -474,7 +467,7 @@ Arithmetic <: Regular_Expressions {
     = ident ":" Exp -- informal
     | string ":" Exp -- formal
   // handles advanced data types, and falls back to right side unary if the data is a "simple" Exp
-  Any_Exp
+  A_Any_Exp<A_Exp>
     = date_Exp
     | reg_Exp
     | color_Exp
@@ -483,8 +476,8 @@ Arithmetic <: Regular_Expressions {
     | Grid_Pos_Exp
     | Selector_Exp
     | html_Element_Exp
-    | Single_Exp<Exp> "++" -- increment
-    | Single_Exp<Exp> "--" -- decrement
+    | Single_Exp<A_Exp> unary_Op_Right -- unary_op
+    | Single_Exp<A_Exp> -- singleton // (~unary_Op_Right)
     
   Unit_Exp
     = a_Unit_Exp<Pri_Exp>
