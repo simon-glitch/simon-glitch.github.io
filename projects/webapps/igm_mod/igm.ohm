@@ -363,6 +363,17 @@ Arithmetic <: Regular_Expressions {
     = Base_Reinterpretation_Exp "*&/" Base_Reinterpretation_Exp "/&*" Next_Exp -- a
     | Next_Exp
   
+  Geometric_Scale_Exp
+    = Geometric_Scale_Exp "*|*"  Next_Exp -- abs_val
+    | Geometric_Scale_Exp "/|/"  Next_Exp -- geo_mean
+    | Next_Exp
+  
+  Fusion_Exp
+    = Fusion_Exp "<+>"   Next_Exp -- base_2
+    | Fusion_Exp "<++>"  Next_Exp -- base_10
+    | Fusion_Exp "<+++>" Next_Exp -- base_16
+    | Next_Exp
+  
   Digit_Sum_Exp
     = Digit_Sum_Exp "*+*" Next_Exp -- a
     | Next_Exp
