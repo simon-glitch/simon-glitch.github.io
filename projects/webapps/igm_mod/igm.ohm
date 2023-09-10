@@ -293,8 +293,8 @@ Arithmetic <: Regular_Expressions {
     = "|"
     | "&"
     | "^"
-    | (~(comparison equals?)) "<" -- invalid_left_bracket
-    | (~(comparison equals?)) ">" -- invalid_right_bracket
+    | (~(binary_comparison equals?)) "<" -- invalid_left_bracket
+    | (~(binary_comparison equals?)) ">" -- invalid_right_bracket
     | "+"
     | "-"
     | "*" (~"/") -- not_comment_end
@@ -309,9 +309,9 @@ Arithmetic <: Regular_Expressions {
   equals
     = "=" (~"=")
   assignment
-    = comparison "=" -- comparison_equals
+    = binary_comparison "=" -- comparison_equals
     | binary_operator equals -- operation_equals
-    | binary_operator comparison equals -- operation_comparison_equals
+    | binary_operator binary_comparison equals -- operation_comparison_equals
   Assignment_Single_Exp
     = "$"? Assignment_sub_Exp
   Assignment_sub_Exp
@@ -331,8 +331,8 @@ Arithmetic <: Regular_Expressions {
   b<polynary_operator>
     = polynary_operator (~binary_operator_ender)
   Assignment_Exp  (1.0)
-    = Assignment_Exp assignment Next_Exp
-    | Next_Exp
+    = Assignment_Exp assignment Ternary_Cond_Exp -- a
+    | Ternary_Cond_Exp
   Ternary_Cond_Exp  (1.1)
     = Base_Reinterpretation_Exp b<"?"> Ternary_Cond_Exp b<":"> Ternary_Cond_Exp  -- a
     | Base_Reinterpretation_Exp
@@ -376,7 +376,7 @@ Arithmetic <: Regular_Expressions {
     | Logic_Or_Exp (b <"||"> |  " or ") Logic_Xor_Exp  -- logical_or
     | Logic_Xor_Exp
   Logic_Xor_Exp  (10)
-    = Logic_Xor_Exp b<("!^||"> | " nxor ") Logic_And_Exp  -- logical_nxor
+    = Logic_Xor_Exp (b<"!^||"> | " nxor ") Logic_And_Exp  -- logical_nxor
     | Logic_Xor_Exp (b <"^||"> |  " xor ") Logic_And_Exp  -- logical_xor
     | Logic_And_Exp
   Logic_And_Exp  (11)
@@ -426,12 +426,12 @@ Arithmetic <: Regular_Expressions {
 
   Power_Exp  (20)
     = Power_Exp (b<"**">  | "\\pow" ) Pri_Exp  -- power
-    = Power_Exp (b<"/-/"> | "\\log" ) Pri_Exp  -- power
-    = Power_Exp (b<"/%/"> | "\\root") Pri_Exp  -- power
+    | Power_Exp (b<"/-/"> | "\\log" ) Pri_Exp  -- log
+    | Power_Exp (b<"/%/"> | "\\root") Pri_Exp  -- root
     | Pri_Exp
   unary_Op_Left
     = "++" -- increment
-    | "--" -- increment
+    | "--" -- decrement
     | ("!"  | "\\not" ) -- logical_not
     | ("~"  | "\\bnot") -- bitwise_not
     | ("~/" | "\\inv" ) -- multiplicative_inverse
@@ -447,7 +447,7 @@ Arithmetic <: Regular_Expressions {
   
   unary_Op_Right
     = "++" -- increment
-    | "--" -- increment
+    | "--" -- decrement
     | (("!"+) | ("\\factorial")) -- factorial
     | ("#" | "\\primorial" ) -- primorial
     | ("/~" | "\\inv") -- multiplicative_inverse
