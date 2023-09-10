@@ -497,7 +497,7 @@ Arithmetic <: Regular_Expressions {
   Obj_Exp
     = ListOf<Obj_Prop, ",">
   Obj_Prop
-    = ident ":" Exp -- informal
+    = ident  ":" Exp -- informal
     | string ":" Exp -- formal
   Unit_Exp
     = a_Unit_Exp<Pri_Exp>
