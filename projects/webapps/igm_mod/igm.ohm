@@ -253,15 +253,17 @@ Arithmetic <: Regular_Expressions {
     = Logic_And_Exp -- calculation
 
   Logic_And_Exp
-    = Logic_And_Exp ("!&&" | " nand ") Logic_Or_Exp  -- logical_nand
-    | Logic_And_Exp ("&&"  | " and " ) Logic_Or_Exp  -- logical_and
-    | Logic_Or_Exp
+    = Logic_And_Exp ("!&&" | " nand ") Next_Exp  -- logical_nand
+    | Logic_And_Exp ( "&&" |  " and ") Next_Exp  -- logical_and
+    | Next_Exp
+  Logic_Xor_Exp
+    = Logic_Xor_Exp ("!^||" | " nxor ") Next_Exp  -- logical_nxor
+    | Logic_Xor_Exp ( "^||" |  " xor ") Next_Exp  -- logical_xor
+    | Next_Exp
   Logic_Or_Exp
-    = Logic_Or_Exp ("!||"  | " nor " ) Equality_Exp  -- logical_nor
-    | Logic_Or_Exp ("||"   | " or "  ) Equality_Exp  -- logical_or
-    | Logic_Or_Exp ("!^||" | " nxor ") Equality_Exp  -- logical_nxor
-    | Logic_Or_Exp ("^||"  | " xor " ) Equality_Exp  -- logical_xor
-    | Equality_Exp
+    = Logic_Or_Exp ("!||" | " nor ") Next_Exp  -- logical_nor
+    | Logic_Or_Exp ( "||" |  " or ") Next_Exp  -- logical_or
+    | Next_Exp
   
   Angle_Bracket_Left
     = "<" (~"<")
@@ -277,16 +279,34 @@ Arithmetic <: Regular_Expressions {
     | Equality_Exp (Angle_Bracket_Right | "\\lte ") Bitwise_Exp  -- lte
     | Bitwise_Exp
   
-  Bitwise_Exp
+  Ternary_Cond_Exp
+    = Next_Exp "?" Ternary_Cond_Exp ":" Ternary_Cond_Exp  -- unsinged_right_shift
+  
+  
+    = Bitwise_Exp ">>>" Add_Exp  -- unsinged_right_shift
+    | Bitwise_Exp "<<<" Add_Exp  -- unsinged_left_shift
+    | Bitwise_Exp ">>"  Add_Exp  -- right_shift
+    | Bitwise_Exp "<<"  Add_Exp  -- left_shift
+  
+  Bitshift_Exp
+    = Bitwise_Exp ">>>" Next_Exp  -- unsinged_right_shift
+    | Bitwise_Exp "<<<" Next_Exp  -- unsinged_left_shift
+    | Bitwise_Exp ">>"  Next_Exp  -- right_shift
+    | Bitwise_Exp "<<"  Next_Exp  -- left_shift
+  
+  
+  Bitshift_Exp
     = Bitwise_Exp ">>>"  Add_Exp  -- unsinged_right_shift
     | Bitwise_Exp "<<<"  Add_Exp  -- unsinged_left_shift
     | Bitwise_Exp ">>"  Add_Exp  -- right_shift
     | Bitwise_Exp "<<"  Add_Exp  -- left_shift
-    | Bitwise_Exp "!&"  Add_Exp  -- nand
+  
+  Bitwise_Exp
+    = Bitwise_Exp "!&"  Add_Exp  -- nand
     | Bitwise_Exp "&"   Add_Exp  -- and
-    | Bitwise_Exp "!|"  Add_Exp  -- nor
-    | Bitwise_Exp "!^|" Add_Exp  -- nxor
+    | Bitwise_Exp "!^|"  Add_Exp  -- nxor
     | Bitwise_Exp "^|"  Add_Exp  -- xor
+    | Bitwise_Exp "!|" Add_Exp  -- nor
     | Bitwise_Exp "|"   Add_Exp  -- or
     | Add_Exp
   
