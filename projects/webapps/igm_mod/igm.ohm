@@ -343,9 +343,27 @@ Arithmetic <: Regular_Expressions {
     | Next_Exp
   
   Ternary_Cond_Exp
-    = Next_Exp "?" Ternary_Cond_Exp ":" Ternary_Cond_Exp  -- unsinged_right_shift
+    = Next_Exp "?" Ternary_Cond_Exp ":" Ternary_Cond_Exp  -- a
     | Next_Exp
-    
+  
+  Base_Reinterpretation_Exp
+    = Base_Reinterpretation_Exp "*&/" Base_Reinterpretation_Exp "/&*" Next_Exp -- a
+    | Next_Exp
+  
+  Digit_Sum_Exp
+    = Digit_Sum_Exp "*+*" Next_Exp -- a
+    | Next_Exp
+  
+  Corpime_Exp
+    = Digit_Sum_Exp "/??/" Next_Exp -- is_coprime
+    | Next_Exp
+  Combo_Prime_Exp
+    = Digit_Sum_Exp "/^^/" Next_Exp -- gcd
+    | Digit_Sum_Exp "*^^*" Next_Exp -- lcm
+    | Digit_Sum_Exp "/?+/" Next_Exp -- is_prime_sum
+    | Digit_Sum_Exp "/?-/" Next_Exp -- is_prime_diff
+    | Next_Exp
+  
   Bitshift_Exp
     = Bitwise_Exp ">>>" Next_Exp  -- unsinged_right_shift
     | Bitwise_Exp "<<<" Next_Exp  -- unsinged_left_shift
