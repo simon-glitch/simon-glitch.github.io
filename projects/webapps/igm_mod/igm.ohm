@@ -327,7 +327,7 @@ Arithmetic <: Regular_Expressions {
   
   // These are all of the binay and ternary operations, which take in operands, and have have an order of operations
   //   all of these operations are purely functional, except for assignment.
-  //   todo: add  (~binary_operator_ender) to every operation, in order to prevent weird bugs, using <b>
+  //   b<> adds (~binary_operator_ender) to every operation, in order to prevent weird bugs
   b<polynary_operator>
     = polynary_operator (~binary_operator_ender)
   Assignment_Exp  (1.0)
