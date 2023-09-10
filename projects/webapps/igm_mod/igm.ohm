@@ -242,7 +242,7 @@ Arithmetic <: Regular_Expressions {
     | "<=" | "\\lte "
     | angle_Bracket_Left | "\\gt"
     | angle_Bracket_Right | "\\lt "
-    | "<==>"
+    | "<==>" | "\\cmp"
   binary_operator  (binary operator, excluding comparisons)
     = "||"    (~binary_operator_ender)
     | "!||"   (~binary_operator_ender)
@@ -317,6 +317,18 @@ Arithmetic <: Regular_Expressions {
   Exp
     = Logic_And_Exp -- calculation
 
+  
+  Equality_Exp
+    = Logic_And_Exp ("==" | "\\eq ") Next_Exp  -- equal
+    | Logic_And_Exp ("!=" | "\\ineq ") Next_Exp  -- inequal
+    | Next_Exp
+  Inequality_Exp
+    = Logic_And_Exp ("<="                | "\\lte ") Next_Exp  -- lte
+    | Logic_And_Exp (angle_Bracket_Right | "\\lt " ) Next_Exp  -- lt
+    | Logic_And_Exp (">="                | "\\gte ") Next_Exp  -- gte
+    | Logic_And_Exp (angle_Bracket_Left  | "\\gt"  ) Next_Exp  -- gt
+    | Logic_And_Exp ("<==>"              | "\\cmp" ) Next_Exp  -- cmp
+    | Next_Exp
   Logic_And_Exp
     = Logic_And_Exp ("!&&" | " nand ") Next_Exp  -- logical_nand
     | Logic_And_Exp ( "&&" |  " and ") Next_Exp  -- logical_and
