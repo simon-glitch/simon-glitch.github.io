@@ -316,18 +316,18 @@ Arithmetic <: Regular_Expressions {
   
   Exp
     = Logic_And_Exp -- calculation
-
+  
   
   Equality_Exp
-    = Logic_And_Exp ("==" | "\\eq ") Next_Exp  -- equal
-    | Logic_And_Exp ("!=" | "\\ineq ") Next_Exp  -- inequal
+    = Equality_Exp ("==" | "\\eq   ") Next_Exp  -- equal
+    | Equality_Exp ("!=" | "\\ineq ") Next_Exp  -- inequal
     | Next_Exp
   Inequality_Exp
-    = Logic_And_Exp ("<="                | "\\lte ") Next_Exp  -- lte
-    | Logic_And_Exp (angle_Bracket_Right | "\\lt " ) Next_Exp  -- lt
-    | Logic_And_Exp (">="                | "\\gte ") Next_Exp  -- gte
-    | Logic_And_Exp (angle_Bracket_Left  | "\\gt"  ) Next_Exp  -- gt
-    | Logic_And_Exp ("<==>"              | "\\cmp" ) Next_Exp  -- cmp
+    = Inequality_Exp ("<="                | "\\lte ") Next_Exp  -- lte
+    | Inequality_Exp (angle_Bracket_Right | "\\lt " ) Next_Exp  -- lt
+    | Inequality_Exp (">="                | "\\gte ") Next_Exp  -- gte
+    | Inequality_Exp (angle_Bracket_Left  | "\\gt"  ) Next_Exp  -- gt
+    | Inequality_Exp ("<==>"              | "\\cmp" ) Next_Exp  -- cmp
     | Next_Exp
   Logic_And_Exp
     = Logic_And_Exp ("!&&" | " nand ") Next_Exp  -- logical_nand
@@ -371,13 +371,19 @@ Arithmetic <: Regular_Expressions {
     | Add_Exp "-" Mul_Exp  -- minus
     | Mul_Exp
 
+  // todo: add  (~binary_operator_ender) to every operation, in order to prevent weird bugs
   Mul_Exp
-    = Mul_Exp "*" Exp_Exp  -- times
-    | Mul_Exp "/" Exp_Exp  -- divide
+    = Mul_Exp "*"  Exp_Exp  -- times
+    | Mul_Exp "/"  Exp_Exp  -- divide
+    | Mul_Exp "%"  Exp_Exp  -- modulo
+    | Mul_Exp "/%" Exp_Exp  -- floor_divide
+    | Mul_Exp "%%" Exp_Exp  -- modded_divide
     | Exp_Exp
 
   Exp_Exp
-    = Exp_Exp ("^" | "**") Pri_Exp  -- power
+    = Exp_Exp ("**"  | "\\pow" ) Pri_Exp  -- power
+    = Exp_Exp ("/-/" | "\\log" ) Pri_Exp  -- power
+    = Exp_Exp ("/%/" | "\\root") Pri_Exp  -- power
     | Prib_Exp
 
   // used for handling left-side unaries
