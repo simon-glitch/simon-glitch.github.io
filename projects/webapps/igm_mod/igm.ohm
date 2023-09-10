@@ -487,9 +487,9 @@ Arithmetic <: Regular_Expressions {
     = number
     | ident_either
     | string
-    | "(" A_Exp ")"  -- paren
+    | "(" A_Exp     ")"  -- paren
     | "[" Array_Exp "]"  -- array
-    | "{" Obj_Exp "}"  -- json
+    | "{" Obj_Exp   "}"  -- json
 
   Array_Exp
     = ListOf<Exp, ",">
