@@ -384,16 +384,16 @@ Arithmetic <: Regular_Expressions {
     | Logic_And_Exp (b <"&&"> |  " \\and ") Bitwise_Or_Exp  -- logical_and
     | Bitwise_Or_Exp
   Bitwise_Or_Exp  (12)
-    = Bitwise_Exp b<"!|"> Bitwise_Xor_Exp  -- nor
-    | Bitwise_Exp b <"|"> Bitwise_Xor_Exp  -- or
+    = Bitwise_Or_Exp b<"!|"> Bitwise_Xor_Exp  -- nor
+    | Bitwise_Or_Exp b <"|"> Bitwise_Xor_Exp  -- or
     | Bitwise_Xor_Exp
   Bitwise_Xor_Exp  (13)
-    = Bitwise_Exp b<"!^|"> Bitwise_And_Exp  -- nxor
-    | Bitwise_Exp b <"^|"> Bitwise_And_Exp  -- xor
+    = Bitwise_Xor_Exp b<"!^|"> Bitwise_And_Exp  -- nxor
+    | Bitwise_Xor_Exp b <"^|"> Bitwise_And_Exp  -- xor
     | Bitwise_And_Exp
   Bitwise_And_Exp  (14)
-    = Bitwise_Exp b<"!&"> Equality_Exp  -- nand
-    | Bitwise_Exp "&"  Equality_Exp  -- and
+    = Bitwise_And_Exp b<"!&"> Equality_Exp  -- nand
+    | Bitwise_And_Exp "&"  Equality_Exp  -- and
     | Equality_Exp
   Equality_Exp  (15)
     = Equality_Exp (b<"=="> | "\\eq   ") Inequality_Exp  -- equal
