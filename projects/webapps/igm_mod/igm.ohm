@@ -236,66 +236,75 @@ Arithmetic <: Regular_Expressions {
     | ident "(" Parameters_In_Paren ")" -- function_call
     | Exp
   binary_comparison  (a comparison)
-    = "=="
-    | "!="
-    | "<="
-    | ">="
+    = "==" | "\\eq "
+    | "!=" | "\\ineq "
+    | ">=" | "\\gte "
+    | "<=" | "\\lte "
+    | angle_Bracket_Left | "\\gt"
+    | angle_Bracket_Right | "\\lt "
     | "<==>"
   binary_operator  (binary operator, excluding comparisons)
-    = "||"
-    | "!||"
-    | "^||"
-    | "!^||"
-    | "&&"
-    | "!&&"
-    | "|"
-    | "!|"
-    | "^|"
-    | "!^|"
-    | "<"
-    | ">"
-    | ">>"
-    | "<<"
-    | ">>>"
-    | "<<<"
-    | "+"
-    | "-"
-    | "*"
-    | "/"
-    | "%"
-    | "/%"
-    | "%%"
-    | "^"
-    | "/-/"
-    | "/%/"
-    | "*+*"
-    | "/??/"
-    | "/^^/"
-    | "*^^*"
-    | "/?+/"
-    | "/?-/"
-    | "!*"
-    | "*|*"
-    | "/|/"
-    | "<+>"
-    | "<++>"
-    | "<+++>"
+    = "||" (~binary_operator_ender)
+    | "!||" (~binary_operator_ender)
+    | "^||" (~binary_operator_ender)
+    | "!^||" (~binary_operator_ender)
+    | "&&" (~binary_operator_ender)
+    | "!&&" (~binary_operator_ender)
+    | "|" (~binary_operator_ender)
+    | "!|" (~binary_operator_ender)
+    | "^|" (~binary_operator_ender)
+    | "!^|" (~binary_operator_ender)
+    | "<" (~binary_operator_ender)
+    | ">" (~binary_operator_ender)
+    | ">>" (~binary_operator_ender)
+    | "<<" (~binary_operator_ender)
+    | ">>>" (~binary_operator_ender)
+    | "<<<" (~binary_operator_ender)
+    | "+" (~binary_operator_ender)
+    | "-" (~binary_operator_ender)
+    | "*" (~binary_operator_ender)
+    | "/" (~binary_operator_ender)
+    | "%" (~binary_operator_ender)
+    | "/%" (~binary_operator_ender)
+    | "%%" (~binary_operator_ender)
+    | "^" (~binary_operator_ender)
+    | "/-/" (~binary_operator_ender)
+    | "/%/" (~binary_operator_ender)
+    | "*+*" (~binary_operator_ender)
+    | "/??/" (~binary_operator_ender)
+    | "/^^/" (~binary_operator_ender)
+    | "*^^*" (~binary_operator_ender)
+    | "/?+/" (~binary_operator_ender)
+    | "/?-/" (~binary_operator_ender)
+    | "!*" (~binary_operator_ender)
+    | "*|*" (~binary_operator_ender)
+    | "/|/" (~binary_operator_ender)
+    | "<+>" (~binary_operator_ender)
+    | "<++>" (~binary_operator_ender)
+    | "<+++>" (~binary_operator_ender)
   binary_operator_ender
     = "|"
     | "&"
     | "^"
-    | ">"
-    | "<"
+    | (~(comparison equals?)) "<" -- invalid_left_bracket
+    | (~(comparison equals?)) ">" -- invalid_right_bracket
     | "+"
     | "-"
     | "*" (~"/") -- not_comment_end
     | "/" (~"*") -- not_comment_begin
     | "%"
+  angle_Bracket_Left
+    = "<" (~"<")
+  angle_Bracket_Right
+    = ">" (~">")
+  
+  
+  equals
+    = "=" (~"=")
   assignment
-    = ("+" | "-" | "*" | "/" | "%" | "&" | "|" | "^") "=" -- operation_equals
-    | ("<<" "<"? | ">>" ">"?) "=" -- shift_equals
-    | "=" (~"=") -- direct
-    | "===" -- compare_equals
+    = comparison "=" -- comparison_equals
+    | binary_operator equals -- operation_equals
+    | binary_operator comparison equals -- operation_comparison_equals
   Assignment_Single_Exp
     = "$"? Assignment_sub_Exp
   Assignment_sub_Exp
@@ -319,20 +328,6 @@ Arithmetic <: Regular_Expressions {
   Logic_Or_Exp
     = Logic_Or_Exp ("!||" | " nor ") Next_Exp  -- logical_nor
     | Logic_Or_Exp ( "||" |  " or ") Next_Exp  -- logical_or
-    | Next_Exp
-  
-  Angle_Bracket_Left
-    = "<" (~"<")
-  Angle_Bracket_Right
-    = ">" (~">")
-  
-  Equality_Exp
-    = Equality_Exp ("==" | "\\eq "  ) Next_Exp  -- eq
-    | Equality_Exp ("!=" | "\\ineq ") Next_Exp  -- ineq
-    | Equality_Exp ("<=" | "\\gt "  ) Next_Exp  -- gt
-    | Equality_Exp (">=" | "\\gte " ) Next_Exp  -- gte
-    | Equality_Exp (Angle_Bracket_Left  | "\\lt " ) Next_Exp  -- lt
-    | Equality_Exp (Angle_Bracket_Right | "\\lte ") Next_Exp  -- lte
     | Next_Exp
   
   Ternary_Cond_Exp
