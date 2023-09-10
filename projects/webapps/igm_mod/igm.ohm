@@ -373,17 +373,17 @@ Arithmetic <: Regular_Expressions {
 
   // todo: add  (~binary_operator_ender) to every operation, in order to prevent weird bugs
   Mul_Exp
-    = Mul_Exp "*"  Exp_Exp  -- times
-    | Mul_Exp "/"  Exp_Exp  -- divide
-    | Mul_Exp "%"  Exp_Exp  -- modulo
-    | Mul_Exp "/%" Exp_Exp  -- floor_divide
-    | Mul_Exp "%%" Exp_Exp  -- modded_divide
-    | Exp_Exp
+    = Mul_Exp "*"  Power_Exp  -- times
+    | Mul_Exp "/"  Power_Exp  -- divide
+    | Mul_Exp "%"  Power_Exp  -- modulo
+    | Mul_Exp "/%" Power_Exp  -- floor_divide
+    | Mul_Exp "%%" Power_Exp  -- modded_divide
+    | Power_Exp
 
-  Exp_Exp
-    = Exp_Exp ("**"  | "\\pow" ) Pri_Exp  -- power
-    = Exp_Exp ("/-/" | "\\log" ) Pri_Exp  -- power
-    = Exp_Exp ("/%/" | "\\root") Pri_Exp  -- power
+  Power_Exp
+    = Power_Exp ("**"  | "\\pow" ) Pri_Exp  -- power
+    = Power_Exp ("/-/" | "\\log" ) Pri_Exp  -- power
+    = Power_Exp ("/%/" | "\\root") Pri_Exp  -- power
     | Prib_Exp
 
   // used for handling left-side unaries
@@ -409,7 +409,7 @@ Arithmetic <: Regular_Expressions {
   Pri_Exp_Sub
     = A_Pri_Exp<Exp, Exp>
   // doesn't use the nesting brackets from Pri_Exp
-  Single_Exp_Exp
+  Powergle_Exp_Exp
     = Single_Exp<Exp>
   Single_Exp<A_Exp>
     = number
