@@ -334,100 +334,100 @@ Arithmetic <: Regular_Expressions {
     = Assignment_Exp assignment Next_Exp
     | Next_Exp
   Ternary_Cond_Exp  (1.1)
-    = Base_Reinterpretation_Exp "?" Ternary_Cond_Exp ":" Ternary_Cond_Exp  -- a
+    = Base_Reinterpretation_Exp b<"?"> Ternary_Cond_Exp b<":"> Ternary_Cond_Exp  -- a
     | Base_Reinterpretation_Exp
   Base_Reinterpretation_Exp  (2.0)
-    = Base_Reinterpretation_Exp "*&/" Base_Reinterpretation_Exp "/&*" Digit_Sum_Exp -- a
+    = Base_Reinterpretation_Exp b<"*&/"> Base_Reinterpretation_Exp b<"/&*"> Digit_Sum_Exp -- a
     | Digit_Sum_Exp
   Digit_Sum_Exp  (2.1)
-    = Digit_Sum_Exp "*+*" Corpime_Exp -- a
+    = Digit_Sum_Exp b<"*+*"> Corpime_Exp -- a
     | Corpime_Exp
   Corpime_Exp  (3)
-    = Corpime_Exp "/??/" Combo_Prime_Exp -- is_coprime
+    = Corpime_Exp b<"/??/"> Combo_Prime_Exp -- is_coprime
     | Combo_Prime_Exp
   Combo_Prime_Exp  (4)
-    = Combo_Prime_Exp "/^^/" Choice_Exp -- gcd
-    | Combo_Prime_Exp "*^^*" Choice_Exp -- lcm
-    | Combo_Prime_Exp "/?+/" Choice_Exp -- is_prime_sum
-    | Combo_Prime_Exp "/?-/" Choice_Exp -- is_prime_diff
+    = Combo_Prime_Exp b<"/^^/"> Choice_Exp -- gcd
+    | Combo_Prime_Exp b<"*^^*"> Choice_Exp -- lcm
+    | Combo_Prime_Exp b<"/?+/"> Choice_Exp -- is_prime_sum
+    | Combo_Prime_Exp b<"/?-/"> Choice_Exp -- is_prime_diff
     | Choice_Exp
   Choice_Exp  (5)
-    = Choice_Exp ( "!*" |  "\\choose") Law_Cosines_Exp  -- choose
+    = Choice_Exp ( b<"!*"> |  "\\choose") Law_Cosines_Exp  -- choose
     | Law_Cosines_Exp
   Law_Cosines_Exp  (6.0)
-    = Law_Cosines_Exp "%*%" Law_Cosines_Exp "*%*" SSA_Exp -- d
-    | Law_Cosines_Exp "%%*" Law_Cosines_Exp "*%%" SSA_Exp -- c
+    = Law_Cosines_Exp b<"%*%"> Law_Cosines_Exp b<"*%*"> SSA_Exp -- d
+    | Law_Cosines_Exp b<"%%*"> Law_Cosines_Exp b<"*%%"> SSA_Exp -- c
     | SSA_Exp
   SSA_Exp  (6.1)
-    = SSA_Exp "%**" SSA_Exp "**%" Geometric_Scale_Exp -- small
-    | SSA_Exp "%%%" SSA_Exp "***" Geometric_Scale_Exp -- large
+    = SSA_Exp b<"%**"> SSA_Exp b<"**%"> Geometric_Scale_Exp -- small
+    | SSA_Exp b<"%%%"> SSA_Exp b<"***"> Geometric_Scale_Exp -- large
     | Geometric_Scale_Exp
   Geometric_Scale_Exp  (7)
-    = Geometric_Scale_Exp "*|*"  Fusion_Exp -- abs_val
-    | Geometric_Scale_Exp "/|/"  Fusion_Exp -- geo_mean
+    = Geometric_Scale_Exp b<"*|*">  Fusion_Exp -- abs_val
+    | Geometric_Scale_Exp b<"/|/">  Fusion_Exp -- geo_mean
     | Fusion_Exp
   Fusion_Exp  (8)
-    = Fusion_Exp "<+>"   Logic_Or_Exp -- base_2
-    | Fusion_Exp "<++>"  Logic_Or_Exp -- base_10
-    | Fusion_Exp "<+++>" Logic_Or_Exp -- base_16
+    = Fusion_Exp b<"<+>">   Logic_Or_Exp -- base_2
+    | Fusion_Exp b<"<++>">  Logic_Or_Exp -- base_10
+    | Fusion_Exp b<"<+++>"> Logic_Or_Exp -- base_16
     | Logic_Or_Exp
   Logic_Or_Exp  (9)
-    = Logic_Or_Exp ("!||" | " nor ") Logic_Xor_Exp  -- logical_nor
-    | Logic_Or_Exp ( "||" |  " or ") Logic_Xor_Exp  -- logical_or
+    = Logic_Or_Exp (b<"!||"> | " nor ") Logic_Xor_Exp  -- logical_nor
+    | Logic_Or_Exp (b <"||"> |  " or ") Logic_Xor_Exp  -- logical_or
     | Logic_Xor_Exp
   Logic_Xor_Exp  (10)
-    = Logic_Xor_Exp ("!^||" | " nxor ") Logic_And_Exp  -- logical_nxor
-    | Logic_Xor_Exp ( "^||" |  " xor ") Logic_And_Exp  -- logical_xor
+    = Logic_Xor_Exp b<("!^||"> | " nxor ") Logic_And_Exp  -- logical_nxor
+    | Logic_Xor_Exp (b <"^||"> |  " xor ") Logic_And_Exp  -- logical_xor
     | Logic_And_Exp
   Logic_And_Exp  (11)
-    = Logic_And_Exp ("!&&" | " \\nand ") Bitwise_Or_Exp  -- logical_nand
-    | Logic_And_Exp ( "&&" |  " \\and ") Bitwise_Or_Exp  -- logical_and
+    = Logic_And_Exp (b<"!&&"> | " \\nand ") Bitwise_Or_Exp  -- logical_nand
+    | Logic_And_Exp (b <"&&"> |  " \\and ") Bitwise_Or_Exp  -- logical_and
     | Bitwise_Or_Exp
   Bitwise_Or_Exp  (12)
-    = Bitwise_Exp "!|" Bitwise_Xor_Exp  -- nor
-    | Bitwise_Exp  "|" Bitwise_Xor_Exp  -- or
+    = Bitwise_Exp b<"!|"> Bitwise_Xor_Exp  -- nor
+    | Bitwise_Exp b <"|"> Bitwise_Xor_Exp  -- or
     | Bitwise_Xor_Exp
   Bitwise_Xor_Exp  (13)
-    = Bitwise_Exp "!^|" Bitwise_And_Exp  -- nxor
-    | Bitwise_Exp  "^|" Bitwise_And_Exp  -- xor
+    = Bitwise_Exp b<"!^|"> Bitwise_And_Exp  -- nxor
+    | Bitwise_Exp b <"^|"> Bitwise_And_Exp  -- xor
     | Bitwise_And_Exp
   Bitwise_And_Exp  (14)
-    = Bitwise_Exp "!&" Equality_Exp  -- nand
+    = Bitwise_Exp b<"!&"> Equality_Exp  -- nand
     | Bitwise_Exp "&"  Equality_Exp  -- and
     | Equality_Exp
   Equality_Exp  (15)
-    = Equality_Exp ("==" | "\\eq   ") Inequality_Exp  -- equal
-    | Equality_Exp ("!=" | "\\ineq ") Inequality_Exp  -- inequal
+    = Equality_Exp (b<"=="> | "\\eq   ") Inequality_Exp  -- equal
+    | Equality_Exp (b<"!="> | "\\ineq ") Inequality_Exp  -- inequal
     | Inequality_Exp
   Inequality_Exp  (16)
-    = Inequality_Exp ("<="                | "\\lte ") Bitshift_Exp  -- lte
-    | Inequality_Exp (angle_Bracket_Right | "\\lt " ) Bitshift_Exp  -- lt
-    | Inequality_Exp (">="                | "\\gte ") Bitshift_Exp  -- gte
-    | Inequality_Exp (angle_Bracket_Left  | "\\gt"  ) Bitshift_Exp  -- gt
-    | Inequality_Exp ("<==>"              | "\\cmp" ) Bitshift_Exp  -- cmp
+    = Inequality_Exp (b<"<=">   | "\\lte ") Bitshift_Exp  -- lte
+    | Inequality_Exp (b<"<">    | "\\lt " ) Bitshift_Exp  -- lt
+    | Inequality_Exp (b<">=">   | "\\gte ") Bitshift_Exp  -- gte
+    | Inequality_Exp (b<">">    | "\\gt"  ) Bitshift_Exp  -- gt
+    | Inequality_Exp (b<"<==>"> | "\\cmp" ) Bitshift_Exp  -- cmp
     | Bitshift_Exp
   Bitshift_Exp  (17)
-    = Bitwise_Exp ">>>" Add_Exp  -- unsinged_right_shift
-    | Bitwise_Exp "<<<" Add_Exp  -- unsinged_left_shift
-    | Bitwise_Exp ">>"  Add_Exp  -- right_shift
-    | Bitwise_Exp "<<"  Add_Exp  -- left_shift
+    = Bitwise_Exp b<">>>"> Add_Exp  -- unsinged_right_shift
+    | Bitwise_Exp b<"<<<"> Add_Exp  -- unsinged_left_shift
+    | Bitwise_Exp b<">>">  Add_Exp  -- right_shift
+    | Bitwise_Exp b<"<<">  Add_Exp  -- left_shift
     | Add_Exp
   Add_Exp  (18)
-    = Add_Exp "+" Mul_Exp  -- plus
-    | Add_Exp "-" Mul_Exp  -- minus
+    = Add_Exp b<"+"> Mul_Exp  -- plus
+    | Add_Exp b<"-"> Mul_Exp  -- minus
     | Mul_Exp
   Mul_Exp  (19)
-    = Mul_Exp "*"  Power_Exp  -- times
-    | Mul_Exp "/"  Power_Exp  -- divide
-    | Mul_Exp "%"  Power_Exp  -- modulo
-    | Mul_Exp "/%" Power_Exp  -- floor_divide
-    | Mul_Exp "%%" Power_Exp  -- modded_divide
+    = Mul_Exp b<"*">  Power_Exp  -- times
+    | Mul_Exp b<"/">  Power_Exp  -- divide
+    | Mul_Exp b<"%">  Power_Exp  -- modulo
+    | Mul_Exp b<"/%"> Power_Exp  -- floor_divide
+    | Mul_Exp b<"%%"> Power_Exp  -- modded_divide
     | Power_Exp
 
   Power_Exp  (20)
-    = Power_Exp ("**"  | "\\pow" ) Pri_Exp  -- power
-    = Power_Exp ("/-/" | "\\log" ) Pri_Exp  -- power
-    = Power_Exp ("/%/" | "\\root") Pri_Exp  -- power
+    = Power_Exp (b<"**">  | "\\pow" ) Pri_Exp  -- power
+    = Power_Exp (b<"/-/"> | "\\log" ) Pri_Exp  -- power
+    = Power_Exp (b<"/%/"> | "\\root") Pri_Exp  -- power
     | Pri_Exp
   unary_Op_Left
     = "++" -- increment
