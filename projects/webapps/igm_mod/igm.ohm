@@ -32,6 +32,13 @@ Base {
   // I could've just done Line_break, but line_break works in lexical contexts as well, so ... im using it like this.
   line_break
     = (spaces ("\n" | ";") spaces)
+  spaces
+    := space*
+  comment
+    = "//" ((~line_break) any)* -- singleline
+    | "/*" ((~"*/") any)* "*/"  --  multiline
+  space
+    += comment
 }
 
 
@@ -430,7 +437,32 @@ Arithmetic <: Regular_Expressions {
     = Power_Exp ("/-/" | "\\log" ) Pri_Exp  -- power
     = Power_Exp ("/%/" | "\\root") Pri_Exp  -- power
     | Prib_Exp
-
+  unary_Op_Left
+    = "++" -- increment
+    | "--" -- increment
+    | ("!"  | "\\not" ) -- logical_not
+    | ("~"  | "\\bnot") -- bitwise_not
+    | ("~/" | "\\inv" ) -- multiplicative_inverse
+    | ("~%" | "\\ln"  ) -- natural_logarithm
+    | ("+>" | "\\d.reverse") -- decimal_reverse
+    | ("~>" | "\\b.reverse") -- binary_reverse
+    | ("-"  | "\\neg" ) -- negative
+    | "+" -- positive
+  
+  poworial<a_symbol, a_name>
+    = a_symbol+ -- smybolic
+    | a_name spaces "**" spaces rawDigit+ -- named
+  
+  unary_Op_Right
+    = "++" -- increment
+    | "--" -- increment
+    | (("!"+) | ("\\factorial")) -- factorial
+    | ("#" | "\\primorial" ) -- primorial
+    | ("/~" | "\\inv") -- multiplicative_inverse
+    | ("%~" | "\\ln") -- natural_logarithm
+    | ("<+" | "\\d.reverse") -- decimal_reverse
+    | ("<~" | "\\b.reverse") -- binary_reverse
+  
   // used for handling left-side unaries
   //   defaults to Any_Exp if there is no unary and the A_Exp is not a basic type
   // todo: fix unaries in A_Pri_Exp and Any_Exp, by creating an actual unary class (and using operator precedence)
@@ -440,6 +472,7 @@ Arithmetic <: Regular_Expressions {
     | B_Exp
     | unary_Op_Left+ Pri_Exp -- unary_op
     | A_Any_Exp<A_Exp> -- any_other
+  // Prib_Exp cannot contain things from A_Single_Exp, such as (...), [...], etc...
   Prib_Exp
     = A_Pri_Exp<Exp, end>
   Pri_Exp
@@ -447,10 +480,23 @@ Arithmetic <: Regular_Expressions {
     | Exp
   Pri_Exp_Sub
     = A_Pri_Exp<Exp, Exp>
+  // handles advanced data types, and falls back to right side unary if the data is a "simple" Exp
+  A_Any_Exp<A_Exp>
+    = date_Exp
+    | reg_Exp
+    | color_Exp
+    | Grid_Dim_Exp
+    | Unit_Exp
+    | Grid_Pos_Exp
+    | Selector_Exp
+    | html_Element_Exp
+    | A_Single_Exp<A_Exp> unary_Op_Right -- unary_op
+    | A_Single_Exp<A_Exp> -- singleton // (~unary_Op_Right)
+    
   // doesn't use the nesting brackets from Pri_Exp
   Pri_Exp_Exp
     = Single_Exp<Exp>
-  Single_Exp<A_Exp>
+  A_Single_Exp<A_Exp>
     = number
     | ident_either
     | string
@@ -466,24 +512,11 @@ Arithmetic <: Regular_Expressions {
   Obj_Prop
     = ident ":" Exp -- informal
     | string ":" Exp -- formal
-  // handles advanced data types, and falls back to right side unary if the data is a "simple" Exp
-  A_Any_Exp<A_Exp>
-    = date_Exp
-    | reg_Exp
-    | color_Exp
-    | Grid_Dim_Exp
-    | Unit_Exp
-    | Grid_Pos_Exp
-    | Selector_Exp
-    | html_Element_Exp
-    | Single_Exp<A_Exp> unary_Op_Right -- unary_op
-    | Single_Exp<A_Exp> -- singleton // (~unary_Op_Right)
-    
   Unit_Exp
     = a_Unit_Exp<Pri_Exp>
   // grid dimensions, for spreadsheets
   Grid_Dim_Exp
-    = Single_Exp<Exp> "by" Single_Exp<Exp>
+    = A_Single_Exp<Exp> "by" A_Single_Exp<Exp>
 }
 
 
