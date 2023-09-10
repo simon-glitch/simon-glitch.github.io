@@ -407,10 +407,10 @@ Arithmetic <: Regular_Expressions {
     | Inequality_Exp (b<"<==>"> | "\\cmp" ) Bitshift_Exp  -- cmp
     | Bitshift_Exp
   Bitshift_Exp  (17)
-    = Bitwise_Exp b<">>>"> Add_Exp  -- unsinged_right_shift
-    | Bitwise_Exp b<"<<<"> Add_Exp  -- unsinged_left_shift
-    | Bitwise_Exp b<">>">  Add_Exp  -- right_shift
-    | Bitwise_Exp b<"<<">  Add_Exp  -- left_shift
+    = Bitshift_Exp b<">>>"> Add_Exp  -- unsinged_right_shift
+    | Bitshift_Exp b<"<<<"> Add_Exp  -- unsinged_left_shift
+    | Bitshift_Exp b<">>">  Add_Exp  -- right_shift
+    | Bitshift_Exp b<"<<">  Add_Exp  -- left_shift
     | Add_Exp
   Add_Exp  (18)
     = Add_Exp b<"+"> Mul_Exp  -- plus
