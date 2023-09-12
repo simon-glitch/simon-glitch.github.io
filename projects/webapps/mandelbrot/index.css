@@ -1,0 +1,13 @@
+
+html, body{
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #11113f;
+}
+
+body{
+  font-size: 1.75em;
+}
+
+
