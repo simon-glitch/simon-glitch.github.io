@@ -36,7 +36,7 @@ Huge = (
 s = Huge;
 
 s.NAN = new s(Big_Num(NaN), Big_Num(NaN));
-s.INFINITY = s(Big_Num(Infinity), Big_Num(Infinity));
+s.INFINITY = new s(Big_Num(Infinity), Big_Num(Infinity));
 s.ZERO = new s(ZERO, ZERO);
 s.ONE = new s(ONE, ZERO);
 s.EPSILON = new Big_Num(math.Complex.EPSILON);
