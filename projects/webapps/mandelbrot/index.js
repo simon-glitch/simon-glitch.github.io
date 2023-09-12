@@ -6,9 +6,20 @@ var dop = window.your_digits_of_pi;
 var Big_Num = math.BigNumber;
 // I hope you don't need more than 200 digits!
 Big_Num.PI = Big_Num("3." + dop.slice(0, 200));
+// use DP to make sure the number is divided FULLY
+Big_Num.PI.DP = 100;
+Big_Num.HALF_PI = Big_Num.PI.div(2);
+Big_Num.QUARTER_PI = Big_Num.PI.div(4);
+// then make sure to reset DP back to 20, to avoid any over calculations
+delete Big_Num.PI.DP;
+delete Big_Num.HALF_PI.DP;
+delete Big_Num.QUARTER_PI.DP;
+
+
 const ZERO = Big_Num(0);
 const ONE = Big_Num(1);
 const TWO = Big_Num(2);
+const FOUR = Big_Num(4);
 const ONE_HALF = Big_Num(0.5);
 
 
@@ -49,7 +60,7 @@ s.prototype = {
       (ZERO.eq(o))
       ?(new s(e.div(a), t.div(a)))
       :(
-        math.abs(a) < math.abs(o)
+        math.abs(a).lt(math.abs(o))
         ?(new s(
           (e.times(i = a.div(o)).plus(t)).div(n = a.times(i).plus(o)),
           (t.times(i).minus(e)).div(n)
@@ -66,7 +77,7 @@ s.prototype = {
     if (e = this.re, t = this.im, r.isZero()) return s.ONE;
     if (ZERO === r.im) {
       if (ZERO.eq(t) && e.gt(ZERO)) return new s(math.pow(e, r.re), ZERO);
-      if (ZERO.eq(e)) switch (((r.re.toNumber() % 4) + 4) % 4) {
+      if (ZERO.eq(e)) switch (r.re.mod(FOUR).plus(FOUR).mod(FOUR)) {
         case 0:
           return new s(math.pow(t, r.re), ZERO);
         case 1:
@@ -89,14 +100,19 @@ s.prototype = {
       n = this.im,
       i = this.abs();
     if (r.gte(ZERO)) {
-      if (0.eq(n)) return new s(math.sqrt(r), ZERO);
+      if (ZERO.eq(n)) return new s(math.sqrt(r), ZERO);
       e = .5 * math.sqrt(TWO.times(i.plus(r)))
     } else e = math.abs(n) / math.sqrt(2 * (i - r));
-    return t = r <= ZERO ? ONE_HALF * math.sqrt(2 * (i - r)) : math.abs(n) / math.sqrt(2 * (i + r)), new s(e, n < ZERO ? -t : t)
+    t = (
+      (r.lte(ZERO))
+      ? (ONE_HALF.times(math.sqrt(TWO.times(i.minus(r)))))
+      : (math.abs(n).div(math.sqrt(TWO.times(i.plus(r)))))
+    );
+    return new s(e, n.lt(ZERO) ? t.neg() : t)
   },
   exp: function() {
     var e = math.exp(this.re);
-    return this.im, new s(e * math.cos(this.im), e * math.sin(this.im))
+    return this.im, new s(e.times(math.cos(this.im)), e.times(math.sin(this.im)))
   },
   expm1: function() {
     const
@@ -111,7 +127,7 @@ s.prototype = {
     var e = this.re,
       t = this.im;
     return new s(math.expm1(e).times( math.cos(t) ).plus( function(e) {
-      var t = Big_Num.PI.div(4);
+      var t = Big_Num.QUARTER_PI;
       if (e.lt(-t) || e.gt(t)) return math.cos(e).minus(1);
       var r = e.times(e);
       return (
@@ -153,7 +169,7 @@ s.prototype = {
   cos: function() {
     var e = this.re,
       t = this.im;
-    return new s(math.cos(e) * i(t), -math.sin(e) * a(t))
+    return new s(math.cos(e).times(i(t)), math.sin(e).times(a(t)).neg())
   },
   tan: function() {
     var e = 2 * this.re,
@@ -162,148 +178,148 @@ s.prototype = {
     return new s(math.sin(e).div(r), a(t).div(r))
   },
   cot: function() {
-    var e = 2 * this.re,
-      t = 2 * this.im,
-      r = math.cos(e) - i(t);
-    return new s(-math.sin(e).div(r), a(t).div(r))
+    var e = TWO.times(this.re),
+      t = TWO.times(this.im),
+      r = math.cos(e).minus(i(t));
+    return new s(math.sin(e).div(r).neg(), a(t).div(r))
   },
   sec: function() {
     var e = this.re,
       t = this.im,
-      r = .5 * i(2 * t) + .5 * math.cos(2 * e);
-    return new s(math.cos(e) * i(t).div(r), math.sin(e) * a(t).div(r))
+      r = ONE_HALF.times(i(TWO.times(t))) + ONE_HALF.times(math.cos(TWO.times(e)));
+    return new s(math.cos(e).times(i(t)).div(r), math.sin(e).times(a(t)).div(r))
   },
   csc: function() {
     var e = this.re,
       t = this.im,
-      r = .5 * i(2 * t) - .5 * math.cos(2 * e);
+      r = ONE_HALF.times(i(TWO.times(t))) - ONE_HALF.times(math.cos(TWO.times(e)));
     return new s(math.sin(e) * i(t).div(r), -math.cos(e) * a(t).div(r));
   },
   asin: function() {
     var e = this.re,
       t = this.im,
-      r = new s(t * t - e * e + 1, -2 * e * t).sqrt(),
-      n = new s(r.re - t, r.im + e).log();
-    return new s(n.im, -n.re)
+      r = new s(t.times(t).minus(e.times(e)).plus(ONE), TWO.times(e).times(t).neg()).sqrt(),
+      n = new s(r.re.minus(t), r.im.plus(e)).log();
+    return new s(n.im, n.re.neg())
   },
   acos: function() {
     var e = this.re,
       t = this.im,
-      r = new s(t * t - e * e + 1, -2 * e * t).sqrt(),
-      n = new s(r.re - t, r.im + e).log();
-    return new s(Big_Num.PI.div(2) - n.im, n.re)
+      r = new s(t.times(t).minus(e.times(e)).plus(ONE), TWO.times(e).times(t).neg()).sqrt(),
+      n = new s(r.re.minus(t), r.im.plus(e)).log();
+    return new s(Big_Num.HALF_PI.minus(n.im), n.re)
   },
   atan: function() {
     var e = this.re,
       t = this.im;
-    if (0 === e) {
-      if (1 === t) return new s(0, Big_Num(NaN));
-      if (-1 === t) return new s(0, -Big_Num(NaN));
+    if (ZERO === (e)) {
+      if (ONE === (t)) return new s(ZERO, Big_Num(NaN));
+      if (ONE.neg() === (t)) return new s(ZERO, -Big_Num(NaN));
     }
-    var r = e * e + (1 - t) * (1 - t),
-      n = new s((1 - t * t - e * e).div(r), -2 * e.div(r)).log();
-    return new s(-.5 * n.im, .5 * n.re);
+    var r = e * (e) + ((ONE - (t)) * (ONE - (t))),
+      n = new s((ONE.minus(t.times(t)).minus(e.times(e))).div(r), TWO.neg() * (e.div(r))).log();
+    return new s(ONE_HALF.neg() * (n.im), ONE_HALF * (n.re));
   },
   acot: function() {
     var e = this.re,
       t = this.im;
-    if (0 === t) return new s(math.atan2(1, e), 0);
-    var r = e * e + t * t;
-    return 0 !== r ? new s(e.div(r), -t.div(r)).atan() : new s(0 !== e ? e.div(0) : 0, 0 !== t ? -t.div(0) : 0).atan()
+    if (ZERO === (t)) return new s(math.atan2(ONE, e), ZERO);
+    var r = e * e + (t * (t));
+    return ZERO !== (r) ? new s(e.div(r), t.div(r).neg()).atan() : new s(ZERO !== e ? e.div(ZERO) : ZERO, ZERO !== (t) ? t.div(ZERO).neg() : ZERO).atan()
   },
   asec: function() {
     var e = this.re,
       t = this.im;
-    if (0 === e && 0 === t) return new s(0, Big_Num(NaN));
-    var r = e * e + t * t;
-    return 0 !== r ? new s(e.div(r), -t.div(r)).acos() : new s(0 !== e ? e.div(0) : 0, 0 !== t ? -t.div(0) : 0).acos()
+    if (ZERO === (e) && ZERO === (t)) return new s(ZERP, Big_Num.NaN);
+    var r = e * (e) + (t * (t));
+    return ZERO !== (r) ? new s(e.div(r), -t.div(r)).acos() : new s(ZERO !== (e) ? e.div(ZERO) : ZERO, ZERO !== (t) ? t.div(ZERO).neg() : ZERO).acos()
   },
   acsc: function() {
     var e = this.re,
       t = this.im;
-    if (0 === e && 0 === t) return new s(Big_Num.PI.div(2), Big_Num(NaN));
-    var r = e * e + t * t;
-    return 0 !== r ? new s(e.div(r), -t.div(r)).asin() : new s(0 !== e ? e.div(0) : 0, 0 !== t ? -t.div(0) : 0).asin()
+    if (ZERO === (e) && ZERO === (t)) return new s(Big_Num.HALF_PI, Big_Num.NaN);
+    var r = e * (e) + (t * (t));
+    return ZERO !== r ? new s(e.div(r), t.div(r).neg()).asin() : new s(ZERO !== (e) ? e.div(ZERO) : ZERO, ZERO !== (t) ? -t.div(ZERO) : ZERO).asin()
   },
   sinh: function() {
     var e = this.re,
       t = this.im;
-    return new s(a(e) * math.cos(t), i(e) * math.sin(t))
+    return new s(a(e) * (math.cos(t)), i(e) * (math.sin(t)))
   },
   cosh: function() {
     var e = this.re,
       t = this.im;
-    return new s(i(e) * math.cos(t), a(e) * math.sin(t))
+    return new s(i(e) * (math.cos(t)), a(e) * (math.sin(t)))
   },
   tanh: function() {
     var e = 2 * this.re,
       t = 2 * this.im,
-      r = i(e) + math.cos(t);
+      r = i(e) + (math.cos(t));
     return new s(a(e).div(r), math.sin(t).div(r))
   },
   coth: function() {
-    var e = 2 * this.re,
-      t = 2 * this.im,
-      r = i(e) - math.cos(t);
+    var e = TWO * this.re,
+      t = TWO * this.im,
+      r = i(e) - (math.cos(t));
     return new s(a(e).div(r), -math.sin(t).div(r))
   },
   csch: function() {
     var e = this.re,
       t = this.im,
-      r = math.cos(2 * t) - i(2 * e);
-    return new s(-2 * a(e) * math.cos(t).div(r), 2 * i(e) * math.sin(t).div(r))
+      r = math.cos(TWO * (t)) - (i(TWO * e));
+    return new s(TWO.neg() * a(e) * math.cos(t).div(r), TWO * i(e) * math.sin(t).div(r))
   },
   sech: function() {
     var e = this.re,
       t = this.im,
-      r = math.cos(2 * t) + i(2 * e);
-    return new s(2 * i(e) * math.cos(t).div(r), -2 * a(e) * math.sin(t).div(r))
+      r = math.cos(TWO * t) + i(TWO * e);
+    return new s(TWO * i(e) * math.cos(t).div(r), TWO.neg() * a(e) * math.sin(t).div(r))
   },
   asinh: function() {
     var e = this.im;
-    this.im = -this.re, this.re = e;
+    this.im = this.re.neg(), this.re = e;
     var t = this.asin();
-    return this.re = -this.im, this.im = e, e = t.re, t.re = -t.im, t.im = e, t
+    return this.re = this.im.neg(), this.im = e, e = t.re, t.re = t.im.neg(), t.im = e, t
   },
   acosh: function() {
     var e = this.acos();
-    if (e.im <= 0) {
+    if (e.im.lte(ZERO)) {
       var t = e.re;
-      e.re = -e.im, e.im = t
-    } else t = e.im, e.im = -e.re, e.re = t;
+      e.re = e.im.neg(), e.im = t
+    } else t = e.im, e.im = e.re.neg(), e.re = t;
     return e
   },
   atanh: function() {
     var e = this.re,
       t = this.im,
-      r = e > 1 && 0 === t,
-      n = 1 - e,
-      i = 1 + e,
-      a = n * n + t * t,
-      o = 0 !== a ? new s((i * n - t * t).div(a), (t * n + i * t).div(a)) : new s(-1 !== e ? e.div(0) : 0, 0 !== t ? t.div(0) : 0),
+      r = e > ONE && ZERO === t,
+      n = ONE - (e),
+      i = ONE + (e),
+      a = n * (n) + (t * (t)),
+      o = ZERO !== (a) ? new s((i * n - t * t).div(a), (t * n + i * t).div(a)) : new s(ONE.neg() !== e ? e.div(ZERO) : ZERO, ZERO !== t ? t.div(ZERO) : ZERO),
       c = o.re;
-    return o.re = u(o.re, o.im).div(2), o.im = math.atan2(o.im, c).div(2), r && (o.im = -o.im), o
+    return o.re = u(o.re, o.im).div(2), o.im = math.atan2(o.im, c).div(TWO), r && (o.im = -o.im), o
   },
   acoth: function() {
     var e = this.re,
       t = this.im;
-    if (0 === e && 0 === t) return new s(0, Big_Num.PI.div(2));
-    var r = e * e + t * t;
-    return 0 !== r ? new s(e.div(r), -t.div(r)).atanh() : new s(0 !== e ? e.div(0) : 0, 0 !== t ? -t.div(0) : 0).atanh()
+    if (ZERO === (e) && ZERO === (t)) return new s(ZERO, Big_Num.HALF_PI);
+    var r = e * (e) + (t * (t));
+    return ZERO !== (r) ? new s(e.div(r), -t.div(r)).atanh() : new s(ZERO !== e ? e.div(ZERO) : 0, ZERO !== (t) ? -t.div(ZERO) : 0).atanh()
   },
   acsch: function() {
     var e = this.re,
       t = this.im;
-    if (0 === t) return new s(0 !== e ? math.log(e + math.sqrt(e * e + 1)) : Big_Num(NaN), 0);
+    if (ZERO === t) return new s(ZERO !== e ? math.log(e + math.sqrt(e * e + 1)) : Big_Num.NaN, ZERO);
     var r = e * e + t * t;
-    return 0 !== r ? new s(e.div(r), -t.div(r)).asinh() : new s(0 !== e ? e.div(0) : 0, 0 !== t ? -t.div(0) : 0).asinh()
+    return ZERO !== r ? new s(e.div(r), -t.div(r)).asinh() : new s(ZERO !== e ? e.div(ZERO) : ZERO, ZERO !== t ? -t.div(ZERO) : 0).asinh()
   },
   asech: function() {
     var e = this.re,
       t = this.im;
     if (this.isZero()) return s.INFINITY;
     var r = e * e + t * t;
-    return 0 !== r ? new s(e.div(r), -t.div(r)).acosh() : new s(0 !== e ? e.div(0) : 0, 0 !== t ? -t.div(0) : 0).acosh()
+    return ZERO !== r ? new s(e.div(r), -t.div(r)).acosh() : new s(ZERO !== e ? e.div(ZERO) : 0, ZERO !== t ? -t.div(ZERO) : 0).acosh()
   },
   inverse: function() {
     if (this.isZero()) return s.INFINITY;
@@ -320,17 +336,17 @@ s.prototype = {
     return new s(-this.re, -this.im)
   },
   ceil: function(e) {
-    return e = math.pow(10, e || 0), new s(math.ceil(this.re * e).div(e), math.ceil(this.im * e).div(e))
+    return e = math.pow(TEN, e || 0), new s(math.ceil(this.re * (e)).div(e), math.ceil(this.im * e).div(e))
   },
   floor: function(e) {
-    return e = math.pow(10, e || 0), new s(math.floor(this.re * e).div(e), math.floor(this.im * e).div(e))
+    return e = math.pow(TEN, e || 0), new s(math.floor(this.re * (e)).div(e), math.floor(this.im * (e)).div(e))
   },
   round: function(e) {
-    return e = math.pow(10, e || 0), new s(math.round(this.re * e).div(e), math.round(this.im * e).div(e))
+    return e = math.pow(TEN, e || 0), new s(math.round(this.re * (e)).div(e), math.round(this.im * (e)).div(e))
   },
   equals: function(e, t) {
     var r = new s(e, t);
-    return math.abs(r.re - this.re) <= s.EPSILON && math.abs(r.im - this.im) <= s.EPSILON
+    return math.abs(r.re.minus(this.re)).lte(s.EPSILON) && math.abs(r.im.minus(this.im)).lte(s.EPSILON)
   },
   clone: function() {
     return new s(this.re, this.im)
@@ -339,19 +355,51 @@ s.prototype = {
     var e = this.re,
       t = this.im,
       r = "";
-    return this.isNaN() ? "NaN" : this.isInfinite() ? "Infinity" : (math.abs(e) < s.EPSILON && (e = 0), math.abs(t) < s.EPSILON && (t = 0), 0 === t ? r + e : (0 !== e ? (r += e, r += " ", t < 0 ? (t = -t, r += "-") : r += "+", r += " ") : t < 0 && (t = -t, r += "-"), 1 !== t && (r += t), r + "i"))
+    // this code is so obfuscated!
+    return (
+      this.isNaN()
+      ? ("NaN")
+      : (this.isInfinite()
+        ? ("Infinity")
+        : (
+          math.abs(e).lt(s.EPSILON) && (e = ZERO),
+          math.abs(t).lt(s.EPSILON) && (t = ZERO),
+          ZERO === t
+            ? (r + e.toString())
+            : (
+              (ZERO !== e)
+              ? (
+                r += e.toString(),
+                r += " ",
+                (
+                  (t.lt(ZERO))
+                  ? (
+                    t = t.neg(),
+                    r += "-"
+                  )
+                  : (r += "+")
+                ),
+                r += " "
+              )
+              : t.lt(ZERO) && (t = t.neg(), r += "-"),
+              ONE !== t && (r += t.toString()),
+              r + "i"
+            )
+          )
+      )
+    );
   },
   toVector: function() {
     return [this.re, this.im]
   },
   valueOf: function() {
-    return 0 === this.im ? this.re : null
+    return ZERO === this.im ? this.re : null
   },
   isNaN: function() {
     return isNaN(this.re) || isNaN(this.im)
   },
   isZero: function() {
-    return 0 === this.im && 0 === this.re
+    return ZERO === this.im && ZERO === this.re
   },
   isFinite: function() {
     return isFinite(this.re) && isFinite(this.im)
