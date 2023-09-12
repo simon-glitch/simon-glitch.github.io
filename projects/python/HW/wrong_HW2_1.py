@@ -1,4 +1,4 @@
-"""CS 108 - Lab/Homework 1.2
+"""CS 108 - Lab/Homework 2.1
 
 Describe the module here. Fix the lab number above and the name/date below.
 Delete the second @author line if working solo.
@@ -60,7 +60,7 @@ def play():
     return "won"
   while(taken[rocky_n]):
     rocky_n = rocky_choose()
-  print(f"Rocky chose {rocky_n}");
+  print(f"Rocky chose {rocky_n}")
   # Rocky loses if this number was already taken
   if(not validate("Rocky", rocky_n)):
     return "lost"

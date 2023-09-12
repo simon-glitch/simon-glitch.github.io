@@ -3,7 +3,7 @@
     by Simanelix
       (Simon Glitch on GitHub)
     last updated:
-      Sep/9/2023
+      Sep/5/2023
     project started:
       Sep/1/2023
 */
@@ -32,13 +32,6 @@ Base {
   // I could've just done Line_break, but line_break works in lexical contexts as well, so ... im using it like this.
   line_break
     = (spaces ("\n" | ";") spaces)
-  spaces
-    := space*
-  comment
-    = "//" ((~line_break) any)* -- singleline
-    | "/*" ((~"*/") any)* "*/"  --  multiline
-  space
-    += comment
 }
 
 
@@ -50,7 +43,7 @@ Basic_Data <: Base {
 
   // an identifier dot expression
   ident_dot  (an identifier dot expression)
-    = ident spaces "." spaces ident_either
+    = ident spaces "." spaces ident_dot
   ident_either
     = (~ident_dot) ident
     | ident_dot
@@ -128,12 +121,12 @@ Data <: Basic_Data {
       "." loose_month_Exp
       "." loose_day_Exp -- dots
   loose_day_Exp
-    = rawDigit rawDigit? -- day
+    = decimal_int decimal_int? -- day
   loose_month_Exp
-    = rawDigit rawDigit? -- month_number
+    = decimal_int decimal_int? -- month_number
     | month_name -- month_name
   loose_year_Exp
-    = rawDigit rawDigit rawDigit* -- year
+    = decimal_int decimal_int (decimal_int decimal_int)? -- year
 
   a_date_Exp<a_sep>
     = (true_year_Exp  a_sep true_month_Exp a_sep true_day_Exp  )
@@ -143,11 +136,11 @@ Data <: Basic_Data {
     | (true_day_Exp   a_sep true_year_Exp  a_sep true_month_Exp)
     | (true_day_Exp   a_sep true_month_Exp a_sep true_year_Exp )
   true_year_Exp
-    = rawDigit rawDigit rawDigit rawDigit -- year
+    = decimal_int decimal_int decimal_int decimal_int -- year
   true_month_Exp
     = month_name -- month
   true_day_Exp
-    = rawDigit rawDigit? -- day
+    = decimal_int decimal_int? -- day
   month_name
     = caseInsensitive<"jan"> caseInsensitive<"uary">?
     | caseInsensitive<"feb"> caseInsensitive<"uary">?
@@ -165,9 +158,8 @@ Data <: Basic_Data {
   color_Exp
     = "#" rawHexDigit rawHexDigit rawHexDigit (rawHexDigit rawHexDigit rawHexDigit)?
   // units (measuerment, currency)
-  a_Unit_Exp<A_Exp>
-    = A_Exp space+ ident -- named
-    | A_Exp spaces "%" -- percentage
+  A_Unit_Exp<A_Exp>
+    = A_Exp space ident
   // IGM selectors
   Selector_Exp
     = ident ":" Selector_Exp -- recursion
@@ -176,9 +168,6 @@ Data <: Basic_Data {
   html_Element_Exp
     = "<" ident ">" ((~("</")) any)* "</" ident ">"
   
-  // grid position (like icons[0,0])
-  Grid_Pos_Exp
-  = ident_either "[" nonemptyListOf<decimal_int, ","> "]"
 }
 
 Regular_Expressions <: Data {
@@ -242,77 +231,9 @@ Arithmetic <: Regular_Expressions {
     = ident assignment Exp -- assignment
     | ident "(" Parameters_In_Paren ")" -- function_call
     | Exp
-  binary_comparison  (a comparison)
-    = "==" | "\\eq "
-    | "!=" | "\\ineq "
-    | ">=" | "\\gte "
-    | "<=" | "\\lte "
-    | angle_Bracket_Left | "\\gt"
-    | angle_Bracket_Right | "\\lt "
-    | "<==>" | "\\cmp"
-  binary_operator  (binary operator, excluding comparisons)
-    = "||"    (~binary_operator_ender)
-    | "!||"   (~binary_operator_ender)
-    | "^||"   (~binary_operator_ender)
-    | "!^||"  (~binary_operator_ender)
-    | "&&"    (~binary_operator_ender)
-    | "!&&"   (~binary_operator_ender)
-    | "|"     (~binary_operator_ender)
-    | "!|"    (~binary_operator_ender)
-    | "^|"    (~binary_operator_ender)
-    | "!^|"   (~binary_operator_ender)
-    | "<"     (~binary_operator_ender)
-    | ">"     (~binary_operator_ender)
-    | ">>"    (~binary_operator_ender)
-    | "<<"    (~binary_operator_ender)
-    | ">>>"   (~binary_operator_ender)
-    | "<<<"   (~binary_operator_ender)
-    | "+"     (~binary_operator_ender)
-    | "-"     (~binary_operator_ender)
-    | "*"     (~binary_operator_ender)
-    | "/"     (~binary_operator_ender)
-    | "%"     (~binary_operator_ender)
-    | "/%"    (~binary_operator_ender)
-    | "%%"    (~binary_operator_ender)
-    | "^"     (~binary_operator_ender)
-    | "/-/"   (~binary_operator_ender)
-    | "/%/"   (~binary_operator_ender)
-    | "*+*"   (~binary_operator_ender)
-    | "/??/"  (~binary_operator_ender)
-    | "/^^/"  (~binary_operator_ender)
-    | "*^^*"  (~binary_operator_ender)
-    | "/?+/"  (~binary_operator_ender)
-    | "/?-/"  (~binary_operator_ender)
-    | "!*"    (~binary_operator_ender)
-    | "*|*"   (~binary_operator_ender)
-    | "/|/"   (~binary_operator_ender)
-    | "<+>"   (~binary_operator_ender)
-    | "<++>"  (~binary_operator_ender)
-    | "<+++>" (~binary_operator_ender)
-  binary_operator_ender
-    = "|"
-    | "&"
-    | "^"
-    | (~(binary_comparison equals?)) "<" -- invalid_left_bracket
-    | (~(binary_comparison equals?)) ">" -- invalid_right_bracket
-    | "+"
-    | "-"
-    | "*" (~"/") -- not_comment_end
-    | "/" (~"*") -- not_comment_begin
-    | "%"
-  angle_Bracket_Left
-    = "<" (~"<")
-  angle_Bracket_Right
-    = ">" (~">")
-  
-  
-  equals
-    = "=" (~"=")
   assignment
-    = binary_comparison "=" -- comparison_equals
-    | binary_operator equals -- operation_equals
-    | binary_operator binary_comparison equals -- operation_comparison_equals
-  Assignment_Single_Exp
+    = ("+" | "+" | "-" | "*" | "/" | "+" | "+")? "="
+  Assignment_Exp
     = "$"? Assignment_sub_Exp
   Assignment_sub_Exp
     = ident spaces " is " Exp -- is
@@ -322,195 +243,83 @@ Arithmetic <: Regular_Expressions {
     = ListOf<Exp, ",">
   
   Exp
+    // first line is an optimization for one when an "expression" is just a singleton
     = Logic_And_Exp -- calculation
-  
-  
-  // These are all of the binay and ternary operations, which take in operands, and have have an order of operations
-  //   all of these operations are purely functional, except for assignment.
-  //   b<> adds (~binary_operator_ender) to every operation, in order to prevent weird bugs
-  b<polynary_operator>
-    = polynary_operator (~binary_operator_ender)
-  Assignment_Exp  (1.0)
-    = Assignment_Exp assignment Ternary_Cond_Exp -- a
-    | Ternary_Cond_Exp
-  Ternary_Cond_Exp  (1.1)
-    = Base_Reinterpretation_Exp b<"?"> Ternary_Cond_Exp b<":"> Ternary_Cond_Exp  -- a
-    | Base_Reinterpretation_Exp
-  Base_Reinterpretation_Exp  (2.0)
-    = Base_Reinterpretation_Exp b<"*&/"> Base_Reinterpretation_Exp b<"/&*"> Digit_Sum_Exp -- a
-    | Digit_Sum_Exp
-  Digit_Sum_Exp  (2.1)
-    = Digit_Sum_Exp b<"*+*"> Corpime_Exp -- a
-    | Corpime_Exp
-  Corpime_Exp  (3)
-    = Corpime_Exp b<"/??/"> Combo_Prime_Exp -- is_coprime
-    | Combo_Prime_Exp
-  Combo_Prime_Exp  (4)
-    = Combo_Prime_Exp b<"/^^/"> Choice_Exp -- gcd
-    | Combo_Prime_Exp b<"*^^*"> Choice_Exp -- lcm
-    | Combo_Prime_Exp b<"/?+/"> Choice_Exp -- is_prime_sum
-    | Combo_Prime_Exp b<"/?-/"> Choice_Exp -- is_prime_diff
-    | Choice_Exp
-  Choice_Exp  (5)
-    = Choice_Exp ( b<"!*"> |  "\\choose") Law_Cosines_Exp  -- choose
-    | Law_Cosines_Exp
-  Law_Cosines_Exp  (6.0)
-    = Law_Cosines_Exp b<"%*%"> Law_Cosines_Exp b<"*%*"> SSA_Exp -- d
-    | Law_Cosines_Exp b<"%%*"> Law_Cosines_Exp b<"*%%"> SSA_Exp -- c
-    | SSA_Exp
-  SSA_Exp  (6.1)
-    = SSA_Exp b<"%**"> SSA_Exp b<"**%"> Geometric_Scale_Exp -- small
-    | SSA_Exp b<"%%%"> SSA_Exp b<"***"> Geometric_Scale_Exp -- large
-    | Geometric_Scale_Exp
-  Geometric_Scale_Exp  (7)
-    = Geometric_Scale_Exp b<"*|*">  Fusion_Exp -- abs_val
-    | Geometric_Scale_Exp b<"/|/">  Fusion_Exp -- geo_mean
-    | Fusion_Exp
-  Fusion_Exp  (8)
-    = Fusion_Exp b<"<+>">   Logic_Or_Exp -- base_2
-    | Fusion_Exp b<"<++>">  Logic_Or_Exp -- base_10
-    | Fusion_Exp b<"<+++>"> Logic_Or_Exp -- base_16
-    | Logic_Or_Exp
-  Logic_Or_Exp  (9)
-    = Logic_Or_Exp (b<"!||"> | " nor ") Logic_Xor_Exp  -- logical_nor
-    | Logic_Or_Exp (b <"||"> |  " or ") Logic_Xor_Exp  -- logical_or
-    | Logic_Xor_Exp
-  Logic_Xor_Exp  (10)
-    = Logic_Xor_Exp (b<"!^||"> | " nxor ") Logic_And_Exp  -- logical_nxor
-    | Logic_Xor_Exp (b <"^||"> |  " xor ") Logic_And_Exp  -- logical_xor
-    | Logic_And_Exp
-  Logic_And_Exp  (11)
-    = Logic_And_Exp (b<"!&&"> | " \\nand ") Bitwise_Or_Exp  -- logical_nand
-    | Logic_And_Exp (b <"&&"> |  " \\and ") Bitwise_Or_Exp  -- logical_and
-    | Bitwise_Or_Exp
-  Bitwise_Or_Exp  (12)
-    = Bitwise_Or_Exp b<"!|"> Bitwise_Xor_Exp  -- nor
-    | Bitwise_Or_Exp b <"|"> Bitwise_Xor_Exp  -- or
-    | Bitwise_Xor_Exp
-  Bitwise_Xor_Exp  (13)
-    = Bitwise_Xor_Exp b<"!^|"> Bitwise_And_Exp  -- nxor
-    | Bitwise_Xor_Exp b <"^|"> Bitwise_And_Exp  -- xor
-    | Bitwise_And_Exp
-  Bitwise_And_Exp  (14)
-    = Bitwise_And_Exp b<"!&"> Equality_Exp  -- nand
-    | Bitwise_And_Exp "&"  Equality_Exp  -- and
-    | Equality_Exp
-  Equality_Exp  (15)
-    = Equality_Exp (b<"=="> | "\\eq   ") Inequality_Exp  -- equal
-    | Equality_Exp (b<"!="> | "\\ineq ") Inequality_Exp  -- inequal
-    | Inequality_Exp
-  Inequality_Exp  (16)
-    = Inequality_Exp (b<"<=">   | "\\lte ") Bitshift_Exp  -- lte
-    | Inequality_Exp (b<"<">    | "\\lt " ) Bitshift_Exp  -- lt
-    | Inequality_Exp (b<">=">   | "\\gte ") Bitshift_Exp  -- gte
-    | Inequality_Exp (b<">">    | "\\gt"  ) Bitshift_Exp  -- gt
-    | Inequality_Exp (b<"<==>"> | "\\cmp" ) Bitshift_Exp  -- cmp
-    | Bitshift_Exp
-  Bitshift_Exp  (17)
-    = Bitshift_Exp b<">>>"> Add_Exp  -- unsinged_right_shift
-    | Bitshift_Exp b<"<<<"> Add_Exp  -- unsinged_left_shift
-    | Bitshift_Exp b<">>">  Add_Exp  -- right_shift
-    | Bitshift_Exp b<"<<">  Add_Exp  -- left_shift
-    | Add_Exp
-  Add_Exp  (18)
-    = Add_Exp b<"+"> Mul_Exp  -- plus
-    | Add_Exp b<"-"> Mul_Exp  -- minus
-    | Mul_Exp
-  Mul_Exp  (19)
-    = Mul_Exp b<"*">  Power_Exp  -- times
-    | Mul_Exp b<"/">  Power_Exp  -- divide
-    | Mul_Exp b<"%">  Power_Exp  -- modulo
-    | Mul_Exp b<"/%"> Power_Exp  -- floor_divide
-    | Mul_Exp b<"%%"> Power_Exp  -- modded_divide
-    | Power_Exp
 
-  Power_Exp  (20)
-    = Power_Exp (b<"**">  | "\\pow" ) Single_Exp  -- power
-    | Power_Exp (b<"/-/"> | "\\log" ) Single_Exp  -- log
-    | Power_Exp (b<"/%/"> | "\\root") Single_Exp  -- root
-    | Single_Exp
-  unary_Op_Left
-    = "++" -- increment
-    | "--" -- decrement
-    | ("!"  | "\\not" ) -- logical_not
-    | ("~"  | "\\bnot") -- bitwise_not
-    | ("~/" | "\\inv" ) -- multiplicative_inverse
-    | ("~%" | "\\ln"  ) -- natural_logarithm
-    | ("+>" | "\\d.reverse") -- decimal_reverse
-    | ("~>" | "\\b.reverse") -- binary_reverse
-    | ("-"  | "\\neg" ) -- negative
-    | "+" -- positive
+  Logic_And_Exp
+    = Logic_And_Exp ("&&"  | " and " ) Logic_Or_Exp  -- logical_and
+    | Logic_And_Exp ("!&&" | " nand ") Logic_Or_Exp  -- logical_nand
+    | Logic_Or_Exp
+  Logic_Or_Exp
+    = Logic_Or_Exp ("||"  | " or " ) Bitwise_Exp  -- logical_or
+    | Logic_Or_Exp ("!||" | " nor ") Bitwise_Exp  -- logical_nor
+    | Logic_Or_Exp ("^||" | " xor ") Bitwise_Exp  -- logical_xor
+    | Bitwise_Exp
   
-  poworial<a_symbol, a_name>
-    = a_symbol+ -- smybolic
-    | a_name spaces "**" spaces rawDigit+ -- named
+  Bitwise_Exp
+    = Bitwise_Exp "&"  Add_Exp  -- and
+    | Bitwise_Exp "!&" Add_Exp  -- nand
+    | Bitwise_Exp "|"  Add_Exp  -- or
+    | Bitwise_Exp "!|" Add_Exp  -- nor
+    | Bitwise_Exp "^|" Add_Exp  -- xor
+    | Add_Exp
   
-  unary_Op_Right
-    = "++" -- increment
-    | "--" -- decrement
-    | (("!"+) | ("\\factorial")) -- factorial
-    | ("#" | "\\primorial" ) -- primorial
-    | ("/~" | "\\inv") -- multiplicative_inverse
-    | ("%~" | "\\ln") -- natural_logarithm
-    | ("<+" | "\\d.reverse") -- decimal_reverse
-    | ("<~" | "\\b.reverse") -- binary_reverse
-  
+  Add_Exp
+    = Add_Exp "+" Mul_Exp  -- plus
+    | Add_Exp "-" Mul_Exp  -- minus
+    | Mul_Exp
+
+  Mul_Exp
+    = Mul_Exp "*" Exp_Exp  -- times
+    | Mul_Exp "/" Exp_Exp  -- divide
+    | Exp_Exp
+
+  Exp_Exp
+    = Exp_Exp ("^" | "**") Pri_Exp  -- power
+    | Pri_Exp
+
   // used for handling left-side unaries
   //   defaults to Any_Exp if there is no unary and the A_Exp is not a basic type
-  // todo: fix unaries in A_Pri_Exp and Any_Exp, by creating an actual unary class (and using operator precedence)
-  Single_Exp
-    =       Grid_Dim_Exp
-    |           Unit_Exp
-    | unary_Op_Left+ Exp -- unary_op
-    |           date_Exp
-    |            reg_Exp
-    |          color_Exp
-    |       Grid_Pos_Exp
-    |   A_Simple_Exp<Exp> -- simple
-    |       Selector_Exp (~".") -- selector
-    |   html_Element_Exp
-  // handles advanced data types, and falls back to right side unary if the data is a "simple" Exp
-  //  A_Any_Exp<A_Exp>
-  //    = date_Exp
-  //    | reg_Exp
-  //    | color_Exp
-  //    | Grid_Dim_Exp
-  //    | Unit_Exp
-  //    | Grid_Pos_Exp
-  //    | Selector_Exp (~".") -- selector
-  //    | html_Element_Exp
-  //    | A_Single_Exp<A_Exp> unary_Op_Right -- unary_op
-  //    | A_Single_Exp<A_Exp> -- singleton // (~unary_Op_Right)
-  
+  A_Pri_Exp<A_Exp>
+    = Single_Exp<A_Exp>
+    // these unaries can be stacked; that might be a bad thing, but i am not sure; well see, i guess;
+    | "++" Pri_Exp -- increment
+    | "--" Pri_Exp -- decrement
+    | "+" Pri_Exp  -- pos
+    | "-" Pri_Exp  -- neg
+    | ("!" | "no ") Pri_Exp  -- logical_not
+    | "~" Pri_Exp  -- bitwise_not
+    | Any_Exp
+  Pri_Exp
+    = A_Pri_Exp<Exp>
   // doesn't use the nesting brackets from Pri_Exp
-  A_Simple_Exp<A_Exp>
+  Single_Exp<A_Exp>
     = number
     | ident_either
     | string
-    | "(" A_Exp     ")"  -- paren
-    | "[" Array_Exp "]"  -- array
-    | "{" Obj_Exp   "}"  -- json
+    | "(" A_Exp ")"  -- paren
+    | "[" A_Exp "]"  -- array
+    | "{" A_Exp "}"  -- object
 
-  Array_Exp
-    = ListOf<Exp, ",">
-  
-  Obj_Exp
-    = ListOf<Obj_Prop, ",">
-  Obj_Prop
-    = ident  ":" Exp -- informal
-    | string ":" Exp -- formal
+  // handles advanced data types, and falls back to right side unary if the data is a "simple" Exp
+  Any_Exp
+    = date_Exp
+    | reg_Exp
+    | color_Exp
+    | Unit_Exp
+    | Selector_Exp
+    | html_Element_Exp
+    | Single_Exp<Exp> "++" -- increment
+    | Single_Exp<Exp> "--" -- decrement
+    
   Unit_Exp
-    = a_Unit_Exp<Pri_Exp>
-  // grid dimensions, for spreadsheets
-  Grid_Dim_Exp
-    = A_Single_Exp<Exp> "by" A_Single_Exp<Exp>
+    = A_Unit_Exp<Pri_Exp>
 }
 
 
 // Idle Game Maker game expressions
 Game <: Arithmetic {
   // now on to game's rules
-  // Game can literally be empty!
   Game
     = ListOf<Section, line_break>
   Section
@@ -535,40 +344,30 @@ Game <: Arithmetic {
     = (~Property_Exp) Value_String -- invalid
     | Property_Exp
   Property_Exp
-    = "@" Value_String -- shorthand
-    | Desc_Property_Name ":" Value_String -- string
-    | Property_Name ":" Property_Value -- misc
+    = Desc_Property_Name ":" Value_String 
+    | Property_Name ":" Property_Value
   // I really am adding a lot of alternatives here
   //   should I really add this many alternative names?
   Desc_Property_Name
-    = Author_Property_Name
-    | (caseInsensitive<"desc"> caseInsensitive<"ript">? caseInsensitive<"ion">? caseInsensitive<"s">?) -- description
-    | (caseInsensitive<"id"> | caseInsensitive<"label"> | caseInsensitive<"text"> | caseInsensitive<"title"> | caseInsensitive<"name">) caseInsensitive<"s">? -- name
-  Author_Property_Name
-    = caseInsensitive<"by">
-    | caseInsensitive<"author"> caseInsensitive<"s">? -- formal
+    = caseInsensitive<"desc"> caseInsensitive<"ript">? caseInsensitive<"ion">? caseInsensitive<"s">? -- description
+    | (caseInsensitive<"id"> | caseInsensitive<"label"> | caseInsensitive<"text"> | caseInsensitive<"title"> | caseInsensitive<"name">?) caseInsensitive<"s">? -- name
   Property_Name
     = listOf<letters, spaces>
   Property_Value
-    = ((~(((~Value_Function) Value_Expression) | Value_Function)) Value_String) -- string
-    | ((~(Value_Function)) Value_Expression) -- expression
-    | (Value_Function)
+    = (~Value_Function) (~Value_Expression) Value_String -- string
+    | (~Value_Function) Value_Expression -- expression
+    | Value_Function
   
-  // note to self: avoid expressions that can theoretically match nothing
   Value_Function
-    = line_break* Action (line_break+ Action)*
+    = Action? (line_break Action)*
   Value_Expression
-    = (~end) Pri_Exp -- single_value
-    | preposition_keyword Pri_Exp -- command_component
+    = preposition_keyword Exp -- command_component
+    | Exp -- single_value
   Value_String
-    = string
-    | Value_String_Implied
-  // consider removing this?
-  Value_String_Implied
     = ((~line_break) any)+
   Action
-    = (~Assignment_Single_Exp) command Action_Parameters -- command
-    | Assignment_Single_Exp
+    = (~Assignment_Exp) command Action_Parameters -- command
+    | Assignment_Exp
   Action_Parameters
     = "(" Parameters_In_Paren ")" -- in_paren
     | Parameters
@@ -576,7 +375,7 @@ Game <: Arithmetic {
   //   = ListOf<Exp, ","> -- comma_separated
   //   | ListOf<Exp, ";"> -- semicolon_separated
   Parameters
-    = listOf<Value_Expression, space>
+    = ListOf<Value_Expression, space>
   command
     = "do " ident -- do
     | command_keyword
