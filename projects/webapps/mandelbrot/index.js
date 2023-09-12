@@ -1,6 +1,10 @@
 
 console.log(math)
 
+const dop = window.your_digits_of_pi;
+
+s = {};
+
 s.prototype = {
   re: 0,
   im: 0,
@@ -78,12 +82,28 @@ s.prototype = {
   expm1: function() {
     var e = this.re,
       t = this.im;
-    return new s(math.expm1(e) * math.cos(t) + function(e) {
+    return new s(math.expm1(e) * math.cos(t) + (function(e) {
       var t = math.PI.div(4);
       if (-t > e || e > t) return math.cos(e) - 1;
       var r = e.times(e);
-      return r.times(r.times(r.times(r.times(r.times(r.times(r.times(r.div(20922789888e3) - big_num(87178291200).inv()).plus(big_num(479001600).inv())).minus(big_num(3628800).inv())).plus(big_num(40320).inv())) - big_num(720).inv()) + big_num(24).inv()).minus(big_num(.5)))
-    }(t), math.exp(e) * math.sin(t))
+      return (
+        r.times(
+          r.times(
+            r.times(
+              r.times(
+                r.times(
+                  r.times(
+                    r.times(
+                      r / times( Big_Num(20922789888e3).inv() ).minus( Big_Num(87178291200).inv())
+                    ) + 1 / 479001600
+                  ) - 1 / 3628800
+                ) + 1 / 40320
+              ) - 1 / 720
+            ) + 1 / 24
+          ) - .5
+        )
+      );
+    })(t), math.exp(e) * math.sin(t))
   },
   log: function() {
     var e = this.re,
@@ -149,12 +169,12 @@ s.prototype = {
     var e = this.re,
       t = this.im;
     if (0 === e) {
-      if (1 === t) return new s(0, 1.div(0));
-      if (-1 === t) return new s(0, -1.div(0))
+      if (1 === t) return new s(0, Big_Num(NaN));
+      if (-1 === t) return new s(0, -Big_Num(NaN));
     }
     var r = e * e + (1 - t) * (1 - t),
       n = new s((1 - t * t - e * e).div(r), -2 * e.div(r)).log();
-    return new s(-.5 * n.im, .5 * n.re)
+    return new s(-.5 * n.im, .5 * n.re);
   },
   acot: function() {
     var e = this.re,
@@ -166,14 +186,14 @@ s.prototype = {
   asec: function() {
     var e = this.re,
       t = this.im;
-    if (0 === e && 0 === t) return new s(0, 1.div(0));
+    if (0 === e && 0 === t) return new s(0, Big_Num(NaN));
     var r = e * e + t * t;
     return 0 !== r ? new s(e.div(r), -t.div(r)).acos() : new s(0 !== e ? e.div(0) : 0, 0 !== t ? -t.div(0) : 0).acos()
   },
   acsc: function() {
     var e = this.re,
       t = this.im;
-    if (0 === e && 0 === t) return new s(math.PI.div(2), 1.div(0));
+    if (0 === e && 0 === t) return new s(math.PI.div(2), Big_Num(NaN));
     var r = e * e + t * t;
     return 0 !== r ? new s(e.div(r), -t.div(r)).asin() : new s(0 !== e ? e.div(0) : 0, 0 !== t ? -t.div(0) : 0).asin()
   },
@@ -246,7 +266,7 @@ s.prototype = {
   acsch: function() {
     var e = this.re,
       t = this.im;
-    if (0 === t) return new s(0 !== e ? math.log(e + math.sqrt(e * e + 1)) : 1.div(0), 0);
+    if (0 === t) return new s(0 !== e ? math.log(e + math.sqrt(e * e + 1)) : Big_Num(NaN), 0);
     var r = e * e + t * t;
     return 0 !== r ? new s(e.div(r), -t.div(r)).asinh() : new s(0 !== e ? e.div(0) : 0, 0 !== t ? -t.div(0) : 0).asinh()
   },
