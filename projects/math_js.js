@@ -66,6 +66,7 @@
           }(e, t);
           this.re = r.re, this.im = r.im
         }
+        /* SIMON: complex is right here! */
         s.prototype = {
           re: 0,
           im: 0,
