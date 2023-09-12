@@ -28,6 +28,7 @@ s.NAN = new s(Big_Num(NaN), Big_Num(NaN));
 s.INFINITY = s(Big_Num(Infinity), Big_Num(Infinity));
 s.ZERO = new s(ZERO, ZERO);
 s.ONE = new s(ONE, ZERO);
+s.EPSILON = new Big_Num(math.Complex.EPSILON);
 
 s.prototype = {
   re: ZERO,
@@ -94,6 +95,12 @@ s.prototype = {
     e = math.exp(r.re.times(i).minus(r.im.times(n)));
     t = r.im.times(i).plus(r.re.times(n));
     return new s(e.times(math.cos(t)), e.times(math.sin(t)))
+  },
+  mod: function(e, t) {
+    var r = this.div(e, t)
+    r.re = r.re.mod(r.re, ONE);
+    r.im = r.im.mod(r.im, ONE);
+    return r.mul(e, t)
   },
   sqrt: function() {
     var e, t, r = this.re,
