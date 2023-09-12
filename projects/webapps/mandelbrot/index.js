@@ -4,6 +4,7 @@ console.log(math)
 var dop = window.your_digits_of_pi;
 
 var Big_Num = math.BigNumber;
+var Complex = math.Complex;
 // I hope you don't need more than 200 digits!
 Big_Num.PI = Big_Num("3." + dop.slice(0, 200));
 // use DP to make sure the number is divided FULLY
@@ -23,7 +24,17 @@ const FOUR = Big_Num(4);
 const ONE_HALF = Big_Num(0.5);
 const THREE_THOUSAND = Big_Num(3000);
 
-s = {};
+
+Huge = (
+  class Huge extends Complex{
+    constructor(r,i){
+      super(Big_Num(r), Big_Num(i));
+    }
+  }
+);
+// shorthand
+s = Huge;
+
 s.NAN = new s(Big_Num(NaN), Big_Num(NaN));
 s.INFINITY = s(Big_Num(Infinity), Big_Num(Infinity));
 s.ZERO = new s(ZERO, ZERO);
