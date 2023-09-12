@@ -1,28 +1,41 @@
 
 console.log(math)
 
-const dop = window.your_digits_of_pi;
+var dop = window.your_digits_of_pi;
+
+var Big_Num = math.BigNumber;
+// I hope you don't need more than 200 digits!
+Big_Num.PI = Big_Num("3." + dop.slice(0, 200));
+const ZERO = Big_Num(0);
+const ONE = Big_Num(1);
+const TWO = Big_Num(2);
+const ONE_HALF = Big_Num(0.5);
+
 
 s = {};
+s.NAN = new s(Big_Num(NaN), Big_Num(NaN));
+s.INFINITY = s(Big_Num(Infinity), Big_Num(Infinity));
+s.ZERO = new s(ZERO, ZERO);
+s.ONE = new s(ONE, ZERO);
 
 s.prototype = {
-  re: 0,
-  im: 0,
+  re: ZERO,
+  im: ZERO,
   sign: function() {
     var e = this.abs();
     return new s(this.re.div(e), this.im.div(e))
   },
   add: function(e, t) {
     var r = new s(e, t);
-    return this.isInfinite() && r.isInfinite() ? s.NAN : this.isInfinite() || r.isInfinite() ? s.INFINITY : new s(this.re + r.re, this.im + r.im)
+    return this.isInfinite() && r.isInfinite() ? s.NAN : this.isInfinite() || r.isInfinite() ? s.INFINITY : new s(this.re.plus(r.re), this.im.plus(r.im))
   },
   sub: function(e, t) {
     var r = new s(e, t);
-    return this.isInfinite() && r.isInfinite() ? s.NAN : this.isInfinite() || r.isInfinite() ? s.INFINITY : new s(this.re - r.re, this.im - r.im)
+    return this.isInfinite() && r.isInfinite() ? s.NAN : this.isInfinite() || r.isInfinite() ? s.INFINITY : new s(this.re.minus(r.re), this.im.minus(r.im))
   },
   mul: function(e, t) {
     var r = new s(e, t);
-    return this.isInfinite() && r.isZero() || this.isZero() && r.isInfinite() ? s.NAN : this.isInfinite() || r.isInfinite() ? s.INFINITY : 0 === r.im && 0 === this.im ? new s(this.re * r.re, 0) : new s(this.re * r.re - this.im * r.im, this.re * r.im + this.im * r.re)
+    return this.isInfinite() && r.isZero() || this.isZero() && r.isInfinite() ? s.NAN : this.isInfinite() || r.isInfinite() ? s.INFINITY : ZERO.eq(r.im) && ZERO.eq(this.im) ? new s(this.re.times(r.re), ZERO) : new s(this.re.mul(r.re).minus(this.im.times(r.im)), this.re.times(r.im).plus(this.im.times(r.re)))
   },
   div: function(e, t) {
     var r = new s(e, t);
@@ -33,58 +46,73 @@ s.prototype = {
     var n, i, a = r.re,
       o = r.im;
     return (
-      (0 === o)
+      (ZERO.eq(o))
       ?(new s(e.div(a), t.div(a)))
       :(
         math.abs(a) < math.abs(o)
-        ?(new s((e * (i = a.div(o)) + t) / (n = a * i + o), (t * i - e).div(n)))
-        :(new s((e + t * (i = o.div(a))) / (n = o * i + a), (t - e * i).div(n)))
+        ?(new s(
+          (e.times(i = a.div(o)).plus(t)).div(n = a.times(i).plus(o)),
+          (t.times(i).minus(e)).div(n)
+        ))
+        :(new s(
+          (e.plus(t.times(i = o.div(a)))).div(n = o.times(i).plus(a)),
+          (t.minus(e.times(i))).div(n)
+        ))
       )
     )
   },
   pow: function(e, t) {
     var r = new s(e, t);
     if (e = this.re, t = this.im, r.isZero()) return s.ONE;
-    if (0 === r.im) {
-      if (0 === t && e > 0) return new s(math.pow(e, r.re), 0);
-      if (0 === e) switch ((r.re % 4 + 4) % 4) {
+    if (ZERO === r.im) {
+      if (ZERO.eq(t) && e.gt(ZERO)) return new s(math.pow(e, r.re), ZERO);
+      if (ZERO.eq(e)) switch (((r.re.toNumber() % 4) + 4) % 4) {
         case 0:
-          return new s(math.pow(t, r.re), 0);
+          return new s(math.pow(t, r.re), ZERO);
         case 1:
-          return new s(0, math.pow(t, r.re));
+          return new s(ZERO, math.pow(t, r.re));
         case 2:
-          return new s(-math.pow(t, r.re), 0);
+          return new s(-math.pow(t, r.re), ZERO);
         case 3:
-          return new s(0, -math.pow(t, r.re))
+          return new s(ZERO, -math.pow(t, r.re))
       }
     }
-    if (0 === e && 0 === t && r.re > 0 && r.im >= 0) return s.ZERO;
+    if (ZERP.eq(e) && ZERO.eq(t) && r.re.gt(ZERO) && r.im.gte(ZERO)) return s.ZERO;
     var n = math.atan2(t, e),
       i = u(e, t);
-    e = math.exp(r.re * i - r.im * n);
-    t = r.im * i + r.re * n;
-    return new s(e * math.cos(t), e * math.sin(t))
+    e = math.exp(r.re.times(i).minus(r.im.times(n)));
+    t = r.im.times(i).plus(r.re.times(n));
+    return new s(e.times(math.cos(t)), e.times(math.sin(t)))
   },
   sqrt: function() {
     var e, t, r = this.re,
       n = this.im,
       i = this.abs();
-    if (r >= 0) {
-      if (0 === n) return new s(math.sqrt(r), 0);
-      e = .5 * math.sqrt(2 * (i + r))
+    if (r.gte(ZERO)) {
+      if (0.eq(n)) return new s(math.sqrt(r), ZERO);
+      e = .5 * math.sqrt(TWO.times(i.plus(r)))
     } else e = math.abs(n) / math.sqrt(2 * (i - r));
-    return t = r <= 0 ? .5 * math.sqrt(2 * (i - r)) : math.abs(n) / math.sqrt(2 * (i + r)), new s(e, n < 0 ? -t : t)
+    return t = r <= ZERO ? ONE_HALF * math.sqrt(2 * (i - r)) : math.abs(n) / math.sqrt(2 * (i + r)), new s(e, n < ZERO ? -t : t)
   },
   exp: function() {
     var e = math.exp(this.re);
     return this.im, new s(e * math.cos(this.im), e * math.sin(this.im))
   },
   expm1: function() {
+    const
+      m1 = Big_Num(20922789888e3).inv(),
+      m2 = Big_Num(  87178291200).inv(),
+      m3 = Big_Num(    479001600).inv(),
+      m4 = Big_Num(      3628800).inv(),
+      m5 = Big_Num(        40320).inv(),
+      m6 = Big_Num(          720).inv(),
+      m7 = Big_Num(           24).inv(),
+      m8 = Big_Num(            2).inv();
     var e = this.re,
       t = this.im;
-    return new s(math.expm1(e) * math.cos(t) + (function(e) {
-      var t = math.PI.div(4);
-      if (-t > e || e > t) return math.cos(e) - 1;
+    return new s(math.expm1(e).times( math.cos(t) ).plus( function(e) {
+      var t = Big_Num.PI.div(4);
+      if (e.lt(-t) || e.gt(t)) return math.cos(e).minus(1);
       var r = e.times(e);
       return (
         r.times(
@@ -94,13 +122,13 @@ s.prototype = {
                 r.times(
                   r.times(
                     r.times(
-                      r / times( Big_Num(20922789888e3).inv() ).minus( Big_Num(87178291200).inv())
-                    ) + 1 / 479001600
-                  ) - 1 / 3628800
-                ) + 1 / 40320
-              ) - 1 / 720
-            ) + 1 / 24
-          ) - .5
+                      r.times( m1 ).minus( m2 )
+                    ).plus(m3)
+                  ).minus(m4)
+                ).plus(m5)
+              ).minus(m6)
+            ).plus(m7)
+          ).minus(m8)
         )
       );
     })(t), math.exp(e) * math.sin(t))
@@ -149,7 +177,7 @@ s.prototype = {
     var e = this.re,
       t = this.im,
       r = .5 * i(2 * t) - .5 * math.cos(2 * e);
-    return new s(math.sin(e) * i(t).div(r), -math.cos(e) * a(t).div(r))
+    return new s(math.sin(e) * i(t).div(r), -math.cos(e) * a(t).div(r));
   },
   asin: function() {
     var e = this.re,
@@ -163,7 +191,7 @@ s.prototype = {
       t = this.im,
       r = new s(t * t - e * e + 1, -2 * e * t).sqrt(),
       n = new s(r.re - t, r.im + e).log();
-    return new s(math.PI.div(2) - n.im, n.re)
+    return new s(Big_Num.PI.div(2) - n.im, n.re)
   },
   atan: function() {
     var e = this.re,
@@ -193,7 +221,7 @@ s.prototype = {
   acsc: function() {
     var e = this.re,
       t = this.im;
-    if (0 === e && 0 === t) return new s(math.PI.div(2), Big_Num(NaN));
+    if (0 === e && 0 === t) return new s(Big_Num.PI.div(2), Big_Num(NaN));
     var r = e * e + t * t;
     return 0 !== r ? new s(e.div(r), -t.div(r)).asin() : new s(0 !== e ? e.div(0) : 0, 0 !== t ? -t.div(0) : 0).asin()
   },
@@ -259,7 +287,7 @@ s.prototype = {
   acoth: function() {
     var e = this.re,
       t = this.im;
-    if (0 === e && 0 === t) return new s(0, math.PI.div(2));
+    if (0 === e && 0 === t) return new s(0, Big_Num.PI.div(2));
     var r = e * e + t * t;
     return 0 !== r ? new s(e.div(r), -t.div(r)).atanh() : new s(0 !== e ? e.div(0) : 0, 0 !== t ? -t.div(0) : 0).atanh()
   },

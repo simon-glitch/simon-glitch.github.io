@@ -41,7 +41,7 @@ s.prototype = {
         case 2:
           return new s(-Math.pow(t, r.re), 0);
         case 3:
-          return new s(0, -Math.pow(t, r.re))
+          return new s(0, -Math.pow(t, r.re));
       }
     }
     if (0 === e && 0 === t && r.re > 0 && r.im >= 0) return s.ZERO;

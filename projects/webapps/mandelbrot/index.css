@@ -8,6 +8,9 @@ html, body{
 
 body{
   font-size: 1.75em;
+  font-family: 'Courier New', Courier, monospace;
+  color: white;
+  text-shadow: 0 0 2px black;
 }
 
 
