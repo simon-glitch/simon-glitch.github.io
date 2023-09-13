@@ -225,6 +225,7 @@ console.log(p( invert.det(rand(7,7)) ));
   16x16: 15_028_459_777_217,
   
   // so, unfortunately, my computer can not calculate the determinant of a 16x16 matrix using these methods.
+  // octave can though, because it uses a better algorithm
   
   n x n: ~= 11.4893 * n!
 */
