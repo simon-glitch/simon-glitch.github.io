@@ -428,25 +428,36 @@ s.prototype = {
 };
 
 SCOPE_ALT_NAMES: {
-  s.prototype.plus = function(that){
+  // alt names
+  s.prototype.plus = s.prototype.add;
+  s.prototype.minus = s.prototype.sub;
+  s.prototype.subtract = s.prototype.sub;
+  s.prototype.times = s.prototype.mul;
+  s.prototype.multiply = s.prototype.mul;
+  s.prototype.divide = s.prototype.div;
+  s.prototype.power = s.prototype.pow;
+  s.prototype.modulo = s.prototype.mod;
+  
+  // combined param methods
+  s.prototype.s_add = function(that){
     return this.add(that.re, that.im);
   }
-  s.prototype.minus = function(that){
+  s.prototype.s_sub = function(that){
     return this.sub(that.re, that.im);
   }
-  s.prototype.times = function(that){
+  s.prototype.s_mul = function(that){
     return this.mul(that.re, that.im);
   }
-  s.prototype.divide = function(that){
+  s.prototype.s_div = function(that){
     return this.div(that.re, that.im);
   }
-  s.prototype.power = function(that){
+  s.prototype.s_pow = function(that){
     return this.pow(that.re, that.im);
   }
-  s.prototype.modulo = function(that){
+  s.prototype.s_mod = function(that){
     return this.mod(that.re, that.im);
   }
-  s.prototype.logb = function(that){
+  s.prototype.s_logb = function(that){
     return this.log().divide(that.log());
   }
 }
