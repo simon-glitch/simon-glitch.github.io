@@ -33,6 +33,12 @@ invert.has_zero_row = function has_zero_row(m){};
 invert.has_zero_col = function has_zero_col(m){};
 
 invert.det  = function find_det(m){
+  if(m.length !== m[0].length){
+    m.det = "Cannot find the determinant of a non-square matrix. ";
+    m.det += m.length + " by " + m[0].length + " is not square!";
+    return m;
+  }
+  
   let det = 0;
   
   m.branches = 1;
@@ -117,12 +123,44 @@ invert.print = function print_matrix(m){
       ).join(", ")
     )).join("\n  ");
   str = "[" + str + "\n]"
-  str += ",\n  det = " + m.det.toFixed(3);
+  str += ",\n  det = " + (typeof m === "number" ? m.det.toFixed(3) : m);
   str += ",\n  branches = " + m.branches;
 };
 
 const p = invert.print;
 
-console.log(invert.det([[1,2],[3,4]]))
+console.log(p( invert.det([
+  [1,2],
+  [3,4],
+]) ));
+console.log(p( invert.det([
+  [1,2],
+  [0,1],
+  [2,4],
+]) ));
+console.log(p( invert.det([
+  [1, 2,5000],
+  [20,1,-20 ],
+  [2, 4,0   ],
+]) ));
+console.log(p( invert.det([
+  [0, 0,0, 0],
+  [3, 2,1, 0],
+  [1, 4,10,5],
+  [0,-3,1, 7],
+]) ));
+console.log(p( invert.det([
+  [0,0,0,0,0],
+  [0,0,0,0,0],
+  [0,0,0,0,0],
+  [0,0,0,0,0],
+  [0,0,0,0,0],
+]) ));
+console.log(p( invert.det([
+  [1, 2,0, 0],
+  [3, 4,1, 0],
+  [3, 4,10,0],
+  [0,-2,1, 7],
+]) ));
 
 
