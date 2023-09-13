@@ -444,7 +444,8 @@ for(let i in newp){
   
   Object.defineProperty(s.prototype, i, {
     value: newp[i],
-    enumerable: false,
+    configurable: true,
+    enumerable: true,
     writable: false,
     readable: true,
   });
