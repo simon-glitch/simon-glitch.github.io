@@ -109,5 +109,20 @@ invert.minor = function invert_via_rref(m, i, j){
 invert.cof = function invert_via_rref(){
   
 };
+invert.print = function print_matrix(m){
+  let str = m.map(
+    (mi) => (
+      mi.map(
+        (mij) => (mij.toFixed(2))
+      ).join(", ")
+    )).join("\n  ");
+  str = "[" + str + "\n]"
+  str += ",\n  det = " + m.det.toFixed(3);
+  str += ",\n  branches = " + m.branches;
+};
+
+const p = invert.print;
+
+console.log(invert.det([[1,2],[3,4]]))
 
 
