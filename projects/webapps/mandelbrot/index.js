@@ -41,7 +41,7 @@ s.ZERO = new s(ZERO, ZERO);
 s.ONE = new s(ONE, ZERO);
 s.EPSILON = new Big_Num(math.Complex.EPSILON);
 
-s.prototype = {
+newp = {
   re: ZERO,
   im: ZERO,
   sign: function() {
@@ -50,7 +50,15 @@ s.prototype = {
   },
   add: function(e, t) {
     var r = new s(e, t);
-    return this.isInfinite() && r.isInfinite() ? s.NAN : this.isInfinite() || r.isInfinite() ? s.INFINITY : new s(this.re.plus(r.re), this.im.plus(r.im))
+    return (
+      this.isInfinite() && r.isInfinite()
+      ? s.NAN
+      : (
+        this.isInfinite() || r.isInfinite()
+        ? s.INFINITY
+        : new s(this.re.plus(r.re), this.im.plus(r.im))
+      )
+    );
   },
   sub: function(e, t) {
     var r = new s(e, t);
@@ -426,6 +434,16 @@ s.prototype = {
     return !(this.isNaN() || this.isFinite())
   }
 };
+
+// force prototype to have the correct methods!
+for(let i in newp){
+  Object.defineProperty(s.prototype, i, {
+    value: newp[i],
+    enumerable: false,
+    writable: false,
+    readable: true,
+  });
+}
 
 SCOPE_ALT_NAMES: {
   // alt names
