@@ -93,7 +93,7 @@ invert.det  = function find_det(m){
     m.branches += mm.branches;
   }
   // sort the values, that way small values actually impact the sum
-  dets.sort((v1,v2) => (v1-v2));
+  dets.sort((v1,v2) => (v1 - v2));
   
   for(let i = 0; i < dets.length; i++){
     det += dets[i];
@@ -123,7 +123,7 @@ invert.print = function print_matrix(m){
       ).join(", ")
     )).join("\n  ");
   str = "[" + str + "\n]"
-  str += ",\n  det = " + (typeof m === "number" ? m.det.toFixed(3) : m);
+  str += ",\n  det = " + (typeof m.det === "number" ? m.det.toFixed(3) : m.det);
   str += ",\n  branches = " + m.branches;
   return str;
 };
