@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A simple webpage that draws the mandelbrot set and other things.">
+  <link rel="stylesheet" href="index.css">
+  <title>Gammabrot 3.0</title>
+</head>
+<body>
+  <header class="flex-settings">
+    <p> <span>Iteration Count:</span>  <input type="number"> </p>
+    <p> <span>Accuracy:       </span>  <input type="number"> </p>
+    <p> <span>Iteration Count:</span>  <input type="number"> </p>
+    <p> <button id = "download">Download Image</button> </p>
+    <p> <button id = "download">Draw Image    </button> </p>
+    <p> Auto draw: <input type="checkbox" id="do_auto_draw"> </p>
+    <div>
+      <p>
+        <span>Zoom:</span>
+        <span class="secondary">x = </span>
+        <input type="number"> 
+      </p>
+      <button>zoom *= x</button>
+      <button>zoom /= x</button>    
+    </div>
+  </header>
+  <div class="no-padd">
+    <canvas></canvas>
+  </div>
+  <script src="../../../randomScripts/digits_of_pi_please.js"></script>
+  <script src="digits_of_pi_please.js"></script>
+  <script src="../../math_js.js"></script>
+  <script src="index.js"></script>
+</body>
+</html>
