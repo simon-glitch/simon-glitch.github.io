@@ -25,7 +25,7 @@ const ONE_HALF = Big_Num(0.5);
 const THREE_THOUSAND = Big_Num(3000);
 
 
-Huge = (
+var Huge = (
   class Huge extends Complex{
     constructor(r,i){
       super(Big_Num(r), Big_Num(i));
@@ -427,4 +427,27 @@ s.prototype = {
   }
 };
 
+SCOPE_ALT_NAMES: {
+  s.prototype.plus = function(that){
+    return this.add(that.re, that.im);
+  }
+  s.prototype.minus = function(that){
+    return this.sub(that.re, that.im);
+  }
+  s.prototype.times = function(that){
+    return this.mul(that.re, that.im);
+  }
+  s.prototype.divide = function(that){
+    return this.div(that.re, that.im);
+  }
+  s.prototype.power = function(that){
+    return this.pow(that.re, that.im);
+  }
+  s.prototype.modulo = function(that){
+    return this.mod(that.re, that.im);
+  }
+  s.prototype.logb = function(that){
+    return this.log().divide(that.log());
+  }
+}
 
