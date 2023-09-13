@@ -125,6 +125,7 @@ invert.print = function print_matrix(m){
   str = "[" + str + "\n]"
   str += ",\n  det = " + (typeof m === "number" ? m.det.toFixed(3) : m);
   str += ",\n  branches = " + m.branches;
+  return str;
 };
 
 const p = invert.print;
