@@ -390,7 +390,8 @@ newp = {
         : (
           math.abs(e).lt(s.EPSILON) && (e = ZERO),
           math.abs(t).lt(s.EPSILON) && (t = ZERO),
-          ZERO === t
+          (
+            (ZERO.eq(t))
             ? (r + e.toString())
             : (
               (!ZERO.eq(e))
@@ -412,6 +413,7 @@ newp = {
               r + "i"
             )
           )
+        )
       )
     );
   },
