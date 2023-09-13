@@ -88,7 +88,7 @@ invert.det  = function find_det(m){
   // just take det of the first row
   let dets = [];
   for(let i = 0, mm; i < m[0].length; i++){
-    mm = invert.minor(m, 0, j);
+    mm = invert.minor(m, 0, i);
     dets[i] = m[0][i] * (-1)**i * mm.det;
     m.branches += mm.branches;
   }
