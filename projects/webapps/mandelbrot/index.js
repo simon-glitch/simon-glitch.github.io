@@ -437,6 +437,9 @@ newp = {
 
 // force prototype to have the correct methods!
 for(let i in newp){
+  // don't set the params to constants though!
+  if(i == "re" || i == "im") continue;
+  
   Object.defineProperty(s.prototype, i, {
     value: newp[i],
     enumerable: false,
