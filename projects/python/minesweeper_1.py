@@ -9,23 +9,18 @@ import datetime
 import sys
 import tkinter as tk
 
-tk_screen = tk.Tk()
 
-C = tk.Canvas(tk_screen, bg="blue", height=250, width=300)
-
-coord = 10, 50, 240, 210
-arc = C.create_arc(coord, start=0, extent=150, fill="red")
-
-C.pack()
-tk_screen.mainloop()
-
-
+# tkinter buttons
+btns = []
+# these are enums for the game state
 null = 0
 won  = 1
 lost = 2
 
 
-# todo: add the other functions to this class (as methods)
+
+# TODO: add the other functions to this class (as methods)
+#   ehhh, I'm too lazy to do that. XD!
 class Field:
   def __Init__(self, width :int, height :int, mine_proportion :float):
     self.width = width
@@ -41,9 +36,10 @@ class Field:
     self.state = null
     return self
 
-
+# this is the mine field
 field = Field.__Init__(Field(), 22, 12, 0.2)
 
+# TODO: get rid of the weird dict. We don't need it!
 # python requires quotes in its JSON objects / dicts
 field_d = {
   "mine_count": 0,
@@ -67,10 +63,12 @@ field_d = {
 }
 
 # give me my expected behavior!
-for i in field_d:
-  setattr(field, i, field_d[i])
+def field_d_activate():
+  for i in field_d:
+    setattr(field, i, field_d[i])
 
-
+# this prints the number n, centered in a cell with a length of l, allowing me to make the minefield displayed in the terminal look really nice.
+#   n can actually be any string, or anything that converts to a string under str()
 def num_str(n, l):
   n = str(n)
   ll = len(n)
@@ -124,14 +122,14 @@ def new_game(
   field.mine_count = mine_count
   field.width = width
   field.height = height
-
+  
   has_mine = [False] * (width * height)
   l = len(has_mine)
-
+  
   new_mines = srs(l, mine_count)
   for i in range(l):
     has_mine[i] = new_mines[i]
-
+  
   # I will make a recursive version of that in the future,
   #   in order to have n~dimensional minesweeper!
   #   but we'll do just 2 dimensions for now~.
@@ -192,29 +190,34 @@ def new_game(
 
   return mine_grid
 
+def print_cell(on_cursor, rdii, raii, rhii):
+  row_ss = ""
+  row_ss += ("<") if on_cursor else (" ")
+  row_ss += (
+    (" ? ") if (not rdii) else (
+      ("-M-") if
+      (raii) else num_str(rhii, 3)
+    )
+  )
+  row_ss += (">") if on_cursor else (" ")
+  return row_ss
 
+# this displays the minefield as text in the terminal, and updates the tkinter display
 def display():
-  height = field.height
-  width = field.width
+  height    = field.height
+  width     = field.width
   remaining = field.mine_count
   for i in range(height):
     for ii in range(width):
       remaining -= int(field.discovered[i][ii] and field.has_mine[i][ii])
   print(f"{remaining} mines remaining:")
-
+  
+  
   def p_row(i, row_has, row_hint, row_discovered, width):
     row_s = ""
     for ii in range(width):
-      row_ss = ""
       on_cursor = (i == field.cursor[0]) and (ii == field.cursor[1])
-      row_ss += ("<") if on_cursor else (" ")
-      row_ss += (
-          (" ? ") if (not row_discovered[ii]) else (
-            ("-M-") if
-            (row_has[ii]) else num_str(row_hint[ii], 3)
-          )
-        )
-      row_ss += (">") if on_cursor else (" ")
+      row_ss = print_cell(on_cursor, row_discovered[ii], row_has[ii], row_hint[ii])
       row_s += row_ss
     # remove the 2 spaces at the front
     row_s = "[" + (row_s[::]) + "]"
@@ -225,10 +228,12 @@ def display():
       i, field.has_mine[i], field.hints[i],
       field.discovered[i], width)
     )
-
+  
+  tk_generate()
+  
   return "done!"
 
-
+# this moves the cursor XD
 def move_cursor(dim_index: int, dist: int):
   dims = [field.height, field.width]
   dim_max = dims[dim_index]
@@ -239,6 +244,10 @@ def move_cursor(dim_index: int, dist: int):
   field.cursor[dim_index] = current
 
 
+# this checks to see if the current has won.
+#   a player can win by:
+#   * correctly marking all mines, and having no flags on non-mine tiles
+#   * or correctly clearing all non-mine tiles
 def check_win():
   width = field.width
   height = field.height
@@ -278,7 +287,7 @@ def check_win():
 
   return all_flags
 
-
+# this opens tiles around zeroes which have been revealed
 def clear_zeros():
   width  = field.width
   height = field.height
@@ -343,10 +352,13 @@ def clear_zeros():
     clear_at(*needs_cleared[i])
     needs_cleared.pop()
 
+# whether the player can lose
+#   this was used for debugging
 losable = True
-
+# this is the maximum number of times force_zero is allowed to try to forcefully move a mine
+#   if it somehow fails this many times, then there is **probably** something wrong with my code!
 max_tries = 10_000
-
+# this forces a 3x3 of tiles around pos to have no mines, thus making the tile at pos a zero tile.
 def force_zero(pos: list):
   width = field.width
   height = field.height
@@ -386,17 +398,24 @@ def force_zero(pos: list):
         j1 = run[1]
         field.has_mine[j0][j1] = True
 
+# I don't know what this does.
 Invalid_Move = {}
 
+
+
+# this clears a tile or places a flag at the current cursor's position; this also checks to see if that move is valid.
+#   if that move is invalid, then the player LOSES.
 def check_lose(s: str):
-  c = field.cursor
-  mine = field.has_mine[c[0]][c[1]]
-  clear = field.discovered[c[0]][c[1]]
-  flagged = field.flagged[c[0]][c[1]]
-  marked = clear or flagged
+  c       = field.cursor
+  print("c is", c)
+  print("s is", s)
+  mine    = field.has_mine  [c[0]][c[1]]
+  clear   = field.discovered[c[0]][c[1]]
+  flagged = field.flagged   [c[0]][c[1]]
+  marked  = clear or flagged
   strict_mode = field.strict_mode
-  width = field.width
-  height = field.height
+  width   = field.width
+  height  = field.height
 
   print(f"mine: {mine}, clear: {clear}, flagged: {flagged}, marked: {marked}")
 
@@ -445,9 +464,11 @@ def check_lose(s: str):
   if ((not clear) and marked and (not strict_mode) and (s == "-")):
     field.flagged[c[0]][c[1]] = False
 
+# keep track of how long we have been playing
 start = 0
 now = 1
 time = [datetime.datetime.now(), datetime.datetime.now()]
+
 
 def play_turn():
   msg = (
@@ -459,22 +480,33 @@ def play_turn():
     )
   msg += "; type e to exit"
   s = input(msg)
+  
+  return True
+
+def process_input(s):
   time[now] = datetime.datetime.now()
   if (s == "e"):
     return False
-  if (s == "u"):
+  # move cursor up
+  if (s == "w"):
     move_cursor(0, -1)
-  if (s == "d"):
-    move_cursor(0, 1)
-  if (s == "l"):
+  # move cursor left
+  if (s == "a"):
     move_cursor(1, -1)
-  if (s == "r"):
+  # move cursor down
+  if (s == "s"):
+    move_cursor(0, 1)
+  # move cursor right
+  if (s == "d"):
     move_cursor(1, 1)
-  if (s == "p"):
+  # play new game
+  if (s == "r"):
     new_game()
     time[start] = datetime.datetime.now()
   
   # let the player actually PLAY the game
+  # f places a flag
+  # c clears a flag
   check_lose(s)
 
   try:
@@ -505,12 +537,91 @@ def play_turn():
   return True
 
 
-if input("type `p` to play~") == "p":
-  new_game()
-  display()
+def start_game(use_input):
+  
+  if((not use_input) or input("type `p` to play~") == "p"):
+    new_game()
+    display()
+    
+    playing = use_input
+    while playing:
+      playing = play_turn()
 
-  playing = True
-  while playing:
-    playing = play_turn()
+# if you want to play in the terminal
+#   just do start_game(True)
+
+
+
+# ===================
+# Tkinter Integration
+# ===================
+
+# create main tkinter window
+tk_screen = tk.Tk()
+
+# create a grid of buttons for the minefield
+alt_mode = False
+def button_handler_generator(mix, miy):
+  # this trick is called encapsulation
+  # the lower function remembers which SPECIFIC parameter values were passed into the higher function when it was generated. This happens all the time when creating objects with loops and giving them methods that can't just store their values in the objects.
+  def button_handler():
+    field.cursor = (miy, mix)
+    # print("click!")
+    # play_turn()
+    
+    s = ("f") if (alt_mode) else ("c")
+    process_input(s)
+  return button_handler
+
+def tk_generate():
+  bw = field.width
+  
+  bh = field.height
+  for iy in range(len(btns)):
+    for ix in range(bw):
+      btn = btns[iy][ix]
+      btn.destroy()
+  while (len(btns) > 0):
+    btns.pop()
+  
+  for iy in range(bh):
+    btns.append([])
+    for ix in range(bw):
+      # generate button text, using the same code used to print cells in the terminal
+      on_cursor = (iy == field.cursor[0]) and (ix == field.cursor[1])
+      row_ss = print_cell(on_cursor, field.discovered[iy][ix], field.has_mine[iy][ix],
+      field.hints[iy][ix])
+      btn_text = row_ss
+      
+      # Make the button
+      #   tk.Button makes a button, but doesn't actually add it to the display window
+      btn = tk.Button(tk_screen, text = btn_text, command = button_handler_generator(ix, iy))
+      # you can use methods such as .pack() and .grid() to add tk elements (like Button) to the display window
+      btn.grid(row = iy, column = ix)
+      # just append to our button 2d list
+      btns[iy].append(btn)
+
+# key detection
+def onKeyPress(event):
+  c = event.char
+  if(c == " "):
+    alt_mode = not alt_mode
+# actually activate that handler
+tk_screen.bind('<KeyPress>', onKeyPress)
+
+# actually generate the grid that display() will update
+# start_game actually runs display()
+# and display runs tk_generate()
+# and start the game!
+start_game(False)
+print("ook")
+
+# infinite loop which can be terminated
+# by keyboard or mouse interrupt
+tk_screen.mainloop()
+print("oook")
+
+print(tk_screen)
+
 
 

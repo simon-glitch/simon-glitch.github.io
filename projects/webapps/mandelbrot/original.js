@@ -1,4 +1,21 @@
 
+let i,a,o,u;
+i = Math.cosh || function(e) {
+  return Math.abs(e) < 1e-9 ? 1 - e : .5 * (Math.exp(e) + Math.exp(-e))
+};
+a = Math.sinh || function(e) {
+  return Math.abs(e) < 1e-9 ? e : .5 * (Math.exp(e) - Math.exp(-e))
+};
+o = function() {
+  throw SyntaxError("Invalid Param")
+};
+
+u = function(e, t) {
+  var r = Math.abs(e);
+  n = Math.abs(t);
+  return (0 === e ? Math.log(n) : 0 === t ? Math.log(r) : r < 3e3 && n < 3e3 ? .5 * Math.log(e * e + t * t) : (e /= 2, t /= 2, .5 * Math.log(e * e + t * t) + Math.LN2));
+};
+
 s.prototype = {
   re: 0,
   im: 0,
