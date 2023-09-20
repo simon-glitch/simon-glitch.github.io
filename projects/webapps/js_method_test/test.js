@@ -806,7 +806,7 @@ const time = function time(f, f_name, opt){
   for(let i = 0, td; i < thread_c; i++){
     td = threads_data[i];
     // NOTE: we could just use execute_t directly, since JavaScript would let us use `this` instead of `me`, but I like using a generator instead, since I would have to bind the threads when doing setInterval(threads_data.execute_t) anyways.
-    td.execute_t = generate_t(threads_data);
+    td.execute_t = generate_t(td);
   }
   
   // used to turn off the thread manager
