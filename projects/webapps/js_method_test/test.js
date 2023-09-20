@@ -1099,7 +1099,9 @@ SCOPE_TESTING: {
     });
   };
 
-  test1();
+  onclick = function(){
+    test1();
+  }
 }
 
 
