@@ -343,10 +343,18 @@ const time = function time(f, f_name, opt){
       // allow emergency stop
       if(kill_all){
         clearInterval(me.tid);
+        return;
+      }
+      if(me.busy) return;
+      // the thread finishes after a certain number of frames, handing its work over to the thread manager and waiting for the next round of testing!
+      if(me.frame_count >= thread_f){
+        clearInterval(me.tid);
+        return;
       }
       
-      if(me.busy) return;
+      // keep track of how many frames this thread has done
       me.frame_count ++;
+      
       // console.log(`did ${me.frame_count} frames!`);
       me.busy = true;
       
@@ -385,6 +393,7 @@ const time = function time(f, f_name, opt){
       
       me.busy = false;
     };
+    return execute_t;
   };
   
   // used to turn off the thread manager
