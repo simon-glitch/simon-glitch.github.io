@@ -677,7 +677,7 @@ const time = function time(f, f_name, opt){
   
   // starting value of n
   //   > n is the number of times to execute the function per frame
-  let n = opt.starting_n || starting_n;
+  let n = opt.starting_n || default_opt.starting_n;
   let n_total = 0;
   let n_rounded = Math.floor(n);
   let n_exponent = opt.n_exponent || default_opt.n_exponent;
