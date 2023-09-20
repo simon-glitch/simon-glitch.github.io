@@ -653,7 +653,7 @@ const to_engineering = (function(){
 
 const default_opt = {
   timespan_for_testing: 2*10,
-  stating_n: 100,
+  starting_n: 100,
   virtual_thread_count: 1,
   frames_per_thread: 1,
   mspf: 50,
