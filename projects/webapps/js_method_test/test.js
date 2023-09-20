@@ -789,7 +789,9 @@ const time = function time(f, f_name, opt){
         return;
       }
       me.ct2 = new Date();
-      me.cdt = (me.ct2.getTime() -me.ct1.getTime());
+      me.cdt = (me.ct2.getTime() - me.ct1.getTime());
+      console.log("check adt...");
+      debugger;
       me.adt += me.cdt;
       
       // make sure the frames don't get too slow
@@ -861,6 +863,8 @@ const time = function time(f, f_name, opt){
         n /= thread_c;
         n_exponent /= thread_c;
         delta_adt /= thread_c;
+        console.log("check adt...");
+        debugger;
         adt += delta_adt
         
         // now, use the combined data
