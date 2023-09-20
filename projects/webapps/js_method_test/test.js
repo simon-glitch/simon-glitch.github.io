@@ -811,8 +811,11 @@ const time = function time(f, f_name, opt){
   tmid = -1;
   
   const thread_manager_t = function(){
+    debugger;
+    
     if(kill_all){
       clearInterval(tmid);
+      return;
     }
     // vv  thread fusion is buried in here  vv
     if(!threads_done){
@@ -904,7 +907,7 @@ const time = function time(f, f_name, opt){
       td.tid = setInterval(td.execute_t);
     }
     
-    
+    debugger;
   };
   
   const start_t = function(resolve_f_given){
