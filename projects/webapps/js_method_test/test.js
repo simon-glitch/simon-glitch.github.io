@@ -892,8 +892,6 @@ const time = function time(f, f_name, opt){
       td.cdt = 0;
       td.i = 0;
       
-      // thread index
-      td.ti = ti;
       // count number of frames
       
       td.frame_count = 0;
