@@ -652,12 +652,13 @@ const to_engineering = (function(){
 
 
 const default_opt = {
-  timespan_for_testing: 2*1000,
+  timespan_for_testing: 2*10,
   stating_n: 100,
-  virtual_thread_count: 4,
-  frames_per_thread: 10,
+  virtual_thread_count: 1,
+  frames_per_thread: 1,
   mspf: 50,
   n_exponent: 1.1,
+  do_record: true,
 }
 
 const time = function time(f, f_name, opt){
@@ -675,6 +676,7 @@ const time = function time(f, f_name, opt){
   let ct1, ct2, cdt;
   let adt = 0;
   
+  
   // starting value of n
   //   > n is the number of times to execute the function per frame
   let n = opt.starting_n || default_opt.starting_n;
@@ -683,6 +685,7 @@ const time = function time(f, f_name, opt){
   let n_exponent = opt.n_exponent || default_opt.n_exponent;
   let mspf = opt.mspf || default_opt.mspf;
   
+  let do_record = opt.do_record || default_opt.do_record;
   let recorded = {
     "adt": [],
     "cdt": [],
