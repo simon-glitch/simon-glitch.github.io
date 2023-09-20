@@ -333,6 +333,7 @@ const time = function time(f, f_name, opt){
   };
   
   const generate_t = function(i){
+    let me = {};
     let busy = false;
     execute_t = function execute_t(){
       if(busy) return;
