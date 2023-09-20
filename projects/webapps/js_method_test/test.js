@@ -406,7 +406,7 @@ const time = function time(f, f_name, opt){
     if(!threads_done){
       // first, check if we are done
       let done_yet = true;
-      for(let i = 0; i < are_completed.length; i++){
+      for(let i = how_many_completed; i < are_completed.length; i++){
         if(!are_completed[i]){
           how_many_completed ++;
           done_yet = false;
