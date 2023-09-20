@@ -333,7 +333,7 @@ const time = function time(f, f_name, opt){
   let are_completed = [];
   let threads_data = [];
   for(let i = 0; i < thread_c; i++){
-    threads_data[i] = {};
+    threads_data[i] = {taci: i};
   }
   
   // kill_all is an emergency shut off switch
