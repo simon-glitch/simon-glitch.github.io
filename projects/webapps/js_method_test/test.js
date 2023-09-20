@@ -894,7 +894,11 @@ const time = function time(f, f_name, opt){
       td.n = n;
       td.n_rounded = n;
       td.n_rounded_prev = 0;
+      console.log("not setting n_exponent?");
+      debugger;
       td.n_exponent = n_exponent;
+      console.log("really? not setting n_exponent?");
+      debugger;
       td.n_total = 0;
       td.ct1 = new Date();
       td.ct2 = td.ct1;
