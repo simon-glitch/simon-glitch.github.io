@@ -469,7 +469,8 @@ const time = function time(f, f_name, opt){
       td.n_total = n_total;
       td.ct1 = new Date();
       td.ct2 = td.ct1;
-      td.dt = 0;
+      td.adt = 0;
+      td.cdt = 0;
       td.i = 0;
       
       // thread index
