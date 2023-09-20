@@ -402,6 +402,10 @@ const time = function time(f, f_name, opt){
     };
     return execute_t;
   };
+  for(let i = 0, td; i < thread_c; i++){
+    td = threads_data[i];
+    threads_data.execute_t = generate(threads_data);
+  }
   
   // used to turn off the thread manager
   tmid = -1;
