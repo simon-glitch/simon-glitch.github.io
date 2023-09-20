@@ -699,7 +699,7 @@ const time = function time(f, f_name, opt){
   ct1 = new Date();
   ct2 = new Date();
   cdt = (ct1.getTime() -ct2.getTime());
-  let i = 0;
+  
   // need to do some scope snatching
   let resolve_f;
   
