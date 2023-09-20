@@ -479,7 +479,7 @@ const time = function time(f, f_name, opt){
     for(let i = 0, td; i < thread_c; i++){
       td = threads_data[i];
       
-      // values used for internal for loop
+      // reset values used for the internal for-loop
       td.n = n;
       td.n_rounded = n;
       td.n_rounded_prev = 0;
