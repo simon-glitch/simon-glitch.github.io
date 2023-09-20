@@ -805,7 +805,7 @@ const time = function time(f, f_name, opt){
   };
   for(let i = 0, td; i < thread_c; i++){
     td = threads_data[i];
-    // NOTE: we could just use execute_t directly, since JavaScript would let us use `this` instead of `me`, but I like using a generator instead, since I would have to bind the threads when doing setInterval(threads_data.execute_t) anyways.
+    // NOTE: we could just use execute_t directly, since JavaScript would let us use `this` instead of `me`, but I like using a generator instead, since I would have to bind the threads when doing setInterval(td.execute_t) anyways.
     td.execute_t = generate_t(td);
   }
   
@@ -860,10 +860,12 @@ const time = function time(f, f_name, opt){
           n_total += td.n_total;
         }
         n_rounded = Math.floor(n);
+        console.log("check n...")
+        debugger;
         n /= thread_c;
         n_exponent /= thread_c;
         delta_adt /= thread_c;
-        console.log("check adt...");
+        console.log("check global adt...");
         debugger;
         adt += delta_adt
         
