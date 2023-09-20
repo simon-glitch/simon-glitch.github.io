@@ -12,7 +12,7 @@ const generate_t = function(me){
       f(me.i);
     }
     
-    let me.n_rounded_prev = me.n_rounded;
+    me.n_rounded_prev = me.n_rounded;
     
     // accumulate me.n_total
     me.n_total += me.n_rounded;

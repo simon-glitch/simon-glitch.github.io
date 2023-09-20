@@ -297,12 +297,6 @@ const time = function time(f, f_name, opt){
   ct2 = new Date();
   cdt = (ct1.getTime() -ct2.getTime());
   let i = 0;
-  // count number of frames
-  let frame_count = 0;
-  // needed in order to shut down our function
-  let tid = 0;
-  // this prevents the interval function from ever becoming overloaded
-  let busy = false;
   // need to do some scope snatching
   let resolve_f;
   
@@ -332,75 +326,76 @@ const time = function time(f, f_name, opt){
     resolve_f(str);
   };
   
-  const generate_t = function(i){
-    let me = {};
-    let busy = false;
-    execute_t = function execute_t(){
-      if(busy) return;
-      frame_count ++;
-      // console.log(`did ${frame_count} frames!`);
-      busy = true;
-      
-      ct1 = new Date();
-      
-      for(i = 0; i < n_rounded; i++){
-        f(i);
-      }
-      
-      let n_rounded_prev = n_rounded;
-      
-      // accumulate n_total
-      n_total += n_rounded;
-      // increase the size of n exponentially, in order speed up the for loop
-      //   (by making it do more steps in a row, at a time)
-      n *= n_exponent;
-      // we want to round n, so n_total is accumulated with maximum precision
-      n_rounded = Math.floor(n);
-      
-      // this whole thing falls apart if
-      if(n >= Number.MAX_SAFE_INTEGER){
-        resolve_f("n got too big, somehow");
-        // let's clear the interval
-        clearInterval(tid);
-        // this actually prevents the function from running again, because busy still == true
-        return;
-      }
-      ct2 = new Date();
-      cdt = (ct2.getTime() -ct1.getTime());
-      adt += cdt;
-      
-      // record values
-      if(do_record){
-        let eps = n_total / (adt / 1000);
-        recorded.adt.push(adt);
-        recorded.cdt.push(cdt);
-        recorded.eps.push(eps);
-        recorded.n_rounded.push(n_rounded_prev);
-        
-        pc = 100 * (adt / tg);
-        console.log(to_engineering(pc, {length: (pc >= 100 ?3 :2)}) + " %");
-      }
-      
-      // make sure the frames don't get too slow
-      if(cdt >= 2 * mspf){
-        n_exponent = 1;
-      }
-      
-      if(adt >= tg){
-        finish_t(resolve_f);
-      }
-      
-      
-      busy = false;
-    };
-  };
+  
   
   let threads_done = true;
   let how_many_completed = 0;
   let are_completed = [];
+  let threads_data = [];
+  for(let i = 0; i < thread_c; i++){
+    threads_data[i] = {};
+  }
+  
+  // kill_all is an emergency shut off switch
+  let kill_all = false;
+  const generate_t = function(me){
+    execute_t = function execute_t(){
+      // allow emergency stop
+      if(kill_all){
+        clearInterval(me.tid);
+      }
+      
+      if(me.busy) return;
+      me.frame_count ++;
+      // console.log(`did ${me.frame_count} frames!`);
+      me.busy = true;
+      
+      me.ct1 = new Date();
+      
+      for(me.i = 0; me.i < me.n_rounded; me.i++){
+        f(me.i);
+      }
+      
+      me.n_rounded_prev = me.n_rounded;
+      
+      // accumulate me.n_total
+      me.n_total += me.n_rounded;
+      // increase the size of me.n exponentially, in order speed up the for loop
+      //   (by making it do more steps in a row, at a time)
+      me.n *= me.n_exponent;
+      // we want to round me.n, so me.n_total is accumulated with maximum precision
+      me.n_rounded = Math.floor(me.n);
+      
+      // this whole thing falls apart if
+      if(me.n >= Number.MAX_SAFE_INTEGER){
+        resolve_f("me.n got too big, somehow");
+        // let's clear the intervals
+        kill_all = true;
+        // this actually prevents the function from running again, because me.busy still == true
+        return;
+      }
+      me.ct2 = new Date();
+      me.cdt = (me.ct2.getTime() -me.ct1.getTime());
+      me.adt += me.cdt;
+      
+      // make sure the frames don't get too slow
+      if(me.cdt >= 2 * me.mspf){
+        me.n_exponent = 1;
+      }
+      
+      me.busy = false;
+    };
+  };
+  
+  // used to turn off the thread manager
+  tmid = -1;
   
   const thread_manager_t = function(){
+    if(kill_all){
+      clearInterval(tmid);
+    }
     if(!threads_done){
+      // first, check if we are done
       let done_yet = true;
       for(let i = 0; i < are_completed.length; i++){
         if(!are_completed[i]){
@@ -410,19 +405,81 @@ const time = function time(f, f_name, opt){
         }
       }
       if(done_yet){
+        // now reset the thread completion tracking
         for(let i = 0; i < are_completed.length; i++){
           are_completed[i] = false;
         }
         how_many_completed = 0;
         threads_done = true;
+        
+        // now, combine data from threads
+        let tc = thread_c;
+        cdt = 0;
+        n = 0;
+        for(let i = 0, td; i < thread_c; i++){
+          td = threads_data[i];
+          // use average time
+          adt += td.adt / thread_c;
+          // I would like to know how long the slowest thread took
+          cdt = Math.max(cdt, td.cdt);
+          // keep average n for the next round of tests
+          n += td.n / thread_c;
+          // tally up all executions from all threads, so we can see the true power of virtual multi-threading!
+          n_total += td.n_total;
+        }
+        n_rounded = Math.floor(n);
+        
+        // now, use the combined data
+        // > record values
+        if(do_record){
+          let eps = n_total / (adt / 1000);
+          recorded.adt.push(adt);
+          recorded.cdt.push(cdt);
+          recorded.eps.push(eps);
+          recorded.me.n_rounded.push(me.n_rounded_prev);
+          
+          let pc = 100 * (adt / tg);
+          console.log(to_engineering(pc, {length: (pc >= 100 ?3 :2)}) + " %");
+        }
+        // > finish when we run out of time
+        if(adt >= tg){
+          finish_t(resolve_f);
+        }
       }
       return;
     }
+    // threads are done / ready?
+    for(let i = 0, td; i < thread_c; i++){
+      td = threads_data[i];
+      
+      // values used for internal for loop
+      td.n = n;
+      td.n_rounded = n;
+      td.n_rounded_prev = 0;
+      td.n_exponent = n_exponent;
+      td.n_total = n_total;
+      td.ct1 = new Date();
+      td.ct2 = td.ct1;
+      td.dt = 0;
+      td.i = 0;
+      
+      // thread index
+      td.ti = ti;
+      // count number of frames
+      
+      td.frame_count = 0;
+      // this prevents the interval function from ever becoming overloaded
+      td.busy = false;
+      // needed in order to shut down our function
+      td.tid = setInterval(td.execute_t);
+    }
+    
+    
   };
   
   const start_t = function(resolve_f_given){
     resolve_f = resolve_f_given;
-    tid = setInterval(thread_manager_t, mspf);
+    tmid = setInterval(thread_manager_t, mspf);
   };
   
   let p = new Promise(start_t);
