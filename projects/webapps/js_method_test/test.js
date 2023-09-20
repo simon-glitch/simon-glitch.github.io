@@ -255,21 +255,25 @@ const to_engineering = (function(){
 })();
 
 
-const c_tg = 2*1000;
-const stating_n = 100;
-const v_thread_c = 4;
-const frames_per_thread = 10;
+const default_opt = {
+  timespan_for_testing: 2*1000,
+  stating_n: 100,
+  virtual_thread_count: 4,
+  frames_per_thread: 10,
+  mspf: 50,
+  n_exponent: 1.1,
+}
 
 const time = function time(f, f_name, opt){
   // opt is optional
-  opt = opt || {};
+  opt = opt || default_opt;
   
   // total running time to aim for, in ms
-  let tg = opt.c_tg || c_tg;
+  let tg = opt.timespan_for_testing || default_opt.timespan_for_testing;
   // number of virtual "threads" to split work between in the current JS thread
-  let thread_c = opt.v_thread_c || v_thread_c;
+  let thread_c = opt.virtual_thread_count || default_opt.virtual_thread_count;
   // the number of frames to run on each thread before synching all threads back together
-  let thread_f = opt.frames_per_thread || frames_per_thread;
+  let thread_f = opt.frames_per_thread || default_opt.frames_per_thread;
   
   let t1, t2, dt;
   let ct1, ct2, cdt;
@@ -280,8 +284,8 @@ const time = function time(f, f_name, opt){
   let n = opt.starting_n || starting_n;
   let n_total = 0;
   let n_rounded = Math.floor(n);
-  let n_exponent = 1.1;
-  let mspf = 20;
+  let n_exponent = opt.n_exponent || default_opt.n_exponent;
+  let mspf = opt.mspf || default_opt.mspf;
   
   let recorded = {
     "adt": [],
@@ -406,6 +410,7 @@ const time = function time(f, f_name, opt){
     if(kill_all){
       clearInterval(tmid);
     }
+    // vv  thread fusion is buried in here  vv
     if(!threads_done){
       // first, check if we are done
       let done_yet = true;
@@ -416,6 +421,7 @@ const time = function time(f, f_name, opt){
           break;
         }
       }
+      // vv  thread fusion  vv
       if(done_yet){
         // now reset the thread completion tracking
         for(let i = 0; i < are_completed.length; i++){
@@ -424,22 +430,31 @@ const time = function time(f, f_name, opt){
         how_many_completed = 0;
         threads_done = true;
         
-        // now, combine data from threads
+        // THREAD FUSION!
+        //   now, combine data from threads
         let tc = thread_c;
+        let delta_adt = 0;
         cdt = 0;
         n = 0;
+        n_exponent = 0;
         for(let i = 0, td; i < thread_c; i++){
           td = threads_data[i];
           // use average time
-          adt += td.adt / thread_c;
+          delta_adt += td.adt; // this /= thread_c
           // I would like to know how long the slowest thread took
           cdt = Math.max(cdt, td.cdt);
           // keep average n for the next round of tests
-          n += td.n / thread_c;
+          n += td.n; // this /= thread_c
+          // keep average n_exponent for the next round of tests
+          n_exponent += td.n_exponent; // this /= thread_c
           // tally up all executions from all threads, so we can see the true power of virtual multi-threading!
           n_total += td.n_total;
         }
         n_rounded = Math.floor(n);
+        n /= thread_c;
+        n_exponent /= thread_c;
+        delta_adt /= thread_c;
+        adt += delta_adt
         
         // now, use the combined data
         // > record values
@@ -469,7 +484,7 @@ const time = function time(f, f_name, opt){
       td.n_rounded = n;
       td.n_rounded_prev = 0;
       td.n_exponent = n_exponent;
-      td.n_total = n_total;
+      td.n_total = 0;
       td.ct1 = new Date();
       td.ct2 = td.ct1;
       td.adt = 0;
