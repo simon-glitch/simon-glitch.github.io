@@ -349,6 +349,9 @@ const time = function time(f, f_name, opt){
       // the thread finishes after a certain number of frames, handing its work over to the thread manager and waiting for the next round of testing!
       if(me.frame_count >= thread_f){
         clearInterval(me.tid);
+        // me.taci is the "threads are completed index"
+        // > this line of code reports that the thread actually finished its task
+        are_completed[me.taci] = true;
         return;
       }
       
