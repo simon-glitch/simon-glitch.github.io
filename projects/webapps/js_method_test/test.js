@@ -751,6 +751,7 @@ const time = function time(f, f_name, opt){
       if(me.busy) return;
       // the thread finishes after a certain number of frames, handing its work over to the thread manager and waiting for the next round of testing!
       if(me.frame_count >= thread_f){
+        console.log("clear interval?")
         clearInterval(me.tid);
         // me.taci is the "threads are completed index"
         // > this line of code reports that the thread actually finished its task
@@ -813,7 +814,6 @@ const time = function time(f, f_name, opt){
   tmid = -1;
   
   const thread_manager_t = function(){
-    debugger;
     
     if(kill_all){
       clearInterval(tmid);
@@ -860,13 +860,9 @@ const time = function time(f, f_name, opt){
           n_total += td.n_total;
         }
         n_rounded = Math.floor(n);
-        console.log("check n...")
-        debugger;
         n /= thread_c;
         n_exponent /= thread_c;
         delta_adt /= thread_c;
-        console.log("check global adt...");
-        debugger;
         adt += delta_adt
         
         // now, use the combined data
@@ -896,11 +892,7 @@ const time = function time(f, f_name, opt){
       td.n = n;
       td.n_rounded = n;
       td.n_rounded_prev = 0;
-      console.log("not setting n_exponent?");
-      debugger;
       td.n_exponent = n_exponent;
-      console.log("really? not setting n_exponent?");
-      debugger;
       td.n_total = 0;
       td.ct1 = new Date();
       td.ct2 = td.ct1;
@@ -916,8 +908,6 @@ const time = function time(f, f_name, opt){
       // needed in order to shut down our function
       td.tid = setInterval(td.execute_t);
     }
-    
-    debugger;
   };
   
   const start_t = function(resolve_f_given){
