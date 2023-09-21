@@ -21,5 +21,6 @@ Let's focus on the example of 1 **human** soul.
 * However, as God has said: it is hard for any man to avoid making sins. Most people, due to their fallen nature, commit many sins all the time.
 
 ## Doesn't Jesus cause us to be forgiven?
-Well, yeah, but one will still be judged for one's sins. Jesus simply lightens the judgement. Jesus's blood can cleans souls without destroying them as much as the judgement process does. People who believe in God but don't believe in Jesus end up getting burned pretty hard during the judgement process.
+Well, yeah, but one will still be judged for one's sins. Jesus simply lightens the judgement. Jesus's blood can cleans souls without destroying them as much as the judgement process does. People who believe in God but don't believe in Jesus end up getting burned pretty hard during the judgement process. So Jesus reduces the pain or judgement.
+* To be exact, Jesus reduces the pain by a factor of approximately 1,000,000 to 1,000,000,000,000.
 
