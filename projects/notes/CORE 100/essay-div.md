@@ -12,6 +12,9 @@ Prompt:
 ### "How not to bless the nations"
 * When Abraham arrives among the Philistines he does not reckon on God already being there; but here again he is mistaken.
 
+# TODO
+(a writing guideline from the rubric)
+Show understanding, and explore multiple truly distinct perspectives.
 
 # Side note:
 You should definitely use GitHub if you are going to write a paper it has commit messages that are way more intuitive than anything available through any other means of writing on a computer.
