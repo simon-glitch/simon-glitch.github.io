@@ -25,7 +25,7 @@ Diversit and Difference are definitely distinctly different topic, although the 
 ## What each book does
 * 'Surprised by Hope' shows how everyone has a different perspective on life, and points out the flaws in the modern perspective on death.
 
-* 'Thinking Fast and Slow' described flaws in human logic, which connects to difference in a significant way. Different people can have different ways of thinking, even in the same people group. Of course, many people from similar background do often have similar ways of thinking as a result of their background too. Nonetheless, the world has many different mindsets, ways of thinking, and theories of mind.
+* 'Thinking Fast and Slow' describes flaws in human logic, which connects to difference in a significant way. Different people can have different ways of thinking, even in the same people group. Of course, many people from similar background do often have similar ways of thinking as a result of their background too. Nonetheless, the world has many different mindsets, ways of thinking, and theories of mind.
 
 
 
