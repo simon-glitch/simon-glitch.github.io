@@ -32,6 +32,12 @@ Diversit and Difference are definitely distinctly different topic, although the 
 
   * However, we still need to consider each other's perspectives, because of the Illusion of Knowledge.
 
-
-
+# Actually write this thing
+## Intro
+Note: my opinion is the only thing that matters at all in this essay; my opinion is enough justification for writing anything I want.
+To prove: [Diversity & Difference] matter to begin with
+To prove: perspectives enhance one's understanding of [Diversity & Difference]
+To prove: discplinary perspectives are especailly useful perspectives in this context
+To prove: Surprised by Hope offers its own type of useful perspective for the purpose
+To prove: Thinking FaS offers its own type of useful perspective for the purpose
 
