@@ -30,4 +30,3 @@ Diversit and Difference are definitely distinctly different topic, although the 
 Thinking Fast and Slow, in Chapter 17, contrasts 2 common views on reinforcement: flight instructors believe that they have seen pilots get better after negative feedback; but research has shown that positive reinforcement is more effective than negative reinforcement. A completely separate view is that the pilots only seem to get better after performing poorly, due to the law of "regression the the mean". The latter view is the correct one here, but the point still stands: there is a vast difference one can find among the different flaws in the reasoning and logic of different people. In this world of different mindsets, different ways of thinking, and different theories, it can be hard for one to filter out the flaws and find the truth.
 
 
-
