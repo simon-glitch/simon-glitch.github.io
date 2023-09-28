@@ -41,17 +41,15 @@ To prove: discplinary perspectives are especailly useful perspectives in this co
 To prove: Surprised by Hope offers its own type of useful perspective for the purpose
 To prove: Thinking FaS offers its own type of useful perspective for the purpose
 
+## Diversity
+As minorities have fought an uphill battle for their own rights to be respected, diversity has become one of the most relevant topics in the modern world. In fact, one could reasonably argue that diversity simply is the most relevant topic, due to the vast number of things which depend on diversity. Diversity is a key idea in fostering healthy teamwork and improving the community. Businesses have gone out of their way to enforce diversity by hiring more minorities and bragging about this habit. Like many topics, diversity is complex, with multiple sides and perspectives. Considering how relevant it is, this essay explores these perspectives, in order to help improve the reader's understanding of the topic.
 
-## Diversity misc...
+Being multisided, diversity has 2 major virtues (pros) and 2 major pitfalls (cons).
 
-Diversity has 2 cons and 2 pros to it:
+### Virtues of diversity
+Firstly, diversity can help us avoid tunnel vision, and give us lots of new perspective for solving problems. This improved level or perspective, and widening of vocabulary, can allow us to do more, as long as we have the capacity for teamwork. Secondly, diversity can prevent us from neglecting each other, and disrespecting each other. Embracing diversity helps to prevent us from harming or hindering each other uninentionally. Thus, diversity is an important ingredient for respect.
 
-2 pros:
-Diversity can help us avoid tunnel vision, and give us lots of new perspective for solving problems. This improved level or perspective, and widening of vocabulary, can allow us to do more, as long as we have the capacity for teamwork.
-Diversity can prevent us from neglecting each other, and disrespecting each other. Embracing diversity helps to prevent us from harming or hindering each other uninentionally. Thus, diversity is an important ingredient for respect;
-
-2 cons:
-When we enforce and chase diversity, it becomes a competition for changing things that don't need changed, and we lose sight of our original goals. We arbitrarily hire people from different races and cultures without actually measuring their usefuleness as employees;
-Diversity can create too many opinions when we really just need to agree on a plan and be decisive; waiting on compromises and hoping for agreements that will never happen can lead to insufficient leadership and make the system collapse;
+### Pitfalls of diversity
+However, when we enforce and chase diversity, it becomes a competition for changing things that don't need changed, and we lose sight of our original goals. We arbitrarily hire people from different races and cultures without actually measuring their usefuleness as employees. Also, diversity can create too many opinions when we really just need to agree on a plan and be decisive; waiting on compromises and hoping for agreements that will never happen can lead to insufficient leadership and make the system collapse.
 
 
