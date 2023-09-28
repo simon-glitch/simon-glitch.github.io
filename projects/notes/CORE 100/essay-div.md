@@ -60,8 +60,8 @@ Diversity, of course, falls under the umbrella of difference. Difference, outsid
 From *How not to bless the nations*:
   "This is stereotyping, and it is a particularly fertile source of misunderstanding when cultural differences are in play." Abraham's stereotyping of the Philistines is particularly interesting. Abrahan knew that a Philistine city had been destroyed by God for being unrighteous, and holds a stereotype against the philistines because of that. Abrahams then ends up believing that the Philistines do not fear God and are disrespectful, but he is wrong. The Philistines do fear God, and Abraham had simply been led astray by his stereotyping. So, stereotyping, which is the lack of proper recognition of diversity and difference, results in false beliefs and can even lead to the unfair treatment of others.
 
-
-
+From *Mere Christianity - Chapter 8 - "The Great Sin"* by C.S. Lewis:
+  As C.S Lewis has pointed out, pride is the greatest evil in the world (according to the Christian perspective). 
 
 
 
