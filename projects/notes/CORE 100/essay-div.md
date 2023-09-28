@@ -55,8 +55,10 @@ However, when we enforce and chase diversity, it becomes a competition for chang
 ## Difference
 Diversity, of course, falls under the umbrella of difference. Difference, outside of diversity, is also an interesting topic of its own. It has almost the same virtues and pitfalls as diversity does, and is a relevant topic that comes up in many conversations. Practically speaking, difference refers to the difference between different people with different minds and different ways of thinking. Abstractly speaking, difference is a fundamental ingredient of the universe, and understanding it can help one understand reality as a whole. The implications of difference within people groups is especially notable. People with differences can form teams, sharing ideas, learning from each other's mistakes, and leveraging each other's differences to a great benefit. Difference is definitely a broad topic, so some specific examples would really help the reader to understand the topic and learn some things.
 
+*How not to bless the nations*, by David I. Smith, gives an interesting historic take on difference. Consider Abraham, one of the few followers of God amongst the world population. Abraham was given a gift that truly made him distinct: he was destined to be the father of the greatest nation in the world (Israel was the greatest nation at one point in time, even though it is currently a weak and unstable place). Abraham definitely met face to face with both adversity and diversity, as he travelled through a land which belonged to others. Abraham didn't know that the people 
 
-
+From *How not to bless the nations*:
+  "This is stereotyping, and it is a particularly fertile source of misunderstanding when cultural differences are in play."
 
 
 
