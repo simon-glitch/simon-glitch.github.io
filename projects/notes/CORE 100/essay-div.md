@@ -58,7 +58,7 @@ Diversity, of course, falls under the umbrella of difference. Difference, outsid
 *How not to bless the nations*, by David I. Smith, gives an interesting historic take on difference. Consider Abraham, one of the few followers of God amongst the world population. Abraham was given a gift that truly made him distinct: he was destined to be the father of the greatest nation in the world (Israel was the greatest nation at one point in time, even though it is currently a weak and unstable place). Abraham definitely met face to face with both adversity and diversity, as he travelled through a land which belonged to others. Abraham didn't know that the people 
 
 From *How not to bless the nations*:
-  "This is stereotyping, and it is a particularly fertile source of misunderstanding when cultural differences are in play."
+  "This is stereotyping, and it is a particularly fertile source of misunderstanding when cultural differences are in play." Abraham's stereotyping of the Philistines is particularly interesting. Abrahan knew that a Philistine city had been destroyed by God for being unrighteous, and holds a stereotype against the philistines because of that. Abrahams then ends up believing that the Philistines do not fear God and are disrespectful, but he is wrong. The Philistines do fear God, and Abraham had simply been led astray by his stereotyping. So, stereotyping, which is the lack of proper recognition of diversity and difference, results in false beliefs and can even lead to the unfair treatment of others.
 
 
 
