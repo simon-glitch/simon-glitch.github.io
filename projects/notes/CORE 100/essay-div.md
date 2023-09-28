@@ -42,7 +42,7 @@ To prove: Surprised by Hope offers its own type of useful perspective for the pu
 To prove: Thinking FaS offers its own type of useful perspective for the purpose
 
 
-So, back to our first topic: diversity.
+## Diversity misc...
 
 Diversity has 2 cons and 2 pros to it:
 
