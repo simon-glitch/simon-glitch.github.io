@@ -52,8 +52,8 @@ Firstly, diversity can help us avoid tunnel vision, and give us lots of new pers
 ### Pitfalls of diversity
 However, when we enforce and chase diversity, it becomes a competition for changing things that don't need changed, and we lose sight of our original goals. We arbitrarily hire people from different races and cultures without actually measuring their usefuleness as employees. Also, diversity can create too many opinions when we really just need to agree on a plan and be decisive; waiting on compromises and hoping for agreements that will never happen can lead to insufficient leadership and make the system collapse.
 
-
-
+## Difference
+Diversity, of course, falls under the umbrella of difference. Difference, outside of diversity, is also an interesting topic of its own. It has almost the same virtues and pitfalls as diversity does, and is a relevant topic that comes up in many conversations. Practically speaking, difference refers to the difference between different people with different minds and different ways of thinking. Abstractly speaking, difference is a fundamental ingredient of the universe, and understanding it can help one understand reality as a whole. The implications of difference within people groups is especially notable. People with differences can form teams, sharing ideas, learning from each other's mistakes, and leveraging each other's differences to a great benefit. Difference is definitely a broad topic, so some specific examples would really help the reader to understand the topic and learn some things.
 
 
 
