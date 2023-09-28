@@ -53,3 +53,17 @@ Firstly, diversity can help us avoid tunnel vision, and give us lots of new pers
 However, when we enforce and chase diversity, it becomes a competition for changing things that don't need changed, and we lose sight of our original goals. We arbitrarily hire people from different races and cultures without actually measuring their usefuleness as employees. Also, diversity can create too many opinions when we really just need to agree on a plan and be decisive; waiting on compromises and hoping for agreements that will never happen can lead to insufficient leadership and make the system collapse.
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
