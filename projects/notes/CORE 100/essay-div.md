@@ -41,3 +41,17 @@ To prove: discplinary perspectives are especailly useful perspectives in this co
 To prove: Surprised by Hope offers its own type of useful perspective for the purpose
 To prove: Thinking FaS offers its own type of useful perspective for the purpose
 
+
+So, back to our first topic: diversity.
+
+Diversity has 2 cons and 2 pros to it:
+
+2 pros:
+Diversity can help us avoid tunnel vision, and give us lots of new perspective for solving problems. This improved level or perspective, and widening of vocabulary, can allow us to do more, as long as we have the capacity for teamwork.
+Diversity can prevent us from neglecting each other, and disrespecting each other. Embracing diversity helps to prevent us from harming or hindering each other uninentionally. Thus, diversity is an important ingredient for respect;
+
+2 cons:
+When we enforce and chase diversity, it becomes a competition for changing things that don't need changed, and we lose sight of our original goals. We arbitrarily hire people from different races and cultures without actually measuring their usefuleness as employees;
+Diversity can create too many opinions when we really just need to agree on a plan and be decisive; waiting on compromises and hoping for agreements that will never happen can lead to insufficient leadership and make the system collapse;
+
+
