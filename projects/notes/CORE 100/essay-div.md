@@ -46,7 +46,7 @@ Diversity and difference are two important topics that really belong together in
 
 
 ## Diversity
-As minorities have fought an uphill battle for their own rights to be respected, diversity has become one of the most relevant topics in the modern world. In fact, one could reasonably argue that diversity simply is the most relevant topic, due to the vast number of things which depend on diversity. Diversity is a key idea in fostering healthy teamwork and improving the community. Businesses have gone out of their way to enforce diversity by hiring more minorities and bragging about this habit. Like many topics, diversity is complex, with multiple sides and perspectives. Considering how relevant it is, this essay explores these perspectives, in order to help improve the reader's understanding of the topic.
+Thoughout history, minorities have fought an uphill battle for their own rights to be respected. As a result, diversity has become one of the most relevant topics in the modern world. In fact, one could reasonably argue that diversity simply is the most relevant topic, due to the vast number of things which depend on diversity. Diversity is a key idea in fostering healthy teamwork and improving the community. Businesses have gone out of their way to enforce diversity by hiring more minorities and bragging about this habit. Like many topics, diversity is complex, with multiple sides and perspectives. Considering how relevant it is, this essay explores these perspectives, in order to help improve the reader's understanding of the topic.
 
 Being multi-sided, diversity has 2 major virtues (pros) and 2 major pitfalls (cons).
 
