@@ -46,14 +46,16 @@ As minorities have fought an uphill battle for their own rights to be respected,
 
 Being multisided, diversity has 2 major virtues (pros) and 2 major pitfalls (cons).
 
-### Virtues of diversity
+### Virtues of Diversity
 Firstly, diversity can help us avoid tunnel vision, and give us lots of new perspective for solving problems. This improved level or perspective, and widening of vocabulary, can allow us to do more, as long as we have the capacity for teamwork. Secondly, diversity can prevent us from neglecting each other, and disrespecting each other. Embracing diversity helps to prevent us from harming or hindering each other uninentionally. Thus, diversity is an important ingredient for respect.
 
-### Pitfalls of diversity
+### Pitfalls of Diversity
 However, when we enforce and chase diversity, it becomes a competition for changing things that don't need changed, and we lose sight of our original goals. We arbitrarily hire people from different races and cultures without actually measuring their usefuleness as employees. Also, diversity can create too many opinions when we really just need to agree on a plan and be decisive; waiting on compromises and hoping for agreements that will never happen can lead to insufficient leadership and make the system collapse.
 
 ## Difference
 Diversity, of course, falls under the umbrella of difference. Difference, outside of diversity, is also an interesting topic of its own. It has almost the same virtues and pitfalls as diversity does, and is a relevant topic that comes up in many conversations. Practically speaking, difference refers to the difference between different people with different minds and different ways of thinking. Abstractly speaking, difference is a fundamental ingredient of the universe, and understanding it can help one understand reality as a whole. The implications of difference within people groups is especially notable. People with differences can form teams, sharing ideas, learning from each other's mistakes, and leveraging each other's differences to a great benefit. Difference is definitely a broad topic, so some specific examples would really help the reader to understand the topic and learn some things.
+
+## Connecting The Course Materials
 
 *How not to bless the nations*, by David I. Smith, gives an interesting historic take on difference. Consider Abraham, one of the few followers of God amongst the world population. Abraham was given a gift that truly made him distinct: he was destined to be the father of the greatest nation in the world (Israel was the greatest nation at one point in time, even though it is currently a weak and unstable place). Abraham definitely met face to face with both adversity and diversity, as he travelled through a land which belonged to others. Abraham didn't know that the people 
 
@@ -62,7 +64,6 @@ From *How not to bless the nations*:
 
 From *Mere Christianity - Chapter 8 - "The Great Sin"* by C.S. Lewis:
   As C.S Lewis has pointed out, pride is the greatest evil in the world (according to the Christian perspective). In the context of diversity, (self-centered) pride is harmful because it prevents one from recognizing others and encourages behaviors that benefit one at the expense of others. Arguably, pride (and greed) is (are) the reason diversity is not properly respected in the modern world. Thus pride is the reason that society needs to go out of its way to ensure that diversity is respected. "Pride is [essentially competitive] by its very nature. Pride gets no pleasure out of having something, only out of having more of it than the next man." This kind of attitude is destined for disrespect and harm, and intentionally creates differences just to put one person at a disadvantage to another. This kind of unnatural difference making is unfair and harmful to almost everyone involved. Thus, an important goal of diversity is to reduce the level of self-centered pride.
-
 
 
 
