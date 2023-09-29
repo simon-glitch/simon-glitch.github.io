@@ -9,38 +9,6 @@ Prompt:
   * and provide insights {for how everyone can improve their understanding of DAD}.
 
 
-### "How not to bless the nations"
-* When Abraham arrives among the Philistines he does not reckon on God already being there; but here again he is mistaken.
-
-# TODO
-(a writing guideline from the rubric)
-Show understanding, and explore multiple truly distinct perspectives.
-
-# Side note:
-You should definitely use GitHub if you are going to write a paper it has commit messages that are way more intuitive than anything available through any other means of writing on a computer.
-
-# Loose idea of what the text maybe could look like
-## Intro
-Diversit and Difference are definitely distinctly different topic, although the share some deep destinies as far as human histroy is concerned. A logical approach to discussing these topics would be to explore each of theme separately, and then elaborate a grand thesis. This thesis should explain how the reader could better understand the topics and everything that they are meant to ential. Thus, being a rational piece of writing, this paper will do just that.
-
-### What each book does
-* 'Surprised by Hope' shows how everyone has a different perspective on life, and points out the flaws in the modern perspective on death.
-
-* 'Thinking Fast and Slow' describes flaws in human logic, which connects to difference in a significant way. Different people can have different ways of thinking, even in the same people group. Of course, many people from similar background do often have similar ways of thinking as a result of their background too. Nonetheless, the human world has a wide array of different mindsets, ways of thinking, and theories of mind.
-
-* Thinking Fast and Slow, in Chapter 17, contrasts 2 common views on reinforcement: flight instructors believe that they have seen pilots get better after negative feedback; but research has shown that positive reinforcement is more effective than negative reinforcement. A completely separate view is that the pilots only seem to get better after performing poorly, due to the law of "regression towards the mean". The latter view is the correct one here, but the point still stands: there is a vast difference one can find among the different flaws in the reasoning and logic of different people. In this world of different mindsets, different ways of thinking, and different theories, it can be hard for one to filter out the flaws and find the truth.
-
-  * However, we still need to consider each other's perspectives, because of the Illusion of Knowledge.
-
-# Actually write this thing
-## Todo
-Note: my opinion is the only thing that matters at all in this essay; my opinion is enough justification for writing anything I want.
-To prove: [Diversity & Difference] matter to begin with
-To prove: perspectives enhance one's understanding of [Diversity & Difference]
-To prove: discplinary perspectives are especailly useful perspectives in this context
-To prove: Surprised by Hope offers its own type of useful perspective for the purpose
-To prove: Thinking FaS offers its own type of useful perspective for the purpose
-
 ## Intro
 Diversity and difference are two important topics that really belong together in intellectual discussions. Diversity is the range of different cultures, backgrounds, and perspectives that citizens offer to their community, and society. On the other hand, difference (in the context of civilization) refers to the various traits that make each person unique and valuable, regardless of their perspective, culture, and background. Thus, it is imperative that every community should recognize and respect both diversity and difference, in order to grow itself into a healthier thriving community. Fostering an environment that embraces diversity and difference creates an atmosphere where everyone feels valued, respected and empowered. With this, they can better commit themselves to their community. Going further, they can even offer their unique perspectives as contributions to the common wealth, and feel accomplished in doing so. This leads to remarkable innovations, newfound creativity, and far greater empathy within the community.Ultimately, diversity and difference lead to the development of stronger and better communities.
 
