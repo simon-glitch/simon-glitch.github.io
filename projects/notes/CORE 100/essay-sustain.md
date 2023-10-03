@@ -39,7 +39,36 @@ Simon Engine:
     CPU:
       takes in [operator, operand.1, operand.2]
       binary operators:
-        add, sub, mul, div, mod, pow, choose
-      
+        add, sub, mul, div, mod, pow, log_with_base, choose, hypot (sqrt(a^2 + b^2)),
+        eq, neg, gt, lt, gte, lte,
+        bitwise_or, bitwise_and, bitwise_xor,
+        bitwise_left_shift
+      unary operators:
+        sqrt, sin, cos, tan, arcsin, arccos, arctan, exp, ln (a.k.a. log), log2, log10, gamma, floor, ceil, round
+    
+    Kerfuffle:
+      unshuffle various strings:
+      * words, shuffled by letter,
+      * sentences, shuffled by word,
+      * sentences, shuffled by noun,
+      * sentences, shuffled by verb,
+      * sentences, shuffled by adjective & adverb,
+      * sentences, shuffled by proposition & article & conjunction,
+      * programs, shuffled by identifier,
+      * programs, shuffled by operators,
+      * programs, shuffled by sections between word-breaks,
+      * essays, shuffled by sentence (separated by periods),
+      * sentences, shuffled by 1st letter capitalization,
+      * sentences, shuffled by grammar symbols (parens, ".", ",", "?", "!", "~", ":", ";", "/"),
+      * brackets, shuffled by symbol ((), [], {}, <>)
+        * the bracket strings are made by simply removing all non-brackets from general text
+      * numerical sequences, shuffled by number
+      * base64 encodings, shuffled by character
+      * general text, shuffled by white-space
+    
+    Flip:
+      input: {main string, separator positions: [...]}
+      Flip a string, putting the substrings in reverse order, order within substrings is preserved;
+      substrings can be split based on separators, which are given as an input
 
 
