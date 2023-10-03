@@ -17,9 +17,15 @@ In CORE 100, we have explored several significant ideas in Reformed theology: th
 * explore how [Reformed theology] shapes the readers understanding of [Sustainability] and other modern issues. Also, use logic to deduce how the reader **should** understand [Reformed theology]. Justify this with descriptions on how the reader **could** use [Reformed theology] for the greater good and in pursuit of their own personal happiness.
 
 ### What does redemption mean in our lives?
-redemptions means:
+Redemptions means:
   * refining and purifying our personality,
   * removing sinful thoughts, habits, and tendencies.
+
+This happens through a learning process:
+* find personal flaws, and correct them with self-discipline,
+* learn from others by being open-minded,
+  * if one does not do this, then one is bound to be controlled by one's sin,
+
 
 # Essay Response
 ## TODO: add an actual quote from S.B.H.
