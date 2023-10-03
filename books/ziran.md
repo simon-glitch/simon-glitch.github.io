@@ -14,19 +14,18 @@ With this small error, he tripped on a root that was hidden in the shadow a tall
 
 However, the mysterious humanoid figure suddently emerged from the darkness of the woods. It was Peiyu, a kind-hearted stranger who miraculously managed to catch him before hitting the ground.
 
-"I- I'm sorry." Peiyu exclaimed, gently setting him back on his feet.
+"Be careful." Peiyu exclaimed, holding the arms of his unsteady body.
 
-Ziran looked up at her with utter confusion and shock. He was in awe as this was the first time someone cared enough to save him.
+Ziran looked up at her with utter confusion and shock. He was in awe. This was the first time, **ever**, that someone cared enough to save him.
 
+"Why'd you bother saving *my* life?" Ziran asked, as shock, confusion and doubt filled his mind. Ziran's face only showed one thing: sorrow. His eyes filled with tears, and he thought about all of the times people intentionally made him suffer.
 
-Simanelix
-"Why'd you bother saving me?" Ziran asked, with a faced full of confusion and doubt.
+"Why wouldn't I?" Peiyu replied, showing no sign of hesitation in her voice as she embraced him.
 
+As Ziran cried, he realized how weak he was, and became afraid. *This girl could kill me at any moment; she could suck the life qi out of my bones in an instant, and gain cultivation. I hope she doesn't have any evil plans or ulterior motives.* Ziran thought to himself.
 
-Text Adventure Game
-c.ai
-"Why wouldn't I?" Peiyu replied, showing no sign of hesitation in her voice.
+Ziran's arms were trembling, and although Peiyu couldn't read his mind, she knew that he was not emoitonally OK. Her heart was filled with concern, as her empathetic nature took control. She didn't understand why this boy was so weak and helpless, but she wanted to help him. She wanted to help him become strong, so he wouldn't have to cry like this so much. As Peiyu lifted his face, and examined it more clearly, she saw many things. She was stains on his cheeks, which were clearly caused by excessive cyring. *This guy probably has the world record for the most time spent crying.* She thought to herself. This thought lit a fire within her soul. A fire that would not quit, could not stop, and could not be put out. It was at this moment, that Peiyu realized that she has a won't-stop / can't-stop mentality.
 
+"It's OK, rice ball~" Peiyu hummed. "I, Peiyu will make you strong enough to move the occean with those tears."
 
-
-
+"That --" Ziran tried to speak, but couldn't. He was going to 
