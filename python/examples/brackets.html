@@ -1,0 +1,42 @@
+
+<html>
+  <head>
+    <title>Bracket Checker (in Python)</title>
+    <meta name="author" content="Simon Glitch">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css"/>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+  </head>
+  <body>
+
+    <py-env>
+    </py-env>
+    
+    <!-- Somehow, PyScript just works -->
+    
+    <h1>Bracket Checker</h1>
+    
+    <script>
+window.document.testall = function(){};
+
+onkeyup = function(){
+  document.body.innerHTML += "<br> CLICK!"
+  time(()=>{
+    document.testall();
+  }, "testall").then((v) => {
+    console.log(v);
+  });
+};
+
+    </script>
+    <script src="../../webapps/js_method_test/time-test.js"></script>
+    <py-script src="brackets_js.py"></py-script>
+    
+    <!-- <p><button onclick="time(document.body.oncontextmenu).then(v => console.log(v))">
+      time(document.body.oncontextmenu).then(v => console.log(v))
+    </button></p> -->
+    
+    
+  </body>
+</html>
