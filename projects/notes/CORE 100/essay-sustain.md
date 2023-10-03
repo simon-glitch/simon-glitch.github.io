@@ -60,6 +60,7 @@ Simon Engine:
         sqrt, sin, cos, tan, arcsin, arccos, arctan, exp, ln (a.k.a. log), log2, log10, gamma, floor, ceil, round
     
     Kerfuffle:
+      input: {string to modify, shuffling-type, {boolean} direction: (true means unshuffle the string, false means shuffle the string)}
       unshuffle various strings:
       * words, shuffled by letter,
       * sentences, shuffled by word,
@@ -67,21 +68,24 @@ Simon Engine:
       * sentences, shuffled by verb,
       * sentences, shuffled by adjective & adverb,
       * sentences, shuffled by proposition & article & conjunction,
+      * sentences, shuffled by 1st letter capitalization,
+      * sentences, shuffled by grammar symbols (parens, ".", ",", "?", "!", "~", ":", ";", "/"),
+      * essays, shuffled by sentence (separated by periods),
       * programs, shuffled by identifier,
       * programs, shuffled by operators,
       * programs, shuffled by sections between word-breaks,
-      * essays, shuffled by sentence (separated by periods),
-      * sentences, shuffled by 1st letter capitalization,
-      * sentences, shuffled by grammar symbols (parens, ".", ",", "?", "!", "~", ":", ";", "/"),
       * brackets, shuffled by symbol ((), [], {}, <>)
         * the bracket strings are made by simply removing all non-brackets from general text
       * numerical sequences, shuffled by number
       * base64 encodings, shuffled by character
       * general text, shuffled by white-space
+      * general text, shuffled by letter-map
     
     Flip:
       input: {main string, separator positions: [...]}
       Flip a string, putting the substrings in reverse order, order within substrings is preserved;
       substrings can be split based on separators, which are given as an input
+    
+    
 
 
