@@ -87,7 +87,5 @@ def play_game():
     if(state == "won"):
       return "finished successfully!"
 
-print(play_game())
-
 
 
