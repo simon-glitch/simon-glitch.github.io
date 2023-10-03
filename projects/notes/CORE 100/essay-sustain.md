@@ -25,6 +25,21 @@ Redemption is a concept that (according to N. T. Wright) is ecaping modern Chris
 
 
 ## Weird Christian Thing?
-justification => sanctification => glorification
+justification => sanctification => glorification;
+just => sanct => glor;
+
+
+Simon Engine:
+  Controller is lineame:
+    input {[depth-view of history of outputs from self], [output from last module], [ID of last module]}
+  [depth-view of history of outputs from self]:
+    {... attention sorted}: [module ID outputs, input(s) given to module(s)]
+  
+  Modules:
+    CPU:
+      takes in [operator, operand.1, operand.2]
+      binary operators:
+        add, sub, mul, div, mod, pow, choose
+      
 
 
