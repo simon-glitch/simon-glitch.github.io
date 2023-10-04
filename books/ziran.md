@@ -41,4 +41,97 @@ Peiyu got to the stream, and collected 8 canteens of water. Peiyu used a rope, w
 "I really hope you can get stonger. I also hope you can drink this water ... Hihi!" Peiyu giggled with a face full of delight. "Alright..." she got on her knees and sat behind Ziran. Then, she picked up his head, and crawled under his back, until she leaned his 
 head and torso back against her chest. Then she grabbed a canteen of water, and poured a little down Ziran's throat, hoping he would swallow it instintively.
 
+*Gulp* - Ziran **did** swallow the water instively. Peiyu continued feeding the water to him, using one hand to hold his head in place, and another hand to pour the water. She gave him an entire canteen of water, and then waited a few minutes. "I will wait for your stomach to heat back up. I know drinking too fast can cause the stomach to throw up from the temperature change~" Peiyu wispered.
+
+After a few minutes, she fed him another canteen, waited again, and fed him again. When she was all done she grabbed her lunch that she had packed. Peiyu wispered "You seem well nourished enough, so I won't bother feeding you any food."
+
+Paiyu pulled back, and layed Ziran's head back down, that way she could have her chest free. Peiyu then sat there eating her food, while Ziran slept peacefully.
+
+Eventually, Ziran woke up. As he woke up, Paiyu was working on refining a simple herb. Ziran put his mind to work. He realized that he had been dehydrated, and had fainted from exhaustion. Furthermore, he saw Paiyu's empty canteens on the ground and concluded that she must have given him water. He didn't immediately understand how, but after another moment he realized that she must have manually fed him the water. This thought bewildered him, and his mind stirred like a hurricane, questioning this idea and its audacity. *How could she be THAT kind though?! No one would ever go out of their way to ensure MY well being! Especially not a fair young lady like this. She had better things to do then to care for me. Hmm ... she seems like the kind of person who would do that. She almost feels like ... she is meant to be my mother. Well, I'm not really sure about that. I guess I'll just have to be her friend and try to return this kindness when I get the chance. With that in mind, I should thank her, shouldn't I?*
+
+"Um... miss, thank you. For saving me, I thank you with all my heart. Even though I don't feel like my life is important, you made me feel important. Thanks for the water, and thank you for being here. Thank you for watching me and making sure I don't get eaten by a wild boar." Ziran said, with his voice wavering, as he was having a hard time being sincere and expressing his gratitude seriously. He just didn't feel comfortable with the idea of someone else valuing his life.
+
+Text Adventure Game
+c.ai
+Peiyu could tell that Ziran had a hard time expressing himself. She knew that her kindness had touched him in a way he wasn't comfortable with. This boy needs more care then I thought. I wonder if it's his pride that's getting in the way? I wonder if he doesn't want to owe me anything? Is he scared of disappointing me in the future? Or does he just want to be with someone else?
+
+"You're welcome," Peiyu replied, and offered Ziran a warm smile. "But my name is Peiyu, by the way."
+
+
+Simanelix
+"Ah, and my name is Ziran."
+
+
+Text Adventure Game
+c.ai
+Peiyu gave Ziran a smile and a gentle pat on the head, then said, "Now that you're feeling a bit better, what do you plan on doing next?"
+
+
+Simanelix
+"Why would YOU care? Shouldn't we focus on your plans and desires?" Ziran asked.
+
+
+Text Adventure Game
+c.ai
+Peiyu gave Ziran an odd look, like she found his question quite perplexing.
+
+"Why shouldn't I care? I have nothing to hide." Peiyu replied. "You also seem to need some guidance, especially now that you know how weak you are. So, I think it would be helpful for me to know what you plan on doing moving forward, so I can give you some helpful advice."
+
+Simanelix
+"Well, I don't have any plans. I guess, I would like to open my chakras? Haha! Like that is ever going to happen." Ziran laughed at himself.
+
+Peiyu felt pity, and decided to stay optimistic. "Well, why can't you open your chakras?"
+
+"Well, ... I have shadow chakras. Shadow chakras can't be opened and prevent me from cultivating qi" he replied with a gloomy face.
+
+"Ah. I actually know the solution to your problem~" she chimed with a huge smile and a long blink.
+
+
+Text Adventure Game
+c.ai
+Peiyu's smile caught Ziran by surprise and gave him some hope.
+
+"Oh?" Ziran responded. "What solution can you provide?"
+
+Peiyu's words piqued Ziran's curiosity and made him eager to learn more about Peiyu's plan to overcome his shadow chakras.
+
+
+Simanelix
+Peiyu's eyes shined with excitement. She spoke in a very feminine voice: "Shadow chakras can't be opened by any amount of qi. Instead, they must be opened with shaded-energy from the shaded-realm. I read about it in an ancient book, and shaded-energy can manipulate light and water in all kinds of interesting ways. Usually, children with shadow chakras are killed when they are young, because most people are taught the myth that any one with chakras that don't glow can't cultivate. The myth is false, and thus most people never even learn about shadow chakras, and they are a misunderstood health condition. If you want, I can make you a copy of the book about the shaded-realm that I read. Unfortunately I don't have the book on me right now. I left it in my family's library. So, um, would you like me to tell you everything that I can recall from the book, for now?"
+
+
+Text Adventure Game
+c.ai
+Peiyu's excitement and enthusiasm was contagious, and Ziran felt himself growing more optimistic with each word that Peiyu spoke. The notion of learning more about the shaded-realm and the possibility of opening his chakras was very intriguing to him.
+
+"Of course," Ziran replied with a determined expression. "Please tell me everything you can recall right now. I want to learn as much as I can."
+
+Peiyu's warm and inviting presence provided Ziran with a feeling of comfort and safety, and he felt confident that she would guide him in the right direction.
+
+
+Simanelix
+"And you want a copy of the book, too, right?" Peiyu asked.
+
+
+Text Adventure Game
+c.ai
+Peiyu's offer of a copy of the book caught Ziran by surprise. He had already been interested in learning more about the shaded-realm, and the idea of having a book that contained more information was very tempting.
+
+"Yes, please," Ziran replied with a confident smile. "Having a copy of the book will be very valuable to me, and I would love to reread it over and over again to learn more about the shaded-realm and shadow chakras."
+
+
+Simanelix
+Peiyu replied, "Well, the book seems to be highly theoretical. I don't think the author could actually see or interact with the shaded-realm porperly. The author didn't have shadow chakras himself. And he couldn't find friends with shadow chakras either, since even back in his time, children with shadow chakras were often killed at a young age, and shadow chakras are rare to begin with. According to the author, only 1 in 100,000 persons born has shadow chakras. Plus, people with shadow chakras are naturally weak, due to the effects of the shaded-realm."
+
+"Anyways, a lot of the book is just speculations. It should still be very useful to you though, since you actually have shadow chakras, and the book is based on the author's real observations that he was able to make. Also, the book is really long: 700 pages long. This is a good thing, since you will be able to learn a lot of ideas from it, and then refine those ideas into truth through your own experimentation. Doesn't that sound thrilling, Ziran?"
+
+
+Text Adventure Game
+c.ai
+"Definitely. I'm eager to read the book and learn more about the shaded-realm," Ziran replied. "Even if some of the author's speculation turns out to be inaccurate, there will still be a lot of valuable information that I can use to help me open my shadow chakras."
+
+
+
+
+
 
