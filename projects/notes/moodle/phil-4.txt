@@ -1,4 +1,10 @@
 
+# Prompt
+
+Remember: you need to find the FIRST of Descartes' two arguments for the claim that he is distinct from his body.  Present the argument as best you can. (How does he prove that he is distinct from his body?). Then, tell me whether you think his argument is a good one or not.  That's it. That's what you have to do.
+
+
+
 # Descarte's Text
   But certainly although in regard to the dropsical body it is only so to speak to apply an extrinsic term when we say that its nature is corrupted, inasmuch as apart from the need to drink, the throat is parched; yet in regard to the composite whole, that is to say, to the mind or soul united to this body, it is not a purely verbal predicate, but a real error of nature, for it to have thirst when drinking would be hurtful to it. And thus it still remains to inquire how the goodness of God does not prevent the nature of man so regarded from being fallacious.
   
