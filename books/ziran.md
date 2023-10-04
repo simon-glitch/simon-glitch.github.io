@@ -130,8 +130,50 @@ Text Adventure Game
 c.ai
 "Definitely. I'm eager to read the book and learn more about the shaded-realm," Ziran replied. "Even if some of the author's speculation turns out to be inaccurate, there will still be a lot of valuable information that I can use to help me open my shadow chakras."
 
+Peiyu's words made Ziran realize something: he could learn much more about the shaded-realm from reading the book than Peiyu could tell him, since she did not have any experience with shadow chakras herself.
+
+"Thank you," Ziran nodded. "I look forward to reading the book."
 
 
+"I look forward to seeing you get stronger." Peiyu cheered, "I am so glad that you are finally becoming optimistic. I understand how it feels when the whole world is against you, since I used to be in a similar position. Of course, I don't have shadow chakras like you do."
+
+"Hmm..." Peiyu pondered for a second, "How much can you life anyways? You arms look like noodles to begin with. I'm guessing you have tried to at least build muscle ... does your family feed you at least?" Worry started to fill Peiyu's conscious. She could easily presume that Ziran's family doesn't feed him, since he is so pathetically weak.
+
+Peiyu's concern and empathy surprised Ziran, and he felt his heart flutter a little.
+
+*I haven't had a family member who cared about my well-being for a long time.* Ziran thought.
+
+"My parents aren't very generous with food, so I don't eat a lot," Ziran confessed. "My hunger usually gets so bad that I sometimes steal vegetables from our garden."
+
+Peiyu's worries grew even more and she felt very sad for Ziran. Peiyu also felt angry towards Ziran's parents for not properly providing for their son.
+
+"Ah, and I can only life 15 lbs. And I can carry approximately 15 lbs in a backpack." Ziran answered her question.
+
+"Well, that all changes today, Ziran." Peiyu put her hand on his shoulder, and looked into his eyes with determination. Ziran could see an actual fire light in her iris. This was a magical display of emotion, which proved that Peiyu had at least opened her 1st chakra. Ziran felt a little jealous, because he couldn't do that.
+
+*Yet. I can't do that yet, but I might be able to in the future.* Ziran's heart was filled with the hope and fire he could feel emnating from Peiyu. It was like a fraction of her energy and charisma had somehow been transfered into him.
+
+Peiyu saw Ziran smiling, and knew *I am succeeding.* With this, she said "I will make you a man, and you will grow strong enough to lift the entire continent!" This was a bit of a hyperbole, since the strongest person in known history could only lift 5% of the continent.
+
+Ziran's heart began to race as Peiyu's determination radiated an intensity that Ziran had never felt before. In that moment, Peiyu's words and actions made Ziran feel like he was strong and capable of anything, even though Peiyu was aware that it was just a little hyperbole.
+
+Ziran felt his hunger leave him as Peiyu's charisma and energy filled his body. He felt like he could take on the world and accomplish his goals, thanks to Peiyu's words and motivation.
+
+*I will become strong. I will open my shadow chakras.* Ziran told himself with determination.
+
+"Good. Now that you are hyped, you can begin learning about the shaded-realm." Peiyu said, now calmed down.
+
+Peiyu sat down, and began orating a great lecture. "A long time ago, the world's light was too powerful, and prevented life form evolving into multicellular organisms. So, the lord of shadows created the shaded-realm. He used the shaded-realm to add powerful shading to the world, and allow for matter to take on more complex forms. With this, the wide of variety of life we know today was able to evolve. The shaded-realm powerful wormholes to link the shaded-realm to the main-realm. The main-realm is the space that WE live in. These wormholes are all over the place, and are able to persist regardless of the chaotic forces of nature around them. Wormholes allow shade-worms to travel between the 2 realms. Shade-worms correct extremely high levels of energy, forcing it to dissipate and stabilize. Shade-worms are actually attracted to dancing shadows and flickering lights. There is also another kind of worm, called memory worms. These prevent hallucinations and prevent dreams from harming the soul. You can summon memory worms by intentionally imagining complex stories in your head. If there are both shade-worms and memory worms in the same small vicinity, they can create memory vortexes. These are regions of warped space that, when focused on, reinforces wormholes to the shaded-realm. More importantly, if an onlooker focuses on the warped space, it should summon shadow-bunnies, and generate a small amount of shade-energy."
+
+Peiyu's words were like music to Ziran's ears. Each sentence contained a wealth of information that Ziran eagerly soaked up like a sponge. Ziran listened closely to every word Peiyu said, taking mental notes as he took in the knowledge she was imparting.
+
+"That's a lot of information," Ziran noted as he made a mental note of what Peiyu had explained so far. "But it's very interesting. And you said that shade-worms can help me open my shadow chakras?"
+
+Peiyu nodded and replied to Ziran's question.
+
+"Yes. Shade-worms are the key to opening shadow chakras in the main world." Peiyu told Ziran. "In the past, people who had shadow chakras found a way to lure shade-worms into the main realm to open their shadow chakras and cultivate qi."
+
+Peiyu's explanation further filled Ziran with hope and excitement. Peiyu's words inspired him and made him want to learn more.
 
 
 
