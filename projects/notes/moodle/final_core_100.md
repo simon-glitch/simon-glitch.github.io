@@ -51,6 +51,9 @@ Building **for** the kingdom is so important because it means we are building wi
 > **Building for the kingdom is like building for the cathedral. Merely building the kingdom (without much purpose) means the builders would be building without having personal connections between each other. The lack of connections would make the workers a disconnected and weak body (as a group body).**
 
 
+### 5
+Only good things, like beauty and kindness will be allowed into God's new world. All things with even the smallest amount of bad will either be rejected or fixed so they no longer have any bad to them. God's kingdom will be perfect in every tiny little way.
+
 ### 6
 The limit of disconuity total anihilation. Some things will be completely removed from existence, and will no longer be capable of existing, even in our imaginations and thoughts.
 
