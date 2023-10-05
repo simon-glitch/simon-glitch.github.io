@@ -10,16 +10,13 @@
 
 4. According to Wright in Chapter 13, what is the difference between 'building the kingdom' and 'building for the kingdom'?
 
-
 5. What types of things, do you imagine, will be brought forward into God's new world? Can you think of any examples from your own life?
 
 6. "God's eventual kingdom will be a fresh gift of transformation and renewal." There will be both continuity and discontinuity. What do you think are the limits as to how discontinuous it will be? What do you think are the limits as to how continuous it will be?
 
-
 7. "It is, rather, that people who believe in the resurrection, in God making a whole new world in which everything will be set right at last, are unstoppably motivated to work for that new world in the present." Why do you think Wright believes this?
 
 8. Wright focuses quite a bit of energy elucidating the injustice of wealth distribution. What present injustice in the world are you most aware of?
-
 
 9. According to Wright, what can/should artists be doing for the kingdom?
 
@@ -34,10 +31,40 @@ Wright Claims that the resurrection happens within our world and within us indiv
 The resurrection is not ONLY a single event in the future. Many people imagine the resurrection as happening at the end of time, but it is actually happening in the present. As a follower of Christ, one experiences continuous personal resurrection (partial resurrection and purification) during the present.
 
 ### 2
-Salvation also happens continuously, along with resurrection. And we aren't necessarily leaving to the kingdom of God, since the kingdom is already forming down on Earth.
+Defeating death doesn't just mean we go to heaven. Salvation means we join God's community. The soul and the body will be resurrected, and live with God in salvation.
+
+<!-- Salvation also happens continuously, along with resurrection. And we aren't necessarily leaving to the kingdom of God, since the kingdom is already forming down on Earth. -->
 
 ### 3
 Wright emphasizes 3 facts about the kingdom of God:
 1. the kingdom is not merely heaven
-2. the kingdom is a place in time, in the future
+2. the kingdom is a place in time, in the future; the kingdom of God will be brought down **to** Earth
 3. many modern changes have reduced the kingdom of God to individual beliefs and individual salvation (i.e. each person can imagine the kingdom as being whatever they want it to be, and each person gets their own kingdom)
+
+### 4
+
+We are actively working towards making a better world, so we can eventually have the kingdom of God.
+
+# Syntodic.js
+
+## Syntodes
+A Syntode is a piece of syntax. Each Syntode 
+
+```
+Syntode {
+  name: String,
+  alt_names: String [],
+  prescanner: RegExp | null,
+  never_contains: Syntode | Syntode.dne,
+  always_contains: Syntode | Syntode.none,
+  disqualifiers: Syntode [...] | Syntode.none,
+  structure: Syntode [...] | Syntode.any,
+  can_not_start: Syntode,
+  can_not_end: Syntode,
+}
+```
+
+`Syntode [...]` means a list of Syntodes.
+
+## Convenient Constants
+The Syntode constructor has many built-in constants. These constants are pre-defined syntodes, which can be used 
