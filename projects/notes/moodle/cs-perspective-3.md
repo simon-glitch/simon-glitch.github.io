@@ -7,11 +7,21 @@ In the past 4 weeks we mainly focus on several main Python data types and their 
 
 3. Some operators have different meanings for different data types. The most common one is the operator +. Explain with examples the meaning of + for the data types in (1). For example, for a + b, where a and b are numbers (integer/floating-point numbers), it means the addition of two numbers.
 
-Grading criteria for each question (total: 9 marks)
+# Response
+## 1
+Rocky has shown the 6 most well-known Python data types:
+* bool (boolean)
+* int (arbitrary precision integer)
+* float (64-bit floating point number)
+* str (string)
+* tuple
+* list
+* dict (dictionary)
+* range
 
-3: Complete and accurate answer
-2: Mostly complete and accurate answer
-1: Mostly incomplete and inaccurate answer
-0: No submission
+Python has many other data types, such as complex, but we didn't discuss any of those.
 
+## 2
+
+## 3
 
