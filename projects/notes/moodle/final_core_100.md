@@ -59,7 +59,7 @@ The limit of disconuity total anihilation. Some things will be completely remove
 
 The most continuous things will be come founding principles, and will be connected to everything in a meaningful and honorable way.
 
-
+Other things, such as passion will also be continued. Things like ecological problems and sickness will be discontinued.
 
 
 

@@ -21,7 +21,24 @@ Rocky has shown the 6 most well-known Python data types:
 
 Python has many other data types, such as complex, but we didn't discuss any of those.
 
+The only data type I learned was `range`. I was already familiar with the others before I even asked to attend Calvin.
+
 ## 2
+I (personally) didn't learn any new operators, but everyone else did.
+
+You discussed:
+* `addition`,
+* `subtraction`,
+* `multiplication`,
+* `division`,
+* `modulo`,
+* `logical-and`,
+* `logical-or`,
+* `is-equals`,
+* `is-less-than`,
+* `is-greater-than`,
+* `is-less-than-or-equal-to`,
+* and `is-greater-than-or-equal-to`.
 
 ## 3
 
