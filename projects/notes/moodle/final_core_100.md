@@ -50,6 +50,18 @@ Building **for** the kingdom is so important because it means we are building wi
 
 > **Building for the kingdom is like building for the cathedral. Merely building the kingdom (without much purpose) means the builders would be building without having personal connections between each other. The lack of connections would make the workers a disconnected and weak body (as a group body).**
 
+
+### 6
+
+
+
+
+
+
+
+
+
+
 # Syntodic.js
 
 ## Syntodes
