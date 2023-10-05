@@ -61,6 +61,27 @@ The most continuous things will be come founding principles, and will be connect
 
 Other things, such as passion will also be continued. Things like ecological problems and sickness will be discontinued.
 
+### 7
+Some people (even Christians) only do things out of pride. Some (self-proclamed) *'Christians'* want to feel like they **earned** their way into heaven.
+
+However, outside of this, many Christians simply want to live their current life in a similar way to how they will live in the kingdom of God. Many Christians simply want to make the current world more like the kingdom of God to begin with.
+
+### 8
+Gender gap, healthcare issues, and voting rights are examples of flaws in the current wealth distribution.
+
+### 9
+Artists are obviously useful because their work is part of the beauty of God. God inspires artists to make beautiful works to add to the beauty of God's creation.
+
+### 10
+
+
+
+
+
+
+
+
+
 
 
 

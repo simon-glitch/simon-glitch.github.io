@@ -27,18 +27,37 @@ The only data type I learned was `range`. I was already familiar with the others
 I (personally) didn't learn any new operators, but everyone else did.
 
 You discussed:
-* `addition`,
-* `subtraction`,
-* `multiplication`,
-* `division`,
-* `modulo`,
-* `logical-and`,
-* `logical-or`,
-* `is-equals`,
-* `is-less-than`,
-* `is-greater-than`,
-* `is-less-than-or-equal-to`,
-* and `is-greater-than-or-equal-to`.
+* arithmetic operators:
+  * `addition`,
+  * `subtraction`,
+  * `multiplication`,
+  * `division`,
+  * `modulo`;
+* and logical operators:
+  * `logical-and`,
+  * `logical-or`,
+  * `is-equals`,
+  * `is-less-than`,
+  * `is-greater-than`,
+  * `is-less-than-or-equal-to`,
+  * and `is-greater-than-or-equal-to`.
+
+I discussed:
+* `exponentiation`,
+* and `bitwise-xor`.
 
 ## 3
+`+` (`__add__`) is defined for:
+* `bool`,
+* `int`,
+* `float`,
+* `str`,
+* `tuple`,
+* and `list`
+
+`__add__` is a non-mutating operation. So, when used on mutable data, it makes a new copy of the mutable data, rather than mutating the data.
+
+`list.__add__` concatenates 2 lists together.
+
+
 
