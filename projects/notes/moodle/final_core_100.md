@@ -41,9 +41,14 @@ Wright emphasizes 3 facts about the kingdom of God:
 2. the kingdom is a place in time, in the future; the kingdom of God will be brought down **to** Earth
 3. many modern changes have reduced the kingdom of God to individual beliefs and individual salvation (i.e. each person can imagine the kingdom as being whatever they want it to be, and each person gets their own kingdom)
 
-### 4
+The resurrection (and life) of Jesus was purposed for teaching us to become agents of God on Earth.
 
+### 4
 We are actively working towards making a better world, so we can eventually have the kingdom of God.
+
+Building **for** the kingdom is so important because it means we are building with a purpose.
+
+> **Building for the kingdom is like building for the cathedral. Merely building the kingdom (without much purpose) means the builders would be building without having personal connections between each other. The lack of connections would make the workers a disconnected and weak body (as a group body).**
 
 # Syntodic.js
 
@@ -68,3 +73,10 @@ Syntode {
 
 ## Convenient Constants
 The Syntode constructor has many built-in constants. These constants are pre-defined syntodes, which can be used 
+
+
+
+
+
+
+
