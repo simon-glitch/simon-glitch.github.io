@@ -57,7 +57,13 @@ I discussed:
 
 `__add__` is a non-mutating operation. So, when used on mutable data, it makes a new copy of the mutable data, rather than mutating the data.
 
-`list.__add__` concatenates 2 lists together.
+Uses of `__add__` method from the data types above:
+* `bool.__add__` converts both operands to `int`s, and then returns the result of `int.__add__`;
+* `int.__add__` uses binary addition to add 2 `int`s together (with 100% precision), and expands the resulting  `int` if it requires more bits;
+* `float.__add__` adds the 2 floats together, under standard IEEE-64 float addition;
+* `str.__add__` concatenates the 2 strings together;
+* `tuple.__add__` concatenates the 2 `tuple`s together (making a new `tuple`);
+* `list.__add__` concatenates the 2 `list`s together (making a new `list`);.
 
 
 
