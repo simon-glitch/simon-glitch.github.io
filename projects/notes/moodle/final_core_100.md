@@ -67,7 +67,7 @@ Some people (even Christians) only do things out of pride. Some (self-proclamed)
 However, outside of this, many Christians simply want to live their current life in a similar way to how they will live in the kingdom of God. Many Christians simply want to make the current world more like the kingdom of God to begin with.
 
 ### 8
-Gender gap, healthcare issues, and voting rights are examples of flaws in the current wealth distribution.
+The gender gap, healthcare issues, racial injustice, and unfair voting rights are examples of injustices in the present world.
 
 ### 9
 Artists are obviously useful because their work is part of the beauty of God. God inspires artists to make beautiful works to add to the beauty of God's creation.
