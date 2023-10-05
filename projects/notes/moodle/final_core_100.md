@@ -54,6 +54,7 @@ Building **for** the kingdom is so important because it means we are building wi
 ### 6
 The limit of disconuity total anihilation. Some things will be completely removed from existence, and will no longer be capable of existing, even in our imaginations and thoughts.
 
+The most continuous things will be come founding principles, and will be connected to everything in a meaningful and honorable way.
 
 
 
