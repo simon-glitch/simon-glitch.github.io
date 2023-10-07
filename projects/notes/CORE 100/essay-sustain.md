@@ -43,8 +43,10 @@ just => sanct => glor;
 
 
 # Response
-Redemption is a concept that (according to N. T. Wright) is ecaping modern Christians. It is becoming more and more alien as people's mindsets drift further into sin.
 
+Redemption is an important idea, in its own right. Imperatively speaking, Christians should aim to mitigate sin and become better human beings. Redemption is a process that happens through 3 processes: having hope in Jesus, obeying God, and having faith in God's plan for the world. God can redeem Christians by helping them realize how they can better connect with the rest of the world. Ultimately, this process relies on multiple types of hope. Conveniently, N.T. Wright has written a very useful book on hope, called *'Suprised By Hope'* (acronym: SBH).
+
+According to N. T. Wright, redepmtion as a concept is ecaping modern Christians. It is becoming more and more alien as people's mindsets drift further into sin.
 
 
 
