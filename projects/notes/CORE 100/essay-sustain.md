@@ -42,6 +42,22 @@ justification => sanctification => glorification;
 just => sanct => glor;
 
 
+# Response
+Redemption is a concept that (according to N. T. Wright) is ecaping modern Christians. It is becoming more and more alien as people's mindsets drift further into sin.
+
+
+
+
+
+
+
+<!-- irrelevant?
+> "If we are going to talk about what is wrong with the world, [then] we should be [willing] to [receive] those [same critiques,] [reflected back at ourselves]."
+- **N.T. Wright** on what is wrong with the world. -->
+
+
+
+
 
 
 
