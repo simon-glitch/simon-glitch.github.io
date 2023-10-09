@@ -225,7 +225,7 @@ const Rand = classify(
     max: 4,
     sep: 1,
     num: function(){
-      return Math.floor(Math.random() * ((max - min) / sep)) * sep + min;
+      return Math.floor(Math.random() * ((this.max - this.min) / this.sep)) * this.sep + this.min;
     },
   }
 );
