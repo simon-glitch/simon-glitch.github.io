@@ -4,6 +4,7 @@
 
 
 const classify = function classify(f, proto_obj, sub_properties, ...args){
+  f.prototype = proto_obj;
   f.prototype = new f(...args);
   for (i in proto_obj){
     f.prototype[i] = proto_obj[i];
@@ -215,9 +216,9 @@ const rref = function(matrix){
 const Rand = classify(
   function Rand(min, max, sep){
     // nullish coalescing assignment
-    this.min ??= min;
-    this.max ??= max;
-    this.sep ||= sep;
+    this.min = min ?? this.min;
+    this.max = max ?? this.max;
+    this.sep = sep || this.sep;
   },
   {
   min: -4,
@@ -236,7 +237,7 @@ const Rand = classify(
 const Matrix = function Matrix(length, width, nickname){
   this.length = length || 0;
   this.width  = width  || this.length;
-  this.nickname ??= nickname.toString();
+  this.nickname = nickname?.toString() ?? this.nickname;
   let i,j;
   this.m = new Float64Array(length * width);
   for(i = 0; i < this.length; i++){
@@ -380,7 +381,7 @@ classify(Matrix, {
    * REALLY multiplies this by a scalar, in place, mutating current values of this
   **/
   really_scale: function really_scale(scalar){
-    this.scalar ??= scalar;
+    this.scalar = scalar ?? this.scalar;
     for(let i = 0; i < this.m.length; i++){
       this.m[i] *= this.scalar;
     }
