@@ -146,7 +146,7 @@ classify(Matrix, {
       return;
     }
     for(let i = 0; i < this.m.length; i++){
-      res[i] += that[i];
+      res.m[i] += that.m[i];
     }
     return res;
   },
