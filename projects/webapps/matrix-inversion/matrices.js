@@ -414,7 +414,7 @@ classify(Matrix, {
 });
 
 // uses normal arrays instead of float64 arrays
-Matrix.Dynamic = classift(
+Matrix.Dynamic = classify(
   function Dynamic_Matrix(length, width){
     this.length = length || 1;
     this.width  = width  || 1;
