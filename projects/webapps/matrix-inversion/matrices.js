@@ -21,7 +21,7 @@ Matrix.epsilon = 2 ** (-22);
 
 Matrix.eq0 = function(x){
   if(typeof x === "number")
-    return (Math.abs(x) < epsilon);
+    return (Math.abs(x) < Matrix.epsilon);
   // this is how smart people do recursion
   if(x instanceof Matrix) for(let i = 0; i < x.m.length; i++) if(!Matrix.eq0(x.m[i]))
     return false;
