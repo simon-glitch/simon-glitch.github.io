@@ -16,18 +16,6 @@ const classify = function classify(f, proto_obj, sub_properties, ...args){
 };
 
 
-// approximately 1 in 4 million
-Matrix.epsilon = 2 ** (-22);
-
-Matrix.eq0 = function(x){
-  if(typeof x === "number")
-    return (Math.abs(x) < Matrix.epsilon);
-  // this is how smart people do recursion
-  if(x instanceof Matrix) for(let i = 0; i < x.m.length; i++) if(!Matrix.eq0(x.m[i]))
-    return false;
-  return true;
-};
-
 
 const Rand = classify(
   function Rand(min, max, sep){
@@ -262,13 +250,25 @@ Matrix.new_rand = function(min, max, sep){
   this.rand.constructor(min, max, sep);
 };
 
+// approximately 1 in 4 million
+Matrix.epsilon = 2 ** (-22);
+
+Matrix.eq0 = function(x){
+  if(typeof x === "number")
+    return (Math.abs(x) < Matrix.epsilon);
+  // this is how smart people do recursion
+  if(x instanceof Matrix) for(let i = 0; i < x.m.length; i++) if(!Matrix.eq0(x.m[i]))
+    return false;
+  return true;
+};
+
 
 
 // use 2 random n by k matrices to generate a random n by n singular matrix
-Matrix.singular = function(n, k){
+Matrix.gen_singular = function(n, k){
   k ??= n +1;
-  const m1 = randmo(n, k);
-  const m2 = randmo(k, n);
+  const m1 = Matrix.random(n, k);
+  const m2 = Matrix.random(k, n);
   return matrix_mult(m1, m2);
 };
 
