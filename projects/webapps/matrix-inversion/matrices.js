@@ -276,7 +276,8 @@ Matrix.gen_singular = function(n, k){
 console.clear();
 onclick = function(){
   const me = Matrix.random(3,3);
-  console.log(me);
+  console.log("me = " + me);
+  console.log("me^2 = "+ me.multiply(me));
 };
 
 
