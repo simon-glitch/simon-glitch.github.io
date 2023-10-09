@@ -272,10 +272,6 @@ Matrix.gen_singular = function(n, k){
   return matrix_mult(m1, m2);
 };
 
-const print = function(m){
-  return m.map(v => v.map(v => v.toFixed(2)));
-};
-
 
 console.clear();
 onclick = function(){
