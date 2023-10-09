@@ -233,9 +233,10 @@ const Rand = classify(
   A matrix has a constant width and height;
     if you want to edit or change it, use new Matrix.Dynamic()
 */
-const Matrix = function Matrix(length, width){
+const Matrix = function Matrix(length, width, nickname){
   this.length = length || 0;
   this.width  = width  || this.length;
+  this.nickname ??= nickname.toString();
   let i,j;
   this.m = new Float64Array(length * width);
   for(i = 0; i < this.length; i++){
@@ -249,7 +250,13 @@ classify(Matrix, {
   is_tranposed: false,
   length: 0,
   width: 0,
+  scalar: 1,
+  nickname: "",
   get_at: function get_at(i_row, i_col){
+    // lazy scaling; this allows you to stack scalars without loosing performance
+    if(this.scalar !== 1){
+      this.really_scale();
+    }
     if(this.is_tranposed)
       return this.m[i_col * this.width + i_row];
     // we want to make tranposing matrices extrmely fast
@@ -257,13 +264,29 @@ classify(Matrix, {
       return this.m[i_row * this.width + i_col];
   },
   set_at: function set_at(i_row, i_col, new_val){
+    // lazy scaling; this allows you to stack scalars without loosing performance
+    if(this.scalar !== 1){
+      this.really_scale();
+    }
     if(this.is_tranposed)
       return (this.m[i_col * this.width + i_row] = new_val);
     // we want to make tranposing matrices extrmely fast
     else
       return (this.m[i_row * this.width + i_col] = new_val);
   },
+  /**
+   * Slice a 2-D sub-matrix out of a matrix.
+   * @param {number} min_y the upper y coord of the slice
+   * @param {number} max_y the lower y coord of the slice
+   * @param {number} min_x the left  x coord of the slice
+   * @param {number} max_x the right x coord of the slice
+   * @returns the matrix made up of the grid of values between the specified x and y coordinates
+   */
   slice: function slice(min_y, max_y, min_x, max_x){
+    // lazy scaling; this allows you to stack scalars without loosing performance
+    if(this.scalar !== 1){
+      this.really_scale();
+    }
     min_y = ((min_y ?? 0          ) + this.length) % this.length;
     max_y = ((max_y ?? this.length) + this.length) % this.length;
     min_x = ((min_x ?? 0          ) + this.width ) % this.width ;
@@ -296,6 +319,37 @@ classify(Matrix, {
     // then just return!
     return m;
   },
+  /**
+   * returns a clone of this matrix
+   */
+  clone: function clone(){
+    return this.slice();
+  },
+  /**
+   * Add this and that under standard matrix addition
+   * @param {Matrix} that the matrix to add to this matrix
+   * @param {boolean} in_place whether to store the result of the matrix addition in this matrix
+   * @returns the sum of this and that
+   */
+  add: function add(that, in_place = false){
+    if(this.scalar !== 1){
+      this.really_scale();
+    }
+    res = (in_place) ?this :this.clone();
+    if(this.m.length !== that.m.length){
+      console.log("cannot add a " + this.to_dim_name() + " to a " + that.to_dim_name() + "!\n> The middle matrices must have the same dimensions (or the transpose of one must have the same dimensions as the other).");
+      return;
+    }
+    for(let i = 0; i < this.m.length; i++){
+      res[i] += that[i];
+    }
+    return res;
+  },
+  /**
+   * Multiply this matrix by that matrix. Makes a new matrix.
+   * @param {Matrix} that 
+   * @returns a new Matrix: the result of the matrix multiplication
+   */
   multiply: function multiply(that){
     if(this.length !== that.width){
       console.log("cannot multiple a " + this.to_dim_name() + " by a " + that.to_dim_name() + "!\n> The middle 2 numbers must be the same {cols(left) == rows(right)}.");
@@ -320,10 +374,10 @@ classify(Matrix, {
    * multiplies this by a scalar, in place, overwriting current values of this
   **/
   scale: function scale(scalar){
-    
+    this.scalar *= scalar;
   },
   /**
-   * REALLY multiplies this by a scalar, in place, overwriting current values of this
+   * REALLY multiplies this by a scalar, in place, mutating current values of this
   **/
   really_scale: function really_scale(scalar){
     this.scalar ??= scalar;
@@ -332,11 +386,35 @@ classify(Matrix, {
     }
     return this;
   },
+  to_dim_name: function to_dim_name(){
+    return "[" + this.nickname + (this.nickname ? ": " :"") + this.length + " by " + this.width + " Matrix]"
+  },
+  /**
+   * Print this matrix!
+   * @param {number} toFixedDigits how many digits of each value to print
+   * @param {boolean} excludeName whether to exclude the name header
+   * @returns a string representing the matrix
+   */
+  toString: function toString(toFixedDigits = 3, excludeName = false){
+    let str = excludeName ?"" :(this.to_dim_name());
+    str += "[\n";
+    let i,j;
+    for(i = 0; i < this.length; i++){
+      str += "  ";
+      for(j = 0; j < this.width; j++){
+        str += this.get_at(i,j).toFixed(toFixedDigits);
+        if(j < this.width - 1) str += ", ";
+      }
+      str += ";\n";
+    }
+    str += "]";
+    return str;
+  },
 });
 
 // uses normal arrays instead of float64 arrays
-Matrix.Dynamic = (class Dynmic_Matrix{
-  constructor(length, width){
+Matrix.Dynamic = classift(
+  function Dynamic_Matrix(length, width){
     this.length = length || 1;
     this.width  = width  || 1;
     let i,j;
@@ -345,11 +423,13 @@ Matrix.Dynamic = (class Dynmic_Matrix{
       this.m[i] = new Array(this.width);
       for(j = 0; j < this.width; j++) this.m[i][j] = [0];
     }
-  }
-  at(i_row, i_col){
+  },
+  {
+    get_at: function get_at(i_row, i_col){
     return this.m?.[i_row]?.[i_col]?.[0];
+    }
   }
-});
+);
 
 // generate a random n by k matrix
 Matrix.random = function(length, width){
@@ -368,7 +448,8 @@ Matrix.new_rand = function(min, max, sep){
 
 
 // use 2 random n by k matrices to generate a random n by n singular matrix
-const singular = function(n, k){
+Matrix.singular = function(n, k){
+  k ??= n +1;
   const m1 = randmo(n, k);
   const m2 = randmo(k, n);
   return matrix_mult(m1, m2);
