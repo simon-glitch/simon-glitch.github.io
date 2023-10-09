@@ -180,6 +180,7 @@ classify(Matrix, {
   **/
   scale: function scale(scalar){
     this.scalar *= scalar;
+    return this;
   },
   /**
    * REALLY multiplies this by a scalar, in place, mutating current values of this
@@ -193,6 +194,12 @@ classify(Matrix, {
   },
   to_dim_name: function to_dim_name(){
     return "[" + this.nickname + (this.nickname ? ": " :"") + this.length + " by " + this.width + " Matrix]"
+  },
+  eq0: function eq0(){
+    return Matrix.eq0(this);
+  },
+  eq: function eq(that){
+    return Matrix.eq0(this);
   },
   /**
    * Print this matrix!
