@@ -459,10 +459,12 @@ const print = function(m){
   return m.map(v => v.map(v => v.toFixed(2)));
 };
 
+
 console.clear();
-// console.log(
-//   print(rref(randmo(4, 4)))
-// );
+onclick = function(){
+  const me = Matrix.random(3,3);
+  console.log(me);
+};
 
 
 
