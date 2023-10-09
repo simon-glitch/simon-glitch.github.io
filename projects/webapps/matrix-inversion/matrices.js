@@ -180,7 +180,7 @@ classify(Matrix, {
   **/
   scale: function scale(scalar){
     this.scalar *= scalar;
-    console.log(this.to_dim_name + " scalar now= " + this.scalar);
+    console.log(this.to_dim_name() + " scalar now= " + this.scalar);
     return this;
   },
   /**
@@ -188,7 +188,7 @@ classify(Matrix, {
   **/
   really_scale: function really_scale(scalar){
     this.scalar = scalar ?? this.scalar;
-    console.log(this.to_dim_name + " (really scaling) scalar now= " + this.scalar);
+    console.log(this.to_dim_name() + " (really scaling) scalar now= " + this.scalar);
     for(let i = 0; i < this.m.length; i++){
       this.m[i] *= this.scalar;
     }
