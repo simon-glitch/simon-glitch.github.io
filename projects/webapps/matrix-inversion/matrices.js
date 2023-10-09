@@ -92,10 +92,10 @@ classify(Matrix, {
     if(this.scalar !== 1){
       this.really_scale();
     }
-    min_y = ((min_y ?? 0          ) + this.length) % this.length;
-    max_y = ((max_y ?? this.length) + this.length) % this.length;
-    min_x = ((min_x ?? 0          ) + this.width ) % this.width ;
-    max_x = ((max_x ?? this.width ) + this.width ) % this.width ;
+    min_y = ((min_y ?? 0          ) + this.length + 1) % (this.length + 1);
+    max_y = ((max_y ?? this.length) + this.length + 1) % (this.length + 1);
+    min_x = ((min_x ?? 0          ) + this.width  + 1) % (this.width  + 1);
+    max_x = ((max_x ?? this.width ) + this.width  + 1) % (this.width  + 1);
     // if the ranges don't make sense, return an empty matrix
     if(max_x < min_x || max_y < min_y){
       return new Matrix();
