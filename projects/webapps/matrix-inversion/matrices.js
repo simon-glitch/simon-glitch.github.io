@@ -162,13 +162,13 @@ classify(Matrix, {
     }
     
     let i, j, k, v;
-    const w = m1.width, l = m0.length;
+    const w = that.width, l = this.length;
     const res = new Matrix(l, w);
     for(i = 0; i < l; i++){
       for(j = 0; j < w; j++){
         v = 0;
         for(k = 0; k < w; k++){
-          v += m1.get_at(i, k) * m2.get_at(k, j);
+          v += this.get_at(i, k) * that.get_at(k, j);
         }
         res.set_at(i,j, v);
       }
