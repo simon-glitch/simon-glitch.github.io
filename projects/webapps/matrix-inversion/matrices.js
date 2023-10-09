@@ -433,10 +433,10 @@ Matrix.Dynamic = classift(
 
 // generate a random n by k matrix
 Matrix.random = function(length, width){
-  let m = [], i,j;
-  for(i = 0; i < length; i++){
-    m[i] = [];
-    for(j = 0; j < width; j++) m[i][j] = rand();
+  const m = new Matrix(length, width);
+  let i,j;
+  for(i = 0; i < m.m.length; i++){
+    m.m[i] = Matrix.rand.num();
   }
   return m;
 };
