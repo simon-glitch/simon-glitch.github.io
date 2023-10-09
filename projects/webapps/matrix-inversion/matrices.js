@@ -198,8 +198,18 @@ classify(Matrix, {
   eq0: function eq0(){
     return Matrix.eq0(this);
   },
+  /**
+   * Check approximate equality between matrices
+   * @param {Matrix} that matrix to compare this to
+   * @returns boolean: whether the 2 matrices are approximately equal
+   */
   eq: function eq(that){
-    return Matrix.eq0(this);
+    for(let i = 0; i < this.m.length; i++){
+      if(2 * (this.m[i] - that.m[i]) / Math.sqrt(this.m[i] * that.m[i]) > Matrix.epsilon){
+        return false;
+      }
+    }
+    return true;
   },
   /**
    * Print this matrix!
