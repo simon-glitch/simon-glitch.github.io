@@ -301,5 +301,13 @@ if(0) onclick = function(){
   console.log("me^2 = "+ me.multiply(me));
 };
 
-
+/*
+{
+  a = Matrix.random();
+  b = Matrix.random();
+  time(() => {a.multiply(b);}, "matrix mult").then((v) => {
+    console.log(v);
+  });
+}
+*/
 
