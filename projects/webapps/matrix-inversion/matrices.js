@@ -248,7 +248,44 @@ classify(Matrix, {
     str += "]";
     return str;
   },
-  
+  /* TODO
+  add the following methods:
+    * ineq()
+    * is_vector()
+    * really_transpose()
+    * hypot() / abs()
+    * exp()
+    * pow(int)
+    * pow(float)
+    * inv() // inverse
+    * div(that) // divide, this.div(that) = this.multiply(that.inv())
+    * mod(that) // modulo, this.mod(that) = this.subtract(this.div(that).floor())
+    * floor() // just applies floor() to each value
+    * ceil () // just applies ceil () to each value
+    * round() // just applies round() to each value
+    * hypofloor() / hypotrunc() // just applies floor() or ceil()s to each value, towards 0
+    * hypoceil () // just applies floor() or ceil() to each value, in the current direction of the value
+    * hyporound() ? // applies floor() or ceil() to each value towards Math.sign(value) * this.abs()
+    * det() // determinant
+    * ref() // row echelon form
+    * rref() // reduced row echelon form
+    * rank() // get the rank of this matrix
+    * row_space_span() // get the span of the row    space of this matrix
+    * col_space_span() // get the span of the column space of this matrix
+    * nul_space_span() // get the span of the null   space of this matrix
+    * diagonal_product() // get the product of the diagonal of this matrix
+    * diagonal() // get just the diagonal of this matrix
+    * total() // get the total (sum) of all values in this matrix
+    * product() // get the product of all values in this matrix
+    * minor(i, j) // get the result of removing row i and column j from this matrix
+    * cofactors() // get the matrix of cofactors to this matrix
+    * cofactor(i,j) // get the cofactor of this matrix, at coordinate {i,j}
+    * toDoubleArray() // convert this matrix into a 2D array
+    * toDynamic() // convert this matrix into a dynamic matrix
+    * toArray() // convert this into an array
+    * toList(ArrayLikeClass) // convert this into an instance of ArrayLikeClass, by simply assinging the values of this matrix to the array-like class
+    * toGrid(ArrayLikeClass) // convert this into a 2D instance of ArrayLikeClass, by simply assinging the values of this matrix to tje array-like class
+  */
 });
 
 // uses normal arrays instead of float64 arrays
