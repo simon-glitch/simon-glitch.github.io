@@ -150,6 +150,20 @@ classify(Matrix, {
     }
     return res;
   },
+  subtract: function subtract(that, in_place = false){
+    if(this.scalar !== 1){
+      this.really_scale();
+    }
+    res = (in_place) ?this :this.clone();
+    if(this.m.length !== that.m.length){
+      console.log("cannot add a " + this.to_dim_name() + " to a " + that.to_dim_name() + "!\n> The middle matrices must have the same dimensions (or the transpose of one must have the same dimensions as the other).");
+      return;
+    }
+    for(let i = 0; i < this.m.length; i++){
+      res.m[i] -= that.m[i];
+    }
+    return res;
+  },
   /**
    * Multiply this matrix by that matrix. Makes a new matrix.
    * @param {Matrix} that 
@@ -234,6 +248,7 @@ classify(Matrix, {
     str += "]";
     return str;
   },
+  
 });
 
 // uses normal arrays instead of float64 arrays
