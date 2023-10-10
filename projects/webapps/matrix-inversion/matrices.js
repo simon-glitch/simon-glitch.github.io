@@ -303,11 +303,19 @@ if(0) onclick = function(){
 
 /*
 {
-  a = Matrix.random();
-  b = Matrix.random();
-  time(() => {a.multiply(b);}, "matrix mult").then((v) => {
+  let a = Matrix.random(3,3);
+  let b = Matrix.random(3,3);
+  time(() => {a.multiply(b);}, "3x3 matrix mult").then((v) => {
     console.log(v);
   });
 }
+
+{
+  let a;
+  time(() => {a = Matrix.random(20,20);}, "20x20 matrix gen").then((v) => {
+    console.log(v);
+  });
+}
+
 */
 
