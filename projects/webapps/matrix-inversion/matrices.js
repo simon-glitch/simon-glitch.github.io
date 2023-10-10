@@ -293,7 +293,7 @@ Matrix.gen_singular = function(n, k){
 
 
 console.clear();
-onclick = function(){
+if(0) onclick = function(){
   const me = Matrix.random(3,3);
   console.log("me = " + me);
   console.log("2*me = " + me.clone().scale( 2));
