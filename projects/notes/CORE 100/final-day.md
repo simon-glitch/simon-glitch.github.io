@@ -9,3 +9,9 @@ In essence, the IHW is a war for territory. The war is rooted in the fact that I
 
 
 
+
+# Other perspective
+
+
+
+
