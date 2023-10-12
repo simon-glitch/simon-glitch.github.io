@@ -1,5 +1,7 @@
 
 Share your view on the Israel - Hamas war (IHW), and discuss the possible solutions to the long-lasting conflict between Israel and Palestine in the region. You are supposed to use the course content and core themes discussed during the discussion.
+  You are supposed to use the course content and core themes discussed during the discussion.
+
 
 Well, to me, the only thing that matters with any event is often {why the event occurred}.
 
