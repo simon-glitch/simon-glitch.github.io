@@ -15,13 +15,20 @@ Holemo and Pampou explore the universe together, and make many friends along the
 
 The fiction of the story is quite bizarre. Holemo and Pampou travel through an endless multiverse, and they have the power to literally bend reality. Some of the enemies and hardships they face are beyond human comprehension. So, this story mixes extreme fantasy with normal character development.
 
-
+## MCs' Species
 Holemo is a sea elf (so an elf with a dolphin's tale and inverted ear flaps).
 Pampou is an squidoid (anatomically the same as the Inklings from Spatoon)
 Licorice is just a human
 
 They are all different species from different universes. They met eachother over the years, and became close friends. Eventually, Holemo decided to start calling Pampou her husband and Licorice her sister.
 
+
+## MCs' Home worlds
+Licorice comes from a **super** futuristic world of humans.
+
+Holemo comes from a world of martial artists, where technological progress is slow because people only focus on making themselves strogner through magical cultivation and people aren't very friendly with eachother.
+
+Pampou comes from a world of sorcerers, who also didn't develop technology because they were too self obsessed to work in teams and do effective research.
 
 Characters:
 * Holemo
