@@ -34,3 +34,11 @@ Intellectual emotions always seem to be some kind of strange phenomenon. Or at l
 
 
 
+Decades ago, Chrome Chronogate watched demon kings destroy everything he loved, and he was powerless against them. Now, he himself has become a demon king: Space-Time King Chronogate, and he is the strongest being in the world. In Chrom's world, a person's magical abilities determine their worth, and magic is everything. Magic requires mana, and Chrom's body doesn't produce mana. He used to think that he couldn't use magic, due to his lack of mana production. However, he later learned that he **could** use magic, by absorbing mana from the enviorenment. With the ability to use magic, Chrome became an unstoppable force. This is the case because Chrom is the world's only time mage, and time magic is superior to all other magic. Chrom can think and move faster than all of his enemies. He can recover from all non-fatal injuries, by reversing time in his body. He can block any attack by simply freezing time in his body (you can't break a stick if the stick can't experience the passing of time, since breaking a stick requires it to be whole at one point in time and then transition to being broken at a later point in time).
+
+
+
+
+
+
+
