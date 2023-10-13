@@ -13,6 +13,14 @@ I have identified multiple (TODO: count) types of emotions (just within myself).
 * opinions *(how one thinks the world should be)*
 
 ### Define [chemical emotions]
+Chemical emotions are a lot like resources. I make an active effort to control and manage these like sparse resources. One of my goals is to make the most use that I can out of these.
+
+The chemical emotions are:
+* joy (delight)
+* sorrow
+* fear
+* disgust
+* nostalgia (and deja vu)
 
 
 ### Define [intellectual emotions]
