@@ -1,5 +1,9 @@
 
 # Feelings
+## My goal with this document
+I hope {I can ascertain a more clear and systematic understanding of my various feelings,} by writing this. We will see though XD!
+
+
 ## (or Emotions - they are the same thing)
 
 I have identified multiple (TODO: count) types of emotions (just within myself). So, I'll list them here and now. We have:
