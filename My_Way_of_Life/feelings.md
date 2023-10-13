@@ -2,3 +2,23 @@
 # Feelings
 ## (or Emotions - they are the same thing)
 
+I have identified multiple (TODO: count) types of emotions (just within myself). So, I'll list them here and now. We have:
+* chemical emotions
+* intellectual *(pure thought)* emotions
+* hypothoses *(sometimes confused for opinions, due to the word judgment being used to refer to all of {opinions, hypothoses, and opinionated hypothoses})*
+* opinions *(how one thinks the world should be)*
+
+### Define [chemical emotions]
+
+
+### Define [intellectual emotions]
+Intellectual emotions always seem to be some kind of strange phenomenon. Or at least, that is often what I end up thinking when (while & after) I experience them.
+
+### Define [hypothoses]
+
+
+### Define [opinions]
+(deicisions of facts about how things should be)
+
+
+
