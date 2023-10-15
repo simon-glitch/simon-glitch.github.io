@@ -6,10 +6,10 @@
 const classify = function classify(f, proto_obj, sub_properties, ...args){
   f.prototype = proto_obj;
   f.prototype = new f(...args);
-  for (i in proto_obj){
+  for (let i in proto_obj){
     f.prototype[i] = proto_obj[i];
   }
-  for (i in sub_properties){
+  for (let i in sub_properties){
     f[i] = sub_properties[i];
   }
   return f;
