@@ -17,6 +17,8 @@ Ady also pointed out the fact that Hamas has allowed themselves to be brain wash
 
 Ady also mentioned prospect theory. Prospect theory is a concept from *Thinking: Fast and Slow*. The theory is: people have a strong aversion to loss. People will weigh (perceive) the probablility of **losses** as being **higher** than they actually are, the probablility of **gains** as being **lower** than they actually are. Avy then mentioned that the Hamas group is focusing on the successes they had with war in the past. The idea here is that Hamas is afraid of losing their territory, and perceives the significance of their loss of Palestine as being much greater than it actually would be. Thus, (accoridng to Aby) Hamas wants to take a safe bet, relying on past examples, and secure themselves by going to way in Palestine.
 
+Ady argues further that Hamas's strategy of loss aversion via war is unreasonable. We all agree that this war is unjustified, for many reasons, but Ady argues that the war is also not fruitful. I can agree with this. Killing thousands of innocent people and destroying valuable infrastructure almost never benefits anyone. You can look at historical examples. You would see that most military leaders know that capturing land is more profitable when existing infrastructure and capital is perserved.
+
 So, Ady's point is that Hamas are flawed in their decision making.
 
 
