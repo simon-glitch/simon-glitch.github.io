@@ -19,7 +19,7 @@ Ady also mentioned prospect theory. Prospect theory is a concept from *Thinking:
 
 Ady argues further that Hamas's strategy of loss aversion via war is unreasonable. We all agree that this war is unjustified, for many reasons, but Ady argues that the war is also not fruitful. I can agree with this. Killing thousands of innocent people and destroying valuable infrastructure almost never benefits anyone. You can look at historical examples. You would see that most military leaders know that capturing land is more profitable when existing infrastructure and capital is perserved.
 
-So, Ady's point is that Hamas are flawed in their decision making.
+So, Ady's point is that Hamas are flawed in their decision making. They didn't do enough critical thinking, they should assume that their religious beliefs are infallible, and they aren't benefitting themselves very much anyways. There is a solid reason that Hamas is referred to as a group of terrorists and that many people refer to this war as simply being terrorism. It **is** terrorism. It is unjustified, unnecessary, and wreckless destruction.
 
 
 
