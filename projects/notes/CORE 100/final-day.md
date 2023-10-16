@@ -11,7 +11,11 @@ In essence, the IHW is a war for territory. The war is rooted in the fact that I
 
 
 # Other perspective
+Ady had an interesting perspective. She explained how *Thinking: Fast and Slow* (by Daniel Kahneman) is actually very relevant to the Israel - Hamas war (IHW). She said that wars such as the IHW can sometimes happen as a result of System 1 thinking. Generalizing what she said, a nation should really contemplate the full consequences and implications of going to way before making any decisions of starting (or intensifying) a war. Gemera;izing even further, people should think before they speak, especially during an argument or a tense conversation.
 
+Ady also pointed out the fact that Hamas has allowed themselves to be brain washed by God (or more accurately: their religious beliefs). "In its 1988 charter, Hamas maintained that Palestine is an Islamic homeland." (source: https://www.britannica.com/topic/Hamas#:~:text=In%20its%201988%20charter%2C%20Hamas,religious%20duty%20for%20Palestinian%20Muslims.) Hamas doesn't want Palestine to be under the control of non-Muslims, because the Muslims have a divine right to Palestine.
+
+So, Ady's point is that Hamas are flawed in their decision making.
 
 
 
