@@ -526,6 +526,32 @@ classify(Matrix, {
     }
     return s;
   },
+  diagonal_abs: function diagonal_abs(){
+    this.auto_really_scale();
+    if(!this.is_square()){
+      throw err("Value", "Can only find the diagonal of a square matrix. Can not find the value of " + this.to_dim_name + ", because it is not square!");
+    }
+    let s = 0;
+    for(let i = 0; i < this.length; i++){
+      // that.set_at(i,i, this.get_at(i,i));
+      j = i * (this.length + 1);
+      s += this.m[j] **2;
+    }
+    return Math.sqrt(s);
+  },
+  diagonal_product: function diagonal_product(){
+    this.auto_really_scale();
+    if(!this.is_square()){
+      throw err("Value", "Can only find the diagonal of a square matrix. Can not find the value of " + this.to_dim_name + ", because it is not square!");
+    }
+    let s = 1;
+    for(let i = 0; i < this.length; i++){
+      // that.set_at(i,i, this.get_at(i,i));
+      j = i * (this.length + 1);
+      s *= this.m[j];
+    }
+    return s;
+  },
   /**
    * Accurately exponentiate this to a given integer that.
    * @param {Number} that power;
@@ -622,10 +648,10 @@ classify(Matrix, {
     * row_space_span() // get the span of the row    space of this matrix
     * col_space_span() // get the span of the column space of this matrix
     * nul_space_span() // get the span of the null   space of this matrix
-    * diagonal_product() // get the product of the diagonal of this matrix
-    * diagonal_sum() // get the product of the diagonal of this matrix
-    * diagonal_abs() // get the absolute value of the diagonal of this matrix (i.e. this.diagonal().abs())
-    * diagonal() // get just the diagonal of this matrix
+    * Y diagonal_product() // get the product of the diagonal of this matrix
+    * Y diagonal_total / diagonal_sum() // get the product of the diagonal of this matrix
+    * Y diagonal_abs() // get the absolute value of the diagonal of this matrix (i.e. this.diagonal().abs())
+    * Y diagonal() // get just the diagonal of this matrix
     * Y total() // get the total (sum) of all values in this matrix
     * Y product() // get the product of all values in this matrix
     * minor(i, j) // get the result of removing row i and column j from this matrix
@@ -643,6 +669,7 @@ classify(Matrix, {
 classify(Matrix, {
   hypot: Matrix.prototype.abs,
   vector_length: Matrix.prototype.abs,
+  diagonal_sum: Matrix.prototype.diagonal_total,
 }, {}, "UPDATE");
 
 const Vector = (class Vector extends Matrix{
