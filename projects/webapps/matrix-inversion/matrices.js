@@ -636,7 +636,11 @@ classify(Matrix, {
     this.auto_really_scale();
     type ??= Array;
     dimensions ??= 1;
-    const that = new type();
+    const that = requires_length ?(
+      new type(this.length)
+    ) :(
+      new type()
+    );
     if(typeof type !== "function"){
       err("Type", "type argument of toArray must be a function or class.");
     }
@@ -654,13 +658,25 @@ classify(Matrix, {
     }
     let iy, ix, ii = 0;
     for(iy = 0; iy < this.length; iy++){
-      that[iy] = new type();
+      that[iy] = requires_length ?(
+        new type(this.width)
+      ) :(
+        new type()
+      );
       for(ix = 0; ix < this.width; ix++){
         if(this.dimensions > 2){
-          let arr = new type();
+          let arr = requires_length ?(
+            new type(1)
+          ) :(
+            new type()
+          );
           that[iy][ix] = arr;
           for(let i = 3; i < dimensions; i++){
-            arr[0] = new type();
+            arr[0] = requires_length ?(
+              new type(1)
+            ) :(
+              new type()
+            );
             arr = arr[0];
           }
           arr[0] = ii;
@@ -708,8 +724,7 @@ classify(Matrix, {
     * Y toDoubleArray() // convert this matrix into a 2D array
     * toDynamic() // convert this matrix into a dynamic matrix
     * Y toVector() // convert this into a vector (reuses the values of this.m)
-    * toArray() // convert this into an array
-    * toList(ArrayLikeClass) // convert this into an instance of ArrayLikeClass, by simply assinging the values of this matrix to the array-like class
+    * Y toArray() // convert this into an array
     * toGrid(ArrayLikeClass) // convert this into a 2D instance of ArrayLikeClass, by simply assinging the values of this matrix to tje array-like class
   */
 });
