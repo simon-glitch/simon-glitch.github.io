@@ -1,6 +1,22 @@
-/*
-  I have decided to make a general purpose matrix library, because why not?
-*/
+/**
+  * @name Matrices.js
+  * @description This is a simple matrix library for JavaScript.
+  * @author Simon Glitch (simon-glitch.github.com)
+    * alias: Simanelix (@simanelix on discord.com)
+  * @purpose (why bother making this program?) This library was created because other libraries are either too complex or implement matrices using inefficient arrays (the built-in Array is not memory efficient).
+  * @globals:
+    * Matrix:
+      * @class @override
+    * Matrix.Dynamic
+      * @class @override
+    * ErrorError
+      * @class
+  * @see ... What is this format?
+    * This is a header comment, written in JSDoc format. I will write an essay explaining how I use these in the future.
+    * This is my first time doing this (this = writing a JSDoc header for my code);
+    * so, this (this = my methods for writing a JSDoc header for my code) is still a WIP (which means that I haven't refined my methods or decided on the best practices for this yet).
+  * @aside Ah, I gotta say, everything makes more sense in code though.
+ **/
 
 
 /**
