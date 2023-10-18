@@ -429,12 +429,39 @@ classify(Matrix, {
     // good news: spread operator actually works on all `TypedArray`s
     return Math.hypot(...this.m);
   },
+  /**
+   * Transposes this matrix, IN PLACE, for real. I love how elegant and magical-looking this funciton is.
+   * @returns {Matrix} the transposed matrix;
+   */
+  really_transpose: function really_transpose(){
+    this.transpose();
+    if(this.is_tranposed){
+      let iy, ix, ii, ij, swap;
+      for(iy = 0; iy < this.width; iy++){
+        for(ix = 0; ix < iy; ix++){
+          ii = iy * this.width + ix;
+          ij = ix * this.length + iy;
+          swap = this[ii];
+          this[ii] = this[ij];
+          this[ij] = swap;
+        }
+      }
+    }
+    return this;
+  },
+  /**
+   * Check whether this matrix is a vector. If this matrix has been transposed, it tells you whether the matrix is currently a vector (after being transposed). FYI: a vector is simply a matrix with 1 column.
+   * @returns {Boolean} whether this is a vector;
+   */
+  is_vector: function is_vector(){
+    return (this.width === 1);
+  },
   /* TODO:
   add the following methods:
     * Y ineq()
-    * is_vector()
-    * really_transpose()
-    * hypot() / abs() / vector_length() // get the size of this matrix (as a vector)
+    * Y is_vector()
+    * Y really_transpose()
+    * Y hypot() / abs() / vector_length() // get the size of this matrix (as a vector)
     * Y exp()
     * pow(int)
     * pow(float)
@@ -455,6 +482,8 @@ classify(Matrix, {
     * col_space_span() // get the span of the column space of this matrix
     * nul_space_span() // get the span of the null   space of this matrix
     * diagonal_product() // get the product of the diagonal of this matrix
+    * diagonal_sum() // get the product of the diagonal of this matrix
+    * diagonal_abs() // get the absolute value of the diagonal of this matrix (i.e. this.diagonal().abs())
     * diagonal() // get just the diagonal of this matrix
     * total() // get the total (sum) of all values in this matrix
     * product() // get the product of all values in this matrix
@@ -472,6 +501,36 @@ classify(Matrix, {
 classify(Matrix, {
   hypot: Matrix.prototype.abs,
   vector_length: Matrix.prototype.abs,
+}, {}, "UPDATE");
+
+const Vector = (class Vector extends Matrix{
+  constructor(length){
+    super(length, 1);
+  }
+});
+
+classify(Vector, {
+  width: 1,
+  /**
+    * Multiply this by that;
+      * if that is a number, return the product of scaling this by that;
+      * if that is a vector, return the dot product;
+      * if that is a matrix, return the matrix multiplication product;
+    * @param {Number | Vector | Matrix} that 2nd operand in multiplication
+    * @param {Boolean} as_matrix whether to return a Matrix instead of a Vector
+    * @returns {Vector} product of this and that
+   */
+  multiply: function(that, as_matrix = false){
+    if((that instanceof Vector) || (that.is_vector())){
+      return this.dot(that);
+    }
+    if(that instanceof Number){
+      return this.really_scale(that);
+    }
+    that = Matrix.prototype.multiply.call(this, that);
+    if(as_matrix) return that;
+    return that.toVector();
+  },
 }, {}, "UPDATE");
 
 // TODO: actually add this in (i.e. implement Matrix.Dynamic);
