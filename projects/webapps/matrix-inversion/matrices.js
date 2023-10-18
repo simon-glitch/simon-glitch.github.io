@@ -438,7 +438,9 @@ classify(Matrix, {
   */
 });
 
-// TODO: actually add this in
+// TODO: actually add this in (i.e. implement Matrix.Dynamic);
+// TODO: cry over the fact that I can't fold the JSDoc comment below;
+// TODO: contemplate whether `TODO`s should be in the header;
 /**
   * @class
   * Uses normal arrays instead of float64 arrays
