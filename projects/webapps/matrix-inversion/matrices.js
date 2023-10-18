@@ -208,11 +208,16 @@ classify(Matrix, {
   width: 0,
   scalar: 1,
   nickname: "",
-  get_at: function get_at(i_row, i_col){
-    // lazy scaling; this allows you to stack scalars without loosing performance
+  /**
+    * Lazy scaling: this allows you to stack scalars without loosing performance!
+   **/
+  auto_really_scale: function auto_really_scale(){
     if(this.scalar !== 1){
       this.really_scale();
     }
+  },
+  get_at: function get_at(i_row, i_col){
+    this.auto_really_scale();
     if(this.is_tranposed)
       return this.m[i_col * this.width + i_row];
     // we want to make tranposing matrices extrmely fast
@@ -220,10 +225,7 @@ classify(Matrix, {
       return this.m[i_row * this.width + i_col];
   },
   set_at: function set_at(i_row, i_col, new_val){
-    // lazy scaling; this allows you to stack scalars without loosing performance
-    if(this.scalar !== 1){
-      this.really_scale();
-    }
+    this.auto_really_scale();
     if(this.is_tranposed)
       return (this.m[i_col * this.width + i_row] = new_val);
     // we want to make tranposing matrices extrmely fast
@@ -239,10 +241,7 @@ classify(Matrix, {
    * @returns the matrix made up of the grid of values between the specified x and y coordinates
    */
   slice: function slice(min_y, max_y, min_x, max_x){
-    // lazy scaling; this allows you to stack scalars without loosing performance
-    if(this.scalar !== 1){
-      this.really_scale();
-    }
+    this.auto_really_scale();
     min_y = ((min_y ?? 0          ) + this.length + 1) % (this.length + 1);
     max_y = ((max_y ?? this.length) + this.length + 1) % (this.length + 1);
     min_x = ((min_x ?? 0          ) + this.width  + 1) % (this.width  + 1);
@@ -288,9 +287,7 @@ classify(Matrix, {
    * @returns the sum of this and that
    */
   add: function add(that, in_place = false){
-    if(this.scalar !== 1){
-      this.really_scale();
-    }
+    this.auto_really_scale();
     res = (in_place) ?this :this.clone();
     if(this.m.length !== that.m.length){
       console.log("cannot add a " + this.to_dim_name() + " to a " + that.to_dim_name() + "!\n> The middle matrices must have the same dimensions (or the transpose of one must have the same dimensions as the other).");
@@ -302,9 +299,7 @@ classify(Matrix, {
     return res;
   },
   subtract: function subtract(that, in_place = false){
-    if(this.scalar !== 1){
-      this.really_scale();
-    }
+    this.auto_really_scale();
     res = (in_place) ?this :this.clone();
     if(this.m.length !== that.m.length){
       console.log("cannot add a " + this.to_dim_name() + " to a " + that.to_dim_name() + "!\n> The middle matrices must have the same dimensions (or the transpose of one must have the same dimensions as the other).");
@@ -321,7 +316,7 @@ classify(Matrix, {
    * @returns a new Matrix: the result of the matrix multiplication
    */
   multiply: function multiply(that){
-    if(this.length !== that.width){
+    if(!this.is_square()){
       console.log("cannot multiple a " + this.to_dim_name() + " by a " + that.to_dim_name() + "!\n> The middle 2 numbers must be the same {cols(left) == rows(right)}.");
       return;
     }
@@ -363,6 +358,7 @@ classify(Matrix, {
     return "[" + this.nickname + (this.nickname ? ": " :"") + this.length + " by " + this.width + " Matrix]"
   },
   eq0: function eq0(){
+    this.auto_really_scale();
     return Matrix.eq0(this);
   },
   /**
@@ -371,6 +367,7 @@ classify(Matrix, {
    * @returns boolean: whether the 2 matrices are approximately equal
    */
   eq: function eq(that){
+    this.auto_really_scale();
     for(let i = 0; i < this.m.length; i++){
       if(2 * (this.m[i] - that.m[i]) / Math.sqrt(this.m[i] * that.m[i]) > Matrix.epsilon){
         return false;
@@ -379,9 +376,11 @@ classify(Matrix, {
     return true;
   },
   ineq: function ineq(that){
+    this.auto_really_scale();
     return !this.eq(that);
   },
   exp: function exp(){
+    this.auto_really_scale();
     if(!this.is_square()){
       throw err("Value", "cannot exponentiate a non-square matrix, because exponentiation requires the matrix to have an identity matrix, and a non-square matrix do not have an identity matrix!");
     }
@@ -425,6 +424,7 @@ classify(Matrix, {
    * @returns {Number} the absolute value
    */
   abs: function abs(){
+    this.auto_really_scale();
     // um, I am not sure if this is faster or slower than the default method
     // good news: spread operator actually works on all `TypedArray`s
     return Math.hypot(...this.m);
@@ -434,6 +434,7 @@ classify(Matrix, {
    * @returns {Matrix} the transposed matrix;
    */
   really_transpose: function really_transpose(){
+    this.auto_really_scale();
     this.transpose();
     if(this.is_tranposed){
       let iy, ix, ii, ij, swap;
@@ -468,31 +469,56 @@ classify(Matrix, {
    * @param {Boolean} reinitialize_values whether this should clone the values (in this.m); if reinitialize_values is false, then this.m will be reused, and the resulting vector will use the same TypedArray as this; if your goal is to slice this into a new vector, then set reinitialize_values = true;
    */
   toVector: function toVector(reinitialize_values = false){
-    let that = new Vector(this.m.length);
+    this.auto_really_scale();
+    const that = new Vector(this.m.length);
     if(reinitialize_values) for(let i = 0; i < this.m.length; i++){
       that.m[i] = this.m[i];
     }
     else that.m = this.m;
     return that;
   },
+  /**
+    * Should I make this use this.auto_really_scale()?
+    * @returns {Number} sum of all values in this matrix
+   **/
   total: function total(){
+    zero = this.scalar === 0;
+    if(zero) return 0;
+    
     let s = 0;
     for(let i = 0; i < this.m.length; i++)
       s += this.m[i];
-    return s;
+    return s * this.scalar;
   },
   product: function product(){
+    zero = this.scalar === 0;
+    this.auto_really_scale();
+    if(zero) return 0;
+    
     let s = 0;
     for(let i = 0; i < this.m.length; i++)
       s *= this.m[i];
     return s;
+  },
+  diagonal: function diagonal(){
+    this.auto_really_scale();
+    if(!this.is_square()){
+      throw err("Value", "Can only find the value of a square matrix. Can not find the value of " + this.to_dim_name + ", because it is not square!");
+    }
+    const that = new Matrix(this.length, this.width);
+    for(let i = 0; i < this.length; i++){
+      // that.set_at(i,i, this.get_at(i,i));
+      j = i * (this.length + 1);
+      that.m[j] = this.m[j];
+    }
+    return that;
   },
   /* TODO:
   add the following methods:
     * Y ineq()
     * Y is_vector()
     * Y is_square()
-    * Y really_transpose()
+    * Y really_transpos e()
     * Y hypot() / abs() / vector_length() // get the size of this matrix (as a vector)
     * Y exp()
     * pow(int)
