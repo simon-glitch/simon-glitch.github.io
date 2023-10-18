@@ -699,6 +699,36 @@ classify(Matrix, {
     }
     return that;
   },
+  /**
+   * Get one of the minors of this matrix. A minor is a copy of this matrix with a particular row and column of this matrix removed.
+   * @param {Number} row_number index (or number) of which row to remove
+   * @param {Number} column_number index (or number) of which column to remove
+   * @returns {Matrix} a clone of this matrix, with row # [row_number] removed, and column # [column_number] removed;
+   */
+  minor: function minor(row_number = 0, column_number = 0){
+    if(this.length < 1 || this.width < 1){
+      err("Value", "can't get the minor of an empty matrix! There are no rows or column to remove in the first place.")
+    }
+    if(this.length === 1){
+      err("Value", "can't get the minor of a matrix with only 1 row!")
+    }
+    if(this.width === 1){
+      err("Value", "can't get the minor of a matrix with only 1 column!")
+    }
+    
+    // super simple jumping implementation
+    let that = new Matrix(this.length - 1, this.width - 1);
+    let iy, ix, jy, jx;
+    for(iy = 0, jy = 0; iy < this.length; iy++){
+      if(iy === row_number) continue;
+      for(ix = 0, jx = 0; ix < this.width; ix++){
+        if(ix === column_number) continue;
+        that.set_at(jy, jx, this.get_at(iy, ix));
+        jx++;
+      }
+      jy++;
+    }
+  },
   /* TODO:
   add the following methods:
     * Y ineq()
