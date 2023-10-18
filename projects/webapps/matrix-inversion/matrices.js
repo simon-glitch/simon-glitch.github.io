@@ -437,10 +437,10 @@ classify(Matrix, {
     * hypofloor() / hypotrunc() // just applies floor() or ceil()s to each value, towards 0
     * hypoceil () // just applies floor() or ceil() to each value, in the current direction of the value
     * hyporound() ? // applies floor() or ceil() to each value towards Math.sign(value) * this.abs()
-    * det() // determinant
-    * ref() // row echelon form
-    * rref() // reduced row echelon form
-    * rank() // get the rank of this matrix
+    * det () // determinant (of this matrix)
+    * ref () // row echelon form (of this matrix)
+    * rref() // reduced row echelon form (of this matrix)
+    * rank() // get the rank (of this matrix)
     * row_space_span() // get the span of the row    space of this matrix
     * col_space_span() // get the span of the column space of this matrix
     * nul_space_span() // get the span of the null   space of this matrix
