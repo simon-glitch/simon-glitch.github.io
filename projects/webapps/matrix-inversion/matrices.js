@@ -109,16 +109,22 @@ const err = function(type, message){
   return e;
 }
 
-// also, I added a JS doc in the last commit (sorry for not mentioning XD)
+/**
+ * Create a randomizer; this.num() returns a random number in the range: [min, min + sep ... max - ((max - min) % sep)] (range is inclusive on both sides; the ellipsis are desmos range notation)
+ * @class
+ * @param {Number} min minimum value this can generate
+ * @param {Number} max maximum value this can generate
+ * @param {Number} sep (separator) distance between values this can generate
+ */
+const Rand = function Rand(min, max, sep){
+  // reverse nullish coalescing assignment
+  this.min = min ?? this.min;
+  this.max = max ?? this.max;
+  this.sep = sep || this.sep;
+};
 
-
-const Rand = classify(
-  function Rand(min, max, sep){
-    // nullish coalescing assignment
-    this.min = min ?? this.min;
-    this.max = max ?? this.max;
-    this.sep = sep || this.sep;
-  },
+classify(
+  Rand,
   {
   min: -4,
     max: 4,
