@@ -443,7 +443,7 @@ classify(Matrix, {
 // TODO: contemplate whether `TODO`s should be in the header;
 /**
   * @class
-  * Uses normal arrays instead of float64 arrays
+  * Uses normal arrays instead of Float64 arrays
  **/
 Matrix.Dynamic = classify(
   function Dynamic_Matrix(length, width){
