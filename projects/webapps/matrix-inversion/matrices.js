@@ -3,7 +3,14 @@
   * @description This is a simple matrix library for JavaScript.
   * @author Simon Glitch (simon-glitch.github.com)
     * alias: Simanelix (@simanelix on discord.com)
-  * @purpose (why bother making this program?) This library was created because other libraries are either too complex or implement matrices using inefficient arrays (the built-in Array is not memory efficient).
+  * @purpose
+    * Why bother making this program?
+      * This library was created because other libraries are either too complex or implement matrices using inefficient arrays (the built-in Array is not memory efficient).
+    * Why is the copyright open source?
+      * I want others to be able to reuse my work for their own projects,
+      * no matter how [ambitious or miniscule]!
+    * Why is this JSDoc formatted funny?
+      * @see [the @see section below]
   * @globals:
     * Matrix:
       * @class @override
@@ -11,7 +18,7 @@
       * @class @override
     * ErrorError
       * @class
-  * @see ... What is this format?
+  * @see [...] What is this format?
     * This is a header comment, written in JSDoc format. I will write an essay explaining how I use these in the future.
     * This is my first time doing this (this = writing a JSDoc header for my code);
     * so, this (this = my methods for writing a JSDoc header for my code) is still a WIP (which means that I haven't refined my methods or decided on the best practices for this yet).
