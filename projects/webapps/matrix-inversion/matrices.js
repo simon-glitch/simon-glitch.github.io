@@ -595,6 +595,7 @@ classify(Matrix, {
    **/
   toDoubleArray: function toDoubleArray(type = Array, type_allows_mapping = false, type_accepts_length = true){
     // this.auto_really_scale();
+    type ??= Array;
     if(type === Array){
       type_allows_mapping = true;
     }
@@ -618,6 +619,53 @@ classify(Matrix, {
       }
       for(ix = 0; ix < this.width; ix++){
         that[iy][ix] = this.get_at(iy, ix);
+      }
+    }
+    return that;
+  },
+  /**
+    * Convert this matrix to an array; you can also add an arbitrary number of dimensions in the process
+    * @param {Function} type the type of array-like object to convert this too;
+      * defaults to Array;
+    * @param {Number} dimensions the number of dimensions to use for the output array;
+      * defaults to 1 (i.e. a simple Array);
+    * @param {Boolean} requires_length whether type requires a length argument to be passed in on construction;
+      * defaults to false;
+   **/
+  toArray: function toArray(type = Array, dimensions = 1, requires_length = false){
+    this.auto_really_scale();
+    type ??= Array;
+    dimensions ??= 1;
+    const that = new type();
+    if(typeof type !== "function"){
+      err("Type", "type argument of toArray must be a function or class.");
+    }
+    if(typeof dimensions !== "number"){
+      err("Type", "dimensions argument of toArray must be a number.");
+    }
+    if(dimensions < 0){
+      err("Value", "Cannot construct an array with " + dimensions + " dimensions! (An array must have a non-zero positive number of dimensions!)")
+    }
+    if(dimensions === 1){
+      for(let i = 0; i < this.m.length; i++){
+        that[i] = this.m[i];
+      }
+      return that;
+    }
+    let iy, ix, ii = 0;
+    for(iy = 0; iy < this.length; iy++){
+      that[iy] = new type();
+      for(ix = 0; ix < this.width; ix++){
+        if(this.dimensions > 2){
+          let arr = new type();
+          that[iy][ix] = arr;
+          for(let i = 3; i < dimensions; i++){
+            arr[0] = new type();
+            arr = arr[0];
+          }
+          arr[0] = ii;
+        }
+        ii++;
       }
     }
     return that;
