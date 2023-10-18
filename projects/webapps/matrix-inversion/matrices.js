@@ -503,7 +503,7 @@ classify(Matrix, {
   diagonal: function diagonal(){
     this.auto_really_scale();
     if(!this.is_square()){
-      throw err("Value", "Can only find the value of a square matrix. Can not find the value of " + this.to_dim_name + ", because it is not square!");
+      throw err("Value", "Can only find the diagonal of a square matrix. Can not find the value of " + this.to_dim_name + ", because it is not square!");
     }
     const that = new Matrix(this.length, this.width);
     for(let i = 0; i < this.length; i++){
@@ -512,6 +512,19 @@ classify(Matrix, {
       that.m[j] = this.m[j];
     }
     return that;
+  },
+  diagonal_total: function diagonal_total(){
+    this.auto_really_scale();
+    if(!this.is_square()){
+      throw err("Value", "Can only find the diagonal of a square matrix. Can not find the value of " + this.to_dim_name + ", because it is not square!");
+    }
+    let s = 0;
+    for(let i = 0; i < this.length; i++){
+      // that.set_at(i,i, this.get_at(i,i));
+      j = i * (this.length + 1);
+      s += this.m[j];
+    }
+    return s;
   },
   /**
    * Accurately exponentiate this to a given integer that.
