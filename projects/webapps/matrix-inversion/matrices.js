@@ -481,10 +481,10 @@ Matrix.new_rand = function(min, max, sep){
 Matrix.epsilon = 2 ** (-22);
 
 /**
- * Check if something is (approximately) zero;
- * @param {Number | Matrix} x check whether x equals 0 (the number 0, the zero vector, a zero matrix);
- * @returns {Boolean} whether x equals 0;
- */
+  * Check if something is (approximately) zero;
+  * @param {Number | Matrix} x check whether x equals 0 (the number 0, the zero vector, a zero matrix);
+  * @returns {Boolean} whether x equals 0;
+ **/
 Matrix.eq0 = function(x){
   if(typeof x === "number")
     return (Math.abs(x) < Matrix.epsilon);
@@ -496,7 +496,9 @@ Matrix.eq0 = function(x){
 
 
 
-// use 2 random n by k matrices to generate a random n by n singular matrix
+/**
+  * use 2 random n by k matrices to generate a random n by n singular matrix
+ **/
 Matrix.gen_singular = function(n, k){
   k ??= n +1;
   const m1 = Matrix.random(n, k);
