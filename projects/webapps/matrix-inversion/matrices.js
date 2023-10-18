@@ -428,7 +428,7 @@ classify(Matrix, {
     * Y exp()
     * pow(int)
     * pow(float)
-    * inv() // inverse
+    * inv() // inverse (calculated via GAUSSIAN ELIMINATION)
     * div(that) // divide, this.div(that) = this.multiply(that.inv())
     * mod(that) // modulo, this.mod(that) = this.subtract(this.div(that).floor())
     * floor() // just applies floor() to each value
