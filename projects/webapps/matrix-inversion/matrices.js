@@ -456,6 +456,18 @@ classify(Matrix, {
   is_vector: function is_vector(){
     return (this.width === 1);
   },
+  /**
+   * Convert this to a vector
+   * @param {Boolean} reinitialize_values whether this should clone the values (in this.m); if reinitialize_values is false, then this.m will be reused, and the resulting vector will use the same TypedArray as this; if your goal is to slice this into a new vector, then set reinitialize_values = true;
+   */
+  toVector: function toVector(reinitialize_values = false){
+    let that = new Vector(this.m.length);
+    if(reinitialize_values) for(let i = 0; i < this.m.length; i++){
+      that.m[i] = this.m[i];
+    }
+    else that.m = this.m;
+    return that;
+  },
   /* TODO:
   add the following methods:
     * Y ineq()
@@ -492,7 +504,7 @@ classify(Matrix, {
     * cofactor(i,j) // get the cofactor of this matrix, at coordinate {i,j}
     * toDoubleArray() // convert this matrix into a 2D array
     * toDynamic() // convert this matrix into a dynamic matrix
-    * toVector() // convert this into a vector (reuses the values of this.m)
+    * Y toVector() // convert this into a vector (reuses the values of this.m)
     * toArray() // convert this into an array
     * toList(ArrayLikeClass) // convert this into an instance of ArrayLikeClass, by simply assinging the values of this matrix to the array-like class
     * toGrid(ArrayLikeClass) // convert this into a 2D instance of ArrayLikeClass, by simply assinging the values of this matrix to tje array-like class
