@@ -420,6 +420,15 @@ classify(Matrix, {
     str += "]";
     return str;
   },
+  /**
+   * get the "absolute value" of this matrix or vector
+   * @returns {Number} the absolute value
+   */
+  abs: function abs(){
+    // um, I am not sure if this is faster or slower than the default method
+    // good news: spread operator actually works on all `TypedArray`s
+    return Math.hypot(...this.m);
+  },
   /* TODO:
   add the following methods:
     * Y ineq()
@@ -460,6 +469,11 @@ classify(Matrix, {
   */
 });
 
+classify(Matrix, {
+  hypot: Matrix.prototype.abs,
+  vector_length: Matrix.prototype.abs,
+}, {}, "UPDATE");
+
 // TODO: actually add this in (i.e. implement Matrix.Dynamic);
 // TODO: cry over the fact that I can't fold the JSDoc comment below;
 // TODO: contemplate whether `TODO`s should be in the header;
@@ -467,23 +481,23 @@ classify(Matrix, {
   * @class
   * Uses normal arrays instead of Float64 arrays
  **/
-Matrix.Dynamic = classify(
-  function Dynamic_Matrix(length, width){
-    this.length = length || 1;
-    this.width  = width  || 1;
-    let i,j;
-    this.m = new Array(this.length);
-    for(i = 0; i < this.length; i++){
-      this.m[i] = new Array(this.width);
-      for(j = 0; j < this.width; j++) this.m[i][j] = [0];
-    }
-  },
-  {
-    get_at: function get_at(i_row, i_col){
-    return this.m?.[i_row]?.[i_col]?.[0];
-    }
+Matrix.Dynamic = function Dynamic_Matrix(length, width){
+  this.length = length || 1;
+  this.width  = width  || 1;
+  let i,j;
+  this.m = new Array(this.length);
+  for(i = 0; i < this.length; i++){
+    this.m[i] = new Array(this.width);
+    for(j = 0; j < this.width; j++) this.m[i][j] = [0];
   }
-);
+};
+
+classify(Matrix.Dynamic, {
+  get_at: function get_at(i_row, i_col){
+    return this.m?.[i_row]?.[i_col]?.[0];
+  },
+  abs: Matrix.prototype.abs,
+});
 
 // generate a random n by k matrix
 Matrix.random = function(length, width){
