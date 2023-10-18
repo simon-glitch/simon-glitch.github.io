@@ -27,6 +27,7 @@
     * Hmm, I wonder what kidns of strict rules there are on software copyrights. In particular, I wonder if certain copyright formats are invalid or if all copyrights are required to adhere to a certain format. I wonder how interpretation of a copyright works.
       * well, I like the copyright format below;
       * if your are against it, then feel free to contact me with friendly criticism;
+    * Wow, this sure does feel like it is a lot of code!
   * @copyright
     * @summary fully open-source copyright
     * allowed:
