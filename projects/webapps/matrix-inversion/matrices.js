@@ -513,6 +513,40 @@ classify(Matrix, {
     }
     return that;
   },
+  /**
+   * Accurately exponentiate this to a given integer that.
+   * @param {Number} that power;
+   * @returns {Matrix} this^that
+   */
+  pow: function pow(that){
+    if(!this.is_square){
+      throw err("Value", "Cannot multiply a non-square matrix by itself; cannot invert a non-square matrix; cannot find the identity matrix corresponding to a non-square matrix; thus, cannot raise a non-square matrix to any power!");
+    }
+    if(that === 0){
+      return this.ident();
+    }
+    if((that < 2**53) && (that % 1 === 0)){
+      if(that < 0){
+        return this.inv().pow(that);
+      }
+      that = this.ident();
+      let power = this.clone();
+      const binary = that.toString(2);
+      // use repeated squaring to quickly exponentiate up to any large power
+      for(let i = binary.length - 1; i >= 0; i--){
+        if(binary[i]){
+          that = that.multiply(power);
+          if(i > 0){
+            power = power.multiply(power);
+          }
+        }
+      }
+      return that;
+    }
+    that_c = that?.constructor?.name;
+    that_cc = that?.prototype?.constructor?.name;
+    throw err("Type", "Either `that` was an invalid type or this code hasn't implemented expontitation for the type of `that` yet. Typeof that: " + (typeof that) + (that_c ? (", instanceof: " + that_c + (that_cc ?(" and " + that_cc) :"")) :""));
+  },
   /* TODO:
   add the following methods:
     * Y ineq()
@@ -521,7 +555,7 @@ classify(Matrix, {
     * Y really_transpos e()
     * Y hypot() / abs() / vector_length() // get the size of this matrix (as a vector)
     * Y exp()
-    * pow(int)
+    * Y pow(int)
     * pow(float)
     * inv() // inverse (calculated via GAUSSIAN ELIMINATION)
     * div(that) // divide, this.div(that) = this.multiply(that.inv())
