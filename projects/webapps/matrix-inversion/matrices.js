@@ -419,7 +419,7 @@ classify(Matrix, {
     str += "]";
     return str;
   },
-  /* TODO
+  /* TODO:
   add the following methods:
     * Y ineq()
     * is_vector()
