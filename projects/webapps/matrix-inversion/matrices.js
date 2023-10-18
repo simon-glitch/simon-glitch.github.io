@@ -400,9 +400,9 @@ classify(Matrix, {
   },
   /**
    * Print this matrix!
-   * @param {number} toFixedDigits how many digits of each value to print
-   * @param {boolean} excludeName whether to exclude the name header
-   * @returns a string representing the matrix
+   * @param {Number} toFixedDigits how many digits of each value to print
+   * @param {Boolean} excludeName whether to exclude the name header
+   * @returns {String} a string representing the matrix
    */
   toString: function toString(toFixedDigits = 3, excludeName = false){
     let str = excludeName ?"" :(this.to_dim_name());
@@ -421,11 +421,11 @@ classify(Matrix, {
   },
   /* TODO
   add the following methods:
-    * ineq()
+    * Y ineq()
     * is_vector()
     * really_transpose()
     * hypot() / abs()
-    * exp()
+    * Y exp()
     * pow(int)
     * pow(float)
     * inv() // inverse
