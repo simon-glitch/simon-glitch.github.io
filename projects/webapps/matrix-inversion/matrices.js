@@ -480,6 +480,11 @@ Matrix.new_rand = function(min, max, sep){
 // approximately 1 in 4 million
 Matrix.epsilon = 2 ** (-22);
 
+/**
+ * Check if something is (approximately) zero;
+ * @param {Number | Matrix} x check whether x equals 0 (the number 0, the zero vector, a zero matrix);
+ * @returns {Boolean} whether x equals 0;
+ */
 Matrix.eq0 = function(x){
   if(typeof x === "number")
     return (Math.abs(x) < Matrix.epsilon);
