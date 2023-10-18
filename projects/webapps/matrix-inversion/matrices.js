@@ -377,6 +377,27 @@ classify(Matrix, {
     }
     return true;
   },
+  ineq: function ineq(that){
+    return !this.eq(that);
+  },
+  exp: function exp(){
+    if(!this.is_square()){
+      throw err("Value", "cannot exponentiate a non-square matrix, because exponentiation requires the matrix to have an identity matrix, and a non-square matrix do not have an identity matrix!");
+    }
+    that = this.clone();
+    term = that.clone();
+    that.add(that.ident(), true);
+    that.add(term, true);
+    // e^x = 1 + x + x^2 / 2 + x^3 / 3! + x^4 / 4! ...
+    // n! = n factorial = (n-1)! * n
+    // 0! = 1! = 1
+    for(let i = 2; i < 10; i++){
+      term = term.scale(1/i).multiply(this);
+      that.add(term, true);
+    }
+    // mine goes up to x^9 / 9! (currently)
+    return that;
+  },
   /**
    * Print this matrix!
    * @param {number} toFixedDigits how many digits of each value to print
