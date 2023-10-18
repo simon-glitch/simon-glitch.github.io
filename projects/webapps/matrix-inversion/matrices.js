@@ -668,6 +668,7 @@ classify(Matrix, {
 
 classify(Matrix, {
   hypot: Matrix.prototype.abs,
+  diagonal_hypot: Matrix.prototype.diagonal_abs,
   vector_length: Matrix.prototype.abs,
   diagonal_sum: Matrix.prototype.diagonal_total,
 }, {}, "UPDATE");
