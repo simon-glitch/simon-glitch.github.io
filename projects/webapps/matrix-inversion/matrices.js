@@ -425,7 +425,7 @@ classify(Matrix, {
     * Y ineq()
     * is_vector()
     * really_transpose()
-    * hypot() / abs()
+    * hypot() / abs() / vector_length() // get the size of this matrix (as a vector)
     * Y exp()
     * pow(int)
     * pow(float)
