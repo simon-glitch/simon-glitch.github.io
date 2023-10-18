@@ -744,6 +744,7 @@ const Vector = (class Vector extends Matrix{
 
 classify(Vector, {
   width: 1,
+  leading_zeroes: 0,
   /**
     * Multiply this by that;
       * if that is a number, return the product of scaling this by that;
