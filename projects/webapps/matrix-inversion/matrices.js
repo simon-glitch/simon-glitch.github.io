@@ -110,8 +110,8 @@ const err = function(type, message){
 }
 
 /**
- * Create a randomizer; this.num() returns a random number in the range: [min, min + sep ... max - ((max - min) % sep)] (range is inclusive on both sides; the ellipsis are desmos range notation)
  * @class
+ * Create a randomizer; this.num() returns a random number in the range: [min, min + sep ... max - ((max - min) % sep)] (range is inclusive on both sides; the ellipsis are desmos range notation)
  * @param {Number} min minimum value this can generate
  * @param {Number} max maximum value this can generate
  * @param {Number} sep (separator) distance between values this can generate
@@ -389,7 +389,11 @@ classify(Matrix, {
   */
 });
 
-// uses normal arrays instead of float64 arrays
+// TODO: actually add this in
+/**
+ * @class
+ * Uses normal arrays instead of float64 arrays
+ */
 Matrix.Dynamic = classify(
   function Dynamic_Matrix(length, width){
     this.length = length || 1;
