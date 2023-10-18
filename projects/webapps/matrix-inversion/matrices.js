@@ -457,6 +457,13 @@ classify(Matrix, {
     return (this.width === 1);
   },
   /**
+   * Check wether this matrix is square.
+   * TODO: use this in other places.
+   */
+  is_square: function is_square(){
+    return (this.length === this.width);
+  },
+  /**
    * Convert this to a vector
    * @param {Boolean} reinitialize_values whether this should clone the values (in this.m); if reinitialize_values is false, then this.m will be reused, and the resulting vector will use the same TypedArray as this; if your goal is to slice this into a new vector, then set reinitialize_values = true;
    */
@@ -468,10 +475,23 @@ classify(Matrix, {
     else that.m = this.m;
     return that;
   },
+  total: function total(){
+    let s = 0;
+    for(let i = 0; i < this.m.length; i++)
+      s += this.m[i];
+    return s;
+  },
+  product: function product(){
+    let s = 0;
+    for(let i = 0; i < this.m.length; i++)
+      s *= this.m[i];
+    return s;
+  },
   /* TODO:
   add the following methods:
     * Y ineq()
     * Y is_vector()
+    * Y is_square()
     * Y really_transpose()
     * Y hypot() / abs() / vector_length() // get the size of this matrix (as a vector)
     * Y exp()
@@ -497,8 +517,8 @@ classify(Matrix, {
     * diagonal_sum() // get the product of the diagonal of this matrix
     * diagonal_abs() // get the absolute value of the diagonal of this matrix (i.e. this.diagonal().abs())
     * diagonal() // get just the diagonal of this matrix
-    * total() // get the total (sum) of all values in this matrix
-    * product() // get the product of all values in this matrix
+    * Y total() // get the total (sum) of all values in this matrix
+    * Y product() // get the product of all values in this matrix
     * minor(i, j) // get the result of removing row i and column j from this matrix
     * cofactors() // get the matrix of cofactors to this matrix
     * cofactor(i,j) // get the cofactor of this matrix, at coordinate {i,j}
