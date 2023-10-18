@@ -124,6 +124,7 @@ const coalesce = function(main, source, name_sets){
 
 /**
  * something has gone awry!
+ * @param {String} message (REQUIRED) message to describe why this error occured!
  */
 class ErrorError extends Error{
   description = "you really are not good at programming if you are getting this error; something might have gone terribly wrong somehwere;";
@@ -135,7 +136,7 @@ class ErrorError extends Error{
 /**
  * Creates an error of the specified type with the specified message.
  * @param {String} type name of the error type (i.e. "Syntax" for a SyntaxError)
- * @param {String} message the message describing the error
+ * @param {String} message the message describing why the error occured
  * @returns an error object, of type [type]Error, or just Error (if [type]Error) does not exist
  */
 const err = function(type, message){
