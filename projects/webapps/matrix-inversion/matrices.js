@@ -78,7 +78,27 @@ const coalesce = function(main, source, name_sets){
 };
 
 
+/**
+ * something has gone awry!
+ */
+class ErrorError extends Error{
+  description = "you really are not good at programming if you are getting this error; something might have gone terribly wrong somehwere;";
+  constructor(){
+    super(...arguments);
+  }
+}
+
+/**
+ * Creates an error of the specified type with the specified message.
+ * @param {String} type name of the error type (i.e. "Syntax" for a SyntaxError)
+ * @param {String} message the message describing the error
+ * @returns an error object, of type [type]Error, or just Error (if [type]Error) does not exist
+ */
 const err = function(type, message){
+  if(typeof type !== "string")
+    throw err("Error", "err requires a string value for type argument");
+  if(typeof message !== "string")
+    message = "For some reason, **someone** forgot to put an error message in here! You better fix THAT first before fixing the actual problem that caused this error to be thrown in the first place!";
   const name = type + "Error";
   let t = window[name];
   if(!t){
