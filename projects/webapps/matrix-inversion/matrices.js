@@ -18,7 +18,10 @@
   * @aside
     * Ah, I gotta say, everything makes more sense in code though.
     * Hmm, I wonder what kidns of strict rules there are on software copyrights. In particular, I wonder if certain copyright formats are invalid or if all copyrights are required to adhere to a certain format. I wonder how interpretation of a copyright works.
+      * well, I like the copyright format below;
+      * if your are against it, then feel free to contact me with friendly criticism;
   * @copyright
+    * @summary fully open-source copyright
     * allowed:
       * this program may be used as is;
       * this program may be spliced and distributed freely;
@@ -29,7 +32,9 @@
         * sold separately;
         * copyrighted separately;
         * used for any purpose allowed under the copy right of `A`;
-      * 
+    * disallowed:
+      * commerical use of this program without crediting me (Simon Glitch) is hereby not allowed;
+      * it would be disrespectful to profit from this without at least acknowledging my contributions;
  **/
 
 
