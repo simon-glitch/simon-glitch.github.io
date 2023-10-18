@@ -637,6 +637,20 @@ classify(Matrix, {
     return that;
   },
   /**
+   * Convert this to a Dynamic Matrix.
+   * @returns {Dynamic_Matrix} a clone of this matrix, with the same values in the same places, just formatted under a different data structure, that's all~
+   */
+  toDynamic: function toDynamic(){
+    const that = new Matrix.Dynamic(this.length, this.width);
+    let iy, ix;
+    for(iy = 0; iy < this.length; iy++){
+      for(ix = 0; ix < this.width; ix++){
+        that.set_at(iy, ix, this.get_at(iy, ix));
+      }
+    }
+    return that;
+  },
+  /**
     * Convert this matrix to an array; you can also add an arbitrary number of dimensions in the process
     * @param {Function} type the type of array-like object to convert this too;
       * defaults to Array;
@@ -761,11 +775,11 @@ classify(Matrix, {
     * Y diagonal() // get just the diagonal of this matrix
     * Y total() // get the total (sum) of all values in this matrix
     * Y product() // get the product of all values in this matrix
-    * minor(i, j) // get the result of removing row i and column j from this matrix
+    * Y minor(i, j) // get the result of removing row i and column j from this matrix
     * cofactors() // get the matrix of cofactors to this matrix
     * cofactor(i,j) // get the cofactor of this matrix, at coordinate {i,j}
     * Y toDoubleArray() // convert this matrix into a 2D array
-    * toDynamic() // convert this matrix into a dynamic matrix
+    * Y toDynamic() // convert this matrix into a dynamic matrix
     * Y toVector() // convert this into a vector (reuses the values of this.m)
     * Y toArray() // convert this into an array
     * toGrid(ArrayLikeClass) // convert this into a 2D instance of ArrayLikeClass, by simply assinging the values of this matrix to tje array-like class
