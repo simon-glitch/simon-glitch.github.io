@@ -55,6 +55,12 @@ classify.default_to_string = function toString(){
 };
 classify.UPDATE = "UPDATE";
 
+/**
+ * Copy properties of one object into another. This only mutates main.
+ * @param {object} main object to mutate
+ * @param {object} source (subject) object whose properties will be added to main
+ * @param {Array[String]} name_sets which properties (selected by property name) (of source) to pull from source and put in main
+ */
 const coalesce = function(main, source, name_sets){
   let i, ii, name_set, name, base_name, value;
   for(i = 0; i < name_sets.length; i++){
