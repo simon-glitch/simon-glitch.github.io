@@ -17,49 +17,43 @@
  * * `classify` will add properties from `proto_obj` to `f.prototype`, and add properties from sub_properties to `f` itself, leaving existing properties as is; `classify` also replaces existing properties if a new value is listed in `proto_obj` or `sub_properties` (respectively).
  * furthermore, `classify` automatically names methods in `proto_obj` and `sub_properties`!
  */
-const classify = (()=>{
-  let classify, default_toString;
-  classify.UPDATE = "UPDATE";
-  classify = function classify(f, proto_obj, sub_properties, ...args){
-    proto_obj = proto_obj ?? {};
-    sub_properties = sub_properties ?? {};
-    
-    let proto;
-    
-    if(args[0] !== classify.UPDATE){
-      f.name = f.name || "AnonymousClass";
-      f.prototype = proto_obj;
-      proto = new f(...args);
-      f.prototype = proto;
-      proto.constructor = f;
+const classify = function classify(f, proto_obj, sub_properties, ...args){
+  proto_obj = proto_obj ?? {};
+  sub_properties = sub_properties ?? {};
+  
+  let proto;
+  
+  if(args[0] !== classify.UPDATE){
+    f.name = f.name || "AnonymousClass";
+    f.prototype = proto_obj;
+    proto = new f(...args);
+    f.prototype = proto;
+    proto.constructor = f;
+  }
+  
+  for (let i in proto_obj){
+    const value = proto_obj[i];
+    if(typeof value === "function"){
+      value.name = value.name || i;
     }
-    
-    for (let i in proto_obj){
-      const value = proto_obj[i];
-      if(typeof value === "function"){
-        value.name = value.name || i;
-      }
-      proto[i] = value;
+    proto[i] = value;
+  }
+  for (let i in sub_properties){
+    const value = sub_properties[i];
+    if(typeof value === "function"){
+      value.name = value.name || i;
     }
-    for (let i in sub_properties){
-      const value = sub_properties[i];
-      if(typeof value === "function"){
-        value.name = value.name || i;
-      }
-      f[i] = value;
-    }
-    // I could just change Object.prototype's toString, but I kinda prefer manually setting f's toString:
-    if(proto.toString === {}.toString)
-      proto.toString = default_toString;
-    return f;
-  };
-  // is this not necessary?
-  default_toString = function toString(){
-    return "[object " + this.constructor.name + "]";
-  };
-  return classify;
-})();
-
+    f[i] = value;
+  }
+  // I could just change Object.prototype's toString, but I kinda prefer manually setting f's toString:
+  if(proto.toString === {}.toString)
+    proto.toString = classify.default_to_string;
+  return f;
+};
+classify.default_to_string = function toString(){
+  return "[object " + this.constructor.name + "]";
+};
+classify.UPDATE = "UPDATE";
 
 const coalesce = function(main, source, name_sets){
   let i, ii, name_set, name, base_name, value;
