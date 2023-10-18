@@ -126,7 +126,7 @@ const Rand = function Rand(min, max, sep){
 classify(
   Rand,
   {
-  min: -4,
+    min: -4,
     max: 4,
     sep: 1,
     num: function(){
