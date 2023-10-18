@@ -109,6 +109,7 @@ const err = function(type, message){
   return e;
 }
 
+// also, I added a JS doc in the last commit (sorry for not mentioning XD)
 
 
 const Rand = classify(
