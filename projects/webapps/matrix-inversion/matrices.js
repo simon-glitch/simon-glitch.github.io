@@ -18,6 +18,18 @@
   * @aside
     * Ah, I gotta say, everything makes more sense in code though.
     * Hmm, I wonder what kidns of strict rules there are on software copyrights. In particular, I wonder if certain copyright formats are invalid or if all copyrights are required to adhere to a certain format. I wonder how interpretation of a copyright works.
+  * @copyright
+    * allowed:
+      * this program may be used as is;
+      * this program may be spliced and distributed freely;
+      * then this program is used to a significant degree, it may be used for any of the following purposes:
+        * personal (individual use) by the distributor;
+        * commerical use, including commerical use that yields profit to the distributor;
+      * this program may be integrated or included in a another piece of software (named `A`), which may be:
+        * sold separately;
+        * copyrighted separately;
+        * used for any purpose allowed under the copy right of `A`;
+      * 
  **/
 
 
