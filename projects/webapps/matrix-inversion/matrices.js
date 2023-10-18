@@ -59,6 +59,7 @@
       * (since `classify.UPDATE simply = "UPDATE"`)
     * `classify` will add properties from `proto_obj` to `f.prototype`, and add properties from sub_properties to `f` itself, leaving existing properties as is; `classify` also replaces existing properties if a new value is listed in `proto_obj` or `sub_properties` (respectively).
   * furthermore, `classify` automatically names methods in `proto_obj` and `sub_properties`!
+  * I wish this JSDoc didn't print the arguments twice
  **/
 const classify = function classify(f, proto_obj, sub_properties, ...args){
   proto_obj = proto_obj ?? {};
