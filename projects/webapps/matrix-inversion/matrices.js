@@ -15,7 +15,9 @@
     * This is a header comment, written in JSDoc format. I will write an essay explaining how I use these in the future.
     * This is my first time doing this (this = writing a JSDoc header for my code);
     * so, this (this = my methods for writing a JSDoc header for my code) is still a WIP (which means that I haven't refined my methods or decided on the best practices for this yet).
-  * @aside Ah, I gotta say, everything makes more sense in code though.
+  * @aside
+    * Ah, I gotta say, everything makes more sense in code though.
+    * Hmm, I wonder what kidns of strict rules there are on software copyrights. In particular, I wonder if certain copyright formats are invalid or if all copyrights are required to adhere to a certain format. I wonder how interpretation of a copyright works.
  **/
 
 
