@@ -199,6 +199,8 @@ const Matrix = function Matrix(length, width, nickname){
     this.m[i] = [];
     for(j = 0; j < this.width; j++) this.m[i][j] = 0;
   };
+  
+  this.initialize_leading_zeroes();
 };
 
 classify(Matrix, {
@@ -429,6 +431,16 @@ classify(Matrix, {
     // um, I am not sure if this is faster or slower than the default method
     // good news: spread operator actually works on all `TypedArray`s
     return Math.hypot(...this.m);
+  },
+  initialize_leading_zeroes: function initialize_leading_zeroes(){
+    this.leading_zeroes = new Float64Array(this.length);
+  },
+  transpose: function transpose(){
+    const swap = this.length;
+    this.length = this.width;
+    this.width = swap;
+    this.is_tranposed = !this.is_tranposed;
+    this.initialize_leading_zeroes();
   },
   /**
    * Transposes this matrix, IN PLACE, for real. I love how elegant and magical-looking this funciton is.
