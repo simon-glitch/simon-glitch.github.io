@@ -547,6 +547,42 @@ classify(Matrix, {
     that_cc = that?.prototype?.constructor?.name;
     throw err("Type", "Either `that` was an invalid type or this code hasn't implemented expontitation for the type of `that` yet. Typeof that: " + (typeof that) + (that_c ? (", instanceof: " + that_c + (that_cc ?(" and " + that_cc) :"")) :""));
   },
+  /**
+    * Convert this matrix to a 2-D array (or a 2-D version of any array-like `type`)!
+    * @param {Function} type which class (or type) of Array-like object to coerce this matrix into
+    * @param {Boolean} type_allows_mapping whether the type has a map() method that works the same way Array's map() does
+    * @param {Boolean} type_accepts_length whether the type allows you to give the length as the first parameter when calling the constructor
+    * @returns {Array | type} A 2-D array (or a 2-D version of type), representing this matrix, composed with the values from this matrix.
+   **/
+  toDoubleArray: function toDoubleArray(type = Array, type_allows_mapping = false, type_accepts_length = true){
+    // this.auto_really_scale();
+    if(type === Array){
+      type_allows_mapping = true;
+    }
+    
+    // are these nested ternaries unintuitive?
+    const that = type_allows_mapping ?(
+      (
+        type_accepts_length ?(new Array()) :(new Array(this.length))
+      ).map(() => (
+        type_accepts_length ?(new Array()) :(new Array(this.length))
+      ))
+    ) : (
+      type_accepts_length ?(new Array()) :(new Array(this.length))
+    );
+    let iy, ix;
+    for(iy = 0; iy < this.length; iy++){
+      if(!type_allows_mapping){
+        that[iy] = (
+          type_accepts_length ?(new Array()) :(new Array(this.length))
+        );
+      }
+      for(ix = 0; ix < this.width; ix++){
+        that[iy][ix] = this.get_at(iy, ix);
+      }
+    }
+    return that;
+  },
   /* TODO:
   add the following methods:
     * Y ineq()
@@ -582,7 +618,7 @@ classify(Matrix, {
     * minor(i, j) // get the result of removing row i and column j from this matrix
     * cofactors() // get the matrix of cofactors to this matrix
     * cofactor(i,j) // get the cofactor of this matrix, at coordinate {i,j}
-    * toDoubleArray() // convert this matrix into a 2D array
+    * Y toDoubleArray() // convert this matrix into a 2D array
     * toDynamic() // convert this matrix into a dynamic matrix
     * Y toVector() // convert this into a vector (reuses the values of this.m)
     * toArray() // convert this into an array
