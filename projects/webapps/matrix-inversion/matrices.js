@@ -764,6 +764,17 @@ classify(Vector, {
     if(as_matrix) return that;
     return that.toVector();
   },
+  leading_zeroes: function(){
+    let i;
+    for(i = 0; i < this.m.length; i++){
+      if(!Matrix.eq0(this.m[i])){
+        i--;
+        break;
+      }
+      this.m[i] = 0;
+    }
+    return i;
+  },
 }, {}, "UPDATE");
 
 // TODO: actually add this in (i.e. implement Matrix.Dynamic);
