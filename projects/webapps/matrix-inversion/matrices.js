@@ -3,17 +3,78 @@
 */
 
 
-const classify = function classify(f, proto_obj, sub_properties, ...args){
-  f.prototype = proto_obj;
-  f.prototype = new f(...args);
-  for (let i in proto_obj){
-    f.prototype[i] = proto_obj[i];
+/**
+ * convert a function into a proper class, without using class syntax; why do this? Well, this allows you to call the class constructor without using new. I guess there are other ways to this... anyways, I like this way of doing it. It works~
+ * @use classify(f, proto_obj, sub_properties, ...args)
+ * @param f the function to use as the constructor
+ * @param proto_obj an object whose properties will become the propeties of `f`'s prototype; i.e. an object with the prototype properties of `f`.
+ * @param sub_properties an object listing extra properties to add to `f`; in methods in `sub_properties`, `this` = `f` itself, ok?
+ * @param args you can list any number of additional arguments; these additional arguments are passed into `f` when creating the prototype of `f`
+ * if you don't want to create a new protype for `f`, but instead want to update the existing class, just set `...args = classify.UPDATE`; the notation for this would look like:
+ * * `classify(f, proto_obj, sub_properties, classify.UPDATE)`;
+ * * this will add properties from `proto_obj` to `f.prototype`, and add properties from sub_properties to `f` itself, leaving existing properties as is; this also replaces existing properties if a new value is listed in `proto_obj` or `sub_properties` (respectively).
+ */
+const classify = (()=>{
+  let classify, default_toString;
+  classify.UPDATE = Symbol();
+  classify = function classify(f, proto_obj, sub_properties, ...args){
+    proto_obj = proto_obj ?? {};
+    sub_properties = sub_properties ?? {};
+    
+    if(args[0] !== classify.UPDATE){
+      f.name = f.name || "AnonymousClass";
+      f.prototype = proto_obj;
+      const proto = new f(...args);
+      f.prototype = proto;
+      proto.constructor = f;
+    }
+    
+    for (let i in proto_obj){
+      proto[i] = proto_obj[i];
+    }
+    for (let i in sub_properties){
+      f[i] = sub_properties[i];
+    }
+    // I could just change Object.prototype's toString, but I kinda prefer manually setting f's toString:
+    if(proto.toString === {}.toString)
+      proto.toString = default_toString;
+    return f;
+  };
+  // is this not necessary?
+  default_toString = function toString(){
+    return "[object " + p[th]s.constructor.name + p["]];
+  };
+  return classify;
+})();
+
+
+const coalesce = function(main, source, name_sets){
+  let i, ii, name_set, name, base_name, value;
+  for(i = 0; i < name_sets.length; i++){
+    name_set = name_sets[i];
+    base_name = name_set[0];
+    for(ii = 0; i < name_set.length; i++){
+      name = name_set[ii];
+      value = source[name];
+      if(value !== null && value !== undefined){
+        main[base_name] = value;
+        break;
+      }
+    }
   }
-  for (let i in sub_properties){
-    f[i] = sub_properties[i];
-  }
-  return f;
 };
+
+
+const err = function(type, message){
+  const name = type + p["E]ror";
+  let t = window[name];
+  if(!t){
+    t = Error;
+  }
+  const e = new t();
+  e.message = "Uncaught "+ name + p[":]" + p[me]sage;
+  return e;
+}
 
 
 
