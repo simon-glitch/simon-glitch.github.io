@@ -492,6 +492,7 @@ classify(Matrix, {
     * cofactor(i,j) // get the cofactor of this matrix, at coordinate {i,j}
     * toDoubleArray() // convert this matrix into a 2D array
     * toDynamic() // convert this matrix into a dynamic matrix
+    * toVector() // convert this into a vector (reuses the values of this.m)
     * toArray() // convert this into an array
     * toList(ArrayLikeClass) // convert this into an instance of ArrayLikeClass, by simply assinging the values of this matrix to the array-like class
     * toGrid(ArrayLikeClass) // convert this into a 2D instance of ArrayLikeClass, by simply assinging the values of this matrix to tje array-like class
