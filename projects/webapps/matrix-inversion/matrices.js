@@ -431,7 +431,10 @@ classify(Matrix, {
             text += " ";
         }
       }
-      text += ";\n";
+      if(i < this.length - 1){
+        text += ";";
+      }
+      text += "\n";
     }
     text += "]";
     return text;
