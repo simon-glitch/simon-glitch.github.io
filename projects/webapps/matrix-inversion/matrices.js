@@ -192,7 +192,7 @@ classify(
   * @param {Number} width the number of columns this matrix will have;
   * @param {String} nickname (optional) You can name the matrix;
  **/
-const Matrix = function Matrix(length, width, nickname){
+const Matrix = class Matrix{constructor(length, width, nickname){
   this.length = length || 0;
   this.width  = width  || this.length;
   this.nickname = nickname?.toString() ?? this.nickname;
@@ -204,7 +204,7 @@ const Matrix = function Matrix(length, width, nickname){
   };
   
   this.initialize_leading_zeroes();
-};
+}};
 
 /*==== ==== ==== ====**
   ==== Matrix main method set up
@@ -931,7 +931,7 @@ classify(Matrix, {
     * Y toArray() // convert this into an array
     * toGrid(ArrayLikeClass) // convert this into a 2D instance of ArrayLikeClass, by simply assinging the values of this matrix to tje array-like class
   */
-});
+}, {}, "UPDATE");
 
 /*==== ==== ==== ====**
   ==== Matrix method alternative names
