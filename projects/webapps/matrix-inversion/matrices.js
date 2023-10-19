@@ -911,8 +911,8 @@ classify(Matrix, {
     * row_space_span() // get the span of the row    space of this matrix
     * col_space_span() // get the span of the column space of this matrix
     * nul_space_span() // get the span of the null   space of this matrix
-    * ident() // get the identity matrix with the same dimensions as this matrix
-    * zero() // get the zero matrix with the same dimensions as this matrix
+    * Y ident() // get the identity matrix with the same dimensions as this matrix
+    * Y zero() // get the zero matrix with the same dimensions as this matrix
     * Y diagonal_product() // get the product of the diagonal of this matrix
     * Y diagonal_total / diagonal_sum() // get the product of the diagonal of this matrix
     * Y diagonal_abs() // get the absolute value of the diagonal of this matrix (i.e. this.diagonal().abs())
