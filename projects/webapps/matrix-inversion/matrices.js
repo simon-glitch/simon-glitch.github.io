@@ -939,6 +939,8 @@ classify(Matrix, {
     * Y toVector() // convert this into a vector (reuses the values of this.m)
     * Y toArray() // convert this into an array
     * unslice(array_like_object) // copy all values of this over into the array_like_object (mutating the parameter)
+    * Matrix.fromArray(array_like_object) // convert a 2D array-like object into a matrix
+    * Matrix.fromString(text) // convert a string of text (in the format of this.toString's output) into a matrix; so, `Matrix.fromString(this.toString(digits)).eq(this) === true`, as long as `digits` is large enough;
   */
 });
 
