@@ -495,11 +495,30 @@ classify(Matrix, {
     let semicolon = replace_semicolon_with_comma ?"," :";";
     let text = exclude_name ?"" :(this.to_dim_name());
     text += "[\n";
-    let i, j, k, value;
+    let i, j, k;
     let i_not_done = this.length > 0;
     let j_not_done = this.width  > 0;
     j_not_done &&= i_not_done;
     if(!j_not_done) text = text.slice(0, -1);
+    
+    let column_widths = new Int32Array(this.width);
+    let cell_strings = Array(this.length);
+    // find the widest width of any cell in each column
+    for(i = 0; i < this.length; i++){
+      cell_strings[i] = Array(this.width);
+      for(j = 0; j < this.width; j++){
+        cell_strings[i][j] = this.get_at(i,j).toFixed(toFixedDigits);
+        column_widths[j] = Math.max(column_widths[j], cell_strings[i][j].length);
+      }
+    }
+    // make all columns have consistent width
+    for(i = 0; i < this.length; i++){
+      for(j = 0; j < this.width; j++){
+        for(k = column_widths[j] - cell_strings[i][j].length; k > 0; k--){
+          cell_strings[i][j] = " " + cell_strings[i][j];
+        }
+      }
+    }
     
     // acronym: include row end semicolon THIS time
     let irestt;
@@ -511,10 +530,7 @@ classify(Matrix, {
       j_not_done = this.width  > 0;
       for(j = 0; j_not_done; j++){
         j_not_done = (j < this.width - 1);
-        value = this.get_at(i,j);
-        // handle lack of sign symbol on positive integers
-        text += (value > 0 ?" " :"");
-        text += value.toFixed(toFixedDigits);
+        text += cell_strings[i][j];
         if(
           j_not_done || (
             include_final_comma &&
