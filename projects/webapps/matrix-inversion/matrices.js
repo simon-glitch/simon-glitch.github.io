@@ -461,21 +461,23 @@ classify(Matrix, {
     let semicolon = replace_semicolon_with_comma ?"," :";";
     let text = exclude_name ?"" :(this.to_dim_name());
     text += "[\n";
-    let i, j, k, value;
-    for(i = 0; i < this.length; i++){
+    let i, j, k, value, i_not_done, j_not_done;
+    // acronym: include row end semicolon THIS time
+    let irestt;
+    for(i = 0; i_not_done; i++){
+      i_not_done = (i < this.length - 1);
+      irestt = include_row_end_semicolon || i_not_done;
       text += "  ";
-      for(j = 0; j < this.width; j++){
+      for(j = 0; j_not_done; j++){
+        j_not_done = (j < this.width - 1);
         value = this.get_at(i,j);
         // handle lack of sign symbol on positive integers
         text += (value > 0 ?" " :"");
         text += value.toFixed(toFixedDigits);
         if(
-          j < this.width - 1 || (
+          j_not_done || (
             include_final_comma &&
-            (
-              include_row_end_semicolon ||
-              i < this.length
-            )
+            irestt
           )
         ){
           text += ",";
@@ -483,7 +485,7 @@ classify(Matrix, {
             text += " ";
         }
       }
-      if(include_final_semicolon || i < this.length - 1){
+      if(irestt){
         text += ";";
       }
       text += "\n";
