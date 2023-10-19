@@ -1052,10 +1052,10 @@ Matrix.gen_singular = function(n, k){
 console.clear();
 if(1) onclick = function(){
   const me = Matrix.random(3,3);
-  console.log("me = " + me);
-  console.log("2*me = " + me.clone().scale( 2));
-  console.log("-me = "  + me.clone().scale(-1));
-  console.log("me^2 = "+ me.multiply(me));
+  console.log("me"   + " = " + me);
+  console.log("2*me" + " = " + me.clone().scale( 2));
+  console.log("-me"  + " = " + me.clone().scale(-1));
+  console.log("me^2" + " = " + me.multiply(me));
 };
 
 /*
