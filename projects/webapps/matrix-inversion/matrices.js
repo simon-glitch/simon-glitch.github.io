@@ -70,14 +70,11 @@ const classify = function classify(f, proto_obj, sub_properties, ...args){
   
   let proto;
   
-  if(args[0] !== classify.UPDATE){
-    f.name = f.name || "AnonymousClass";
-    f.prototype = proto_obj;
-    proto = new f.call(proto_obj, ...args);
-    f.prototype = proto;
-    proto.constructor = f;
+  const UPDATING = args[0] === classify.UPDATE;
+  
+  if(UPDATING){
+    proto = f.prototype;
   }
-  else proto = f.prototype;
   
   for (let i in proto_obj){
     const value = proto_obj[i];
@@ -93,6 +90,15 @@ const classify = function classify(f, proto_obj, sub_properties, ...args){
     }
     f[i] = value;
   }
+  
+  if(!UPDATING){
+    f.name = f.name || "AnonymousClass";
+    f.prototype = proto_obj;
+    proto = f.call(proto_obj, ...args);
+    f.prototype = proto;
+    proto.constructor = f;
+  }
+  
   // I could just change Object.prototype's toString, but I kinda prefer manually setting f's toString:
   if(proto.toString === {}.toString)
     proto.toString = classify.default_to_string;
@@ -192,7 +198,7 @@ classify(
   * @param {Number} width the number of columns this matrix will have;
   * @param {String} nickname (optional) You can name the matrix;
  **/
-const Matrix = class Matrix{constructor(length, width, nickname){
+const Matrix = constructor(length, width, nickname){
   this.length = length || 0;
   this.width  = width  || this.length;
   this.nickname = nickname?.toString() ?? this.nickname;
@@ -204,7 +210,7 @@ const Matrix = class Matrix{constructor(length, width, nickname){
   };
   
   this.initialize_leading_zeroes();
-}};
+};
 
 /*==== ==== ==== ====**
   ==== Matrix main method set up
