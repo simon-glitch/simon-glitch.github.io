@@ -1106,9 +1106,9 @@ if(1) onclick = function(){
   console.log("2*me" + " = " + me.clone().scale( 2));
   console.log("-me"  + " = " + me.clone().scale(-1));
   console.log("me^2" + " = " + me.multiply(me));
-  console.log("me's ident" + " = " + me.ident());
-  console.log("me's zero" + " = " + me.ident());
   console.log("me^2" + " also = " + me.pow(2));
+  console.log("me's ident" + " = " + me.ident());
+  console.log("me's zero"  + " = " + me.zero());
 };
 
 /*
