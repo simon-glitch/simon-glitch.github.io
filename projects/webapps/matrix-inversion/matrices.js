@@ -416,8 +416,9 @@ classify(Matrix, {
     * @param {Boolean} options_include_final_comma whether to put (include) a comma at the end of each row;
     * @param {Boolean} options_include_row_end_semicolon whether to put (include) a semicolon at the end of each row;
     * @param {Boolean} options_include_final_semicolon whether to put (include) the semicolon on the final row of the matrix; semicolon is only included if `options.include_row_end_semicolon` is `true`;
+    * @param {Boolean} options_replace_semicolon_with_comma whether to replace the semicolon at the end of each row with a comma; this does nothing if `options.include_row_end_semicolon` is `false`;
     * @param {Boolean} options_wrap_rows_with_brackets whether to wrap the rows with [square brackets];
-    * In case you are wondering: if {options_include_final_comma, options_include_row_end_semicolon, options_include_final_semicolon, and options_wrap_rows_with_brackets} are all set to true, then the matrix will print like this:
+    * In case you are wondering: if {options.include_final_comma, options.include_row_end_semicolon, options.include_final_semicolon, and options.wrap_rows_with_brackets} are all set to true, then the matrix will print like this:
     * ```
       * [
         * [0, 0, ... 0, 0,];
@@ -430,13 +431,22 @@ classify(Matrix, {
     * @returns {String} a string representing the matrix;
    **/
   toString: function toString(toFixedDigits = 3, options = {}){
-    column_padding = options.column_padding ?? 1;
-    exclude_name = options.exclude_name ?? false;
-    include_final_semicolon = options.include_final_semicolon ?? false;
-    include_final_comma = options.include_final_comma ?? false;
-    include_row_end_semicolon = options.include_row_end_semicolon ?? false;
-    wrap_rows_with_brackets = options.wrap_rows_with_brackets ?? false;
-    let text = exclude_name ?"" :(this.to_dim_name());
+    column_padding               =
+      options.column_padding               ??     1;
+    exclude_name                 =
+      options.exclude_name                 ?? false;
+    include_final_semicolon      =
+      options.include_final_semicolon      ?? false;
+    include_final_comma          =
+      options.include_final_comma          ?? false;
+    include_row_end_semicolon    =
+      options.include_row_end_semicolon    ??  true;
+    replace_semicolon_with_comma =
+      options.replace_semicolon_with_comma ?? false;
+    wrap_rows_with_brackets      =
+      options.wrap_rows_with_brackets      ?? false;
+    
+      let text = exclude_name ?"" :(this.to_dim_name());
     text += "[\n";
     let i, j, k, value;
     for(i = 0; i < this.length; i++){
@@ -446,13 +456,13 @@ classify(Matrix, {
         // handle lack of sign symbol on positive integers
         text += (value > 0 ?" " :"");
         text += value.toFixed(toFixedDigits);
-        if(j < this.width - 1){
+        if((include_final_comma && (include_row_end_semicolon || include_final_semicolon || i < this.length)) || j < this.width - 1){
           text += ",";
           for(k = 0; k < column_padding; k++)
             text += " ";
         }
       }
-      if(i < this.length - 1){
+      if(include_final_semicolon || i < this.length - 1){
         text += ";";
       }
       text += "\n";
