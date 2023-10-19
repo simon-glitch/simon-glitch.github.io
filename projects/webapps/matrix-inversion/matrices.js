@@ -411,13 +411,20 @@ classify(Matrix, {
     * Print this matrix!
     * @param {Number} toFixedDigits how many digits of each value to print;
     * @param {Object} options optional object with extra parameters (see below);
-    * @param {Number} options_column_padding the number of spaces to put between columns (after each comma);
-    * @param {Boolean} options_exclude_name whether to exclude the name header;
-    * @param {Boolean} options_include_final_comma whether to put (include) a comma at the end of each row;
-    * @param {Boolean} options_include_row_end_semicolon whether to put (include) a semicolon at the end of each row;
-    * @param {Boolean} options_include_final_semicolon whether to put (include) the semicolon on the final row of the matrix; semicolon is only included if `options.include_row_end_semicolon` is `true`;
-    * @param {Boolean} options_replace_semicolon_with_comma whether to replace the semicolon at the end of each row with a comma; this does nothing if `options.include_row_end_semicolon` is `false`;
-    * @param {Boolean} options_wrap_rows_with_brackets whether to wrap the rows with [square brackets];
+    * @param {Number} options_column_padding
+      the number of spaces to put between columns (after each comma);
+    * @param {Boolean} options_exclude_name
+      whether to exclude the name header;
+    * @param {Boolean} options_include_final_comma
+      whether to put (include) a comma at the end of each row;
+    * @param {Boolean} options_include_row_end_semicolon
+      whether to put (include) a semicolon at the end of each row;
+    * @param {Boolean} options_include_final_semicolon
+      whether to put (include) the semicolon on the final row of the matrix; semicolon is only included if `options.include_row_end_semicolon` is `true`;
+    * @param {Boolean} options_replace_semicolon_with_comma
+      whether to replace the semicolon at the end of each row with a comma; this does nothing if `options.include_row_end_semicolon` is `false`;
+    * @param {Boolean} options_wrap_rows_with_brackets
+      whether to wrap the rows with [square brackets];
     * In case you are wondering: if {options.include_final_comma, options.include_row_end_semicolon, options.include_final_semicolon, and options.wrap_rows_with_brackets} are all set to true, then the matrix will print like this:
     * ```
       * [
