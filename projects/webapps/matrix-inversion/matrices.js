@@ -976,8 +976,22 @@ classify(Matrix, {
     const zeros_at = function(i){
       return that.leading_zeroes[sir[i]];
     };
+    // subtract `multiplier` times `subtrahend_row` from `result_row` and store the result in `result_row`
+    // this uses indices to make things EXTRA FAST and PERFORMANT
+    // @inline
+    const sub_row = function(result_row_index, subtrahend_row_index, multiplier){
+      let k1 = result_row_index;
+      let k2 = subtrahend_row_index;
+      for(let j = 0; j < this.width; j++, k1 += this.length, k2 += this.length){
+        this.m[k1] -= multiplier * this.m[k2];
+      }
+    };
     
-    // ...
+    for(let i = 1; i < this.length; i++){
+      for(let i2 = 0; i2 < i; i2++){
+        
+      }
+    }
     
     
     return that;
@@ -1026,6 +1040,7 @@ classify(Matrix, {
     * unslice(array_like_object) // copy all values of this over into the array_like_object (mutating the parameter)
     * Matrix.fromArray(array_like_object) // convert a 2D array-like object into a matrix
     * Matrix.fromString(text) // convert a string of text (in the format of this.toString's output) into a matrix; so, `Matrix.fromString(this.toString(digits)).eq(this) === true`, as long as `digits` is large enough;
+    * Matrix.Dynamic.toMatrix // convert a Dynamic_Matrix to a Matrix;
   */
 });
 
