@@ -964,7 +964,7 @@ Matrix.Dynamic = function Dynamic_Matrix(length, width){
   const a_t = (this.actual_transposition = new Array(this.width));
   for(i = 0; i < this.width; i++){
     a_t[i] = new Array(this.length);
-    for(j = 0; j < this.length; j++) at[i][j] = this.m[j][i];
+    for(j = 0; j < this.length; j++) a_t[i][j] = this.m[j][i];
   }
   
   return this;
