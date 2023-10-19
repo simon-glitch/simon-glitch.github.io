@@ -885,6 +885,9 @@ classify(Matrix, {
     const that = Matrix(this.length, this.width);
     return that;
   },
+  initialize_leading_zeroes: function initialize_leading_zeroes(){
+    this.leading_zeroes = new Int32Array(this.length);
+  },
   /* TODO:
   add the following methods:
     * Y ineq()
