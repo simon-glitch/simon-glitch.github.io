@@ -210,10 +210,10 @@ const Matrix = function Matrix(length, width, nickname){
   ==== Matrix main method set up
 **==== ==== ==== ====*/
 classify(Matrix, {
-  m: (new Float64Array(0)),
+  m: (new Float64Array(1)),
   is_tranposed: false,
-  length: 0,
-  width: 0,
+  length: 1,
+  width: 1,
   scalar: 1,
   nickname: "",
   leading_zeroes: (new Float64Array(0)),
