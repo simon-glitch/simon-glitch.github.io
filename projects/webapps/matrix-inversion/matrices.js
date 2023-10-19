@@ -455,6 +455,9 @@ classify(Matrix, {
     
     replace_semicolon_with_comma &&= include_row_end_semicolon;
     include_final_semicolon      &&= include_row_end_semicolon;
+    include_final_comma &&=
+      (!replace_semicolon_with_comma) ||
+      wrap_rows_with_brackets;
     let semicolon = replace_semicolon_with_comma ?"," :";";
     let text = exclude_name ?"" :(this.to_dim_name());
     text += "[\n";
@@ -468,13 +471,9 @@ classify(Matrix, {
         text += value.toFixed(toFixedDigits);
         if(
           j < this.width - 1 || (
-            (
-              include_final_comma &&
-              !replace_semicolon_with_comma
-            ) &&
+            include_final_comma &&
             (
               include_row_end_semicolon ||
-              include_final_semicolon ||
               i < this.length
             )
           )
