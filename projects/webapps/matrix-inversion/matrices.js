@@ -438,22 +438,25 @@ classify(Matrix, {
     * @returns {String} a string representing the matrix;
    **/
   toString: function toString(toFixedDigits = 3, options = {}){
-    column_padding               =
+    let column_padding               =
       options.column_padding               ??     1;
-    exclude_name                 =
+    let exclude_name                 =
       options.exclude_name                 ?? false;
-    include_final_semicolon      =
+    let include_final_semicolon      =
       options.include_final_semicolon      ?? false;
-    include_final_comma          =
+    let include_final_comma          =
       options.include_final_comma          ?? false;
-    include_row_end_semicolon    =
+    let include_row_end_semicolon    =
       options.include_row_end_semicolon    ??  true;
-    replace_semicolon_with_comma =
+    let replace_semicolon_with_comma =
       options.replace_semicolon_with_comma ?? false;
-    wrap_rows_with_brackets      =
+    let wrap_rows_with_brackets      =
       options.wrap_rows_with_brackets      ?? false;
     
-      let text = exclude_name ?"" :(this.to_dim_name());
+    replace_semicolon_with_comma &&= include_row_end_semicolon;
+    include_final_semicolon      &&= include_row_end_semicolon;
+    let semicolon = replace_semicolon_with_comma ?"," :";";
+    let text = exclude_name ?"" :(this.to_dim_name());
     text += "[\n";
     let i, j, k, value;
     for(i = 0; i < this.length; i++){
