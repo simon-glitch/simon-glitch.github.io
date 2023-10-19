@@ -75,6 +75,9 @@ const classify = function classify(f, proto_obj, sub_properties, ...args){
     f.prototype = proto;
     proto.constructor = f;
   }
+  else{
+    proto = f.prototype;
+  }
   
   for (let i in proto_obj){
     const value = proto_obj[i];
