@@ -466,7 +466,19 @@ classify(Matrix, {
         // handle lack of sign symbol on positive integers
         text += (value > 0 ?" " :"");
         text += value.toFixed(toFixedDigits);
-        if((include_final_comma && (include_row_end_semicolon || include_final_semicolon || i < this.length)) || j < this.width - 1){
+        if(
+          j < this.width - 1 || (
+            (
+              include_final_comma &&
+              !replace_semicolon_with_comma
+            ) &&
+            (
+              include_row_end_semicolon ||
+              include_final_semicolon ||
+              i < this.length
+            )
+          )
+        ){
           text += ",";
           for(k = 0; k < column_padding; k++)
             text += " ";
