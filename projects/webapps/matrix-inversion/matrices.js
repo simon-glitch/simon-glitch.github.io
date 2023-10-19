@@ -408,14 +408,35 @@ classify(Matrix, {
     return that;
   },
   /**
-   * Print this matrix!
-   * @param {Number} toFixedDigits how many digits of each value to print
-   * @param {Boolean} excludeName whether to exclude the name header
-   * @param {Number} column_padding the number of spaces to put between columns (after each comma)
-   * @returns {String} a string representing the matrix
-   */
-  toString: function toString(toFixedDigits = 3, excludeName = false, column_padding = 1){
-    let text = excludeName ?"" :(this.to_dim_name());
+    * Print this matrix!
+    * @param {Number} toFixedDigits how many digits of each value to print;
+    * @param {Object} options optional object with extra parameters (see below);
+    * @param {Number} options.column_padding the number of spaces to put between columns (after each comma);
+    * @param {Boolean} options_exclude_name whether to exclude the name header;
+    * @param {Boolean} options_include_final_comma whether to put (include) a comma at the end of each row;
+    * @param {Boolean} options_include_row_end_semicolon whether to put (include) a semicolon at the end of each row;
+    * @param {Boolean} options_include_final_semicolon whether to put (include) the semicolon on the final row of the matrix; semicolon is only included if `options.include_row_end_semicolon` is `true`;
+    * @param {Boolean} options_wrap_rows_with_brackets whether to wrap the rows with [square brackets];
+    * In case you are wondering: if {options_include_final_comma, options_include_row_end_semicolon, options_include_final_semicolon, and options_wrap_rows_with_brackets} are all set to true, then the matrix will print like this:
+    * ```
+      * [
+        * [0, 0, ... 0, 0,];
+        * [0, 0, ... 0, 0,];
+        * ...
+        * [0, 0, ... 0, 0,];
+        * [0, 0, ... 0, 0,];
+      * ]
+    * ```
+    * @returns {String} a string representing the matrix;
+   **/
+  toString: function toString(toFixedDigits = 3, options = {}){
+    column_padding = options.column_padding ?? 1;
+    exclude_name = options.exclude_name ?? false;
+    include_final_semicolon = options.include_final_semicolon ?? false;
+    include_final_comma = options.include_final_comma ?? false;
+    include_row_end_semicolon = options.include_row_end_semicolon ?? false;
+    wrap_rows_with_brackets = options.wrap_rows_with_brackets ?? false;
+    let text = exclude_name ?"" :(this.to_dim_name());
     text += "[\n";
     let i, j, k, value;
     for(i = 0; i < this.length; i++){
