@@ -897,6 +897,24 @@ classify(Matrix, {
   initialize_leading_zeroes: function initialize_leading_zeroes(){
     this.leading_zeroes = new Int32Array(this.length);
   },
+  floor: function floor(){
+    for(let i = 0; i < this.m.length; i++){
+      this.m[i] = Math.floor(this.m[i]);
+    }
+    return this;
+  },
+  ceil: function ceil(){
+    for(let i = 0; i < this.m.length; i++){
+      this.m[i] = Math.ceil(this.m[i]);
+    }
+    return this;
+  },
+  round: function round(){
+    for(let i = 0; i < this.m.length; i++){
+      this.m[i] = Math.round(this.m[i]);
+    }
+    return this;
+  },
   /* TODO:
   add the following methods:
     * Y ineq()
