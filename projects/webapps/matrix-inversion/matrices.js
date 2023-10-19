@@ -890,7 +890,7 @@ classify(Matrix, {
     }
     return that;
   },
-  zero: function zerp(){
+  zero: function zero(){
     const that = Matrix(this.length, this.width);
     return that;
   },
