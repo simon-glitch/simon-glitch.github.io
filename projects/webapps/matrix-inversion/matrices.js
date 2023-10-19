@@ -884,7 +884,7 @@ classify(Matrix, {
     if(!this.is_square()){
       throw err("Value", "Can not find the identity matrix corresponding to a non-square matrix! (Tried to find the identity of " + this.to_dim_name() + ")");
     }
-    const that = Matrix(this.length, this.width);
+    const that = new Matrix(this.length, this.width);
     for(let i = 0; i < this.length; i++){
       that.set_at(i, i, 0);
     }
@@ -1099,7 +1099,7 @@ Matrix.gen_singular = function(n, k){
 };
 
 
-console.clear();
+// console.clear();
 if(1) onclick = function(){
   const me = Matrix.random(3,3);
   console.log("me"   + " = " + me);
