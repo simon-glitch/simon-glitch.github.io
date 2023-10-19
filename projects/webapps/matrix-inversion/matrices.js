@@ -507,6 +507,8 @@ classify(Matrix, {
       i_not_done = (i < this.length - 1);
       irestt = include_row_end_semicolon || i_not_done;
       text += "  ";
+      
+      j_not_done = this.width  > 0;
       for(j = 0; j_not_done; j++){
         j_not_done = (j < this.width - 1);
         value = this.get_at(i,j);
