@@ -411,7 +411,7 @@ classify(Matrix, {
     * Print this matrix!
     * @param {Number} toFixedDigits how many digits of each value to print;
     * @param {Object} options optional object with extra parameters (see below);
-    * @param {Number} options.column_padding the number of spaces to put between columns (after each comma);
+    * @param {Number} options_column_padding the number of spaces to put between columns (after each comma);
     * @param {Boolean} options_exclude_name whether to exclude the name header;
     * @param {Boolean} options_include_final_comma whether to put (include) a comma at the end of each row;
     * @param {Boolean} options_include_row_end_semicolon whether to put (include) a semicolon at the end of each row;
