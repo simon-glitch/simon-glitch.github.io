@@ -933,6 +933,24 @@ classify(Matrix, {
     }
     return this;
   },
+  /**
+   * Count the number of leading zeroes in each row of this matrix, and mutate this.leading_zeroes accordingly in the processs.
+   * @param {Boolean} dont_recount whether we should assume that the zeroes that were in the matrix last time we counted remaining zeroes are still zeroes
+   * @returns {Int32Array} the number of leading zeroes in each row (literally this.leading_zeroes)
+   */
+  count_leading_zeroes: function(dont_recount = false){
+    let i, j, k;
+    for(i = 0; i < this.length; i++){
+      for(j = dont_recount ?(this.leading_zeroes[i]) :0; j < this.length; j++){
+        if(Matrix.eq0(this.get_at(i, j))){
+          this.set_at(i, j, 0);
+        }
+        else break;
+      }
+      this.leading_zeroes[i] = j;
+    }
+    return this.leading_zeroes;
+  },
   /* TODO:
   add the following methods:
     * Y ineq()
