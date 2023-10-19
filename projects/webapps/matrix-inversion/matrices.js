@@ -80,6 +80,7 @@ const classify = function classify(f, proto_obj, sub_properties, ...args){
   }
   
   for (let i in proto_obj){
+    console.log("adding " + i + "!");
     const value = proto_obj[i];
     if(typeof value === "function"){
       value.name = value.name || i;
