@@ -951,6 +951,37 @@ classify(Matrix, {
     }
     return this.leading_zeroes;
   },
+  /**
+   * Use Guassian Elimination (G.E.) to convert this matrix to Row Echelon Form (R.E.F.)
+   * @returns {Matrix} clone of this matrix, in REF
+   */
+  ref: function ref(){
+    const that = this.clone();
+    
+    that.count_leading_zeroes();
+    // acronym SIR: Swapped Row Indices
+    const sir = Int32Array(this.length);
+    // convenience functions (these can actually be compiled out *wink wink* if you want)
+    // @inline
+    const swap = function(i1, i2){
+      const swap_i = sir[i1];
+      sir[i1] = sir[i2];
+      sir[i2] = swap_i;
+    };
+    // @inline
+    const at = function(i, j){
+      return that.get_at(sir[i], j);
+    };
+    // @inline
+    const zeros_at = function(i){
+      return that.leading_zeroes[sir[i]];
+    };
+    
+    // ...
+    
+    
+    return that;
+  },
   /* TODO:
   add the following methods:
     * Y ineq()
