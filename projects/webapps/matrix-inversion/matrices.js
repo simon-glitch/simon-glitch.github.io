@@ -725,9 +725,9 @@ classify(Matrix, {
       for(let i = binary.length - 1; i >= 0; i--){
         if(+binary[i]){
           result = result.multiply(power);
-          if(i > 0){
-            power = power.multiply(power);
-          }
+        }
+        if(i > 0){
+          power = power.multiply(power);
         }
       }
       return result;
