@@ -204,6 +204,9 @@ const Matrix = function Matrix(length, width, nickname){
   this.initialize_leading_zeroes();
 };
 
+/*==== ==== ==== ====**
+  ==== Matrix main method set up
+**==== ==== ==== ====*/
 classify(Matrix, {
   m: (new Float64Array(0)),
   is_tranposed: false,
@@ -787,6 +790,9 @@ classify(Matrix, {
   */
 });
 
+/*==== ==== ==== ====**
+  ==== Matrix method alternative names
+**==== ==== ==== ====*/
 classify(Matrix, {
   hypot: Matrix.prototype.abs,
   vector_length: Matrix.prototype.abs,
@@ -800,6 +806,9 @@ const Vector = (class Vector extends Matrix{
   }
 });
 
+/*==== ==== ==== ====**
+  ==== Vector method main set up
+**==== ==== ==== ====*/
 classify(Vector, {
   width: 1,
   leading_zeroes: 0,
@@ -852,14 +861,44 @@ Matrix.Dynamic = function Dynamic_Matrix(length, width){
     this.m[i] = new Array(this.width);
     for(j = 0; j < this.width; j++) this.m[i][j] = [0];
   }
+  const a_t = (this.actual_transposition = new Array(this.width));
+  for(i = 0; i < this.width; i++){
+    a_t[i] = new Array(this.length);
+    for(j = 0; j < this.length; j++) at[i][j] = this.m[j][i];
+  }
+  
+  return this;
 };
+classify(Matrix.Dynamic, {}, {}, 1, 1);
 
+/*==== ==== ==== ====**
+  ==== Dynamic Matrix method inheritance from Matrix
+**==== ==== ==== ====*/
+coalesce(Matrix.Dynamic.prototype, Matrix.prototype, [
+  "abs",
+]);
+
+/*==== ==== ==== ====**
+  ==== Dynamic Matrix method set up
+**==== ==== ==== ====*/
 classify(Matrix.Dynamic, {
+  m: [[[0]]],
+  actual_transposition: [[[0]]],
   get_at: function get_at(i_row, i_col){
     return this.m?.[i_row]?.[i_col]?.[0];
   },
-  abs: Matrix.prototype.abs,
-});
+  set_at: function set_at(i_row, i_col, value){
+    a = this.m[i_row];
+    // throw RangeError?
+    if(!a) return undefined;
+    a = a[i_col];
+    // throw RangeError?
+    // or throw ValueError?
+    //   (Matrix entry's Array wrapper was [removed in the past / not present])
+    if(!a) return undefined;
+    return (a[0] = value);
+  },
+}, {}, classify.UPDATE);
 
 // generate a random n by k matrix
 Matrix.random = function(length, width){
@@ -906,7 +945,7 @@ Matrix.gen_singular = function(n, k){
 
 
 console.clear();
-if(0) onclick = function(){
+if(1) onclick = function(){
   const me = Matrix.random(3,3);
   console.log("me = " + me);
   console.log("2*me = " + me.clone().scale( 2));
