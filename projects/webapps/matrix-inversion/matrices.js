@@ -938,7 +938,7 @@ classify(Matrix, {
     * Y toDynamic() // convert this matrix into a dynamic matrix
     * Y toVector() // convert this into a vector (reuses the values of this.m)
     * Y toArray() // convert this into an array
-    * toGrid(ArrayLikeClass) // convert this into a 2D instance of ArrayLikeClass, by simply assinging the values of this matrix to tje array-like class
+    * unslice(array_like_object) // copy all values of this over into the array_like_object (mutating the parameter)
   */
 });
 
