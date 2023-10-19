@@ -718,7 +718,7 @@ classify(Matrix, {
       if(that < 0){
         return this.inv().pow(that);
       }
-      const result = this.ident();
+      let result = this.ident();
       let power = this.clone();
       const binary = that.toString(2);
       // use repeated squaring to quickly exponentiate up to any large power
