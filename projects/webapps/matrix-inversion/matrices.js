@@ -432,16 +432,28 @@ classify(Matrix, {
     * @param {Boolean} options_wrap_rows_with_brackets
       whether to wrap the rows with [square brackets];
       short name: `wrwb`;
-    * In case you are wondering: if `{ifc, ires, ifc, and wrwb}` are all set to true, then the matrix will print like this:
-    * ```
-      * [
-        * [0, 0, ... 0, 0,];
-        * [0, 0, ... 0, 0,];
-        * ...
-        * [0, 0, ... 0, 0,];
-        * [0, 0, ... 0, 0,];
-      * ]
-    * ```
+    * In case you are wondering:
+      if `{ifc, ires, ifc, and wrwb}` are all set to true, then the matrix will print like this:
+      ```
+      [
+        [0, 0, ... 0, 0,];
+        [0, 0, ... 0, 0,];
+        ...
+        [0, 0, ... 0, 0,];
+        [0, 0, ... 0, 0,];
+      ]
+      if `{ifc = true, ires = false, ifc = any, and wrwb = false, rbws = true}`, then the matrix will print like this:
+      ```
+      [
+        0, 0, ... 0, 0
+        0, 0, ... 0, 0
+        ...
+        0, 0, ... 0, 0
+        0, 0, ... 0, 0
+      ]
+      * @aside
+        now that I think about it, there are a lot of combinations of options that are redundant with eachother; also, this toString function is ... pretty complicated; maybe I should make it more simple and less versatile;
+      ```
     * @returns {String} a string representing the matrix;
    **/
   toString: function toString(toFixedDigits = 3, options = {}){
