@@ -718,19 +718,19 @@ classify(Matrix, {
       if(that < 0){
         return this.inv().pow(that);
       }
-      that = this.ident();
+      const result = this.ident();
       let power = this.clone();
       const binary = that.toString(2);
       // use repeated squaring to quickly exponentiate up to any large power
       for(let i = binary.length - 1; i >= 0; i--){
         if(binary[i]){
-          that = that.multiply(power);
+          result = result.multiply(power);
           if(i > 0){
             power = power.multiply(power);
           }
         }
       }
-      return that;
+      return result;
     }
     that_c = that?.constructor?.name;
     that_cc = that?.prototype?.constructor?.name;
