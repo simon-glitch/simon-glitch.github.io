@@ -921,6 +921,18 @@ classify(Matrix, {
     }
     return this;
   },
+  hypoceil: function hypoceil(){
+    for(let i = 0, s; i < this.m.length; i++){
+      this.m[i] = Math.sign(this.m[i]) * Math.ceil(Math.abs(this.m[i]));
+    }
+    return this;
+  },
+  hyporound: function hyporound(){
+    for(let i = 0, s; i < this.m.length; i++){
+      this.m[i] = Math.sign(this.m[i]) * Math.round(Math.abs(this.m[i]));
+    }
+    return this;
+  },
   /* TODO:
   add the following methods:
     * Y ineq()
@@ -938,8 +950,8 @@ classify(Matrix, {
     * Y ceil () // just applies ceil () to each value
     * Y round() // just applies round() to each value
     * Y hypofloor() / hypotrunc() // just applies floor() or ceil()s to each value, towards 0
-    * hypoceil () // just applies floor() or ceil() to each value, in the current direction of the value
-    * hyporound() ? // applies floor() or ceil() to each value towards Math.sign(value) * this.abs()
+    * Y hypoceil () // just applies floor() or ceil() to each value, in the current direction of the value
+    * Y hyporound() // applies floor() or ceil() to each value towards Math.sign(value) * this.abs()
     * det () // determinant (of this matrix)
     * ref () // row echelon form (of this matrix)
     * rref() // reduced row echelon form (of this matrix)
