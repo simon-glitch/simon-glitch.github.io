@@ -1107,6 +1107,8 @@ if(1) onclick = function(){
   console.log("-me"  + " = " + me.clone().scale(-1));
   console.log("me^2" + " = " + me.multiply(me));
   console.log("me^2" + " also = " + me.pow(2));
+  console.log("me^3" + " = " + me.multiply(me).multiply(me));
+  console.log("me^3" + " also = " + me.pow(3));
   console.log("me's ident" + " = " + me.ident());
   console.log("me's zero"  + " = " + me.zero());
 };
