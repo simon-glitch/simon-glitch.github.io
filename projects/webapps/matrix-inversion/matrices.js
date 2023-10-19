@@ -494,7 +494,9 @@ classify(Matrix, {
     let semicolon = replace_semicolon_with_comma ?"," :";";
     let text = exclude_name ?"" :(this.to_dim_name());
     text += "[\n";
-    let i, j, k, value, i_not_done, j_not_done;
+    let i, j, k, value;
+    let i_not_done = this.length > 0;
+    let j_not_done = this.width  > 0;
     // acronym: include row end semicolon THIS time
     let irestt;
     for(i = 0; i_not_done; i++){
