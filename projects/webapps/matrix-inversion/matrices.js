@@ -871,6 +871,20 @@ classify(Matrix, {
       jy++;
     }
   },
+  ident: function ident(){
+    if(!this.is_square()){
+      throw err("Value", "Can not find the identity matrix corresponding to a non-square matrix! (Tried to find the identity of " + this.to_dim_name() + ")");
+    }
+    const that = Matrix(this.length, this.width);
+    for(let i = 0; i < this.length; i++){
+      that.set_at(i, i, 0);
+    }
+    return that;
+  },
+  zero: function zerp(){
+    const that = Matrix(this.length, this.width);
+    return that;
+  },
   /* TODO:
   add the following methods:
     * Y ineq()
@@ -897,6 +911,8 @@ classify(Matrix, {
     * row_space_span() // get the span of the row    space of this matrix
     * col_space_span() // get the span of the column space of this matrix
     * nul_space_span() // get the span of the null   space of this matrix
+    * ident() // get the identity matrix with the same dimensions as this matrix
+    * zero() // get the zero matrix with the same dimensions as this matrix
     * Y diagonal_product() // get the product of the diagonal of this matrix
     * Y diagonal_total / diagonal_sum() // get the product of the diagonal of this matrix
     * Y diagonal_abs() // get the absolute value of the diagonal of this matrix (i.e. this.diagonal().abs())
@@ -1000,6 +1016,9 @@ classify(Matrix.Dynamic, {}, {}, 1, 1);
 **==== ==== ==== ====*/
 coalesce(Matrix.Dynamic.prototype, Matrix.prototype, [
   "abs",
+  "minor",
+  "ident",
+  "zero",
 ]);
 
 /*==== ==== ==== ====**
