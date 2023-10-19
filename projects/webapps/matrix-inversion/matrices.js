@@ -723,7 +723,7 @@ classify(Matrix, {
       const binary = that.toString(2);
       // use repeated squaring to quickly exponentiate up to any large power
       for(let i = binary.length - 1; i >= 0; i--){
-        if(binary[i]){
+        if(+binary[i]){
           result = result.multiply(power);
           if(i > 0){
             power = power.multiply(power);
