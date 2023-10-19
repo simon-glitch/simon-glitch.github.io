@@ -891,7 +891,7 @@ classify(Matrix, {
     return that;
   },
   zero: function zero(){
-    const that = Matrix(this.length, this.width);
+    const that = new Matrix(this.length, this.width);
     return that;
   },
   initialize_leading_zeroes: function initialize_leading_zeroes(){
