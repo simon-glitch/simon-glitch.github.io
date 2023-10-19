@@ -486,7 +486,7 @@ classify(Matrix, {
         }
       }
       if(irestt){
-        text += ";";
+        text += semicolon;
       }
       text += "\n";
     }
