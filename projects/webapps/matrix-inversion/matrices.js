@@ -97,7 +97,7 @@ const classify = function classify(f, proto_obj, sub_properties, ...args){
   if(!UPDATING){
     f.name = f.name || "AnonymousClass";
     f.prototype = proto_obj;
-    proto = f.call(proto_obj, ...args);
+    f.call(proto, ...args);
     f.prototype = proto;
     proto.constructor = f;
   }
