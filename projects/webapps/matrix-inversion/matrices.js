@@ -411,22 +411,30 @@ classify(Matrix, {
    * Print this matrix!
    * @param {Number} toFixedDigits how many digits of each value to print
    * @param {Boolean} excludeName whether to exclude the name header
+   * @param {Number} column_padding the number of spaces to put between columns (after each comma)
    * @returns {String} a string representing the matrix
    */
-  toString: function toString(toFixedDigits = 3, excludeName = false){
-    let str = excludeName ?"" :(this.to_dim_name());
-    str += "[\n";
-    let i,j;
+  toString: function toString(toFixedDigits = 3, excludeName = false, column_padding = 1){
+    let text = excludeName ?"" :(this.to_dim_name());
+    text += "[\n";
+    let i, j, k, value;
     for(i = 0; i < this.length; i++){
-      str += "  ";
+      text += "  ";
       for(j = 0; j < this.width; j++){
-        str += this.get_at(i,j).toFixed(toFixedDigits);
-        if(j < this.width - 1) str += ", ";
+        value = this.get_at(i,j);
+        // handle lack of sign symbol on positive integers
+        text += (value > 0 ?" " :"");
+        text += value.toFixed(toFixedDigits);
+        if(j < this.width - 1){
+          text += ",";
+          for(k = 0; k < column_padding; k++)
+            text += " ";
+        }
       }
-      str += ";\n";
+      text += ";\n";
     }
-    str += "]";
-    return str;
+    text += "]";
+    return text;
   },
   /**
    * get the "absolute value" of this matrix or vector
