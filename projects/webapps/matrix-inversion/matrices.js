@@ -497,6 +497,9 @@ classify(Matrix, {
     let i, j, k, value;
     let i_not_done = this.length > 0;
     let j_not_done = this.width  > 0;
+    j_not_done &&= i_not_done;
+    if(!j_not_done) text = text.slice(0, -1);
+    
     // acronym: include row end semicolon THIS time
     let irestt;
     for(i = 0; i_not_done; i++){
