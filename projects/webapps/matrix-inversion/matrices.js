@@ -939,7 +939,7 @@ classify(Matrix, {
     * Y toArray() // convert this into an array
     * toGrid(ArrayLikeClass) // convert this into a 2D instance of ArrayLikeClass, by simply assinging the values of this matrix to tje array-like class
   */
-}, {}, "UPDATE");
+});
 
 /*==== ==== ==== ====**
   ==== Matrix method alternative names
