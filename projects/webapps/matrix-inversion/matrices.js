@@ -886,7 +886,7 @@ classify(Matrix, {
     }
     const that = new Matrix(this.length, this.width);
     for(let i = 0; i < this.length; i++){
-      that.set_at(i, i, 0);
+      that.set_at(i, i, 1);
     }
     return that;
   },
