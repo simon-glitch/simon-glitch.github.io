@@ -915,6 +915,12 @@ classify(Matrix, {
     }
     return this;
   },
+  hypofloor: function hypofloor(){
+    for(let i = 0; i < this.m.length; i++){
+      this.m[i] = Math.trunc(this.m[i]);
+    }
+    return this;
+  },
   /* TODO:
   add the following methods:
     * Y ineq()
@@ -928,10 +934,10 @@ classify(Matrix, {
     * inv() // inverse (calculated via GAUSSIAN ELIMINATION)
     * div(that) // divide, this.div(that) = this.multiply(that.inv())
     * mod(that) // modulo, this.mod(that) = this.subtract(this.div(that).floor())
-    * floor() // just applies floor() to each value
-    * ceil () // just applies ceil () to each value
-    * round() // just applies round() to each value
-    * hypofloor() / hypotrunc() // just applies floor() or ceil()s to each value, towards 0
+    * Y floor() // just applies floor() to each value
+    * Y ceil () // just applies ceil () to each value
+    * Y round() // just applies round() to each value
+    * Y hypofloor() / hypotrunc() // just applies floor() or ceil()s to each value, towards 0
     * hypoceil () // just applies floor() or ceil() to each value, in the current direction of the value
     * hyporound() ? // applies floor() or ceil() to each value towards Math.sign(value) * this.abs()
     * det () // determinant (of this matrix)
@@ -970,6 +976,7 @@ classify(Matrix, {
   vector_length: Matrix.prototype.abs,
   diagonal_sum: Matrix.prototype.diagonal_total,
   diagonal_hypot: Matrix.prototype.diagonal_abs,
+  hypotrunc: Matrix.prototype.hypofloor,
 }, {}, "UPDATE");
 
 const Vector = (class Vector extends Matrix{
