@@ -361,6 +361,7 @@ classify(Matrix, {
     for(let i = 0; i < this.m.length; i++){
       this.m[i] *= this.scalar;
     }
+    this.scalar = 1;
     return this;
   },
   to_dim_name: function to_dim_name(){
