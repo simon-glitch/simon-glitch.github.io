@@ -171,7 +171,7 @@ classify(BooleanArray, {
     const mod = i % this.BYTES_PER_ELEMENT;
     i -= mod;
     i /= this.BYTES_PER_ELEMENT;
-    return Boolean((this[i] >> mod) % 2);
+    return Boolean((this.b[i] >> mod) % 2);
   },
   set_at: function set_at(i, value){
     value = Boolean(value);
@@ -180,8 +180,8 @@ classify(BooleanArray, {
     i /= this.BYTES_PER_ELEMENT;
     // clever math
     const mask = 1 << mod;
-    this[i] &= ~mask;
-    this[i] |=  mask * value;
+    this.b[i] &= ~mask;
+    this.b[i] |=  mask * value;
   },
   toString: function toString(as_numbers = false){
     let text = "";
