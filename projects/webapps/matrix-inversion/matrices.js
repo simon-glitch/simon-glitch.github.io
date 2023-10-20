@@ -1238,23 +1238,10 @@ z;
   },
   /* TODO:
   add the following methods:
-    * Y ineq()
-    * Y is_vector()
-    * Y is_square()
-    * Y really_transpos e()
-    * Y hypot() / abs() / vector_length() // get the size of this matrix (as a vector)
-    * Y exp()
-    * Y pow(int)
     * pow(float)
     * inv() // inverse (calculated via GAUSSIAN ELIMINATION)
     * div(that) // divide, this.div(that) = this.multiply(that.inv())
     * mod(that) // modulo, this.mod(that) = this.subtract(this.div(that).floor())
-    * Y floor() // just applies floor() to each value
-    * Y ceil () // just applies ceil () to each value
-    * Y round() // just applies round() to each value
-    * Y hypofloor() / hypotrunc() // just applies floor() or ceil()s to each value, towards 0
-    * Y hypoceil () // just applies floor() or ceil() to each value, in the current direction of the value
-    * Y hyporound() // applies floor() or ceil() to each value towards Math.sign(value) * this.abs()
     * det () // determinant (of this matrix)
     * Y ref () // row echelon form (of this matrix)
       * add in parameter to tack on an augmenting matrix
@@ -1265,23 +1252,10 @@ z;
     * row_space_span() // get the span of the row    space of this matrix
     * col_space_span() // get the span of the column space of this matrix
     * nul_space_span() // get the span of the null   space of this matrix
-    * Y ident() // get the identity matrix with the same dimensions as this matrix
-    * Y zero() // get the zero matrix with the same dimensions as this matrix
-    * Y diagonal_product() // get the product of the diagonal of this matrix
-    * Y diagonal_total / diagonal_sum() // get the product of the diagonal of this matrix
-    * Y diagonal_abs() // get the absolute value of the diagonal of this matrix (i.e. this.diagonal().abs())
-    * Y diagonal() // get just the diagonal of this matrix
-    * Y total() // get the total (sum) of all values in this matrix
-    * Y product() // get the product of all values in this matrix
-    * Y minor(i, j) // get the result of removing row i and column j from this matrix
     * cofactors() // get the matrix of cofactors to this matrix
     * cofactor(i,j) // get the cofactor of this matrix, at coordinate {i,j}
-    * Y toDoubleArray() // convert this matrix into a 2D array
-    * Y toDynamic() // convert this matrix into a dynamic matrix
-    * Y toVector() // convert this into a vector (reuses the values of this.m)
-    * Y toArray() // convert this into an array
     * unslice(array_like_object) // copy all values of this over into the array_like_object (mutating the parameter)
-    * Matrix.fromArray(array_like_object) // convert a 2D array-like object into a matrix
+    * Y Matrix.fromArray(array_like_object) // convert a 2D array-like object into a matrix
     * Matrix.fromString(text) // convert a string of text (in the format of this.toString's output) into a matrix; so, `Matrix.fromString(this.toString(digits)).eq(this) === true`, as long as `digits` is large enough;
     * Matrix.Dynamic.toMatrix // convert a Dynamic_Matrix to a Matrix;
   */
