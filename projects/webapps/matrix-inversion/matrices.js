@@ -134,6 +134,45 @@ const coalesce = function(main, source, name_sets){
   }
 };
 
+const BooleanArray = function BooleanArray(length){
+  this.length = length ?? this.length;
+  this.blength = Math.ceil(length / this.BYTES_PER_ELEMENT);
+  this.b = new Int32Array(this.blength);
+}
+
+classify(BooleanArray, {
+  BYTES_PER_ELEMENT: 4,
+  get_at: function get_at(i){
+    const mod = i % this.BYTES_PER_ELEMENT;
+    i -= mod;
+    i /= this.BYTES_PER_ELEMENT;
+    return Boolean((this[i] >> mod) % 2);
+  },
+  set_at: function set_at(i, value){
+    value = Boolean(value);
+    const mod = i % this.BYTES_PER_ELEMENT;
+    i -= mod;
+    i /= this.BYTES_PER_ELEMENT;
+    // clever math
+    const mask = 1 << mod;
+    this[i] &= ~mask;
+    this[i] |=  mask * value;
+  },
+  toString: function toString(as_numbers = false){
+    let text = "";
+    for(let i = 0; i < this.length; i++){
+      v = this.get_at(i);
+      if(as_numbers) v = Number(v);
+      text += String(v);
+      text += ", ";
+    }
+    // remove ", " at the end
+    if(this.length) text = text.slice(0, -2);
+    
+    return text;
+  },
+});
+
 
 /**
  * something has gone awry!
