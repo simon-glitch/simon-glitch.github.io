@@ -580,7 +580,9 @@ classify(Matrix, {
     for(i = 0; i < this.length; i++){
       cell_strings[i] = Array(this.width);
       for(j = 0; j < this.width; j++){
-        cell_strings[i][j] = this.get_at(i,j).toFixed(toFixedDigits);
+        k = this.get_at(i,j);
+        k = (typeof toFixedDigits === "number") ?(k.toFixed(toFixedDigits)) :(k.toString());
+        cell_strings[i][j] = k;
         column_widths[j] = Math.max(column_widths[j], cell_strings[i][j].length);
       }
     }
@@ -1423,7 +1425,7 @@ if(1) onclick = function(){
     [ 1, 2, -2, 0],
     [-1, 0,  0, 2],
   ]);
-  console.log("me"   + " = " + me);
+  console.log("me"   + " = " + me.toString(""));
   // console.log("2*me" + " = " + me.clone().scale( 2));
   // console.log("-me"  + " = " + me.clone().scale(-1));
   // const me2 = me.multiply(me);
@@ -1437,7 +1439,7 @@ if(1) onclick = function(){
   // console.log("me's zero"  + " = " + me.zero());
   
   console.log("leading zeroes: " + me.count_leading_zeroes());
-  console.log("ref: " + me.ref());
+  console.log("ref: " + me.ref().toString(""));
 };
 
 /*
