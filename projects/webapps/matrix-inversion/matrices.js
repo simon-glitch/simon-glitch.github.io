@@ -1017,10 +1017,11 @@ classify(Matrix, {
   },
   /**
    * Use Guassian Elimination (G.E.) to convert this matrix to Row Echelon Form (R.E.F.)
+   * @param {Boolean} do_mutate whether to store the result in this matrix or not
    * @returns {Matrix} clone of this matrix, in REF
    */
-  ref: function ref(){
-    const that = this.clone();
+  ref: function ref(do_mutate = false){
+    const that = do_mutate ? this : this.clone();
     
     that.count_leading_zeroes();
     
