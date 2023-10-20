@@ -149,6 +149,7 @@ const BooleanArray = function BooleanArray(length, dont_proxy = false){
   this.blength = Math.ceil(length / this.BYTES_PER_ELEMENT);
   this.b = new Int32Array(this.blength);
   this.p = new Proxy(this, this.handler);
+  this.p.toString = this.toString.bind(this);
 }
 
 classify(BooleanArray, {
