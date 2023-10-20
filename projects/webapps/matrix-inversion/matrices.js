@@ -158,9 +158,11 @@ classify(BooleanArray, {
   b: (new Int32Array(0)),
   handler: {
     get: function get(b_arr, index){
+      if(!isFinite(Number(index))) return b_arr[index];
       return b_arr.get_at(index);
     },
     set: function set(b_arr, index, value){
+      if(!isFinite(Number(index))) return b_arr[index];
       return b_arr.set_at(index, value);
     },
   },
