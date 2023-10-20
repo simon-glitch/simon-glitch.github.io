@@ -1106,7 +1106,7 @@ z;
             break;
           }
           // (btw,) failure is OK; it happens!
-          else console.log("failed to convert row " + i + " into pivot column # " + j);
+          // else console.log("failed to convert row " + i + " into pivot column # " + j);
         }
       }
       
@@ -1129,9 +1129,37 @@ z;
         z = that.leading_zeroes[i];
       }
       
-      console.log("debug: that = " + that);
+      // console.log("debug: that = " + that);
     }
     
+    // sort (in place) sir by leading_zeroes
+    //   sort ... by ... algorithm is pretty general; I bet there is a better implementation on stack overflow
+    //   if your code is running slow, slap a general merge sort in here and call it a day *wink*;
+    const sir = [];
+    for(i = 0; i < that.length; i++){
+      sir[i] = [i, that.leading_zeroes[i]];
+    }
+    sir.sort((a,b) => {
+      a[0] - b[0];
+    });
+    for(i = 0; i < that.length; i++){
+      sir[i] = sir[i][0];
+    }
+    
+    const sorted = BooleanArray(that.length);
+    for(i = 0; i < that.length; i++){
+      j = i;
+      if(j === sir[j]) sorted[i] = true;
+      if(sorted[i]) continue;
+      while(!sorted[j]){
+        if(j === sir[j])
+          throw err("Fatal", "value in `sir` returned to self, but not immediately!");
+        sorted[j] = true;
+        // swap row sir[j] with row sir[sir[j]]
+        swap_rows(sir[j], sir[sir[j]]);
+        j = sir[j];
+      }
+    }
     
     return that;
   },
