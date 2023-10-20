@@ -1015,19 +1015,23 @@ classify(Matrix, {
         z[i] = i;
       z.sort((a, b) => {
         let s = zeroes_at(a) - zeroes_at(b);
-        if(s > 0){
-          swap(a, b);
-        }
+        // console.log("swap: " + zeroes_at(a) + " and " + zeroes_at(b));
+        // console.log("s = " + s);
+        // console.log("sir: " + sir);
+        // console.log("z: " + z);
+        // console.log("indices from z: " + a + " and " + b);
         return s;
       });
+      for(let i = 0; i < that.length; i++)
+        sir[i] = z[i];
     }
-    console.log("sorter: " + sir);
-    console.log(
-      "sorted zeroes: " +
-      Array(this.length).map((v,i) => (
-        zeroes_at(i)
-      ))
-    );
+    // console.log("sorter: " + sir);
+    // console.log(
+    //   "sorted zeroes: " +
+    //   sir.map((v) => (
+    //     zeroes_at(v)
+    //   ))
+    // );
     
     let k, z, jz, value;
     for(let i = 1; i < that.length; i++){
