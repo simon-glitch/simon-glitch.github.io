@@ -959,127 +959,33 @@ classify(Matrix, {
     const that = this.clone();
     
     that.count_leading_zeroes();
-    // acronym SIR: Swapped Row Indices
-    const sir = new Int32Array(that.length);
     
-    // fill sir with [0 ... this.length -1]
-    for(let i = 0; i < that.length; i++) sir[i] = i;
-    
-    // convenience functions (these can actually be compiled out *wink wink* if you want)
-    // @inline
-    const swap = function(i1, i2){
-      const swap_i = sir[i1];
-      sir[i1] = sir[i2];
-      sir[i2] = swap_i;
-    };
-    // @inline
-    const at = function(i, j){
-      return that.get_at(sir[i], j);
-    };
-    const set_at = function(i, j, value){
-      return that.set_at(sir[i], j, value);
-    };
-    // @inline
-    const zeroes_at = function(i){
-      return that.leading_zeroes[sir[i]];
-    };
-    // subtract `multiplier` times `subtrahend_row` from `result_row` and store the result in `result_row`
-    // this uses indices to make things EXTRA FAST and PERFORMANT
-    // @inline
-    const sub_row = function(result_row_index, subtrahend_row_index, multiplier){
-      let k1 = sir[result_row_index] * that.width;
-      let k2 = sir[subtrahend_row_index] * that.width;
-      for(let j = 0; j < that.width; j++, k1++, k2++){
-        that.m[k1] -= multiplier * that.m[k2];
+    let flags_rows_completed = new BooleanArray(that.length);
+    let flags_pivot_columns_done = new BooleanArray(that.width);
+    // row index of each pivor column's respective row
+    // the respective row of a pivot column is a row with a leading entry in that pivot column
+    let pivot_column_indices = new Int32Array(that.length);
+    // initialize pivot_column tracking
+    for(let i = 0, z; i < that.length; i++){
+      z = that.leading_zeroes(i);
+      if(z > that.width) continue;
+      if(!flags_pivot_columns_done[z]){
+        flags_pivot_columns_done[z] = true;
+        pivot_column_indices[z] = i;
+        flags_rows_completed[i] = true;
       }
-    };
-    // total jank function!
-    // @inline
-    const normalize = function(row_index){
-      const zeroes = zeroes_at(row_index);
-      row_index = sir[row_index] * that.length;
-      const div_index = row_index + zeroes;
-      const div = that.m[div_index];
-      
-      that.m[div_index] = 1;
-      for(let j = zeroes + 1; j < that.width; j++){
-        that.m[row_index + j] / div;
-      }
-    };
-    
-    // sort by number of leading zeroes
-    // I hope God can forgive for this map nonsense
-    SCOPE_SORT: {
-      const z = Array(that.length);
-      for(let i = 0; i < that.length; i++)
-        z[i] = i;
-      z.sort((a, b) => {
-        let s = zeroes_at(a) - zeroes_at(b);
-        // console.log("swap: " + zeroes_at(a) + " and " + zeroes_at(b));
-        // console.log("s = " + s);
-        // console.log("sir: " + sir);
-        // console.log("z: " + z);
-        // console.log("indices from z: " + a + " and " + b);
-        return s;
-      });
-      for(let i = 0; i < that.length; i++)
-        sir[i] = z[i];
     }
-    // console.log("sorter: " + sir);
-    // console.log(
-    //   "sorted zeroes: " +
-    //   sir.map((v) => (
-    //     zeroes_at(v)
-    //   ))
-    // );
     
     let k, z, jz, value;
     for(let i = 1; i < that.length; i++){
-      for(let j = 0; j < i; j++){
-        k = 0;
-        value = at(i, j);
-        if(Matrix.eq0(value)){
-          set_at(i, j, 0);
-        }
-        else{
-          z = zeroes_at(k);
-          // scan through the rows and hope that one of them happens to have the right number of zeroes
-          while(z < j && k < that.length - 1){
-            k++;
-            z = zeroes_at(k);
-          }
-          // give up if we don't have enough columns
-          if(z < j) break;
-          
-          // skip columns if we can't use them to convert the j-th item of this row to a zero
-          if(z > j){
-            j = z;
-            if(j >= i) break;
-          }
-          
-          // set the j-th item of this row to a zero
-          sub_row(i, k, at(i,j));
-          // we don't need ` / at(k,j)` because `at(k,j)` was normalized to equal `1`
-          
-          // normalize this row
-          normalize(i);
-        }
-        
-        
-        that.count_leading_zeroes();
-        
-        // sort rows so rows with more zeroes go at the bottom
-        jz = zeroes_at(j);
-        if(j < this.length - 1) z = zeroes_at(j + 1);
-        while(z < jz){
-          swap(j, j + 1);
-          j++;
-          if(j >= this.length -1) break;
-          z = zeroes_at(j + 1);
-        }
-        
-        console.log("debug: that = " + that);
-      }
+      
+      // A
+      // A
+      // A
+      // A
+      // A
+      
+      console.log("debug: that = " + that);
     }
     
     
