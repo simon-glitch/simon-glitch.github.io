@@ -1161,7 +1161,7 @@ z;
     }
     
     console.log("sir = " + sir);
-    console.log("leading_zeroes = " + that.leading_zeroes);
+    console.log("sorted leading_zeroes = " + that.leading_zeroes);
     
     const sorted = BooleanArray(that.length);
     for(i = 0; i < that.length; i++){
