@@ -1269,17 +1269,19 @@ Matrix.gen_singular = function(n, k){
 if(1) onclick = function(){
   const me = Matrix.random(3,3);
   console.log("me"   + " = " + me);
-  console.log("2*me" + " = " + me.clone().scale( 2));
-  console.log("-me"  + " = " + me.clone().scale(-1));
-  const me2 = me.multiply(me);
-  console.log("me^2" + " = " + me2);
-  console.log("me^2" + " also = " + me.pow(2));
-  console.log("me^2 diag" + " = " + me2.diagonal());
-  const me3 = me2.multiply(me);
-  console.log("me^3" + " = " + me3);
-  console.log("me^3" + " also = " + me.pow(3));
-  console.log("me's ident" + " = " + me.ident());
-  console.log("me's zero"  + " = " + me.zero());
+  // console.log("2*me" + " = " + me.clone().scale( 2));
+  // console.log("-me"  + " = " + me.clone().scale(-1));
+  // const me2 = me.multiply(me);
+  // console.log("me^2" + " = " + me2);
+  // console.log("me^2" + " also = " + me.pow(2));
+  // console.log("me^2 diag" + " = " + me2.diagonal());
+  // const me3 = me2.multiply(me);
+  // console.log("me^3" + " = " + me3);
+  // console.log("me^3" + " also = " + me.pow(3));
+  // console.log("me's ident" + " = " + me.ident());
+  // console.log("me's zero"  + " = " + me.zero());
+  
+  console.log("ref: " + me.ref());
 };
 
 /*
