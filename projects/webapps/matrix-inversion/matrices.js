@@ -1154,7 +1154,7 @@ z;
       sir[i] = [i, that.leading_zeroes[i]];
     }
     sir.sort((a,b) => {
-      a[0] - b[0];
+      a[1] - b[1];
     });
     for(i = 0; i < that.length; i++){
       sir[i] = sir[i][0];
