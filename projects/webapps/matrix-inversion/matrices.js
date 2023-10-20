@@ -185,7 +185,7 @@ classify(BooleanArray, {
   },
   toString: function toString(as_numbers = false){
     let text = "";
-    for(let i = 0; i < this.length; i++){
+    for(let i = 0, v; i < this.length; i++){
       v = this.get_at(i);
       if(as_numbers) v = Number(v);
       text += String(v);
