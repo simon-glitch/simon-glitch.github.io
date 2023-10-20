@@ -1049,6 +1049,17 @@ classify(Matrix, {
       // set leading entry to 1
       that.m[row_index] = 1;
     };
+    const swap_rows = function(row_1_index, row_2_index){
+      row_1_index *= that.width;
+      row_2_index *= that.width;
+      for(let i = 0, s; i < that.width; i++){
+        s = that.m[row_1_index];
+        that.m[row_1_index] = that.m[row_2_index];
+        that.m[row_2_index] = s;
+        row_1_index++;
+        row_2_index++;
+      }
+    };
     
     that.count_leading_zeroes();
     
@@ -1087,7 +1098,6 @@ z;
         z = that.leading_zeroes[i];
         if(z <= j){
           while(z < j){
-            // TODO: implement sub_row
             // remove the k-th entry
             sub_row(i, pivot_column_indices[z], that.get_at(i, z));
             
@@ -1122,7 +1132,6 @@ z;
       // remove the leading entry (if we have a pivot column there)
       z = that.leading_zeroes[i];
       while(flags_pivot_columns_done[z]){
-        // TODO: implement sub_row
         sub_row(i, pivot_column_indices[z], that.get_at(i, z));
         // update leading zeroes accordingly
         that.count_leading_zeroes();
