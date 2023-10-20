@@ -960,7 +960,7 @@ classify(Matrix, {
     
     that.count_leading_zeroes();
     // acronym SIR: Swapped Row Indices
-    const sir = Int32Array(that.length);
+    const sir = new Int32Array(that.length);
     
     // fill sir with [0 ... this.length -1]
     for(let i = 0; i < that.length; i++) sir[i] = i;
@@ -1107,6 +1107,31 @@ classify(Matrix, {
   */
 });
 
+Matrix.fromArray = function(array_like_object){
+  const length = array_like_object?.length;
+  const width = array_like_object?.[0]?.length;
+  let is_valid = true;
+  length ?? (is_valid = false);
+  width ?? (is_valid = false);
+  if(!is_valid)
+    throw err(
+      "Type",
+      "Your array_like_object (" +
+      array_like_object +
+      ") was not a valid 2-D array!"
+    );
+  
+  const that = new Matrix(length, width);
+  for(let i = 0; i < length; i++){
+    for(let j = 0; j < width; j++){
+      that.set_at(i, j, array_like_object[i][j]);
+    }
+  }
+  
+  return that;
+};
+
+
 /*==== ==== ==== ====**
   ==== Matrix method alternative names
 **==== ==== ==== ====*/
@@ -1117,6 +1142,7 @@ classify(Matrix, {
   diagonal_hypot: Matrix.prototype.diagonal_abs,
   hypotrunc: Matrix.prototype.hypofloor,
 }, {}, "UPDATE");
+
 
 const Vector = (class Vector extends Matrix{
   constructor(length){
@@ -1267,7 +1293,12 @@ Matrix.gen_singular = function(n, k){
 
 // console.clear();
 if(1) onclick = function(){
-  const me = Matrix.random(3,3);
+  const me = Matrix.fromArray([
+    [ 0, 1, -1, 3],
+    [ 0, 0,  1, 1],
+    [ 1, 2, -2, 0],
+    [-1, 0,  0, 2],
+  ]);
   console.log("me"   + " = " + me);
   // console.log("2*me" + " = " + me.clone().scale( 2));
   // console.log("-me"  + " = " + me.clone().scale(-1));
@@ -1281,6 +1312,7 @@ if(1) onclick = function(){
   // console.log("me's ident" + " = " + me.ident());
   // console.log("me's zero"  + " = " + me.zero());
   
+  console.log("leading zeroes: " + me.count_leading_zeroes());
   console.log("ref: " + me.ref());
 };
 
