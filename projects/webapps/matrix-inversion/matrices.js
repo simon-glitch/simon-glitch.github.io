@@ -135,6 +135,10 @@ const coalesce = function(main, source, name_sets){
 };
 
 const BooleanArray = function BooleanArray(length){
+  // removing new actually gives you the proxy directly; how convenient!
+  if(!(this instanceof BooleanArray)){
+    return (new BooleanArray(length)).p;
+  }
   this.length = length ?? this.length;
   this.blength = Math.ceil(length / this.BYTES_PER_ELEMENT);
   this.b = new Int32Array(this.blength);
