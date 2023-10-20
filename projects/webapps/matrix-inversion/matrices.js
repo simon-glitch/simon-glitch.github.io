@@ -1160,6 +1160,9 @@ z;
       sir[i] = sir[i][0];
     }
     
+    console.log("sir = " + sir);
+    console.log("leading_zeroes = " + that.leading_zeroes);
+    
     const sorted = BooleanArray(that.length);
     for(i = 0; i < that.length; i++){
       j = i;
