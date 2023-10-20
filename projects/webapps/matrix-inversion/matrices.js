@@ -984,19 +984,42 @@ z;
       // skip "completed" columns (i.e. columns that have already become proper pivot columns)
       if(flags_pivot_columns_done[j]) continue;
       
-      // A
+      // hope that we have a row with less than j leading zeroes;
+      // * if we don't, then column # j is a free column
+      for(i = 0; i < that.length; i++){
+        // skip "completed" rows (a completed row is a row whose leading entry has been assosciated with a pivot column)
+        if(flags_rows_completed[i]) continue;
+        
+        // make sure leading_zeroes in this row is less than j
+        if(that.leading_zeroes[i] < j){
+          
+          
+          // don't bother searching the rest of the rows (we will handle them later)
+          break;
+        }
+      }
+      
       // A
       // A
       // A
       // A
     }
     
-z;
-    // make as many pivot columns as possible (attempt to make every column a pivot column)
+    // empty as many rows as possible (remove all leading entries in pivot columns that are not assosciated with their pivot columns)
     for(i = 1; i < that.length; i++){
       
       // skip "completed" rows (a completed row is a row whose leading entry has been assosciated with a pivot column)
       if(flags_rows_completed[i]) continue;
+      
+      // remove the leading entry (if we have a pivot column there)
+      z = that.leading_zeroes[i];
+      while(flags_pivot_columns_done[z]){
+        // TODO: implement sub_row
+        sub_row(i, pivot_column_indices[z], that.get_at(i, z));
+        // update leading zeroes accordingly
+        that.count_leading_zeroes();
+        z = that.leading_zeroes[i];
+      }
       
       console.log("debug: that = " + that);
     }
