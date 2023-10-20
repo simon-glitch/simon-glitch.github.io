@@ -1034,6 +1034,21 @@ classify(Matrix, {
         subtrahend_index++;
       }
     };
+    const normalize_row = function(row_index){
+      let leading_zeroes = that.leading_zeroes[row_index];
+      row_index *= that.width;
+      row_index += leading_zeroes;
+      const leading_entry = that.m[row_index];
+      
+      // skip leading entry (1st element)
+      leading_zeroes++;
+      row_index++;
+      for(let i = leading_zeroes; i < that.width; i++){
+        that.m[row_index] /= leading_entry;
+      }
+      // set leading entry to 1
+      that.m[row_index] = 1;
+    };
     
     that.count_leading_zeroes();
     
@@ -1050,6 +1065,7 @@ classify(Matrix, {
         flags_pivot_columns_done[z] = true;
         pivot_column_indices[z] = i;
         flags_rows_completed[i] = true;
+        normalize_row(i);
       }
     }
     
@@ -1083,12 +1099,14 @@ z;
           if(z === j){
             flags_pivot_columns_done[z] = true;
             pivot_column_indices[z] = i;
+            flags_rows_completed[i] = true;
+            normalize_row(i);
             
             // don't bother searching the rest of the rows (we will handle them later)
             break;
           }
           // (btw,) failure is OK; it happens!
-          // else console.log("failed to convert row " + i + " into pivot column # " + j);
+          else console.log("failed to convert row " + i + " into pivot column # " + j);
         }
       }
       
