@@ -1257,6 +1257,9 @@ z;
     * Y hyporound() // applies floor() or ceil() to each value towards Math.sign(value) * this.abs()
     * det () // determinant (of this matrix)
     * Y ref () // row echelon form (of this matrix)
+      * add in parameter to tack on an augmenting matrix
+      * add in options parameter:
+        * with setting to leave existing leading entries as is
     * rref() // reduced row echelon form (of this matrix)
     * rank() // get the rank (of this matrix)
     * row_space_span() // get the span of the row    space of this matrix
