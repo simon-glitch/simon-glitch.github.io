@@ -1045,14 +1045,15 @@ classify(Matrix, {
       row_index += leading_zeroes;
       const leading_entry = that.m[row_index];
       
+      // set leading entry to 1
+      that.m[row_index] = 1;
+      
       // skip leading entry (1st element)
       leading_zeroes++;
       row_index++;
       for(let i = leading_zeroes; i < that.width; i++){
         that.m[row_index] /= leading_entry;
       }
-      // set leading entry to 1
-      that.m[row_index] = 1;
     };
     // @inline
     const swap_rows = function(row_1_index, row_2_index){
