@@ -1031,7 +1031,7 @@ classify(Matrix, {
     let pivot_column_indices = new Int32Array(that.length);
     // initialize pivot_column tracking
     for(let i = 0, z; i < that.length; i++){
-      z = that.leading_zeroes(i);
+      z = that.leading_zeroes[i];
       if(z > that.width) continue;
       if(!flags_pivot_columns_done[z]){
         flags_pivot_columns_done[z] = true;
