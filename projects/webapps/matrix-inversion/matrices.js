@@ -1054,6 +1054,7 @@ classify(Matrix, {
     };
     // @inline
     const swap_rows = function(row_1_index, row_2_index){
+      console.log("swap row " + row_1_index + " with " + row_2_index + "!");
       row_1_index *= that.width;
       row_2_index *= that.width;
       for(let i = 0, s; i < that.width; i++){
