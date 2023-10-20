@@ -138,10 +138,19 @@ const BooleanArray = function BooleanArray(length){
   this.length = length ?? this.length;
   this.blength = Math.ceil(length / this.BYTES_PER_ELEMENT);
   this.b = new Int32Array(this.blength);
+  this.p = new Proxy(this, this.handler);
 }
 
 classify(BooleanArray, {
   BYTES_PER_ELEMENT: 4,
+  handler: {
+    get(b_arr, index){
+      return b_arr.get_at(index);
+    },
+    set(b_arr, index, value){
+      return b_arr.set_at(index, value);
+    },
+  },
   get_at: function get_at(i){
     const mod = i % this.BYTES_PER_ELEMENT;
     i -= mod;
