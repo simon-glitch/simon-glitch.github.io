@@ -976,17 +976,27 @@ classify(Matrix, {
       }
     }
     
-    let k, z, jz, value;
-    for(let i = 1; i < that.length; i++){
+    let i, j, z;
+    // make as many pivot columns as possible (attempt to make every column a pivot column)
+z;
+    // make as many pivot columns as possible (attempt to make every column a pivot column)
+    for(j = 1; j < that.width; j++){
+      // skip "completed" columns (i.e. columns that have already become proper pivot columns)
+      if(flags_pivot_columns_done[j]) continue;
+      
+      // A
+      // A
+      // A
+      // A
+      // A
+    }
+    
+z;
+    // make as many pivot columns as possible (attempt to make every column a pivot column)
+    for(i = 1; i < that.length; i++){
       
       // skip "completed" rows (a completed row is a row whose leading entry has been assosciated with a pivot column)
       if(flags_rows_completed[i]) continue;
-      
-      // A
-      // A
-      // A
-      // A
-      // A
       
       console.log("debug: that = " + that);
     }
