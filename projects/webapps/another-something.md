@@ -20,3 +20,5 @@ Here is how to refactor an English sentence analytically:
   ],
 }
 ```
+
+*PLEASE: Do not try to write a program to do this automatically. I am simply using JSON to make this problem easier to understand.*
