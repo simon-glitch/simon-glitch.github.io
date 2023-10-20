@@ -1023,6 +1023,8 @@ classify(Matrix, {
   ref: function ref(do_mutate = false){
     const that = do_mutate ? this : this.clone();
     
+    // these convenience funcitons are ALL inlinable!
+    // @inline
     const sub_row = function(result_index, subtrahend_index, multiplier){
       if(multiplier === 0)
         throw err("Value", "multiplier of zero is impractical; you probably did something wrong XD!");
@@ -1034,6 +1036,7 @@ classify(Matrix, {
         subtrahend_index++;
       }
     };
+    // @inline
     const normalize_row = function(row_index){
       let leading_zeroes = that.leading_zeroes[row_index];
       row_index *= that.width;
@@ -1049,6 +1052,7 @@ classify(Matrix, {
       // set leading entry to 1
       that.m[row_index] = 1;
     };
+    // @inline
     const swap_rows = function(row_1_index, row_2_index){
       row_1_index *= that.width;
       row_2_index *= that.width;
