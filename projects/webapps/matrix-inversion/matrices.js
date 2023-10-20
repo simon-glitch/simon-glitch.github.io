@@ -979,6 +979,9 @@ classify(Matrix, {
     let k, z, jz, value;
     for(let i = 1; i < that.length; i++){
       
+      // skip "completed" rows (a completed row is a row whose leading entry has been assosciated with a pivot column)
+      if(flags_rows_completed[i]) continue;
+      
       // A
       // A
       // A
