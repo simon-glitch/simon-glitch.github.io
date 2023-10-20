@@ -995,7 +995,7 @@ classify(Matrix, {
     };
     // total jank function!
     // @inline
-    const normalize(row_index){
+    const normalize = function(row_index){
       const zeroes = zeroes_at(row_index);
       row_index = sir[row_index] * that.length;
       const div_index = row_index + zeroes;
