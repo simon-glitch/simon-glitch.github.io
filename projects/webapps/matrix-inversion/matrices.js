@@ -483,7 +483,12 @@ classify(Matrix, {
   },
   /**
     * Print this matrix!
-    * @param {Number} toFixedDigits how many digits of each value to print;
+    * @param {Number | String} toFixedDigits
+      * if `toFixedDigits` is a number: how many digits of each value to print;
+      * if `toFixedDigits` is a string:
+        * use ".number" format to print up to `number` digits (example: `toFixedDigits = ".3"` will print up to 3 fixed digits);
+        * use "_radix" to print with `Number.toString(radix)` behavior (example: `toFixedDigits = "_2"` will print value in base 2 (binary));
+        * use any other string to simply print the number with default `Number.toString()` behavior;
     * @param {Object} options optional object with extra parameters (see below);
     * @param {Number} options_column_padding
       the number of spaces to put between columns (after each comma);
@@ -565,6 +570,32 @@ classify(Matrix, {
     include_final_comma &&=
       (!replace_semicolon_with_comma) ||
       wrap_rows_with_brackets;
+    
+    const TOFIXED = 0;
+    const DEFAULT = 1;
+    const MAXLEN  = 2;
+    const RADIX   = 3;
+    
+    let FORMAT;
+    if(typeof toFixedDigits === "number"){
+      FORMAT = TOFIXED;
+    }
+    else{
+      FORMAT = DEFAULT;
+      let m = toFixedDigits.match(/_(\d+)/);
+      if(m !== null){
+        FORMAT = RADIX;
+        toFixedDigits = m[1];
+      }
+      else{
+        m = toFixedDigits.match(/\.(\d+)/);
+        if(m !== null){
+          FORMAT = RADIX;
+          toFixedDigits = m[1];
+        }
+      }
+    }
+    
     let semicolon = replace_semicolon_with_comma ?"," :";";
     let text = exclude_name ?"" :(this.to_dim_name());
     text += "[\n";
@@ -581,7 +612,24 @@ classify(Matrix, {
       cell_strings[i] = Array(this.width);
       for(j = 0; j < this.width; j++){
         k = this.get_at(i,j);
-        k = (typeof toFixedDigits === "number") ?(k.toFixed(toFixedDigits)) :(k.toString());
+        switch (FORMAT){
+          case RADIX:
+            k = k.toString(toFixedDigits);
+            break;
+          case MAXLEN:
+            const ka = k.toFixed(toFixedDigits);
+            k = k.toString();
+            if(ka.length < k.length){
+              k = ka;
+            }
+            break;
+          case DEFAULT:
+            k = k.toString()
+            break;
+          default:
+            k = k.toFixed(toFixedDigits);
+            break;
+        }
         cell_strings[i][j] = k;
         column_widths[j] = Math.max(column_widths[j], cell_strings[i][j].length);
       }
@@ -1437,7 +1485,7 @@ if(1) onclick = function(){
     // [ 1, 2, -2, 0],
     // [-1, 0,  0, 2],
   ]);
-  console.log("me"   + " = " + me.toString(""));
+  console.log("me"   + " = " + me.toString(".3"));
   // console.log("2*me" + " = " + me.clone().scale( 2));
   // console.log("-me"  + " = " + me.clone().scale(-1));
   // const me2 = me.multiply(me);
@@ -1451,7 +1499,7 @@ if(1) onclick = function(){
   // console.log("me's zero"  + " = " + me.zero());
   
   console.log("leading zeroes: " + me.count_leading_zeroes());
-  console.log("ref: " + me.ref().toString(""));
+  console.log("ref: " + me.ref().toString(".3"));
 };
 
 /*
