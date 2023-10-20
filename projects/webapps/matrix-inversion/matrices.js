@@ -1023,6 +1023,18 @@ classify(Matrix, {
   ref: function ref(do_mutate = false){
     const that = do_mutate ? this : this.clone();
     
+    const sub_row = function(result_index, subtrahend_index, multipier){
+      if(multiplier === 0)
+        throw err("Value", "multiplier of zero is impractical; you probably did something wrong XD!");
+      result_index *= that.width;
+      subtrahend_index *= that.width;
+      for(let i = 0; i < that.width; i++){
+        that.m[result_index] -= that.m[subtrahend_index] * multipier;
+        result_index++;
+        subtrahend_index++;
+      }
+    };
+    
     that.count_leading_zeroes();
     
     let flags_rows_completed = BooleanArray(that.length);
