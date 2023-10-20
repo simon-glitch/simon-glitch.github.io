@@ -80,7 +80,7 @@ const classify = function classify(f, proto_obj, sub_properties, ...args){
   }
   
   for (let i in proto_obj){
-    // console.log("adding " + i + "!");
+    console.log("adding " + i + "!");
     const value = proto_obj[i];
     if(typeof value === "function"){
       value.name = value.name || i;
@@ -134,24 +134,35 @@ const coalesce = function(main, source, name_sets){
   }
 };
 
-const BooleanArray = function BooleanArray(length){
+/**
+ * Create a **highly optimized** (yet simple) array of booleans.
+ * @param {Number} length how many boolean values (bits) to store in this array;
+ * @param {Boolean} dont_proxy whether to return a Proxy to this array instead of returning the array directly if the constructor is called without new
+ * @returns {BooleanArray | Proxy} optimized array of booleans using Int32Array (or a Proxy to the array);
+ */
+const BooleanArray = function BooleanArray(length, dont_proxy = false){
   // removing new actually gives you the proxy directly; how convenient!
-  if(!(this instanceof BooleanArray)){
+  if(!dont_proxy && !(this instanceof BooleanArray)){
     return (new BooleanArray(length)).p;
   }
   this.length = length ?? this.length;
   this.blength = Math.ceil(length / this.BYTES_PER_ELEMENT);
   this.b = new Int32Array(this.blength);
+  console.log("?? ==== ??");
+  console.log(typeof this, this, typeof this.handler, this.handler);
   this.p = new Proxy(this, this.handler);
 }
 
 classify(BooleanArray, {
   BYTES_PER_ELEMENT: 4,
+  length: 0,
+  blength: 0,
+  b: (new Int32Array(0)),
   handler: {
-    get(b_arr, index){
+    get: function get(b_arr, index){
       return b_arr.get_at(index);
     },
-    set(b_arr, index, value){
+    set: function set(b_arr, index, value){
       return b_arr.set_at(index, value);
     },
   },
@@ -184,7 +195,7 @@ classify(BooleanArray, {
     
     return text;
   },
-});
+}, {}, 0, true);
 
 
 /**
