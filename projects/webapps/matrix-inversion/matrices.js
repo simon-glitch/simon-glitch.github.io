@@ -1178,6 +1178,8 @@ z;
         if(j === sir[j])
           throw err("Fatal", "value in `sir` returned to self, but not immediately!");
         sorted[j] = true;
+        if(sorted[sir[j]])
+          break;
         // swap row sir[j] with row sir[sir[j]]
         swap_rows(j, sir[j]);
         j = sir[j];
