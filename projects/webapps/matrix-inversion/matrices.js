@@ -530,9 +530,9 @@ classify(Matrix, {
         0, 0, ... 0, 0
         0, 0, ... 0, 0
       ]
+      ```
       * @aside
         now that I think about it, there are a lot of combinations of options that are redundant with eachother; also, this toString function is ... pretty complicated; maybe I should make it more simple and less versatile;
-      ```
     * @returns {String} a string representing the matrix;
    **/
   toString: function toString(toFixedDigits = 3, options = {}){
