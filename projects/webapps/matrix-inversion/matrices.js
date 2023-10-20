@@ -1256,7 +1256,7 @@ z;
     * Y hypoceil () // just applies floor() or ceil() to each value, in the current direction of the value
     * Y hyporound() // applies floor() or ceil() to each value towards Math.sign(value) * this.abs()
     * det () // determinant (of this matrix)
-    * ref () // row echelon form (of this matrix)
+    * Y ref () // row echelon form (of this matrix)
     * rref() // reduced row echelon form (of this matrix)
     * rank() // get the rank (of this matrix)
     * row_space_span() // get the span of the row    space of this matrix
