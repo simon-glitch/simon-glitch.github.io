@@ -1007,7 +1007,29 @@ classify(Matrix, {
       }
     };
     
-    let k, z, jz;
+    // sort by number of leading zeroes
+    // I hope God can forgive for this map nonsense
+    SCOPE_SORT: {
+      const z = Array(that.length);
+      for(let i = 0; i < that.length; i++)
+        z[i] = i;
+      z.sort((a, b) => {
+        let s = zeroes_at(a) - zeroes_at(b);
+        if(s > 0){
+          swap(a, b);
+        }
+        return s;
+      });
+    }
+    console.log("sorter: " + sir);
+    console.log(
+      "sorted zeroes: " +
+      Array(this.length).map((v,i) => (
+        zeroes_at(i)
+      ))
+    );
+    
+    let k, z, jz, value;
     for(let i = 1; i < that.length; i++){
       for(let j = 0; j < i; j++){
         k = 0;
