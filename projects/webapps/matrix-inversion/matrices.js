@@ -590,7 +590,7 @@ classify(Matrix, {
       else{
         m = toFixedDigits.match(/\.(\d+)/);
         if(m !== null){
-          FORMAT = RADIX;
+          FORMAT = MAXLEN;
           toFixedDigits = m[1];
         }
       }
