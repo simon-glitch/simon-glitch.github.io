@@ -148,8 +148,6 @@ const BooleanArray = function BooleanArray(length, dont_proxy = false){
   this.length = length ?? this.length;
   this.blength = Math.ceil(length / this.BYTES_PER_ELEMENT);
   this.b = new Int32Array(this.blength);
-  console.log("?? ==== ??");
-  console.log(typeof this, this, typeof this.handler, this.handler);
   this.p = new Proxy(this, this.handler);
 }
 
