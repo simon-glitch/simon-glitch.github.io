@@ -146,14 +146,14 @@ const BooleanArray = function BooleanArray(length, dont_proxy = false){
     return (new BooleanArray(length)).p;
   }
   this.length = length ?? this.length;
-  this.blength = Math.ceil(length / this.BYTES_PER_ELEMENT);
+  this.blength = Math.ceil(length / this.BITS_PER_ELEMENT);
   this.b = new Int32Array(this.blength);
   this.p = new Proxy(this, this.handler);
   this.p.toString = this.toString.bind(this);
 }
 
 classify(BooleanArray, {
-  BYTES_PER_ELEMENT: 4,
+  BITS_PER_ELEMENT: 32,
   length: 0,
   blength: 0,
   b: (new Int32Array(0)),
@@ -168,16 +168,16 @@ classify(BooleanArray, {
     },
   },
   get_at: function get_at(i){
-    const mod = i % this.BYTES_PER_ELEMENT;
+    const mod = i % this.BITS_PER_ELEMENT;
     i -= mod;
-    i /= this.BYTES_PER_ELEMENT;
+    i /= this.BITS_PER_ELEMENT;
     return Boolean((this.b[i] >> mod) % 2);
   },
   set_at: function set_at(i, value){
     value = Boolean(value);
-    const mod = i % this.BYTES_PER_ELEMENT;
+    const mod = i % this.BITS_PER_ELEMENT;
     i -= mod;
-    i /= this.BYTES_PER_ELEMENT;
+    i /= this.BITS_PER_ELEMENT;
     // clever math
     const mask = 1 << mod;
     this.b[i] &= ~mask;
@@ -372,7 +372,7 @@ classify(Matrix, {
     this.auto_really_scale();
     res = (in_place) ?this :this.clone();
     if(this.m.length !== that.m.length){
-      console.log("cannot add a " + this.to_dim_name() + " to a " + that.to_dim_name() + "!\n> The middle matrices must have the same dimensions (or the transpose of one must have the same dimensions as the other).");
+      throw err("Value", "cannot add a " + this.to_dim_name() + " to a " + that.to_dim_name() + "!\n> The middle matrices must have the same dimensions (or the transpose of one must have the same dimensions as the other).");
       return;
     }
     for(let i = 0; i < this.m.length; i++){
@@ -384,7 +384,7 @@ classify(Matrix, {
     this.auto_really_scale();
     res = (in_place) ?this :this.clone();
     if(this.m.length !== that.m.length){
-      console.log("cannot add a " + this.to_dim_name() + " to a " + that.to_dim_name() + "!\n> The middle matrices must have the same dimensions (or the transpose of one must have the same dimensions as the other).");
+      throw err("Value", "cannot add a " + this.to_dim_name() + " to a " + that.to_dim_name() + "!\n> The middle matrices must have the same dimensions (or the transpose of one must have the same dimensions as the other).");
       return;
     }
     for(let i = 0; i < this.m.length; i++){
@@ -399,7 +399,7 @@ classify(Matrix, {
    */
   multiply: function multiply(that){
     if(!this.is_square()){
-      console.log("cannot multiple a " + this.to_dim_name() + " by a " + that.to_dim_name() + "!\n> The middle 2 numbers must be the same {cols(left) == rows(right)}.");
+      throw err("Value", "cannot multiple a " + this.to_dim_name() + " by a " + that.to_dim_name() + "!\n> The middle 2 numbers must be the same {cols(left) == rows(right)}.");
       return;
     }
     
@@ -422,7 +422,7 @@ classify(Matrix, {
   **/
   scale: function scale(scalar){
     this.scalar *= scalar;
-    console.log(this.to_dim_name() + " scalar now= " + this.scalar);
+    // console.log(this.to_dim_name() + " scalar now= " + this.scalar);
     return this;
   },
   /**
@@ -430,7 +430,7 @@ classify(Matrix, {
   **/
   really_scale: function really_scale(scalar){
     this.scalar = scalar ?? this.scalar;
-    console.log(this.to_dim_name() + " (really scaling) scalar now= " + this.scalar);
+    // console.log(this.to_dim_name() + " (really scaling) scalar now= " + this.scalar);
     for(let i = 0; i < this.m.length; i++){
       this.m[i] *= this.scalar;
     }
@@ -1105,7 +1105,7 @@ classify(Matrix, {
     };
     // @inline
     const swap_rows = function(row_1_index, row_2_index){
-      console.log("swap row " + row_1_index + " with " + row_2_index + "!");
+      // console.log("swap row " + row_1_index + " with " + row_2_index + "!");
       row_1_index *= that.width;
       row_2_index *= that.width;
       for(let i = 0, s; i < that.width; i++){
@@ -1176,7 +1176,7 @@ z;
         }
       }
       
-      if(i === that.length) console.log("column # " + j + " is a FREE column;");
+      // if(i === that.length) console.log("column # " + j + " is a FREE column;");
     }
     
     // empty as many rows as possible (remove all leading entries in pivot columns that are not assosciated with their pivot columns)
@@ -1211,15 +1211,15 @@ z;
       sir[i] = sir[i][0];
     }
     
-    console.log("sir = " + sir);
-    console.log("sorted leading_zeroes = " + that.leading_zeroes);
+    // console.log("sir = " + sir);
+    // console.log("sorted leading_zeroes = " + that.leading_zeroes);
     
     const sorted = BooleanArray(that.length);
     for(i = 0; i < that.length; i++){
       j = i;
       if(j === sir[j]) sorted[j] = true;
       if(sorted[j]){
-        console.log("row " + j + " is sorted, I guess~");
+        // console.log("row " + j + " is sorted, I guess~");
         continue;
       }
       while(!sorted[j]){
@@ -1444,24 +1444,26 @@ Matrix.gen_singular = function(n, k){
   return matrix_mult(m1, m2);
 };
 
+const testee = Matrix.fromArray([
+  [-3,  1, -1,  1, -1,  2,  1, -3],
+  [-3,  1,  1,  1,  0,  1,  0,  0],
+  [-3, -4,  1,  2,  1,  2, -4, -1],
+  [ 0,  1,  3,  0, -2, -2, -3, -2],
+  [-4, -1,  2, -2, -1, -2,  3, -1],
+  [ 0,  2,  1,  2,  0, -3, -4,  1],
+  [ 3,  3,  3,  0,  2,  0,  2, -4],
+  [ 1, -4, -3, -4,  2,  3, -2,  3],
+  
+  // [ 0, 1, -1, 3],
+  // [ 0, 0,  1, 1],
+  // [ 1, 2, -2, 0],
+  // [-1, 0,  0, 2],
+]);
+
 
 // console.clear();
-if(1) onclick = function(){
-  const me = Matrix.fromArray([
-    [-3,  1, -1,  1, -1,  2,  1, -3],
-    [-3,  1,  1,  1,  0,  1,  0,  0],
-    [-3, -4,  1,  2,  1,  2, -4, -1],
-    [ 0,  1,  3,  0, -2, -2, -3, -2],
-    [-4, -1,  2, -2, -1, -2,  3, -1],
-    [ 0,  2,  1,  2,  0, -3, -4,  1],
-    [ 3,  3,  3,  0,  2,  0,  2, -4],
-    [ 1, -4, -3, -4,  2,  3, -2,  3],
-    
-    // [ 0, 1, -1, 3],
-    // [ 0, 0,  1, 1],
-    // [ 1, 2, -2, 0],
-    // [-1, 0,  0, 2],
-  ]);
+if(0) onclick = function(){
+  const me = testee;
   console.log("me"   + " = " + me.toString(".3"));
   // console.log("2*me" + " = " + me.clone().scale( 2));
   // console.log("-me"  + " = " + me.clone().scale(-1));
@@ -1478,23 +1480,3 @@ if(1) onclick = function(){
   console.log("leading zeroes: " + me.count_leading_zeroes());
   console.log("ref: " + me.ref().toString(".3"));
 };
-
-/*
-{
-  let a = Matrix.random(3,3);
-  let b = Matrix.random(3,3);
-  time(() => {a.multiply(b);}, "3x3 matrix mult").then((v) => {
-    console.log(v);
-  });
-}
-
-{
-  let a;
-  time(() => {a = Matrix.random(20,20);}, "20x20 matrix gen").then((v) => {
-    console.log(v);
-  });
-}
-
-*/
-
-// 1500 lines of code!
