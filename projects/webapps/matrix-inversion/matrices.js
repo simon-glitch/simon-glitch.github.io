@@ -137,8 +137,8 @@ const coalesce = function(main, source, name_sets){
 /**
  * Create a **highly optimized** (yet simple) array of booleans.
  * @param {Number} length how many boolean values (bits) to store in this array;
- * @param {Boolean} dont_proxy whether to return a Proxy to this array instead of returning the array directly if the constructor is called without new
- * @returns {BooleanArray | Proxy} optimized array of booleans using Int32Array (or a Proxy to the array);
+ * @param {Boolean} dont_proxy whether to return a `Proxy` to this array instead of returning the array directly if the constructor is called without `new`;
+ * @returns {BooleanArray | Proxy} optimized array of booleans using `Int32Array`; returns a `Proxy` to the `BooleanArray` if you call this constructor without `new`;
  */
 const BooleanArray = function BooleanArray(length, dont_proxy = false){
   // removing new actually gives you the proxy directly; how convenient!
@@ -1023,8 +1023,8 @@ classify(Matrix, {
     
     that.count_leading_zeroes();
     
-    let flags_rows_completed = new BooleanArray(that.length);
-    let flags_pivot_columns_done = new BooleanArray(that.width);
+    let flags_rows_completed = BooleanArray(that.length);
+    let flags_pivot_columns_done = BooleanArray(that.width);
     // row index of each pivor column's respective row
     // the respective row of a pivot column is a row with a leading entry in that pivot column
     let pivot_column_indices = new Int32Array(that.length);
