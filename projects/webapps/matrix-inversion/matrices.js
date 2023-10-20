@@ -976,7 +976,7 @@ classify(Matrix, {
       }
     }
     
-    let i, j, z;
+    let i, j, k, z;
     // make as many pivot columns as possible (attempt to make every column a pivot column)
 z;
     // make as many pivot columns as possible (attempt to make every column a pivot column)
@@ -990,19 +990,32 @@ z;
         // skip "completed" rows (a completed row is a row whose leading entry has been assosciated with a pivot column)
         if(flags_rows_completed[i]) continue;
         
-        // make sure leading_zeroes in this row is less than j
-        if(that.leading_zeroes[i] < j){
+        // make sure leading_zeroes in this row is NOT greater than j
+        z = that.leading_zeroes[i];
+        if(z <= j){
+          while(z < j){
+            // TODO: implement sub_row
+            // remove the k-th entry
+            sub_row(i, pivot_column_indices[z], that.get_at(i, z));
+            
+            that.count_leading_zeroes();
+            z = that.leading_zeroes[i];
+          }
           
-          
-          // don't bother searching the rest of the rows (we will handle them later)
-          break;
+          // hopefully we can add this as a pivot column
+          if(z === j){
+            flags_pivot_columns_done[z] = true;
+            pivot_column_indices[z] = i;
+            
+            // don't bother searching the rest of the rows (we will handle them later)
+            break;
+          }
+          // (btw,) failure is OK; it happens!
+          // else console.log("failed to convert row " + i + " into pivot column # " + j);
         }
       }
       
-      // A
-      // A
-      // A
-      // A
+      if(i === that.length) console.log("column # " + j + " is a FREE column;");
     }
     
     // empty as many rows as possible (remove all leading entries in pivot columns that are not assosciated with their pivot columns)
