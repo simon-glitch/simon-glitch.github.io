@@ -1163,8 +1163,11 @@ z;
     const sorted = BooleanArray(that.length);
     for(i = 0; i < that.length; i++){
       j = i;
-      if(j === sir[j]) sorted[i] = true;
-      if(sorted[i]) continue;
+      if(j === sir[j]) sorted[j] = true;
+      if(sorted[j]){
+        console.log("row " + j + " is sorted, I guess~");
+        continue;
+      }
       while(!sorted[j]){
         if(j === sir[j])
           throw err("Fatal", "value in `sir` returned to self, but not immediately!");
