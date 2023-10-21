@@ -1236,6 +1236,13 @@ z;
     
     return that;
   },
+  /* MEGA TODO:
+    * consider refactoring function names and what types of params they have in order to make them more consisten;
+    * i.e. have a naming standard for "operations" (getter functions), for mutators, etc.
+    *  ... have a consistent parameter location for in_place / do_mutate
+    *  ... have some kind of "ultra dynamic" / generalized option for methods (so they can be made to work with special libraries like math.js)
+    *  ... take that last idea to the extreme and code in my own implementation of algebraic function logic?
+   **/
   /* TODO:
   add the following methods:
     * pow(float)
@@ -1247,11 +1254,11 @@ z;
     * isDiagonal() // whether this matrix only has values on the diagonal;
     * isFull() // whether this matrix contains no zero values;
     * fill() // fill every value of this matrix with the same value;
-    * fillRow() // fill every value of a specified row of this matrix with the same value;
-    * fillColumn() // fill every value of a specified column of this matrix with the same value;
+      * fillRow() // fill every value of a specified row of this matrix with the same value;
+      * fillColumn() // fill every value of a specified column of this matrix with the same value;
     * paste() // paste values from a 2-D array into this matrix;
-    * pastRow() // paste values from an array into a specified row of this matrix;
-    * pastColumn() // paste values from an array into a specified column of this matrix;
+      * pastRow() // paste values from an array into a specified row of this matrix;
+      * pastColumn() // paste values from an array into a specified column of this matrix;
     * row(n, asArray) // get row #n of this matrix (formatted as an Array is asArray = true, formatted as a Matrix otherwise);
     * column(n, asArray) // get column #n of this matrix (formatted as an Array is asArray = true, formatted as a Matrix otherwise);
     * rowsOfZeroes() // list all indices of rows of this matrix that contain only zeroes;
