@@ -48,6 +48,15 @@
  **/
 
 
+/* MEGA TODO:
+  * consider refactoring function names and what types of params they have in order to make them more consisten;
+  * i.e. have a naming standard for "operations" (getter functions), for mutators, etc.
+  *  ... have a consistent parameter location for in_place / do_mutate
+  *  ... have some kind of "ultra dynamic" / generalized option for methods (so they can be made to work with special libraries like math.js)
+  *  ... take that last idea to the extreme and code in my own implementation of algebraic function logic?
+***/
+
+
 /**
   * Convert a function into a proper class, without using class syntax; why do this? Well, `classify` allows you to call the class constructor without using new. I guess there are other ways to this... anyways, I like this way of doing it. It works~;
   * @use `classify(f, proto_obj, sub_properties, ...args)`
@@ -1236,13 +1245,7 @@ z;
     
     return that;
   },
-  /* MEGA TODO:
-    * consider refactoring function names and what types of params they have in order to make them more consisten;
-    * i.e. have a naming standard for "operations" (getter functions), for mutators, etc.
-    *  ... have a consistent parameter location for in_place / do_mutate
-    *  ... have some kind of "ultra dynamic" / generalized option for methods (so they can be made to work with special libraries like math.js)
-    *  ... take that last idea to the extreme and code in my own implementation of algebraic function logic?
-   **/
+  
   /* TODO:
   add the following methods:
     * pow(float)
