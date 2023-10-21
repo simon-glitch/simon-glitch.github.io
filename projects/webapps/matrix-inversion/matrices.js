@@ -1239,23 +1239,42 @@ z;
   /* TODO:
   add the following methods:
     * pow(float)
-    * inv() // inverse (calculated via GAUSSIAN ELIMINATION)
-    * div(that) // divide, this.div(that) = this.multiply(that.inv())
-    * mod(that) // modulo, this.mod(that) = this.subtract(this.div(that).floor())
-    * det () // determinant (of this matrix)
-    * Y ref () // row echelon form (of this matrix)
-      * add in parameter to tack on an augmenting matrix
+    * sqrt() // optimized method to find the square root of this matrix
+    * augment() // augment this matrix by appending another matrix to the right of its columns (append it on the bottom of the rows if this matrix is currently transposed);
+    * isNaN() // whether this matrix contains a NaN value;
+    * isFinite() // whether this matrix contains a no values of NaN / Infinity;
+    * isInfinite() // whether this matrix contains a value of / Infinity;
+    * isDiagonal() // whether this matrix only has values on the diagonal;
+    * isFull() // whether this matrix contains no zero values;
+    * fill() // fill every value of this matrix with the same value;
+    * paste() // paste values from a 2-D array into this matrix;
+    * row(n, asArray) // get row #n of this matrix (formatted as an Array is asArray = true, formatted as a Matrix otherwise);
+    * column(n, asArray) // get column #n of this matrix (formatted as an Array is asArray = true, formatted as a Matrix otherwise);
+    * rowsOfZeroes() // list all indices of rows of this matrix that contain only zeroes;
+    * columnsOfZeroes() // list all indices of columns of this matrix that contain only zeroes;
+    * rowsAreFull() // list all indices of rows of this matrix that are full (i.e. they contain no zeroes);
+    * columnsAreFull() // list all indices of columns of this matrix that are full (i.e. they contain no zeroes);
+    * inv() // inverse (calculated via GAUSSIAN ELIMINATION) (of a square a matrix)
+      * inv .left() // for the left inverse (of an n by m matrix):
+        * A.inv .left().multiply(A) = {the {n by n} identity matrix};
+      * inv.right() // for the left inverse (of an n by m matrix):
+        * A.multiply(A.inv.right()) = {the {m by m} identity matrix};
+    * div(that) // divide, this.div(that) = this.multiply(that.inv());
+    * mod(that) // modulo, this.mod(that) = this.subtract(this.div(that).floor());
+    * det () // determinant (of this matrix);
+    * Y ref () // row echelon form (of this matrix):
+      * add in parameter to tack on an augmenting matrix;
       * add in options parameter:
-        * with setting to leave existing leading entries as is
-    * rref() // reduced row echelon form (of this matrix)
-    * rank() // get the rank (of this matrix)
-    * row_space_span() // get the span of the row    space of this matrix
-    * col_space_span() // get the span of the column space of this matrix
-    * nul_space_span() // get the span of the null   space of this matrix
-    * cofactors() // get the matrix of cofactors to this matrix
+        * with setting to leave existing leading entries as is;
+    * rref() // reduced row echelon form (of this matrix);
+    * rank() // get the rank (of this matrix);
+    * row_space_span() // get the span of the row    space of this matrix;
+    * col_space_span() // get the span of the column space of this matrix;
+    * nul_space_span() // get the span of the null   space of this matrix;
+    * cofactors() // get the matrix of cofactors to this matrix;
     * cofactor(i,j) // get the cofactor of this matrix, at coordinate {i,j}
-    * unslice(array_like_object) // copy all values of this over into the array_like_object (mutating the parameter)
-    * Y Matrix.fromArray(array_like_object) // convert a 2D array-like object into a matrix
+    * unslice(array_like_object) // copy all values of this over into the array_like_object (mutating the parameter);
+    * Y Matrix.fromArray(array_like_object) // convert a 2D array-like object into a matrix;
     * Matrix.fromString(text) // convert a string of text (in the format of this.toString's output) into a matrix; so, `Matrix.fromString(this.toString(digits)).eq(this) === true`, as long as `digits` is large enough;
     * Matrix.Dynamic.toMatrix // convert a Dynamic_Matrix to a Matrix;
   */
