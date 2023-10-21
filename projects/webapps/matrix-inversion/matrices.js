@@ -1076,11 +1076,11 @@ classify(Matrix, {
   },
   /**
    * Use Guassian Elimination (G.E.) to convert this matrix to Row Echelon Form (R.E.F.)
-   * @param {Boolean} do_mutate whether to store the result in this matrix or not
+   * @param {Boolean} in_place whether to store the result in this matrix or not
    * @returns {Matrix} clone of this matrix, in REF
    */
-  ref: function ref(do_mutate = false){
-    const that = do_mutate ? this : this.clone();
+  ref: function ref(in_place = false){
+    const that = in_place ? this : this.clone();
     
     // these convenience funcitons are ALL inlinable!
     // @inline
@@ -1245,7 +1245,9 @@ z;
     
     return that;
   },
-  
+  augment: function augment(){
+    
+  },
   /* TODO:
   add the following methods:
     * pow(float)
