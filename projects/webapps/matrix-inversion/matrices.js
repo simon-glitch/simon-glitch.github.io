@@ -463,6 +463,7 @@ classify(Matrix, {
    */
   eq: function eq(that){
     this.auto_really_scale();
+    this.auto_really_transpose();
     for(let i = 0; i < this.m.length; i++){
       if(2 * (this.m[i] - that.m[i]) / Math.sqrt(this.m[i] * that.m[i]) > Matrix.epsilon){
         return false;
@@ -472,10 +473,12 @@ classify(Matrix, {
   },
   ineq: function ineq(that){
     this.auto_really_scale();
+    this.auto_really_transpose();
     return !this.eq(that);
   },
   exp: function exp(){
     this.auto_really_scale();
+    this.auto_really_transpose();
     if(!this.is_square()){
       throw err("Value", "cannot exponentiate a non-square matrix, because exponentiation requires the matrix to have an identity matrix, and a non-square matrix do not have an identity matrix!");
     }
@@ -685,9 +688,6 @@ classify(Matrix, {
     text += "]";
     return text;
   },
-  initialize_leading_zeroes: function initialize_leading_zeroes(){
-    this.leading_zeroes = new Float64Array(this.length);
-  },
   transpose: function transpose(){
     const swap = this.length;
     this.length = this.width;
@@ -700,7 +700,6 @@ classify(Matrix, {
    * @returns {Matrix} the transposed matrix;
    */
   really_transpose: function really_transpose(){
-    this.auto_really_scale();
     this.transpose();
     return this.auto_really_transpose();
   },
@@ -739,6 +738,7 @@ classify(Matrix, {
    */
   toVector: function toVector(reinitialize_values = false){
     this.auto_really_scale();
+    this.auto_really_transpose();
     const that = new Vector(this.m.length);
     if(reinitialize_values) for(let i = 0; i < this.m.length; i++){
       that.m[i] = this.m[i];
@@ -838,6 +838,9 @@ classify(Matrix, {
     if(that === 0){
       return this.ident();
     }
+    
+    this.auto_really_scale();
+    this.auto_really_transpose();
     if((that < 2**53) && (that % 1 === 0)){
       if(that < 0){
         return this.inv().pow(that);
@@ -903,6 +906,9 @@ classify(Matrix, {
    * @returns {Dynamic_Matrix} a clone of this matrix, with the same values in the same places, just formatted under a different data structure, that's all~
    */
   toDynamic: function toDynamic(){
+    this.auto_really_scale();
+    this.auto_really_transpose();
+    
     const that = new Matrix.Dynamic(this.length, this.width);
     let iy, ix;
     for(iy = 0; iy < this.length; iy++){
@@ -923,6 +929,8 @@ classify(Matrix, {
    **/
   toArray: function toArray(type = Array, dimensions = 1, requires_length = false){
     this.auto_really_scale();
+    this.auto_really_transpose();
+    
     type ??= Array;
     dimensions ??= 1;
     const that = requires_length ?(
@@ -983,14 +991,17 @@ classify(Matrix, {
    */
   minor: function minor(row_number = 0, column_number = 0){
     if(this.length < 1 || this.width < 1){
-      err("Value", "can't get the minor of an empty matrix! There are no rows or column to remove in the first place.")
+      throw err("Value", "can't get the minor of an empty matrix! There are no rows or column to remove in the first place.")
     }
     if(this.length === 1){
-      err("Value", "can't get the minor of a matrix with only 1 row!")
+      throw err("Value", "can't get the minor of a matrix with only 1 row!")
     }
     if(this.width === 1){
-      err("Value", "can't get the minor of a matrix with only 1 column!")
+      throw err("Value", "can't get the minor of a matrix with only 1 column!")
     }
+    
+    this.auto_really_scale();
+    this.auto_really_transpose();
     
     // super simple jumping implementation
     let that = new Matrix(this.length - 1, this.width - 1);
@@ -1023,6 +1034,9 @@ classify(Matrix, {
     this.leading_zeroes = new Int32Array(this.length);
   },
   floor: function floor(){
+    this.auto_really_scale();
+    this.auto_really_transpose();
+    
     for(let i = 0; i < this.m.length; i++){
       this.m[i] = Math.floor(this.m[i]);
     }
@@ -1035,24 +1049,36 @@ classify(Matrix, {
     return this;
   },
   round: function round(){
+    this.auto_really_scale();
+    this.auto_really_transpose();
+    
     for(let i = 0; i < this.m.length; i++){
       this.m[i] = Math.round(this.m[i]);
     }
     return this;
   },
   hypofloor: function hypofloor(){
+    this.auto_really_scale();
+    this.auto_really_transpose();
+    
     for(let i = 0; i < this.m.length; i++){
       this.m[i] = Math.trunc(this.m[i]);
     }
     return this;
   },
   hypoceil: function hypoceil(){
+    this.auto_really_scale();
+    this.auto_really_transpose();
+    
     for(let i = 0, s; i < this.m.length; i++){
       this.m[i] = Math.sign(this.m[i]) * Math.ceil(Math.abs(this.m[i]));
     }
     return this;
   },
   hyporound: function hyporound(){
+    this.auto_really_scale();
+    this.auto_really_transpose();
+    
     for(let i = 0, s; i < this.m.length; i++){
       this.m[i] = Math.sign(this.m[i]) * Math.round(Math.abs(this.m[i]));
     }
@@ -1064,6 +1090,9 @@ classify(Matrix, {
    * @returns {Int32Array} the number of leading zeroes in each row (literally this.leading_zeroes)
    */
   count_leading_zeroes: function(dont_recount = false){
+    this.auto_really_scale();
+    this.auto_really_transpose();
+    
     let i, j, k;
     for(i = 0; i < this.length; i++){
       for(j = dont_recount ?(this.leading_zeroes[i]) :0; j < this.length; j++){
@@ -1082,6 +1111,9 @@ classify(Matrix, {
    * @returns {Matrix} clone of this matrix, in REF
    */
   ref: function ref(in_place = false){
+    this.auto_really_scale();
+    this.auto_really_transpose();
+    
     const that = in_place ? this : this.clone();
     
     // these convenience funcitons are ALL inlinable!
@@ -1253,6 +1285,9 @@ z;
     * @returns {Matrix} augmented matrix;
    **/
   augment: function augment(augmentor){
+    this.auto_really_scale();
+    this.auto_really_transpose();
+    
     if(this.length !== augmentor.length){
       throw err("Value", "Cannot augment " + this.to_dim_name() + " with " + this.to_dim_name() + "! The 2 Matrices must have the same number of rows!");
     }
@@ -1277,6 +1312,10 @@ z;
     return that;
   },
   inv: function inv(){
+    // implied:
+    // this.auto_really_scale();
+    // this.auto_really_transpose();
+    
     const that = this.augment(this.ident()).rref();
     if(!that.slice(0, this.length, 0, this.width).isIdent()) return that.fill(NaN);
     return that.slice(0, this.length, this.width);
@@ -1307,6 +1346,8 @@ z;
   },
   isDiagonal: function isDiagonal(){
     if(this.is_square()) return false;
+    this.auto_really_scale();
+    
     for(let i = 0, j; i < this.m.length; i++){
       j = i % this.width;
       // NOT on the diagonal:
@@ -1321,6 +1362,8 @@ z;
   },
   isIdent: function isIdent(){
     if(this.is_square()) return false;
+    this.auto_really_scale();
+    
     for(let i = 0, j, on_the_diagonal; i < this.m.length; i++){
       j = i % this.width;
       // 1 if  IS on the diagonal,
@@ -1334,6 +1377,8 @@ z;
     return true;
   },
   isFull: function isFull(){
+    this.auto_really_scale();
+    
     for(let i = 0; i < this.m.length; i++){
       if(Matrix.eq0(this.m[i])){
         return false;
