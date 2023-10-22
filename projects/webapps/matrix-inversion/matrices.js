@@ -1246,7 +1246,7 @@ z;
     return that;
   },
   /**
-    * Get the augmentation this matrix, adding another matrix to the right of it.
+    * Get the augmentation this matrix, adding another matrix to the right of it. This function is highly performant.
     * @param {Matrix} augmentor matrix to append to the right of this matrix; **if this matrix is currently transposed, make sure augmentor is also transposed!**
     * @returns {Matrix} augmented matrix;
    **/
