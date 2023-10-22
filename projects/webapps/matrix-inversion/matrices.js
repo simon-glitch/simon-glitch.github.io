@@ -1279,12 +1279,12 @@ z;
     * pow(float)
     * sqrt() // optimized method to find the square root of this matrix
     * augment() // augment this matrix by appending another matrix to the right of its columns (append it on the bottom of the rows if this matrix is currently transposed);
-    * isNaN() // whether this matrix contains a NaN value;
-    * isFinite() // whether this matrix contains a no values of NaN / Infinity;
+    * isNaN     () // whether this matrix contains a NaN value;
+    * isFinite  () // whether this matrix contains a no values of NaN / Infinity;
     * isInfinite() // whether this matrix contains a value of / Infinity;
     * isDiagonal() // whether this matrix only has values on the diagonal;
-    * isIdent() // whether this is an identity matrix;
-    * isFull() // whether this matrix contains no zero values;
+    * isIdent   () // whether this is an identity matrix;
+    * isFull    () // whether this matrix contains no zero values;
     * fill() // fill every value of this matrix with the same value;
       * fillRow() // fill every value of a specified row of this matrix with the same value;
       * fillColumn() // fill every value of a specified column of this matrix with the same value;
