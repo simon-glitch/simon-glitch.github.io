@@ -412,6 +412,8 @@ classify(Matrix, {
       throw err("Value", "cannot multiple a " + this.to_dim_name() + " by a " + that.to_dim_name() + "!\n> The middle 2 numbers must be the same {cols(left) == rows(right)}.");
       return;
     }
+    this.auto_really_scale();
+    this.auto_really_transpose();
     
     let i, j, k, v;
     const w = that.width, l = this.length;
@@ -420,9 +422,9 @@ classify(Matrix, {
       for(j = 0; j < w; j++){
         v = 0;
         for(k = 0; k < w; k++){
-          v += this.get_at(i, k) * that.get_at(k, j);
+          v += this.m[i * this.width + k] * that.m[k * that.width + j];
         }
-        res.set_at(i,j, v);
+        res.m[i * res.width + j] = v;
       }
     }
     return res;
@@ -868,7 +870,8 @@ classify(Matrix, {
     * @returns {Array | type} A 2-D array (or a 2-D version of type), representing this matrix, composed with the values from this matrix.
    **/
   toDoubleArray: function toDoubleArray(type = Array, type_allows_mapping = false, type_accepts_length = true){
-    // this.auto_really_scale();
+    this.auto_really_scale();
+    this.auto_really_transpose();
     type ??= Array;
     if(type === Array){
       type_allows_mapping = true;
@@ -892,7 +895,7 @@ classify(Matrix, {
         );
       }
       for(ix = 0; ix < this.width; ix++){
-        that[iy][ix] = this.get_at(iy, ix);
+        that[iy][ix] = this.m[iy * this.width + ix];
       }
     }
     return that;
@@ -906,7 +909,7 @@ classify(Matrix, {
     let iy, ix;
     for(iy = 0; iy < this.length; iy++){
       for(ix = 0; ix < this.width; ix++){
-        that.set_at(iy, ix, this.get_at(iy, ix));
+        that[iy][ix][0] = this.m[iy * this.width + ix];
       }
     }
     return that;
@@ -998,7 +1001,7 @@ classify(Matrix, {
       if(iy === row_number) continue;
       for(ix = 0, jx = 0; ix < this.width; ix++){
         if(ix === column_number) continue;
-        that.set_at(jy, jx, this.get_at(iy, ix));
+        that.m[jy * that.width + jx] = this.m[iy * this.width + ix];
         jx++;
       }
       jy++;
@@ -1010,7 +1013,7 @@ classify(Matrix, {
     }
     const that = new Matrix(this.length, this.width);
     for(let i = 0; i < this.length; i++){
-      that.set_at(i, i, 1);
+      that.m[i * (that.width + 1)] = 1;
     }
     return that;
   },
@@ -1066,8 +1069,8 @@ classify(Matrix, {
     let i, j, k;
     for(i = 0; i < this.length; i++){
       for(j = dont_recount ?(this.leading_zeroes[i]) :0; j < this.length; j++){
-        if(Matrix.eq0(this.get_at(i, j))){
-          this.set_at(i, j, 0);
+        if(Matrix.eq0(this[i * this.width + j])){
+          this.m[i * this.width + j] = 0;
         }
         else break;
       }
@@ -1165,7 +1168,7 @@ z;
         if(z <= j){
           while(z < j){
             // remove the k-th entry
-            sub_row(i, pivot_column_indices[z], that.get_at(i, z));
+            sub_row(i, pivot_column_indices[z], that.m[i * that.width + z]);
             
             that.count_leading_zeroes();
             z = that.leading_zeroes[i];
@@ -1198,7 +1201,7 @@ z;
       // remove the leading entry (if we have a pivot column there)
       z = that.leading_zeroes[i];
       while(flags_pivot_columns_done[z]){
-        sub_row(i, pivot_column_indices[z], that.get_at(i, z));
+        sub_row(i, pivot_column_indices[z], that.m[i * that.width + z]);
         // update leading zeroes accordingly
         that.count_leading_zeroes();
         z = that.leading_zeroes[i];
@@ -1406,7 +1409,7 @@ Matrix.fromArray = function(array_like_object){
   const that = new Matrix(length, width);
   for(let i = 0; i < length; i++){
     for(let j = 0; j < width; j++){
-      that.set_at(i, j, array_like_object[i][j]);
+      that.m[i * that.width + j] = array_like_object[i][j];
     }
   }
   
