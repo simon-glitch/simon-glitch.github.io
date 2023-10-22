@@ -1245,8 +1245,34 @@ z;
     
     return that;
   },
-  augment: function augment(){
+  /**
+    * Get the augmentation this matrix, adding another matrix to the right of it.
+    * @param {Matrix} augmentor matrix to append to the right of this matrix; **if this matrix is currently transposed, make sure augmentor is also transposed!**
+    * @returns {Matrix} augmented matrix;
+   **/
+  augment: function augment(augmentor){
+    if(this.length !== augmentor.length){
+      throw err("Value", "Cannot augment " + this.to_dim_name() + " with " + this.to_dim_name() + "! The 2 Matrices must have the same number of rows!");
+    }
     
+    if(this.is_tranposed !== augmentor.is_tranposed){
+      throw err("Value", "Can not augment a transposed matrix with a non-transposed matrix nor vice-versa!");
+    };
+    
+    const that = new Matrix(this.length, this.width + augmentor.width);
+    // vertically augment if this is transposed
+    if(this.is_tranposed) for(let i = 0, j, k; i < that.m.length; i++){
+      j = i % this.m.length;
+      k = i - j;
+      that.m[i] = (i < this.m.length) ?(this.m[j]) :(augmentor.m[j]);
+    }
+    else for(let i = 0, j, k; i < that.m.length; i++){
+      j = i % that.width;
+      k = i - j;
+      that.m[i] = (j < this.width) ?(t.mhis[k + j]) :(augmentor.m[k + j - this.width]);
+    }
+    
+    return that;
   },
   /* TODO:
   add the following methods:
