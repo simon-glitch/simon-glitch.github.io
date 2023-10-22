@@ -712,6 +712,9 @@ classify(Matrix, {
   really_transpose: function really_transpose(){
     this.auto_really_scale();
     this.transpose();
+    return this.auto_really_transpose();
+  },
+  auto_really_transpose: function auto_really_transpose(){
     if(this.is_tranposed){
       let iy, ix, ii, ij, swap;
       for(iy = 0; iy < this.width; iy++){
