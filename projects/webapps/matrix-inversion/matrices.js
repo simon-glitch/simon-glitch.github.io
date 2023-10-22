@@ -685,16 +685,6 @@ classify(Matrix, {
     text += "]";
     return text;
   },
-  /**
-   * get the "absolute value" of this matrix or vector
-   * @returns {Number} the absolute value
-   */
-  abs: function abs(){
-    this.auto_really_scale();
-    // um, I am not sure if this is faster or slower than the default method
-    // good news: spread operator actually works on all `TypedArray`s
-    return Math.hypot(...this.m);
-  },
   initialize_leading_zeroes: function initialize_leading_zeroes(){
     this.leading_zeroes = new Float64Array(this.length);
   },
@@ -769,15 +759,23 @@ classify(Matrix, {
       s += this.m[i];
     return s * this.scalar;
   },
+  /**
+    * get the "absolute value" of this matrix or vector
+    * @returns {Number} the absolute value
+   **/
+  abs: function abs(){
+    // um, I am not sure if this is faster or slower than the default method
+    // good news: spread operator actually works on all `TypedArray`s
+    return Math.hypot(...this.m) * this.scalar ** (this.length / 2);
+  },
   product: function product(){
     zero = this.scalar === 0;
-    this.auto_really_scale();
-    if(zero) return 0;
+    if(zero) return 0 ** this.m.length;
     
-    let s = 0;
+    let s = 1;
     for(let i = 0; i < this.m.length; i++)
       s *= this.m[i];
-    return s;
+    return s * this.scalar ** this.m.length;
   },
   diagonal: function diagonal(){
     this.auto_really_scale();
@@ -793,7 +791,6 @@ classify(Matrix, {
     return that;
   },
   diagonal_total: function diagonal_total(){
-    this.auto_really_scale();
     if(!this.is_square()){
       throw err("Value", "Can only find the diagonal of a square matrix. Can not find the value of " + this.to_dim_name + ", because it is not square!");
     }
@@ -803,10 +800,9 @@ classify(Matrix, {
       j = i * (this.length + 1);
       s += this.m[j];
     }
-    return s;
+    return s * this.scalar ** (this.length / 2);
   },
   diagonal_abs: function diagonal_abs(){
-    this.auto_really_scale();
     if(!this.is_square()){
       throw err("Value", "Can only find the diagonal of a square matrix. Can not find the value of " + this.to_dim_name + ", because it is not square!");
     }
@@ -816,10 +812,9 @@ classify(Matrix, {
       j = i * (this.length + 1);
       s += this.m[j] **2;
     }
-    return Math.sqrt(s);
+    return Math.sqrt(s) * this.scalar ** (this.length / 2);
   },
   diagonal_product: function diagonal_product(){
-    this.auto_really_scale();
     if(!this.is_square()){
       throw err("Value", "Can only find the diagonal of a square matrix. Can not find the value of " + this.to_dim_name + ", because it is not square!");
     }
@@ -829,7 +824,7 @@ classify(Matrix, {
       j = i * (this.length + 1);
       s *= this.m[j];
     }
-    return s;
+    return s * this.scalar ** this.length;
   },
   /**
    * Accurately exponentiate this to a given integer that.
