@@ -299,7 +299,7 @@ classify(Matrix, {
   width: 1,
   scalar: 1,
   nickname: "",
-  leading_zeroes: (new Float64Array(0)),
+  leading_zeroes: (new Int32Array(0)),
   /**
     * Lazy scaling: this allows you to stack scalars without loosing performance!
    **/
