@@ -50,10 +50,11 @@
 
 /* MEGA TODO:
   * consider refactoring function names and what types of params they have in order to make them more consisten;
-  * i.e. have a naming standard for "operations" (getter functions), for mutators, etc.
-  *  ... have a consistent parameter location for in_place / do_mutate
-  *  ... have some kind of "ultra dynamic" / generalized option for methods (so they can be made to work with special libraries like math.js)
-  *  ... take that last idea to the extreme and code in my own implementation of algebraic function logic?
+    * have a naming standard for "operations" (getter functions), for mutators, etc.
+    * have a consistent parameter location for in_place / do_mutate
+    * have some kind of "ultra dynamic" / generalized option for methods (so they can be made to work with special libraries like math.js)
+    * take that last idea to the extreme and code in my own implementation of algebraic function logic?
+  * OTHER TODO: learn how to write better commit message (it's a learning process XD ~!)
 ***/
 
 
