@@ -1275,6 +1275,11 @@ z;
     
     return that;
   },
+  inv: function inv(){
+    const that = this.augment(this.ident()).rref();
+    if(!that.slice(0, this.length, 0, this.width).isIdent()) return that.fill(NaN);
+    return that.slice(0, this.length, this.width);
+  },
   /* TODO:
   add the following methods:
     * pow(float)
