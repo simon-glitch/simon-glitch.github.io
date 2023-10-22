@@ -58,6 +58,7 @@
 ***/
 
 
+
 /**
   * Convert a function into a proper class, without using class syntax; why do this? Well, `classify` allows you to call the class constructor without using new. I guess there are other ways to this... anyways, I like this way of doing it. It works~;
   * @use `classify(f, proto_obj, sub_properties, ...args)`
@@ -300,13 +301,29 @@ classify(Matrix, {
   scalar: 1,
   nickname: "",
   leading_zeroes: (new Int32Array(0)),
+  initialize_leading_zeroes: function initialize_leading_zeroes(){
+    this.leading_zeroes = new Int32Array(this.length);
+  },
   /**
-    * Lazy scaling: this allows you to stack scalars without loosing performance!
-   **/
-  auto_really_scale: function auto_really_scale(){
-    if(this.scalar !== 1){
-      this.really_scale();
+   * Count the number of leading zeroes in each row of this matrix, and mutate this.leading_zeroes accordingly in the processs.
+   * @param {Boolean} dont_recount whether we should assume that the zeroes that were in the matrix last time we counted remaining zeroes are still zeroes
+   * @returns {Int32Array} the number of leading zeroes in each row (literally this.leading_zeroes)
+   */
+  count_leading_zeroes: function(dont_recount = false){
+    this.auto_really_scale();
+    this.auto_really_transpose();
+    
+    let i, j, k;
+    for(i = 0; i < this.length; i++){
+      for(j = dont_recount ?(this.leading_zeroes[i]) :0; j < this.length; j++){
+        if(Matrix.eq0(this[i * this.width + j])){
+          this.m[i * this.width + j] = 0;
+        }
+        else break;
+      }
+      this.leading_zeroes[i] = j;
     }
+    return this.leading_zeroes;
   },
   get_at: function get_at(i_row, i_col){
     this.auto_really_scale();
@@ -372,184 +389,63 @@ classify(Matrix, {
   clone: function clone(){
     return this.slice();
   },
-  /**
-   * Add this and that under standard matrix addition
-   * @param {Matrix} that the matrix to add to this matrix
-   * @param {boolean} in_place whether to store the result of the matrix addition in this matrix
-   * @returns the sum of this and that
-   */
-  add: function add(that, in_place = false){
-    this.auto_really_scale();
-    res = (in_place) ?this :this.clone();
-    if(this.m.length !== that.m.length){
-      throw err("Value", "cannot add a " + this.to_dim_name() + " to a " + that.to_dim_name() + "!\n> The middle matrices must have the same dimensions (or the transpose of one must have the same dimensions as the other).");
-      return;
-    }
-    for(let i = 0; i < this.m.length; i++){
-      res.m[i] += that.m[i];
-    }
-    return res;
-  },
-  subtract: function subtract(that, in_place = false){
-    this.auto_really_scale();
-    res = (in_place) ?this :this.clone();
-    if(this.m.length !== that.m.length){
-      throw err("Value", "cannot add a " + this.to_dim_name() + " to a " + that.to_dim_name() + "!\n> The middle matrices must have the same dimensions (or the transpose of one must have the same dimensions as the other).");
-      return;
-    }
-    for(let i = 0; i < this.m.length; i++){
-      res.m[i] -= that.m[i];
-    }
-    return res;
-  },
-  /**
-   * Multiply this matrix by that matrix. Makes a new matrix.
-   * @param {Matrix} that 
-   * @returns a new Matrix: the result of the matrix multiplication
-   */
-  multiply: function multiply(that){
-    if(!this.is_square()){
-      throw err("Value", "cannot multiple a " + this.to_dim_name() + " by a " + that.to_dim_name() + "!\n> The middle 2 numbers must be the same {cols(left) == rows(right)}.");
-      return;
-    }
-    this.auto_really_scale();
-    this.auto_really_transpose();
-    
-    let i, j, k, v;
-    const w = that.width, l = this.length;
-    const res = new Matrix(l, w);
-    for(i = 0; i < l; i++){
-      for(j = 0; j < w; j++){
-        v = 0;
-        for(k = 0; k < w; k++){
-          v += this.m[i * this.width + k] * that.m[k * that.width + j];
-        }
-        res.m[i * res.width + j] = v;
-      }
-    }
-    return res;
-  },
-  /**
-   * multiplies this by a scalar, in place, overwriting current values of this
-  **/
-  scale: function scale(scalar){
-    this.scalar *= scalar;
-    // console.log(this.to_dim_name() + " scalar now= " + this.scalar);
-    return this;
-  },
-  /**
-   * REALLY multiplies this by a scalar, in place, mutating current values of this
-  **/
-  really_scale: function really_scale(scalar){
-    this.scalar = scalar ?? this.scalar;
-    // console.log(this.to_dim_name() + " (really scaling) scalar now= " + this.scalar);
-    for(let i = 0; i < this.m.length; i++){
-      this.m[i] *= this.scalar;
-    }
-    this.scalar = 1;
-    return this;
-  },
   to_dim_name: function to_dim_name(){
     return "[" + this.nickname + (this.nickname ? ": " :"") + this.length + " by " + this.width + " Matrix]"
   },
-  eq0: function eq0(){
-    this.auto_really_scale();
-    return Matrix.eq0(this);
-  },
   /**
-   * Check approximate equality between matrices
-   * @param {Matrix} that matrix to compare this to
-   * @returns boolean: whether the 2 matrices are approximately equal
-   */
-  eq: function eq(that){
-    this.auto_really_scale();
-    this.auto_really_transpose();
-    for(let i = 0; i < this.m.length; i++){
-      if(2 * (this.m[i] - that.m[i]) / Math.sqrt(this.m[i] * that.m[i]) > Matrix.epsilon){
-        return false;
-      }
-    }
-    return true;
-  },
-  ineq: function ineq(that){
-    this.auto_really_scale();
-    this.auto_really_transpose();
-    return !this.eq(that);
-  },
-  exp: function exp(){
-    this.auto_really_scale();
-    this.auto_really_transpose();
-    if(!this.is_square()){
-      throw err("Value", "cannot exponentiate a non-square matrix, because exponentiation requires the matrix to have an identity matrix, and a non-square matrix do not have an identity matrix!");
-    }
-    that = this.clone();
-    term = that.clone();
-    that.add(that.ident(), true);
-    that.add(term, true);
-    // e^x = 1 + x + x^2 / 2 + x^3 / 3! + x^4 / 4! ...
-    // n! = n factorial = (n-1)! * n
-    // 0! = 1! = 1
-    for(let i = 2; i < 10; i++){
-      term = term.scale(1/i).multiply(this);
-      that.add(term, true);
-    }
-    // mine goes up to x^9 / 9! (currently)
-    return that;
-  },
-  /**
-    * Print this matrix!
-    * @param {Number | String} toFixedDigits
-      * if `toFixedDigits` is a number: how many digits of each value to print;
-      * if `toFixedDigits` is a string:
-        * use ".number" format to print up to `number` digits (example: `toFixedDigits = ".3"` will print up to 3 fixed digits);
-        * use "_radix" to print with `Number.toString(radix)` behavior (example: `toFixedDigits = "_2"` will print value in base 2 (binary));
-        * use any other string to simply print the number with default `Number.toString()` behavior;
-    * @param {Object} options optional object with extra parameters (see below);
-    * @param {Number} options_column_padding
-      the number of spaces to put between columns (after each comma);
-      short name: `cp`;
-    * @param {Boolean} options_exclude_name
-      whether to exclude the name header;
-      short name: `en`;
-    * @param {Boolean} options_include_final_comma
-      whether to put (include) a comma at the end of each row;
-      short name: `ifc`;
-    * @param {Boolean} options_include_row_end_semicolon
-      whether to put (include) a semicolon at the end of each row;
-      short name: `ires`;
-    * @param {Boolean} options_include_final_semicolon
-      whether to put (include) the semicolon on the final row of the matrix; semicolon is only included if `ires` is `true`;
-      short name: `ifs`;
-    * @param {Boolean} options_replace_semicolon_with_comma
-      whether to replace the semicolon at the end of each row with a comma; this does nothing if `ires` is `false`;
-      short name: `rswc`;
-    * @param {Boolean} options_wrap_rows_with_brackets
-      whether to wrap the rows with [square brackets];
-      short name: `wrwb`;
-    * In case you are wondering:
-      if `{ifc, ires, ifc, and wrwb}` are all set to true, then the matrix will print like this:
-      ```
-      [
-        [0, 0, ... 0, 0,];
-        [0, 0, ... 0, 0,];
-        ...
-        [0, 0, ... 0, 0,];
-        [0, 0, ... 0, 0,];
-      ]
-      if `{ifc = true, ires = false, ifc = any, and wrwb = false, rbws = true}`, then the matrix will print like this:
-      ```
-      [
-        0, 0, ... 0, 0
-        0, 0, ... 0, 0
-        ...
-        0, 0, ... 0, 0
-        0, 0, ... 0, 0
-      ]
-      ```
-      * @aside
-        now that I think about it, there are a lot of combinations of options that are redundant with eachother; also, this toString function is ... pretty complicated; maybe I should make it more simple and less versatile;
-    * @returns {String} a string representing the matrix;
-   **/
+  * Print this matrix!
+  * @param {Number | String} toFixedDigits
+    * if `toFixedDigits` is a number: how many digits of each value to print;
+    * if `toFixedDigits` is a string:
+      * use ".number" format to print up to `number` digits (example: `toFixedDigits = ".3"` will print up to 3 fixed digits);
+      * use "_radix" to print with `Number.toString(radix)` behavior (example: `toFixedDigits = "_2"` will print value in base 2 (binary));
+      * use any other string to simply print the number with default `Number.toString()` behavior;
+  * @param {Object} options optional object with extra parameters (see below);
+  * @param {Number} options_column_padding
+    the number of spaces to put between columns (after each comma);
+    short name: `cp`;
+  * @param {Boolean} options_exclude_name
+    whether to exclude the name header;
+    short name: `en`;
+  * @param {Boolean} options_include_final_comma
+    whether to put (include) a comma at the end of each row;
+    short name: `ifc`;
+  * @param {Boolean} options_include_row_end_semicolon
+    whether to put (include) a semicolon at the end of each row;
+    short name: `ires`;
+  * @param {Boolean} options_include_final_semicolon
+    whether to put (include) the semicolon on the final row of the matrix; semicolon is only included if `ires` is `true`;
+    short name: `ifs`;
+  * @param {Boolean} options_replace_semicolon_with_comma
+    whether to replace the semicolon at the end of each row with a comma; this does nothing if `ires` is `false`;
+    short name: `rswc`;
+  * @param {Boolean} options_wrap_rows_with_brackets
+    whether to wrap the rows with [square brackets];
+    short name: `wrwb`;
+  * In case you are wondering:
+    if `{ifc, ires, ifc, and wrwb}` are all set to true, then the matrix will print like this:
+    ```
+    [
+      [0, 0, ... 0, 0,];
+      [0, 0, ... 0, 0,];
+      ...
+      [0, 0, ... 0, 0,];
+      [0, 0, ... 0, 0,];
+    ]
+    if `{ifc = true, ires = false, ifc = any, and wrwb = false, rbws = true}`, then the matrix will print like this:
+    ```
+    [
+      0, 0, ... 0, 0
+      0, 0, ... 0, 0
+      ...
+      0, 0, ... 0, 0
+      0, 0, ... 0, 0
+    ]
+    ```
+    * @aside
+      now that I think about it, there are a lot of combinations of options that are redundant with eachother; also, this toString function is ... pretty complicated; maybe I should make it more simple and less versatile;
+  * @returns {String} a string representing the matrix;
+  ***/
   toString: function toString(toFixedDigits = 3, options = {}){
     let column_padding               =
       options.column_padding ??
@@ -688,188 +584,13 @@ classify(Matrix, {
     text += "]";
     return text;
   },
-  transpose: function transpose(){
-    const swap = this.length;
-    this.length = this.width;
-    this.width = swap;
-    this.is_tranposed = !this.is_tranposed;
-    this.initialize_leading_zeroes();
-  },
-  /**
-   * Transposes this matrix, IN PLACE, for real. I love how elegant and magical-looking this funciton is.
-   * @returns {Matrix} the transposed matrix;
-   */
-  really_transpose: function really_transpose(){
-    this.transpose();
-    return this.auto_really_transpose();
-  },
-  auto_really_transpose: function auto_really_transpose(){
-    if(this.is_tranposed){
-      let iy, ix, ii, ij, swap;
-      for(iy = 0; iy < this.width; iy++){
-        for(ix = 0; ix < iy; ix++){
-          ii = iy * this.width + ix;
-          ij = ix * this.length + iy;
-          swap = this[ii];
-          this[ii] = this[ij];
-          this[ij] = swap;
-        }
-      }
-    }
-    return this;
-  },
-  /**
-   * Check whether this matrix is a vector. If this matrix has been transposed, it tells you whether the matrix is currently a vector (after being transposed). FYI: a vector is simply a matrix with 1 column.
-   * @returns {Boolean} whether this is a vector;
-   */
-  is_vector: function is_vector(){
-    return (this.width === 1);
-  },
-  /**
-   * Check wether this matrix is square.
-   * TODO: use this in other places.
-   */
-  is_square: function is_square(){
-    return (this.length === this.width);
-  },
-  /**
-   * Convert this to a vector
-   * @param {Boolean} reinitialize_values whether this should clone the values (in this.m); if reinitialize_values is false, then this.m will be reused, and the resulting vector will use the same TypedArray as this; if your goal is to slice this into a new vector, then set reinitialize_values = true;
-   */
-  toVector: function toVector(reinitialize_values = false){
-    this.auto_really_scale();
-    this.auto_really_transpose();
-    const that = new Vector(this.m.length);
-    if(reinitialize_values) for(let i = 0; i < this.m.length; i++){
-      that.m[i] = this.m[i];
-    }
-    else that.m = this.m;
-    return that;
-  },
-  /**
-    * Should I make this use this.auto_really_scale()?
-    * @returns {Number} sum of all values in this matrix
-   **/
-  total: function total(){
-    zero = this.scalar === 0;
-    if(zero) return 0;
-    
-    let s = 0;
-    for(let i = 0; i < this.m.length; i++)
-      s += this.m[i];
-    return s * this.scalar;
-  },
-  /**
-    * get the "absolute value" of this matrix or vector
-    * @returns {Number} the absolute value
-   **/
-  abs: function abs(){
-    // um, I am not sure if this is faster or slower than the default method
-    // good news: spread operator actually works on all `TypedArray`s
-    return Math.hypot(...this.m) * this.scalar ** (this.length / 2);
-  },
-  product: function product(){
-    zero = this.scalar === 0;
-    if(zero) return 0 ** this.m.length;
-    
-    let s = 1;
-    for(let i = 0; i < this.m.length; i++)
-      s *= this.m[i];
-    return s * this.scalar ** this.m.length;
-  },
-  diagonal: function diagonal(){
-    this.auto_really_scale();
-    if(!this.is_square()){
-      throw err("Value", "Can only find the diagonal of a square matrix. Can not find the value of " + this.to_dim_name + ", because it is not square!");
-    }
-    const that = new Matrix(this.length, this.width);
-    for(let i = 0; i < this.length; i++){
-      // that.set_at(i,i, this.get_at(i,i));
-      j = i * (this.length + 1);
-      that.m[j] = this.m[j];
-    }
-    return that;
-  },
-  diagonal_total: function diagonal_total(){
-    if(!this.is_square()){
-      throw err("Value", "Can only find the diagonal of a square matrix. Can not find the value of " + this.to_dim_name + ", because it is not square!");
-    }
-    let s = 0;
-    for(let i = 0; i < this.length; i++){
-      // that.set_at(i,i, this.get_at(i,i));
-      j = i * (this.length + 1);
-      s += this.m[j];
-    }
-    return s * this.scalar ** (this.length / 2);
-  },
-  diagonal_abs: function diagonal_abs(){
-    if(!this.is_square()){
-      throw err("Value", "Can only find the diagonal of a square matrix. Can not find the value of " + this.to_dim_name + ", because it is not square!");
-    }
-    let s = 0;
-    for(let i = 0; i < this.length; i++){
-      // that.set_at(i,i, this.get_at(i,i));
-      j = i * (this.length + 1);
-      s += this.m[j] **2;
-    }
-    return Math.sqrt(s) * this.scalar ** (this.length / 2);
-  },
-  diagonal_product: function diagonal_product(){
-    if(!this.is_square()){
-      throw err("Value", "Can only find the diagonal of a square matrix. Can not find the value of " + this.to_dim_name + ", because it is not square!");
-    }
-    let s = 1;
-    for(let i = 0; i < this.length; i++){
-      // that.set_at(i,i, this.get_at(i,i));
-      j = i * (this.length + 1);
-      s *= this.m[j];
-    }
-    return s * this.scalar ** this.length;
-  },
-  /**
-   * Accurately exponentiate this to a given integer that.
-   * @param {Number} that power;
-   * @returns {Matrix} this^that
-   */
-  pow: function pow(that){
-    if(!this.is_square){
-      throw err("Value", "Cannot multiply a non-square matrix by itself; cannot invert a non-square matrix; cannot find the identity matrix corresponding to a non-square matrix; thus, cannot raise a non-square matrix to any power!");
-    }
-    if(that === 0){
-      return this.ident();
-    }
-    
-    this.auto_really_scale();
-    this.auto_really_transpose();
-    if((that < 2**53) && (that % 1 === 0)){
-      if(that < 0){
-        return this.inv().pow(that);
-      }
-      let result = this.ident();
-      let power = this.clone();
-      const binary = that.toString(2);
-      // use repeated squaring to quickly exponentiate up to any large power
-      for(let i = binary.length - 1; i >= 0; i--){
-        if(+binary[i]){
-          result = result.multiply(power);
-        }
-        if(i > 0){
-          power = power.multiply(power);
-        }
-      }
-      return result;
-    }
-    that_c = that?.constructor?.name;
-    that_cc = that?.prototype?.constructor?.name;
-    throw err("Type", "Either `that` was an invalid type or this code hasn't implemented expontitation for the type of `that` yet. Typeof that: " + (typeof that) + (that_c ? (", instanceof: " + that_c + (that_cc ?(" and " + that_cc) :"")) :""));
-  },
   /**
     * Convert this matrix to a 2-D array (or a 2-D version of any array-like `type`)!
     * @param {Function} type which class (or type) of Array-like object to coerce this matrix into
     * @param {Boolean} type_allows_mapping whether the type has a map() method that works the same way Array's map() does
     * @param {Boolean} type_accepts_length whether the type allows you to give the length as the first parameter when calling the constructor
     * @returns {Array | type} A 2-D array (or a 2-D version of type), representing this matrix, composed with the values from this matrix.
-   **/
+  ***/
   toDoubleArray: function toDoubleArray(type = Array, type_allows_mapping = false, type_accepts_length = true){
     this.auto_really_scale();
     this.auto_really_transpose();
@@ -926,7 +647,7 @@ classify(Matrix, {
       * defaults to 1 (i.e. a simple Array);
     * @param {Boolean} requires_length whether type requires a length argument to be passed in on construction;
       * defaults to false;
-   **/
+  ***/
   toArray: function toArray(type = Array, dimensions = 1, requires_length = false){
     this.auto_really_scale();
     this.auto_really_transpose();
@@ -984,12 +705,98 @@ classify(Matrix, {
     return that;
   },
   /**
+   * Convert this to a vector
+   * @param {Boolean} reinitialize_values whether this should clone the values (in this.m); if reinitialize_values is false, then this.m will be reused, and the resulting vector will use the same TypedArray as this; if your goal is to slice this into a new vector, then set reinitialize_values = true;
+   */
+  toVector: function toVector(reinitialize_values = false){
+    this.auto_really_scale();
+    this.auto_really_transpose();
+    const that = new Vector(this.m.length);
+    if(reinitialize_values) for(let i = 0; i < this.m.length; i++){
+      that.m[i] = this.m[i];
+    }
+    else that.m = this.m;
+    return that;
+  },
+  transpose: function transpose(){
+    const swap = this.length;
+    this.length = this.width;
+    this.width = swap;
+    this.is_tranposed = !this.is_tranposed;
+    this.initialize_leading_zeroes();
+  },
+  /**
+   * Transposes this matrix, IN PLACE, for real. I love how elegant and magical-looking this funciton is.
+   * @returns {Matrix} the transposed matrix;
+   */
+  really_transpose: function really_transpose(){
+    this.transpose();
+    return this.auto_really_transpose();
+  },
+  auto_really_transpose: function auto_really_transpose(){
+    if(this.is_tranposed){
+      let iy, ix, ii, ij, swap;
+      for(iy = 0; iy < this.width; iy++){
+        for(ix = 0; ix < iy; ix++){
+          ii = iy * this.width + ix;
+          ij = ix * this.length + iy;
+          swap = this[ii];
+          this[ii] = this[ij];
+          this[ij] = swap;
+        }
+      }
+    }
+    return this;
+  },
+  /**
+    * multiplies this by a scalar, in place, overwriting current values of this
+  ***/
+  scale: function scale(scalar){
+    this.scalar *= scalar;
+    // console.log(this.to_dim_name() + " scalar now= " + this.scalar);
+    return this;
+  },
+  /**
+    * REALLY multiplies this by a scalar, in place, mutating current values of this
+  ***/
+  really_scale: function really_scale(scalar){
+    this.scalar = scalar ?? this.scalar;
+    // console.log(this.to_dim_name() + " (really scaling) scalar now= " + this.scalar);
+    for(let i = 0; i < this.m.length; i++){
+      this.m[i] *= this.scalar;
+    }
+    this.scalar = 1;
+    return this;
+  },
+  /**
+    * Lazy scaling: this allows you to stack scalars without loosing performance!
+  ***/
+  auto_really_scale: function auto_really_scale(){
+    if(this.scalar !== 1){
+      this.really_scale();
+    }
+  },
+  ident: function ident(){
+    if(!this.is_square()){
+      throw err("Value", "Can not find the identity matrix corresponding to a non-square matrix! (Tried to find the identity of " + this.to_dim_name() + ")");
+    }
+    const that = new Matrix(this.length, this.width);
+    for(let i = 0; i < this.length; i++){
+      that.m[i * (that.width + 1)] = 1;
+    }
+    return that;
+  },
+  zero: function zero(){
+    const that = new Matrix(this.length, this.width);
+    return that;
+  },
+  /**
     * Get one of the minors of this matrix. A minor is a copy of this matrix with a particular row and column of this matrix removed.
     * @param {Number} row_number index (or number) of which row to remove
     * @param {Number} column_number index (or number) of which column to remove
     * @returns {Matrix} a clone of this matrix, with row # [row_number] removed, and column # [column_number] removed;
     * TODO: add smart handling of transpose to minor
-   **/
+  ***/
   minor: function minor(row_number = 0, column_number = 0){
     if(this.length < 1 || this.width < 1){
       throw err("Value", "can't get the minor of an empty matrix! There are no rows or column to remove in the first place.")
@@ -1017,22 +824,169 @@ classify(Matrix, {
       jy++;
     }
   },
-  ident: function ident(){
+  /**
+    * Check whether this matrix is a vector. If this matrix has been transposed, it tells you whether the matrix is currently a vector (after being transposed). FYI: a vector is simply a matrix with 1 column.
+    * @returns {Boolean} whether this is a vector;
+  ***/
+  is_vector: function is_vector(){
+    return (this.width === 1);
+  },
+  /**
+   * Check wether this matrix is square.
+   * TODO: use this in other places.
+   */
+  is_square: function is_square(){
+    return (this.length === this.width);
+  },
+  eq0: function eq0(){
+    this.auto_really_scale();
+    return Matrix.eq0(this);
+  },
+  isNaN: function isNaN(){
+    for(let i = 0; i < this.m.length; i++){
+      if(this.m[i].isNaN()){
+        return true;
+      }
+    }
+    return false;
+  },
+  isFinite: function isFinite(){
+    for(let i = 0; i < this.m.length; i++){
+      if(!this.m[i].isFinite()){
+        return false;
+      }
+    }
+    return true;
+  },
+  isInfinite: function isInfinite(){
+    for(let i = 0; i < this.m.length; i++){
+      if(!this.m[i].isFinite() && !this.m[i].isNaN()){
+        return true;
+      }
+    }
+    return false;
+  },
+  isDiagonal: function isDiagonal(){
+    if(this.is_square()) return false;
+    this.auto_really_scale();
+    
+    for(let i = 0, j; i < this.m.length; i++){
+      j = i % this.width;
+      // NOT on the diagonal:
+      if((i - j) / this.width !== j){
+        // NON zero value here:
+        if(!Matrix.eq0(this.m[i])){
+          return false;
+        }
+      }
+    }
+    return true;
+  },
+  isIdent: function isIdent(){
+    if(this.is_square()) return false;
+    this.auto_really_scale();
+    
+    for(let i = 0, j, on_the_diagonal; i < this.m.length; i++){
+      j = i % this.width;
+      // 1 if  IS on the diagonal,
+      // 0 if NOT on the diagonal;
+      on_the_diagonal = +((i - j) / this.width === j);
+      // does this value === on_the_diagonal
+      if(!Matrix.eq0(this.m[i] - on_the_diagonal)){
+        return false;
+      }
+    }
+    return true;
+  },
+  isFull: function isFull(){
+    this.auto_really_scale();
+    
+    for(let i = 0; i < this.m.length; i++){
+      if(Matrix.eq0(this.m[i])){
+        return false;
+      }
+    }
+    return true;
+  },
+  /**
+    * get the "absolute value" of this matrix or vector
+    * @returns {Number} the absolute value
+  ***/
+  abs: function abs(){
+    // um, I am not sure if this is faster or slower than the default method
+    // good news: spread operator actually works on all `TypedArray`s
+    return Math.hypot(...this.m) * this.scalar ** (this.length / 2);
+  },
+  /**
+    * Should I make this use this.auto_really_scale()?
+    * @returns {Number} sum of all values in this matrix
+  ***/
+  total: function total(){
+    zero = this.scalar === 0;
+    if(zero) return 0;
+    
+    let s = 0;
+    for(let i = 0; i < this.m.length; i++)
+      s += this.m[i];
+    return s * this.scalar;
+  },
+  product: function product(){
+    zero = this.scalar === 0;
+    if(zero) return 0 ** this.m.length;
+    
+    let s = 1;
+    for(let i = 0; i < this.m.length; i++)
+      s *= this.m[i];
+    return s * this.scalar ** this.m.length;
+  },
+  diagonal: function diagonal(){
+    this.auto_really_scale();
     if(!this.is_square()){
-      throw err("Value", "Can not find the identity matrix corresponding to a non-square matrix! (Tried to find the identity of " + this.to_dim_name() + ")");
+      throw err("Value", "Can only find the diagonal of a square matrix. Can not find the value of " + this.to_dim_name + ", because it is not square!");
     }
     const that = new Matrix(this.length, this.width);
     for(let i = 0; i < this.length; i++){
-      that.m[i * (that.width + 1)] = 1;
+      // that.set_at(i,i, this.get_at(i,i));
+      j = i * (this.length + 1);
+      that.m[j] = this.m[j];
     }
     return that;
   },
-  zero: function zero(){
-    const that = new Matrix(this.length, this.width);
-    return that;
+  diagonal_abs: function diagonal_abs(){
+    if(!this.is_square()){
+      throw err("Value", "Can only find the diagonal of a square matrix. Can not find the value of " + this.to_dim_name + ", because it is not square!");
+    }
+    let s = 0;
+    for(let i = 0; i < this.length; i++){
+      // that.set_at(i,i, this.get_at(i,i));
+      j = i * (this.length + 1);
+      s += this.m[j] **2;
+    }
+    return Math.sqrt(s) * this.scalar ** (this.length / 2);
   },
-  initialize_leading_zeroes: function initialize_leading_zeroes(){
-    this.leading_zeroes = new Int32Array(this.length);
+  diagonal_total: function diagonal_total(){
+    if(!this.is_square()){
+      throw err("Value", "Can only find the diagonal of a square matrix. Can not find the value of " + this.to_dim_name + ", because it is not square!");
+    }
+    let s = 0;
+    for(let i = 0; i < this.length; i++){
+      // that.set_at(i,i, this.get_at(i,i));
+      j = i * (this.length + 1);
+      s += this.m[j];
+    }
+    return s * this.scalar ** (this.length / 2);
+  },
+  diagonal_product: function diagonal_product(){
+    if(!this.is_square()){
+      throw err("Value", "Can only find the diagonal of a square matrix. Can not find the value of " + this.to_dim_name + ", because it is not square!");
+    }
+    let s = 1;
+    for(let i = 0; i < this.length; i++){
+      // that.set_at(i,i, this.get_at(i,i));
+      j = i * (this.length + 1);
+      s *= this.m[j];
+    }
+    return s * this.scalar ** this.length;
   },
   floor: function floor(){
     this.auto_really_scale();
@@ -1085,26 +1039,171 @@ classify(Matrix, {
     }
     return this;
   },
+  exp: function exp(){
+    this.auto_really_scale();
+    this.auto_really_transpose();
+    if(!this.is_square()){
+      throw err("Value", "cannot exponentiate a non-square matrix, because exponentiation requires the matrix to have an identity matrix, and a non-square matrix do not have an identity matrix!");
+    }
+    that = this.clone();
+    term = that.clone();
+    that.add(that.ident(), true);
+    that.add(term, true);
+    // e^x = 1 + x + x^2 / 2 + x^3 / 3! + x^4 / 4! ...
+    // n! = n factorial = (n-1)! * n
+    // 0! = 1! = 1
+    for(let i = 2; i < 10; i++){
+      term = term.scale(1/i).multiply(this);
+      that.add(term, true);
+    }
+    // mine goes up to x^9 / 9! (currently)
+    return that;
+  },
   /**
-   * Count the number of leading zeroes in each row of this matrix, and mutate this.leading_zeroes accordingly in the processs.
-   * @param {Boolean} dont_recount whether we should assume that the zeroes that were in the matrix last time we counted remaining zeroes are still zeroes
-   * @returns {Int32Array} the number of leading zeroes in each row (literally this.leading_zeroes)
+    * Check approximate equality between matrices
+    * @param {Matrix} that matrix to compare this to
+    * @returns boolean: whether the 2 matrices are approximately equal
+  ***/
+  eq: function eq(that){
+    this.auto_really_scale();
+    this.auto_really_transpose();
+    for(let i = 0; i < this.m.length; i++){
+      if(2 * (this.m[i] - that.m[i]) / Math.sqrt(this.m[i] * that.m[i]) > Matrix.epsilon){
+        return false;
+      }
+    }
+    return true;
+  },
+  ineq: function ineq(that){
+    this.auto_really_scale();
+    this.auto_really_transpose();
+    return !this.eq(that);
+  },
+  /**
+   * Add this and that under standard matrix addition
+   * @param {Matrix} that the matrix to add to this matrix
+   * @param {boolean} in_place whether to store the result of the matrix addition in this matrix
+   * @returns the sum of this and that
    */
-  count_leading_zeroes: function(dont_recount = false){
+  add: function add(that, in_place = false){
+    this.auto_really_scale();
+    res = (in_place) ?this :this.clone();
+    if(this.m.length !== that.m.length){
+      throw err("Value", "cannot add a " + this.to_dim_name() + " to a " + that.to_dim_name() + "!\n> The middle matrices must have the same dimensions (or the transpose of one must have the same dimensions as the other).");
+      return;
+    }
+    for(let i = 0; i < this.m.length; i++){
+      res.m[i] += that.m[i];
+    }
+    return res;
+  },
+  subtract: function subtract(that, in_place = false){
+    this.auto_really_scale();
+    res = (in_place) ?this :this.clone();
+    if(this.m.length !== that.m.length){
+      throw err("Value", "cannot subtract a " + this.to_dim_name() + " to a " + that.to_dim_name() + "!\n> The middle matrices must have the same dimensions (or the transpose of one must have the same dimensions as the other).");
+      return;
+    }
+    for(let i = 0; i < this.m.length; i++){
+      res.m[i] -= that.m[i];
+    }
+    return res;
+  },
+  /**
+   * Multiply this matrix by that matrix. Makes a new matrix.
+   * @param {Matrix} that 
+   * @returns a new Matrix: the result of the matrix multiplication
+   */
+  multiply: function multiply(that){
+    if(!this.is_square()){
+      throw err("Value", "cannot multiple a " + this.to_dim_name() + " by a " + that.to_dim_name() + "!\n> The middle 2 numbers must be the same {cols(left) == rows(right)}.");
+      return;
+    }
     this.auto_really_scale();
     this.auto_really_transpose();
     
-    let i, j, k;
-    for(i = 0; i < this.length; i++){
-      for(j = dont_recount ?(this.leading_zeroes[i]) :0; j < this.length; j++){
-        if(Matrix.eq0(this[i * this.width + j])){
-          this.m[i * this.width + j] = 0;
+    let i, j, k, v;
+    const w = that.width, l = this.length;
+    const res = new Matrix(l, w);
+    for(i = 0; i < l; i++){
+      for(j = 0; j < w; j++){
+        v = 0;
+        for(k = 0; k < w; k++){
+          v += this.m[i * this.width + k] * that.m[k * that.width + j];
         }
-        else break;
+        res.m[i * res.width + j] = v;
       }
-      this.leading_zeroes[i] = j;
     }
-    return this.leading_zeroes;
+    return res;
+  },
+  /**
+   * Accurately exponentiate this to a given integer power `that`.
+   * @param {Number} that power;
+   * @returns {Matrix} this^that
+   */
+  pow: function pow(that){
+    if(!this.is_square){
+      throw err("Value", "Cannot multiply a non-square matrix by itself; cannot invert a non-square matrix; cannot find the identity matrix corresponding to a non-square matrix; thus, cannot raise a non-square matrix to any power!");
+    }
+    if(that === 0){
+      return this.ident();
+    }
+    
+    this.auto_really_scale();
+    this.auto_really_transpose();
+    if((that < 2**53) && (that % 1 === 0)){
+      if(that < 0){
+        return this.inv().pow(that);
+      }
+      let result = this.ident();
+      let power = this.clone();
+      const binary = that.toString(2);
+      // use repeated squaring to quickly exponentiate up to any large power
+      for(let i = binary.length - 1; i >= 0; i--){
+        if(+binary[i]){
+          result = result.multiply(power);
+        }
+        if(i > 0){
+          power = power.multiply(power);
+        }
+      }
+      return result;
+    }
+    that_c = that?.constructor?.name;
+    that_cc = that?.prototype?.constructor?.name;
+    throw err("Type", "Either `that` was an invalid type or this code hasn't implemented expontitation for the type of `that` yet. Typeof that: " + (typeof that) + (that_c ? (", instanceof: " + that_c + (that_cc ?(" and " + that_cc) :"")) :""));
+  },
+  /**
+    * Get the augmentation this matrix, adding another matrix to the right of it. This function is highly performant.
+    * @param {Matrix} augmentor matrix to append to the right of this matrix; **if this matrix is currently transposed, make sure augmentor is also transposed!**
+    * @returns {Matrix} augmented matrix;
+  ***/
+  augment: function augment(augmentor){
+    this.auto_really_scale();
+    this.auto_really_transpose();
+    
+    if(this.length !== augmentor.length){
+      throw err("Value", "Cannot augment " + this.to_dim_name() + " with " + this.to_dim_name() + "! The 2 Matrices must have the same number of rows!");
+    }
+    
+    if(this.is_tranposed !== augmentor.is_tranposed){
+      throw err("Value", "Can not augment a transposed matrix with a non-transposed matrix nor vice-versa!");
+    };
+    
+    const that = new Matrix(this.length, this.width + augmentor.width);
+    // vertically augment if this is transposed
+    if(this.is_tranposed) for(let i = 0, j, k; i < that.m.length; i++){
+      j = i % this.m.length;
+      k = i - j;
+      that.m[i] = (i < this.m.length) ?(this.m[j]) :(augmentor.m[j]);
+    }
+    else for(let i = 0, j, k; i < that.m.length; i++){
+      j = i % that.width;
+      k = i - j;
+      that.m[i] = (j < this.width) ?(t.mhis[k + j]) :(augmentor.m[k + j - this.width]);
+    }
+    
+    return that;
   },
   /**
    * Use Guassian Elimination (G.E.) to convert this matrix to Row Echelon Form (R.E.F.)
@@ -1280,38 +1379,6 @@ z;
     
     return that;
   },
-  /**
-    * Get the augmentation this matrix, adding another matrix to the right of it. This function is highly performant.
-    * @param {Matrix} augmentor matrix to append to the right of this matrix; **if this matrix is currently transposed, make sure augmentor is also transposed!**
-    * @returns {Matrix} augmented matrix;
-   **/
-  augment: function augment(augmentor){
-    this.auto_really_scale();
-    this.auto_really_transpose();
-    
-    if(this.length !== augmentor.length){
-      throw err("Value", "Cannot augment " + this.to_dim_name() + " with " + this.to_dim_name() + "! The 2 Matrices must have the same number of rows!");
-    }
-    
-    if(this.is_tranposed !== augmentor.is_tranposed){
-      throw err("Value", "Can not augment a transposed matrix with a non-transposed matrix nor vice-versa!");
-    };
-    
-    const that = new Matrix(this.length, this.width + augmentor.width);
-    // vertically augment if this is transposed
-    if(this.is_tranposed) for(let i = 0, j, k; i < that.m.length; i++){
-      j = i % this.m.length;
-      k = i - j;
-      that.m[i] = (i < this.m.length) ?(this.m[j]) :(augmentor.m[j]);
-    }
-    else for(let i = 0, j, k; i < that.m.length; i++){
-      j = i % that.width;
-      k = i - j;
-      that.m[i] = (j < this.width) ?(t.mhis[k + j]) :(augmentor.m[k + j - this.width]);
-    }
-    
-    return that;
-  },
   inv: function inv(){
     // implied:
     // this.auto_really_scale();
@@ -1320,72 +1387,6 @@ z;
     const that = this.augment(this.ident()).rref();
     if(!that.slice(0, this.length, 0, this.width).isIdent()) return that.fill(NaN);
     return that.slice(0, this.length, this.width);
-  },
-  isNaN: function isNaN(){
-    for(let i = 0; i < this.m.length; i++){
-      if(this.m[i].isNaN()){
-        return true;
-      }
-    }
-    return false;
-  },
-  isFinite: function isFinite(){
-    for(let i = 0; i < this.m.length; i++){
-      if(!this.m[i].isFinite()){
-        return false;
-      }
-    }
-    return true;
-  },
-  isInfinite: function isInfinite(){
-    for(let i = 0; i < this.m.length; i++){
-      if(!this.m[i].isFinite() && !this.m[i].isNaN()){
-        return true;
-      }
-    }
-    return false;
-  },
-  isDiagonal: function isDiagonal(){
-    if(this.is_square()) return false;
-    this.auto_really_scale();
-    
-    for(let i = 0, j; i < this.m.length; i++){
-      j = i % this.width;
-      // NOT on the diagonal:
-      if((i - j) / this.width !== j){
-        // NON zero value here:
-        if(!Matrix.eq0(this.m[i])){
-          return false;
-        }
-      }
-    }
-    return true;
-  },
-  isIdent: function isIdent(){
-    if(this.is_square()) return false;
-    this.auto_really_scale();
-    
-    for(let i = 0, j, on_the_diagonal; i < this.m.length; i++){
-      j = i % this.width;
-      // 1 if  IS on the diagonal,
-      // 0 if NOT on the diagonal;
-      on_the_diagonal = +((i - j) / this.width === j);
-      // does this value === on_the_diagonal
-      if(!Matrix.eq0(this.m[i] - on_the_diagonal)){
-        return false;
-      }
-    }
-    return true;
-  },
-  isFull: function isFull(){
-    this.auto_really_scale();
-    
-    for(let i = 0; i < this.m.length; i++){
-      if(Matrix.eq0(this.m[i])){
-        return false;
-      }
-    }
-    return true;
   },
   /* TODO:
   add the following methods:
