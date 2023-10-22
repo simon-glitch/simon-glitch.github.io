@@ -1280,6 +1280,66 @@ z;
     if(!that.slice(0, this.length, 0, this.width).isIdent()) return that.fill(NaN);
     return that.slice(0, this.length, this.width);
   },
+  isNaN: function isNaN(){
+    for(let i = 0; i < this.m.length; i++){
+      if(this.m[i].isNaN()){
+        return true;
+      }
+    }
+    return false;
+  },
+  isFinite: function isFinite(){
+    for(let i = 0; i < this.m.length; i++){
+      if(!this.m[i].isFinite()){
+        return false;
+      }
+    }
+    return true;
+  },
+  isInfinite: function isInfinite(){
+    for(let i = 0; i < this.m.length; i++){
+      if(!this.m[i].isFinite() && !this.m[i].isNaN()){
+        return true;
+      }
+    }
+    return false;
+  },
+  isDiagonal: function isDiagonal(){
+    if(this.is_square()) return false;
+    for(let i = 0, j; i < this.m.length; i++){
+      j = i % this.width;
+      // NOT on the diagonal:
+      if((i - j) / this.width !== j){
+        // NON zero value here:
+        if(!Matrix.eq0(this.m[i])){
+          return false;
+        }
+      }
+    }
+    return true;
+  },
+  isIdent: function isIdent(){
+    if(this.is_square()) return false;
+    for(let i = 0, j, on_the_diagonal; i < this.m.length; i++){
+      j = i % this.width;
+      // 1 if  IS on the diagonal,
+      // 0 if NOT on the diagonal;
+      on_the_diagonal = +((i - j) / this.width === j);
+      // does this value === on_the_diagonal
+      if(!Matrix.eq0(this.m[i] - on_the_diagonal)){
+        return false;
+      }
+    }
+    return true;
+  },
+  isFull: function isFull(){
+    for(let i = 0; i < this.m.length; i++){
+      if(Matrix.eq0(this.m[i])){
+        return false;
+      }
+    }
+    return true;
+  },
   /* TODO:
   add the following methods:
     * pow(float)
