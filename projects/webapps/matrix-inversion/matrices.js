@@ -1214,7 +1214,7 @@ classify(Matrix, {
     else for(let i = 0, j, k; i < that.m.length; i++){
       j = i % that.width;
       k = i - j;
-      that.m[i] = (j < this.width) ?(t.mhis[k + j]) :(augmentor.m[k + j - this.width]);
+      that.m[i] = (j < this.width) ?(this.m[k + j]) :(augmentor.m[k + j - this.width]);
     }
     
     return that;
