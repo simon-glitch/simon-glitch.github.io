@@ -316,7 +316,7 @@ classify(Matrix, {
     let i, j, k;
     for(i = 0; i < this.length; i++){
       for(j = dont_recount ?(this.leading_zeroes[i]) :0; j < this.length; j++){
-        if(Matrix.eq0(this[i * this.width + j])){
+        if(Matrix.eq0(this.m[i * this.width + j])){
           this.m[i * this.width + j] = 0;
         }
         else break;
@@ -1646,7 +1646,7 @@ const testee = Matrix.fromArray([
 
 
 // console.clear();
-if(0) onclick = function(){
+if(1) onclick = function(){
   const me = testee;
   console.log("me"   + " = " + me.toString(".3"));
   // console.log("2*me" + " = " + me.clone().scale( 2));
