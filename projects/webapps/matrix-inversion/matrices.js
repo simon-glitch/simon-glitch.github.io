@@ -1393,21 +1393,15 @@ z;
   },
   /* TODO:
   add the following methods:
+    * sign() // get a mapped matrix with the sign of every value of this matrix;
     * pow(float)
     * sqrt() // optimized method to find the square root of this matrix
-    * augment() // augment this matrix by appending another matrix to the right of its columns (append it on the bottom of the rows if this matrix is currently transposed);
-    * isNaN     () // whether this matrix contains a NaN value;
-    * isFinite  () // whether this matrix contains no values of NaN / Infinity;
-    * isInfinite() // whether this matrix contains a value of / Infinity;
-    * isDiagonal() // whether this matrix only has values on the diagonal;
-    * isIdent   () // whether this is an identity matrix;
-    * isFull    () // whether this matrix contains no zero values;
-    * fill() // fill every value of this matrix with the same value;
+    * Y fill() // fill every value of this matrix with the same value;
       * fillRow() // fill every value of a specified row of this matrix with the same value;
       * fillColumn() // fill every value of a specified column of this matrix with the same value;
-    * paste() // paste values from a 2-D array into this matrix;
-      * pasteRow() // paste values from an array into a specified row of this matrix;
-      * pasteColumn() // paste values from an array into a specified column of this matrix;
+    * paste(2d_array_like_object) // paste values from a 2-D array into this matrix;
+      * pasteRow(array_like_object) // paste values from an array into a specified row of this matrix;
+      * pasteColumn(array_like_object) // paste values from an array into a specified column of this matrix;
     * row(n, asArray) // get row #n of this matrix (formatted as an Array is asArray = true, formatted as a Matrix otherwise);
     * column(n, asArray) // get column #n of this matrix (formatted as an Array is asArray = true, formatted as a Matrix otherwise);
     * rowsOfZeroes() // list all indices of rows of this matrix that contain only zeroes;
@@ -1428,9 +1422,9 @@ z;
         * with setting to leave existing leading entries as is;
     * rref() // reduced row echelon form (of this matrix);
     * rank() // get the rank (of this matrix);
-    * row_space_span() // get the span of the row    space of this matrix;
-    * col_space_span() // get the span of the column space of this matrix;
-    * nul_space_span() // get the span of the null   space of this matrix;
+    * row_space() // get the span of the row    space of this matrix;
+    * col_space() // get the span of the column space of this matrix;
+    * nul_space() // get the span of the null   space of this matrix;
     * cofactors() // get the matrix of cofactors to this matrix;
     * cofactor(i,j) // get the cofactor of this matrix, at coordinate {i,j}
     * unslice(array_like_object) // copy all values of this over into the array_like_object (mutating the parameter);
