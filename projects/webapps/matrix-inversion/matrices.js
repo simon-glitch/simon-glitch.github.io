@@ -1427,7 +1427,7 @@ z;
   },
   rref: function rref(augment = null, in_place = false){
     return this.ref(augment, in_place, true);
-  };
+  },
   inv: function inv(){
     // implied:
     // this.auto_really_scale();
