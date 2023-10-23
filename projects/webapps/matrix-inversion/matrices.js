@@ -1413,40 +1413,101 @@ z;
     if(!that.slice(0, this.length, 0, this.width).isIdent()) return that.fill(NaN);
     return that.slice(0, this.length, this.width);
   },
-  /**
-   * Fill every value of this matrix with the same value.
-   * @param {Number} value filler
-   * @returns {Matrix} this matrix
-   */
+  /***
+    * Fill every value of this matrix with the same value.
+    * @param {Number} value filler
+    * @returns {Matrix} this matrix
+   **/
   fill: function fill(value){
     for(let i = 0; i < this.m.length; i++){
       this.m[i] = value;
     }
     return this;
   },
-  /**
-   * Fill every value of a certain row of this matrix with the same value.
-   * @param {Number} value filler
-   * @param {Number} row_index index of which row to fill; 0 = first row, 1 = second row, etc...
-   * @returns {Matrix} this matrix
-   */
+  /***
+    * Fill every value of a certain row of this matrix with the same value.
+    * @param {Number} value filler
+    * @param {Number} row_index index of which row to fill; 0 = first row, 1 = second row, etc...
+    * @returns {Matrix} this matrix
+   **/
   fillRow: function fillRow(value, row_index){
     for(let i = row_index * this.width; i < row_index * (1 + this.width); i++){
       this.m[i] = value;
     }
     return this;
   },
-  /**
-   * Fill every value of a certain column of this matrix with the same value.
-   * @param {Number} value filler
-   * @param {Number} col_index index of which column to fill; 0 = first column, 1 = second column, etc...
-   * @returns {Matrix} this matrix
-   */
+  /***
+    * Fill every value of a certain column of this matrix with the same value.
+    * @param {Number} value filler
+    * @param {Number} col_index index of which column to fill; 0 = first column, 1 = second column, etc...
+    * @returns {Matrix} this matrix;
+   **/
   fillColumn: function fillColumn(value, col_index){
     for(let i = col_index; i < this.m.length; i += this.width){
       this.m[i] = value;
     }
     return this;
+  },
+  /***
+    * Paste values from this matrix into a `location`. The `location` parameter is mutated in the process, but this is not.
+    * @param {Array | Matrix} location paste into a 2-D array like object; if you want to paste this into a copy of location, use `this.toArray(location.constructor)` instead;
+      * the location can be a matrix of different dimensions; in which case, this method will paste as many values as it can into `location`;
+    * @param {Number} dimensions the number of dimensions that `location` has; assumed to be 2; this value is ignored if `location` is a matrix as well;
+    * @returns {Array | Matrix} location;
+   **/
+  paste: function paste(location, dimensions = 2){
+    const errin = "in: " + this.to_dim_name() + ".paste(location);";
+    if(!location)
+      err("Type", "location is a required parameter!" + errin);
+    if(typeof location !== "object")
+      err("Type", "location must be an array-like object!" + errin);
+    if(!location instanceof Matrix && typeof location?.length !== "number")
+      err("Type", "location needs to have a length!" + errin);
+    
+    if(location instanceof Matrix.Dynamic){
+      let l = Math.min(this.m.length, location.length * location.width);
+      let i, j, k = 0;
+      for(i = 0; i < location.length && k < l; i++){
+        for(j = 0; j < location.width && k < l; j++, k++){
+          location.m[i][j] = this.m[k];
+        }
+      }
+    }
+    else if(location instanceof Matrix){
+      let l = Math.min(this.m.length, location.m.length);
+      for(let i = 0; i < l; i++){
+        location.m[i] = this.m[i];
+      }
+    }
+    else if(dimensions === 1){
+      for(let i = 0; i < this.m.length; i++){
+        location[i] = this.m[i];
+      }
+    }
+    else if(dimensions === 2){
+      for(let i = 0, j = 0, k = 0; i < this.m.length; i++){
+        location[k][j] = this.m[i];
+        
+        j++;
+        if(j === this.width)
+          j = 0, k++;
+      }
+    }
+    else /* if dimensions > 2 */{
+      for(let i = 0, j = 0, k = 0, l; i < this.m.length; i++){
+        l = location[k][j];
+        for(let d = 3; d < dimensions; d++){
+          l = l[0];
+        }
+        l[0] = this.m[i];
+        
+        j++;
+        if(j === this.width)
+          j = 0, k++;
+      }
+    }
+    
+    return location;
   },
   /* TODO:
   add the following methods:
