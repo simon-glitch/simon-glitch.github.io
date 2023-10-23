@@ -1220,12 +1220,13 @@ classify(Matrix, {
     return that;
   },
   /**
-   * Use Guassian Elimination (G.E.) to convert this matrix to Row Echelon Form (R.E.F.)
-   * @param {Matrix} augment augment to modify along with this matrix
-   * @param {Boolean} in_place whether to store the result in this matrix or not
-   * @returns {Matrix} clone of this matrix, in REF
-   */
-  ref: function ref(augment = null, in_place = false){
+    * Use Guassian Elimination (G.E.) to convert this matrix to Row Echelon Form (R.E.F.).
+    * @param {Matrix} augment augment to modify along with this matrix;
+    * @param {Boolean} in_place whether to store the result in this matrix or not;
+    * @param {Boolean} in_place whether to reduce the matrix (to RREF: Reduced Row Echelon Form) as well;
+    * @returns {Matrix} clone of this matrix, in REF;
+   **/
+  ref: function ref(augment = null, in_place = false, rref = false){
     this.auto_really_scale();
     this.auto_really_transpose();
     
@@ -1269,12 +1270,20 @@ classify(Matrix, {
     // @inline
     const swap_rows = function(row_1_index, row_2_index){
       // console.log("swap row " + row_1_index + " with " + row_2_index + "!");
-      row_1_index *= that.width;
+      let s;
+      
+      if(rref)
+        s = pivot_column_indices[row_1_index],
+        pivot_column_indices[row_1_index] = pivot_column_indices[row_2_index],
+        pivot_column_indices[row_2_index] = s;
+      
+        row_1_index *= that.width;
       row_2_index *= that.width;
-      for(let i = 0, s; i < that.width; i++){
+      for(let i = 0; i < that.width; i++){
         s = that.m[row_1_index],
         that.m[row_1_index] = that.m[row_2_index],
         that.m[row_2_index] = s;
+        
         if(aug)
           s = that.m[row_1_index],
           that.m[row_1_index] = that.m[row_2_index],
@@ -1307,6 +1316,7 @@ classify(Matrix, {
     // make as many pivot columns as possible (attempt to make every column a pivot column)
 z;
     // make as many pivot columns as possible (attempt to make every column a pivot column)
+    
     for(j = 1; j < that.width; j++){
       // skip "completed" columns (i.e. columns that have already become proper pivot columns)
       if(flags_pivot_columns_done[j]) continue;
@@ -1401,9 +1411,23 @@ z;
       }
     }
     
+    // reduction: make sure each pivot column only has 1 non-zero entry
+    if(rref){
+      for(i = 0; i < that.length; i++){
+        for(j = that.leading_zeroes[i] + 1; j < that.width; j++){
+          if(flags_pivot_columns_done[j]){
+            sub_row(i, pivot_column_indices[j], that.m[i * that.width + j]);
+          }
+        }
+      }
+    }
+    
     if(aug) return that.augment(aug);
     return that;
   },
+  rref: function rref(augment = null, in_place = false){
+    return this.ref(augment, in_place, true);
+  };
   inv: function inv(){
     // implied:
     // this.auto_really_scale();
