@@ -1003,6 +1003,17 @@ classify(Matrix, {
     }
     return this;
   },
+  /***
+    * currently: Just applies Math.round() directly to each value of this matrix.
+    * TODO: change to this:
+    * @param {Number} precision the power of 10 to round to
+    * @param {Boolean} is_relative (whether we are working with relative or absolute precision) determines how to handle precision
+      * if false: this function rounds every value to the nearest multiple of 10^(-precision);
+      * if true:  this function rounds every value to the nearest multiple of 10^(log(value) - precision);
+    * @param {Boolean} is_social (whether we should change precision based on the overall scale of this matrix)
+      * if true: precision -= log(this.abs() / this.m.length)
+      * if false: leave precision as normal
+  ***/
   round: function round(){
     this.auto_really_scale();
     this.auto_really_transpose();
