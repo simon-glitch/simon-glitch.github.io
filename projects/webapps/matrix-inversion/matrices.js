@@ -1316,10 +1316,11 @@ classify(Matrix, {
         that.m[row_1_index] = that.m[row_2_index],
         that.m[row_2_index] = s;
         
+        // swap the rows of aug; do not swap the rows of this back into place XD
         if(aug)
-          s = that.m[row_1_index],
-          that.m[row_1_index] = that.m[row_2_index],
-          that.m[row_2_index] = s;
+          s = aug.m[row_1_index],
+          aug.m[row_1_index] = aug.m[row_2_index],
+          aug.m[row_2_index] = s;
         row_1_index++;
         row_2_index++;
       }
