@@ -1518,8 +1518,11 @@ z;
       * Y fillRow() // fill every value of a specified row of this matrix with the same value;
       * Y fillColumn() // fill every value of a specified column of this matrix with the same value;
     * paste(2d_array_like_object) // paste values from a 2-D array into this matrix;
-      * pasteRow(array_like_object) // paste values from an array into a specified row of this matrix;
-      * pasteColumn(array_like_object) // paste values from an array into a specified column of this matrix;
+      * pasteRow(array_like_object, index) // paste values from an array into a specified row of this matrix;
+      * pasteColumn(array_like_object, index) // paste values from an array into a specified column of this matrix;
+      * pasteAt(array_like_object, row_index, col_index) //:
+        * paste from array_like_object into a specific region of this matrix;
+        * if array_like_object is a matrix, use this.pasteAt(that.slice(x1, x2, y1, y2), x0, y0) for maximum splicing flexibility!
     * row(n, asArray) // get row #n of this matrix (formatted as an Array is asArray = true, formatted as a Matrix otherwise);
     * column(n, asArray) // get column #n of this matrix (formatted as an Array is asArray = true, formatted as a Matrix otherwise);
     * rowsOfZeroes() // list all indices of rows of this matrix that contain only zeroes;
