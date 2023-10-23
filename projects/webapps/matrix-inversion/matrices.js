@@ -1129,7 +1129,10 @@ classify(Matrix, {
       for(j = 0; j < w; j++){
         v = 0;
         for(k = 0; k < w; k++){
-          v += this.m[i * this.width + k] * that.m[k * that.width + j];
+          v += (
+            this.m[i * this.width + k] *
+            that.m[k * that.width + j]
+          );
         }
         res.m[i * res.width + j] = v;
       }
