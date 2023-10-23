@@ -1233,6 +1233,13 @@ classify(Matrix, {
     const that = in_place ? this : this.clone();
     const aug = augment?.clone();
     
+    // initialize variables in scope
+    let flags_rows_completed = BooleanArray(that.length);
+    let flags_pivot_columns_done = BooleanArray(that.width);
+    // row index of each pivor column's respective row
+    // the respective row of a pivot column is a row with a leading entry in that pivot column
+    let pivot_column_indices = new Int32Array(that.length);
+    
     // these convenience funcitons are ALL inlinable!
     // @inline
     const sub_row = function(result_index, subtrahend_index, multiplier){
@@ -1272,12 +1279,18 @@ classify(Matrix, {
       // console.log("swap row " + row_1_index + " with " + row_2_index + "!");
       let s;
       
-      if(rref)
-        s = pivot_column_indices[row_1_index],
-        pivot_column_indices[row_1_index] = pivot_column_indices[row_2_index],
-        pivot_column_indices[row_2_index] = s;
+      if(rref){
+        const pci  = pivot_column_indices;
+        const pcit = pivot_column_indices_t;
+        s = pci[pcit[row_1_index]];
+        pci[pcit[row_1_index]] = pci[pcit[row_2_index]];
+        pci[pcit[row_2_index]] = s;
+        s = pcit[row_1_index];
+        pcit[row_1_index] = pcit[row_2_index];
+        pcit[row_2_index] = s;
+      }
       
-        row_1_index *= that.width;
+      row_1_index *= that.width;
       row_2_index *= that.width;
       for(let i = 0; i < that.width; i++){
         s = that.m[row_1_index],
@@ -1295,11 +1308,6 @@ classify(Matrix, {
     
     that.count_leading_zeroes();
     
-    let flags_rows_completed = BooleanArray(that.length);
-    let flags_pivot_columns_done = BooleanArray(that.width);
-    // row index of each pivor column's respective row
-    // the respective row of a pivot column is a row with a leading entry in that pivot column
-    let pivot_column_indices = new Int32Array(that.length);
     // initialize pivot_column tracking
     for(let i = 0, z; i < that.length; i++){
       z = that.leading_zeroes[i];
@@ -1307,6 +1315,7 @@ classify(Matrix, {
       if(!flags_pivot_columns_done[z]){
         flags_pivot_columns_done[z] = true;
         pivot_column_indices[z] = i;
+        pivot_column_indices_t[i] = z;
         flags_rows_completed[i] = true;
         normalize_row(i);
       }
@@ -1342,6 +1351,7 @@ z;
           if(z === j){
             flags_pivot_columns_done[z] = true;
             pivot_column_indices[z] = i;
+            pivot_column_indices_t[i] = z;
             flags_rows_completed[i] = true;
             normalize_row(i);
             
