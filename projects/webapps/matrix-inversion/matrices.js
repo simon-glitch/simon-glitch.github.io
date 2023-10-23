@@ -214,12 +214,11 @@ classify(BooleanArray, {
  * something has gone awry!
  * @param {String} message (REQUIRED) message to describe why this error occured!
  */
-class ErrorError extends Error{
-  description = "you really are not good at programming if you are getting this error; something might have gone terribly wrong somehwere;";
-  constructor(){
-    super(...arguments);
-  }
-}
+const ErrorError = classify(function ErrorError(){
+  Error.call(this, ...arguments);
+}, coalesce(new Error(), {
+  description: "you really are not good at programming if you are getting this error; something might have gone terribly wrong somehwere;",
+}));
 
 /**
  * Creates an error of the specified type with the specified message.
