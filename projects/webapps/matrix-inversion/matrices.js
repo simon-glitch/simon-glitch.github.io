@@ -1415,8 +1415,10 @@ z;
     if(rref){
       for(i = 0; i < that.length; i++){
         for(j = that.leading_zeroes[i] + 1; j < that.width; j++){
-          if(flags_pivot_columns_done[j]){
-            sub_row(i, pivot_column_indices[j], that.m[i * that.width + j]);
+          k = that.m[i * that.width + j];
+          z = pivot_column_indices[j];
+          if(flags_pivot_columns_done[j] && k !== 0){
+            sub_row(i, z, k);
           }
         }
       }
