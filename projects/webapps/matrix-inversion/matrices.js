@@ -1413,14 +1413,49 @@ z;
     if(!that.slice(0, this.length, 0, this.width).isIdent()) return that.fill(NaN);
     return that.slice(0, this.length, this.width);
   },
+  /**
+   * Fill every value of this matrix with the same value.
+   * @param {Number} value filler
+   * @returns {Matrix} this matrix
+   */
+  fill: function fill(value){
+    for(let i = 0; i < this.m.length; i++){
+      this.m[i] = value;
+    }
+    return this;
+  },
+  /**
+   * Fill every value of a certain row of this matrix with the same value.
+   * @param {Number} value filler
+   * @param {Number} row_index index of which row to fill; 0 = first row, 1 = second row, etc...
+   * @returns {Matrix} this matrix
+   */
+  fillRow: function fillRow(value, row_index){
+    for(let i = row_index * this.width; i < row_index * (1 + this.width); i++){
+      this.m[i] = value;
+    }
+    return this;
+  },
+  /**
+   * Fill every value of a certain column of this matrix with the same value.
+   * @param {Number} value filler
+   * @param {Number} col_index index of which column to fill; 0 = first column, 1 = second column, etc...
+   * @returns {Matrix} this matrix
+   */
+  fillColumn: function fillColumn(value, col_index){
+    for(let i = col_index; i < this.m.length; i += this.width){
+      this.m[i] = value;
+    }
+    return this;
+  },
   /* TODO:
   add the following methods:
     * sign() // get a mapped matrix with the sign of every value of this matrix;
     * pow(float)
     * sqrt() // optimized method to find the square root of this matrix
     * Y fill() // fill every value of this matrix with the same value;
-      * fillRow() // fill every value of a specified row of this matrix with the same value;
-      * fillColumn() // fill every value of a specified column of this matrix with the same value;
+      * Y fillRow() // fill every value of a specified row of this matrix with the same value;
+      * Y fillColumn() // fill every value of a specified column of this matrix with the same value;
     * paste(2d_array_like_object) // paste values from a 2-D array into this matrix;
       * pasteRow(array_like_object) // paste values from an array into a specified row of this matrix;
       * pasteColumn(array_like_object) // paste values from an array into a specified column of this matrix;
