@@ -1252,7 +1252,7 @@ classify(Matrix, {
       for(let i = 0; i < that.width; i++){
         that.m[result_index] -= that.m[subtrahend_index] * multiplier;
         if(aug)
-          aug.m[result_index] -= aug.m[subtrahend_index] * multiplier;
+          aug.m[result_index] -= that.m[subtrahend_index] * multiplier;
         result_index++;
         subtrahend_index++;
       }
