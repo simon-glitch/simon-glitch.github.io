@@ -1282,18 +1282,30 @@ classify(Matrix, {
       let s;
       
       if(rref){
+        const fpcd  = flags_pivot_columns_done;
+        const fpcdt = flags_pivot_columns_done_t;
         // check to see if these rows are assosciated with pivot columns
         // if they are, we will want to swap around the indices assosciated with those pivot columns:
         // so we will actually remember where they are in the future
-        if(flags_pivot_columns_done_t[row_1_index] && flags_pivot_columns_done_t[row_2_index]){
+        if(fpcdt[row_1_index] && fpcdt[row_2_index]){
           const pci  = pivot_column_indices;
           const pcit = pivot_column_indices_t;
+          // swap column indices
           s = pci[pcit[row_1_index]];
           pci[pcit[row_1_index]] = pci[pcit[row_2_index]];
           pci[pcit[row_2_index]] = s;
+          // swap column flags
+          s = fpcd[pcit[row_1_index]];
+          fpcd[pcit[row_1_index]] = fpcd[pcit[row_2_index]];
+          fpcd[pcit[row_2_index]] = s;
+          // swap row indices (transposed column indices)
           s = pcit[row_1_index];
           pcit[row_1_index] = pcit[row_2_index];
           pcit[row_2_index] = s;
+          // swap row flags (transposed column flags)
+          s = fpcdt[row_1_index];
+          fpcdt[row_1_index] = fpcdt[row_2_index];
+          fpcdt[row_2_index] = s;
         }
       }
       
