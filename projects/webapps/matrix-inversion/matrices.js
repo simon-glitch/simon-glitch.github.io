@@ -1716,4 +1716,10 @@ window.testee = testee;
 window.Matrix = Matrix;
 window.BooleanArray = BooleanArray;
 
+// takes up 9_421_888 bytes in RAM
+// 9_421_888/8/64/10000 = 1.8402125 bytes inefficiency multiplier
+// 9_421_888/64/10000 = 14.7217 bytes per float value
+// 9_421_888/10000 = 942.1888 bytes per {8 by 8 matrix}
+// window.testees = Array(10_000).fill(0).map(v => Matrix.random(8,8));
+
 
