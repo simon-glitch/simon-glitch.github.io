@@ -300,7 +300,7 @@ classify(Matrix, {
   width: 1,
   scalar: 1,
   nickname: "",
-  leading_zeroes: (new Int32Array(0)),
+  leading_zeroes: (new Int32Array(1)),
   initialize_leading_zeroes: function initialize_leading_zeroes(){
     this.leading_zeroes = new Int32Array(this.length);
   },
