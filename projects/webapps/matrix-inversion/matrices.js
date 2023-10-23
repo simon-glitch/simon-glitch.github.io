@@ -1210,14 +1210,16 @@ classify(Matrix, {
   },
   /**
    * Use Guassian Elimination (G.E.) to convert this matrix to Row Echelon Form (R.E.F.)
+   * @param {Matrix} augment augment to modify along with this matrix
    * @param {Boolean} in_place whether to store the result in this matrix or not
    * @returns {Matrix} clone of this matrix, in REF
    */
-  ref: function ref(in_place = false){
+  ref: function ref(augment = null, in_place = false){
     this.auto_really_scale();
     this.auto_really_transpose();
     
     const that = in_place ? this : this.clone();
+    const aug = augment?.clone();
     
     // these convenience funcitons are ALL inlinable!
     // @inline
@@ -1228,6 +1230,8 @@ classify(Matrix, {
       subtrahend_index *= that.width;
       for(let i = 0; i < that.width; i++){
         that.m[result_index] -= that.m[subtrahend_index] * multiplier;
+        if(aug)
+          aug.m[result_index] -= aug.m[subtrahend_index] * multiplier;
         result_index++;
         subtrahend_index++;
       }
@@ -1247,6 +1251,8 @@ classify(Matrix, {
       row_index++;
       for(let i = leading_zeroes; i < that.width; i++){
         that.m[row_index] /= leading_entry;
+        if(aug)
+          aug.m[row_index] /= leading_entry;
       }
     };
     // @inline
@@ -1255,9 +1261,13 @@ classify(Matrix, {
       row_1_index *= that.width;
       row_2_index *= that.width;
       for(let i = 0, s; i < that.width; i++){
-        s = that.m[row_1_index];
-        that.m[row_1_index] = that.m[row_2_index];
+        s = that.m[row_1_index],
+        that.m[row_1_index] = that.m[row_2_index],
         that.m[row_2_index] = s;
+        if(aug)
+          s = that.m[row_1_index],
+          that.m[row_1_index] = that.m[row_2_index],
+          that.m[row_2_index] = s;
         row_1_index++;
         row_2_index++;
       }
@@ -1380,6 +1390,7 @@ z;
       }
     }
     
+    if(aug) return that.augment(aug);
     return that;
   },
   inv: function inv(){
