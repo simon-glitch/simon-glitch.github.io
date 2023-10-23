@@ -1710,3 +1710,10 @@ if(1) onclick = function(){
   console.log("leading zeroes: " + me.count_leading_zeroes());
   console.log("ref: " + me.ref().toString(".3"));
 };
+
+
+window.testee = testee;
+window.Matrix = Matrix;
+window.BooleanArray = BooleanArray;
+
+
