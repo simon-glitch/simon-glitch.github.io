@@ -1236,9 +1236,11 @@ classify(Matrix, {
     // initialize variables in scope
     let flags_rows_completed = BooleanArray(that.length);
     let flags_pivot_columns_done = BooleanArray(that.width);
+    let flags_pivot_columns_done_t = BooleanArray(that.width);
     // row index of each pivor column's respective row
     // the respective row of a pivot column is a row with a leading entry in that pivot column
     let pivot_column_indices = new Int32Array(that.length);
+    let pivot_column_indices_t = new Int32Array(that.width);
     
     // these convenience funcitons are ALL inlinable!
     // @inline
@@ -1280,14 +1282,16 @@ classify(Matrix, {
       let s;
       
       if(rref){
-        const pci  = pivot_column_indices;
-        const pcit = pivot_column_indices_t;
-        s = pci[pcit[row_1_index]];
-        pci[pcit[row_1_index]] = pci[pcit[row_2_index]];
-        pci[pcit[row_2_index]] = s;
-        s = pcit[row_1_index];
-        pcit[row_1_index] = pcit[row_2_index];
-        pcit[row_2_index] = s;
+        if(flags_pivot_columns_done_t[row_1_index] && flags_pivot_columns_done_t[row_2_index]){
+          const pci  = pivot_column_indices;
+          const pcit = pivot_column_indices_t;
+          s = pci[pcit[row_1_index]];
+          pci[pcit[row_1_index]] = pci[pcit[row_2_index]];
+          pci[pcit[row_2_index]] = s;
+          s = pcit[row_1_index];
+          pcit[row_1_index] = pcit[row_2_index];
+          pcit[row_2_index] = s;
+        }
       }
       
       row_1_index *= that.width;
@@ -1314,6 +1318,7 @@ classify(Matrix, {
       if(z > that.width) continue;
       if(!flags_pivot_columns_done[z]){
         flags_pivot_columns_done[z] = true;
+        flags_pivot_columns_done_t[i] = true;
         pivot_column_indices[z] = i;
         pivot_column_indices_t[i] = z;
         flags_rows_completed[i] = true;
@@ -1350,6 +1355,7 @@ z;
           // hopefully we can add this as a pivot column
           if(z === j){
             flags_pivot_columns_done[z] = true;
+            flags_pivot_columns_done_t[i] = true;
             pivot_column_indices[z] = i;
             pivot_column_indices_t[i] = z;
             flags_rows_completed[i] = true;
