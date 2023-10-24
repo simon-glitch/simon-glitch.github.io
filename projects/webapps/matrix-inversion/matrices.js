@@ -124,11 +124,13 @@ classify.default_to_string = function toString(){
 classify.UPDATE = "UPDATE";
 
 /**
- * Copy properties of one object into another. This only mutates main.
- * @param {object} main object to mutate
- * @param {object} source (subject) object whose properties will be added to main
- * @param {Array[String]} name_sets which properties (selected by property name) (of source) to pull from source and put in main
- */
+  * Copy properties of one object into another. This only mutates main.
+  * @param {object} main object to mutate
+  * @param {object} source (subject) object whose properties will be added to main
+  * @param {Array[String]} name_sets which properties (selected by property name) (of source) to pull from source and put in main
+    * If `name_sets` is omitted, this function will simply use a `for ... in ...` loop to copy-paste all available properties from `source` into `main`;
+  * @returns {object} returns main (so you can chain this function);
+ **/
 const coalesce = function(main, source, name_sets){
   let i, ii, name_set, name, base_name, value;
   if(name_sets instanceof Array) for(i = 0; i < name_sets.length; i++){
@@ -149,6 +151,8 @@ const coalesce = function(main, source, name_sets){
       main[i] = value;
     }
   }
+  
+  return main;
 };
 
 /**
