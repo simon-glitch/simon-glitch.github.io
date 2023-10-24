@@ -1461,7 +1461,9 @@ z;
           k = that.m[i * that.width + j];
           z = pivot_column_indices[j];
           if(flags_pivot_columns_done[j] && k !== 0){
+            console.log(`subtracting ${k} multiples of row ${z} from row ${i} in order to remove the ${j}-th element of row ${i} (which is located at position [${i},${i}]);`);
             sub_row(i, z, k);
+            console.log(`* the value at position [${i},${i}] is now ${that.m[i * that.width + j]}, thanks to the subtraction;`);
           }
         }
       }
