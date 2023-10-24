@@ -1288,7 +1288,7 @@ classify(Matrix, {
         // check to see if these rows are assosciated with pivot columns
         // if they are, we will want to swap around the indices assosciated with those pivot columns:
         // so we will actually remember where they are in the future
-        if(fpcdt[row_1_index] && fpcdt[row_2_index]){
+        if(/* fpcdt[row_1_index] && fpcdt[row_2_index] */ true){
           const pci  = pivot_column_indices;
           const pcit = pivot_column_indices_t;
           // swap column indices
