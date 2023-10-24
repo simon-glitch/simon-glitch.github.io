@@ -146,6 +146,7 @@ const coalesce = function(main, source, name_sets){
 };
 
 /**
+ * @class
  * Create a **highly optimized** (yet simple) array of booleans.
  * @param {Number} length how many boolean values (bits) to store in this array;
  * @param {Boolean} dont_proxy whether to return a `Proxy` to this array instead of returning the array directly if the constructor is called without `new`;
@@ -211,6 +212,7 @@ classify(BooleanArray, {
 
 
 /**
+ * @class
  * something has gone awry!
  * @param {String} message (REQUIRED) message to describe why this error occured!
  */
