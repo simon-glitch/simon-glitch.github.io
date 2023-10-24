@@ -1454,6 +1454,9 @@ z;
       }
     }
     
+    // I think I forgot to this:
+    that.count_leading_zeroes();
+    
     // reduction: make sure each pivot column only has 1 non-zero entry
     if(rref){
       for(i = 0; i < that.length; i++){
