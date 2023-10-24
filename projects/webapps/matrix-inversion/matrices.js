@@ -1220,12 +1220,22 @@ classify(Matrix, {
     if(this.is_tranposed) for(let i = 0, j, k; i < that.m.length; i++){
       j = i % this.m.length;
       k = i - j;
-      that.m[i] = (i < this.m.length) ?(this.m[j]) :(augmentor.m[j]);
+      that.m[i] = ((i < this.m.length) ?(
+          this.m[j]
+        ) :(
+          augmentor.m[j]
+      ));
     }
+    // transposed augmentation is actually better than normal augmentation!
     else for(let i = 0, j, k; i < that.m.length; i++){
       j = i % that.width;
       k = i - j;
-      that.m[i] = (j < this.width) ?(this.m[k + j]) :(augmentor.m[k + j - this.width]);
+      k /= that.width
+      that.m[i] = ((j < this.width) ?(
+          this.m[k * this.width + j]
+        ) :(
+          augmentor.m[k * augmentor.width + j - this.width]
+      ));
     }
     
     return that;
