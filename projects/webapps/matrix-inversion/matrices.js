@@ -1843,9 +1843,9 @@ if(1) onclick = function(){
   // console.log("me's zero"  + " = " + me.zero());
   
   console.log("leading zeroes: " + me.count_leading_zeroes());
-  console.log("ref: " + me.ref().toString(".3"));
+  // console.log("ref: " + me.ref().toString(".3"));
   console.log("rref: " + me.rref().toString(".3"));
-  console.log("rref: " + me.rref(me.ident()).toString(".3"));
+  // console.log("rref: " + me.rref(me.ident()).toString(".3"));
 };
 
 
