@@ -131,7 +131,7 @@ classify.UPDATE = "UPDATE";
  */
 const coalesce = function(main, source, name_sets){
   let i, ii, name_set, name, base_name, value;
-  for(i = 0; i < name_sets.length; i++){
+  if(name_sets instanceof Array) for(i = 0; i < name_sets.length; i++){
     name_set = name_sets[i];
     base_name = name_set[0];
     for(ii = 0; i < name_set.length; i++){
@@ -141,6 +141,12 @@ const coalesce = function(main, source, name_sets){
         main[base_name] = value;
         break;
       }
+    }
+  }
+  else for(i in source){
+    value = source[i];
+    if(value !== null && value !== undefined){
+      main[i] = value;
     }
   }
 };
