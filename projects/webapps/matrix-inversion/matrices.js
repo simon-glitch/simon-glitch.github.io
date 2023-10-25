@@ -1147,8 +1147,7 @@ classify(Matrix, {
     let scalar = this.scalar * that.scalar;
     
     let i, j, k, v;
-    const w = that.width, l = this.length;
-    const d = this.width;
+    const w = that.width, l = this.length, d = this.width;
     const res = new Matrix(l, w);
     // return res as a zero matrix if the scalar is zero
     if(scalar === 0) return res;
