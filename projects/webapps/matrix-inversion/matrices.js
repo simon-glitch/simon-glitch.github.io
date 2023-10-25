@@ -1245,7 +1245,7 @@ classify(Matrix, {
       throw err("Value", "Cannot augment " + this.to_dim_name() + " with " + this.to_dim_name() + "! The 2 Matrices must have the same number of rows!");
     }
     
-    if(this.is_tranposed !== augmentor.is_tranposed){
+    if(this.is_transposed !== augmentor.is_transposed){
       throw err("Value", "Can not augment a transposed matrix with a non-transposed matrix nor vice-versa!");
     };
     
@@ -1255,7 +1255,7 @@ classify(Matrix, {
     out_is_transposed ??= is_transposed;
     that.is_transposed = out_is_transposed;
     // vertically augment if this is transposed
-    if(is_tranposed) for(let i = 0, j, k; i < that.m.length; i++){
+    if(is_transposed) for(let i = 0, j, k; i < that.m.length; i++){
       j = i % this.m.length;
       k = i - j;
       that.m[i] = ((i < this.m.length) ?(
