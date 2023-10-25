@@ -839,14 +839,14 @@ classify(Matrix, {
   /**
     * Check whether this matrix is a vector. If this matrix has been transposed, it tells you whether the matrix is currently a vector (after being transposed). FYI: a vector is simply a matrix with 1 column.
     * @returns {Boolean} whether this is a vector;
-  ***/
+   **/
   is_vector: function is_vector(){
     return (this.width === 1);
   },
   /**
-   * Check wether this matrix is square.
-   * TODO: use this in other places.
-   */
+    * Check wether this matrix is square.
+    * @returns {Boolean} if true, then this matrix is a square;
+   **/
   is_square: function is_square(){
     return (this.length === this.width);
   },
