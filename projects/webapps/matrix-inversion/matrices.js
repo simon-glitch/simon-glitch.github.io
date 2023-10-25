@@ -934,7 +934,7 @@ classify(Matrix, {
     * @returns {Number} sum of all values in this matrix
    **/
   total: function total(){
-    zero = this.scalar === 0;
+    let zero = (this.scalar === 0);
     if(zero) return 0;
     
     let s = 0;
@@ -943,7 +943,7 @@ classify(Matrix, {
     return s * this.scalar;
   },
   product: function product(){
-    zero = this.scalar === 0;
+    let zero = (this.scalar === 0);
     if(zero) return 0 ** this.m.length;
     
     let s = 1;
@@ -957,7 +957,7 @@ classify(Matrix, {
       throw err("Value", "Can only find the diagonal of a square matrix. Can not find the value of " + this.to_dim_name + ", because it is not square!");
     }
     const that = new Matrix(this.length, this.width);
-    for(let i = 0; i < this.length; i++){
+    for(let i = 0, j; i < this.length; i++){
       // that.set_at(i,i, this.get_at(i,i));
       j = i * (this.length + 1);
       that.m[j] = this.m[j];
@@ -969,7 +969,7 @@ classify(Matrix, {
       throw err("Value", "Can only find the diagonal of a square matrix. Can not find the value of " + this.to_dim_name + ", because it is not square!");
     }
     let s = 0;
-    for(let i = 0; i < this.length; i++){
+    for(let i = 0, j; i < this.length; i++){
       // that.set_at(i,i, this.get_at(i,i));
       j = i * (this.length + 1);
       s += this.m[j] **2;
@@ -1068,8 +1068,8 @@ classify(Matrix, {
     if(!this.is_square()){
       throw err("Value", "cannot exponentiate a non-square matrix, because exponentiation requires the matrix to have an identity matrix, and a non-square matrix do not have an identity matrix!");
     }
-    that = this.clone();
-    term = that.clone();
+    const that = this.clone();
+    let term = that.clone();
     that.add(that.ident(), true);
     that.add(term, true);
     // e^x = 1 + x + x^2 / 2 + x^3 / 3! + x^4 / 4! ...
@@ -1117,7 +1117,7 @@ classify(Matrix, {
     this.auto_really_transpose();
     that.auto_really_scale();
     that.auto_really_transpose();
-    res = (in_place) ?this :this.clone();
+    const res = (in_place) ?this :this.clone();
     if(this.m.length !== that.m.length){
       throw err("Value", "cannot add a " + this.to_dim_name() + " to a " + that.to_dim_name() + "!\n> The middle matrices must have the same dimensions (or the transpose of one must have the same dimensions as the other).");
       return;
@@ -1132,7 +1132,7 @@ classify(Matrix, {
     this.auto_really_transpose();
     that.auto_really_scale();
     that.auto_really_transpose();
-    res = (in_place) ?this :this.clone();
+    const res = (in_place) ?this :this.clone();
     if(this.m.length !== that.m.length){
       throw err("Value", "cannot subtract a " + this.to_dim_name() + " to a " + that.to_dim_name() + "!\n> The middle matrices must have the same dimensions (or the transpose of one must have the same dimensions as the other).");
       return;
@@ -1152,15 +1152,18 @@ classify(Matrix, {
       throw err("Value", "cannot multiple a " + this.to_dim_name() + " by a " + that.to_dim_name() + "!\n> The middle 2 numbers must be the same {cols(left) == rows(right)}.");
       // return;
     }
+    
     // this.auto_really_scale();
     // this.auto_really_transpose();
     let scalar = this.scalar * that.scalar;
+    // return res as a zero matrix if the scalar is zero
+    if(scalar === 0) return res;
+    const tpi = this.is_transposed;
+    const tpa = that.is_transposed;
     
     let i, j, k, v;
     const w = that.width, l = this.length, d = this.width;
     const res = new Matrix(l, w);
-    // return res as a zero matrix if the scalar is zero
-    if(scalar === 0) return res;
     
     // fun fact:
     // > JavaScript ternaries are super efficient!
@@ -1220,8 +1223,8 @@ classify(Matrix, {
       result.scale(scalar ** that);
       return result;
     }
-    that_c = that?.constructor?.name;
-    that_cc = that?.prototype?.constructor?.name;
+    const that_c = that?.constructor?.name;
+    const that_cc = that?.prototype?.constructor?.name;
     throw err("Type", "Either `that` was an invalid type or this code hasn't implemented expontitation for the type of `that` yet. Typeof that: " + (typeof that) + (that_c ? (", instanceof: " + that_c + (that_cc ?(" and " + that_cc) :"")) :""));
   },
   /**
@@ -1368,8 +1371,8 @@ classify(Matrix, {
         }
       }
       
-      row_1_index_r = row_1_index * this.width;
-      row_2_index_r = row_2_index * this.width;
+      let row_1_index_r = row_1_index * that.width;
+      let row_2_index_r = row_2_index * that.width;
       for(let i = 0; i < that.width; i++){
         s = that.m[row_1_index_r];
         that.m[row_1_index_r] = that.m[row_2_index_r];
@@ -1486,15 +1489,17 @@ z;
       sir[i] = sir[i][0];
     }
     
-    // console.log("sir = " + sir);
-    // console.log("sorted leading_zeroes = " + that.leading_zeroes);
+    
+    console.log("sir = " + sir);
+    console.log("sorted leading_zeroes = " + that.leading_zeroes);
+    console.log("that = " + that.toString(".3"));
     
     const sorted = BooleanArray(that.length);
     for(i = 0; i < that.length; i++){
       j = i;
       if(j === sir[j]) sorted[j] = true;
       if(sorted[j]){
-        // console.log("row " + j + " is sorted, I guess~");
+        console.log("row " + j + " is sorted, I guess~");
         continue;
       }
       while(!sorted[j]){
@@ -1504,6 +1509,7 @@ z;
         if(sorted[sir[j]])
           break;
         // swap row sir[j] with row sir[sir[j]]
+        console.log(`swapping rows ${j} and ${sir[j]}`);
         swap_rows(j, sir[j]);
         j = sir[j];
       }
@@ -1812,15 +1818,15 @@ classify(Matrix.Dynamic, {
     return this.m?.[i_row]?.[i_col]?.[0];
   },
   set_at: function set_at(i_row, i_col, value){
-    a = this.m[i_row];
+    let row = this.m[i_row];
     // throw RangeError?
-    if(!a) return undefined;
-    a = a[i_col];
+    if(!row) return undefined;
+    row = row[i_col];
     // throw RangeError?
     // or throw ValueError?
     //   (Matrix entry's Array wrapper was [removed in the past / not present])
-    if(!a) return undefined;
-    return (a[0] = value);
+    if(!row) return undefined;
+    return (row[0] = value);
   },
 }, {}, classify.UPDATE);
 
@@ -1864,7 +1870,7 @@ Matrix.gen_singular = function(n, k){
   k ??= n +1;
   const m1 = Matrix.random(n, k);
   const m2 = Matrix.random(k, n);
-  return matrix_mult(m1, m2);
+  return m1.multiply(m2);
 };
 
 const testee = Matrix.fromArray([
@@ -1901,7 +1907,7 @@ if(1) onclick = function(){
   // console.log("me's zero"  + " = " + me.zero());
   
   console.log("leading zeroes: " + me.count_leading_zeroes());
-  // console.log("ref: " + me.ref().toString(".3"));
+  console.log("ref: " + me.ref().toString(".3"));
   // console.log("rref: " + me.rref().toString(".3"));
   // console.log("aug: " + me.augment(me.ident()).toString(".3"));
   // console.log("rref: " + me.rref(me.ident()).toString(".3"));
