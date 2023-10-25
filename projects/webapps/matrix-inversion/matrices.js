@@ -1252,7 +1252,7 @@ classify(Matrix, {
     is_transposed ??= this.is_transposed;
     
     const that = new Matrix(this.length, this.width + augmentor.width);
-    out_is_transposed ??= is_tranposed;
+    out_is_transposed ??= is_transposed;
     that.is_transposed = out_is_transposed;
     // vertically augment if this is transposed
     if(is_tranposed) for(let i = 0, j, k; i < that.m.length; i++){
