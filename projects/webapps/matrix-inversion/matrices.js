@@ -1090,6 +1090,8 @@ classify(Matrix, {
   eq: function eq(that){
     this.auto_really_scale();
     this.auto_really_transpose();
+    that.auto_really_scale();
+    that.auto_really_transpose();
     for(let i = 0; i < this.m.length; i++){
       if(2 * (this.m[i] - that.m[i]) / Math.sqrt(this.m[i] * that.m[i]) > Matrix.epsilon){
         return false;
@@ -1100,6 +1102,8 @@ classify(Matrix, {
   ineq: function ineq(that){
     this.auto_really_scale();
     this.auto_really_transpose();
+    that.auto_really_scale();
+    that.auto_really_transpose();
     return !this.eq(that);
   },
   /**
@@ -1110,6 +1114,9 @@ classify(Matrix, {
    */
   add: function add(that, in_place = false){
     this.auto_really_scale();
+    this.auto_really_transpose();
+    that.auto_really_scale();
+    that.auto_really_transpose();
     res = (in_place) ?this :this.clone();
     if(this.m.length !== that.m.length){
       throw err("Value", "cannot add a " + this.to_dim_name() + " to a " + that.to_dim_name() + "!\n> The middle matrices must have the same dimensions (or the transpose of one must have the same dimensions as the other).");
@@ -1122,6 +1129,9 @@ classify(Matrix, {
   },
   subtract: function subtract(that, in_place = false){
     this.auto_really_scale();
+    this.auto_really_transpose();
+    that.auto_really_scale();
+    that.auto_really_transpose();
     res = (in_place) ?this :this.clone();
     if(this.m.length !== that.m.length){
       throw err("Value", "cannot subtract a " + this.to_dim_name() + " to a " + that.to_dim_name() + "!\n> The middle matrices must have the same dimensions (or the transpose of one must have the same dimensions as the other).");
@@ -1182,7 +1192,14 @@ classify(Matrix, {
       return this.ident();
     }
     
-    this.auto_really_scale();
+    // this.auto_really_scale();
+    // smart handling for 0^that
+    const scalar = this.scalar;
+    if(scalar === 0){
+      if(that < 0) return this.NaN();
+      if(that > 0) return this.zero();
+      return this.ident();
+    }
     this.auto_really_transpose();
     if((that < 2**53) && (that % 1 === 0)){
       if(that < 0){
@@ -1200,6 +1217,7 @@ classify(Matrix, {
           power = power.multiply(power);
         }
       }
+      result.scale(scalar ** that);
       return result;
     }
     that_c = that?.constructor?.name;
