@@ -1323,21 +1323,23 @@ classify(Matrix, {
     };
     // @inline
     const normalize_row = function(row_index){
-      let leading_zeroes = that.leading_zeroes[row_index];
-      row_index *= that.width;
-      row_index += leading_zeroes;
-      const leading_entry = that.m[row_index];
+      const leading_zeroes = that.leading_zeroes[row_index];
+      let   row_index_r    = row_index * that.width + leading_zeroes;
+      const leading_entry  = that.m[row_index_r];
       
       // set leading entry to 1
-      that.m[row_index] = 1;
+      that.m[row_index_r] = 1;
       
       // skip leading entry (1st element)
-      leading_zeroes++;
-      row_index++;
-      for(let i = leading_zeroes; i < that.width; i++){
-        that.m[row_index] /= leading_entry;
-        if(aug)
-          aug.m[row_index] /= leading_entry;
+      row_index_r++;
+      for(let i = leading_zeroes + 1; i < that.width; i++){
+        that.m[row_index_r] /= leading_entry;
+      }
+      if(aug){
+        row_index_r = row_index * aug.width + 1;
+        for(let i = 0 + 1; i < aug.width; i++){
+          aug.m[row_index_r] /= leading_entry;
+        }
       }
     };
     // @inline
@@ -1944,28 +1946,6 @@ window.BooleanArray = BooleanArray;
 // 9_421_888/10000 = 942.1888 bytes per {8 by 8 matrix}
 // window.testees = Array(10_000).fill(0).map(v => Matrix.random(8,8));
 
-
-let a1 = Matrix.fromArray([
-  [1, 0, 0, 0, 0, 0, 0, 0],
-  [0, 1, 0, 0, 0, 0, 0, 0],
-  [0, 0, 1, 0, 0, 0, 0, 0],
-  [0, 0, 0, 1, 0, 0, 0, 0],
-  [0, 0, 0, 0, 1, 0, 0, 0],
-  [0, 0, 0, 0, 0, 1, 0, 0],
-  [0, 0, 0, 0, 0, 0, 1, 0],
-  [0, 0, 0, 0, 0, 0, 0, 1],
-]);
-let a2 = Matrix.fromArray([
-  [ 1, 0.000,      1,    -1,  1.000,      -2,        -1,          3],
-  [ 0,     0,     -3,     1,      2,       2,         3,          2],
-  [ 3,     0, -5.996, 0.000,      0,  -1.000,         0,          0],
-  [ 3,     4,      0, 3.013, -0.002,      -2,         4,          1],
-  [ 4,     1,     -2, 2.000, -3.996,  -0.009,        -3,          1],
-  [ 0,    -2,     -1,    -2,      0, 228.609,     0.000,         -1],
-  [-3,    -3,     -3,     0,     -2,       0, -1343.627,     -0.003],
-  [-1,     4,      3,     4,     -2,      -3,         2, -83461.467],
-]);
-a1.augment(a2).toString(".3");
 
 
 
