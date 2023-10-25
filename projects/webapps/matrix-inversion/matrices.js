@@ -1268,7 +1268,7 @@ classify(Matrix, {
     else for(let i = 0, j, k; i < that.m.length; i++){
       j = i % that.width;
       k = i - j;
-      k /= that.width
+      k /= that.width;
       that.m[i] = ((j < this.width) ?(
           this.m[k * this.width + j]
         ) :(
@@ -1519,9 +1519,9 @@ z;
           k = that.m[i * that.width + j];
           z = pivot_column_indices[j];
           if(flags_pivot_columns_done[j] && k !== 0){
-            // console.log(`subtracting ${k} multiples of row ${z} from row ${i} in order to remove the ${j}-th element of row ${i} (which is located at position [${i},${i}]);`);
+            console.log(`subtracting ${k} multiples of row ${z} from row ${i} in order to remove the ${j}-th element of row ${i} (which is located at position [${i},${i}]);`);
             sub_row(i, z, k);
-            // console.log(`* the value at position [${i},${j}] is now ${that.m[i * that.width + j]}, thanks to the subtraction;`);
+            console.log(`* the value at position [${i},${j}] is now ${that.m[i * that.width + j]}, thanks to the subtraction;`);
           }
         }
       }
@@ -1903,8 +1903,9 @@ if(1) onclick = function(){
   console.log("leading zeroes: " + me.count_leading_zeroes());
   // console.log("ref: " + me.ref().toString(".3"));
   // console.log("rref: " + me.rref().toString(".3"));
-  // console.log("rref: " + me.rref(me.ident()).toString(".3"));
-  console.log("inv: " + me.inv().toString(".3"));
+  console.log("aug: " + me.augment(me.ident()).toString(".3"));
+  console.log("rref: " + me.rref(me.ident()).toString(".3"));
+  // console.log("inv: " + me.inv().toString(".3"));
   /* expected:
   [
     [-9.5886e-02,  -9.3828e-02,  -6.1091e-03,   5.5248e-02,  -1.1123e-01,  -1.1365e-01,   6.4411e-03,  -5.1695e-02],
