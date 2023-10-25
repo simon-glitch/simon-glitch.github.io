@@ -1874,8 +1874,8 @@ const testee = Matrix.fromArray([
   [ 0,  1,  3,  0, -2, -2, -3, -2],
   [-4, -1,  2, -2, -1, -2,  3, -1],
   [ 0,  2,  1,  2,  0, -3, -4,  1],
-  [ 3,  3,  3,  0,  2,  0,  2, -4],
-  [ 1, -4, -3, -4,  2,  3, -2,  3],
+  // [ 3,  3,  3,  0,  2,  0,  2, -4],
+  // [ 1, -4, -3, -4,  2,  3, -2,  3],
   
   // [ 0, 1, -1, 3],
   // [ 0, 0,  1, 1],
@@ -1903,8 +1903,8 @@ if(1) onclick = function(){
   console.log("leading zeroes: " + me.count_leading_zeroes());
   // console.log("ref: " + me.ref().toString(".3"));
   // console.log("rref: " + me.rref().toString(".3"));
-  console.log("aug: " + me.augment(me.ident()).toString(".3"));
-  console.log("rref: " + me.rref(me.ident()).toString(".3"));
+  // console.log("aug: " + me.augment(me.ident()).toString(".3"));
+  // console.log("rref: " + me.rref(me.ident()).toString(".3"));
   // console.log("inv: " + me.inv().toString(".3"));
   /* expected:
   [
