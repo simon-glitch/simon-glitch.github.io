@@ -457,7 +457,7 @@ classify(Matrix, {
     * @aside
       now that I think about it, there are a lot of combinations of options that are redundant with eachother; also, this toString function is ... pretty complicated; maybe I should make it more simple and less versatile;
   * @returns {String} a string representing the matrix;
-  ***/
+  **/
   toString: function toString(toFixedDigits = 3, options = {}){
     let column_padding               =
       options.column_padding ??
@@ -602,7 +602,7 @@ classify(Matrix, {
     * @param {Boolean} type_allows_mapping whether the type has a map() method that works the same way Array's map() does
     * @param {Boolean} type_accepts_length whether the type allows you to give the length as the first parameter when calling the constructor
     * @returns {Array | type} A 2-D array (or a 2-D version of type), representing this matrix, composed with the values from this matrix.
-  ***/
+   **/
   toDoubleArray: function toDoubleArray(type = Array, type_allows_mapping = false, type_accepts_length = true){
     this.auto_really_scale();
     this.auto_really_transpose();
@@ -635,9 +635,9 @@ classify(Matrix, {
     return that;
   },
   /**
-   * Convert this to a Dynamic Matrix.
-   * @returns {Dynamic_Matrix} a clone of this matrix, with the same values in the same places, just formatted under a different data structure, that's all~
-   */
+    * Convert this to a Dynamic Matrix.
+    * @returns {Dynamic_Matrix} a clone of this matrix, with the same values in the same places, just formatted under a different data structure, that's all~
+   **/
   toDynamic: function toDynamic(){
     this.auto_really_scale();
     this.auto_really_transpose();
@@ -659,7 +659,7 @@ classify(Matrix, {
       * defaults to 1 (i.e. a simple Array);
     * @param {Boolean} requires_length whether type requires a length argument to be passed in on construction;
       * defaults to false;
-  ***/
+   **/
   toArray: function toArray(type = Array, dimensions = 1, requires_length = false){
     this.auto_really_scale();
     this.auto_really_transpose();
@@ -717,9 +717,9 @@ classify(Matrix, {
     return that;
   },
   /**
-   * Convert this to a vector
-   * @param {Boolean} reinitialize_values whether this should clone the values (in this.m); if reinitialize_values is false, then this.m will be reused, and the resulting vector will use the same TypedArray as this; if your goal is to slice this into a new vector, then set reinitialize_values = true;
-   */
+    * Convert this to a vector
+    * @param {Boolean} reinitialize_values whether this should clone the values (in this.m); if reinitialize_values is false, then this.m will be reused, and the resulting vector will use the same TypedArray as this; if your goal is to slice this into a new vector, then set reinitialize_values = true;
+   **/
   toVector: function toVector(reinitialize_values = false){
     this.auto_really_scale();
     this.auto_really_transpose();
@@ -738,9 +738,9 @@ classify(Matrix, {
     this.initialize_leading_zeroes();
   },
   /**
-   * Transposes this matrix, IN PLACE, for real. I love how elegant and magical-looking this funciton is.
-   * @returns {Matrix} the transposed matrix;
-   */
+    * Transposes this matrix, IN PLACE, for real. I love how elegant and magical-looking this funciton is.
+    * @returns {Matrix} the transposed matrix;
+   **/
   really_transpose: function really_transpose(){
     this.transpose();
     return this.auto_really_transpose();
@@ -762,7 +762,7 @@ classify(Matrix, {
   },
   /**
     * multiplies this by a scalar, in place, overwriting current values of this
-  ***/
+   **/
   scale: function scale(scalar){
     this.scalar *= scalar;
     // console.log(this.to_dim_name() + " scalar now= " + this.scalar);
@@ -770,23 +770,23 @@ classify(Matrix, {
   },
   /**
     * REALLY multiplies this by a scalar, in place, mutating current values of this
-  ***/
+   **/
   really_scale: function really_scale(scalar){
     this.scalar = scalar ?? this.scalar;
-    // console.log(this.to_dim_name() + " (really scaling) scalar now= " + this.scalar);
-    for(let i = 0; i < this.m.length; i++){
-      this.m[i] *= this.scalar;
-    }
-    this.scalar = 1;
-    return this;
+    return this.auto_really_scale();
   },
   /**
     * Lazy scaling: this allows you to stack scalars without loosing performance!
-  ***/
+   **/
   auto_really_scale: function auto_really_scale(){
-    if(this.scalar !== 1){
-      this.really_scale();
+    // console.log(this.to_dim_name() + " (really scaling) scalar now= " + this.scalar);
+    if(!Matrix.eq0(this.scalar - 1)){
+      for(let i = 0; i < this.m.length; i++){
+        this.m[i] *= this.scalar;
+      }
     }
+    this.scalar = 1;
+    return this;
   },
   ident: function ident(){
     if(!this.is_square()){
@@ -808,7 +808,7 @@ classify(Matrix, {
     * @param {Number} column_number index (or number) of which column to remove
     * @returns {Matrix} a clone of this matrix, with row # [row_number] removed, and column # [column_number] removed;
     * TODO: add smart handling of transpose to minor
-  ***/
+   **/
   minor: function minor(row_number = 0, column_number = 0){
     if(this.length < 1 || this.width < 1){
       throw err("Value", "can't get the minor of an empty matrix! There are no rows or column to remove in the first place.")
