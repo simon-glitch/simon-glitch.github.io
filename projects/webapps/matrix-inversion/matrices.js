@@ -1216,6 +1216,7 @@ classify(Matrix, {
         * Don't say I didn't warn you!
     * @param {Boolean} out_is_transposed
       * when set: pretend that {whether the output is tranposed} = {`out_is_tranposed`};
+        * Once again: use at your own risk!
     * @returns {Matrix} augmented matrix;
    **/
   augment: function augment(augmentor, is_transposed = undefined, out_is_transposed = undefined){
