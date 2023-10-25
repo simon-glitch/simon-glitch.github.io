@@ -376,19 +376,21 @@ classify(Matrix, {
     let m = new Matrix(length, width);
     if(this.is_tranposed){
       for(let i = 0, ii; i < m.m.length; i++){
-        ii = Math.floor((width * (Math.floor(i / width) + min_y) + i + min_x) / width);
+        // I tried to figure out a better formula for this but couldn't find one *oh well*; I will try again another time!
+        ii = (((i % width) + min_x) % this.length) * this.length + Math.floor(i / width) + min_y + Math.floor(((i % width) + min_x) / this.length);
+        
         /* was:
-        ii = ((Math.floor(i / width) + min_y) * width) + ((i % width) + min_x);
-        let ix = ii % this.width;
-        let iy = Math.floor(ii / this.width);
-        ii = ix * width + iy;
+        ii = ((Math.floor(i / width) + min_y) * this.length) + ((i % width) + min_x);
+        let ix = ii % this.length;
+        let iy = Math.floor(ii / this.length);
+        ii = ix * this.length + iy;
         */
         m.m[i] = this.m[ii];
       }
     }
     else{
       for(let i = 0, ii; i < m.m.length; i++){
-        ii = ((Math.floor(i / width) + min_y) * width) + ((i % width) + min_x);
+        ii = ((Math.floor(i / width) + min_y) * this.width) + ((i % width) + min_x);
         m.m[i] = this.m[ii];
       }
     }
@@ -879,7 +881,7 @@ classify(Matrix, {
     return false;
   },
   isDiagonal: function isDiagonal(){
-    if(this.is_square()) return false;
+    if(!this.is_square()) return false;
     this.auto_really_scale();
     
     for(let i = 0, j; i < this.m.length; i++){
@@ -895,16 +897,16 @@ classify(Matrix, {
     return true;
   },
   isIdent: function isIdent(){
-    if(this.is_square()) return false;
+    if(!this.is_square()) return false;
     this.auto_really_scale();
     
     for(let i = 0, j, on_the_diagonal; i < this.m.length; i++){
       j = i % this.width;
       // 1 if  IS on the diagonal,
       // 0 if NOT on the diagonal;
-      on_the_diagonal = +((i - j) / this.width === j);
+      on_the_diagonal = +Matrix.eq0((i - j) / this.width - j);
       // does this value === on_the_diagonal
-      if(!Matrix.eq0(this.m[i] - on_the_diagonal)){
+      if(this.m[i] !== on_the_diagonal){
         return false;
       }
     }
@@ -1490,16 +1492,16 @@ z;
     }
     
     
-    console.log("sir = " + sir);
-    console.log("sorted leading_zeroes = " + that.leading_zeroes);
-    console.log("that = " + that.toString(".3"));
+    // console.log("sir = " + sir);
+    // console.log("sorted leading_zeroes = " + that.leading_zeroes);
+    // console.log("that = " + that.toString(".3"));
     
     const sorted = BooleanArray(that.length);
     for(i = 0; i < that.length; i++){
       j = i;
       if(j === sir[j]) sorted[j] = true;
       if(sorted[j]){
-        console.log("row " + j + " is sorted, I guess~");
+        // console.log("row " + j + " is sorted, I guess~");
         continue;
       }
       while(!sorted[j]){
@@ -1509,7 +1511,7 @@ z;
         if(sorted[sir[j]])
           break;
         // swap row sir[j] with row sir[sir[j]]
-        console.log(`swapping rows ${j} and ${sir[j]}`);
+        // console.log(`swapping rows ${j} and ${sir[j]}`);
         swap_rows(j, sir[j]);
         j = sir[j];
       }
@@ -1525,13 +1527,16 @@ z;
           k = that.m[i * that.width + j];
           z = pivot_column_indices[j];
           if(flags_pivot_columns_done[j] && k !== 0){
-            console.log(`subtracting ${k} multiples of row ${z} from row ${i} in order to remove the ${j}-th element of row ${i} (which is located at position [${i},${i}]);`);
+            // console.log(`subtracting ${k} multiples of row ${z} from row ${i} in order to remove the ${j}-th element of row ${i} (which is located at position [${i},${i}]);`);
             sub_row(i, z, k);
-            console.log(`* the value at position [${i},${j}] is now ${that.m[i * that.width + j]}, thanks to the subtraction;`);
+            // console.log(`* the value at position [${i},${j}] is now ${that.m[i * that.width + j]}, thanks to the subtraction;`);
           }
         }
       }
     }
+    
+    // if(rref) console.log("that = " + that.toString(".3"));
+    // if(aug && rref) console.log("aug = " + aug.toString(".3"));
     
     if(aug) return that.augment(aug);
     return that;
@@ -1544,11 +1549,13 @@ z;
     // this.auto_really_scale();
     // this.auto_really_transpose();
     
-    const that = this.augment(this.ident()).rref();
-    if(!that.slice(0, this.length, 0, this.width).isIdent()) return that.fill(NaN);
+    const that = this.rref(this.ident());
+    let left = that.slice(0, this.length, 0, this.width);
+    if(!left.isIdent())
+      return left.fill(NaN);
     return that.slice(0, this.length, this.width);
   },
-  /***
+  /**
     * Fill every value of this matrix with the same value.
     * @param {Number} value filler
     * @returns {Matrix} this matrix
@@ -1559,7 +1566,7 @@ z;
     }
     return this;
   },
-  /***
+  /**
     * Fill every value of a certain row of this matrix with the same value.
     * @param {Number} value filler
     * @param {Number} row_index index of which row to fill; 0 = first row, 1 = second row, etc...
@@ -1571,7 +1578,7 @@ z;
     }
     return this;
   },
-  /***
+  /**
     * Fill every value of a certain column of this matrix with the same value.
     * @param {Number} value filler
     * @param {Number} col_index index of which column to fill; 0 = first column, 1 = second column, etc...
@@ -1583,7 +1590,7 @@ z;
     }
     return this;
   },
-  /***
+  /**
     * Paste values from this matrix into a `location`. The `location` parameter is mutated in the process, but this is not.
     * @param {Array | Matrix} location paste into a 2-D array like object; if you want to paste this into a copy of location, use `this.toArray(location.constructor)` instead;
       * the location can be a matrix of different dimensions; in which case, this method will paste as many values as it can into `location`;
@@ -1880,8 +1887,8 @@ const testee = Matrix.fromArray([
   [ 0,  1,  3,  0, -2, -2, -3, -2],
   [-4, -1,  2, -2, -1, -2,  3, -1],
   [ 0,  2,  1,  2,  0, -3, -4,  1],
-  // [ 3,  3,  3,  0,  2,  0,  2, -4],
-  // [ 1, -4, -3, -4,  2,  3, -2,  3],
+  [ 3,  3,  3,  0,  2,  0,  2, -4],
+  [ 1, -4, -3, -4,  2,  3, -2,  3],
   
   // [ 0, 1, -1, 3],
   // [ 0, 0,  1, 1],
@@ -1907,11 +1914,11 @@ if(1) onclick = function(){
   // console.log("me's zero"  + " = " + me.zero());
   
   console.log("leading zeroes: " + me.count_leading_zeroes());
-  console.log("ref: " + me.ref().toString(".3"));
+  // console.log("ref: " + me.ref().toString(".3"));
   // console.log("rref: " + me.rref().toString(".3"));
   // console.log("aug: " + me.augment(me.ident()).toString(".3"));
   // console.log("rref: " + me.rref(me.ident()).toString(".3"));
-  // console.log("inv: " + me.inv().toString(".3"));
+  console.log("inv: " + me.inv().toString(".3"));
   /* expected:
   [
     [-9.5886e-02,  -9.3828e-02,  -6.1091e-03,   5.5248e-02,  -1.1123e-01,  -1.1365e-01,   6.4411e-03,  -5.1695e-02],
@@ -1938,7 +1945,27 @@ window.BooleanArray = BooleanArray;
 // window.testees = Array(10_000).fill(0).map(v => Matrix.random(8,8));
 
 
-
+let a1 = Matrix.fromArray([
+  [1, 0, 0, 0, 0, 0, 0, 0],
+  [0, 1, 0, 0, 0, 0, 0, 0],
+  [0, 0, 1, 0, 0, 0, 0, 0],
+  [0, 0, 0, 1, 0, 0, 0, 0],
+  [0, 0, 0, 0, 1, 0, 0, 0],
+  [0, 0, 0, 0, 0, 1, 0, 0],
+  [0, 0, 0, 0, 0, 0, 1, 0],
+  [0, 0, 0, 0, 0, 0, 0, 1],
+]);
+let a2 = Matrix.fromArray([
+  [ 1, 0.000,      1,    -1,  1.000,      -2,        -1,          3],
+  [ 0,     0,     -3,     1,      2,       2,         3,          2],
+  [ 3,     0, -5.996, 0.000,      0,  -1.000,         0,          0],
+  [ 3,     4,      0, 3.013, -0.002,      -2,         4,          1],
+  [ 4,     1,     -2, 2.000, -3.996,  -0.009,        -3,          1],
+  [ 0,    -2,     -1,    -2,      0, 228.609,     0.000,         -1],
+  [-3,    -3,     -3,     0,     -2,       0, -1343.627,     -0.003],
+  [-1,     4,      3,     4,     -2,      -3,         2, -83461.467],
+]);
+a1.augment(a2).toString(".3");
 
 
 
