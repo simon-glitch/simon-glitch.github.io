@@ -223,12 +223,13 @@ classify(BooleanArray, {
 
 /**
  * @class
- * something has gone awry!
+ * Something has gone awry!
  * @param {String} message (REQUIRED) message to describe why this error occured!
  */
-const ErrorError = classify(function ErrorError(){
+const ErrorError = function ErrorError(){
   Error.call(this, ...arguments);
-}, coalesce(new Error(), {
+};
+classify(ErrorError, coalesce(new Error(), {
   description: "you really are not good at programming if you are getting this error; something might have gone terribly wrong somehwere;",
 }));
 
@@ -236,7 +237,7 @@ const ErrorError = classify(function ErrorError(){
  * Creates an error of the specified type with the specified message.
  * @param {String} type name of the error type (i.e. "Syntax" for a SyntaxError)
  * @param {String} message the message describing why the error occured
- * @returns an error object, of type [type]Error, or just Error (if [type]Error) does not exist
+ * @returns {Error} an error object, of type [type]Error, or just Error (if [type]Error) does not exist
  */
 const err = function(type, message){
   if(typeof type !== "string")
@@ -1137,28 +1138,36 @@ classify(Matrix, {
    * @returns a new Matrix: the result of the matrix multiplication
    */
   multiply: function multiply(that){
-    if(!this.is_square()){
+    if(this.width !== that.length){
       throw err("Value", "cannot multiple a " + this.to_dim_name() + " by a " + that.to_dim_name() + "!\n> The middle 2 numbers must be the same {cols(left) == rows(right)}.");
-      return;
+      // return;
     }
-    this.auto_really_scale();
-    this.auto_really_transpose();
+    // this.auto_really_scale();
+    // this.auto_really_transpose();
+    let scalar = this.scalar * that.scalar;
     
     let i, j, k, v;
     const w = that.width, l = this.length;
+    const d = this.width;
     const res = new Matrix(l, w);
-    for(i = 0; i < l; i++){
-      for(j = 0; j < w; j++){
-        v = 0;
-        for(k = 0; k < w; k++){
-          v += (
-            this.m[i * this.width + k] *
-            that.m[k * that.width + j]
-          );
-        }
-        res.m[i * res.width + j] = v;
+    // return res as a zero matrix if the scalar is zero
+    if(scalar === 0) return res;
+    
+    // fun fact:
+    // > JavaScript ternaries are super efficient!
+    // double fun fact:
+    // > *(I think)* this can be optimized in other languages
+    for(i = 0; i < l; i++){ for(j = 0; j < w; j++){
+      v = 0;
+      for(k = 0; k < d; k++){
+        v += (
+          this.m[(tpi ?k * l :i * d) + (tpi ?i :k)] *
+          that.m[(tpa ?j * d :k * w) + (tpa ?k :j)]
+        );
       }
-    }
+      res.m[i * res.width + j] = v;
+    } }
+    res.scale(scalar);
     return res;
   },
   /**
@@ -1201,11 +1210,18 @@ classify(Matrix, {
   /**
     * Get the augmentation this matrix, adding another matrix to the right of it. This function is highly performant.
     * @param {Matrix} augmentor matrix to append to the right of this matrix; **if this matrix is currently transposed, make sure augmentor is also transposed!**
+    * @param {Boolean} is_transposed
+      * when set: pretend that {whether this matrix is transposed} = {`is_tranposed`};
+        * i.e. You can manually set the is_transposed variable with this.
+        * Setting this to a funny value will result in weird thing's happing with that!
+        * Don't say I didn't warn you!
+    * @param {Boolean} out_is_transposed
+      * when set: pretend that {whether the output is tranposed} = {`out_is_tranposed`};
     * @returns {Matrix} augmented matrix;
-  ***/
-  augment: function augment(augmentor){
+   **/
+  augment: function augment(augmentor, is_transposed = undefined, out_is_transposed = undefined){
     this.auto_really_scale();
-    this.auto_really_transpose();
+    // this.auto_really_transpose();
     
     if(this.length !== augmentor.length){
       throw err("Value", "Cannot augment " + this.to_dim_name() + " with " + this.to_dim_name() + "! The 2 Matrices must have the same number of rows!");
@@ -1215,9 +1231,13 @@ classify(Matrix, {
       throw err("Value", "Can not augment a transposed matrix with a non-transposed matrix nor vice-versa!");
     };
     
+    is_transposed ??= this.is_transposed;
+    
     const that = new Matrix(this.length, this.width + augmentor.width);
+    out_is_transposed ??= is_tranposed;
+    that.is_transposed = out_is_transposed;
     // vertically augment if this is transposed
-    if(this.is_tranposed) for(let i = 0, j, k; i < that.m.length; i++){
+    if(is_tranposed) for(let i = 0, j, k; i < that.m.length; i++){
       j = i % this.m.length;
       k = i - j;
       that.m[i] = ((i < this.m.length) ?(
