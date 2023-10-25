@@ -923,7 +923,7 @@ classify(Matrix, {
   /**
     * get the "absolute value" of this matrix or vector
     * @returns {Number} the absolute value
-  ***/
+   **/
   abs: function abs(){
     // um, I am not sure if this is faster or slower than the default method
     // good news: spread operator actually works on all `TypedArray`s
@@ -932,7 +932,7 @@ classify(Matrix, {
   /**
     * Should I make this use this.auto_really_scale()?
     * @returns {Number} sum of all values in this matrix
-  ***/
+   **/
   total: function total(){
     zero = this.scalar === 0;
     if(zero) return 0;
@@ -1015,7 +1015,7 @@ classify(Matrix, {
     }
     return this;
   },
-  /***
+  /**
     * currently: Just applies Math.round() directly to each value of this matrix.
     * TODO: change to this:
     * @param {Number} precision the power of 10 to round to
@@ -1025,7 +1025,7 @@ classify(Matrix, {
     * @param {Boolean} is_social (whether we should change precision based on the overall scale of this matrix)
       * if true: precision -= log(this.abs() / this.m.length)
       * if false: leave precision as normal
-  ***/
+   **/
   round: function round(){
     this.auto_really_scale();
     this.auto_really_transpose();
@@ -1086,7 +1086,7 @@ classify(Matrix, {
     * Check approximate equality between matrices
     * @param {Matrix} that matrix to compare this to
     * @returns boolean: whether the 2 matrices are approximately equal
-  ***/
+   **/
   eq: function eq(that){
     this.auto_really_scale();
     this.auto_really_transpose();
@@ -1143,10 +1143,10 @@ classify(Matrix, {
     return res;
   },
   /**
-   * Multiply this matrix by that matrix. Makes a new matrix.
-   * @param {Matrix} that 
-   * @returns a new Matrix: the result of the matrix multiplication
-   */
+    * Multiply this matrix by that matrix. Makes a new matrix.
+    * @param {Matrix} that 
+    * @returns a new Matrix: the result of the matrix multiplication
+   **/
   multiply: function multiply(that){
     if(this.width !== that.length){
       throw err("Value", "cannot multiple a " + this.to_dim_name() + " by a " + that.to_dim_name() + "!\n> The middle 2 numbers must be the same {cols(left) == rows(right)}.");
@@ -1180,10 +1180,10 @@ classify(Matrix, {
     return res;
   },
   /**
-   * Accurately exponentiate this to a given integer power `that`.
-   * @param {Number} that power;
-   * @returns {Matrix} this^that
-   */
+    * Accurately exponentiate this to a given integer power `that`.
+    * @param {Number} that power;
+    * @returns {Matrix} this^that
+   **/
   pow: function pow(that){
     if(!this.is_square){
       throw err("Value", "Cannot multiply a non-square matrix by itself; cannot invert a non-square matrix; cannot find the identity matrix corresponding to a non-square matrix; thus, cannot raise a non-square matrix to any power!");
