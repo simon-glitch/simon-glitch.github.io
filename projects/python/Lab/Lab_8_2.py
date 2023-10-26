@@ -28,11 +28,12 @@ def inputPlayerLetter():
   else:
     return ['O', 'X']
 def whoGoesFirst():
+  return "player"
   # Randomly choose the player who goes first.
   if random.randint(0, 1) == 0:
-    return 'computer'
-  else:
     return 'player'
+  else:
+    return 'computer'
 def playAgain():
   # This function returns True if the player wants to play again, otherwise it returns False.
   print('Do you want to play again? (yes or no)')
@@ -62,8 +63,8 @@ def isSpaceFree(board, move):
 def getPlayerMove(board):
   # Let the player type in their move.
   move = ' '
-  while move not in '1 2 3 4 5 6 7 8 9'.split() or not isSpaceFree(board, int(move)):
-    print('What is your next move? (1-9)')
+  while move not in '-1 1 2 3 4 5 6 7 8 9'.split(' ') or not isSpaceFree(board, int(move)):
+    print('What is your next move? (1-9). Enter -1 if you want to terminate this game. ')
     move = input()
   return int(move)
 def chooseRandomMoveFromList(board, movesList):
@@ -126,18 +127,19 @@ while True:
       # Player’s turn.
       drawBoard(theBoard)
       move = getPlayerMove(theBoard)
-      makeMove(theBoard, playerLetter, move)
-      if isWinner(theBoard, playerLetter):
-        drawBoard(theBoard)
-        print('Hooray! You have won the game!')
-        gameIsPlaying = False
-      else:
-        if isBoardFull(theBoard):
+      if (move != -1):
+        makeMove(theBoard, playerLetter, move)
+        if isWinner(theBoard, playerLetter):
           drawBoard(theBoard)
-          print('The game is a tie!')
-          break
+          print('Hooray! You have won the game!')
+          gameIsPlaying = False
         else:
-          turn = 'computer'
+          if isBoardFull(theBoard):
+            drawBoard(theBoard)
+            print('The game is a tie!')
+            break
+          else:
+            turn = 'computer'
     else:
       # Computer’s turn.
       move = getComputerMove(theBoard, computerLetter)
@@ -155,3 +157,4 @@ while True:
           turn = 'player'
   if not playAgain():
     break
+
