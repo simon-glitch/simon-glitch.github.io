@@ -18,7 +18,7 @@ def next_state(state: tuple[int, ...]) -> tuple[int, int]:
   i = 0
   while(i < cell_c):
     val = carry + state[i]
-    if(carry >= enums):
+    if(val >= enums):
       val = 0
       carry = 1
     else:
@@ -48,8 +48,8 @@ def calc_score(state: tuple[int, ...], player: int) -> int:
         ri += 1
         ix += 1
         break
-      rem_width = width - ix
-      rem_height = height - ix
+      rem_width = width - ix - 1
+      rem_height = height - iy - 1
       # check horizontal in a row
       maxd = rem_width
       inarow = 0
@@ -112,6 +112,10 @@ def best(state: tuple[int, ...], player: int) -> tuple[int, int]:
       continue
     new_state = list(state)
     new_state[j] = player
+    new_state = tuple(new_state)
+    input("[press enter to step]")
+    print("state:", new_state)
+    print("best move found (grid_pos_index, player_index):", best_found, sep="\n  ")
     
     # check for instant win
     score = calc_score(new_state, player)
@@ -148,14 +152,16 @@ def best(state: tuple[int, ...], player: int) -> tuple[int, int]:
 
 t1 = dt.now()
 
+
 i = 0
 while(i < perms):
   states.append(next_state(states[-1]))
+  i += 1
 
 t2 = dt.now()
 
 print("Took " + str((t2 - t1).total_seconds()) + " seconds.")
 
-print(best((0,0,0), 1))
+print(best((0,) * cell_c, 1))
 
 
