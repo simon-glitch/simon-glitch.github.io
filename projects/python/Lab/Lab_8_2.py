@@ -67,7 +67,7 @@ def getPlayerMove(board):
   move = ' '
   i = 0
   while move not in '1 2 3 4 5 6 7 8 9'.split(' ') or not isSpaceFree(board, int(move)):
-    if(i = 0):
+    if(i == 0):
       print('What is your next move? (1-9). Enter -1 if you want to terminate this game. ')
     else:
       print(". Please enter a valid number. Enter -1 if you want to terminate this game. ")
