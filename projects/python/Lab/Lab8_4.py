@@ -23,6 +23,11 @@ def friendsOfFriends(person, peopleDict):
   for i in direct:
     fof |= peopleDict[i]
   
+  # include direct friends
+  fof |= direct
+  # can not be a friend of yourself?
+  fof -= {person}
+  
   return fof
   
 
