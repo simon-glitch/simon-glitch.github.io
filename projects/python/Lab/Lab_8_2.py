@@ -68,11 +68,13 @@ def getPlayerMove(board):
   i = 0
   while move not in '1 2 3 4 5 6 7 8 9'.split(' ') or not isSpaceFree(board, int(move)):
     if(i == 0):
-      print('What is your next move? (1-9). Enter -1 if you want to terminate this game. ')
+      print('What is your next move? (1-9). Enter -1 if you want to terminate this game.', end=' ')
     else:
-      print(". Please enter a valid number. Enter -1 if you want to terminate this game. ")
+      print("Please enter a valid number. Enter -1 if you want to terminate this game.", end=' ')
     move = input()
     if(int(move) == -1): break
+    if(not isSpaceFree(board, int(move))):
+      print("Test for entering an already occupied space.")
     i += 1
   return int(move)
 def chooseRandomMoveFromList(board, movesList):
@@ -123,6 +125,7 @@ def isBoardFull(board):
       return False
   return True
 print('Welcome to Tic Tac Toe!')
+
 while True:
   # Reset the board
   theBoard = [' '] * 10
@@ -142,11 +145,12 @@ while True:
         print('Hooray! You have won the game!')
         gameIsPlaying = False
       else:
+        drawBoard(theBoard)
         if isBoardFull(theBoard):
-          drawBoard(theBoard)
           print('The game is a tie!')
           break
         else:
+          input("Testing for hitting any key to see computer's move...")
           turn = 'computer'
     else:
       # Computer’s turn.
