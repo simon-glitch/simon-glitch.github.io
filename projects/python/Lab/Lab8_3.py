@@ -80,7 +80,8 @@ def pprint_multi_table(table, num_space):
         ))
     )
 
-pprint_multi_table(create_multi_table(), 6)
+pprint_multi_table(create_multi_table(), 5)
+pprint_multi_table(create_multi_table(), 8)
 
 
 
