@@ -2,18 +2,20 @@
 # Tic Tac Toe
 import random
 def drawBoard(board):
+  def b(i):
+    return (str(i) if (board[i] == " ") else board[i])
   # This function prints out the board that it was passed.
   # "board" is a list of 10 strings representing the board (ignore index 0)
   print('   |   |')
-  print(' ' + board[7] + ' | ' + board[8] + ' | ' + board[9])
+  print(' ' + b(7) + ' | ' + b(8) + ' | ' + b(9))
   print('   |   |')
   print('-----------')
   print('   |   |')
-  print(' ' + board[4] + ' | ' + board[5] + ' | ' + board[6])
+  print(' ' + b(4) + ' | ' + b(5) + ' | ' + b(6))
   print('   |   |')
   print('-----------')
   print('   |   |')
-  print(' ' + board[1] + ' | ' + board[2] + ' | ' + board[3])
+  print(' ' + b(1) + ' | ' + b(2) + ' | ' + b(3))
   print('   |   |')
 def inputPlayerLetter():
   # Lets the player type which letter they want to be.
@@ -63,10 +65,15 @@ def isSpaceFree(board, move):
 def getPlayerMove(board):
   # Let the player type in their move.
   move = ' '
+  i = 0
   while move not in '1 2 3 4 5 6 7 8 9'.split(' ') or not isSpaceFree(board, int(move)):
-    print('What is your next move? (1-9). Enter -1 if you want to terminate this game. ')
+    if(i = 0):
+      print('What is your next move? (1-9). Enter -1 if you want to terminate this game. ')
+    else:
+      print(". Please enter a valid number. Enter -1 if you want to terminate this game. ")
     move = input()
     if(int(move) == -1): break
+    i += 1
   return int(move)
 def chooseRandomMoveFromList(board, movesList):
   # Returns a valid move from the passed list on the passed board.
@@ -158,5 +165,7 @@ while True:
           turn = 'player'
   if not playAgain():
     break
+
+
 
 
