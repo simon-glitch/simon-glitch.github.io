@@ -58,7 +58,7 @@ def pprint_multi_table(table, num_space):
     print(
         "A multiplication table:\n\n" +
         (
-            " " * (row_c) +
+            " " * (row_c + 1) +
             ''.join(map(
                 lambda col_num: (
                     set_width(str(col_num + 1), num_space)
@@ -67,7 +67,7 @@ def pprint_multi_table(table, num_space):
             )) +
             "\n"
         ) +
-        (" " * (row_c + 2) + "-" * (cols * num_space - 2) + "\n") +
+        (" " * (row_c + 3) + "-" * (cols * num_space - 2) + "\n") +
         '\n'.join(map(
             lambda row, row_num: (
               set_width(str(row_num + 1), row_c) +
