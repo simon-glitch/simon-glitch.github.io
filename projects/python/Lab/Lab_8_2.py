@@ -63,9 +63,10 @@ def isSpaceFree(board, move):
 def getPlayerMove(board):
   # Let the player type in their move.
   move = ' '
-  while move not in '-1 1 2 3 4 5 6 7 8 9'.split(' ') or not isSpaceFree(board, int(move)):
+  while move not in '1 2 3 4 5 6 7 8 9'.split(' ') or not isSpaceFree(board, int(move)):
     print('What is your next move? (1-9). Enter -1 if you want to terminate this game. ')
     move = input()
+    if(int(move) == -1): break
   return int(move)
 def chooseRandomMoveFromList(board, movesList):
   # Returns a valid move from the passed list on the passed board.
@@ -127,19 +128,19 @@ while True:
       # Player’s turn.
       drawBoard(theBoard)
       move = getPlayerMove(theBoard)
-      if (move != -1):
-        makeMove(theBoard, playerLetter, move)
-        if isWinner(theBoard, playerLetter):
+      if (move == -1): break
+      makeMove(theBoard, playerLetter, move)
+      if isWinner(theBoard, playerLetter):
+        drawBoard(theBoard)
+        print('Hooray! You have won the game!')
+        gameIsPlaying = False
+      else:
+        if isBoardFull(theBoard):
           drawBoard(theBoard)
-          print('Hooray! You have won the game!')
-          gameIsPlaying = False
+          print('The game is a tie!')
+          break
         else:
-          if isBoardFull(theBoard):
-            drawBoard(theBoard)
-            print('The game is a tie!')
-            break
-          else:
-            turn = 'computer'
+          turn = 'computer'
     else:
       # Computer’s turn.
       move = getComputerMove(theBoard, computerLetter)
@@ -157,4 +158,5 @@ while True:
           turn = 'player'
   if not playAgain():
     break
+
 
