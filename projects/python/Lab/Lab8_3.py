@@ -67,7 +67,7 @@ def pprint_multi_table(table, num_space):
             )) +
             "\n"
         ) +
-        (" " * (row_c + 3) + "-" * (cols * num_space - 2) + "\n") +
+        (" " * (row_c + 2) + "-" * (cols * num_space - 1) + "\n") +
         '\n'.join(map(
             lambda row, row_num: (
               set_width(str(row_num + 1), row_c) +
@@ -81,7 +81,9 @@ def pprint_multi_table(table, num_space):
     )
 
 pprint_multi_table(create_multi_table(), 5)
+print("\n")
 pprint_multi_table(create_multi_table(), 8)
+
 
 
 
