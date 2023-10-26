@@ -67,10 +67,10 @@ def pprint_multi_table(table, num_space):
             )) +
             "\n"
         ) +
-        (" " * (row_c + 2) + "-" * (cols * num_space - 1) + "\n") +
+        (" " * (num_space + row_c + 2) + "-" * (cols * num_space - 1) + "\n") +
         '\n'.join(map(
             lambda row, row_num: (
-              set_width(str(row_num + 1), row_c) +
+              set_width(str(row_num + 1), num_space) +
               re.sub(
                   "^   ",
                   " |  ",
