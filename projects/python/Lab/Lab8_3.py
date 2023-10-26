@@ -26,7 +26,7 @@ def create_multi_table():
 
 def set_width(text, width, filler = " "):
     while(len(text) < width):
-        text += filler
+        text = filler + text
     return text
 
 def pprint_multi_table(table, num_space):
@@ -53,10 +53,22 @@ def pprint_multi_table(table, num_space):
         math.floor(math.log10(rows * cols)) + 1
     )
     
+    row_c = math.floor(math.log10(rows)) + 1
+    
     print(
+        (
+            " " * (row_c + 1) +
+            ''.join(map(
+                lambda col_num: (
+                    set_width(str(col_num), row_c)
+                ),
+                list(range(cols))
+            ))
+        ) +
+        (" " * (row_c + 3) + "-" * (cols * num_space - 2) + "\n") +
         '\n'.join(map(
             lambda row, row_num: (
-              set_width(str(row_num), math.floor(math.log10(rows)) + 1) +
+              set_width(str(row_num), row_c) +
               re.sub(
                   "^    ",
                   "^ |  ",
