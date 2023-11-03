@@ -59,7 +59,8 @@ This project will be composed of just a few files:
     * documentation for the [main.py] script ([proposal.md])
 * a transcript for Simon's presentation of the file (I might just use the [#Intro] section of this document), ([proposal.md])
   * a power point presentation for this file ([presentation.ppt])
-* a time card (see why in [#Time_Frame]), ([time_card.txt])
+* a time card (see why in [#Time_Frame]), ([time_card.xlsx], hosted on Google Sheets)
+* a todo card (see why in [#Use_Professional_Techniques]), ([todo_card.xlsx], hosted on Google Sheets)
 * an apology to my girlfriend, JavaScript, for cheating on her ([apology.ppt]) ~JK, XD~
 
 I hope that's not too many files or anything XD!
@@ -85,6 +86,8 @@ Or if you're me, just use your extremely strong self control to manipulate your 
 Being professional is actually my primary goal with this project. *(Kinda, I think so at least!)*
 
 I will make sure to write maintainable code. I will try to describe my goals and thought process clearly throughout this project's timeline.
+
+I am also going to use a formal todo list ([todo_card.xlsx]), in order to keep my priorities straight and stay organized. This is a very professional and versatile method of managing my time and myself.
 
 ## General Side Note
 I hope I am not being too sarcastic with some of the jokes in this proposal. XD XD, LOL.

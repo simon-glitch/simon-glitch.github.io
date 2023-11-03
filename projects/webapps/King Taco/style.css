@@ -1,0 +1,49 @@
+
+div.field {
+  overflow: scroll;
+  width: 90vw;
+  height: 90vh;
+  margin: auto;
+  border: 0.2em solid #6cf;
+}
+
+p.wrapper {
+  margin: 0;
+  padding: 0;
+  display: block;
+  width: max-content;
+}
+
+p:not(.wrapper) {
+  display: inline;
+}
+
+
+
+button {
+  display: inline-block;
+  font: bold 1em / 3.2em monospace;
+  background: #abb;
+  border: 0.1em solid #556;
+  z-index: 1;
+  width: 3em;
+  overflow: hidden;
+  text-wrap: nowrap;
+  text-align: center;
+  margin: 0;
+  padding: -10em;
+}
+
+button.zero {
+  background: #eee;
+  border: none;
+  z-index: 0;
+}
+
+button.undiscovered {
+  background: #083;
+  border: 0.2em solid #041;
+  z-index: 2;
+}
+
+
