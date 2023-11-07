@@ -1,3 +1,4 @@
+
 # these are sets of ints, for simplicity
 # these could be any ordered list[int]
 # there will never be dupes, so set is really just tacked on here for semantic reasons
@@ -6,9 +7,12 @@ discard: set[int] = set()
 
 all_piles = [hand, discard]
 
-# empty class; could be any kind of object
-# could be Card = obj
-class Card: pass
+# nearly empty class; could be any kind of object
+# the only reason this class has methods is to make it look pretty in print statements
+class Card:
+    id = -1
+    def __str__(self): return f"Card #_{self.id}"
+    def __repr__(self) -> str: return str(self)
 
 card = Card()
 
@@ -16,9 +20,19 @@ card = Card()
 cards = tuple([card])
 
 # this determines where cards are
-where_cards = [0]
+where_cards: list[int] = [0]
 
-def move(card_i, to_i, from_i = None):
+def initialize():
+    i = 0
+    l = len(where_cards)
+    while(i < l):
+        v = where_cards[i]
+        c = cards[i]
+        all_piles[v].add(i)
+        c.id = i
+        i += 1
+
+def move(card_i: int, to_i: int, from_i: int = None):
     """
     move card at card index from pile of index to pile of another index
     
@@ -40,17 +54,20 @@ def move(card_i, to_i, from_i = None):
     return card_i
 
 def report():
-    print(f"Game State:\
-    hand: {hand},\
-    discard: {discard}\
-    all_piles: {all_piles}\
-    cards: {cards}\
-    where_cards: {where_cards}\
+    print(f"Game State:\n\
+    hand:      {hand},\n\
+    discard:   {discard}\n\
+    all_piles: {all_piles}\n\
+    cards:     {cards}\n\
+    where_cards:  {where_cards}\n\
 ~~~~")
+
+initialize()
 
 report()
 
 move(0, 1)
 
 report()
+
 
