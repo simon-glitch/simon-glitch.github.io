@@ -17,8 +17,22 @@ Finally, there exists a single card, which does nothing and can be placed within
 I will avoid classes and paradigm-like programming at all costs, just to keep the code as simple as it possibly can be.
 
 ```py
+hand = []
+discard = []
 
+all_piles = [hand, discard]
 
+# empty class; could be any kind of object
+# could be Card = obj
+class Card: pass
+
+card = Card()
+
+cards = [card]
+
+# move card at card index from pile of index to pile of another index
+def move(card_i, from_i, to_i):
+    0
 ```
 
 
