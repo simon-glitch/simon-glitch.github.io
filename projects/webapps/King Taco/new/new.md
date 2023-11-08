@@ -115,6 +115,6 @@ Game Round:
 Coding thing this way allows me to easily debug what is currently happening and see the bigger picture.
 
 ### Types
-As you saw in my code earlier, I used list indices to represent values instead of copying values directly. I will continue to do that throughout the program from now on. Whenever I would normally use an object as a parmater, I will use a global index to refer to that object instead. This way, I can ensure that everything is accessible throughout the code.
+As you saw in my code earlier, I used list indices to represent values instead of copying values directly. I will continue to do that throughout the program from now on. Whenever I would normally use an object as a parmater, I will use a global index to refer to that object instead. This way, I can ensure that everything is accessible throughout the code. Now using indices to represent everything means that we can't directly print out values when debugging. Therefore, I will have to add in some various debugging functions for assosciating indices with the values they represent. This really isn't that hard for me. I just have to remember to add debug methods to everything.
 
 
