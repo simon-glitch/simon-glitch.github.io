@@ -92,3 +92,29 @@ report()
 ```
 
 
+## Actions and Events
+Before, I tried to do a bunch of fancy stuff with my own classes for `Action`s and `Event`s. Now, I still want to have a cool handler for that, but I don't want to overcomplicate it. At the end of the day, linking together player actions is not all that complex.
+
+We can handle the current event loop for the game with an event track, made of stacks. An event stack is a list of nested pieces of events, much like how a function stack works. The even track is a list of stacks which are essentially happening in parallel. Why not just use the built-in call stack? Well, the built in call stack uses multiple things that we just don't need:
+* parameters
+* return values
+* scopes
+
+We really don't need function calls that don't happen in the global scope. The idea of a "card game" is (fundamentally) not that complex. So, we are really simplifying things by using our own call stack.
+
+Here is what a typical stack will look like (for a card game):
+```
+Game Round:
+> Player Turn
+| > Cooking Stage
+| | > Trigger Cards in Hand
+| | | > Cook Card
+| | | | > Confirm Cook
+```
+
+Coding thing this way allows me to easily debug what is currently happening and see the bigger picture.
+
+### Types
+As you saw in my code earlier, I used list indices to represent values instead of copying values directly. I will continue to do that throughout the program from now on. Whenever I would normally use an object as a parmater, I will use a global index to refer to that object instead. This way, I can ensure that everything is accessible throughout the code.
+
+
