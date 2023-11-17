@@ -49,8 +49,10 @@ class _GAME_VARS:
     invert_playability = False
     # whether the current effect stack can be stacked upon futher
     can_stack = True
-    # last effect_stack contributor
+    # last effect_stack contributor (UNUSED)
     last_contributor = 0
+    # chosen color for the last played WILD
+    chosen_color = 0
     
     # hands are sets of ints, for simplicity
     #   these could be any ordered list[int]
@@ -59,9 +61,13 @@ class _GAME_VARS:
     deck:    list[int] = list()
     discard: list[int] = list()
     # how many moves each player has to wait until they can play again
-    timeouts: list[int] = (0,) * player_count
+    timeouts: list[int] = [0] * player_count
     # how many cards each player has to draw on the start of their turn; if to_draw is > 0, then the player can not play any cards
-    to_draws: list[int] = (0,) * player_count
+    to_draws: list[int] = [0] * player_count
+    
+    # what timeouts and to_draws will change by if the current effect is not stacked further
+    eff_timeouts: list[int] = [0] * player_count
+    eff_to_draws: list[int] = [0] * player_count
     
     all_piles: tuple[list[int]] = (*hands, deck, discard)
     
@@ -263,9 +269,13 @@ def can_play(card_i: int) -> bool:
     # I am not a fan of Python's negative index funny business
     prev_i = GAME_VARS.discard[len(GAME_VARS.discard) - 1]
     
+    color = colors_d[prev_i]
+    # handle matching above a WILD with chosen color
+    color = GAME_VARS.chosen_color if (color == color_count) else color
+    
     matches = (
         ( colors_d[card_i] == color_count) or
-        ( colors_d[card_i] == colors_d[prev_i]) or
+        ( colors_d[card_i] == color) or
         (symbols_d[card_i] == symbols_d[prev_i])
     )
     
@@ -305,6 +315,9 @@ def run_effect(initial_player: int):
     to_draw = 0
     # `all_to_draw`: the number of cards that the everyone other than the recipient needs to draw
     all_to_draw = 0
+    # how many times to skip the recipient
+    #   (i.e. how many turns of timeout the recipient will receive)
+    skips = 0
     # current player
     current = initial_player
     can_respond = True
@@ -322,30 +335,30 @@ def run_effect(initial_player: int):
     
     # inverse does almost nothing
     if(type == TYPES.INV):
-        if(player_count > 2):
-            reverse()
-        else: current = next_player(current)
+        # was if(player_count > 2): reverse();
+        reverse()
         can_respond = False
     if(type == TYPES.P2):
         to_draw = 2
         for t in rest:
+            current = next_player(current)
+            
             if(symbols_d[t] == TYPES.INV):
                 d_timeouts[current] += 1
                 reverse()
-                current = next_player(current)
             if(symbols_d[t] == TYPES.P2):
-                current = next_player(current)
                 to_draw += 2
             if(symbols_d[t] == TYPES.AP1):
                 to_draw += player_count
                 all_to_draw += 1
-                current = next_player(current)
-            if(symbols_d[t] == TYPES.SKIP):
-                current = next_player(current)
+            if(symbols_d[t] == TYPES.SKIP): pass
     if(type == TYPES.AP1):
         all_to_draw += 1
+        to_draw += 1
         inverted = False
         for t in rest:
+            current = next_player(current)
+            
             if(symbols_d[t] == TYPES.INV):
                 inverted = not inverted
                 reverse()
@@ -356,8 +369,10 @@ def run_effect(initial_player: int):
             if(symbols_d[t] == TYPES.P2):
                 # very STRONG!!!
                 all_to_draw += 2
+                to_draw += 2
             if(symbols_d[t] == TYPES.AP1):
                 all_to_draw += 1
+                to_draw += 1
             if(symbols_d[t] == TYPES.SKIP):
                 # haha! I don't have to draw nothing!
                 for i in range(player_count):
@@ -365,8 +380,6 @@ def run_effect(initial_player: int):
                     d_timeouts[i] += all_to_draw
                 # stop the All++ shenanigans
                 can_respond = False
-            # every loop step, give the next player an opportunity to respond
-            current = next_player(current)
         # handle inverted shenanigans
         if(inverted):
             can_respond = False
@@ -375,30 +388,29 @@ def run_effect(initial_player: int):
     if(type == TYPES.SKIP):
         skips = 1
         for t in rest:
+            current = next_player(current)
+            
             if(symbols_d[t] == TYPES.INV):
                 reverse()
-                current = next_player(current)
-                compatability_matrix
             if(symbols_d[t] == TYPES.P2):
                 to_draws[current] += 2
                 skips += 2
-                current = next_player(current)
             if(symbols_d[t] == TYPES.AP1):
                 for i in range(player_count):
                     d_timeouts[i] += skips
+                    can_respond = False
                 skips = 0
-            if(symbols_d[t] == TYPES.SKIP):
-                current = next_player(current)
-        d_timeouts[next_player(current)] += skips
+            if(symbols_d[t] == TYPES.SKIP): pass
+    
+    # the recipient is the person at the end of the effect stack
+    recipient = next_player(current)
     
     # implement all draw
     for i in range(player_count): to_draws[i] += all_to_draw
     # implement recipient draw
-    to_draws[current] += to_draw - all_to_draw
-    
-    # then push to the next player one last time
-    recipient = current
-    # was: next_player(current)
+    to_draws[recipient] += to_draw - all_to_draw
+    # implement recipient skip
+    d_timeouts[recipient] += skips
     
     return (recipient, can_respond, to_draws, d_timeouts)
 
@@ -416,7 +428,7 @@ def hand_string(name, hand, playable):
             card_string(card)
         ) for (index, card) in enumerate(hand)])
     )
-    
+
 
 compatability_matrix = {
     # inv -> inv is not really a combo :P
@@ -581,55 +593,124 @@ def draw_cards(player: int, amount: int):
         return False
     return True
 def turn_play() -> int:
+    # constants
     current  = GAME_VARS.current_player
     to_draws = GAME_VARS.to_draws
     timeouts = GAME_VARS.timeouts
+    eff_to_draws = GAME_VARS.eff_to_draws
+    eff_timeouts = GAME_VARS.eff_timeouts
     hand = GAME_VARS.hands[current]
+    # generated vars
+    playable = [can_play(card) for card in hand]
+    playable_c: int = tally(int(p) for p in playable)
+    stackable = [can_stack(card) for card in hand]
+    stackable_c: int = tally(int(p) for p in stackable)
+    under_effect = (
+        eff_to_draws[current] or
+        eff_timeouts[current]
+    )
+    effect_string = ""
+    
+    print(f"You are player # {current}.")
+    # if the player can't stack any of their cards and they are under an effect, then they must accept the effect
+    if(
+        stackable_c == 0
+        and under_effect):
+        for i in range(player_count):
+            timeouts[i] += eff_timeouts[i]
+            to_draws[i] += eff_to_draws[i]
+            eff_timeouts[i] = 0
+            eff_to_draws[i] = 0
+    def accept_effect():
+        if(timeouts[current] > 0):
+            print("You are currently in timeout.")
+            timeouts[current] -= 1
+            print(f"{timeouts[current]} turns of timeout remaining ...")
+            return -1
+        if(to_draws[current] > 0):
+            print(f"You are forced to draw {to_draws[current]} cards.")
+            draw_cards(current, to_draws[current])
+            to_draws[current] = 0
+            print("You don't get to play this turn (sorry)!")
+            playable = [can_play(card) for card in hand]
+            playable_c: int = tally(int(p) for p in playable)
+            print(hand_string("Your", hand, playable))
+            return -1
+    # try to instantly
+    accept_effect()
+    
     playable = [can_play(card) for card in hand]
     playable_c: int = tally(int(p) for p in playable)
     
-    print(f"You are player # {current}.")
-    if(timeouts[current] > 0):
-        print("You are currently in timeout.")
-        timeouts[current] -= 1
-        print(f"{timeouts[current]} turns of timeout remaining ...")
-        return -1
-    if(to_draws[current] > 0):
-        print(f"You are forced to draw {to_draws[current]} cards.")
-        draw_cards(current, to_draws[current])
-        to_draws[current] = 0
-        print("You don't get to play this turn (sorry)!")
-        print(hand_string("Your", hand, playable))
-        return -1
+    if(under_effect):
+        print("You need to play a stackable card.")
+        draw = (
+            ("to draw " + str(eff_to_draws[current]) + " card" + (
+                ""
+                if (eff_to_draws[current] == 1)
+                else "s"
+            ))
+            if (eff_to_draws[current] > 0)
+            else ""
+        )
+        timeout = (
+            ("to wait in timeout for " + str(eff_timeouts[current]) + " turn" + (
+                ""
+                if (eff_timeouts[current] == 1)
+                else "s"
+            ))
+            if (eff_timeouts[current] > 0)
+            else ""
+        )
+        sand = (
+            ", and "
+            if (
+                eff_to_draws[current] > 0 and
+                eff_timeouts[current] > 0
+            )
+            else ""
+        )
+        effect_string = draw + sand + timeout
+        print("* Or you will be forced " + effect_string + ".")
+        playable   = stackable
+        playable_c = stackable_c
+    # this else statement is way too big
+    else:
+        # draw a card if you can't play
+        if(playable_c == 0):
+            print("You don't have any playable cards; you are forced to draw.")
+            card = draw_card(current)
+            if(card == -1):
+                print("You couldn't draw a card! turn passed!")
+                return
+            print("You drew a card: ", card_string(card))
+        
+        playable = [can_play(card) for card in hand]
+        playable_c: int = tally(int(p) for p in playable)
+        if(playable_c == 0):
+            print("Sorry! You still can't play anything with your new card!")
+            return -1
+        if(playable_c == 1):
+            card = hand[playable.index(True)]
+            print("auto playing card: " + card_string(card))
+            return card
+        
+        max_index = len(hand)
     
+    # our UI
     print("top discard:\n  " + card_string(
         GAME_VARS.discard[len(GAME_VARS.discard) - 1])
     )
     
     # if we aren't timed out, and we didn't have to draw cards, then we can try to play cards
     print(hand_string("Your", hand, playable))
+    if(under_effect):
+        print("  " + str(len(hand)) + ": " + effect_string)
     
-    if(playable_c == 0):
-        print("You don't have any playable cards; you are forced to draw.")
-        card = draw_card(current)
-        if(card == -1):
-            print("You couldn't draw a card! turn passed!")
-            return
-        print("You drew a card: ", card_string(card))
-    
-    playable = [can_play(card) for card in hand]
-    playable_c: int = tally(int(p) for p in playable)
-    if(playable_c == 0):
-        print("Sorry! You still can't play anything with your new card!")
-        return -1
-    if(playable_c == 1):
-        card = hand[playable.index(True)]
-        print("auto playing card: " + card_string(card))
-        return card
-    
+    # index of chosen card, if a card needs to be selected by the user for playing
     to_play = -1
-    max_index = len(hand)
     
+    # player input, finally
     while True:
         s = input("Which card would you like to play?\n# ")
         if(not s):
@@ -638,6 +719,9 @@ def turn_play() -> int:
         try:
             to_play = int(s)
             if(to_play < 0 or to_play > max_index):
+                if(to_play == max_index):
+                    accept_effect()
+                    break
                 print(f"Your card index ({to_play}) is outside of the valid range of indices: [{0} to {max_index}] (inclusive)")
                 continue
             if(playable[to_play]):
@@ -648,6 +732,7 @@ def turn_play() -> int:
             print(f"{card_string(hand[to_play])} at index {to_play} is not playable on the current top discard!")
         except ValueError as e:
             print(e)
+    
     return to_play
 def play(card: int):
     """
@@ -661,19 +746,21 @@ def play(card: int):
     discard_card(card)
     if(symbols_d[card] in specials):
         res = run_effect(current)
+        # print("effect:", res)
         GAME_VARS.can_stack = res[1]
         if(len(effect_stack) == 0 or can_stack(card)):
             # print("adding to effect stack")
             effect_stack.append(card)
-    elif(len(effect_stack) > 0):
+    if(len(effect_stack) > 0):
         res = run_effect(current)
         GAME_VARS.current_player = res[0]
-        GAME_VARS.can_stack = True
+        GAME_VARS.can_stack = res[1]
         for p in range(player_count):
-            GAME_VARS.to_draws[p] = res[2][p]
-            GAME_VARS.timeouts[p] = res[3][p]
+            GAME_VARS.eff_to_draws[p] += res[2][p]
+            GAME_VARS.eff_timeouts[p] += res[3][p]
         
-        while(len(effect_stack) > 0): effect_stack.pop()
+        if(not can_stack(card)):
+           while(len(effect_stack) > 0): effect_stack.pop()
     
     # non effect card
     
@@ -683,6 +770,21 @@ def play(card: int):
 def turn():
     card = turn_play()
     if(card > -1):
+        # WILD color selector
+        if(colors_d[card] == color_count):
+            print("Pick a color for the wild:" + "".join(
+                (f"\n  {i}: {colors[i]}")
+                for i in range(color_count)
+            ))
+            s = 0
+            try:
+                s = int(input("# "))
+                colors[s]
+            except: pass
+            
+            GAME_VARS.chosen_color = s
+            print("Chosen Color: " + colors[s])
+        # just play the card
         return play(card)
     # weird current shenanigans
     current = GAME_VARS.current_player
@@ -693,8 +795,15 @@ max_turn_c = 100
 def main():
     current = GAME_VARS.current_player
     hand = GAME_VARS.hands[current]
+    
     turn_c = 0
-    while(len(hand) > 0):
+    previous = current
+    previous_hand = hand
+    while(len(previous_hand) > 0):
+        # use previous to keep track of wins
+        previous = current
+        previous_hand = hand
+        
         if(turn_c >= max_turn_c):
             print(f"Game took too many turns! ({turn_c} turns)")
             break
@@ -706,7 +815,7 @@ def main():
         # print("----")
         # report()
         # input("----")
-    print(f"Player # {current} wins, I think?")
+    print(f"Player # {previous} wins, I think?")
 
 
 def start_game():
@@ -740,14 +849,22 @@ def start_game():
     
     main()
 
-if(False):
+if(True):
     start_game()
 
 else:
     initialize()
-    play(cards_per_color*0 + numbers_to_use + 3)
-    play(cards_per_color*0 + numbers_to_use + 1)
+    
+    to_play = [
+        cards_per_color*2 + numbers_to_use + 2
+    ]
+    [play(p) for p in to_play]
+    
+    print("effect stack:", effect_stack)
+    
     print(run_effect(0))
+    [print(symbols_d[p]) for p in to_play]
+    [print(symbols_d[p] == TYPES.AP1) for p in to_play]
 
 # effect_stack.append(cards_per_color*1 + 2)
 
