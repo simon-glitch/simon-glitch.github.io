@@ -11,7 +11,20 @@ Yeah. To me, many people in this world seem to pessimistic.
 
 It is a real hassle, dealing with everyone else's pessimism. I am really content with my life and the way the world is. I know I am just a spoild American, but I see other equally spoiled Americans who are not content with what they **already have**, and who demand more. It is quite the strange phenomenon. And when I say "other Americans", I don't mean "rich people". And when I say "not content", I am not referring to "corporate greed". The problem I see is that people just can't deal with suffering. I understand their disliking of pain. I too experience pain, and I go to great efforts to avoid pain. But ... I just feel like maybe people should complain about it less often. I guess this is more of an issue of the necessity of communication. We don't need to share (vocalize) every tiny bit of suffering we experience. So, I feel like we should just avoid talking about our suffering when there isn't very much to learn from it.
 
+## The End Times
+Ever since the industrial revolution, the world has been developing and changing at a fast pace. **Technology changed everything and taught us how to dream.** Global trade motivated us to develop ideas related to globalism. Globalism changed the way we see the world and then changed the way see ourselves.
+* Automation made us dream of a world without work, full of endless free resources.
+* Medicine made us dream of a world without suffering.
+* Communication made us dream of a world without war.
+* The internet made us dream of a world with better education for everyone.
 
+All of these dreams were never fulfilled. Some of them, we have been brought to believe are impossible. The research and history suggests that these dreams are unreachable and that we are doomed.
+* Automation will take away our paychecks and kill the poor because the rich will no longer need them.
+* Medicine will turn us into unholy, disgusting aliens who punish those with inferior genetics and physique.
+* Communication will take away our privacy and free will.
+* The internet will spread misinformation and eradicate the scientific method.
+
+These beliefs of doom tend to be really extreme. However, they are real concerns that I believe have some justification. Regardless, I don't believe that any of these dooms will ever come to be; at least, they will never come to these extremes. I think we should look out for the potentially dangerous implications of our technology. We should also stay optimistic and hope that any problems caused by technology can simply be solved by more technology. I know what I am asking for sounds radical, and perhaps even unthinkable. However, technology is unradical and often does things that were previously unthinkable. As I see it, our technological future can be really bright, and we shouldn't jump to any conclusions about it just yet.
 
 
 
