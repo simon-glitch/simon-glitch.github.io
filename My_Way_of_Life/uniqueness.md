@@ -17,3 +17,8 @@ No. I think there are 4 groups of people (as far as understanding uniqueness is 
 ## Conclusion
 We should never appreciate **individuality**. Instead, we should appreciate **who** people are and **which character traits** they have.
 
+> It's not just that people are unique, but rather *how* they are unique.
+
+> It's more genuine to appreciate people for their specific character traits, rather than for their uniqueness.
+
+
