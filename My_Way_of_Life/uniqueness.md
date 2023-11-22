@@ -13,3 +13,7 @@ No. I think there are 4 groups of people (as far as understanding uniqueness is 
 2. people who know that everything is unique, but don't understand the implications; they are essentially ignorant, and they have the same views and understanding as the people in the 1st group;
 3. people who are amazed by the fact that everything is unique; these people can't stop mentioning it, and they always talk like its some kind of big deal; they are all like "ah, don't worry you're unique"; they see uniqueness as a sign that life is perfect and that we don't need to worry about anything; they think that being unique is some of speical or impressive quality; the reality is: if everyone is unique, then being unique is not a really impressive personality trait; in essence, uniqueness becomes a norm that we should avoid needlessly obsessing over;
 4. people like me, who understand the importance of unique, and see it as very obvious; because it is obvious and universal, we avoid discussions that revolve around the idea; we use uniqueness as an expected rule and a norm of our reality; we have no special appreciation for it; it is just another fact that we have learned.
+
+## Conclusion
+We should never appreciate **individuality**. Instead, we should appreciate **who** people are and **which character traits** they have.
+
