@@ -21,6 +21,29 @@ My whole life, all of my thoughts have worked in much the same way. My thought p
 
 So, what do we mean by **every** thought? Aren't thoughts supposed to be continuous? How can you discretely attach information to them? Well, believe it or not, thoughts are actually not continuous. Thoughts feel continuous because the parts of the brain to not work at a consistent speed. Furthermore, you can not be aware of the discreteness of our own awareness, because you can not divide a moment of your awareness into smaller pieces of time. Your awareness comes to you "as is". Thus, you can't really extract more stuff from "between the lines". If you don't understand what I am trying to say, I'm sorry: I just can't really explain it without giving you math equations and telling you to just trust me.
 
+### So thoughts always feel continuous?
+Well, yes. Your thought process (as a whole) should always feel continuous. Sometimes you might feel a hiccup here or there, and then the hiccup might feel discrete.
+
+### How do break up thoughts inot discrete chunks?
+Well, it's simpler than you would think. All of my thoughts are composed of objects with attached details. When I say object, I mean an abstract object in my brain. My consciousness is able to pass around and move abstract (conceptual) objects. These objects are used for describing all possible thoughts and ideas. Many feelings are also partially constituted by these objects. These objects are discete, and I can read information on them, almost as if I am asking them questions. The questions I can ask them are:
+* where have you been? (object gives a small stack trace of which objects it has interacted with recently)
+* what names do you have?
+* which classifications do you have? (object lists sets that is an element within)
+* which objects are you neighbors with? (object lists its neighbors, and the weights of correlation between it and its neighbors)
+
+Now, I should clarify: this system is not perfect. The way I perceive objects is highly relativistic (subjective). This means that I will perceive it differently under different contexts. The way an object lists its neighbors and gives it classifications is also highly relativistic. This means that an object can look completely different under different contexts. The name for an object is always the same though. Also, the stack trace is mostly unaffected by context and emotions. This means I can store information for later to prevent myself from getting lost in thought, and to prevent myself from getting confused by the context of my own thoughts.
+
+### Simon, how did you learn all this about yourself?
+#### (it seems like you are just making this shit up!)
+I have spent my whole life being myself, and subconsciosly realizing things about myself. I have spent the past 2 years making those realizations conscious. I really only needed to simply watch and analyze my own thought process in order to learn most of these things.
+
+## Discerning Subconscious Thoughts
+So, since my thoughts are represented by objects, and I can check the data on those thoughts, I can easily differentiate conscious thoughts from subconscious thoughts. Subconscious thoughts will have various markers on them that suggest they should not be trusted. When I see these markers, I change the thoughts to from {[idea]} to {consider thinking about [idea], as an alternative to [counter-idea]}. There are a lot more specifics on this that I don't think you are interested to here, so I won't bother writing them down. Anyways, I use markers and warning labels to prevent myself from getting tricked by my subconscious. These same markers have almost no effect on my subconscious; adding the [counter-idea] helps the subconscious with some of its thoughts, but not that much. So, this method is a pretty good way to maintain harmony between my conscious and subconscious.
+
+## Controlling the Subconscious
+Keep in mind, I am not my conscious. My subconscious is a part of who I am too.
+
+
 
 
 
