@@ -41,7 +41,9 @@ I have spent my whole life being myself, and subconsciosly realizing things abou
 So, since my thoughts are represented by objects, and I can check the data on those thoughts, I can easily differentiate conscious thoughts from subconscious thoughts. Subconscious thoughts will have various markers on them that suggest they should not be trusted. When I see these markers, I change the thoughts to from {[idea]} to {consider thinking about [idea], as an alternative to [counter-idea]}. There are a lot more specifics on this that I don't think you are interested to here, so I won't bother writing them down. Anyways, I use markers and warning labels to prevent myself from getting tricked by my subconscious. These same markers have almost no effect on my subconscious; adding the [counter-idea] helps the subconscious with some of its thoughts, but not that much. So, this method is a pretty good way to maintain harmony between my conscious and subconscious.
 
 ## Controlling the Subconscious
-Keep in mind, I am not my conscious. My subconscious is a part of who I am too.
+Keep in mind, I am not my conscious. My subconscious is a part of who I am too. With that in mind, controlling my subconscious is just a form of self control. Admitting that my subconscious is part of me was a big step towards my self understanding.
+
+*Ah, I am getting tired of writing. I am gonna call it a day here.*
 
 
 
