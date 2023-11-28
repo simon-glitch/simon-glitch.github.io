@@ -7,3 +7,7 @@ Even now, I am controlled by a fear-based empathy. I try to avoid talking to str
 ## Isolated?
 As the AI puts it: I have chosen to isloate myself.
 
+## It's a hybrid
+My problem is a weird hybrid between fear and empathy. My solution is a weird hybrid between courage and cowardice.
+
+
