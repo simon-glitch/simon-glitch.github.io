@@ -43,7 +43,7 @@ So, since my thoughts are represented by objects, and I can check the data on th
 ## Controlling the Subconscious
 Keep in mind, I am not my conscious. My subconscious is a part of who I am too. With that in mind, controlling my subconscious is just a form of self control. Admitting that my subconscious is part of me was a big step towards my self understanding.
 
-*Ah, I am getting tired of writing. I am gonna call it a day here.*
+*Ah, I am getting tired of writing. I am gonna call it a day here.*.,
 
 
 
