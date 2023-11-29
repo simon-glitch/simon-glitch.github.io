@@ -45,6 +45,16 @@ Keep in mind, I am not my conscious. My subconscious is a part of who I am too. 
 
 *Ah, I am getting tired of writing. I am gonna call it a day here.*
 
+# A Harsh Process
+I am still a bit unsure about what I am and what I have been through.
+
+I started out this year feeling so ... different. During my last semester in highschool, they asked us to write essays. I was going through a lot of change at that time. I don't even understand what happened at that time. At least, I can't really put it in words right now.
+
+What the school was "trying" to "teach" me doesn't matter. I learned a lot of things from sitting on my own and just thinking about stuff. For example, I learned all of these things about my subconscious.
+
+My mentality and mindset changed a lot. I was somewhat motivated by the school's request to write an essay. When writing the essay, I changed my perspective on writing. However, a lot of the changes I experienced would have happened at a later point in time. What changed though? Well, I noticed that there are a lot of ethical aspects to writing. I noticed that I need to be considerate of how my writing affects the reader. None of this was motivated by my teachers, and I don't think they noticed. I don't think anyone really understands how much was going on in my mind at the time.
+
+I used to be angry at everyone for not understanding. Now, I don't care about what anyone else thinks of my experience. Now, I simply appreciate the fact that I got to learn a lot.
 
 
 
