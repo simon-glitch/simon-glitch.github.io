@@ -1,71 +1,3 @@
-
-# Unimportant Stuff
-Title: King Taco as a Card Game Web App
-
-## Execution Plan
-1. Preparation and program design
-2. Coding
-3. User interface design
-    a. User interface implementation
-4. Further game features
-    a. And game rules / guidebook
-
-## Design of the solution
-1. Dataset and data types
-I used `list[int]` and `int` throughout most of my code. I put some of my global constants in tuples, since they are **truly constant**.
-
-2. The main challenges
-The main challenge with this project is finding a way to procedurally represent the game's rules.
-
-# Change of Plans
-So, I was going to make an overly complicated type-based script for handling the game's logic. Then I realized that I was getting ahead of myself. My problem was that I couldn't see the big picture of what my code would look like and how the classes would interact with each other. So, I cut back on the code and went with a simpler design. Now, I **can see** the greater picture of my code's general structure.
-
-# The Code
-The code uses `int`s to represent everything. I am using `int`s in order to force myself from trying to add in overly complicated and abstract methods (my idea here is that I can't abstract `int`s and I can't overcomplicate them). So, I am basically tricking myself into writing code that I can handle. The `int`s in my code are just indices. Every card is represented by an absolute index that points to it. There are actual card objects, but the card data is stored in separate arrays (which are global constants), and the card logic is handled in separate methods (which are global methods). I wanted to avoid OOP here, because OOP causes me to trip on abstractions. OOP is great for programming, but it only makes sense when I can see the overall structure of the program. I can't write a class without knowing exactly what the program containing the class must be structured like.
-
-# Prototypal Nature of This Project
-The card game I want to make isn't finalized, and won't be for a long time. I have always wanted to make a card game, but I have never properly done so. Also, games can almost always be improved or modified for a different audience. So, the card game (as itself, conceptually) is definitely just a prototype. With that in mind, my true goal with this project is to make a useful library for making card games, and to display it in an acceptable web demo. Library -> Demo -> Prototype. This is a very common design pattern with many projects, so I am using it. It is also very professional.
-
-# Happy Outcomes
-I do have many small happy outcomes with this project. I am happy that I can play uno in a simulated environment. I also like some of the small details I added in.
-
-# The UI
-So, I finally got my game working in Python. The `new.md` file is fairly self explanatory of everything that is going on within it. My only comment on the programming process is that I had to pass a lot of global variables around. At least the code is easy to extend.
-
-Now, I need to add a UI to my game. I already have a basic idea for what the cards should look like:
-* https://codepen.io/simon-will-over/pen/dyaJRmM?editors=0011
-* I am thinking of creating popups with tippy that can be toggled on / off during card selection. I will also need a togglable menu for displaying the game variables to the user. And I will probably want a cool display box the draw and discard piles.
-* I think discarding would best be done with a big discard button on the right
-* and of course, if the player needs to draw cards, they should draw them all at once
-
-I could connect the Python script to the HTML with some async nonsense. I love how both JavaScript and Python allow this.
-* In JavaScript we have:
-```js
-const p = new Promise(resolve => {
-  document.addEventListener('click', () => {
-    resolve();
-  });
-});
-
-async function main_1() {
-  const result = await p;
-  console.log('User clicked the page (1)!');
-}
-async function main_2() {
-  const result = await p;
-  console.log('User clicked the page (2)!');
-}
-
-main_1();
-main_2();
-```
-
-* In Python we have `Coroutine`s, and you can use `.send()` to do some magic there.
-
-# File
-`new.py`'s code:
-
-```py
 """
 (c) Uno Upon A Time, by Simon Willover
 """
@@ -219,7 +151,7 @@ cards are listed in this FIXED order:
       * += 2    (aka 12)
       * all ++  (aka 13)
       * skip    (aka 14)
-\~\~\~
+~~~
 * symbol of 0 represents a card with no symbol (i.e. a WILD)
 * `symbol_name` (for specials) `= specials[symbol - numbers_to_use]`
 """
@@ -378,14 +310,14 @@ def run_effect(initial_player: int):
     
     Returns:
     --------
-    \```
+    ```
     res: tuple = (
         recipient: int,
         can_respond: bool,
         to_draws: tuple[int],
         d_timeouts: tuple[int],
     )
-    \```
+    ```
     
     * `recipient`: the index of the player who is the "recipient"
     * `can_respond`: whether the recipient is allowed to respond
@@ -960,5 +892,6 @@ else:
 
 # effect_stack.append(cards_per_color*1 + 2)
 
-```
+
+
 
