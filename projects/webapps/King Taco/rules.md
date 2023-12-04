@@ -83,9 +83,22 @@ Given a player, U:
 Often times, an effect card *(named: the 1st card)* can have another effect card *(named: the 2nd card)* stacked on top of it. The effect of the first card will only trigger if the next player *(the player who could have played the 2nd card)* allows it.
 * If the next player, U has no card that U can stack on the 1st card, then U is **forced** to allow the effect to trigger.
 * U can voluntarily choose to allow the card effect to trigger. In which case, U does not have to tell anyone that U is choosing to do this.
+    * This voluntary choice is made simply by playing any stackable card. A card is stackable if the effect rules say that it can be stacked on the current stack.
+    * If U chooses to play a stackable card, it always stacks.
+        * U can not decide to break the stack and then play the stackable card as the base to a new stack.
+        * The stack is **only** broken if the next card can **not** stack.
+        * ^ *i.e. The stack breaks when a card that doesn't meet the current stackability condition is played*
+        * When the stack is broken, the effect of the stack will trigger, as if the effect was triggered **before** the stacked card was played.
+    * If the effect of the stack would require U to draw cards, then U is not even allowed to play a non-stackable card. U is forced to either:
+        * Play a stackable card, forcing the effect to be delayed for one turn.
+        * OR Draw the required number of cards.
+    * For `go fishing`, there is a specific option to **accept** the effect, since `go fishing` changes the game flow and the logic of turns.
 * Therefore, other players can not necessarily infer wether U can stack a 2nd card on the 1st card.
 
 Stacking the 2nd card requires the 2nd card to satisfy both the current playability condition AND the current stackability condition.
+
+## Hmm, those rules ALSO seem complex, Simon
+Ah, good catch there, reader. Yes, indeed: those rules are extremely complex. You'll just have to memorize them and have fun doing so!~
 
 # Playability Conditions
 *(Given that the 2nd card is being played **immeditaley** after the 1st card.)*
@@ -183,6 +196,13 @@ Some cards have effects (when stacked) that change the stackability conditions f
 The key idea with wilds is that they can be played regardless of the {color and symbol} of the {last card or current lock}. Still, swapping the color in a jiffy is really nice.
 * However, a `WILD` also triggers a `WILD` effect when played.
 
+## Effect on Plyability Condition
+Given a player U plays a `WILD`:
+* U must choose a color from the colors in the game; this chosen COLOR is now the color of the wild, with respect to the playability condition
+* the next card **played** on top of the meet the current playability condition
+* we call this the `WILD` effect
+
+### Additional Playability Condition Effects
 A `WILD` is slightly similar to a `lock`, in one *tiny* way.
 
 The `WILD` will restrict the color of the next card played on top of it, if possible.
@@ -190,11 +210,6 @@ The `WILD` will restrict the color of the next card played on top of it, if poss
     * In the case of the `WILD inverse`, the card sets the color and still inverts the playability condition.
 * If a `lock` or `rage` is active, the `WILD` will apply no restriction.
 * `WILD` can not be played while `calm` is active, but `lock` can.
-
-Given a player U plays a `WILD`:
-* U must choose a color from the colors in the game; this chosen COLOR is now the color of the wild, with respect to the playability condition
-* the next card **played** on top of the meet the current playability condition
-* we call this the `WILD` effect
 
 The symbol of a `WILD` with no secondary effect is `null`. Non-wild cards do not have this same symbol, and thus can not be played on top it by matching their symbol.
 
@@ -466,9 +481,101 @@ Otherwise:
 
 ## --
 (`M1` | `--`)
+When U plays, this card, U can discard 1 card. U is the recipient of the effect. The effect is triggered when the next player permits U to discard the card, by playing a non-stackable card.
+
+Stacking another card on this card lets the next player steal the discard.
+
+Stacking:
+* `x2` will double the number of cards to be discarded
+* `--` will increase the number of cards to be discarded by 1
+* `+=2` will decrease the number of cards to be discarded by 2
+    * if the number becomes 0, then only a `NOPE` card can be stacked
+    * a `NOPE` card will set the number of cards to be discarded back to 1
+    * if the number, n, goes below 0, then the effect is changed to the effect of a `+=2`, with a draw count of `n` cards to be drawn, and the recipient is pushed to the next player after the last player who put a card in the stack
 
 ## Harvest
 (`HAR` | `harvest`)
+There is a reason `harvest` costs 4 mana to use. It's unfair and devastating to other players.
+
+When U plays `harvest`, U will be the "recipient" of its effect.
+
+The effect lasts for 1 round. The effect is:
+* All mana that would normally by gained by any other player, V (for all V != U), is collected by U.
+* The mana V already has is not collected. Only new mana influx is collected by U.
+* When V spends mana, this still happens at the cost of V's mana supply. U receives all gains and none of the costs.
+
+This can be pretty OP, since it can prevent certain players from collecting the mana they need for future plays.
+
+Only 1 player can `harvest` at a time. Further `harvest` effects will simply overwrite the previous `harvest`. So if V plays a `harvest` card, V will start collecting from that point onwards.
+
+The `harvest` can be stacked on. The `harvest` thus doesn't start until the stack ends. If a player, V, chooses to finish the stack and allow the effect to activate, the effect triggers instantly. The effect will even `harvest` mana collected from V is V draws or plays immediately after the last card in the stack.
+
+Finally, I should note that `harvest` will incinerate mana if U's mana is already at the max capacity. So, if U manages to recover to full mana during the `harvest`, then all mana gains of other players will simply be incinerated (wasted). This is essentially a lose-lose situation for everyone. If U plays another `harvest` while U's own harvest is active, the 2nd harvest will still **overwrite** the 1st. The lifespan of the 1st harvest will not increase by 1 round; rather, the 1st harvest's lifespan is reduced to 0, and the 2nd harvest starts with its normal lifespan of 1 round.
+
+Stacking:
+* `x2` and `NOPE` stack as usual.
+* Another `harvest` will increase the lifespan by 1 round, and delay the effect from starting for 1 more round, when the 2nd `harvest` is put in the same stack as the 1st.
+* `inverse` does not stack with `harvest`
+
+If anyone plays or stacks `go fishing` during a `harvest`, U gains 1 mana from the card. This 1 mana is not affected by anything else stacked on top of `go fishing`.
+
+The `inverse` card actually costs 0 mana during a `harvest`, since it is a good way to waste time that U could potentially be harvesting mana from other players.
+
+## WILDS with Secondary Effects
+Many of the WILDS have a secondary effect, such as `+=2`. For simplicity, these effects are exactly the same as the effects of the other colored effect cards. There is no need to have `+=4` or a `SUPER NOPE`. In a previous prototype of this game, I included those as cards, but that just makes WILDS too OP. The `calm` and `inverse` cards already serve an important purpose of making `WILDS` not OP.
+
+If you want to better understand how the `WILD inverse`, `WILD rage`, `WILD calm`, and `WILD lock` work, see:
+* [#Wilds: Additional Playability Condition Effects](#Additional-Playability-Condition-Effects)
+
+# Cheating
+I don't have any suggestions for how you should handle cheating. I will just trust players to be polite with each other and handle this on their own.
+
+
+| 3 -1  |  1  0
+| 1  0  |  0  1
+V
+| 0 -1  |  1 -3
+| 1  0  |  0  1
+V
+| 0  1  | -1  3
+| 1  0  |  0  1
+V
+| 1  0  |  0  1
+| 0  1  | -1  3
+
+
+| -6 -3  |  5
+| -5 -3  |  2
+|  5  6  |  8
+V
+| -6 -3  |   5
+|  0  3  |  10
+|  5  6  |   8
+V
+| -6  0  |  15
+|  0  3  |  10
+|  5  6  |   8
+V
+| -6  0  |  15
+|  0  3  |  10
+|  5  0  | -12
+V
+|  6  0  | -15
+|  5  0  | -12
+|  0  3  |  10
+V
+|  30  0  | -75
+|  30  0  | -72
+|   0  3  |  10
+V
+|  30  0  | -75
+|   0  0  |   3
+|   0  3  |  10
+V
+|  30  0  | -75
+|   0  3  |  10
+|   0  0  |   3
+V
 
 
 
