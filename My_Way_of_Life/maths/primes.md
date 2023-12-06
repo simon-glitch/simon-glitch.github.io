@@ -11,3 +11,5 @@ I am wondering though, which sets of primes satisfy the identity above?
 * What about Matrix Primes? (Real matrices composed of integers which don't break down into other matrices composed of primes)
 * What about Guassian Matrix Primes (Complex matrices which are prime like the other ones)
 
+Does the Riemann Zeta function have an even deaper meaning then? Well, one day, we will probably know.
+
