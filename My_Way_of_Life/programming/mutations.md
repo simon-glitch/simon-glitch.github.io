@@ -297,6 +297,6 @@ Container c:
     y = 1
 ```
 
-
+When Python gets and sets `c.y`, it always uses the same `y` in `c`. This means that `c.y` can be both an input of `f2` and an output of `f2`. This is the reason that many fans of FP ("functional programming") are against OOP ("object oriented programming"). It's not clear where `c` is being modified, and which parts of `c` are being modified. The ownership system of Rust is supposed to help programmers avoid this, but I don't think that's necessary.
 
 
