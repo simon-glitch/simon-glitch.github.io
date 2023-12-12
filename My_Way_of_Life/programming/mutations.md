@@ -123,7 +123,179 @@ What are these **"other tricks"**? Well, they are the kinds of things that many 
 * closures
 
 ### Global Variables
+Python has global variables using the `global` keyword. JavaScript actually makes variables as global as possible, requiring the programmer to use `let`, `var`, and `const` to clarify which level of "globalness" each variable is supposed to have.
+* Both of these designs can be quite confusing to a new programmer, even though using them is really simple.
 
+Here is an example:
+```py
+def f1(x):
+    y = x + 2
+    def f2(x):
+        global z
+        z = y - x
+    f2(5)
+    return z
+
+print(f1(4))
+```
+
+Now, the example is intentionally written poorly. We could just put `return z` in `f2`, and then `return f2(5)` directly in `f1`. *In general, global variables aren't as useful as object mutations.* In simply examples like this, using `return` statements and writing everything in a "functional" design is usually the best approach. Nonethless, global variables are very useful.
+
+**Wait, what does `global` do though?**
+Oh, well it just moves the variable outside the function. Python moves the variable **all the way outside**.
+
+```py
+def f1(x):
+    y = x + 2
+    def f2(x):
+        global y
+        y = y - x # Error
+    f2(5)
+    return y
+
+print(f1(4))
+```
+
+This example shows how `global` actually works. `global y` tells `f2` to use the `y` on the global scope.
+
+The error happens right here:
+```
+----v----
+y = y - x
+```
+
+The reason is simple. Python has to evaluate the right side of the assignment first, before assigning the value. When Python tries to evaluate `y` (on the right side), it doesn't find a variable `y` in the scope. There is a `y` inside of `f1` that Python could use (and normally would use), but `global y` makes Python ignore that. Python is looking in the scope **outside** of `f1`. In the code, there is no `y` outside of `f1`. Therefore, Python gives us a `NameError` (no variable named `y`).
+
+We can "fix" the code by adding a couple of lines of code to `f2`
+* First, we input `y` from `f1`:
+    * `copy = y`
+* Then we start using the `global y`.
+* Then we set the `global y` to a starting value of our `copy`.
+```py
+def f1(x):
+    y = x + 2
+    def f2(x):
+        copy = y
+        global y
+        y = copy
+        y = y - x
+    f2(5)
+    global y
+    return y
+
+print(f1(4))
+```
+
+You can also just make the original `y` from `f1` global, like so:
+```py
+def f1(x):
+    global y
+    y = x + 2
+    def f2(x):
+        global y
+        y = y - x
+    f2(5)
+    return y
+
+print(f1(4))
+```
+
+**But why not just use the `y` from `f1` directly?**
+
+Well, this code does not have the expected output:
+```py
+def f1(x):
+    y = x + 2
+    def f2(x):
+        y = y - x
+    f2(5)
+    return y
+print(f1(4)) # expect 1
+```
+
+We expect `1`, but get `6`. This is because `f2` has 2 different `y`s.
+```
+| ---------v right |
+|      y = y - x   |
+| left ^ --------- |
+```
+
+The right `y` is taken as an input. When getting a variable's value, Python will look for the most-local input. In this case, the most local input is the `y` from `f1`. Keep in mind, the `y - x` on the right side happens first, so Python can't use the `y` from `f2` yet.
+
+Here, let's modify the code to make this more clear:
+```py
+def f1(x):
+    y = x + 2
+    def f2(x):
+        y = y - x
+        print("inner", y) # the current `y` in `f2`
+    f2(5)
+    return y
+print("final", f1(4)) # the final `y` in `f1`
+```
+
+Result:
+```
+inner 1
+final 6
+```
+
+So it looks like `y` **does** have the correct value while it's inside of `f2`. However, the `y` used in the inner print statement is taking from the most local input. Here, since `y` was already established a value under `f2`, Python uses the `y` from `f2` in the inner print statement. So, Python will dynamically switch from using `f1`'s `y` to using `f2`'s why, when a `y` is actually created in `f2`.
+
+You might find all of this to be rather unintuitive. And I agree with you - this is unintuitive. How is anyone supposed to understand what's going on here? Well, this is why many programmer dislike global variables and even avoid them.
+
+When I first learned programming, I actually found this to be rather intuitive, because I ended up having code where I needed different functions to access the same values. Here is an example:
+
+* Imagine we have an application, with 2 button's and a box between them. The box displays a value, such as `12`.
+```py
+# our global variable
+box_value = 12
+
+def on_button_up():
+    # we need to specify that we are using a variable in a global manner
+    global box_value
+    box_value = box_value + 1
+
+def on_button_down():
+    # we need to specify that we are using a variable in a global manner
+    global box_value
+    box_value = box_value - 1
+
+# the specifics on update and box_element are left out, for simplicity
+def update():
+    box_element.value = box_value
+```
+
+Each time `on_button_up` is called, the box's value will increase by 1. And `on_button_down` decreases the value. This is very simple, and code like this is actually quite natural. If you have had to switch from one language, like Java, to another, like Rust, you probably had *some* problems with accessing variables from different functions.
+
+### Object Mutations
+Object oritented languages, like Java, don't want you to use global variables. Instead, we are supposed to put our variables on objects. An object really is just that though: it's just a container (a box) to put variables inside of.
+
+```py
+class Container:
+    y = 0
+
+def f1(x):
+    c = Container()
+    c.y = x + 2
+    def f2(x):
+        c.y = c.y - x
+    f2(5)
+    return c.y
+print(f1(4)) # expect 1, and get 1
+```
+
+Here, `f2` can modify `y` because it uses the container `c` from `f1`. Wait, what? Won't `c.y =` in the `f2` create a new `c.y` just for `f2`? Why doesn't this behave like the code from earlier? How is `c.y` different from `y`? Well, it's because of what `c.y` means where the value is actually stored. `c.y` means "use the `y` from `c`". `c` is an instance of `Container`, therefore the `y` from `c` is stored in its own separate code block:
+* before `f2` is run:
+```java
+Container c:
+    y = 6
+```
+* after `f2` is run:
+```java
+Container c:
+    y = 1
+```
 
 
 
