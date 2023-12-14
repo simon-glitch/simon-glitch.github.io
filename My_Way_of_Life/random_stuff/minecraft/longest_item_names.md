@@ -5,17 +5,9 @@ Named items (through the anvil):
 
 ## The leaderboard
 
-L means length in characters.
+(L means length in characters)
 
-Items that used to be in the game:
-| Name                                      | L  |
-| ----------------------------------------- | -- |
-| Waxed Lightly Weathered Cut Copper Stairs | 41 |
-
-Non items currently in the game:
-| Name                                      | L  |
-| ----------------------------------------- | -- |
-| Waterlogged Weathered Cut Copper Stairs | 39 |
+I removed many duplicate items in the list, such as other potions and colored blocks.
 
 Items currently in the game:
 | Name                                  | L  |
@@ -23,29 +15,66 @@ Items currently in the game:
 | Lingering Potion of the Turtle Master | 37 |
 | Lingering Potion of Fire Resistance   | 35 |
 | Lingering Potion of Water Breathing   | 35 |
-| Cracked Polished Blackstone Bricks    | 34 |
-| Waxed Weathered Cut Copper Stairs     | 32 |
-| Lingering Potion of Invisibility      | 32 |
-| Lingering Potion of Night Vision      | 32 |
-| Lingering Potion of Slow Falling      | 32 |
-| Lingering Potion of Regeneration      | 32 |
-| Waxed Exposed Cut Copper Stairs       | 31 |
-| Waxed Weathered Cut Copper Slab       | 31 |
+| Polished Blackstone Pressure Plate    | 34 |
+| Bucket of Adult Leucistic Axolotl     | 33 |
+| Waxed Weathered Cut Copper Stairs     | 33 |
+| Light Blue Stained Hardened Clay      | 32 |
+| Heavy Weighted Pressure Plate         | 29 |
+| Light Blue Glazed Terracotta          | 28 |
 | Light Blue Stained Glass Pane         | 29 |
-| Lingering Potion of Slowness          | 28 |
-| Lingering Potion of Strength          | 28 |
-| Lingering Potion of Weakness          | 28 |
-| Lingering Potion of Harming           | 27 |
-| Lingering Potion of Healing           | 27 |
-| Lingering Potion of Leaping           | 27 |
-| Deepslate Lapis Lazuli Ore            | 26 |
+| Minecart with Command Block           | 27 |
+| Smooth Red Sandstone Stairs           | 27 |
 | Light Blue Concrete Powder            | 26 |
-| Lingering Potion of Poison            | 26 |
-| Lingering Potion of Speed             | 25 |
+| Polished Blackstone Button            | 26 |
+| Wandering Trader Spawn Egg            | 26 |
+| Zombified Piglin Spawn Egg            | 26 |
 | Polished Deepslate Stairs             | 25 |
-| Lingering Potion of the Turtle Master | 37 |
-  1234567890123456789012345678901234567
-  ---------|---------|---------|-------
+| Smooth Red Sandstone Slab             | 25 |
+| Wither Skeleton Spawn Egg             | 25 |
+| Dark Oak Boat with Chest              | 24 |
+| Elder Guardian Spawn Egg              | 24 |
+| Heartbreak Pottery Sherd              | 24 |
+| Mossy Cobblestone Stairs              | 24 |
+| Polished Andesite Stairs              | 24 |
+| Skeleton Horse Spawn Egg              | 24 |
+| Bucket of Tropical Fish               | 23 |
+| Dead Bubble Coral Block               | 23 |
+| Repeating Command Block               | 23 |
+| Stripped Crimson Hyphae               | 23 |
+| Tropical Fish Spawn Egg               | 23 |
+
+The Pottery shard is the most surprising item on the list!
+
+37 chars: Lingering Potion of the Turtle Master
+35 chars: Lingering Potion of Fire Resistance
+35 chars: Lingering Potion of Water Breathing
+34 chars: Polished Blackstone Pressure Plate
+33 chars: Bucket of Adult Leucistic Axolotl
+33 chars: Waxed Weathered Cut Copper Stairs
+32 chars: Light Blue Stained Hardened Clay
+29 chars: Heavy Weighted Pressure Plate
+28 chars: Light Blue Glazed Terracotta
+29 chars: Light Blue Stained Glass Pane
+27 chars: Minecart with Command Block
+27 chars: Smooth Red Sandstone Stairs
+26 chars: Light Blue Concrete Powder
+26 chars: Polished Blackstone Button
+26 chars: Wandering Trader Spawn Egg
+26 chars: Zombified Piglin Spawn Egg
+25 chars: Polished Deepslate Stairs
+25 chars: Smooth Red Sandstone Slab
+25 chars: Wither Skeleton Spawn Egg
+24 chars: Dark Oak Boat with Chest
+24 chars: Elder Guardian Spawn Egg
+24 chars: Heartbreak Pottery Sherd
+24 chars: Mossy Cobblestone Stairs
+24 chars: Polished Andesite Stairs
+24 chars: Skeleton Horse Spawn Egg
+23 chars: Bucket of Tropical Fish
+23 chars: Dead Bubble Coral Block
+23 chars: Repeating Command Block
+23 chars: Stripped Crimson Hyphae
+23 chars: Tropical Fish Spawn Egg
 
 
 
