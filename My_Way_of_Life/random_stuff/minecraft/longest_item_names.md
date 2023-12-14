@@ -46,12 +46,10 @@ Items currently in the game:
 The Pottery shard is the most surprising item on the list!
 
 37 chars: Lingering Potion of the Turtle Master
-35 chars: Lingering Potion of Fire Resistance
-35 chars: Lingering Potion of Water Breathing
+34 chars: Cracked Polished Blackstone Bricks
 34 chars: Polished Blackstone Pressure Plate
 33 chars: Bucket of Adult Leucistic Axolotl
 33 chars: Waxed Weathered Cut Copper Stairs
-32 chars: Light Blue Stained Hardened Clay
 29 chars: Heavy Weighted Pressure Plate
 28 chars: Light Blue Glazed Terracotta
 29 chars: Light Blue Stained Glass Pane
@@ -63,18 +61,13 @@ The Pottery shard is the most surprising item on the list!
 26 chars: Zombified Piglin Spawn Egg
 25 chars: Polished Deepslate Stairs
 25 chars: Smooth Red Sandstone Slab
-25 chars: Wither Skeleton Spawn Egg
 24 chars: Dark Oak Boat with Chest
-24 chars: Elder Guardian Spawn Egg
 24 chars: Heartbreak Pottery Sherd
 24 chars: Mossy Cobblestone Stairs
 24 chars: Polished Andesite Stairs
-24 chars: Skeleton Horse Spawn Egg
 23 chars: Bucket of Tropical Fish
 23 chars: Dead Bubble Coral Block
 23 chars: Repeating Command Block
 23 chars: Stripped Crimson Hyphae
-23 chars: Tropical Fish Spawn Egg
-
 
 
