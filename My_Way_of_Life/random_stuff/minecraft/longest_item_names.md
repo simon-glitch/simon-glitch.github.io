@@ -43,7 +43,7 @@ Items currently in the game:
 | Stripped Crimson Hyphae               | 23 |
 | Tropical Fish Spawn Egg               | 23 |
 
-The Pottery shard is the most surprising item on the list!
+The pottery sherd is the most surprising item on the list!
 
 37 chars: Lingering Potion of the Turtle Master
 34 chars: Cracked Polished Blackstone Bricks
@@ -55,6 +55,7 @@ The Pottery shard is the most surprising item on the list!
 29 chars: Light Blue Stained Glass Pane
 27 chars: Minecart with Command Block
 27 chars: Smooth Red Sandstone Stairs
+26 chars: Deepslate Lapis Lazuli Ore
 26 chars: Light Blue Concrete Powder
 26 chars: Polished Blackstone Button
 26 chars: Wandering Trader Spawn Egg
