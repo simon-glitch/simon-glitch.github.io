@@ -69,6 +69,8 @@ function time(f = function(){}, memory = new Memory()){
     use_workers = memory.multi_processing.safe && (memory.multi_processing.suggested_count != 1);
     use_threads = memory.multi_threading.safe && (memory.multi_threading.suggested_count != 1);
     
+    const worker_count = memory.multi_processing.suggested_count || 1;
+    
     resolve_f = function(){};
     // first, we create a promise
     const p = new Promise((resolve) => {
@@ -84,9 +86,21 @@ function time(f = function(){}, memory = new Memory()){
         
         Why am I writing all these comments? Well, this way of using promises is just extremely rare, and I think someone out there will find this information to be really helpful.
         */
-      });
+    });
+    
+    const done = [false];
+    for(let i = 0; i < worker_count; i++){
+        done[i] = false;
+    }
+    
+    const data = {
+        p,
+        done,
+    };
+    
     if(use_workers){
-        
+        // we want to make one web-worker per worker needed (beyond the 1st worker)
+        Worker("worker.js", data);
     }
     
     // technically, `time` is an async function
