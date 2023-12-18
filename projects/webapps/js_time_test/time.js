@@ -91,7 +91,7 @@ function time(f = function(){}, memory = new Memory()){
     
     // technically, `time` is an async function
     // you can actually use `await` on it, if you want, because it returns a promise
-    // any promise object can be awaited (this is actually how promises actually work)
+    // any promise object can be awaited (this is actually how promises and async functions work under the hood)
     return p;
 };
 
