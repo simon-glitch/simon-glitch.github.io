@@ -113,12 +113,20 @@ function time(f = function(){}, memory = new Memory()){
         ws[i] = new Worker("worker.js");
     
     // yes: I am intentionally posting messages AFTER making the workers
+    
     const start_f = function(){
         for(let i = 0; i < worker_count; i++){
             const data = {index: i, sub: sub_data};
             ws[i].postMessage(data);
         }
     };
+    
+    const on_message_f = function(e){
+        // grab output from our web workers
+        data = e.data;
+        times[data.index] = data.time;
+        done[data.index] = true;
+    }
     
     const finish_f = function(){
         let total = 0;
@@ -156,6 +164,7 @@ function time(f = function(){}, memory = new Memory()){
         return true;
     };
     
+    addEventListener("message", on_message_f);
     frame_f_id = setInterval(frame_f);
     
     // technically, `time` is an async function
