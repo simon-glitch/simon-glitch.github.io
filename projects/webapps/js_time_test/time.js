@@ -13,6 +13,11 @@ class Multi_{
      * 0 means "automatic"
     **/
     suggested_count = 0
+    
+    constructor(safe, suggested_count){
+        this.safe = safe ?? this.safe;
+        this.suggested_count = suggested_count ?? this.suggested_count;
+    }
 }
 
 /**
@@ -36,15 +41,19 @@ class Memory{
     multi_processing = new Processing();
     multi_threading = new Threading();
     constructor(processing, threading){
-        if(processing) this.multi_processing = processing;
-        if(threading) this.multi_threading = threading;
+        this.multi_processing = processing ?? this.multi_processing;
+        this.multi_threading = threading ?? this.multi_threading;
     }
 }
 
 /**
-  * JS Doc
+  * Test how long it takes a function to run.
 **/
-function time(memory = new Memory()){
+function time(f = function(){}, memory = new Memory()){
+    if(typeof f != "function"){
+        throw new TypeError("Expected [f] to be a function.");
+    }
+    
     // type checking!
     if(!memory instanceof Memory){
         let processing = arguents[0];
@@ -53,16 +62,47 @@ function time(memory = new Memory()){
             (processing instanceof Processing) &
             (threading instanceof Threading)
         ) memory = Memory(processing, threading);
-        else throw new TypeError("Expected a Memory object, but got an instance of " + arguments[0]?.constructor + " instead.");
+        else throw new TypeError("Expected [memory] a Memory object, but got an instance of " + arguments[0]?.constructor + " instead.");
     }
     
     // now let's actually run this function
+    use_workers = memory.multi_processing.safe && (memory.multi_processing.suggested_count != 1);
+    use_threads = memory.multi_threading.safe && (memory.multi_threading.suggested_count != 1);
     
+    resolve_f = function(){};
+    // first, we create a promise
+    const p = new Promise((resolve) => {
+        // this arrow function is run immediately, and the resolver (`resolve`) is given to it
+        // we can store the resolver in the outer scope, like so:
+        resolve_f = resolve;
+        /*
+        this allows us to reuse the resolver WHENEVER we want
+        reusing the resolver will trigger ANYTHING that awaits this promise
+        also, multiple things can await the same promise
+        however, the same promise can NOT resolve multiple times
+        JavaScript throws a silent error if you try to resolve this function repeatedly
+        
+        Why am I writing all these comments? Well, this way of using promises is just extremely rare, and I think someone out there will find this information to be really helpful.
+        */
+      });
+    if(use_workers){
+        
+    }
 };
 
 // convenient alternative access method
 time.MP = Processing;
 time.MT = Threading;
+time.M = Memory;
+
+// unit tests are nice
+time.test = function(){
+    let testee = function testee(){
+        return 0;
+    };
+    
+    time(testee, time.M()).then(v => console.log(v));
+};
 
 // export classes and methods
 window.Processing ||= Processing;
