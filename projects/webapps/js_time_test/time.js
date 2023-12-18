@@ -45,8 +45,29 @@ class Memory{
   * JS Doc
 **/
 function time(memory = new Memory()){
+    // type checking!
+    if(!memory instanceof Memory){
+        let processing = arguents[0];
+        let threading = arguents[1];
+        if(
+            (processing instanceof Processing) &
+            (threading instanceof Threading)
+        ) memory = Memory(processing, threading);
+        else throw new TypeError("Expected a Memory object, but got an instance of " + arguments[0]?.constructor + " instead.");
+    }
+    
+    // now let's actually run this function
     
 };
+
+// convenient alternative access method
+time.MP = Processing;
+time.MT = Threading;
+
+// export classes and methods
+window.Processing ||= Processing;
+window.Threading ||= Threading;
+window.time ||= time;
 
     /**
      * JS Doc
