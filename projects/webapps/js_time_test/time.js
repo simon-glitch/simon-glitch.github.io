@@ -93,11 +93,17 @@ function time(f = function(){}, memory = new Memory()){
     for(let i = 0; i < worker_count; i++){
         done[i] = false;
     }
+    /** @type Number[] */
+    const times = [];
+    
+    const todo_c = 8;
     
     const data = {
         p,
         done,
+        times,
         f,
+        todo_c,
     };
     
     if(use_workers){
