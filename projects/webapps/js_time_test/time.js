@@ -47,7 +47,9 @@ class Memory{
 }
 
 /**
-  * Test how long it takes a function to run.
+   * Test how long it takes a function to run.
+   * 
+   * Side note: I was very careful with the locality and usage of each variable in this script. I have tried to make it extremely secure, and even thread-safe. This means that you can do `time(() => {time(() => {})})` and other related shenanigans (i.e. you can run `time` on itself).
 **/
 function time(f = function(){}, memory = new Memory()){
     if(typeof f != "function"){
@@ -114,12 +116,41 @@ function time(f = function(){}, memory = new Memory()){
         ws[i] = new Worker("worker.js");
     
     // yes: I am intentionally posting messages AFTER making the workers
-    start_f = function(){
+    const start_f = function(){
         for(let i = 0; i < worker_count; i++){
             const data = {index: i, sub: sub_data};
             ws[i].postMessage(data);
         }
     };
+    
+    const finish_f = function(){
+        0
+    };
+    
+    let ready = true;
+    let frame_f_id = -1;
+    const frame_f = function(){
+        if(!ready) return false;
+        ready = false;
+        
+        let all_done = true;
+        for(let i = 0; i < done.length; i++){
+            // this is an example where Python's for-else loop would actually make some sense
+            if(!done[i]){
+                all_done = false;
+                break;
+            }
+        }
+        if(all_done){
+            finish_f();
+            clearInterval(frame_f_id);
+        }
+        
+        ready = true;
+        return true;
+    };
+    
+    frame_f_id = setInterval(frame_f);
     
     // technically, `time` is an async function
     // you can actually use `await` on it, if you want, because it returns a promise
