@@ -101,9 +101,6 @@ function time(f = function(){}, memory = new Memory()){
     const todo_c = 8;
     
     const sub_data = {
-        p,
-        done,
-        times,
         f,
         todo_c,
     };
