@@ -98,7 +98,7 @@ function time(f = function(){}, memory = new Memory()){
     
     const todo_c = 8;
     
-    const data = {
+    const sub_data = {
         p,
         done,
         times,
@@ -106,14 +106,20 @@ function time(f = function(){}, memory = new Memory()){
         todo_c,
     };
     
-    if(use_workers){
-        // we want to make one web-worker per worker needed (beyond the 1st worker)
-        /** @type Worker[] */
-        const ws = [];
-        for(let i = 0; i < worker_count; i++)
-            ws[i] = new Worker("worker.js");
-        w.postMessage(data);
-    }
+    if(!use_workers) worker_count = 1;
+    // we want to make one web-worker per worker needed (beyond the 1st worker)
+    /** @type Worker[] */
+    const ws = [];
+    for(let i = 0; i < worker_count; i++)
+        ws[i] = new Worker("worker.js");
+    
+    // yes: I am intentionally posting messages AFTER making the workers
+    start_f = function(){
+        for(let i = 0; i < worker_count; i++){
+            const data = {index: i, sub: sub_data};
+            ws[i].postMessage(data);
+        }
+    };
     
     // technically, `time` is an async function
     // you can actually use `await` on it, if you want, because it returns a promise
