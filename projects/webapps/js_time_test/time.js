@@ -124,7 +124,16 @@ function time(f = function(){}, memory = new Memory()){
     };
     
     const finish_f = function(){
-        0
+        let total = 0;
+        for(let i = 0; i < worker_count; i++){
+            total += times[i];
+        }
+        // here is the magic of that promise from earlier
+        
+        // TODO: make `todo_c` and `todo_tc` more intuitive
+        const todo_tc = todo_c * worker_count;
+        
+        console.log(`Took ${Math.floor(total / 1000)}.${total % 1000} seconds to run [f] a total of ${todo_tc} times.`);
     };
     
     let ready = true;
