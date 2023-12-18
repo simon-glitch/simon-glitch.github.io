@@ -88,7 +88,8 @@ function time(f = function(){}, memory = new Memory()){
         */
     });
     
-    const done = [false];
+    /** @type Boolean[] */
+    const done = [];
     for(let i = 0; i < worker_count; i++){
         done[i] = false;
     }
@@ -96,11 +97,16 @@ function time(f = function(){}, memory = new Memory()){
     const data = {
         p,
         done,
+        f,
     };
     
     if(use_workers){
         // we want to make one web-worker per worker needed (beyond the 1st worker)
-        Worker("worker.js", data);
+        /** @type Worker[] */
+        const ws = [];
+        for(let i = 0; i < worker_count; i++)
+            ws[i] = new Worker("worker.js");
+        w.postMessage(data);
     }
     
     // technically, `time` is an async function
