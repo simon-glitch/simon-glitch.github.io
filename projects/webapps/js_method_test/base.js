@@ -100,7 +100,8 @@ const to_string_fixed = function(value, radix, length){
     else{
         s = bi.toString(radix);
         // insert the decimal point
-        s = s.slice(0, -length) + "." + s.slice(-length);
+        if(length > 0)
+            s = s.slice(0, -length) + "." + s.slice(-length);
     }
     
     return (((SIGN > 0) ?"" :"-") + s);
@@ -536,7 +537,7 @@ const main = function(){
     console.log("pi _10", to_string_fixed(Math.PI, 10, 53));
     console.log("pi _3 ", to_string_fixed(Math.PI,  3, 80));
     
-    console.log("1/3 _10", to_string_fixed(1/3, 10, 53));
+    console.log("1/3 _10", to_string_fixed(1/3, 10, 54));
     console.log("1/3 _3 ", to_string_fixed(1/3,  3, 80));
     console.log("1/3 _2 ", to_string_fixed(1/3,  2, 200));
     
