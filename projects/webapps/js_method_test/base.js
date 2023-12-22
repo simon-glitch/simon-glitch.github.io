@@ -522,20 +522,38 @@ primorial = function(n){
     return r;
 };
 
-primes.append([2,3,5]);
-primes.sieve_to(10_000, "c");
+const main = function(){
+    primes.append([2,3,5]);
+    primes.sieve_to(10_000, "c");
+    
+    let last = primes.values[primes.values.length - 1]
+    
+    console.log("last:", last);
+    console.log("20! =", factorial(20));
+    console.log("20# =", primorial(20));
+    
+    
+    console.log("pi _10", to_string_fixed(Math.PI, 10, 53));
+    console.log("pi _3 ", to_string_fixed(Math.PI, 3, 80));
+    
+    console.log("1/3 _10", to_string_fixed(1/3, 10, 53));
+    console.log("1/3 _3 ", to_string_fixed(1/3, 3, 80));
+    console.log("1/3 _2 ", to_string_fixed(1/3, 10, 200));
+    
+    const r = Math.random();
+    console.log("random _10", to_string_fixed(r, 10, 60));
+    console.log("random _2 ", to_string_fixed(r, 10, 200));
+    console.log("random _16", to_string_fixed(r, 16, 50));
+    
+    const inf = (2**53 - 1) * 2**(1023 - 53);
+    console.log("inf _10", to_string_fixed(inf, 10, 0));
+    console.log("inf _2 ", to_string_fixed(inf, 10, 0));
+    console.log("inf _3 ", to_string_fixed(inf, 16, 0));
+    
+    primes.find_primorials();
+    // mega_is_prime();
+}
 
-let last = primes.values[primes.values.length - 1]
-
-console.log("last:", last);
-console.log("20! =", factorial(20));
-console.log("20# =", primorial(20));
-
-console.log("pi", to_string_fixed(Math.PI, 3, 10));
-
-primes.find_primorials();
-
-// mega_is_prime();
 
 
 
