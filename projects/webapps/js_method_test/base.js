@@ -482,7 +482,7 @@ const Primes = class Primes{
         
         return res;
     }
-    
+     
     /**
       * Find primorials that can be used for quick division tests.
       * @param {Number} n number to fact;
