@@ -38,12 +38,12 @@ const hyper_mod = function(num, den, y = 1, max_iter = 1_000_000){
 }
 
 /**
- * Perform `Number.toString` and `Number.toFixed` in the same operation.
- * @param {Number} value number to convert to a string;
- * @param {Number} radix base to convert to (2 = binary, 10 = decimal) (allowed range: integers from 2 to 36);
- * @param {Number} length number of digits (characters in base {`radix`}) to print after the decimal point (any integer is supported);
- * @returns {String} converted string, reperenting `value`, with `length` digits after the decimal point;
- */
+  * Perform `Number.toString` and `Number.toFixed` in the same operation.
+  * @param {Number} value number to convert to a string;
+  * @param {Number} radix base to convert to (2 = binary, 10 = decimal) (allowed range: integers from 2 to 36);
+  * @param {Number} length number of digits (characters in base {`radix`}) to print after the decimal point (any integer is supported);
+  * @returns {String} converted string, reperenting `value`, with `length` digits after the decimal point;
+**/
 const to_string_fixed = function(value, radix, length){
     // type and value checking
     radix = Number(radix);
@@ -107,6 +107,65 @@ const to_string_fixed = function(value, radix, length){
     return (((SIGN > 0) ?"" :"-") + s);
 };
 
+const Factors = class Factors{
+    bases = new BigUint64Array();
+    powers = new Int16Array();
+    constructor(length = 0){
+        this.bases = new BigUint64Array(length);
+        this.powers = new Int16Array(length);
+    }
+    resize(length = 0){
+        const B = this.bases;
+        const P = this.powers;
+        this.bases = new BigUint64Array(length);
+        this.powers = new Int16Array(length);
+        this.bases.set(B, 0);
+        this.powers.set(P, 0);
+        return this;
+    }
+    append(bases = [2n], powers = [0n]){
+        const B = this.bases;
+        const P = this.powers;
+        this.bases = new BigUint64Array(length);
+        this.powers = new Int16Array(length);
+        this.bases.set(B, 0);
+        this.powers.set(P, 0);
+        this.bases.set(bases, B.length);
+        this.powers.set(powers, P.length);
+        return this;
+    }
+    /**
+      * Find the product of the factors stored in this factor list.
+      * @param {Number} start index to start the product at;
+      * @param {Number} end index to end the product at;
+      * @returns {BigInt} the product this object represents;
+    **/
+    valueOf(start, end){
+        const L = this.length;
+        const B = this.bases;
+        const P = this.powers;
+        start = Number(start ?? 0);
+        end = Number(end ?? L);
+        start = (start % L) + L % L;
+        const E = (end % L) + L % L;
+        let res = 1n;
+        let i = 0, b = 1n, p = 0;
+        for(i = start; i < E; i++){
+            b = B[i];
+            p = P[i];
+            if(p > 0)
+                res *= b ** BigInt(p);
+        }
+        for(i = start; i < E; i++){
+            b = B[i];
+            p = P[i];
+            if(p < 0)
+                res /= b ** BigInt(-p);
+        }
+        return res;
+    }
+}
+
 /**
   * Prime handler, with fancy but fast `sieve` and `not_prime` methods.
   * @param {Number} length the starting length of the `this.values` Array (should be 0)
@@ -130,7 +189,7 @@ const Primes = class Primes{
     /**
       * Sorted insertion of a new number into `this.extras`.
       * @param {Number} n number to add to `this.extras`;
-      * @returns {Boolan} whether `n` was successfully added
+      * @returns {Boolean} whether `n` was successfully added
     **/
     add_extra(n){
         if(this.extras_used == this.extras.length) return false;
