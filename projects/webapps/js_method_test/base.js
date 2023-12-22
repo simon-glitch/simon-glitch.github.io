@@ -15,7 +15,7 @@ const min = function(v1 = 0n, v2 = 0n){
   * 
   * Fun fact: `(num ** x - 1)` is always a mutliple of `den`. This is very relevant.
 **/
-const hyper_mod = function(num, den, y = 1){
+const hyper_mod = function(num, den, y = 1, max_iter = 1_000_000){
     if((num % 1) || (den % 1) || (y % 1))
         throw new TypeError("All parameters must be Integers!");
     if((num < 1) || (den < 1))
@@ -31,6 +31,8 @@ const hyper_mod = function(num, den, y = 1){
         if(x >= den) return -1;
         m = (m * num) % den;
         x++;
+        if(x > max_iter)
+            throw new RangeError("(Internal) x is larger than the iteration limit of: " + max_iter);
     }
     return x;
 }
