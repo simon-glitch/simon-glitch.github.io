@@ -38,6 +38,75 @@ const hyper_mod = function(num, den, y = 1, max_iter = 1_000_000){
 }
 
 /**
+ * Perform `Number.toString` and `Number.toFixed` in the same operation.
+ * @param {Number} value number to convert to a string;
+ * @param {Number} radix base to convert to (2 = binary, 10 = decimal) (allowed range: integers from 2 to 36);
+ * @param {Number} length number of digits (characters in base {`radix`}) to print after the decimal point (any integer is supported);
+ * @returns {String} converted string, reperenting `value`, with `length` digits after the decimal point;
+ */
+const to_string_fixed = function(value, radix, length){
+    // type and value checking
+    if(
+        (radix % 1)
+    ) throw new TypeError("");
+    radix = Number(radix);
+    if(
+        !isFinite(radix)
+        || (radix < 2)
+        || (radix > 36)
+    ) throw new RangeError("radix must be between 2 and 36 inclusive!");
+    if(
+        (length % 1)
+    ) throw new TypeError("");
+    length = Number(length);
+    if(
+        !isFinite(length)
+        || (Math.abs(length) > Number.MAX_SAFE_INTEGER + 1)
+    ) throw new RangeError("length must be between -(2**53) and (2**53) inclusive!");
+    
+    const SIGN = Math.sign(value);
+    if(!SIGN) return (
+        "0" + ((length > 0) ?(
+            "." + "".padEnd(length, "0")
+        ) :"")
+    );
+    
+    scale = Math.floor(Math.log2(value));
+    
+    // convert the value to its mantissa value, then turn that into a BigInt
+    // this extracts ALL of the precision that the IEEE-64 float holds
+    let bi = BigInt(value * 2**(53 - scale));
+    
+    // then, remove the offset from the IEEE-64 float
+    // this makes `bi` exactly equal `value` * 2**1024
+    bi *= 1n << (1024n + BigInt(scale) - 53n);
+    
+    // stack on `length` digits in base `radix` by just adding the factor
+    const MUL = BigInt(radix) ** BigInt(length);
+    bi *= MUL;
+    
+    // rip out the unneeded 2**1024
+    bi >>= 1024n;
+    
+    const is_small = (bi < MUL);
+    let s = "";
+    // for (|values| < 1):
+    if(is_small){
+        // add a "1" to make zeroes after the decimal point
+        s = (MUL + bi).toString(radix);
+        s = s.replace("1", "0.");
+    }
+    // for (|values| >= 1):
+    else{
+        s = bi.toString(radix);
+        // insert the decimal point
+        s = s.slice(0, -length) + "." + s.slice(-length);
+    }
+    
+    return (((SIGN > 0) ?"" :"-") + s);
+};
+
+/**
   * Prime handler, with fancy but fast `sieve` and `not_prime` methods.
   * @param {Number} length the starting length of the `this.values` Array (should be 0)
 **/
