@@ -554,6 +554,7 @@ const main = function(){
     // mega_is_prime();
 }
 
+main();
 
 
 
