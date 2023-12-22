@@ -534,21 +534,21 @@ const main = function(){
     
     
     console.log("pi _10", to_string_fixed(Math.PI, 10, 53));
-    console.log("pi _3 ", to_string_fixed(Math.PI, 3, 80));
+    console.log("pi _3 ", to_string_fixed(Math.PI,  3, 80));
     
     console.log("1/3 _10", to_string_fixed(1/3, 10, 53));
-    console.log("1/3 _3 ", to_string_fixed(1/3, 3, 80));
-    console.log("1/3 _2 ", to_string_fixed(1/3, 10, 200));
+    console.log("1/3 _3 ", to_string_fixed(1/3,  3, 80));
+    console.log("1/3 _2 ", to_string_fixed(1/3,  2, 200));
     
     const r = Math.random();
     console.log("random _10", to_string_fixed(r, 10, 60));
-    console.log("random _2 ", to_string_fixed(r, 10, 200));
+    console.log("random _2 ", to_string_fixed(r,  2, 200));
     console.log("random _16", to_string_fixed(r, 16, 50));
     
     const inf = (2**53 - 1) * 2**(1023 - 53);
     console.log("inf _10", to_string_fixed(inf, 10, 0));
-    console.log("inf _2 ", to_string_fixed(inf, 10, 0));
-    console.log("inf _3 ", to_string_fixed(inf, 16, 0));
+    console.log("inf _2 ", to_string_fixed(inf,  2, 0));
+    console.log("inf _3 ", to_string_fixed(inf,  3, 0));
     
     primes.find_primorials();
     // mega_is_prime();
