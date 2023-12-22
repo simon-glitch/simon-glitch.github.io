@@ -107,6 +107,17 @@ const to_string_fixed = function(value, radix, length){
     return (((SIGN > 0) ?"" :"-") + s);
 };
 
+/**
+  * Store a list of factors in order to represent a number.
+  ** This object also stores a list of powers, which the individual factors are exponentiated to.
+  * ```
+    var f: Factors = {
+        bases: BigUint64Array,
+        powers: Int16Array,
+    }
+  * ```
+  * @param {Number} length the number of different factors to store
+**/
 const Factors = class Factors{
     bases = new BigUint64Array();
     powers = new Int16Array();
