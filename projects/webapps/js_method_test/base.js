@@ -124,6 +124,7 @@ const Factors = class Factors{
     constructor(length = 0){
         this.bases = new BigUint64Array(length);
         this.powers = new Int16Array(length);
+        this.powers.set(Array(length).fill(1), 0);
     }
     resize(length = 0){
         const B = this.bases;
