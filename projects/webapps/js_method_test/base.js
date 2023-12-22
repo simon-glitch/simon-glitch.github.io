@@ -46,19 +46,19 @@ const hyper_mod = function(num, den, y = 1, max_iter = 1_000_000){
  */
 const to_string_fixed = function(value, radix, length){
     // type and value checking
+    radix = Number(radix);
+    length = Number(length);
     if(
         (radix % 1)
-    ) throw new TypeError("");
-    radix = Number(radix);
+    ) throw new TypeError("Expected `radix` to be an integer, but got a float.");
+    if(
+        (length % 1)
+    ) throw new TypeError("Expected `length` to be an integer, but got a float.");
     if(
         !isFinite(radix)
         || (radix < 2)
         || (radix > 36)
     ) throw new RangeError("radix must be between 2 and 36 inclusive!");
-    if(
-        (length % 1)
-    ) throw new TypeError("");
-    length = Number(length);
     if(
         !isFinite(length)
         || (Math.abs(length) > Number.MAX_SAFE_INTEGER + 1)
@@ -530,6 +530,8 @@ let last = primes.values[primes.values.length - 1]
 console.log("last:", last);
 console.log("20! =", factorial(20));
 console.log("20# =", primorial(20));
+
+console.log("pi", to_string_fixed(Math.PI, 3, 10));
 
 primes.find_primorials();
 
