@@ -546,7 +546,7 @@ const main = function(){
     console.log("random _2 ", to_string_fixed(r,  2, 200));
     console.log("random _16", to_string_fixed(r, 16, 50));
     
-    const inf = (2**53 - 1) * 2**(1023 - 53);
+    const inf = ((2**53 - 1) * 2) * 2**(1023 - 53);
     console.log("inf _10", to_string_fixed(inf, 10, 0));
     console.log("inf _2 ", to_string_fixed(inf,  2, 0));
     console.log("inf _3 ", to_string_fixed(inf,  3, 0));
