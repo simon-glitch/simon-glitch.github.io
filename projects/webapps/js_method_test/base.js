@@ -132,9 +132,12 @@ const Factors = class Factors{
         this.powers = new Int16Array(length);
         this.bases.set(B, 0);
         this.powers.set(P, 0);
+        
+        // fill in powers of "1"
+        this.powers.set(Array(length - P.length).fill(1), P.length);
         return this;
     }
-    append(bases = [2n], powers = [0n]){
+    append(bases = [2n], powers = [1n]){
         const B = this.bases;
         const P = this.powers;
         this.bases = new BigUint64Array(length);
@@ -143,6 +146,13 @@ const Factors = class Factors{
         this.powers.set(P, 0);
         this.bases.set(bases, B.length);
         this.powers.set(powers, P.length);
+        
+        // fill in powers of "1"
+        const PL = powers.length;
+        const BL = bases.length;
+        if(PL < BL){
+            this.powers.set(Array(BL - PL).fill(1), P.length + PL);
+        }
         return this;
     }
     /**
@@ -437,7 +447,8 @@ const Primes = class Primes{
     **/
     find_primorials(bits = 53n){
         const max = 2n ** BigInt(bits);
-        const res = [1n];
+        /** @type Factors[] */
+        const res = [];
         
         const v = this.values;
         const l = v.length;
@@ -462,8 +473,9 @@ const Primes = class Primes{
             
             if(j < 2) break;
             
-            res[i] = [mul];
-            for(j = pi; j < ppi; j++) res[i].push(j);
+            resi = [mul];
+            for(j = pi; j < ppi; j++) resi.push(j);
+            res[i] = (new Factors()).append(resi);
             i++;
         }
         
