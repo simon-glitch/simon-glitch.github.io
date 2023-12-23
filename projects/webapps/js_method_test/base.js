@@ -526,7 +526,7 @@ const Primes = class Primes{
             this.extras = e;
         }
         
-        if(mode == "v") return ;
+        if(mode == "v") return LAST;
         if(mode == "c") return news.length;
     }
     
