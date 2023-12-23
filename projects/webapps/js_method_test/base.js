@@ -144,7 +144,7 @@ const Factors = class Factors{
         const BL = bases.length;
         const PL = powers.length;
         this.bases = new BigUint64Array(BL + B.length);
-        this.powers = new Int16Array(PL + P.length);
+        this.powers = new Int16Array(BL + B.length);
         this.bases.set(B, 0);
         this.powers.set(P, 0);
         this.bases.set(bases, B.length);
