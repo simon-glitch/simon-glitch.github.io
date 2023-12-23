@@ -1,9 +1,13 @@
 
 
 
-const min = function(v1 = 0n, v2 = 0n){
+const bigint_min = function(v1 = 0n, v2 = 0n){
     return (v1 < v2) ?v1 :v2;
 };
+const bigint_max = function(v1 = 0n, v2 = 0n){
+    return (v1 > v2) ?v1 :v2;
+};
+
 /**
   * Solve for x in the equation: (num ** x) mod den = y
   ** looks for an **integer** solution
@@ -446,7 +450,7 @@ const Primes = class Primes{
         let i = 0, val = 0n, d_val_total = 0;
         let max_val = (v[l - 1] **2n), max_i = 0;
         if(mode == "v")
-            max_val = min(max_val, BigInt(maximum)),
+            max_val = bigint_min(max_val, BigInt(maximum)),
             max_i = 2**53 -1;
         if(mode == "c")
             max_i = Number(maximum);
@@ -523,7 +527,7 @@ const Primes = class Primes{
         // if `extras` has a larger prime, we will use that value;
         // otherwise, we can reuse `val` in later calls to `sieve`;
         // this allows `sieve` to work on any 
-        this.checked_so_far = Math.max(val, LAST);
+        this.checked_so_far = bigint_max(val, LAST);
         this.ms_per_check = Math.max(
             this.MS_MIN, dt / d_val_total
         );
