@@ -141,16 +141,16 @@ const Factors = class Factors{
     append(bases = [2n], powers = [1]){
         const B = this.bases;
         const P = this.powers;
-        this.bases = new BigUint64Array(length);
-        this.powers = new Int16Array(length);
+        const BL = bases.length;
+        const PL = powers.length;
+        this.bases = new BigUint64Array(BL + B.length);
+        this.powers = new Int16Array(PL + P.length);
         this.bases.set(B, 0);
         this.powers.set(P, 0);
         this.bases.set(bases, B.length);
         this.powers.set(powers, P.length);
         
         // fill in powers of "1"
-        const PL = powers.length;
-        const BL = bases.length;
         if(PL < BL){
             this.powers.set(Array(BL - PL).fill(1), P.length + PL);
         }
