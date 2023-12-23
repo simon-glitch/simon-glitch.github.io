@@ -201,7 +201,7 @@ const Factors = class Factors{
     **/
     index(source){
         // just a one liner!
-        this.bases.set(this.bases.map(v => source[v]));
+        this.bases.set(this.bases.map(v => BigInt(source[v])));
         return this;
     }
     /**
@@ -224,9 +224,15 @@ const Factors = class Factors{
         
         // coerce source to the correct type OR use it directly if it already is the correct type
         /** @type TypedArray */
-        const SRC = (((source instanceof BigUint64Array)
-            ||(source instanceof BigInt64Array))
-            ?source :(new BigUint64Array(source.length)).set(source)
+        const SRC = ((
+                (source instanceof BigUint64Array)
+                ||(source instanceof BigInt64Array)
+            ) ?source :(
+                new BigUint64Array(source.length)
+                ).set(
+                // BigUint64Array does not auto-coerce values to BigInts
+                source.map(v => BigInt(v))
+            )
         )
         start = Number(start ?? 0);
         end = Number(end ?? L);
@@ -566,7 +572,8 @@ const Primes = class Primes{
             
             for(j = ppi; j < pi; j++){
                 console.log({j, pi, ppi, i});
-                resif.push(j);
+                // BigUint64Array does not auto-coerce values to BigInts
+                resif.push(BigInt(j));
             }
             resi.factors.append(resif);
             res[i] = resi;
@@ -701,7 +708,7 @@ primorial = function(n){
 
 const main = function(){
     primes.append([2,3,5]);
-    primes.sieve_to(10_000, "c");
+    primes.sieve_to(100, "c");
     
     let last = primes.values[primes.values.length - 1]
     
