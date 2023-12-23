@@ -568,10 +568,7 @@ const Primes = class Primes{
             
             if(j < 5) break;
             
-            // console.log({j, pi, ppi, i});
-            
             for(j = ppi; j < pi; j++){
-                console.log({j, pi, ppi, i});
                 // BigUint64Array does not auto-coerce values to BigInts
                 resif.push(BigInt(j));
             }
