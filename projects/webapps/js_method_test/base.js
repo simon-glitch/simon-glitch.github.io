@@ -488,7 +488,11 @@ const Primes = class Primes{
         
         // actual sieve machanism
         val = this.checked_so_far + 2n;
-        while(dt < max_time){
+        while(
+            (i < max_i) &&
+            (val < max_val) &&
+            (dt < max_time)
+        ){
             // use max_time to predict a max_val
             // currently defaults to a maximum of 2048
             // we actually cut this in half, in order to make it represent the maximum number of odd numbers to check between checking the time
@@ -538,6 +542,8 @@ const Primes = class Primes{
         if(extrad){
             this.extras = e;
         }
+        
+        console.log({dt});
         
         if(mode == "v") return LAST;
         if(mode == "c") return news.length;
