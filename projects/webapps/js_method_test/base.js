@@ -443,7 +443,7 @@ const Primes = class Primes{
         // initialization
         /** @type BigInt[] */
         let news = [];
-        let i = 0, val = 0n, d_val = 0;
+        let i = 0, val = 0n, d_val_total = 0;
         let max_val = (v[l - 1] **2n), max_i = 0;
         if(mode == "v")
             max_val = min(max_val, BigInt(maximum)),
@@ -494,6 +494,7 @@ const Primes = class Primes{
                 max_val - this.checked_so_far
             ) / 2;
             
+            let d_val = 0;
             while(
                 (i < max_i) &&
                 (val < max_val) &&
@@ -510,6 +511,8 @@ const Primes = class Primes{
                 d_val ++;
             }
             
+            d_val_total += d_val;
+            
             // check the time
             t2 = new Date();
             dt = t2.getTime() - t1.getTime();
@@ -521,6 +524,12 @@ const Primes = class Primes{
         // otherwise, we can reuse `val` in later calls to `sieve`;
         // this allows `sieve` to work on any 
         this.checked_so_far = Math.max(val, LAST);
+        this.ms_per_check = Math.max(
+            this.MS_MIN, dt / d_val_total
+        );
+        this.ms_per_prime = Math.max(
+            this.MS_MIN, dt / i
+        );
         
         if(extrad){
             this.extras = e;
