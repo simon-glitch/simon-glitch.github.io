@@ -474,7 +474,7 @@ const Primes = class Primes{
             
             if(j < 2) break;
             
-            resi = [mul];
+            const resi = [mul];
             for(j = pi; j < ppi; j++) resi.push(j);
             res[i] = (new Factors()).append(resi);
             i++;
@@ -616,7 +616,7 @@ const main = function(){
     console.log("20! =", factorial(20));
     console.log("20# =", primorial(20));
     
-    
+    /*
     console.log("pi _10", to_string_fixed(Math.PI, 10, 53));
     console.log("pi _3 ", to_string_fixed(Math.PI,  3, 80));
     
@@ -633,6 +633,7 @@ const main = function(){
     console.log("inf _10", to_string_fixed(inf, 10, 0));
     console.log("inf _2 ", to_string_fixed(inf,  2, 0));
     console.log("inf _3 ", to_string_fixed(inf,  3, 0));
+    */
     
     primes.find_primorials();
     // mega_is_prime();
