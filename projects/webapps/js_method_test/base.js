@@ -138,7 +138,7 @@ const Factors = class Factors{
         this.powers.set(Array(length - P.length).fill(1), P.length);
         return this;
     }
-    append(bases = [2n], powers = [1n]){
+    append(bases = [2n], powers = [1]){
         const B = this.bases;
         const P = this.powers;
         this.bases = new BigUint64Array(length);
