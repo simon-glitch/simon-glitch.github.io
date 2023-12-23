@@ -290,6 +290,18 @@ const Primes = class Primes{
       * all the primes stored in this list
     **/
     values = new BigUint64Array();
+    /** the largest value checked so far */
+    checked_so_far = 1n;
+    /** the average time (in ms) it took the last sieve to check whether each odd number was prime */
+    ms_per_check = 0;
+    /** the average time (in ms) it took the last sieve to find each prime */
+    ms_per_prime = 0;
+    /** the minimum value of `ms_per_check` and `ms_per_prime` */
+    MS_MIN = 1/128;
+    /** the (default) maximum amount `sieve` can spend sieving per call */
+    max_time = 16;
+    /** the total time that has been spent sieving */
+    sieving_time = 0;
     /**
       * @type BigInt[]
       * extra primes, used to tell if a large number is definitely not prime
@@ -399,8 +411,9 @@ const Primes = class Primes{
       * Sieve primes, and add them to this Primes list.
       ** **IMPORTANT:** this function only sieves using the primes currently in `this.values`!
       ** * Make sure to run `this.append()` first!
-      * @param {Number | BigInt} maximum the maximum for sieving (meaning depends on `mode`)
-      * @param {String} mode determines how maximum is interpreted
+      * @param {Number | BigInt} maximum the maximum for sieving (meaning depends on `mode`);
+      * @param {String} mode determines how maximum is interpreted;
+      * @param {Number} [max_time] the maximum number of miliseconds this individual call to `sieve` can make;
       * @returns {Number | BigInt} `found` the found value, depends on mode
       * 
       ** if mode = "c":
@@ -417,15 +430,20 @@ const Primes = class Primes{
       ** * if `maximum` is actually smaller than the last prime ALREADY in the list:
       ** * * `found: BigInt = -1n`;
     **/
-    sieve(maximum, mode = "v"){
+    sieve(maximum, mode = "v", max_time){
         const v = this.values;
         const e = this.extras;
         const l = v.length;
+        // time keeping
+        const t1 = new Date();
+        let t2 = new Date();
+        let dt = 0;
+        max_time ??= this.max_time;
         
         // initialization
         /** @type BigInt[] */
         let news = [];
-        let i = 0, val = 0n;
+        let i = 0, val = 0n, d_val = 0;
         let max_val = (v[l - 1] **2n), max_i = 0;
         if(mode == "v")
             max_val = min(max_val, BigInt(maximum)),
@@ -465,25 +483,50 @@ const Primes = class Primes{
         }
         
         // actual sieve machanism
-        val = v[l - 1] + 2n;
-        while((i < max_i) && (val < max_val)){
-            if(this.is_prime(val, true)){
-                if(extrad)
-                    // reuse sorted insertion
-                    this.add_extra(val);
-                else news.push(val);
-                i++;
+        val = this.checked_so_far + 2n;
+        while(dt < max_time){
+            // use max_time to predict a max_val
+            // currently defaults to a maximum of 2048
+            // we actually cut this in half, in order to make it represent the maximum number of odd numbers to check between checking the time
+            const time_left = max_time - dt;
+            const next_d_val = Math.min(
+                time_left / this.ms_per_check,
+                max_val - this.checked_so_far
+            ) / 2;
+            
+            while(
+                (i < max_i) &&
+                (val < max_val) &&
+                (d_val < next_d_val)
+            ){
+                if(this.is_prime(val, true)){
+                    if(extrad)
+                        // reuse sorted insertion
+                        this.add_extra(val);
+                    else news.push(val);
+                    i++;
+                }
+                val += 2n;
+                d_val ++;
             }
-            val += 2n;
+            
+            // check the time
+            t2 = new Date();
+            dt = t2.getTime() - t1.getTime();
         }
         
         this.__append__(news);
+        const LAST = this.values[this.values.length - 1];
+        // if `extras` has a larger prime, we will use that value;
+        // otherwise, we can reuse `val` in later calls to `sieve`;
+        // this allows `sieve` to work on any 
+        this.checked_so_far = Math.max(val, LAST);
         
         if(extrad){
             this.extras = e;
         }
         
-        if(mode == "v") return this.values[this.values.length - 1];
+        if(mode == "v") return ;
         if(mode == "c") return news.length;
     }
     
