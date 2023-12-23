@@ -491,7 +491,7 @@ const Primes = class Primes{
             const time_left = max_time - dt;
             const next_d_val = Math.min(
                 time_left / this.ms_per_check,
-                max_val - this.checked_so_far
+                Number(max_val) - this.checked_so_far
             ) / 2;
             
             let d_val = 0;
