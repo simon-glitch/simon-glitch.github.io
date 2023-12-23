@@ -189,6 +189,30 @@ const Factors = class Factors{
 }
 
 /**
+  * Store a Number, paired up with its Factors.
+  * 
+  * This class does not automatically factor the number for you nor do anything fancy.
+  * ```
+    var f: Factored_Number = {
+        value: BigInt,
+        factors: Factors,
+    }
+  * ```
+  * @param {Number} valye the value to store.
+**/
+const Factored_Number = class Factored_Number{
+    factors = new Factors();
+    value = 1n;
+    constructor(value = 1n){
+        this.value = BigInt(value);
+    }
+    update(){
+        this.value = this.factors.valueOf();
+        return this.value;
+    }
+}
+
+/**
   * Prime handler, with fancy but fast `sieve` and `not_prime` methods.
   * @param {Number} length the starting length of the `this.values` Array (should be 0)
 **/
@@ -454,29 +478,31 @@ const Primes = class Primes{
         const v = this.values;
         const l = v.length;
         let i = 0, j = 0, pi = 0, ppi = 0;
-        let val = 0n, mul = 1n, nmul = 1n;
+        let val = 0n;
         
         while(val < max && pi < l){
-            nmul = 1n;
+            const resi = new Factored_Number();
+            // used for memory efficiency
+            /** @type Number[] */
+            const resif = [];
             j = 0;
             
             ppi = pi;
-            while((nmul < max) && (pi < l)){
-                mul = nmul;
+            while((resi.value < max) && (pi < l)){
                 
                 val = v[pi];
-                nmul *= val;
+                resi.value *= val;
                 
                 j++;
                 pi++;
             }
-            if(nmul >= max) pi--;
+            if(resi.value >= max) pi--;
             
             if(j < 2) break;
             
-            const resi = [mul];
-            for(j = pi; j < ppi; j++) resi.push(j);
-            res[i] = (new Factors()).append(resi);
+            for(j = pi; j < ppi; j++) resif.append(j);
+            resi.factors.append(resif);
+            res[i] = resi;
             i++;
         }
         
@@ -635,7 +661,7 @@ const main = function(){
     console.log("inf _3 ", to_string_fixed(inf,  3, 0));
     */
     
-    primes.find_primorials();
+    window.myres = primes.find_primorials();
     // mega_is_prime();
 }
 
