@@ -168,19 +168,81 @@ const Factors = class Factors{
         const P = this.powers;
         start = Number(start ?? 0);
         end = Number(end ?? L);
-        start = (start % L) + L % L;
+        const S = (start % L) + L % L;
         const E = (end % L) + L % L;
         let res = 1n;
         let i = 0, b = 1n, p = 0;
-        for(i = start; i < E; i++){
+        for(i = S; i < E; i++){
             b = B[i];
             p = P[i];
             if(p > 0)
                 res *= b ** BigInt(p);
         }
-        for(i = start; i < E; i++){
+        for(i = S; i < E; i++){
             b = B[i];
             p = P[i];
+            if(p < 0)
+                res /= b ** BigInt(-p);
+        }
+        return res;
+    }
+    /**
+      * Use `this.bases` as a list of indices within a `source` list.
+      * 
+      * In JavaScript, that means:
+      * `this.bases = this.bases.map(v => source[v])`
+      * 
+      * In Python (numpy), that means:
+      * `this.bases = np.array((source[v] for v in this.bases), dtype=np.int64)`
+      * 
+      * In desmos, that would mean:
+      * `this.bases -> source[this.bases]`
+      * @param {BigInt[]} source list of values to pull `this.bases` from;
+    **/
+    index(source){
+        // just a one liner!
+        this.bases.set(this.bases.map(v => source[v]));
+        return this;
+    }
+    /**
+      * Combine `this.index` and `this.valueOf` in one step. This method does not actually mutate `this.bases`, since it is intended for calculating the value of this object.
+      * 
+      * Process:
+      ** Use `this.bases` as a list of indices within the `source` list.
+      ** That means mapping `this.bases` to `source`
+      ** Find the product of the factors stored in the mapped factor list.
+      * 
+      * @param {BigInt[]} source list of values to pull `this.bases` from;
+      * @param {Number} [start] index (within the mapped `this.bases`) to start the product at;
+      * @param {Number} [end] index (within the mapped `this.bases`) to end the product at;
+      * @returns {BigInt} the product this object (indexed into `source`) represents;
+    **/
+    indexedValue(source, start, end){
+        const L = this.length;
+        const B = this.bases;
+        const P = this.powers;
+        
+        // coerce source to the correct type OR use it directly if it already is the correct type
+        /** @type TypedArray */
+        const SRC = (((source instanceof BigUint64Array)
+            ||(source instanceof BigInt64Array))
+            ?source :(new BigUint64Array(source.length)).set(source)
+        )
+        start = Number(start ?? 0);
+        end = Number(end ?? L);
+        const S = (start % L) + L % L;
+        const E = (end % L) + L % L;
+        let res = 1n;
+        let i = 0, b = 1n, p = 0;
+        for(i = S; i < E; i++){
+            b = B[i];
+            p = SRC[P[i]];
+            if(p > 0)
+                res *= b ** BigInt(p);
+        }
+        for(i = S; i < E; i++){
+            b = B[i];
+            p = SRC[P[i]];
             if(p < 0)
                 res /= b ** BigInt(-p);
         }
@@ -498,9 +560,14 @@ const Primes = class Primes{
             }
             if(resi.value >= max) pi--;
             
-            if(j < 2) break;
+            if(j < 5) break;
             
-            for(j = pi; j < ppi; j++) resif.append(j);
+            // console.log({j, pi, ppi, i});
+            
+            for(j = ppi; j < pi; j++){
+                console.log({j, pi, ppi, i});
+                resif.push(j);
+            }
             resi.factors.append(resif);
             res[i] = resi;
             i++;
