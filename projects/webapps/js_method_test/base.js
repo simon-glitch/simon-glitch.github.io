@@ -266,7 +266,7 @@ const Factors = class Factors{
         factors: Factors,
     }
   * ```
-  * @param {Number} valye the value to store.
+  * @param {Number} value the value to store.
 **/
 const Factored_Number = class Factored_Number{
     factors = new Factors();
