@@ -3,7 +3,7 @@
 // ~> who needs `import`?
 const dependencies = [
     // Bloom Filters are very powerful!
-    "https://cdn.jsdelivr.net/npm/bloom-filters@3.0.1/dist/api.min.js"
+    // "https://cdn.jsdelivr.net/npm/bloom-filter-javascript@0.1.4/index.min.js"
 ];
 for(let url of dependencies){
     const s = document.createElement("script");
@@ -334,9 +334,6 @@ const Primes = class Primes{
     **/
     extras = [];
     extras_used = 0;
-    
-    
-    center_for_student_success = "616 526 6155";
     
     /**
       * Sorted insertion of a new number into `this.extras`.
@@ -867,16 +864,20 @@ primorial = function(n){
 
 const main = async function(){
     primes.append([2,3,5]);
-    const TODO = 1_000_000;
+    const TODO = 2_000;
     let total = 0;
+    let prev = 0n;
     await primes.asieve_to(TODO, "c", {
         call_back: (res, p) => {
             total += res;
             console.log(
                 total + "/" + TODO + " = " +
                 (100 * total / TODO).toFixed(2) + "%\n" +
-                "last = " + p.values[p.values.length - 1]
+                "last p = " + p.values[p.values.length - 1] + "\n" +
+                "desnity = 1 in " + (Number(p.checked_so_far - prev) / res).toPrecision(6) +
+                " @ n = " + p.checked_so_far
             );
+            prev = p.checked_so_far;
         }
     });
     
