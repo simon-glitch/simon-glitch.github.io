@@ -3,7 +3,7 @@
 // ~> who needs `import`?
 const dependencies = [
     // Bloom Filters are very powerful!
-    // "https://cdn.jsdelivr.net/npm/bloom-filter-javascript@0.1.4/index.min.js"
+    "https://simon-glitch.github.io/2023_bloom.js",
 ];
 for(let url of dependencies){
     const s = document.createElement("script");
