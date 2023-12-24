@@ -1,9 +1,31 @@
 
+// quick dependency setup
+// ~> who needs `import`?
+dependencies = [
+    // Bloom Filters are very powerful!
+    "https://cdn.jsdelivr.net/npm/bloom-filters@3.0.1/dist/api.min.js"
+];
+for(let url of dependencies){
+    const s = document.createElement("script");
+    s.src = url;
+    document.body.appendChild(s);
+}
 
-
+/**
+  * Find the minimum of 2 values.
+  * @param {BigInt} v1 1st value
+  * @param {BigInt} v2 2nd value
+  * @returns {BigInt} the smaller value (the value which is closer to -Infinity)
+**/
 const bigint_min = function(v1 = 0n, v2 = 0n){
     return (v1 < v2) ?v1 :v2;
 };
+/**
+  * Find the maximum of 2 values.
+  * @param {BigInt} v1 1st value
+  * @param {BigInt} v2 2nd value
+  * @returns {BigInt} the larger value (the value which is closer to +Infinity)
+**/
 const bigint_max = function(v1 = 0n, v2 = 0n){
     return (v1 > v2) ?v1 :v2;
 };
@@ -846,11 +868,14 @@ primorial = function(n){
 const main = async function(){
     primes.append([2,3,5]);
     const TODO = 1_000_000;
+    let total = 0;
     await primes.asieve_to(TODO, "c", {
-        call_back: (res) => {
+        call_back: (res, p) => {
+            total += res;
             console.log(
-                res + "/" + TODO + " = " +
-                (100 * res / TODO).toFixed(2) + "%"
+                total + "/" + TODO + " = " +
+                (100 * total / TODO).toFixed(2) + "%\n" +
+                "last = " + p.values[p.values.length - 1]
             );
         }
     });
