@@ -594,6 +594,65 @@ const Primes = class Primes{
     }
     
     /**
+      * An asynchronous version of `this.sieve_to`. See `sieve_to` for more information.
+      * 
+      * I know it doesn't have the `async` keyword, but you can totally call this as `await asieve_to(...)`! This function returns a promise, and promises can be awaited when in async functions.
+      * @param {Number | BigInt} maximum ...
+      * @param {String} mode ...
+      * @returns a promise, which resolves with the same value as sieve to;
+    **/
+    asieve_to(maximum, mode = "v"){
+        // allow dummies to use my library
+        if(this.values.length < 2) this.values = [], this.__append__();
+        
+        const max_val = (mode == "v") ?BigInt(maximum) :(2n**64n - 1n);
+        const max_i   = (mode == "c") ?Number(maximum) :(2 **53  - 1 );
+        
+        /** @type Number | BigInt */
+        let res;
+        let val = 0n;
+        let i   = 0 ;
+        let fid = -1;
+        /** @type Function */
+        let resolve_f;
+        const P = new Promise(resolve => {
+            resolve_f = resolve();
+        });
+        
+        let finish_f = function(){
+            resolve_f(res);
+        };
+        
+        let ready = true;
+        let frame_f = function(){
+            if(!ready) return;
+            ready = false;
+            
+            res = this.sieve(maximum, mode);
+            
+            // more edge cases
+            if(mode == "v") val = res;
+            
+            i++;
+            
+            const C_DONE = (mode == "c" && res < 0);
+            const DONE = C_DONE || (val < max_val && this.values.length < max_i);
+            if(DONE){
+                clearInterval(fid);
+                finish_f();
+                // just for good measure
+                return;
+            }
+            ready = true;
+        }
+        
+        fid = window.setInterval(frame_f, this.max_time);
+        
+        return P;
+    }
+    
+    
+    /**
       * Find primorials that can be used for quick division tests.
       * @param {Number} bits number of bits allowed in each partial primorial;
       * @returns {Number[][]}
