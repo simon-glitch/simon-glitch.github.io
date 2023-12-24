@@ -603,7 +603,9 @@ const Primes = class Primes{
       * @param {Number | BigInt} maximum ...
       * @param {String} mode ...
       * @param {Object} options additional options:
-      ** `options.call_back: Function =` a callback function to run on the result (each frame);
+      ** `options.call_back: Function =` a callback function to run on the result (each frame); `call_back = (res, thisArg) => ...`;
+      ** * `res` is the value returned by `this.sieve`;
+      ** * `thisArg` is just `this` (the `Primes` object);
       ** `options.max_time: Number =` the number of ms each frame should last; the code will try to make each frame take exactly this number of ms;
       ** `options.mspf: Number =` the number of miliseconds between the starts of each frame; set this higher than `options.max_time` in order to reduce lag and give the program more down time between frames;
       * @returns a promise, which resolves with the same value as sieve to;
@@ -645,7 +647,7 @@ const Primes = class Primes{
             ready = false;
             
             res = this.sieve(maximum, mode, max_time);
-            call_back?.(res);
+            call_back?.(res, this);
             
             // more edge cases
             if(mode == "v") val = res;
