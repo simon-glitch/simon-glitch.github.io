@@ -1,7 +1,7 @@
 
 // quick dependency setup
 // ~> who needs `import`?
-dependencies = [
+const dependencies = [
     // Bloom Filters are very powerful!
     "https://cdn.jsdelivr.net/npm/bloom-filters@3.0.1/dist/api.min.js"
 ];
