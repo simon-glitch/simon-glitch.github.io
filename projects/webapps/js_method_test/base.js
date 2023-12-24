@@ -543,7 +543,7 @@ const Primes = class Primes{
             this.extras = e;
         }
         
-        console.log({dt});
+        // console.log({dt});
         
         if(mode == "v") return LAST;
         if(mode == "c") return news.length;
@@ -619,15 +619,15 @@ const Primes = class Primes{
         /** @type Function */
         let resolve_f;
         const P = new Promise(resolve => {
-            resolve_f = resolve();
+            resolve_f = resolve;
         });
         
-        let finish_f = function(){
+        let finish_f = () => {
             resolve_f(res);
         };
         
         let ready = true;
-        let frame_f = function(){
+        let frame_f = () => {
             if(!ready) return;
             ready = false;
             
@@ -639,7 +639,7 @@ const Primes = class Primes{
             i++;
             
             const C_DONE = (mode == "c" && res < 0);
-            const DONE = C_DONE || (val < max_val && this.values.length < max_i);
+            const DONE = C_DONE || !(val < max_val && this.values.length < max_i);
             if(DONE){
                 clearInterval(fid);
                 finish_f();
@@ -827,9 +827,9 @@ primorial = function(n){
     return r;
 };
 
-const main = function(){
+const main = async function(){
     primes.append([2,3,5]);
-    primes.sieve_to(100, "c");
+    await primes.asieve_to(100, "c");
     
     let last = primes.values[primes.values.length - 1]
     
