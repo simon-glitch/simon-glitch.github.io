@@ -602,14 +602,27 @@ const Primes = class Primes{
       * 
       * @param {Number | BigInt} maximum ...
       * @param {String} mode ...
+      * @param {Object} options additional options:
+      ** `options.call_back: Function =` a callback function to run on the result (each frame);
+      ** `options.max_time: Number =` the number of ms each frame should last; the code will try to make each frame take exactly this number of ms;
+      ** `options.mspf: Number =` the number of miliseconds between the starts of each frame; set this higher than `options.max_time` in order to reduce lag and give the program more down time between frames;
       * @returns a promise, which resolves with the same value as sieve to;
     **/
-    asieve_to(maximum, mode = "v"){
+    asieve_to(maximum, mode = "v", options){
         // allow dummies to use my library
         if(this.values.length < 2) this.values = [], this.__append__();
         
         const max_val = (mode == "v") ?BigInt(maximum) :(2n**64n - 1n);
         const max_i   = (mode == "c") ?Number(maximum) :(2 **53  - 1 );
+        
+        const call_back = options.call_back || options.callback;
+        const max_time = (options.maxtime ||
+            options.max_time || options.time_max ||
+            options.dt ||
+            options.max_dt || options.dt_max ||
+            this.max_time
+        );
+        const MSPF = options.mspf || options.MSPF || max_time;
         
         /** @type Number | BigInt */
         let res;
@@ -631,7 +644,8 @@ const Primes = class Primes{
             if(!ready) return;
             ready = false;
             
-            res = this.sieve(maximum, mode);
+            res = this.sieve(maximum, mode, max_time);
+            call_back?.(res);
             
             // more edge cases
             if(mode == "v") val = res;
@@ -649,7 +663,7 @@ const Primes = class Primes{
             ready = true;
         }
         
-        fid = window.setInterval(frame_f, this.max_time);
+        fid = window.setInterval(frame_f, MSPF);
         
         return P;
     }
@@ -829,7 +843,15 @@ primorial = function(n){
 
 const main = async function(){
     primes.append([2,3,5]);
-    await primes.asieve_to(100, "c");
+    const TODO = 1_000_000;
+    await primes.asieve_to(TODO, "c", {
+        call_back: (res) => {
+            console.log(
+                res + "/" + TODO + " = " +
+                (100 * res / TODO).toFixed(2) + "%"
+            );
+        }
+    });
     
     let last = primes.values[primes.values.length - 1]
     
@@ -856,7 +878,7 @@ const main = async function(){
     console.log("inf _3 ", to_string_fixed(inf,  3, 0));
     */
     
-    window.myres = primes.find_primorials();
+    // window.myres = primes.find_primorials();
     // mega_is_prime();
 }
 
