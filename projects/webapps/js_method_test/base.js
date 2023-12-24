@@ -597,6 +597,9 @@ const Primes = class Primes{
       * An asynchronous version of `this.sieve_to`. See `sieve_to` for more information.
       * 
       * I know it doesn't have the `async` keyword, but you can totally call this as `await asieve_to(...)`! This function returns a promise, and promises can be awaited when in async functions.
+      * 
+      * Similarly, you can also do `asieve_to.then(res => ...)`!
+      * 
       * @param {Number | BigInt} maximum ...
       * @param {String} mode ...
       * @returns a promise, which resolves with the same value as sieve to;
