@@ -864,7 +864,7 @@ primorial = function(n){
 
 const main = async function(){
     primes.append([2,3,5]);
-    const TODO = 30_000;
+    const TODO = 1_000;
     let total = 0;
     let prev = 0n;
     await primes.asieve_to(TODO, "c", {
