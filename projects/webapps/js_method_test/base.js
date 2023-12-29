@@ -703,9 +703,10 @@ const Primes = class Primes{
     find_primorials(bits = 53n, lim = -1){
         if(lim < 0) lim = 2**53;
         
-        const max = 2n ** BigInt(bits ?? 53n);
+        const max = 1n << BigInt(bits ?? 53n);
         /** @type Factors[] */
         const res = [];
+        let prev_resi = 0n;
         
         const v = this.values;
         const l = v.length;
@@ -713,7 +714,7 @@ const Primes = class Primes{
         let val = 0n;
         
         while(
-            (val < max) &&
+            (val*val < max) &&
             (pi < l) &&
             (i < lim)
         ){
@@ -727,13 +728,16 @@ const Primes = class Primes{
             while((resi.value < max) && (pi < l)){
                 
                 val = v[pi];
+                prev_resi = resi.value;
                 resi.value *= val;
                 
                 j++;
                 pi++;
             }
-            if(resi.value >= max) pi--;
-            
+            if(resi.value >= max){
+                pi--;
+                resi.value = prev_resi;
+            }
             if(j < 5) break;
             
             for(j = ppi; j < pi; j++){
@@ -893,8 +897,6 @@ const main = async function(){
     let last = primes.values[primes.values.length - 1]
     
     console.log("last:", last);
-    console.log("20! =", factorial(20));
-    console.log("20# =", primorial(20));
     
     /*
     console.log("pi _10", to_string_fixed(Math.PI, 10, 53));
@@ -916,6 +918,7 @@ const main = async function(){
     */
     
     window.myres = primes.find_primorials(_, 1);
+    console.log("myres", window.myres);
     // mega_is_prime();
 }
 
