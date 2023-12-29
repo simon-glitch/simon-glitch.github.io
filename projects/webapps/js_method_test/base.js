@@ -3,13 +3,15 @@
 // ~> who needs `import`?
 const dependencies = [
     // Bloom Filters are very powerful!
-    "https://simon-glitch.github.io/2023_bloom.js",
+    // "https://simon-glitch.github.io/2023_bloom.js",
 ];
 for(let url of dependencies){
     const s = document.createElement("script");
     s.src = url;
     document.body.appendChild(s);
 }
+
+const _ = undefined;
 
 /**
   * Find the minimum of 2 values.
@@ -693,12 +695,15 @@ const Primes = class Primes{
     /**
       * Find primorials that can be used for quick division tests.
       * @param {Number} bits number of bits allowed in each partial primorial;
+      * @param {Number} lim max length of `res`;
       * @returns {Number[][]}
       * `res =` list of lists of the factors of primorials (where each primorial fits in that number of bits);
       ** each list in `res` starts with one of the primorials, and is followed by the indices (within `this.values`) of the factors of that primorial;
     **/
-    find_primorials(bits = 53n){
-        const max = 2n ** BigInt(bits);
+    find_primorials(bits = 53n, lim = -1){
+        if(lim < 0) lim = 2**53;
+        
+        const max = 2n ** BigInt(bits ?? 53n);
         /** @type Factors[] */
         const res = [];
         
@@ -707,7 +712,11 @@ const Primes = class Primes{
         let i = 0, j = 0, pi = 0, ppi = 0;
         let val = 0n;
         
-        while(val < max && pi < l){
+        while(
+            (val < max) &&
+            (pi < l) &&
+            (i < lim)
+        ){
             const resi = new Factored_Number();
             // used for memory efficiency
             /** @type Number[] */
@@ -906,7 +915,7 @@ const main = async function(){
     console.log("inf _3 ", to_string_fixed(inf,  3, 0));
     */
     
-    // window.myres = primes.find_primorials();
+    window.myres = primes.find_primorials(_, 1);
     // mega_is_prime();
 }
 
