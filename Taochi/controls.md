@@ -21,6 +21,10 @@ In case you are wondering *why* I want this much fancy behavior to be available 
 ## Mouse Shenanigans
 You actually aren't limited to normal mouse movement. You can create cursors. These are objects on the canvas which behave just like your mouse does. These can be manipulated just like other objects, and allow you to make multiple mouse interactions at once.
 
+Upon opening the webapp, you can't interact with the canvas directly. Instead, you have to create a cursor, and then use the cursor. A cursor is created on click though, and it automatically follows the mouse.
+
+This system is a bit janky, but it allows for fine and exact control over your artwork.
+
 ## Table of Interactions
 This is a list of every MI and what it does.
 
@@ -73,9 +77,29 @@ This is a list of every MI and what it does.
 * Toggle whether the mouse can create selection fields.
 * If this is on, then:
     * the mouse can select cursors and objects, as if it was a cursor, without any hassle;
-    * and the action `summon selection field` will create a selection field on the mouse (as well as an on all active cursors)
+    * and the action `summon selection field` will create a selection field on the mouse (as well as an on all active cursors);
 * If this is off, then:
-    * 
+    * the mouse can not select cursors or objects; only cursors can perform selections;
+    * and the action `summon selection field` will only create selections from active cursors;
+
+`Summon Selection Field`:
+* Starts a selection from all active mouse cursors.
+* A selection field is a rectangle, created from a cursor as its origin.
+    * All objects within the selection field will be selected.
+* This selection allows actions to be performed on those objects, such as moving them, coloring them, copying them, and so on.
+
+`Finalize Selection`:
+* Remove all selection fields and keep the objects within them selected.
+* This action is only required when distinguishing between resizing objects and resizing selection fields, since the `resize selection field` action takes precedence over the `resize selected object` action.
+
+`Dismiss Selection`:
+* Unselects all actively selected objects, and clears any selected objects.
+
+`Resize Selection Field`:
+* Enters "object resizing control mode" (CM:OR), with the current selection fields as the active objects.
+
+`Resize Object`:
+* Enters "object resizing control mode" (CM:OR), with the selected object as the objects to resize.
 
 `Name`:
 * Stuff
@@ -167,14 +191,34 @@ This is a list of every MI and what it does.
 `Name`:
 * Stuff
 
-`Name`:
-* Stuff
+### While In Resizing Mode
+`Continue Left` -> `Expand Left`:
+* Expand the left boundary of the object (or selection) to the left.
 
-`Name`:
-* Stuff
+`Continue Right` -> `Expand Right`:
+* Expand the right boundary of the object (or selection) to the right.
 
-`Name`:
-* Stuff
+`Continue Up` -> `Expand Up`:
+* Expand the up boundary of the object (or selection) to the up.
+
+`Continue Down` -> `Expand Down`:
+* Expand the down boundary of the object (or selection) to the down.
+
+`Start dragging to Top Left Corner`:
+* Obvious.
+
+`Start dragging to Top Right Corner`:
+* Obvious.
+
+`Start dragging to Bottom Left Corner`:
+* Obvious.
+
+`Start dragging to Bottom Right Corner`:
+* Obvious.
+
+#### While in Corner Dragging Mode
+`Start dragging to [given] Corner`:
+* If the corner is the current corner, exit corner dragging mode (CM:CD), and return to previous control mode.
 
 `Name`:
 * Stuff
