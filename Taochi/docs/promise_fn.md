@@ -73,6 +73,10 @@ do_stuff = async function(){
 };
 ```
 
+This means that `co.receive` actually creates and returns a promise. The promise it returns is only actually resolved when `co.sender` is called. So, `co.sender` resolves a promise, which will trigger anything that awaits `co.receive`. Cool.
 
+Now, one last thing: `co.receive` create a new promise each time, and multiple promises can be waiting for `co.sender` at a time. `co.sender` will trigger (*resolve*) all of the promises that `co.receive` has created, and will trigger each only once. Keep in mind, a promise can only be resolved once. This is why you have to call `co.receive` again each time you want to wait for `co.sender`.
+
+This `Connection` class that I've created is actually a lot like how event listeners work. You can repeatedly wait for event listeners, but the same event is not supposed to trigger mutliple times, even though it might be sent to multiple functions due to event propogation. The `Connection` doesn't have built in promise propogation, but I don't think that's really necessary. If you want that, you can code up a `Propogating_Connection` class of your own for that purpose.
 
 
