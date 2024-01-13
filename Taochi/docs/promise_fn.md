@@ -58,14 +58,14 @@ const server_stuff = async function(){
 **Conclusion:**
 * By using the global scope, closures, and shared objects, you can pass promises around to lots of different async functions from all kinds of places. This means that you can use promises to design the control flow of your program. However, I would not recommend that, **unless** you're using it the way I am in this project.
 
-# promise_fn
-`promise_fn` takes in a function, `f`, and creates a sender (*a wrapper function*) around `f`. This sender acts as a new version of `f` which can trigger recipients via a promise.
+# Connection Class
+`Connection` takes in a function, `f`, and creates a sender (*a wrapper function*) around `f`. This sender acts as a new version of `f` which can trigger recipients via a promise.
 
-`promise_fn` returns a `Connection` object. This object has a `.sender`, which is the sender function I just described, and a `.receive` function, which allows you to make a new recipient for the sender.
+`Connection` returns a `Connection` object. This object has a `.sender`, which is the sender function I just described, and a `.receive` function, which allows you to make a new recipient for the sender.
 
 Example:
-```ts
-const co: Connection = promise_fn(f);
+```js
+const co = new Connection(f);
 const fn = co.sender;
 const key_press = co.receive;
 
@@ -87,7 +87,7 @@ Now, one last thing: `co.receive` create a new promise each time, and multiple p
 This `Connection` class that I've created is actually a lot like how event listeners work. You can repeatedly wait for event listeners, but the same event is not supposed to trigger mutliple times, even though it might be sent to multiple functions due to event propogation. The `Connection` doesn't have built in promise propogation, but I don't think that's really necessary. If you want that, you can code up a `Propogating_Connection` class of your own for that purpose.
 
 # Performance?
-If you're worried about the performance of creating new promises like this, then don't use promises or async to begin with, and maybe even consider swapping to a different language. The slow down you get from using `promise_fn` and the `Connection` class is miniscule. If you do end up having performance issues, I sugges that you try to remove any promises that are not necessary. JavaScript has to do a lot of extra work under the hood to handle promises, using its own event loop. This event loop stores each promise and extra data about whether it's finished and how important it is. All of the memory handling required to create and modify the parts of this structure can easily create a huge performance hit.
+If you're worried about the performance of creating new promises like this, then don't use promises or async to begin with, and maybe even consider swapping to a different language. The slow down you get from using the `Connection` class is miniscule. If you do end up having performance issues, I sugges that you try to remove any promises that are not necessary. JavaScript has to do a lot of extra work under the hood to handle promises, using its own event loop. This event loop stores each promise and extra data about whether it's finished and how important it is. All of the memory handling required to create and modify the parts of this structure can easily create a huge performance hit.
 
 # Promise Splitting
 As I said, the `Connection` class works a lot like an event handler. You can have multiple event listeners attached to the same event:
@@ -121,7 +121,7 @@ I ran this code and got `Events are the same? Yes`. This means that:
 You can do the same thing with `co.receive`. Here's an example:
 
 ```ts
-const co: Connection = promise_fn(f);
+const co = new Connection(f);
 const fn = co.sender;
 const key_press = co.receive;
 
