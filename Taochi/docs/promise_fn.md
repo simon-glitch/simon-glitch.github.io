@@ -173,4 +173,7 @@ a4_stuff = async function(){
 a4_stuff();
 ```
 
+# Side Comment
+I really hope that there aren't too many code examples in this documentation file or anything. And I hope I didn't waste my time explaining how promises (and async functions) *actually* work. You'll notice that I don't actually use the promise API's built-in `.then` and `.catch` methods. That's because those are recursive (you have to recurse / nest another function inside of the `.then` call), and I wanted to have a non-recursive way to use promises.
+
 
