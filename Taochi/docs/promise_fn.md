@@ -129,11 +129,11 @@ addEventListener("keydown", fn);
 
 const a_promise: Promise = key_press();
 
-a1_stuff = async function(){
+let a1_stuff = async function(){
     await a_promise;
     print("cool message (a1)");
 };
-a2_stuff = async function(){
+let a2_stuff = async function(){
     await a_promise;
     print("cool message (a2)");
 };
@@ -142,5 +142,35 @@ a1_stuff();
 a2_stuff();
 ```
 
-Pressing down the key will trigger both events. Keep in mind: 
+Pressing down the key will trigger both events. Keep in mind: if you create the promise inside the async function, by calling `key_press()` each time, you will be able to have the async function be called again later. If you create the promise **outside** the async function, an error will be thrown inside the async function when you try to await the promise a 2nd time, because the promise already resolved at an earlier point in time. What I'm saying is that the following code does not work:
+
+```ts
+const a_promise: Promise = key_press();
+
+let a3_stuff;
+a3_stuff = async function(){
+    // this works once (the 1st time), but throws an error the 2nd time around;
+    await a_promise;
+    print("cool message (a3)");
+    
+    setTimeout(a3_stuff());
+};
+
+a3_stuff();
+```
+
+This code however, **does** work, because it creates a new promise each time:
+
+```ts
+let a4_stuff;
+a4_stuff = async function(){
+    await key_press();
+    print("cool message (a4)");
+    
+    setTimeout(a4_stuff());
+};
+
+a4_stuff();
+```
+
 
