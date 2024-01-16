@@ -1,6 +1,5 @@
 
 I got this theory on the human mind.
-The theory explains why school is essentially useless.
 The core idea is that the mind is made of 5 parts (or substances):
 * knowledge
 * emotion
@@ -16,6 +15,8 @@ These parts can be "incurred" on each other and themselves.
 * you can have emotions which are responses to previous emotions (like feeling happy about feeling sad earlier because your feeling sad helped you realize a problem or something)
 
 # School and the weakness of Knowledge
+The theory explains why school is essentially useless.
+
 And of the 5 categories, knowledge is the weakest. An animal has knowledge, but it's not really aware of it (since the animal is not "self aware").
 * Knowledge can be ascertained through mere experience and memorization. There is almost no inherent developement value to it.
 
