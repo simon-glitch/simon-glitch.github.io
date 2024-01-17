@@ -17,3 +17,11 @@ I made eye contact with someone a few minutes ago. I was way above them on a hig
 
 Of course, I should just stop being so antisocial and have a normal perspective on the whole matter, but hey!" I am me, and me is *(probably)* autistic.
 
+Okay, after thinking about it for a minute, I have come to the conclusion that eye contact is not special at all. In fact, I would even argue that many instances of eye contact are simply 2 people watching each other. People (therefore) often look at other people's eyes for 1 of 2 reasons:
+* to see exactly what the other person is looking at (by directly checking the pupil)
+* or to see the other person's face, so one can infer what emotions the other person is experiencing.
+
+However, I am pretty introverted (and/or probably autistic), so I wish there was more to eye contact than just that. I'd like to believe it's some kind of special (or advanced) form of communication. However, eye contact seems to merely be the result of mutual ("mutual" means "2-way and shared") attention. Of course, eye contact can be taken advantage of and used as a form of communication, but it doesn't typically initialize as a form of communication. The "communicating via the eyes" aspect is merely an auxilery function.
+
+# Being a programmer
+You know, being a programmer, I have become kind of obsessed over certain terms, like "function". I use it all the time and know exactly what it means, but most people almost never use it. To be honest I am amazed (no, baffled and confused) that most people don't use it in their standard vernacular (which means "everyday casual vocabulary").
