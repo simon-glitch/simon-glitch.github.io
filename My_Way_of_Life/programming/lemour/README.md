@@ -24,43 +24,49 @@ A function is formatted like this:
 Function parameters can be curried. Example:
 
 ```
-f .(a, b) = a + b
-curried_f = f .(2)
-print(curried_f.(5)) // [7]
-print(curried_f.(9)) // [11]
-print(f.(3,3)) // [6]
-print(f.(8).(20)) // [28]
+f(a, b) = a + b
+curried_f = f(2)
+print(curried_f(5)) // [7]
+print(curried_f(9)) // [11]
+print(f(3,3)) // [6]
+print(f(8)(20)) // [28]
 ```
 
 But curring is optional:
 ```
-print(f.(5, 9)) // [14]
+print(f(5, 9)) // [14]
 ```
 
-You'll also notice that calling a function requires the use of `.`. That's because this language uses `.`s for function calls.
+#### Calling Shorthand
+You can also call a function with a shorthand using `:`, like this:
+* `f:x` instead of `f(x)`
+* `g :x :y` instead of `g(x, y)` or `g(x)(y)`
+
+This also allows you to make your code more "clear":
+* `f:(x,y)` instead of `f(x,y)`
 
 ### Type Signatures
-Variables can be given a type signature, using `:+`.
+Variables can be given a type signature, using `:`.
 
-These signatures are optional, but allow the JIT compiler to optimize the program better. The interpreter throws an Error is an assignment of the wrong type is made. If you don't like these errors, then use `:~` instead. `:~` declares the expected type loosely (without actually enforcing any particular type).
+These signatures are optional, but allow the JIT compiler to optimize the program better. The interpreter throws an Error is an assignment of the wrong type is made. If you don't like these errors, then use `~` instead. `~` declares the expected type loosely (without actually enforcing any particular type).
 
 Type signatures are written like this:
 * strict left-hand with initial assignment:
-    * `int:+ varies = value`
+    * `int: varies = value`
 * strict left-hand without assignment:
-    * `int:+ varies`
+    * `int: varies`
 * strict right-hand with initial assignment:
     * `varies+: int = value`
 * strict right-hand without assignment:
     * `varies+: int`
 * loose left-hand with initial assignment:
-    * `int:~ varies = value`
+    * `int~ varies = value`
 * loose left-hand without assignment:
-    * `int:~ varies`
+    * `int~ varies`
 * loose right-hand with initial assignment:
-    * `varies~: int = value`
+    * `varies+~ int = value`
 * loose right-hand without assignment:
-    * `varies~: int`
+    * `varies+~ int`
 
 Yup. I got 8 type signatures! What are you gonna do about it? Cry?! Go ahead! I don't care. XD!
 

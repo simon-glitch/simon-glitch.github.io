@@ -25,3 +25,7 @@ However, I am pretty introverted (and/or probably autistic), so I wish there was
 
 # Being a programmer
 You know, being a programmer, I have become kind of obsessed over certain terms, like "function". I use it all the time and know exactly what it means, but most people almost never use it. To be honest I am amazed (no, baffled and confused) that most people don't use it in their standard vernacular (which means "everyday casual vocabulary").
+
+# Random Twitching?
+Sometimes, I get this random vibration in my penis. It's an actual vibration. I think it happens when the prostrate does a random twitch. It's quite intense but lasts for a little less than a second. I tried googling this, and all I got was that apparently muscles randomly twitch sometimes. I am very sure that it's the muscles of the prostrate area randomly pulsing (spasming) just once or twice (keep in mind: an individual muscle spasm lasts only 1/2 of a second).
+
