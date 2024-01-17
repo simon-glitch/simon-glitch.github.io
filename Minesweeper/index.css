@@ -1,0 +1,205 @@
+html, body, .fullscreen{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    font-size: 20px;
+  }
+  *{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  :root{
+    --blue: #def;
+  }
+  
+  .top-right-buttons, .settings, .guide{
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  .top-right-buttons > button{
+    border: none;
+    background: #ffb;
+    display: block;
+    font-size: 1.25em;
+    padding: 0.5em;
+    border-radius: 50vw;
+    cursor: pointer;
+  }
+  .settings, .guide{
+    background: var(--blue);
+    padding: 0.5em;
+    border-radius: 0.5em;
+    font-family: arial;
+    width: 70vw;
+    overflow: scroll;
+    align-content: stretch;
+  }
+  .header-container{
+    width: 100%;
+    position: relative;
+    margin-bottom: 0.35em;
+  }
+  .header-container > header{
+    position: relative;
+    font-size: 1.35em;
+    font-weight: bold;
+    left: 50%;
+    transform: translate(-50%);
+  }
+  .header-container > header > .content{
+    text-align: center;
+    width: 100%;
+    background: var(--blue);
+  }
+  .header-container > header > .box-shadow{
+    z-index: -1;
+    position: absolute;
+    width: calc(100% - 10px);
+    height: calc(100% - 5px);
+    left: 50%;
+    transform: translate(-50%);
+  }
+  
+  
+  
+  .input-line{
+    display: flex;
+    column-gap: 0.5em;
+  }
+  .input-line > span{
+    flex: 4;
+  }
+  .input-line > input{
+    flex: 0;
+    width: 3em;
+  }
+  .box-shadow{
+    box-shadow: 0 7px 5px black;
+  }
+  
+  .hidden:not(.always_shown){
+    display: none;
+  }
+  .bottom-feeder{
+    z-index: -1;
+  }
+  div.title > *{
+    background: transparent;
+  }
+  div.title{
+    background: rgba(255 255 255 /0.6);
+    position: fixed;
+    top: 0;
+    left: 0;
+    border-radius: 100vw;
+    padding: 0.25em;
+  }
+  .title{
+    height: 1.15em;
+    font-size: 1.75em;
+    display: flex;
+    align-items: stretch;
+    padding: 0.2em;
+    z-index: 2000;
+  }
+  div.title > p{
+    margin-right: 0.1em;
+  }
+  div.plus{
+    margin-left: 0.1em;
+  }
+  div.plus, svg{
+    width: 0.9em;
+  }
+  .green{
+    fill: rgb(0,160,20);
+  }
+  .blue{
+    fill: rgb(0,20,200);
+  }
+  
+  .guide span{
+    font-weight: bold;
+  }
+  ul{
+    padding-left: 2em;
+  }
+  
+  .game-state{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: 0.25em;
+    border-radius: 0.25em;
+    background: rgba(250 240 250 /0.6);
+  }
+  .game-state canvas{
+    width: 1em;
+    height: 1em;
+  }
+  
+  .invalid{
+    color: rgba(180 0 255 / 0.8);
+  }
+  .invalid::after{
+    content: "- invalid value";
+    font-weight: bold;
+    color: red;
+  }
+  
+  .how-to-play-outside{
+    overflow: scroll;
+    background: white;
+    z-index: 1000;
+    padding-top: 2.5em;
+  }
+  .how-to-play{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  div.hr{
+    height: 0.5em;
+    background: #112;
+    width: 80%;
+    margin: 0.5em;
+  }
+  
+  .close-how-to-play{
+    padding: 0.125em;
+    background: #eee;
+    border: 0.125em solid #777;
+    line-height: 1.5em;
+    font-weight: bold;
+    font-family: "Courier New", monospace;
+    color: rgb(240 10 0);
+    cursor: pointer;
+    z-index: 1000;
+  }
+  .shrinking{
+    animation: shrink;
+    animation-fill-mode: forwards;
+    animation-duration: 1.2s;
+  }
+  
+  @keyframes shrink{
+    0%{
+      transform: scale(1);
+      top: 0%;
+    }
+    99%{
+      transform: scale(0);
+      top: 0%;
+    }
+    100%{
+      transform: scale(0);
+      top: 100%;
+    }
+  }

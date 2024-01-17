@@ -1,0 +1,88 @@
+<div class="title">
+    <p> Tic Tac Toe </p>
+    <div class="plus green"><svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+        <title>plus-glyph</title>
+        <path d="M256,0C114.84,0,0,114.84,0,256S114.84,512,256,512,512,397.16,512,256,397.16,0,256,0Zm85.33,277.33h-64v64a21.33,21.33,0,1,1-42.67,0v-64h-64a21.33,21.33,0,1,1,0-42.67h64v-64a21.33,21.33,0,1,1,42.67,0v64h64a21.33,21.33,0,1,1,0,42.67Z" />
+      </svg></div>
+    <div class="plus blue"><svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+        <title>plus-glyph</title>
+        <path d="M256,0C114.84,0,0,114.84,0,256S114.84,512,256,512,512,397.16,512,256,397.16,0,256,0Zm85.33,277.33h-64v64a21.33,21.33,0,1,1-42.67,0v-64h-64a21.33,21.33,0,1,1,0-42.67h64v-64a21.33,21.33,0,1,1,42.67,0v64h64a21.33,21.33,0,1,1,0,42.67Z" />
+      </svg></div>
+  </div>
+  
+  <div class="top-right-buttons">
+    <button class="open-settings">⚙</button>
+    <button class="pause-play">
+      <p class="pause">⏸</p>
+      <p class="play hidden">▶️</p>
+    </button>
+    <button class="reset">↩</button>
+    <button class="open-guide">📜</button>
+  </div>
+  <div class="settings hidden">
+    <div class="header-container">
+      <header>
+        <div class="box-shadow"></div>
+        <div class="content">Settings</div>
+      </header>
+    </div>
+    <div class="grid-size input-line">
+      <span>Grid Size:</span>
+      <input type="number" name="grid-size" value=3 min=3 max=9 step=1>
+      <span>[3 to 9]</span>
+    </div>
+    <div class="search-depth input-line">
+      <span>Search Depth:</span>
+      <input type="number" name="search-depth" value=3 min=1 max=5 step=1>
+      <span>[1 to 5]</span>
+    </div>
+    <div class="search-breadth input-line">
+      <span>Search Breadth:</span>
+      <input type="number" name="search-breadth" value=1000000 min=1000 max=10000000 step=1000>
+      <span>[1000 to 10 million]</span>
+    </div>
+    <div class="player-count input-line">
+      <span># o' Players:</span>
+      <input type="number" name="player-count" value=2 min=2 max=4 step=1>
+      <span>[2 to 4]</span>
+    </div>
+    <div class="background-squares-count input-line">
+      <span>Background Squares:</span>
+      <input type="number" name="background-squares-count" value=64 min=0 max=2048 step=1>
+      <span>[0 to 2048]</span>
+    </div>
+  </div>
+  <div class="guide hidden">
+    <div class="header-container">
+      <header>
+        <div class="box-shadow"></div>
+        <div class="content">How to Win</div>
+      </header>
+    </div>
+    <div>A player needs <span class="points-to-win">k</span> points to win in a <span class="span-for-player-count">m</span> player game on a <span class="span-n-by-n">n×n</span> grid</div>
+    <ul class="in-a-row-points"></ul>
+  </div>
+  <canvas class="game fullscreen bottom-feeder"></canvas>
+  
+  <div class="game-state">
+    <div class="whose-turn"><canvas></canvas><span class="text"></span></div>
+  </div>
+  
+  
+  <div class="how-to-play-outside fullscreen">
+    <div class="how-to-play">
+      <header class="title">How To Play</header>
+      <div class="hr"></div>
+      <ul>
+        <li>Players take turns placing their symbols in the grid tiles</li>
+        <li>If a player has multiple of their (same) symbol connected in a row, they get points</li>
+        <li>Symbols may be connected diagonally</li>
+        <li>3 symbols in a row gives a player 1 points. 4 symbols gives 3 points, and so on...</li>
+        <li>Click the scroll (📜) to see how many points longer lines of symbols give</li>
+        <li>The score (as well as whose turn it is) is dispayed in the bottom right</li>
+        <li>Click reset (↩) to start a new game (or change the grid's size if you have changed the settings)</li>
+        <li><b>Bit of a warning:</b> I have the A.I. set to scan A LOT of move sequences, so the 1st few moves will be pretty laggy!</li>
+        <li>Click <button class="close-how-to-play">CLOSE</button> to close this screen and play the game</li>
+      </ul>
+    </div>
+  </div>
