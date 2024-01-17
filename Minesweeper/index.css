@@ -18,3 +18,7 @@ canvas{
     height: 80vh;
     image-rendering: pixelated;
 }
+
+.hidden{
+    display: none;
+}

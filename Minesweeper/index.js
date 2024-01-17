@@ -236,6 +236,8 @@ const display = function(){
   ctx.putImageData(D, 0,0);
 };
 
+
+
 set_dim(55,55);
 
 onclick = function(){
