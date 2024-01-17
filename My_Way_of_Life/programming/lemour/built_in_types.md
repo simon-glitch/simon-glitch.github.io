@@ -2,6 +2,9 @@
 # Built Ins!
 These are some of the most basic data types, which are built in to the language. Having good built-ins is one of the most important parts of a language; especially when the language is interpreted.
 
+## Iterable
+Any object that contains mutliple items and remembers where their values are (or remembers how to access their values). For example, a linked list would qualify as an iterable, even though each node of the linked list is itself a linked list. In case your wondering: No, "linked list" is not a built-in in this language. That data structure is well known for being hard to debug and bad for performance.
+
 ## Array
 `array` is the generic data type for an ordered sequence of items.
 
@@ -22,9 +25,28 @@ An array of integers with built in auto-sorting. Doesn't allow non-integer or bi
 ## Int
 `int` is an integer. You can feed it a type parameter for the number of bits to have in the integer.
 * `int:8` is an 8-bit integer (i.e. a byte)
-* `int:16` is an 16-bit integer (i.e. a C `short`)
-* `int:32` is an 32-bit integer (i.e. a C `long`)
-* `int:64` is an 64-bit integer (i.e. a C `long long`)
+* `int:16` is a 16-bit integer (i.e. a C `short` or `int`)
+* `int:32` is a 32-bit integer (i.e. a C `long`)
+* `int:64` is a 64-bit integer (i.e. a C `long long`)
+
+## float
+`float` is a floating point number. You can feed it a type parameter for the number of bits to have in the floating point number.
+* `float:8` is an 8-bit float (and it's not very useful)
+* `float:16` is a 16-bit floating point number (i.e. a `half`)
+* `float:32` is a 32-bit floating point number (i.e. a C `long`)
+* `float:64` is a 64-bit floating point number (i.e. a C `long long`)
+
+Floating point numbers have multipe parts, so there are actually 4 parameters for them. That means that a `float` type is written like this:
+* `float :sign :exponent :mantissa :inf`
+* or `float :(sign, exponent, mantissa, inf)`
+
+About the parameters:
+* `exponent` is the number of "exponent" bits to include in the `float`; this controls how **BIG** the `float` can be, since the exponent is what makes the "point" in "floating point" actually float;
+* `mantissa` is the number of "mantissa" bits to include in the `float`; this controls how much **precision** the float has;
+* `sign` is the number of "sign" bits to include in the `float`; defaults to `1`;
+* `inf` is the number of "infinity" bits to include in the `float`; the compiler actually compiles these away as necessary; this defaults to `1`; "infinity" bits are used to represent edge cases where the `float` is not a real or finite number; for example, `1/0` evaluates to `NaN`, and thus requires "infinity" bits to be represented;
+
+
 
 
 
