@@ -33,8 +33,10 @@ An array of integers with built in auto-sorting. Doesn't allow non-integer or bi
 `float` is a floating point number. You can feed it a type parameter for the number of bits to have in the floating point number.
 * `float:8` is an 8-bit float (and it's not very useful)
 * `float:16` is a 16-bit floating point number (i.e. a `half`)
-* `float:32` is a 32-bit floating point number (i.e. a C `long`)
-* `float:64` is a 64-bit floating point number (i.e. a C `long long`)
+* `float:32` is a 32-bit floating point number (i.e. a C `float`)
+* `float:64` is a 64-bit floating point number (i.e. a C `double`)
+* `float:96` is a 96-bit floating point number (i.e. one type of C `long double`)
+* `float:128` is a 128-bit floating point number (i.e. another type of C `long double`)
 
 Floating point numbers have multipe parts, so there are actually 4 parameters for them. That means that a `float` type is written like this:
 * `float :sign :exponent :mantissa :inf`
@@ -44,9 +46,24 @@ About the parameters:
 * `exponent` is the number of "exponent" bits to include in the `float`; this controls how **BIG** the `float` can be, since the exponent is what makes the "point" in "floating point" actually float;
 * `mantissa` is the number of "mantissa" bits to include in the `float`; this controls how much **precision** the float has;
 * `sign` is the number of "sign" bits to include in the `float`; defaults to `1`;
-* `inf` is the number of "infinity" bits to include in the `float`; the compiler actually compiles these away as necessary; this defaults to `1`; "infinity" bits are used to represent edge cases where the `float` is not a real or finite number; for example, `1/0` evaluates to `NaN`, and thus requires "infinity" bits to be represented;
+* `offset` is the offset to use in the exponent; the default 64-bit `float`s have an offset of `127` for example
 
+### IEEE 754
+This code uses the IEEE Standard for Floating-Point Arithmetic (IEEE 754) for the floats. [Learn more here](https://en.wikipedia.org/wiki/IEEE_754).
 
+This code also uses the following sizes, as defined by IEEE 754 (when `float:` is only given the size parameter):
+* `float: 16 = float:( 10,  5, 1,      7)`
+* `float: 32 = float:( 23,  8, 1,    127)`
+* `float: 64 = float:( 52, 11, 1,   1023)`
+* `float:128 = float:(112, 15, 1,  16383)`
+* `float:256 = float:(236, 19, 1, 262143)`
 
+For a given `float:n`, the settings default to:
+* `exponent = 0.214286 * n**2 + 0.928571 * n - 2.11429`
+* `bits = n - exponent - 1`
+* `sign = 1`
+* `offset = 2 ** (bits - 1) - 1`
+
+This means
 
 
