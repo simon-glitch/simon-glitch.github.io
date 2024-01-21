@@ -9,8 +9,8 @@ display
     canvas
         draw cells
     html (TODO)
-        mine count tracker
-        general tile count tracker (has it's own menu)
+        `mine count tracker`
+        general `tile count tracker` (has it's own menu)
             number of each tile
             number of clusters of a certain size composed of a certain tile
 
@@ -21,4 +21,31 @@ interaction
         f for unsure flag
         c for sure clear
         x for unsure clear (not very useful)
+        i to open the `mine/tile count tracker`
+    mouse controls
+        left click to sure clear
+            shift + left click => unsure clear
+            alt + left click => right click
+        right click to sure flag
+            shift + righr click => unsure flag
+            alt + right click => left click
+
+events
+    trigger cell
+        sure flag
+        unsure flag
+        sure clear (open)
+        unsure clear
+    trigger number
+        right click OR r OR f => auto flag
+        left click OR x OR c => auto clear
+
+game
+    external (TODO)
+        saves (of previous games)
+        history (mistakes made in past games)
+    player
+        lives
+        mistakes
+    
 
