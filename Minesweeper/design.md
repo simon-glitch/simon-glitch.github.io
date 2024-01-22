@@ -47,5 +47,21 @@ game
     player
         lives
         mistakes
-    
+    field
+        has_mine: bool
+        mine_count: int16
+        cell_type: string
+        state
+            unsureness: int8
+                0 means sure
+                1 or more means unsure
+                each increment beyond 1 is a "layer of hypotheticalization", which can be used by an automatic minesweeper solver
+            flagged: bool
+            clearned: bool
+        dim
+            x: float uint
+            y: float uint
+        
 
+
+Other programmers ... don't exist, right? computers are just a weird magic that just exists, right? I'm the only programmer in the world, right? Right? No, that's insanity. I might be losing my sanity now. Maybe I should care a bit less about other people. No, no, no. That's not the solution. I feel so lost! Maybe I should put this in a file ... ugh, no one is going to read this anyways, so who cares?
