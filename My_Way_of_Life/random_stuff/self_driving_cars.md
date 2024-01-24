@@ -53,15 +53,26 @@ Do you ever get in the car and feel too tired to drive? Probably not very often,
 #### Costs
 The car needs eyes, just like you. Sensory equipment on self-driving cars can be obscured by the wheather, but the best equipment is much better than the human eye in all wheather. However, the best high-quality equipment is expensive, and consumers don't have unlimited money. Well, according to Wired [1], the equipment has gone from costing thousands of dollars to just hundreds. Also, the costs vary. Ultrasonic equipment can cost as little as $15, while a high quality GPS costs $6000. Once the industry has agreed on some standards though, the price of these items will probably come down and be settled.
 
-The car can be distracted and even deceived too. Self-driving cars can use the internet to learn about their environment, instead of simply relying on digital sensors, but connecting to the internet brings security concerns. The car could be hacked or even just "DoS" attacked. There is also the risk of the user trying to tamper with the software on their vehicle. For example, an impatient driver might want to install a software mod that makes the car ignore speed-limits, pass other drivers on dangerous roads, cut off other drivers, and cut corners through parking lots. This same software mod could also be malware that makes the car do things the driver did not want, like intentionally hit pedestrians.
+### Software
+#### Hacking
+The car can be distracted and even deceived too. Self-driving cars can use the internet to learn about their environment, instead of simply relying on digital sensors, but connecting to the internet brings security concerns. The car could be hacked or even just "DoS" attacked. There is also the risk of the user trying to tamper with the software on their vehicle.
+
+#### Malware
+For example, an impatient driver might want to install a software mod that makes the car ignore speed-limits, pass other drivers on dangerous roads, cut off other drivers, and cut corners through parking lots. This same software mod could also be malware that makes the car do things the driver did not want, like intentionally hit pedestrians.
+
+#### Bugs and Redunancy
+Don't forget, software can have bugs, and a computer will run into errors. Many computers get around this by using levels of redunancy. For example, if you try to open your email, there is a program that checks to make sure everything works correctly before you even see any emails. This means we need to be able to define exactly how our software should function. This is tedious, and 
 
 
 
-Sources:
+# Sources
 * 1:
-    * Wired
+    * name: Wired
     * ~"ultrasonic sensors are cheap, ranging from as little as $15 to $200"
     * ~"GPS ... its cost needs to come down significantly from the current $6,000 figure"
     * https://www.wired.com/2015/04/cost-of-sensors-autonomous-cars/
-
+* 2:
+    * name: Linked in
+    * To be honest
+    * https://www.linkedin.com/pulse/error-handling-large-scale-applications-munish-gupta-euutc/
 
