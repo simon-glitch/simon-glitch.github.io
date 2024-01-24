@@ -63,7 +63,11 @@ For example, an impatient driver might want to install a software mod that makes
 #### Bugs and Redunancy
 Don't forget, software can have bugs, and a computer will run into errors. Many computers get around this by using levels of redunancy. For example, if you try to open your email, there is a program that checks to make sure everything works correctly before you even see any emails. This means we need to be able to define exactly how our software should function. This is difficult and requires dedication (see: [Munish_Gupta] [2]).
 
+# This file
+This article is hosted on GitHub:
+* https://github.com/simon-glitch/simon-glitch.github.io/tree/master/My_Way_of_Life/random_stuff/self_driving_cars.md
 
+Unfortunately, GitHub won't put the "Preview" in full screen for you.
 
 # Sources
 * 1:
