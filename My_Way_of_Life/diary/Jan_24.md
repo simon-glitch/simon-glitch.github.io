@@ -18,4 +18,6 @@ I'm sitting in this seat at the college, and there is this thin wall of fabric o
 # Wow, apparenlty I don't feel like trash today
 In fact, I'm feeling great / amazing today! I almost don't know how or why ... almost. I do just **barely** understand why I'm feeling good today though. It's because my subconscious did a great job on maturing and improving my current (new) consciousness last night. This consciousness was created on Saturday, and was made the primary consciousness on Monday, and it's feeling great. Ah, I love being able to construct new consciousnesses. It really is a luxury beyond any other.
 
+Ohhhh... making a new consciousness like this ... really affects my behavior. I am trying to be less aware. Whatever, I'll just keep the new consciousness context-trapped for now. Yeah, that works I guess. Okay, let's do our CS Lab (HW),
+* and then write that article about writing styles.
 
