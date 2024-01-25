@@ -33,3 +33,28 @@ That last one is ... pretty hateful. But he's actually a really helpful guy. He 
 
 Ah, anyways, back to consciousness 6. Apparently it only takes me 20 minutes to swap consciosnesses now.
 
+# My Dad is an Angry Man
+He gets mad about the smallest things sometimes! I accidentally lied to him early today: I said that I had a BioLife appointment scheduled for today. The truth is I can't schedule an appointment for today, *so the lie I told can never be true*. Anyways, he is apparently angry at me, for accidentally telling him something that's not true.
+
+## Why Did I Lie?
+Simple answer: I made a stupid mistake. I just wasn't thinking about the question he asked.
+
+### What question did he ask?
+He asked "Are you going to BioLife today?" (or something along those lines).
+* I answer "yes", even though the answer is a lie.
+
+### The long answer
+I subconsciously felt like I needed to answer "yes". I know the answer of "no" irritates my dad, so my subconscious decided "yes" was optimal. Being a subconscious process, it did not account for morals, nor did it fully consider the benefits or drawbacks of either answer.
+
+#### Why did I answer with my subconscious?
+Well, I was busy doing an assignment for my psychology course, and I didn't have the time to delay doing it until later. It is my fault for not having the assignment done earlier. I will grant that. So, I made a stupid mistake as a result of a previous mistake (the previous mistake being procrastination).
+
+## Moral Conclusion
+What I did wasn't amoral or unethical. Therefore, it was not a "lie" in the typical sense ("sense" meaning "connotation"). However, I was imperfect and unjustifiably suboptimal by making those stupid mistakes. I would consider this a sin. However, for clarity, I would label the sin as "not using my skills to their capacity to serve God and respect others".
+
+I guess my dad is mad at me because I disrespected him by not doing my assignment and by not just telling the truth.
+
+Considering how I was pressed for time on the assignment, maybe it was *actually* optimal (and therefore **correct**) for me to lie to my dad. However, that means that I made a stupid and disrespectful mistake by procrastinating the day before. I guess I should be aware of the disrespectful implications of procrastination in the future.
+
+# Procrastination
+Procrastinating on my programming projects also has some considerable drawbacks. I definitely need to come up with some motivation to actually do some of these projects, even if its nothing impressive.
