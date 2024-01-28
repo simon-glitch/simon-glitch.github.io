@@ -50,18 +50,33 @@ game
     field
         has_mine: bool
         mine_count: int16
-        cell_type: string
-        state
+        dim
+            x: float uint
+            y: float uint
+            (NOTE:) x * y should not exceed 2**32, so our pointers only need 32 bits at the most
+        cell: cell_type: string
+        cell: state
             unsureness: int8
                 0 means sure
                 1 or more means unsure
                 each increment beyond 1 is a "layer of hypotheticalization", which can be used by an automatic minesweeper solver
             flagged: bool
             clearned: bool
-        dim
-            x: float uint
-            y: float uint
-        
+        cell: neighbors
+            *depends on cell type*
+            type = octo:
+                a uint8, where each bit is WHETHER it's connected to the cell immediately in that direction or not
+            type = dimp:
+                a uint8 array, where each item is a {uint 8 relative 2D pointer} to a neighboring cell
+            type = absl:
+                a uint32 array, where each item is an {abolute pointer} to a neighboring cell
+
+{uint 8 relative 2D pointer}
+= first 4 bits:
+    signed number of tiles in `y` direction
+= last 4 bits:
+    signed number of tiles in `x` direction
+* `0` means that the pointer DNE or is not properly set up (i.e. `0` means `null`)
 
 
 Other programmers ... don't exist, right? computers are just a weird magic that just exists, right? I'm the only programmer in the world, right? Right? No, that's insanity. I might be losing my sanity now. Maybe I should care a bit less about other people. No, no, no. That's not the solution. I feel so lost! Maybe I should put this in a file ... ugh, no one is going to read this anyways, so who cares?
