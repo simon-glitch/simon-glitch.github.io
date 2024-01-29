@@ -63,10 +63,22 @@ The car can be distracted and even deceived too. Self-driving cars can use the i
 For example, an impatient driver might want to install a software mod that makes the car ignore speed-limits, pass other drivers on dangerous roads, cut off other drivers, and cut corners through parking lots. This same software mod could also be malware that makes the car do things the driver did not want, like intentionally hit pedestrians.
 
 #### Bugs and redunancy
-Don't forget, software can have bugs, and a computer will run into errors. Many computers get around this by using levels of redunancy. For example, if you try to open your email, there is a program that checks to make sure everything works correctly before you even see any emails. This means we need to be able to define exactly how our software should function. This is difficult and requires dedication (see: [Munish_Gupta] [2]).
+Don't forget, software can also have bugs, and I'm not referring to cockroaches **[note b]**. **[def: software]**. The hardware can also cause errors, but these are very rare **[note c]**. Many computers get around this by using levels of redunancy. For example, if you try to open your email, there is a program that checks to make sure everything works correctly before you even see any emails. This means we need to be able to define exactly how our software should function. This is difficult and requires dedication (see: [Munish_Gupta] [2]).
+
+#### Forced arrest
+In theory, a self-driving car can be remotely controlled by the police for safety purposes. It would of coure be in the interest of governments to have all self-driving cars have this capability, even though it would bring some software vulnerabilities **[note d]**.
+
+# Definitions
+In software *(the field)*, a bug is a problem or flaw in the software that causes it to function incorrectly.
+
+# Overall meta comment
+I don't like any of the paragraphs would benefit from being longer. I would have to go into niche things, and dicuss boring details from academic sources in order to expand on any of the content at all.
 
 # Notes
-**[a]:** this refers to the "experience" of responsibilty (or the lack of it) that users have when using a self-driving vehicle.
+**[a]:** This refers to the "experience" of responsibilty (or the lack of it) that users have when using a self-driving vehicle.
+**[b]:** This seems off topic.
+**[c]:** Why are we mentioning it if it is so rare?
+**[d]:** The vulnerability would be that back door access could extend this capability beyond the police and allow bad actors to remotely control the car.
 
 # This file
 This article is hosted on GitHub:
@@ -85,4 +97,9 @@ Unfortunately, GitHub won't put the "Preview" in full screen for you.
     * site: Linked in
     * To be honest
     * https://www.linkedin.com/pulse/error-handling-large-scale-applications-munish-gupta-euutc/
+
+# Sources
+* 1:
+    * name: ELIZABETH E. JOH*
+    * https://www.nyulawreview.org/wp-content/uploads/2019/10/NYULawReview-94-Joh.pdf
 
