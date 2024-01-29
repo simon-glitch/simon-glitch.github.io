@@ -63,12 +63,20 @@ The car can be distracted and even deceived too. Self-driving cars can use the i
 For example, an impatient driver might want to install a software mod that makes the car ignore speed-limits, pass other drivers on dangerous roads, cut off other drivers, and cut corners through parking lots. This same software mod could also be malware that makes the car do things the driver did not want, like intentionally hit pedestrians.
 
 #### Bugs and redunancy
-Don't forget, software can also have bugs, and I'm not referring to cockroaches **[note b]**. **[def: software]**. The hardware can also cause errors, but these are very rare **[note c]**. Many computers get around this by using levels of redunancy. For example, if you try to open your email, there is a program that checks to make sure everything works correctly before you even see any emails. This means we need to be able to define exactly how our software should function. This is difficult and requires dedication (see: [Munish_Gupta] [oref 2]).
+Don't forget, software can also have bugs, and I'm not referring to cockroaches **[note b]**. **[def: bug]**. The hardware can also cause errors, but these are very rare **[note c]**. Many computers get around this by using levels of redunancy. For example, if you try to open your email, there is a program that checks to make sure everything works correctly before you even see any emails. This means we need to be able to define exactly how our software should function. This is difficult and requires dedication (see: [Munish_Gupta] [oref 2]).
 
 #### Forced arrest
 In theory, a self-driving car can be remotely controlled by the police for safety purposes [src 1: pg 2]. It would of coure be in the interest of governments to have all self-driving cars have this capability, even though it would bring some software vulnerabilities **[note d]** [src 1: pg 21, C. Malicious or Lawful Seizures?].
 
+### Responsibility
+#### Driverless passengers
+Typically, a passenger is always accompanied by a human driver. However, a self-driving car can have human passengers without a human driver. The extreme example of this would be a car with multiple passengers who legally can't drive. If the passenger can't drive, then there is nothing they can do if the computer fails to operate the vehicle on its own. This could potentially leave a passenger stranded, and force them to try to illegally drive the car themself. This means that self-driving cars need to be able to reliably function while also considering the desires of their passengers. For example, a passenger should be allowed to tell the car which parking space to use, but should not be able to tell the car to drive over the speed limit. **[note e]** There are also examples where it's not so clear whether the passenger should be allowed to make a decision. For example: which lane to use on a relatively calm highway, or whether to go through a traffic light that is about to turn yellow.
+
+#### Income and traffic safety
+Low- and middle-income level contries will have a harder time accessing and using self-driving vehicles, which means they won't benefit as much from the safety and convenience of self-driving vehicles. However, the CDC has already found that even though "only 60% of the world's vehicles are in low- and middle-income countries, 93% of [fatal incidents] occur in these countries" [src 3]. **[note f]** This means that these financially disadvantaged countries experience 55% more deaths per car than the average country does. If self-driving cars are not properly distributes to these countries, that percentage could be higher. That would mean the financially disadvantaged would be even more disadvantaged, in comparison to the norm, even though they wouldn't be worse off absolutely speaking.
+
 # Definitions
+## Bug
 In software *(the field)*, a bug is a problem or flaw in the software that causes it to function incorrectly.
 
 # Overall meta comment
@@ -79,6 +87,8 @@ I don't like any of the paragraphs would benefit from being longer. I would have
 **[b]:** This seems off topic.
 **[c]:** Why are we mentioning it if it is so rare?
 **[d]:** The vulnerability would be that back door access could extend this capability beyond the police and allow bad actors to remotely control the car.
+**[e]:** The rest of the paragraph might be excessive / overly verbose.
+**[f]:** This might be distracting, since it changes from the topic of the thesis to the topic of some people being unfairly disadvantaged.
 
 # This file
 This article is hosted on GitHub:
@@ -102,4 +112,11 @@ Unfortunately, GitHub won't put the "Preview" in full screen for you.
 * 1:
     * name: ELIZABETH E. JOH*
     * https://www.nyulawreview.org/wp-content/uploads/2019/10/NYULawReview-94-Joh.pdf
+* 2:
+    * name: ???
+    * https://link.springer.com/article/10.1007/s13347-022-00551-1
+* 3:
+    * name: CDC
+    * text: Annually, ≈1.35 million people are killed (≈3,740 people every day) and an additional 20–50 million are injured in motor vehicle crashes. Road traffic injuries have become the leading cause of death for children and young adults aged 5–29 years. Although only 60% of the world’s vehicles are in low- and middle-income countries, 93% of the world’s crash deaths occur in these countries. More than half of people who die on the world’s roads each year are cyclists, motorcyclists, and pedestrians, also called vulnerable road users.
+    * https://wwwnc.cdc.gov/travel/yellowbook/2024/air-land-sea/road-and-traffic-safety
 
