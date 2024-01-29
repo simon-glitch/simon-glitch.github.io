@@ -53,7 +53,7 @@ Do you ever get in the car and feel too tired to drive? Probably not very often,
 
 ### Hardware
 #### Costs
-The car needs eyes, just like you. Sensory equipment on self-driving cars can be obscured by the wheather, but the best equipment is much better than the human eye in all wheather. However, the best high-quality equipment is expensive, and consumers don't have unlimited money. Well, according to [Wired] [1], the equipment has gone from costing thousands of dollars to just hundreds. Also, the costs vary. Ultrasonic equipment can cost as little as $15, while a high quality GPS costs $6000. Once the industry has agreed on some standards though, the price of these items will probably come down and be settled.
+The car needs eyes, just like you. Sensory equipment on self-driving cars can be obscured by the wheather, but the best equipment is much better than the human eye in all wheather. However, the best high-quality equipment is expensive, and consumers don't have unlimited money. Well, according to [Wired] [oref 1], the equipment has gone from costing thousands of dollars to just hundreds. Also, the costs vary. Ultrasonic equipment can cost as little as $15, while a high quality GPS costs $6000. Once the industry has agreed on some standards though, the price of these items will probably come down and be settled.
 
 ### Software
 #### Hacking
@@ -63,10 +63,10 @@ The car can be distracted and even deceived too. Self-driving cars can use the i
 For example, an impatient driver might want to install a software mod that makes the car ignore speed-limits, pass other drivers on dangerous roads, cut off other drivers, and cut corners through parking lots. This same software mod could also be malware that makes the car do things the driver did not want, like intentionally hit pedestrians.
 
 #### Bugs and redunancy
-Don't forget, software can also have bugs, and I'm not referring to cockroaches **[note b]**. **[def: software]**. The hardware can also cause errors, but these are very rare **[note c]**. Many computers get around this by using levels of redunancy. For example, if you try to open your email, there is a program that checks to make sure everything works correctly before you even see any emails. This means we need to be able to define exactly how our software should function. This is difficult and requires dedication (see: [Munish_Gupta] [2]).
+Don't forget, software can also have bugs, and I'm not referring to cockroaches **[note b]**. **[def: software]**. The hardware can also cause errors, but these are very rare **[note c]**. Many computers get around this by using levels of redunancy. For example, if you try to open your email, there is a program that checks to make sure everything works correctly before you even see any emails. This means we need to be able to define exactly how our software should function. This is difficult and requires dedication (see: [Munish_Gupta] [oref 2]).
 
 #### Forced arrest
-In theory, a self-driving car can be remotely controlled by the police for safety purposes. It would of coure be in the interest of governments to have all self-driving cars have this capability, even though it would bring some software vulnerabilities **[note d]**.
+In theory, a self-driving car can be remotely controlled by the police for safety purposes [src 1: pg 2]. It would of coure be in the interest of governments to have all self-driving cars have this capability, even though it would bring some software vulnerabilities **[note d]** [src 1: pg 21, C. Malicious or Lawful Seizures?].
 
 # Definitions
 In software *(the field)*, a bug is a problem or flaw in the software that causes it to function incorrectly.
