@@ -68,9 +68,18 @@ Don't forget, software can also have bugs, and I'm not referring to cockroaches 
 #### Forced arrest
 In theory, a self-driving car can be remotely controlled by the police for safety purposes [src 1: pg 2]. It would of coure be in the interest of governments to have all self-driving cars have this capability, even though it would bring some software vulnerabilities **[note d]** [src 1: pg 21, C. Malicious or Lawful Seizures?].
 
+#### User override
+The police preventing a driver from doing harmful things is one subject, and a passenger preventing an artificial driver from doing harmful things is the opposite. [note h] In fact, these 2 systems could contradict each other in the car's software, but good programming might prevent this from being an issue.
+
 ### Responsibility
 #### Driverless passengers
 Typically, a passenger is always accompanied by a human driver. However, a self-driving car can have human passengers without a human driver. The extreme example of this would be a car with multiple passengers who legally can't drive. If the passenger can't drive, then there is nothing they can do if the computer fails to operate the vehicle on its own. This could potentially leave a passenger stranded, and force them to try to illegally drive the car themself. This means that self-driving cars need to be able to reliably function while also considering the desires of their passengers. For example, a passenger should be allowed to tell the car which parking space to use, but should not be able to tell the car to drive over the speed limit. **[note e]** There are also examples where it's not so clear whether the passenger should be allowed to make a decision. For example: which lane to use on a relatively calm highway, or whether to go through a traffic light that is about to turn yellow.
+
+#### Skill issues
+**[note g]**
+Driving skills are really important to human drivers in modern society, and they are equally important to artificial drivers. A self-driving car needs to be really skilled, and it needs to know how skilled it is. If the car's software is too confident, it might try an overly risky turn or manuever for the sake of saving time, and accidentally break something or injure someone. If the software isn't confident enough, it might tense up and fail to get passengers out of a dangerous situation. So, the software needs to be able to evaluate both the risks of the current situation and the risks of its potential solutions failing. This becomes even more complicated when you allow for a human driver override. The car might think that it's decision is optimal and the situation is too risky to let a human driver take control. A company might get sued if their software allows a human driver override and the prosecutor argues that the software actually would have made a better decision if allowed to handle the situation on its own.
+
+In conclusion, the software having the right level of confidence is super important. The software needs to know when the driver has "skill issues", and also when the software might have "skill issues" that the driver does not have.
 
 #### Income and traffic safety
 Low- and middle-income level contries will have a harder time accessing and using self-driving vehicles, which means they won't benefit as much from the safety and convenience of self-driving vehicles. However, the CDC has already found that even though "only 60% of the world's vehicles are in low- and middle-income countries, 93% of [fatal incidents] occur in these countries" [src 3]. **[note f]** This means that these financially disadvantaged countries experience 55% more deaths per car than the average country does. If self-driving cars are not properly distributes to these countries, that percentage could be higher. That would mean the financially disadvantaged would be even more disadvantaged, in comparison to the norm, even though they wouldn't be worse off absolutely speaking.
@@ -89,6 +98,8 @@ I don't like any of the paragraphs would benefit from being longer. I would have
 **[d]:** The vulnerability would be that back door access could extend this capability beyond the police and allow bad actors to remotely control the car.
 **[e]:** The rest of the paragraph might be excessive / overly verbose.
 **[f]:** This might be distracting, since it changes from the topic of the thesis to the topic of some people being unfairly disadvantaged.
+**[g]:** The "Skill issues" section is kinda auxiliary, but it's still an interesting point and fits in very well (at least, in a longer speech).
+**[h]:** Not much can be said on a topic that is so abstract and related to details with the software implementation. Talking about this is like talking about the *Trolley Problem*, but worse, because **the subject** is software details and not ethics.
 
 # This file
 This article is hosted on GitHub:
