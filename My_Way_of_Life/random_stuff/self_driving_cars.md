@@ -57,13 +57,13 @@ The car needs eyes, just like you. Sensory equipment on self-driving cars can be
 
 ### Software
 #### Hacking
-The car can be distracted and even deceived too. Self-driving cars can use the internet to learn about their environment, instead of simply relying on digital sensors, but connecting to the internet brings security concerns. The car could be hacked or even just "DoS" attacked. There is also the risk of the user trying to tamper with the software on their vehicle.
+The car can be distracted and even deceived too. Self-driving cars can use the internet to learn about their environment, instead of simply relying on digital sensors. However, connecting to the internet brings security concerns. The car could be hacked [src 4: 1 Introduction, para. 1] or even just "DoS" attacked. There is also the risk of the user trying to tamper with the software on their vehicle.
 
 #### Malware
 For example, an impatient driver might want to install a software mod that makes the car ignore speed-limits, pass other drivers on dangerous roads, cut off other drivers, and cut corners through parking lots. This same software mod could also be malware that makes the car do things the driver did not want, like intentionally hit pedestrians.
 
 #### Bugs and redunancy
-Don't forget, software can also have bugs, and I'm not referring to cockroaches **[note b]**. **[def: bug]**. The hardware can also cause errors, but these are very rare **[note c]**. Many computers get around this by using levels of redunancy. For example, if you try to open your email, there is a program that checks to make sure everything works correctly before you even see any emails. This means we need to be able to define exactly how our software should function. This is difficult and requires dedication (see: [Munish_Gupta] [oref 2]).
+Don't forget, software can also have bugs, and I'm not referring to cockroaches **[note b]**. **[def: bug]**. The hardware can also cause errors, but these are very rare **[note c]**. Many computers get around this by using levels of redunancy. For example, if you try to open your email, there is a program that checks to make sure everything works correctly before you even see any emails. This means we need to be able to define exactly how our software should function. This is difficult and requires serious programming work (see: [Munish_Gupta] [oref 2]). Most modern software doesn't use the same type of reduncies as the devices in the spaceflight industry. For example, some programs use recovery code in file systems [src 7: ], but some engineers still take inspiration from projects like the Apollo missions [src 6: Lunar module lifeboat contingency] **[note i]**.
 
 #### Forced arrest
 In theory, a self-driving car can be remotely controlled by the police for safety purposes [src 1: pg 2]. It would of coure be in the interest of governments to have all self-driving cars have this capability, even though it would bring some software vulnerabilities **[note d]** [src 1: pg 21, C. Malicious or Lawful Seizures?].
@@ -71,7 +71,11 @@ In theory, a self-driving car can be remotely controlled by the police for safet
 #### User override
 The police preventing a driver from doing harmful things is one subject, and a passenger preventing an artificial driver from doing harmful things is the opposite. [note h] In fact, these 2 systems could contradict each other in the car's software, but good programming might prevent this from being an issue.
 
+An actual problem with letting the user override the car is that they might tell it to do unethical things. For example, a user might tell the car to do something that kills 5 pedestrians, if the alternative is the user dying. However, this would be also be a form of self defense, and there is no moral concensus on what would be ethically optimal in such a situation [src 5: GENERAL DISCUSSION, para. 1].
+
 ### Responsibility
+The topic of responsibility is where there is a lot of controversy in the self-driving car industry.
+
 #### Driverless passengers
 Typically, a passenger is always accompanied by a human driver. However, a self-driving car can have human passengers without a human driver. The extreme example of this would be a car with multiple passengers who legally can't drive. If the passenger can't drive, then there is nothing they can do if the computer fails to operate the vehicle on its own. This could potentially leave a passenger stranded, and force them to try to illegally drive the car themself. This means that self-driving cars need to be able to reliably function while also considering the desires of their passengers. For example, a passenger should be allowed to tell the car which parking space to use, but should not be able to tell the car to drive over the speed limit. **[note e]** There are also examples where it's not so clear whether the passenger should be allowed to make a decision. For example: which lane to use on a relatively calm highway, or whether to go through a traffic light that is about to turn yellow.
 
@@ -88,8 +92,15 @@ Low- and middle-income level contries will have a harder time accessing and usin
 ## Bug
 In software *(the field)*, a bug is a problem or flaw in the software that causes it to function incorrectly.
 
-# Overall meta comment
+# Meta comments
 I don't like any of the paragraphs would benefit from being longer. I would have to go into niche things, and dicuss boring details from academic sources in order to expand on any of the content at all.
+
+## Lack of Sources
+A lot of the details in this article are highly technical, and don't have academic sources anywhere online. These technical details require information from interviews with the companies designing self-diving cars, since the details are only really relevant to engineers. What I'm saying is that highly technical details are not relevant to most scientists and researchers.
+
+## Ethics
+Even without a lot of strong sources, and even with the industry around self-driving cars being full of a lot of controversy:
+* I still think I have an unbaised description of how difficult the devices are to actually design, engineer, and develop.
 
 # Notes
 **[a]:** This refers to the "experience" of responsibilty (or the lack of it) that users have when using a self-driving vehicle.
@@ -100,6 +111,7 @@ I don't like any of the paragraphs would benefit from being longer. I would have
 **[f]:** This might be distracting, since it changes from the topic of the thesis to the topic of some people being unfairly disadvantaged.
 **[g]:** The "Skill issues" section is kinda auxiliary, but it's still an interesting point and fits in very well (at least, in a longer speech).
 **[h]:** Not much can be said on a topic that is so abstract and related to details with the software implementation. Talking about this is like talking about the *Trolley Problem*, but worse, because **the subject** is software details and not ethics.
+**[i]:** [src 6] only dicusses engineers in the current space industry being inspired by the past of the industry. It does not discuss interdisciplinary (or interindustrious) inspiration of any kind. So, maybe I am stretching my tounge a little too thin here by including this source.
 
 # This file
 This article is hosted on GitHub:
@@ -130,4 +142,42 @@ Unfortunately, GitHub won't put the "Preview" in full screen for you.
     * name: CDC
     * text: Annually, ≈1.35 million people are killed (≈3,740 people every day) and an additional 20–50 million are injured in motor vehicle crashes. Road traffic injuries have become the leading cause of death for children and young adults aged 5–29 years. Although only 60% of the world’s vehicles are in low- and middle-income countries, 93% of the world’s crash deaths occur in these countries. More than half of people who die on the world’s roads each year are cyclists, motorcyclists, and pedestrians, also called vulnerable road users.
     * https://wwwnc.cdc.gov/travel/yellowbook/2024/air-land-sea/road-and-traffic-safety
+* 4:
+    * name: Jacek Rak et al.
+    * full name: Jacek Rak, Mario Pickavet, Kishor S. Trivedi, Javier Alonso Lopez, Arie M. C. A. Koster, James P. G. Sterbenz, Egemen K. Çetinkaya, Teresa Gomes, Matthias Gunkel, Krzysztof Walkowiak & Dimitri Staessens
+    * text: construction of perfect communication systems, as well as full prevention against various challenges and threats is not possible
+    * https://link.springer.com/article/10.1007/s11235-015-9987-7
+* 5:
+    * name: Tripat Gill
+    * text: Recently, both academic scholars and practitioners have made a concerted effort to determine the appropriate moral norms for AVs to handle such dilemmas.
+    * https://doi.org/10.1093/jcr/ucaa018
+* 6:
+    * name: Shaun Ryan and Matthew Granger
+    * section: (**probably**) "Lunar module lifeboat contingency"
+    * text: In current proposed human spacecraft designs, there are some lessons that seem to follow from historical examples, along with some departures. For the lunar Human Landing System (HLS) program, the potential of the lander to be used as a lifeboat to the crew once they're docked to the Orion spacecraft is not the same as the architecture used on Apollo. The applicable window for such a contingency is much smaller on HLS than Apollo, as the lander and Orion don't meet until in Lunar orbit.
+    * https://doi.org/10.1016/j.jsse.2023.08.005
+    * or: https://www.sciencedirect.com/science/article/abs/pii/S2468896723000873
+* 7:
+    * name: Haogang Chen et al.
+    * full name: Haogang Chen, Daniel Ziegler, Adam Chlipala, M. Frans Kaashoek, Eddie Kohler,† Nickolai Zeldovich
+    * text: An important example of where failures matter is a file system, because developers often make subtle mistakes in recovery code, and recovery code is complex and not frequently executed. Even if such bugs are rare, they can still be costly, since they can lead to complete data loss [41]. Proving the absence of such bugs in critical software, such as a file system, is an appealing proposition.
+    * https://pdos.csail.mit.edu/papers/fscq:hotos15.pdf
+* 8:
+    * name:
+    * text:
+        However, interviewees discussed contingencies of hardware, including maintenance, batteries and, most importantly, sensors. Most developers use Lidar for high-definition perception of the environment. Elon Musk has called Lidar a ‘crutch’; Tesla relies on computer vision using cheaper cameras. An AV industry consultant sought to downplay the sensor controversy:
+        > Can Lidars make it happen faster? Most people say yes. He [Musk] says no … we’re waiting for a breakthrough really in computer vision [which would mean we could] use it without other sensors … Lidar is a crutch, but computer vision has one leg. So a crutch might be handy.
+    * https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8586182/
+* 9:
+    (looking for a use, but it seems to be too technical)
+    * https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8767286/
+TODO: check pubmed
+Already found:
+* https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4430591/
+
+
+Lookups:
+https://ukeke.calvin.edu/cgi-bin/UDT/driver_2023.pl?query=engineers+outside+of+space+industry+taking+inspiration+from+the+space+industry&target=ebsco
+responsibility controversy self-driving car industry
+
 
