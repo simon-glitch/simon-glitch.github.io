@@ -58,6 +58,8 @@ The car needs eyes, just like you. Sensory equipment on self-driving cars can be
 #### Environmental Impact
 Environmental Impact is another type of cost which environmentalists are worried about. Many companies prefer to not have to deal with this [src 9 - Goals for promoting environmental sustainability - Strategies to reduce emissions (E1) - para. 3], but mining the metals and harvesting the materials required to make these new vehicles can cause a lot of harm to the environment.
 
+#### Faulty Hardware (concerns)
+
 ### Software
 #### Hacking
 The car can be distracted and even deceived too. Self-driving cars can use the internet to learn about their environment, instead of simply relying on digital sensors. However, connecting to the internet brings security concerns. The car could be hacked [src 4: 1 Introduction, para. 1] or even just "DoS" attacked. There is also the risk of the user trying to tamper with the software on their vehicle.
@@ -97,6 +99,8 @@ In software *(the field)*, a bug is a problem or flaw in the software that cause
 
 # Meta comments
 I don't like any of the paragraphs would benefit from being longer. I would have to go into niche things, and dicuss boring details from academic sources in order to expand on any of the content at all.
+
+Also, I'm glad I don't have any corny statements / phrases, like "can revolutionize the future of transportation and mobility".
 
 ## Lack of Sources
 A lot of the details in this article are highly technical, and don't have academic sources anywhere online. These technical details require information from interviews with the companies designing self-diving cars, since the details are only really relevant to engineers. What I'm saying is that highly technical details are not relevant to most scientists and researchers.
@@ -181,6 +185,13 @@ Unfortunately, GitHub won't put the "Preview" in full screen for you.
 * title: Responsibility for Crashes of Autonomous Vehicles: An Ethical Analysis
 * https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4430591/
 
+11:
+* name: Mobility and transport - European Commission
+* title: Autonomous Vehicles & Traffic Safety
+* text:
+    ### 2.2 Motivation
+    In the face of rapid and successive developments in the transport sector, Autonomous Vehicles (AVs) and their respective technological advancements have been dominating all relevant interest. This is not without good reason, as there is high anticipation of the benefits that AVs will bring to the field. In the eventuality of complete automation (SAE Level 5 automation - see also Chapter 3), dramatic changes to all aspects of road transport are expected, including, among others, safety, mobility, accessibility, environment, infrastructure design, and goods and cargo transport.
+* https://road-safety.transport.ec.europa.eu/system/files/2021-07/ersosynthesis2018-autonomoussafety.pdf
 
 Lookups:
 https://ukeke.calvin.edu/cgi-bin/UDT/driver_2023.pl?query=engineers+outside+of+space+industry+taking+inspiration+from+the+space+industry&target=ebsco
