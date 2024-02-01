@@ -55,6 +55,9 @@ Do you ever get in the car and feel too tired to drive? Probably not very often,
 #### Costs
 The car needs eyes, just like you. Sensory equipment on self-driving cars can be obscured by the wheather, but the best equipment is much better than the human eye in all wheather. However, the best high-quality equipment is expensive, and consumers don't have unlimited money. Well, according to [Wired] [oref 1], the equipment has gone from costing thousands of dollars to just hundreds. Also, the costs vary. Ultrasonic equipment can cost as little as $15, while a high quality GPS costs $6000. Once the industry has agreed on some standards though, the price of these items will probably come down and be settled.
 
+#### Environmental Impact
+Environmental Impact is another type of cost which environmentalists are worried about. Many companies prefer to not have to deal with this [src 9 - Goals for promoting environmental sustainability - Strategies to reduce emissions (E1) - para. 3], but mining the metals and harvesting the materials required to make these new vehicles can cause a lot of harm to the environment.
+
 ### Software
 #### Hacking
 The car can be distracted and even deceived too. Self-driving cars can use the internet to learn about their environment, instead of simply relying on digital sensors. However, connecting to the internet brings security concerns. The car could be hacked [src 4: 1 Introduction, para. 1] or even just "DoS" attacked. There is also the risk of the user trying to tamper with the software on their vehicle.
@@ -169,10 +172,13 @@ Unfortunately, GitHub won't put the "Preview" in full screen for you.
         > Can Lidars make it happen faster? Most people say yes. He [Musk] says no … we’re waiting for a breakthrough really in computer vision [which would mean we could] use it without other sensors … Lidar is a crutch, but computer vision has one leg. So a crutch might be handy.
     * https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8586182/
 * 9:
-    (looking for a use, but it seems to be too technical)
+    * name: Francine Berman et al.
+    * full name: Francine Berman, Emilia Cabrera, Ali Jebari, and Wassim Marrakchi
+    * text: With respect to building more energy-efficient cars, there has been a growing shift toward plug-in electric vehicles (PEVs), with recent announcements of large investments by Ford and notice that all GM vehicles will be all-electric by 2035. By 2040, it is expected that it will no longer be possible to buy a non-electric new car. Federal emission standards guide the design of today’s vehicles but have also been a cause for controversy. Many auto manufacturers want these standards loosened, while environmentalists want them strengthened. Adding to the mix is the existence of different standards in different jurisdictions; for example, California law is tougher on emissions than federal law. Public officials looking to lower emissions more aggressively may want to encourage specific jurisdictional controls that incentivize exceeding or strengthening current standards.
     * https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8767286/
-TODO: check pubmed
-Already found:
+10:
+* name: Alexander Hevelke and Julian Nida-Rümelin
+* title: Responsibility for Crashes of Autonomous Vehicles: An Ethical Analysis
 * https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4430591/
 
 
