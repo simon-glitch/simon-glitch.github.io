@@ -46,10 +46,10 @@ This is the general outlne for the longest and most complex possible form this a
 
 **This article is in its longest form. The speech trascript will probably be slimmed down quite a bit and have many of the clarifying words, such as "some", removed for simplicity.**
 
-Also, I know that there might be too many headers in this article. My note cards for my presentation will probably 
+Also, I know that there might be too many headers in this article. My note cards for my presentation will probably just be headers of this article.
 
 ### Intro
-Do you ever get in the car and feel too tired to drive? Probably not very often, but you there are times when don't like having to pay attention to the road. Wouldn't it be nice if you could just, take your eyes off the road for a moment? A self-driving car (which goes my names: fully autonomous vehicle, driverless vehicle, and Pedestrian Slayer ^TM) can drive itself, but that's not an easy feat. The car needs training, and resources, just like you do. We also have to consider various complications with the hardware, the software, and user experience **[note a]** of the car.
+Do you ever get in the car and feel too tired to drive? Probably not very often, but there are times when you get tired of having to pay attention to the road, right? Wouldn't it be nice if you could just, *mmmmm,* take your eyes off the road for a moment? Well, you're in luck! A self-driving car (which goes my names, such as: fully autonomous vehicle, driverless vehicle, and Pedestrian Slayer <sup>TM</sup>) can drive itself, *no supervision required,* **wink,** but that's not an easy feat. You see, the car needs training, and resources, just like you do. We also have to consider various complications with the hardware, the software, and the user experience **[note a]**.
 
 ### Hardware
 #### Costs
