@@ -58,17 +58,25 @@ The car needs eyes, just like you. Sensory equipment on self-driving cars can be
 #### Environmental Impact
 Environmental Impact is another type of cost which environmentalists are worried about. Many companies prefer to not have to deal with this [src 9 - Goals for promoting environmental sustainability - Strategies to reduce emissions (E1) - para. 3], but mining the metals and harvesting the materials required to make these new vehicles can cause a lot of harm to the environment.
 
+#### Electric Cars and Lithium
+There's been a debate going around about electric cars requiring too much lithium, but that's not a problem that's specific to self-driving cars, *so we'll skip it.*
+
 #### Faulty Hardware (concerns)
+As the European Road Safety Observatory points out [src 11 - Section 7.1], the quality of the hardware of self-driving cars (which they call AVs) could be very important. Hardware failure is already a cause of some car crashes, and could become far more prevelant if self-driving cars remove a majority of human error. A need for diligence and redundancy could easily arise, especially if self-driving cars become too difficult to repair due to the complexity of the technology.
 
 ### Software
+When hardware succeeds, software fails, or vice versa. Engineers usually have to keep both of them up equally up to date, because failures in either can lead to a catastrophe.
+
 #### Hacking
-The car can be distracted and even deceived too. Self-driving cars can use the internet to learn about their environment, instead of simply relying on digital sensors. However, connecting to the internet brings security concerns. The car could be hacked [src 4: 1 Introduction, para. 1] or even just "DoS" attacked. There is also the risk of the user trying to tamper with the software on their vehicle.
+Firstly, the car can be distracted and even deceived too. Self-driving cars can use the internet to learn about their environment, instead of simply relying on digital sensors. However, connecting to the internet brings security concerns. The car could be hacked [src 4: 1 Introduction, para. 1] or even just "DoS" attacked.
 
 #### Malware
+There is also the risk of the user trying to tamper with the software on their vehicle.
+
 For example, an impatient driver might want to install a software mod that makes the car ignore speed-limits, pass other drivers on dangerous roads, cut off other drivers, and cut corners through parking lots. This same software mod could also be malware that makes the car do things the driver did not want, like intentionally hit pedestrians.
 
 #### Bugs and redunancy
-Don't forget, software can also have bugs, and I'm not referring to cockroaches **[note b]**. **[def: bug]**. The hardware can also cause errors, but these are very rare **[note c]**. Many computers get around this by using levels of redunancy. For example, if you try to open your email, there is a program that checks to make sure everything works correctly before you even see any emails. This means we need to be able to define exactly how our software should function. This is difficult and requires serious programming work (see: [Munish_Gupta] [oref 2]). Most modern software doesn't use the same type of reduncies as the devices in the spaceflight industry. For example, some programs use recovery code in file systems [src 7: ], but some engineers still take inspiration from projects like the Apollo missions [src 6: Lunar module lifeboat contingency] **[note i]**.
+Don't forget, software can also have bugs, *and I'm not referring to ants, wasps, or cockroaches* **[note b]**. **[def: bug]**. The hardware can also cause errors, but these are very rare **[note c]**. Many computers get around this by using levels of redunancy. For example, if you try to open your email, there is a program that checks to make sure everything works correctly before you even see any emails. This means we need to be able to define exactly how our software should function. This is difficult and requires serious programming work (see: [Munish_Gupta] [oref 2]). Most modern software doesn't use the same type of reduncies as the devices in the spaceflight industry. For example, some programs use recovery code in file systems [src 7: ], but some engineers still take inspiration from projects like the Apollo missions [src 6: Lunar module lifeboat contingency] **[note i]**.
 
 #### Forced arrest
 In theory, a self-driving car can be remotely controlled by the police for safety purposes [src 1: pg 2]. It would of coure be in the interest of governments to have all self-driving cars have this capability, even though it would bring some software vulnerabilities **[note d]** [src 1: pg 21, C. Malicious or Lawful Seizures?].
@@ -186,11 +194,14 @@ Unfortunately, GitHub won't put the "Preview" in full screen for you.
 * https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4430591/
 
 11:
-* name: Mobility and transport - European Commission
+* name: European Road Safety Observatory
+* super name: Mobility and transport - European Commission
 * title: Autonomous Vehicles & Traffic Safety
 * text:
     ### 2.2 Motivation
     In the face of rapid and successive developments in the transport sector, Autonomous Vehicles (AVs) and their respective technological advancements have been dominating all relevant interest. This is not without good reason, as there is high anticipation of the benefits that AVs will bring to the field. In the eventuality of complete automation (SAE Level 5 automation - see also Chapter 3), dramatic changes to all aspects of road transport are expected, including, among others, safety, mobility, accessibility, environment, infrastructure design, and goods and cargo transport.
+    ### 7.1 Mechanical safety
+In conjunction with the previous topics of physical capabilities of vehicles, it is imperative not to ignore the remaining crashes that are not due to human error in order to maximize safety gains. At present, the residual percentage (less than 10%) can be roughly attributed equally to vehicle and infrastructure faults or deficiencies. It is possible that this percentage will appear much more considerable after the human error is eliminated by a large amount by widespread AV use.
 * https://road-safety.transport.ec.europa.eu/system/files/2021-07/ersosynthesis2018-autonomoussafety.pdf
 
 Lookups:
