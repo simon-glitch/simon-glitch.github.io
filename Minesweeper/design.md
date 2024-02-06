@@ -15,8 +15,17 @@ display
             number of clusters of a certain size composed of a certain tile
 
 interaction
+    data
+        selected cell
+            (keeps track of which cell is currently selected OR was last selected; will default to the "first" cell)
+        is selected
+            whether the selected cell is actually selected
+            *you can use this to toggle selection*
     keyboard controls
         w-a-s-d to move
+            moves from the current selected cell
+        space bar
+            toggle cell selection
         r for sure flag
         f for unsure flag
         c for sure clear
@@ -31,7 +40,10 @@ interaction
             alt + right click => left click
 
 events
+    select cell
+        *causes highlighting without triggering the cell*
     trigger cell
+        *also selects cell*
         sure flag
         unsure flag
         sure clear (open)
@@ -64,6 +76,8 @@ game
             clearned: bool
         cell: neighbors
             *depends on cell type*
+            type = norm:
+                *no data required, since a normal cell automatically connects to the up to 8 neighbors in a 3x3 around the cell*
             type = octo:
                 a uint8, where each bit is WHETHER it's connected to the cell immediately in that direction or not
             type = dimp:
