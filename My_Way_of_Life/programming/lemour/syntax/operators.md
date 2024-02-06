@@ -61,3 +61,24 @@ We use `**` notation for exponents in this language. Keep in mind, `* *` (with a
 #### Modulo
 Arguably the only useful non-bitwise operator on this list. If you don't know what modular arithmetic is, go get a life. We use `%` for modulo, because it looks cool and it makes our code look like a business report if we put line breaks in the right spots.
 
+### Binary Bitwise Operators
+The most useful operators.
+
+#### Left Shift
+Moves the bits of a binary number to the left.
+* `value << bit_count`
+
+#### Right Shift
+Moves the bits of a binary number to the right.
+* `value >> bit_count`
+
+#### Looping Left Shift
+A looping variant of left shift. The bits that are removed off the right are inserted directly on the left, going 
+right-ward.
+* `value |>> bit_count`
+
+#### Looping Right Shift
+A looping variant of right shift. The bits that are removed off the left are inserted directly on the right, going 
+left-ward.
+* `value <<| bit_count`
+
