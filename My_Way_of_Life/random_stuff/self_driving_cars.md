@@ -221,6 +221,7 @@ Unfortunately, GitHub won't put the "Preview" in full screen for you.
         <p style="color:green"> ... </p>
         <p style="color:green"> ### 7.1 Mechanical safety </p>
         <p style="color:green"> In conjunction with the previous topics of physical capabilities of vehicles, it is imperative not to ignore the remaining crashes that are not due to human error in order to maximize safety gains. At present, the residual percentage (less than 10%) can be roughly attributed equally to vehicle and infrastructure faults or deficiencies. It is possible that this percentage will appear much more considerable after the human error is eliminated by a large amount by widespread AV use. </p>
+    * creation date: Wed Feb 28 17:25:02 2018 CET
     * https://road-safety.transport.ec.europa.eu/system/files/2021-07/ersosynthesis2018-autonomoussafety.pdf
 
 Lookups:
