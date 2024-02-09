@@ -7,74 +7,26 @@ I've been wanting to make my own programming language for a while. I don't think
 Lemour is a programming language. It's an interpreted language (meanning it runs in a VM), with both functional and object-oriented paradigms. For simplicity, the JIT-compiler compiles everything into mostly functional functions and closures, and only uses actual classes if forced too.
 
 ## Features
-Since I don't like how many OOP and FP languages work, I will be not including any of their weirdness. For example, we do not have a ownership system (like what Rust has) and we do not have operator overloads.
+Since I don't like how many OOP and FP languages work, I will try to not include too much of their weirdness.
 
-### Functions
-The language has functions. A function is a block of code, which is given a named collection of parameters before being operated on. Parameters can be modified and manipulated just like any other variable.
-
-A function is formatted like this:
-* lambda function:
-    * one line function that returns the value from the 1st and only line:
-    * `name .(parameters) = body`
-* scoped function:
-    * multi line function that supports `return` statements
-    * `name .(parameters) = {mult-line body}`
-
-#### Currying
-Function parameters can be curried. Example:
-
-```
-f(a, b) = a + b
-curried_f = f(2)
-print(curried_f(5)) // [7]
-print(curried_f(9)) // [11]
-print(f(3,3)) // [6]
-print(f(8)(20)) // [28]
-```
-
-But curring is optional:
-```
-print(f(5, 9)) // [14]
-```
-
-#### Calling Shorthand
-You can also call a function with a shorthand using `:`, like this:
-* `f:x` instead of `f(x)`
-* `g :x :y` instead of `g(x, y)` or `g(x)(y)`
-
-This also allows you to make your code more "clear":
-* `f:(x,y)` instead of `f(x,y)`
-
-### Type Signatures
-Variables can be given a type signature, using `:`.
-
-These signatures are optional, but allow the JIT compiler to optimize the program better. The interpreter throws an Error is an assignment of the wrong type is made. If you don't like these errors, then use `~` instead. `~` declares the expected type loosely (without actually enforcing any particular type).
-
-Type signatures are written like this:
-* strict left-hand with initial assignment:
-    * `int: varies = value`
-* strict left-hand without assignment:
-    * `int: varies`
-* strict right-hand with initial assignment:
-    * `varies+: int = value`
-* strict right-hand without assignment:
-    * `varies+: int`
-* loose left-hand with initial assignment:
-    * `int~ varies = value`
-* loose left-hand without assignment:
-    * `int~ varies`
-* loose right-hand with initial assignment:
-    * `varies+~ int = value`
-* loose right-hand without assignment:
-    * `varies+~ int`
-
-Yup. I got 8 type signatures! What are you gonna do about it? Cry?! Go ahead! I don't care. XD!
-
-A type signature can also be put on a function. A left-handed signature goes before the function's name, and a right-handed signature goes after the parameter list.
-
-
-
-
-
-
+Features included:
+* 2 operation modes:
+    * compiled mode
+    * interpreted mode
+    * this means the software for the language itself looks like:
+        * byte code compiler: compiles to lemour byte code
+        * interpreter: executes lemour byte code in a "sandbox"
+        * garbage collector: assists the interpreter with memory management
+        * dynamic JIT compile: runs on the intepreter
+        * assembly compiler: windows and linux versions
+        * built-in library: implements the many built-ins
+* operator overloads
+    * even on **custom operators**
+* types
+* type variables in classes
+* currying
+* class initialization currying
+* pointers
+    * *actual* pointers in compiled mode
+    * and *virtual* pointers in interpreted mode
 
