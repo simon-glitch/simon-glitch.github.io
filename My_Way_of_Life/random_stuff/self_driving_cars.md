@@ -1,3 +1,11 @@
+# NOTE
+[Self driving cars are hard to make] > [Article Content] is where the proper outline for this speech is. Please read *that*. Also, keep in mind: this is a `MarkDown` file on *`GitHub`*. That means that is might be updated and edited in the future.
+
+## Copyright
+This work is put under `BY SA` Creative Commons copyright License. That means that others can copy this work, but they must copy the copyright notice, and they must attribute **@simon-glitch on GitHub**.
+
+## Open source editing
+Also, please **do not** edit this file. It is not appreciated by Simon Glitch.
 
 # Self driving cars are hard to make
 (for "Oral Rhetoric" course at Calvin University)
@@ -5,7 +13,7 @@
 *The title is also the thesis.*
 
 ## General outline
-This is the general outlne for the longest and most complex possible form this article could have. Adding more details or section than this quite outline describes would be unnecessary at best, and annoying at worst.
+This is the general outlne for all of the content that the article could have.
 
 ### Hardware
 * cost of high quality sensors
@@ -43,11 +51,6 @@ This is the general outlne for the longest and most complex possible form this a
 
 
 ## Article content
-
-**This article is in its longest form. The speech trascript will probably be slimmed down quite a bit and have many of the clarifying words, such as "some", removed for simplicity.**
-
-Also, I know that there might be too many headers in this article. My note cards for my presentation will probably just be headers of this article.
-
 ### Intro
 Do you ever get in the car and feel too tired to drive? Probably not very often, but there are times when you get tired of having to pay attention to the road, right? Wouldn't it be nice if you could just, *mmmmm,* take your eyes off the road for a moment? Well, you're in luck! A self-driving car (which goes my names, such as: fully autonomous vehicle, driverless vehicle, and Pedestrian Slayer <sup>TM</sup>) can drive itself, *no supervision required,* **wink,** but that's not an easy feat. You see, the car needs training, and resources, just like you do. We also have to consider various complications with the hardware, the software, and the user experience **[note a]**.
 
@@ -65,7 +68,7 @@ There's been a debate going around about electric cars requiring too much lithiu
 As the European Road Safety Observatory points out [src 11 - Section 7.1], the quality of the hardware of self-driving cars (which they call AVs) could be very important. Hardware failure is already a cause of some car crashes, and could become far more prevelant if self-driving cars remove a majority of human error. A need for diligence and redundancy could easily arise, especially if self-driving cars become too difficult to repair due to the complexity of the technology.
 
 ### Software
-When hardware succeeds, software fails, or vice versa. Engineers usually have to keep both of them up equally up to date, because failures in either can lead to a catastrophe.
+When hardware succeeds, software fails, or vice versa. Engineers usually have to keep both of them up equally up to date, because failures in either can lead to a catastrophe. **[note h]**
 
 #### Hacking
 Firstly, the car can be distracted and even deceived too. Self-driving cars can use the internet to learn about their environment, instead of simply relying on digital sensors. However, connecting to the internet brings security concerns. The car could be hacked [src 4: 1 Introduction, para. 1] or even just "DoS" attacked.
@@ -103,12 +106,16 @@ Low- and middle-income level contries will have a harder time accessing and usin
 
 # Definitions
 ## Bug
-In software *(the field)*, a bug is a problem or flaw in the software that causes it to function incorrectly.
+In the field of software, a "bug" is any problem or flaw in the software that causes it to function incorrectly.
 
 # Meta comments
 I don't like any of the paragraphs would benefit from being longer. I would have to go into niche things, and dicuss boring details from academic sources in order to expand on any of the content at all.
 
 Also, I'm glad I don't have any corny statements / phrases, like "can revolutionize the future of transportation and mobility".
+
+The speech has some whole sections of this article removed. Also, there might be too many individual headers for the article. It is *technically* supposed to be an **outline**, so I guess that is okay.
+
+Finally, I'd like to apologize for my oral presentation being sloppy. The format for this speech is really difficult to figure out, due to the complexity and variety of my topic. So, I had a hard time figuring out how to deliver so many points that are all so different from each other. Also, I didn't mention any sources in my speech; I really don't know which sources would be the most important though. Probably [source 11], but that's because it actually backs up the entire article, not just some of it.
 
 ## Lack of Sources
 A lot of the details in this article are highly technical, and don't have academic sources anywhere online. These technical details require information from interviews with the companies designing self-diving cars, since the details are only really relevant to engineers. What I'm saying is that highly technical details are not relevant to most scientists and researchers.
@@ -116,6 +123,12 @@ A lot of the details in this article are highly technical, and don't have academ
 ## Ethics
 Even without a lot of strong sources, and even with the industry around self-driving cars being full of a lot of controversy:
 * I still think I have an unbaised description of how difficult the devices are to actually design, engineer, and develop.
+
+## This file
+This article is hosted on GitHub:
+* https://github.com/simon-glitch/simon-glitch.github.io/tree/master/My_Way_of_Life/random_stuff/self_driving_cars.md
+
+Unfortunately, GitHub won't put the "Preview" in full screen for you.
 
 # Notes
 **[a]:** This refers to the "experience" of responsibilty (or the lack of it) that users have when using a self-driving vehicle.
@@ -127,12 +140,6 @@ Even without a lot of strong sources, and even with the industry around self-dri
 **[g]:** The "Skill issues" section is kinda auxiliary, but it's still an interesting point and fits in very well (at least, in a longer speech).
 **[h]:** Not much can be said on a topic that is so abstract and related to details with the software implementation. Talking about this is like talking about the *Trolley Problem*, but worse, because **the subject** is software details and not ethics.
 **[i]:** [src 6] only dicusses engineers in the current space industry being inspired by the past of the industry. It does not discuss interdisciplinary (or interindustrious) inspiration of any kind. So, maybe I am stretching my tounge a little too thin here by including this source.
-
-# This file
-This article is hosted on GitHub:
-* https://github.com/simon-glitch/simon-glitch.github.io/tree/master/My_Way_of_Life/random_stuff/self_driving_cars.md
-
-Unfortunately, GitHub won't put the "Preview" in full screen for you.
 
 # Other references
 * 1:
@@ -151,58 +158,62 @@ Unfortunately, GitHub won't put the "Preview" in full screen for you.
     * name: ELIZABETH E. JOH*
     * https://www.nyulawreview.org/wp-content/uploads/2019/10/NYULawReview-94-Joh.pdf
 * 2:
-    * name: ???
+    * name: William Ratoff
+    * text: <p style="color:green"> Every year, 1.35 million people are killed on roads worldwide and even more people are injured. Emerging self-driving car technology promises to cut this statistic down to a fraction of the current rate. On the face of it, this consideration alone constitutes a strong reason to legally require — once self-driving car technology is widely available and affordable — that all vehicles on public roads be self-driving. </p>
     * https://link.springer.com/article/10.1007/s13347-022-00551-1
 * 3:
     * name: CDC
-    * text: Annually, ≈1.35 million people are killed (≈3,740 people every day) and an additional 20–50 million are injured in motor vehicle crashes. Road traffic injuries have become the leading cause of death for children and young adults aged 5–29 years. Although only 60% of the world’s vehicles are in low- and middle-income countries, 93% of the world’s crash deaths occur in these countries. More than half of people who die on the world’s roads each year are cyclists, motorcyclists, and pedestrians, also called vulnerable road users.
+    * text: <p style="color:green"> Annually, ≈1.35 million people are killed (≈3,740 people every day) and an additional 20–50 million are injured in motor vehicle crashes. Road traffic injuries have become the leading cause of death for children and young adults aged 5–29 years. Although only 60% of the world’s vehicles are in low- and middle-income countries, 93% of the world’s crash deaths occur in these countries. More than half of people who die on the world’s roads each year are cyclists, motorcyclists, and pedestrians, also called vulnerable road users. </p>
     * https://wwwnc.cdc.gov/travel/yellowbook/2024/air-land-sea/road-and-traffic-safety
 * 4:
     * name: Jacek Rak et al.
     * full name: Jacek Rak, Mario Pickavet, Kishor S. Trivedi, Javier Alonso Lopez, Arie M. C. A. Koster, James P. G. Sterbenz, Egemen K. Çetinkaya, Teresa Gomes, Matthias Gunkel, Krzysztof Walkowiak & Dimitri Staessens
-    * text: construction of perfect communication systems, as well as full prevention against various challenges and threats is not possible
+    * text: <p style="color:green"> construction of perfect communication systems, as well as full prevention against various challenges and threats is not possible </p>
     * https://link.springer.com/article/10.1007/s11235-015-9987-7
 * 5:
     * name: Tripat Gill
-    * text: Recently, both academic scholars and practitioners have made a concerted effort to determine the appropriate moral norms for AVs to handle such dilemmas.
+    * text: <p style="color:green"> Recently, both academic scholars and practitioners have made a concerted effort to determine the appropriate moral norms for AVs to handle such dilemmas. </p>
     * https://doi.org/10.1093/jcr/ucaa018
 * 6:
     * name: Shaun Ryan and Matthew Granger
     * section: (**probably**) "Lunar module lifeboat contingency"
-    * text: In current proposed human spacecraft designs, there are some lessons that seem to follow from historical examples, along with some departures. For the lunar Human Landing System (HLS) program, the potential of the lander to be used as a lifeboat to the crew once they're docked to the Orion spacecraft is not the same as the architecture used on Apollo. The applicable window for such a contingency is much smaller on HLS than Apollo, as the lander and Orion don't meet until in Lunar orbit.
+    * text:
+        <p style="color:green"> In current proposed human spacecraft designs, there are some lessons that seem to follow from historical examples, along with some departures. For the lunar Human Landing System (HLS) program, the potential of the lander to be used as a lifeboat to the crew once they're docked to the Orion spacecraft is not the same as the architecture used on Apollo. The applicable window for such a contingency is much smaller on HLS than Apollo, as the lander and Orion don't meet until in Lunar orbit. </p>
     * https://doi.org/10.1016/j.jsse.2023.08.005
     * or: https://www.sciencedirect.com/science/article/abs/pii/S2468896723000873
 * 7:
     * name: Haogang Chen et al.
     * full name: Haogang Chen, Daniel Ziegler, Adam Chlipala, M. Frans Kaashoek, Eddie Kohler,† Nickolai Zeldovich
-    * text: An important example of where failures matter is a file system, because developers often make subtle mistakes in recovery code, and recovery code is complex and not frequently executed. Even if such bugs are rare, they can still be costly, since they can lead to complete data loss [41]. Proving the absence of such bugs in critical software, such as a file system, is an appealing proposition.
+    * text:
+        <p style="color:green"> An important example of where failures matter is a file system, because developers often make subtle mistakes in recovery code, and recovery code is complex and not frequently executed. Even if such bugs are rare, they can still be costly, since they can lead to complete data loss [41]. Proving the absence of such bugs in critical software, such as a file system, is an appealing proposition. </p>
     * https://pdos.csail.mit.edu/papers/fscq:hotos15.pdf
 * 8:
     * name:
     * text:
-        However, interviewees discussed contingencies of hardware, including maintenance, batteries and, most importantly, sensors. Most developers use Lidar for high-definition perception of the environment. Elon Musk has called Lidar a ‘crutch’; Tesla relies on computer vision using cheaper cameras. An AV industry consultant sought to downplay the sensor controversy:
-        > Can Lidars make it happen faster? Most people say yes. He [Musk] says no … we’re waiting for a breakthrough really in computer vision [which would mean we could] use it without other sensors … Lidar is a crutch, but computer vision has one leg. So a crutch might be handy.
+        <p style="color:green"> However, interviewees discussed contingencies of hardware, including maintenance, batteries and, most importantly, sensors. Most developers use Lidar for high-definition perception of the environment. Elon Musk has called Lidar a ‘crutch’; Tesla relies on computer vision using cheaper cameras. An AV industry consultant sought to downplay the sensor controversy: </p>
+        <blockquote><p style="color:green"> Can Lidars make it happen faster? Most people say yes. He [Musk] says no … we’re waiting for a breakthrough really in computer vision [which would mean we could] use it without other sensors … Lidar is a crutch, but computer vision has one leg. So a crutch might be handy. </p></blockquote>
     * https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8586182/
 * 9:
     * name: Francine Berman et al.
     * full name: Francine Berman, Emilia Cabrera, Ali Jebari, and Wassim Marrakchi
-    * text: With respect to building more energy-efficient cars, there has been a growing shift toward plug-in electric vehicles (PEVs), with recent announcements of large investments by Ford and notice that all GM vehicles will be all-electric by 2035. By 2040, it is expected that it will no longer be possible to buy a non-electric new car. Federal emission standards guide the design of today’s vehicles but have also been a cause for controversy. Many auto manufacturers want these standards loosened, while environmentalists want them strengthened. Adding to the mix is the existence of different standards in different jurisdictions; for example, California law is tougher on emissions than federal law. Public officials looking to lower emissions more aggressively may want to encourage specific jurisdictional controls that incentivize exceeding or strengthening current standards.
+    * text: <p style="color:green"> With respect to building more energy-efficient cars, there has been a growing shift toward plug-in electric vehicles (PEVs), with recent announcements of large investments by Ford and notice that all GM vehicles will be all-electric by 2035. By 2040, it is expected that it will no longer be possible to buy a non-electric new car. Federal emission standards guide the design of today’s vehicles but have also been a cause for controversy. Many auto manufacturers want these standards loosened, while environmentalists want them strengthened. Adding to the mix is the existence of different standards in different jurisdictions; for example, California law is tougher on emissions than federal law. Public officials looking to lower emissions more aggressively may want to encourage specific jurisdictional controls that incentivize exceeding or strengthening current standards. </p>
     * https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8767286/
-10:
-* name: Alexander Hevelke and Julian Nida-Rümelin
-* title: Responsibility for Crashes of Autonomous Vehicles: An Ethical Analysis
-* https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4430591/
+* 10:
+    * name: Alexander Hevelke and Julian Nida-Rümelin
+    * title: Responsibility for Crashes of Autonomous Vehicles: An Ethical Analysis
+    * https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4430591/
 
-11:
-* name: European Road Safety Observatory
-* super name: Mobility and transport - European Commission
-* title: Autonomous Vehicles & Traffic Safety
-* text:
-    ### 2.2 Motivation
-    In the face of rapid and successive developments in the transport sector, Autonomous Vehicles (AVs) and their respective technological advancements have been dominating all relevant interest. This is not without good reason, as there is high anticipation of the benefits that AVs will bring to the field. In the eventuality of complete automation (SAE Level 5 automation - see also Chapter 3), dramatic changes to all aspects of road transport are expected, including, among others, safety, mobility, accessibility, environment, infrastructure design, and goods and cargo transport.
-    ### 7.1 Mechanical safety
-In conjunction with the previous topics of physical capabilities of vehicles, it is imperative not to ignore the remaining crashes that are not due to human error in order to maximize safety gains. At present, the residual percentage (less than 10%) can be roughly attributed equally to vehicle and infrastructure faults or deficiencies. It is possible that this percentage will appear much more considerable after the human error is eliminated by a large amount by widespread AV use.
-* https://road-safety.transport.ec.europa.eu/system/files/2021-07/ersosynthesis2018-autonomoussafety.pdf
+* 11:
+    * name: European Road Safety Observatory
+    * super name: Mobility and transport - European Commission
+    * title: Autonomous Vehicles & Traffic Safety
+    * text:
+        <p style="color:green"> ### 2.2 Motivation
+        <p style="color:green"> In the face of rapid and successive developments in the transport sector, Autonomous Vehicles (AVs) and their respective technological advancements have been dominating all relevant interest. This is not without good reason, as there is high anticipation of the benefits that AVs will bring to the field. In the eventuality of complete automation (SAE Level 5 automation - see also Chapter 3), dramatic changes to all aspects of road transport are expected, including, among others, safety, mobility, accessibility, environment, infrastructure design, and goods and cargo transport. </p>
+        <p style="color:green"> ... </p>
+        <p style="color:green"> ### 7.1 Mechanical safety </p>
+        <p style="color:green"> In conjunction with the previous topics of physical capabilities of vehicles, it is imperative not to ignore the remaining crashes that are not due to human error in order to maximize safety gains. At present, the residual percentage (less than 10%) can be roughly attributed equally to vehicle and infrastructure faults or deficiencies. It is possible that this percentage will appear much more considerable after the human error is eliminated by a large amount by widespread AV use. </p>
+    * https://road-safety.transport.ec.europa.eu/system/files/2021-07/ersosynthesis2018-autonomoussafety.pdf
 
 Lookups:
 https://ukeke.calvin.edu/cgi-bin/UDT/driver_2023.pl?query=engineers+outside+of+space+industry+taking+inspiration+from+the+space+industry&target=ebsco
