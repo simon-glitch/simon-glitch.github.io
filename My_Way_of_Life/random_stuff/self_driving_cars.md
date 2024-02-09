@@ -137,15 +137,15 @@ This article is hosted on GitHub:
 Unfortunately, GitHub won't put the "Preview" in full screen for you.
 
 # Notes
-**[a]:** This refers to the "experience" of responsibilty (or the lack of it) that users have when using a self-driving vehicle.
-**[b]:** This seems off topic.
-**[c]:** Why are we mentioning it if it is so rare?
-**[d]:** The vulnerability would be that back door access could extend this capability beyond the police and allow bad actors to remotely control the car.
+**[a]:** This refers to the "experience" of responsibilty (or the lack of it) that users have when using a self-driving vehicle.  
+**[b]:** This seems off topic.  
+**[c]:** Why are we mentioning it if it is so rare?  
+**[d]:** The vulnerability would be that back door access could extend this capability beyond the police and allow bad actors to remotely control the car.  
 **[e]:** The rest of the paragraph might be excessive / overly verbose.
-**[f]:** This might be distracting, since it changes from the topic of the thesis to the topic of some people being unfairly disadvantaged.
-**[g]:** The "Skill issues" section is kinda auxiliary, but it's still an interesting point and fits in very well (at least, in a longer speech).
-**[h]:** Not much can be said on a topic that is so abstract and related to details with the software implementation. Talking about this is like talking about the *Trolley Problem*, but worse, because **the subject** is software details and not ethics.
-**[i]:** [src 6] only dicusses engineers in the current space industry being inspired by the past of the industry. It does not discuss interdisciplinary (or interindustrious) inspiration of any kind. So, maybe I am stretching my tounge a little too thin here by including this source.
+**[f]:** This might be distracting, since it changes from the topic of the thesis to the topic of some people being unfairly disadvantaged.  
+**[g]:** The "Skill issues" section is kinda auxiliary, but it's still an interesting point and fits in very well (at least, in a longer speech).  
+**[h]:** Not much can be said on a topic that is so abstract and related to details with the software implementation. Talking about this is like talking about the *Trolley Problem*, but worse, because **the subject** is software details and not ethics.  
+**[i]:** [src 6] only dicusses engineers in the current space industry being inspired by the past of the industry. It does not discuss interdisciplinary (or interindustrious) inspiration of any kind. So, maybe I am stretching my tounge a little too thin here by including this source.  
 
 # Other references
 *These are **not** put on the APA References page, because they are merely axuliary*
