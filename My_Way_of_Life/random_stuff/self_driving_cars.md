@@ -120,6 +120,9 @@ The speech has some whole sections of this article removed. Also, there might be
 
 Finally, I'd like to apologize for my oral presentation being sloppy. The format for this speech is really difficult to figure out, due to the complexity and variety of my topic. So, I had a hard time figuring out how to deliver so many points that are all so different from each other. Also, I didn't mention any sources in my speech; I really don't know which sources would be the most important though. Probably [source 11], but that's because it actually backs up the entire article, not just some of it.
 
+## 2139 "e"s
+As of 11:04 AM, Febuary 9, 2024 (EST), this article had 2139 "e"s (outside of this comment) in it.
+
 ## Lack of Sources
 A lot of the details in this article are highly technical, and don't have academic sources anywhere online. These technical details require information from interviews with the companies designing self-diving cars, since the details are only really relevant to engineers. What I'm saying is that highly technical details are not relevant to most scientists and researchers.
 
