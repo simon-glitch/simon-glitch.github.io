@@ -196,7 +196,7 @@ Unfortunately, GitHub won't put the "Preview" in full screen for you.
         <p style="color:green"> An important example of where failures matter is a file system, because developers often make subtle mistakes in recovery code, and recovery code is complex and not frequently executed. Even if such bugs are rare, they can still be costly, since they can lead to complete data loss [41]. Proving the absence of such bugs in critical software, such as a file system, is an appealing proposition. </p>
     * https://pdos.csail.mit.edu/papers/fscq:hotos15.pdf
 * 8:
-    * name:
+    * name: Chris Tennant and Jack Stilgoe
     * text:
         <p style="color:green"> However, interviewees discussed contingencies of hardware, including maintenance, batteries and, most importantly, sensors. Most developers use Lidar for high-definition perception of the environment. Elon Musk has called Lidar a ‘crutch’; Tesla relies on computer vision using cheaper cameras. An AV industry consultant sought to downplay the sensor controversy: </p>
         <blockquote><p style="color:green"> Can Lidars make it happen faster? Most people say yes. He [Musk] says no … we’re waiting for a breakthrough really in computer vision [which would mean we could] use it without other sensors … Lidar is a crutch, but computer vision has one leg. So a crutch might be handy. </p></blockquote>
