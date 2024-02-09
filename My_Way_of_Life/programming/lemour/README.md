@@ -22,11 +22,30 @@ Features included:
         * built-in library: implements the many built-ins
 * operator overloads
     * even on **custom operators**
-* types
-* type variables in classes
-* currying
-* class initialization currying
+* variables
+    * types
+        * type aliases
+        * type filters
+        * implicit type conversions
+            * on **assignments only**
+    * value filters
+        * automatically throw Range error without having to write repetitive code
+* custom types
+    * type variables in custom types
+* functions
+    * parameters
+        * currying
+        * default values
+        * value filters
+            * automatically throw Range error without having to write repetitive code
+    * named parameters (i.e. "keyword arguments")
+        * currying of names parameters
+    * custom type initialization currying
+    * functional values
 * pointers
     * *actual* pointers in compiled mode
     * and *virtual* pointers in interpreted mode
-
+* item-wise assignements with lists of variables and values
+    * i.e. `(x,y) = (2,3);`
+* literals
+    * string substitutes for variable names
