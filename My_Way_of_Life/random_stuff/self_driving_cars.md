@@ -148,7 +148,7 @@ Unfortunately, GitHub won't put the "Preview" in full screen for you.
 **[i]:** [src 6] only dicusses engineers in the current space industry being inspired by the past of the industry. It does not discuss interdisciplinary (or interindustrious) inspiration of any kind. So, maybe I am stretching my tounge a little too thin here by including this source.
 
 # Other references
-*These are put on the APA References page, because they are merely axuliary*
+*These are **not** put on the APA References page, because they are merely axuliary*
 
 * 1:
     * name: Wired
