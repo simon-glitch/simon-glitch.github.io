@@ -1,6 +1,8 @@
 Simon-glitch, a site by Simanelix.
 contact me on reddit as u/Simanalix.
 
+Ooh! I got to 1000 commits on this repository not too long ago!
+
 Current projects:
 * (p = priority)
 
