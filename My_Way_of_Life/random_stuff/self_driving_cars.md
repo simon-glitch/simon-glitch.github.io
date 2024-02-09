@@ -79,10 +79,10 @@ There is also the risk of the user trying to tamper with the software on their v
 For example, an impatient driver might want to install a software mod that makes the car ignore speed-limits, pass other drivers on dangerous roads, cut off other drivers, and cut corners through parking lots. This same software mod could also be malware that makes the car do things the driver did not want, like intentionally hit pedestrians.
 
 #### Bugs and redunancy
-Don't forget, software can also have bugs, *and I'm not referring to ants, wasps, or cockroaches* **[note b]**. **[def: bug]**. The hardware can also cause errors, but these are very rare **[note c]**. Many computers get around this by using levels of redunancy. For example, if you try to open your email, there is a program that checks to make sure everything works correctly before you even see any emails. This means we need to be able to define exactly how our software should function. This is difficult and requires serious programming work (see: [Munish_Gupta] [oref 2]). Most modern software doesn't use the same type of reduncies as the devices in the spaceflight industry. For example, some programs use recovery code in file systems [src 7: ], but some engineers still take inspiration from projects like the Apollo missions [src 6: Lunar module lifeboat contingency] **[note i]**.
+Don't forget, software can also have bugs, *and I'm not referring to ants, wasps, or cockroaches* **[note b]**. **[def: bug]**. The hardware can also cause errors, but these are very rare **[note c]**. Many computers get around this by using levels of redunancy. For example, if you try to open your email, there is a program that checks to make sure everything works correctly before you even see any emails. This means we need to be able to define exactly how our software should function. This is difficult and requires serious programming work (see: [Munish_Gupta] [oref 2]). Most modern software doesn't use the same type of reduncies as the devices in the spaceflight industry. For example, some programs use recovery code in file systems [src 7 - pg. 1, para. 2], but some engineers still take inspiration from projects like the Apollo missions [src 6: Lunar module lifeboat contingency] **[note i]**.
 
 #### Forced arrest
-In theory, a self-driving car can be remotely controlled by the police for safety purposes [src 1: pg 2]. It would of coure be in the interest of governments to have all self-driving cars have this capability, even though it would bring some software vulnerabilities **[note d]** [src 1: pg 21, C. Malicious or Lawful Seizures?].
+In theory, a self-driving car can be remotely controlled by the police for safety purposes [src 1 - pg. 2]. It would of coure be in the interest of governments to have all self-driving cars have this capability, even though it would bring some software vulnerabilities **[note d]** [src 1 - pg. 21, C. Malicious or Lawful Seizures?].
 
 #### User override
 The police preventing a driver from doing harmful things is one subject, and a passenger preventing an artificial driver from doing harmful things is the opposite. [note h] In fact, these 2 systems could contradict each other in the car's software, but good programming might prevent this from being an issue.
@@ -145,20 +145,22 @@ Unfortunately, GitHub won't put the "Preview" in full screen for you.
 **[i]:** [src 6] only dicusses engineers in the current space industry being inspired by the past of the industry. It does not discuss interdisciplinary (or interindustrious) inspiration of any kind. So, maybe I am stretching my tounge a little too thin here by including this source.
 
 # Other references
+*These are put on the APA References page, because they are merely axuliary*
+
 * 1:
     * name: Wired
-    * ~"ultrasonic sensors are cheap, ranging from as little as $15 to $200"
-    * ~"GPS ... its cost needs to come down significantly from the current $6,000 figure"
+    * text: <p style="color:green"> "ultrasonic sensors are cheap, ranging from as little as $15 to $200" </p>
+    * text: <p style="color:green"> "GPS ... its cost needs to come down significantly from the current $6,000 figure" </p>
     * https://www.wired.com/2015/04/cost-of-sensors-autonomous-cars/
 * 2:
     * name: Munish Gupta
     * site: Linked in
-    * To be honest
+    * title: Error Handling in Large-Scale Applications
     * https://www.linkedin.com/pulse/error-handling-large-scale-applications-munish-gupta-euutc/
 
 # Sources
 * 1:
-    * name: ELIZABETH E. JOH*
+    * name: Elizabeth E. Joh
     * https://www.nyulawreview.org/wp-content/uploads/2019/10/NYULawReview-94-Joh.pdf
 * 2:
     * name: William Ratoff
