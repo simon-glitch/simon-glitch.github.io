@@ -52,4 +52,24 @@ Now I understand that catfish might actually taste great. If someone offered it,
     * I'm not really sure if I agree with this list of claims I just made, but I was really trying to express how I feel in those claims.
     * Well, I guess some things are just hard to explain.
 
+Yeah, for some odd reason part of me does feel like sleeping. Grandpa / Papa mentioned taking a nap, but I didn't do that. I feel like doing it now though. I guess I'll have to wake myself up, with:
+* some jumps!
+* and maybe some pushups!
+* and some situps too!
+
+Okay, I did that and the problem is solved. I am now excited and have what some people *think* is too much energy. Considering the alternative of falling asleep, this is just the right amount of energy for me. And yes, I am going to let my excitement and energy get the better of me a bit as the night continues, because I would much rather have energy and **have fun** than not. **:smile:** ☺️
+
+
+Also, this chair feels really warm, and I have deduced that the computer is what heated it up (not my legs / thighs / butt).
+
+# Spelling
+I also just realized that I really do recognize most words by the general shape of how they look, rather than actually recalling how they are spelled (*"spelt"*?). It doesn't help that I hate English spelling: English spelling makes little sense to begin with!
+* `smell` => `smelled`
+* `spell` => `spelled`
+* `swell` => `swelled`
+* `feel`  =>  should be `feeled`, is `felt` instead
+* `tell`  =>  should be `telled`, is `told` instead
+* `fall`  =>  should be `falled`, is `fell` instead
+
+I often have an issue while typing / writing where I ask myself if a word is spelled wrong. Now I am quite sure that each of those occurences is just an occasion where my brain can't accuess the visual pattern data at the moment and I can't verify the spelling visually. I now know to not worry if {a word {*looks* like {it's spelled wrong} to me} and I can't figure out how it should look} in the futurre.
 
