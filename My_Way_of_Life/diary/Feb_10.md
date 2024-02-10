@@ -27,7 +27,7 @@ For some reason, my phone can't detect its sim card. I have no idea how to take 
 
 I'm guessing that either the sim card's firmware crashed, or the hardware got dislodged from some connector and the phone can't read the data accurately. Either way, the sim card is disconnected now (the phone says it's "missing" or "absent" or something like that).
 
-## Cat fist
+## Cat fish
 When I was a little kid, I always hated the idea of eating catfish. My maternal grandpa liked to catch them and even brought one over one time. That one time, he mentioned eating it and asked if I was hypothetically supportive of the idea of having myself eat it. I never was. I found the idea disgusting because I thought it would {taste like and be textured like} a cat. Cat fur is obviously disgusting, especially if you mix with seaweed (which I find disgusting) and cold dirty water (which is also unpleasant).
 
 My grandpa never actually cooked it (at my house), and I was never told to eat it. I never saw, smelled, or tasted it, but I was strangely afraid of the idea of my grandpa cooking it up for us.
@@ -40,6 +40,10 @@ My grandpa never actually cooked it (at my house), and I was never told to eat i
 
 Now I understand that catfish might actually taste great. If someone offered it, I would try my best to keep an optimistic attitude, just like I usually do with most new things. The subconscious version of my younger self will probably try to upset me though.
 
+## Lightning
+On Thursday, a thunderstorm went by. It was really loud with some scary thunder. However, it was about 5 or 10 miles away from my house, so me and my dad only heard it. It scared the dog plenty! Fortunately for the dog, it was a short storm. Also now the senses are (and *were*) better, I could feel the sound of the thunder (not just hear it). I was also able to feel the humidity change on my skin about 5 minutes before the storm. I can't feel it in my bones, which contrasts with the fact that my dad can feel it in *his* bones. However, that 2nd fact is only the case because my dad is **old**. I sure am glad that I both:
+* am not old,
+* and can feel the storm coming.
 
 # I'm tired now?
 4:52 report - I apparenlty feel physically exhausted. I did just do something that would make most guys exhausted (*wink*), but usually that's not an issue for me. I guess I'm just not managing my adrenaline and melatonin well enough.
@@ -56,9 +60,15 @@ Yeah, for some odd reason part of me does feel like sleeping. Grandpa / Papa men
 * some jumps!
 * and maybe some pushups!
 * and some situps too!
+    * is that how most people spell "situp"?
+    * it looks off!
 
 Okay, I did that and the problem is solved. I am now excited and have what some people *think* is too much energy. Considering the alternative of falling asleep, this is just the right amount of energy for me. And yes, I am going to let my excitement and energy get the better of me a bit as the night continues, because I would much rather have energy and **have fun** than not. **:smile:** ☺️
 
+Why am I tired?
+* At first, I thought it was my full stomach.
+* But then I realized that that feeling in my abdomen was actually my stomach muscles being tired.
+* However, I *can* just barely feel my guts and stomach being full
 
 Also, this chair feels really warm, and I have deduced that the computer is what heated it up (not my legs / thighs / butt).
 
@@ -72,4 +82,13 @@ I also just realized that I really do recognize most words by the general shape 
 * `fall`  =>  should be `falled`, is `fell` instead
 
 I often have an issue while typing / writing where I ask myself if a word is spelled wrong. Now I am quite sure that each of those occurences is just an occasion where my brain can't accuess the visual pattern data at the moment and I can't verify the spelling visually. I now know to not worry if {a word {*looks* like {it's spelled wrong} to me} and I can't figure out how it should look} in the futurre.
+
+# Writing Style
+The more I write in this document, the more immature my writing style becomes.
+* Wait, no. That's *not quite* true (keep reading)!
+
+My writing style has actually gotten more immature recently (*"recently"*, not *"lately"*). I have mostly reverted back to the style of my 14-year old self. Actually, I should be honest: my writing style has **always** been immature, at least in my eyes.
+
+## Maybe I'm just being too hard on myself?!
+I don't know!~
 
