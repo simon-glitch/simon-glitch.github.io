@@ -45,6 +45,14 @@ On Thursday, a thunderstorm went by. It was really loud with some scary thunder.
 * am not old,
 * and can feel the storm coming.
 
+## Time to eat some pudding
+I made some pudding around ~4 PM. Grandpa randomly noticed a box of instant pudding mix in the cupboard and decided to ask if I wanted to prepare it. I decided to do so. All I had to do was use the electrical mixer to blend the pudding mix with 2 cups of milk. It was very simple.
+
+Now I am compulsively deciding to eat some. Yes, I just wrote a whole paragraph about how I prepared it and the fact that I want to eat it before actually doing the compulsive action of eating it. I know this is a *weird* way to be compulsive, but **that's how I roll**!
+
+### Woah!
+639 report - I just realized that the way I eat my food *does* matter. Eating food is an art and I want to get better at it! I've always been concerned with mastering this art, but now I am even more concerned and possionate about it!
+
 # I'm tired now?
 4:52 report - I apparenlty feel physically exhausted. I did just do something that would make most guys exhausted (*wink*), but usually that's not an issue for me. I guess I'm just not managing my adrenaline and melatonin well enough.
 * Stupid melatonin, leave me alone.
@@ -91,4 +99,9 @@ My writing style has actually gotten more immature recently (*"recently"*, not *
 
 ## Maybe I'm just being too hard on myself?!
 I don't know!~
+
+I have been trying a lot of changes with my writing style, but it's hard to get right.
+* You've probably noticed glaring issues, such as:
+    * my use of the words "actually", "just", and "really"
+
 
