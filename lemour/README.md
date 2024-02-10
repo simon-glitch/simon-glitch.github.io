@@ -3,6 +3,9 @@ Please give me feedback on this project!
 
 I really need it and I would really appreciate it!
 
+# TODO
+This content of the files in this folder are really disorganized and in drastic need of improvement. That means I have a lot of writing to do tomorrow!
+
 # Lemour
 ## What's That?
 I've been wanting to make my own programming language for a while. I don't think I'll actually do that anytime soon, but I will write down ideas for how I want it to work. Besides, I love just describing things anyways. Describing things has always been my past-time.

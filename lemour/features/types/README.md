@@ -1,4 +1,5 @@
 
+
 # Type Syntax and Behavior
 
 ## Type Inheritance
