@@ -117,6 +117,6 @@ I don't know!~
 
 I have been trying a lot of changes with my writing style, but it's hard to get right.
 * You've probably noticed glaring issues, such as:
-    * my use of the words "actually", "just", "really", "though", "although", "even", and "however"
+    * My use of the words: "actually", "just", "really", "though", "although", "even", "however", "so", and "anyways".
 
 
