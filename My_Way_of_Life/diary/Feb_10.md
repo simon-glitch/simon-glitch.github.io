@@ -51,10 +51,25 @@ I made some pudding around ~4 PM. Grandpa randomly noticed a box of instant pudd
 Now I am compulsively deciding to eat some. Yes, I just wrote a whole paragraph about how I prepared it and the fact that I want to eat it before actually doing the compulsive action of eating it. I know this is a *weird* way to be compulsive, but **that's how I roll**!
 
 ### Woah!
-639 report - I just realized that the way I eat my food *does* matter. Eating food is an art and I want to get better at it! I've always been concerned with mastering this art, but now I am even more concerned and possionate about it!
+6:39 PM report - I just realized that the way I eat my food *does* matter. Eating food is an art and I want to get better at it! I've always been concerned with mastering this art, but now I am even more concerned and possionate about it!
+
+## Mr. Cat
+I've been petting Grandpa's cat a lot, because he is a cat and cats are cute!
+
+7:05 PM report - I got him sitting to me on my left side right now. I'm sitting on a fairly large chair for one person, so I am kinda cramped here with the cat sitting by my side. Fortunately, he doesn't seem to mind it or anything. I sure do like being all cuddled-up with the cat~
+
+Also, this cat is pretty fat. I can assume he gained most of his wait for winter, but it sure is a lot! He should be fine though.
+
+## Lemour
+I was originally planning on extending my documentation of {my plans for {{my idea for a programming language} that I am inventing}}.
+
+## Zoning out
+I just zoned out and thought about stuff in a really free flowing way. This made me realize that I should just embrace the idea of zoning out sometimes. I used to do this all the time but then I stopped, and started having longer, concentrated side-discussions with myself in my head. I think {*it =* zoning out and thinking about a variety things} is better than spending super long thinking about one thing, *at least, sometimes it will be better*.
+
+Also, my eyes are apparently tired!
 
 # I'm tired now?
-4:52 report - I apparenlty feel physically exhausted. I did just do something that would make most guys exhausted (*wink*), but usually that's not an issue for me. I guess I'm just not managing my adrenaline and melatonin well enough.
+4:52 PM report - I apparenlty feel physically exhausted. I did just do something that would make most guys exhausted (*wink*), but usually that's not an issue for me. I guess I'm just not managing my adrenaline and melatonin well enough.
 * Stupid melatonin, leave me alone.
 * Believe it or not, I find this somewhat annoying, but I'm not feeling that very much because the melatonin is doing wonders and I have zero angry chemicals in my head right now.
 * Hmm... my anger when I was a child felt like this sometimes.
@@ -102,6 +117,6 @@ I don't know!~
 
 I have been trying a lot of changes with my writing style, but it's hard to get right.
 * You've probably noticed glaring issues, such as:
-    * my use of the words "actually", "just", and "really"
+    * my use of the words "actually", "just", "really", "though", "although", "even", and "however"
 
 
