@@ -1,0 +1,189 @@
+<div class="treeview"><onlyinclude>
+
+**{{nbt|float|AbsorptionAmount}}: number of extra health added by Absorption effect.
+** {{nbt|list|active_effects}}: The list of potion effects on this mob. May not exist.
+*** {{nbt|compound}} A potion effect
+**** {{nbt|bool|ambient}}: 1 or 0 ({{cd|true|false|d=/}}) - if {if {cd|true}}, this effect is provided by a Beacon and therefore should be less intrusive on screen.
+****{{nbt|byte|amplifier}}: The potion effect level. 0 is level 1.
+****{{nbt|int|duration}}: The number of [[game tick]]s before the effect wears off. -1 when infinite.
+****{{nbt|compound|hidden_effect}}: Lower amplifier effect of the same type, this replaces the above effect when it expires. (The duration of the effect still decreases in here too)
+****{{nbt|string|id}}: The [[Status effect#Effect list|effect name]].
+****{{nbt|bool|show_icon}}: 1 or 0 ({{cd|true|false|d=/}}) - if {{cd|true}}, effect icon is shown; if {{cd|false}}, no icon is shown.
+****{{nbt|bool|show_particles}}: 1 or 0 ({{cd|true|false|d=/}}) - if {{cd|true}}, particles are shown (affected by {{cd|ambient}}); if {{cd|false}}, no particles are shown.
+**{{nbt|list|ArmorDropChances}}: List of float values representing the chance for a worn armor item to drop.
+***{{nbt|float}}: Probability for the corresponding armor slot item.
+**{{nbt|list|ArmorItems}}: The list of items the mob is wearing as armor, in the following order: feet, legs, chest, head.
+***{{nbt|compound}}: An item in one of the armor slots.
+****{{nbt inherit/itemnoslot|indent=****}}
+**{{nbt|list|Attributes}}:{{Anchor|Attributes}} A list of [[Attribute]]s for this mob. These are used for many purposes in internal calculations, and can be considered a mob's "statistics". Valid Attributes for a given mob are listed in the [[Attribute|main article]].
+*** {{nbt|compound}} An individual Attribute.
+****{{nbt|string|Name}}: The name of this Attribute.
+****{{nbt|double|Base}}: The base value of this Attribute.
+****{{nbt|list|Modifiers}}:{{Anchor|Modifiers}} A list of [[Attribute#Modifiers|Modifiers]] acting on this Attribute. Modifiers alter the Base value in internal calculations, without changing the original copy. Note that a Modifier never modifies Base to be higher than its maximum or lower than its minimum for a given Attribute.
+*****{{nbt|compound}} An individual Modifier.
+******{{nbt|double|Amount}}: The amount by which this Modifier modifies the Base value in calculations.
+******{{nbt|string|Name}}: The Modifier's name.
+******{{nbt|int-array|UUID}}: This modifier's [[Universally Unique IDentifier]], stored as four ints. Used to identify the modifier so that the correct modifier can be added or removed.
+******{{nbt|int|Operation}}: {{cd|0|1|2|d=,}}. Defines the operation this Modifier executes on the Attribute's Base value.
+*******0: Increment {{cd|X|Amount|d= by }}.
+*******1: Increment {{cd|Y|X*Amount|d= by }}.
+*******2: Set <code>Y = Y * (1 + Amount)</code> (equivalent to Increment {{cd|Y|Y * Amount|d= by }}).
+***** The specified modifiers are applied to the attribute, probably whenever the attribute is modified.{{info needed}} To compute the effective value of the attribute, the game:
+*****# Sets <code>X = Base</code>.
+*****# Executes all Operation 0 modifiers.
+*****# Sets <code>Y = X</code>.
+*****# Executes all Operation 1 modifiers.
+*****# Executes all Operation 2 modifiers.
+****** The value Y is the final effective value of the attribute.{{info needed}}
+**{{nbt|float|body_armor_drop_chance}}: Chance to drop the item in the body armor slot.{{upcoming|JE 1.20.5}}
+**{{nbt|compound|body_armor_item}}: The item in the body armor slot.{{upcoming|JE 1.20.5}} 
+***{{nbt inherit/itemnoslot|indent=***}}
+**{{nbt|compound|Brain}}: Everything this entity has to keep in mind.
+***{{nbt|compound|memories}}: Used for complex behaviors.{{info needed}}
+****The only mobs that have this tag are: 
+*****[[allay]]
+***** [[axolotl]]
+*****[[frog]]
+*****[[goat]]
+*****[[piglin]]
+*****[[villager]]
+*****[[warden]]
+****[[Piglin]] memories:
+*****{{nbt|compound|minecraft:admiring_disabled}}: Piglins with this tag do not barter by right-clicking and are not distracted by gold items on the ground; set when converting, when attacked or when admiring an item.
+******{{nbt|bool|value}}: 1 or 0 ({{cd|true|false|d=/}}) - if {{cd|true}}, admiring is disabled.
+****** {{nbt|long|ttl}}: The number of [[game tick]]s before this memory is removed.
+*****{{nbt|compound|minecraft:admiring_item}}: If the piglin is admiring an item. 
+******{{nbt|bool|value}}: 1 or 0 ({{cd|true|false|d=/}}) - if {{cd|true}}, admiring an item.
+****** {{nbt|long|ttl}}: The number of game ticks before this memory is removed, the piglin throws back another item when this reaches 0, if it held a gold ingot.
+*****{{nbt|compound|minecraft:angry_at}}: The target of this piglin or this piglin brute.
+******{{nbt|int-array|value}}: [[Universally Unique IDentifier]] of the entity that the piglin targets, stored as four ints.
+******{{nbt|long|ttl}}: The number of game ticks before this memory is removed.
+*****{{nbt|compound|minecraft:hunted_recently}}: If the piglin just hunted, and as such, won't for a while. Set after hunting or spawning in a bastion remnant.
+******{{nbt|bool|value}}: 1 or 0 ({{cd|true|false|d=/}}) - {if {cd|true}}, the piglin just hunted and cannot hunt.
+******{{nbt|long|ttl}}: The number of game ticks before this memory is removed.
+*****{{nbt|compound|minecraft:universal_anger}}: If the piglin is being universally angered. Only used when universal anger gamerule is enabled.
+****** {{nbt|bool|value}}: 1 or 0 ({{cd|true|false|d=/}}) - {if {cd|true}}, universally angered.
+****** {{nbt|long|ttl}}: The number of game ticks before this memory is removed.
+****[[Warden]] memories:
+*****{{nbt|compound|minecraft:is_emerging}}: Exists if the warden is emerging.
+******{{nbt|compound|value}}: An empty compound tag.
+*****{{nbt|compound|minecraft:dig_cooldown}}: The warden doesn't dig down if this memory exists.
+******{{nbt|compound|value}}: An empty compound tag.
+******{{nbt|long|ttl}}: The number of [[game tick]]s before this memory is removed, initially set to {{convert|1200|game tick|second}}.
+*****{{nbt|compound|minecraft:is_sniffing}}: Exists if the warden is sniffing.
+******{{nbt|compound|value}}: An empty compound tag.
+*****{{nbt|compound|minecraft:recent_projectile}}: Exists if the warden was stimulated by a projectile recently.
+******{{nbt|compound|value}}: An empty compound tag.
+******{{nbt|long|ttl}}: The number of game ticks before this memory is removed, initially set to {{convert|100|game tick|second}}.
+*****{{nbt|compound|minecraft:roar_sound_cooldown}}: The warden doesn't roar if this memory exists.
+******{{nbt|compound|value}}: An empty compound tag.
+******{{nbt|long|ttl}}: The number of game ticks before this memory is removed, initially set to {{convert|60|game tick|second}}.
+*****{{nbt|compound|minecraft:roar_sound_delay}}: The warden doesn't roar if this memory exists.
+******{{nbt|compound|value}}: An empty compound tag.
+******{{nbt|long|ttl}}: The number of game ticks before this memory is removed, initially set to {{convert|25|game tick|second}}.
+*****{{nbt|compound|minecraft:touch_cooldown}}: The warden doesn't increase anger at an entity by touching it if this memory exists.
+******{{nbt|compound|value}}: An empty compound tag.
+******{{nbt|long|ttl}}: The number of game ticks before this memory is removed, initially set to {{convert|20|game tick|second}}.
+*****{{nbt|compound|minecraft:vibration_cooldown}}: The warden doesn't listen for vibrations if this memory exists.
+******{{nbt|compound|value}}: An empty compound tag.
+*****{{nbt|long|ttl}}: The number of game ticks before this memory is removed, initially set to {{convert|40|game tick|second}}.
+****[[Camel]] memories:
+***** {{nbt|compound|minecraft:gaze_cooldown_ticks}}: Optional. If the camel is in a cool down for randomly looking around.
+******{{nbt|int|value}}: The number of [[game tick]]s before the camel can randomly look around again and this tag is removed.
+****[[Iron Golem]] memories:
+*****{{nbt|compound|minecraft:golem_detected_recently}}: If the villager has detected an iron golem recently.
+******{{nbt|bool|value}}: 1 or 0 ({{cd|true|false|d=/}}) - {if {cd|true}}, the villager just saw an iron golem.
+******{{nbt|long|ttl}}: The number of game ticks before this memory is removed.
+****[[Axolotl]] memories:
+*****{{nbt|compound|minecraft:has_hunting_cooldown}}: If the axolotl is in a hunting cooldown {{needs testing}}.
+******{{nbt|bool|value}}: 1 or 0 ({{cd|true|false|d=/}}) - {if {cd|true}}, the axolotl just hunted.
+******{{nbt|long|ttl}}: The number of game ticks before this memory is removed.
+*****{{nbt|compound|minecraft:play_dead_ticks}}: Optional. If the axolotl is pretending to be dead.
+******{{nbt|int|value}}: The number of game ticks before the axolotl stops to play dead and this tag is removed.
+****[[Villager]] memories:
+*****{{nbt|compound|minecraft:home}}: Where this villager's bed is or where the piglin brute's patrol point is.
+******{{nbt|compound|value}}: The value of this memory.
+*******{{nbt|string|dimension}}: The dimension ID of the bed or of the patrol point.
+*******{{nbt|int-array|pos}}: The X, Y, and Z values of the bed or the patrol point
+*****{{nbt|compound|minecraft:job_site}}: Where this villager's job site block is.
+******{{nbt|compound|value}}: The value of this memory. 
+*******{{nbt|string|dimension}}: The dimension ID of the job site block.
+*******{{nbt|int-array|pos}}: The X, Y, and Z values of the job site block.
+***** {{nbt|compound|minecraft:last_slept}}: The [[game tick]] that the villager last slept in a bed.
+******{{nbt|long|value}}: The value of this memory.
+*****{{nbt|compound|minecraft:last_woken}}: The game tick that the villager last woke up from a bed.
+******{{nbt|long|value}}: The value of this memory.
+*****{{nbt|compound|minecraft:last_worked_at_poi}}: The game tick that the villager last worked at their job site.
+******{{nbt|long|value}}: The value of this memory.
+*****{{nbt|compound|minecraft:meeting_point}}: Where this villager's meeting point is.
+******{{nbt|compound|value}}: The value of this memory.
+*******{{nbt|string|dimension}}: The dimension ID of the meeting point.
+*******{{nbt|int-array|pos}}: The X, Y, and Z values of the meeting point.
+*****{{nbt|compound|minecraft:potential_job_site}}: Where this villager's potential job site block is. 
+******{{nbt|compound|value}}: The value of this memory.
+*******{{nbt|string|dimension}}: The dimension ID of the potential job site block.
+*******{{nbt|int-array|pos}}: The X, Y, and Z values of the potential job site block.
+****[[Frog]] memories:
+*****{{nbt|compound|minecraft:is_in_water}}: Only exists if the frog is in water. 
+******{{nbt|compound|value}}: An empty compound tag.
+*****{{nbt|compound|minecraft:is_pregnant}}: Only exists if the frog is pregnant.
+******{{nbt|compound|value}}: An empty compound tag.
+****[[Allay]] memories:
+***** {{nbt|compound|minecraft:item_pickup_cooldown_ticks}}: The number of [[game tick]]s before the allay goes to pick up item again.
+******{{nbt|int|value}}: The value of this memory, initially set to {{convert|100|game tick|second}}, decreasing by 1 every tick.
+*****{{nbt|compound|minecraft:liked_noteblock}}: The note block that the allay likes.
+******{{nbt|int-array|value}}: The value of this memory.
+*******{{nbt|string|dimension}}: The ID of the dimension where the note block is.
+*******{{nbt|int-array|pos}}: The X, Y, and Z coordinates of the note block.
+***** {{nbt|compound|minecraft:liked_noteblock_cooldown_ticks}}: The number of ticks before the allay stops putting items at the liked note block.
+******{{nbt|int|value}}: The value of this memory, initially set to {{convert|600|game tick|second}}, decreasing by 1 every tick.
+*****{{nbt|compound|minecraft:liked_player}}: The player that the allay likes.
+******{{nbt|int-array|value}}: The player's [[UUID]], stored as four ints.
+****[[Goat]] memories:
+*****{{nbt|compound|minecraft:long_jump_cooling_down}}: Optional. If the goat is in a cool down after a long jump.
+******{{nbt|int|value}}: The number of game ticks before the goat can long jump again and this tag is removed.
+*****{{nbt|compound|minecraft:ram_cooldown_ticks}}: Optional. If the goat is in a cool down after ram.
+******{{nbt|int|value}}: The number of game ticks before the goat can ram again and this tag is removed.
+****Sniffer
+*****{{nbt|compound|minecraft:sniffer_explored_positions}}: The last 20 positions in which the sniffer has dug, cannot dig in these positions.
+******{{nbt|int array|value}}: The coordinates of a block at which the sniffer has dug. Can have up to 20 blocks stored.
+****Memories shared by multiple mobs:
+*****{{nbt|compound|minecraft:is_tempted}}: If the axolotl, camel, or goat is tempted by the player.
+******{{nbt|bool|value}}: 1 or 0 ({{cd|true|false|d=/}}) - {if {cd|true}}, the mob is tempted.
+*****{{nbt|compound|minecraft:sniff_cooldown}}: The warden and sniffer don't sniff if this memory exists.
+******{{nbt|compound|value}}: An empty compound tag.
+******{{nbt|long|ttl}}: The number of [[game tick]]s before this memory is removed, initially set to {{convert|100|game tick|second}}.
+*****{{nbt|compound|minecraft:temptation_cooldown_ticks}}: Optional. If the axolotl, camel, or goat is in a cool down after being tempted.
+******{{nbt|int|value}}: The number of game ticks before the mob can be tempted again and this tag is removed.
+**{{nbt|bool|CanPickUpLoot}}: 1 or 0 ({{cd|true|false|d=/}}) - {if {cd|true}}, the mob can pick up loot (wear armor it picks up, use weapons it picks up).
+**{{nbt|string|DeathLootTable}}: Optional. [[Loot table]] to be used for the items that drop when the entity is killed.
+**{{nbt|long|DeathLootTableSeed}}: Optional. Seed for generating the [[loot table]]. If 0 or omitted, a random seed is used.
+**{{nbt|short|DeathTime}}: Number of ticks the mob has been dead for. Controls death animations. 0 when alive.
+**{{nbt|byte|FallFlying}}: Setting to 1 for non-player entities causes the entity to glide as long as they are wearing elytra in the chest slot. Can be used to detect when the player is gliding without using scoreboard statistics.
+**{{nbt|float|Health}}: number of health the entity has.
+** {{nbt|integer|HurtByTimestamp}}: The last time the mob was damaged, measured in the number of ticks since the mob's creation. Updates to a new value whenever the mob is damaged, then updates again 101 ticks later for reasons unknown. Can be changed with [[commands]], but the specified value does not affect natural updates in any way, and is overwritten if the mob receives damage.
+**{{nbt|short|HurtTime}}: Number of ticks the mob turns red for after being hit. 0 when not recently hit.
+**{{nbt|list|HandDropChances}}: List of float values representing the chance for a handheld item to drop. 
+***{{nbt|float}}: Chance to drop the item being carried in the main hand.
+***{{nbt|float}}: Chance to drop the item being carried in the off hand.
+**{{nbt|list|HandItems}}: The list of items the mob is holding, in the following order: Main hand, Off hand.
+***{{nbt|compound}}: The item being held in the mob's main hand.
+****{{nbt inherit/itemnoslot|indent=****}}
+***{{nbt|compound}}: The item being held in the mob's off hand.
+****{{nbt inherit/itemnoslot|indent=****}}
+**{{nbt|compound|Leash}}: Either contains a UUID int array, if this leash connects to another entity, '''or''' an X, Y, Z int trio if this leash connects to a fencepost. Does not exist if the entity is not leashed. 
+***{{nbt|int-array|UUID}}: The [[Universally Unique IDentifier]] of the entity this leash connects to, stored as four ints.
+***{{nbt|int|X}}: The X coordinate of the fence this leash connects to.
+***{{nbt|int|Y}}: The Y coordinate of the fence this leash connects to.
+***{{nbt|int|Z}}: The Z coordinate of the fence this leash connects to.
+**{{nbt|bool|LeftHanded}}: 1 or 0 ({{cd|true|false|d=/}}) - {if {cd|true}}, the mob renders the main hand as being left.
+**{{nbt|bool|NoAI}}: 1 or 0 ({{cd|true|false|d=/}}) - Setting to {{cd|true}} disables the mob's AI. The mob does not and cannot move, to the extent of not falling when normally able.
+**{{nbt|bool|PersistenceRequired}}: 1 or 0 ({{cd|true|false|d=/}}) - {if {cd|true}}, the mob must not despawn naturally.
+**{{nbt|int|SleepingX}}: The X coordinate of where the entity is sleeping, absent if not sleeping.
+**{{nbt|int|SleepingY}}: The Y coordinate of where the entity is sleeping, absent if not sleeping.
+**{{nbt|int|SleepingZ}}: The Z coordinate of where the entity is sleeping, absent if not sleeping.
+**{{nbt|string|Team}}: This tag is actually not part of the NBT data of a mob, but instead used when spawning it, so it cannot be tested for. It makes the mob instantly join the [[scoreboard]] team with that name.
+</onlyinclude></div><noinclude>
+[[Category:Top-level data pages]]
+[[uk:Формат чанку/Моб]]
+</noinclude>
