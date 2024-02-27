@@ -7,6 +7,8 @@ typedef unsigned long long ull;
 /**
 Uses sub-sequences and fancy iteration tricks to avoid having expensive shift, unshift, and splice operations.
 
+Can perform any splice operation in O(log n) time! See [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice] for context.
+
 Has none of the downsides of linked lists or vectors, but indexing is slowed down by a constant multiplier.
 **/
 class sequence{
@@ -20,8 +22,10 @@ private:
     The sub-sequences are all listed as one single array, for efficiency.
     **/
     Item content[];
-    /** Indices in the represented **/
-    ull indices[];
+    /** Indices in the represented sequence of the starts and ends of the subsequences. **/
+    ull_pair indices[];
+    /** Starts and end indices in `content` of the represented subsequences **/
+    ull_pair sub_indices[];
     /**
     Does not recursively call on construction of the parent object.
     
@@ -48,10 +52,26 @@ public:
     
     /** Gives the capacity the list should right now **/
     inline ull padding_log() const {
-        return ()
+        return (log(size + ))
     }
     
 private:
+    /**
+    The number of items in this sequence that are being used.
+    
+    Not to be confused with `capacity`.
+    **/
+    ull size;
+    /**
+    The number of items in this sequence that coulbe be used.
+    
+    This is the same as the proper length of `content`.
+    **/
+    ull capacity;
     void setCapacity(const ull newCap){}
+public:
+    void setSize(const ull newSize){}
+    ull getCapacity() const {}
+    ull getSize() const {}
 }
 
