@@ -153,11 +153,11 @@ int main(){
     cout << "Largest prime: " << to_string(*(primes.end() - 1)) << "\n";
     
     bool maybe = false;
-    cout << (string) "5 " + (is_prime(5, maybe)? (maybe ?"is not": "might be") :"is") + " prime.\n";
-    cout << (string) "7 " + (is_prime(7, maybe)? (maybe ?"is not": "might be") :"is") + " prime.\n";
-    cout << (string) "9 " + (is_prime(9, maybe)? (maybe ?"is not": "might be") :"is") + " prime.\n";
-    cout << (string) "11 " + (is_prime(11, maybe)? (maybe ?"is not": "might be") :"is") + " prime.\n";
-    cout << (string) "13 " + (is_prime(13, maybe)? (maybe ?"is not": "might be") :"is") + " prime.\n";
+    cout << (string) "5 " + (is_prime(5, maybe)? (maybe ?"might be": "is not") :"is") + " prime.\n";
+    cout << (string) "7 " + (is_prime(7, maybe)? (maybe ?"might be": "is not") :"is") + " prime.\n";
+    cout << (string) "9 " + (is_prime(9, maybe)? (maybe ?"might be": "is not") :"is") + " prime.\n";
+    cout << (string) "11 " + (is_prime(11, maybe)? (maybe ?"might be": "is not") :"is") + " prime.\n";
+    cout << (string) "13 " + (is_prime(13, maybe)? (maybe ?"might be": "is not") :"is") + " prime.\n";
     
     // sieve_primes(10);
     // cout << "Prime count: " << primes.size() << "\n";
