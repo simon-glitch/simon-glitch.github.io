@@ -31,6 +31,22 @@ inline uint my_modr(uint p, uint n){
     return res;
 }
 
+inline uint cube(const uint n){
+    return n*n*n;
+}
+inline ulint cube(const ulint n){
+    return n*n*n;
+}
+inline ulint cube2(const uint n){
+    return n*n*n;
+}
+
+inline bool is_prime(uint p){
+    for(auto i = primes.begin(); cube(*i) <= p; i++){
+        
+    }
+}
+
 int main(){
     return 0;
 }
