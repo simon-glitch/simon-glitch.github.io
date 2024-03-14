@@ -32,13 +32,13 @@ inline uint my_modr(uint p, uint n){
 }
 
 inline uint cube(const uint n){
-    return n*n*n;
+    return n * n * n;
 }
 inline ulint cube(const ulint n){
-    return n*n*n;
+    return n * n * n;
 }
 inline ulint cube2(const uint n){
-    return n*n*n;
+    return n * n * n;
 }
 
 inline bool is_prime(uint p){
