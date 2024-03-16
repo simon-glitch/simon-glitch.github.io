@@ -88,7 +88,7 @@ inline bool is_prime(const uint p, bool &might_be){
     for(i = primes.begin() + 1, ii = 1; ii < prime_c && cube_l(*i) <= p; i++, ii++)
       if(my_modr(p, *i) != p)
         return false;
-    // cout << "";
+    cout << p << " requires the divisibility test.\n";
     // cout << "";
     // cout << "";
     // cout << "";
@@ -105,6 +105,7 @@ inline bool is_prime(const uint p, bool &might_be){
 
 // Largest odd composite found so far
 int curr_comp = 3;
+int comp_limit = 10000;
 void sieve_primes(const uint max_prime_c){
     // start with 2 and 3
     if(primes.size() == 0) primes.push_back(2), primes.push_back(3);
@@ -114,6 +115,8 @@ void sieve_primes(const uint max_prime_c){
     bool might_be = false;
     // then just start from curr_comp
     while(!might_be){
+        if(curr_comp >= comp_limit) break;
+        
         curr_comp += 2;
         // as long as `might_be` is false, we know that `is_prime`'s value can be fully trusted
         if(is_prime(curr_comp, might_be)){
@@ -121,7 +124,6 @@ void sieve_primes(const uint max_prime_c){
             // ...
             if(primes.size() >= max_prime_c) return;
         };
-        break;
     }
     curr_comp -= 2;
 }
@@ -143,31 +145,48 @@ int main(){
     primes = vector<uint>();
     
     sieve_primes(2);
+    cout << "Current comp = " << curr_comp << "\n";
     cout << "Prime count: " << primes.size() << "\n";
     cout << vec_to_str(primes, ", ") << "\n";
     cout << "Largest prime: " << to_string(*(primes.end() - 1)) << "\n";
     
     sieve_primes(3);
+    cout << "Current comp = " << curr_comp << "\n";
     cout << "Prime count: " << primes.size() << "\n";
     cout << vec_to_str(primes, ", ") << "\n";
     cout << "Largest prime: " << to_string(*(primes.end() - 1)) << "\n";
     
+    /*
+    cout << "81^2 = " << square_l(81U) << "\n";
+    cout << "101^2 = " << square_l(101U) << "\n";
+    cout << "125^2 = " << square_l(125U) << "\n";
+    cout << "1001^2 = " << square_l(1001U) << "\n";
+    cout << "7^3 = " << cube_l(7U) << "\n";
+    cout << "101^3 = " << cube_l(101U) << "\n";
+    cout << "1001^3 = " << cube_l(1001U) << "\n";
+    /* */
+    
+    /*
     bool maybe = false;
     cout << (string) "5 " + (is_prime(5, maybe)? (maybe ?"might be": "is not") :"is") + " prime.\n";
     cout << (string) "7 " + (is_prime(7, maybe)? (maybe ?"might be": "is not") :"is") + " prime.\n";
     cout << (string) "9 " + (is_prime(9, maybe)? (maybe ?"might be": "is not") :"is") + " prime.\n";
     cout << (string) "11 " + (is_prime(11, maybe)? (maybe ?"might be": "is not") :"is") + " prime.\n";
     cout << (string) "13 " + (is_prime(13, maybe)? (maybe ?"might be": "is not") :"is") + " prime.\n";
+    /* */
     
-    // sieve_primes(10);
-    // cout << "Prime count: " << primes.size() << "\n";
-    // cout << vec_to_str(primes, ", ") << "\n";
-    // cout << "Largest prime: " << to_string(*(primes.end() - 1)) << "\n";
-    // 
-    // sieve_primes(50);
-    // cout << "Prime count: " << primes.size() << "\n";
-    // cout << vec_to_str(primes, ", ") << "\n";
-    // cout << "Largest prime: " << to_string(*(primes.end() - 1)) << "\n";
+    sieve_primes(10);
+    cout << "Current comp = " << curr_comp << "\n";
+    cout << "Prime count: " << primes.size() << "\n";
+    cout << vec_to_str(primes, ", ") << "\n";
+    cout << "Largest prime: " << to_string(*(primes.end() - 1)) << "\n";
+    
+    /*
+    sieve_primes(50);
+    cout << "Current comp = " << curr_comp << "\n";
+    cout << "Prime count: " << primes.size() << "\n";
+    cout << vec_to_str(primes, ", ") << "\n";
+    cout << "Largest prime: " << to_string(*(primes.end() - 1)) << "\n";
     /* */
    
     return 0;
