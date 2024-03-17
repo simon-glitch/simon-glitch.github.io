@@ -85,6 +85,8 @@ inline bool is_prime(const uint p, bool &might_be){
     
     // if the loops return false, then it can't be the case that the value might be prime
     might_be = false;
+    
+    /*
     for(i = primes.begin() + 1, ii = 1; ii < prime_c && cube_l(*i) <= p; i++, ii++)
       if(my_modr(p, *i) != p)
         return false;
@@ -94,9 +96,11 @@ inline bool is_prime(const uint p, bool &might_be){
     // cout << "";
     // cout << "";
     // cout << "";
+    */
     for(i = primes.begin() + 1, ii = 1; ii < prime_c && square_l(*i) <= p; i++, ii++)
-      if(p % (*i) == 0)
+      if(p % (*i) == 0){
         return false;
+      }
     
     might_be = (ii == prime_c);
     // base case: all tests were passed AND it's not the case that this MIGHT BE prime
