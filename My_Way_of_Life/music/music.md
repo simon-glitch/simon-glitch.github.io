@@ -3,12 +3,10 @@ I'm getting pretty annoyed trying to learn music, because I can't get definition
 
 Terms I don't comprehend at all and am going to spend the next week trying to understand:
 * note
+* frequency
 * pitch
+* tone
 * duration
-* 
-* 
-* 
-* 
 * rythm
 * meter
 * beat
