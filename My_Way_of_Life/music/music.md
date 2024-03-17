@@ -8,6 +8,7 @@ Terms I don't comprehend at all and am going to spend the next week trying to un
 * frequency
 * pitch
 * tone
+* overtone
 * duration
 * rythm
 * meter
