@@ -59,9 +59,13 @@ A human can sing a tone, but can't really sing *(just)* a pitch, since every voi
 A note seems to be able to refer to many things:
 * A physical note:
     * The phenonemnon of a sound which has a clear main pitch.
-* A function note:
-    * The process of using an instrument in a specific way to produce a physical note.
-    * This can be equivalent to a key, or string.
+* Functional notes:
+    * Notes that are defined by the actions used to to produce physical notes
+    * A *human* function note:
+        * The process of using an instrument in a specific way to produce a physical note.
+        * This can be equivalent to a key, or string.
+    * A *physical* function note:
+        * A vibration or oscillation that produces a pitch. Notes are represented by symbols that indicate the pitch and length of a musical sound.
 * A syntactic note:
     * The musical notation to represent a physical note, or a functional note, whichever one makes more sense in context.
 * A tonal note:
