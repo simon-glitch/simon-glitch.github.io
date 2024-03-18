@@ -72,7 +72,15 @@ A note seems to be able to refer to many things:
     * The description of a note as a tone, or as a pitch accompanied by an overtone.
 
 ## Distance or different
-The distance of difference between 2 notes is the difference in the Y coordinates of 2 notes as they are placed on a staff (see [Notation]).
+The distance of difference between 2 notes is the difference in the Y coordinates of 2 notes as they are placed on a [staff](#a-staff) (see [Notation](#Notation)).
+
+This distance is always a pure, unitless number. The value is calculated as {the measured vertical distance between the notes} divided by {the vertical distance between any pair of the horizontal lines of the staff}. Due to the fact that notes are consistent across different staffs, and have consistent names, the distance between notes can also be measured by assigning indices to their names.
+
+The "notes" (actually, each letter is a set of notes, which are defined very generally here) A, B, C, D, E, F, G have respective indices of 0,1,2,3,4,5,6. If the octave number is declared, using the formatter "[Name][Number]", such as in "D5", then the absolute index of a note is `absIndex(note) = indexOf(Name(note)) + Number(note) * 7`. The distance between two notes is, **therefore**, the difference of the values returned from evaluating `absIndex` on each of them.
+* i.e. `diff(note 1, note 2) = absIndex(note 2) - absIndex(note 1)`
+* applying `abs` to this result might also make sense
+    * i.e. `dist(note 1, note 2) = abs(diff(note 1, note 2))`
+    * i.e. `dist(note 1, note 2) = abs(absIndex(note 2) - absIndex(note 1))`
 
 # An interval
 The vertical distance between syntactic notes.
@@ -81,4 +89,5 @@ The vertical distance between syntactic notes.
 Western musical notation uses a staff.
 
 ## A staff
-A staff is a set of 5 equally spaced vertical lines. These 5 lines represent 1 octave from top to bottom.
+A staff is a set of 5 equally spaced horizontal lines. These 5 lines represent 1 octave from top to bottom.
+
