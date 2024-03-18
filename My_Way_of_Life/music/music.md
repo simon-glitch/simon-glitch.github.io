@@ -21,6 +21,7 @@ Terms I don't comprehend at all and am going to spend the next week trying to un
 * 
 * 
 
+# A note
 So, a **note** does have a **pitch**. And the pitch is the most prominent **frequency** in the note. Wikepedia says pitch is a perceived phenomenon, but it's not. Pitch is only defined as the perception of frequency when the main frequency can *not* be correctly perceived. As long as the present sounds are easy enough to understand for the listener, the 2 things are the exact same thing with no differences at all.
 
 A **tone** includes a pitch. To be more exact, {a tone} = {a pitch: the main frequency in the tone} + {**overtones**: the secondary frequencies of the tone}. Different instruments can produce different tones (and thus different overtones) when playing notes with the same pitch. i.e. the main frequency in the sounds produced by 2 instruments can be the same, but the overtones are different.
@@ -31,5 +32,17 @@ A human can sing a tone, but can't really sing *(just)* a pitch, since every voi
 * A pitch is the main sound that a human is trying to produce.
 * A tone is the combined *(true / full)* sound being produced instead.
 * A note is the tone + duration + *other small details*.
+
+## Types of Notes
+A note seems to be able to refer to many things:
+* A physical note:
+    * The phenonemnon of a sound which has a clear main pitch.
+* A function note:
+    * The process of using an instrument in a specific way to produce a physical note.
+* A syntactic note:
+    * The musical notation to represent a physical note, or a functional note, whichever one makes more sense in context.
+* A tonal note:
+    * The description of a note as a tone, or as a pitch accompanied by an overtone.
+
 
 
