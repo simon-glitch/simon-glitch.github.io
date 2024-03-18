@@ -22,7 +22,24 @@ Terms I don't comprehend at all and am going to spend the next week trying to un
 * 
 
 # A note
+```
+A Note = {
+    A tone,
+    A duration,
+    A frequency,
+    [optional] An instrument,
+}
+```
+
 So, a **note** does have a **pitch**. And the pitch is the most prominent **frequency** in the note. Wikepedia says pitch is a perceived phenomenon, but it's not. Pitch is only defined as the perception of frequency when the main frequency can *not* be correctly perceived. As long as the present sounds are easy enough to understand for the listener, the 2 things are the exact same thing with no differences at all.
+
+## A tone
+```
+A tone = {
+    A pitch: main pitch,
+    Pitches[]: overtones,
+}
+```
 
 A **tone** includes a pitch. To be more exact, {a tone} = {a pitch: the main frequency in the tone} + {**overtones**: the secondary frequencies of the tone}. Different instruments can produce different tones (and thus different overtones) when playing notes with the same pitch. i.e. the main frequency in the sounds produced by 2 instruments can be the same, but the overtones are different.
 
