@@ -1,4 +1,6 @@
 
+# Intro
+
 I'm getting pretty annoyed trying to learn music, because I can't get definitions for the most basic pieces of terminology.
 
 The more I think about this, the more I feel like I should hate music *theory*, even though I love music. Being honest, I simply hate the lack of clarification by people who write about music theory. If you are someone who has ever done any writing on this subject, please avoid every talking to me, because we will only ever have angry arguments.
@@ -20,6 +22,9 @@ Terms I don't comprehend at all and am going to spend the next week trying to un
 * 
 * 
 * 
+
+# Aside
+Me preparing to write my 100,000 page dictionary on every subject in this world.
 
 # A note
 ```
