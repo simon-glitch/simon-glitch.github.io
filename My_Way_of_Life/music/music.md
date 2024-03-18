@@ -39,10 +39,20 @@ A note seems to be able to refer to many things:
     * The phenonemnon of a sound which has a clear main pitch.
 * A function note:
     * The process of using an instrument in a specific way to produce a physical note.
+    * This can be equivalent to a key, or string.
 * A syntactic note:
     * The musical notation to represent a physical note, or a functional note, whichever one makes more sense in context.
 * A tonal note:
     * The description of a note as a tone, or as a pitch accompanied by an overtone.
 
+## Distance or different
+The distance of difference between 2 notes is the difference in the Y coordinates of 2 notes as they are placed on a staff (see [Notation]).
 
+# An interval
+The vertical distance between syntactic notes.
 
+# Notation
+Western musical notation uses a staff.
+
+## A staff
+A staff is a set of 5 equally spaced vertical lines. These 5 lines represent 1 octave from top to bottom.
