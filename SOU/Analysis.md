@@ -45,6 +45,13 @@ Obama's conclusion is punctuated by his clarification of this thesis:
 
 Something I have noticed about most inaugural addresses and State of the Union Addresses (singular: SUA, plural: SUAs) is that tend to be overly wordy. However, even in their wordiness, there are some really inspiring individual paragraphs in them.
 
+There's also a lot of outdated English grammar, like this:
+> For the American people can no more meet the demands of today’s world by acting alone than ...
+* We all know you're not supposed to start a sentence with "For" it's part of a detail (in this case, it is not).
+* We also know comparative an adverb like "no more" does not go between a verb and its subject, even if there is a transforming verb before it.
+
+Despite these discrepencies, Obama's speech is very well written and quite easy to read, so let's not nit-pick at it like this.
+
 Sources
 1. https://www.pewresearch.org/short-reads/2023/01/09/u-s-congress-continues-to-grow-in-racial-ethnic-diversity/
 2. https://www.census.gov/quickfacts/fact/table/US/AGE775222#AGE775222
