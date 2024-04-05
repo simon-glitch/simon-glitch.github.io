@@ -15,5 +15,11 @@ Of course there's a point to this essay! Let's look for it.
 
 First, I need to convince you that being angry is never a good idea.
 
+### Don't let your emotions control you
 #### Simple version
 As humans, each of us assosciates every emotion with a want. If one is afriad, one wants to escape the source of the fear, remove the source, or prevent the source from being able to continue existing. Anger typically implies the latter case: anger tells one that one need to remove something from existence, by any means necessary. Anger is an inherently hateful emotion, because it will do whatever it takes to elimate whatever it flags as the source or reason for the anger being present. For me, this is not a rational or practical response, since my anger returns every 1 to 2 minutes with no need for a source or target.
+
+#### Delay
+Reacting to an emotion like it has a want or desire is a bad idea, even when there is a good justification behind the emotion. Emotions can not think or perform logic. We have to pull on our knowledge, memory, and understanding to give our emotions meaning and respond to them. Studies show that when an emotion, like fear, is caused by a stimulus, such as a lion, the physical response precedes felt emotions. Emotions naturally take time to acquire in response to the environment. Therefore, you should make sure to take some time to decide your actions in response to actions.
+
+#### 
