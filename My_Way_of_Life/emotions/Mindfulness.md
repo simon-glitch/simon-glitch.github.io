@@ -5,15 +5,21 @@ I know you don't care, but I need to type this paragraph. Part of me has given u
 I guess you would call the previous paragraph "rumination".
 
 # Essay
+Some people would say that mindfulness has "crept into mainstream culture".[3]
 
 ## Definition
 
 {{quote| Mindfulness is commonly defined as the awareness that arises when paying attention to the present moment nonjudgmentally. In 1881, the English scholar Rhys Davids translated the word mindfulness from the Pali word sati found in Buddhist texts, which meant “memory, recollection, calling-to-mind, being-aware-of, certain specified facts" but which has also been described as "lucid awareness" or "bare attention." The terms mindfulness and meditation are increasingly conflated. General integrative practices (e.g., visualization, yoga) are often described as "mindfulness" in public discourse, diluting the word's meaning. Importantly, not all meditation is mindfulness and not all mindfulness is meditation. Meditation is a practice that self-regulates the body and mind by engaging a specific attentional set. In mindfulness meditation (MM), the practice is to pay attention to present-moment experience with an orientation of curiosity, openness, acceptance, nonreactivity, and nonjudgment. }} [1]
 
-Mindfulness is a state of the subject being aware of the subject's personal experiences without *judgement*.
+Mindfulness is a state of the subject being aware of the subject's personal experiences without *judgement*.[1,2]
+
+Mindfulness improves attention, improves focus, and helps the subject better respond to the subject's emotions.[2] Studies also suggest that mindfulness promotes empathy.[2]
 
 # Sources
 1:
     URL: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7647439/
 2:
     URL: https://www.apa.org/monitor/2012/07-08/ce-corner
+3:
+    URL: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7287297/
+    author: C. Behan
