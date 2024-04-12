@@ -24,12 +24,16 @@ Mindfulness and meditation, although different, can be combined into one activit
 # Sources
 1:
 *   URL: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7647439/
+
 2:
 *   URL: https://www.apa.org/monitor/2012/07-08/ce-corner
+
 3:
 *   URL: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7287297/
 *   author: C. Behan
+
 4:
 *   URL: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8282773/
+
 5:
 *   URL: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5353526/
