@@ -13,8 +13,12 @@ Some people would say that mindfulness has "crept into mainstream culture".[3] I
 
 In summary, mindfulness is a state of the subject being aware of the subject's personal experiences without *judgement*.[1, 2]
 
-## Also
-Mindfulness is often confused with meditation, and both terms have become increasingly conflated.[1 # MINDFULNESS AND MBIs] Furthermore, there are many informal
+## Conflation with meditation
+Mindfulness is often confused with meditation, and both terms have become increasingly conflated.[1 # MINDFULNESS AND MBIs] Furthermore, there are many informal articles have "pervated" (tainted) the literature around mindfulness.[5 # Abstract] In spite of these issues, there is a lot of good research on mindfulness (source [1] is an example), and it has been proven to be useful.
+
+To be clear,  ~"Meditation is the practice of regulating the mind, by engaging in a specific set of attention"~.[1 # MINDFULNESS AND MBIs]
+
+Mindfulness and meditation, although different, can be combined into one activity: Mindfulness meditation (MM). ~"MM is the practice paying attention to the present experience with an emphasis on being curious, opennes, acceptant, nonreactive, and nonjudgmental"~.[1 # MINDFULNESS AND MBIs]
 
 
 # Sources
