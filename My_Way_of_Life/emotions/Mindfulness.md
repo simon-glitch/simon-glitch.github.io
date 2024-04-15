@@ -1,16 +1,17 @@
-
 # Read me
+
 I know you don't care, but I need to type this paragraph. Part of me has given up on this assignment, and I don't really understand why. I'm going to try fighting it for now, but the speech / paper might turn out to be really low quality by the time I am done with it. I couldn't find a speech topic that doesn't make me feel like shutting down, so I guess I will just have to bite the bullet and ignore my subconscious's request to shut down and run away. I really don't understand this feeling of severe irrational fear, but I guess I just have to cope with it. Regardless of me coing or not coping, I am officiall unsure about whether I can do this assignment and unsure about whether I should do it. Maybe you don't like to hear that my own emotions are plaguing me this way, but they are. I am dealing with this, but it seems its going to take about 1 week or 2 for them to stop bugging me. And "no", I am not going to incorporate these issues of my own personal struggling into the essay. This paragraph is the best explanation I even have for them, and this paragraph would obviously feel and sound horrible in the paper. Quite literally, these words, and these ones exactly, are the best way I can explain how I feel right now.
 
 I guess you would call the previous paragraph "rumination".
 
 
 # Essay
-
 ## Problem
 
 <!-- Not sure what to write here. Super hard to make this point that understanding our own emotions. -->
 Negative emotions can cause poor decision making, which leads to detrimental effects. For example, the impatience that comes with anger can cause a shopper to forget to grab bread at the store, and then have to go to the store again. A lawmaker who is having a hard time empathizing with the LGBTQ community might have a conflicting interest between conforming to what they've been taught and accepting controversial changes in society. This conflict of interest could lead the lawmake to judge the LGBTQ community negatively, and then pass an unfair law against them. In the former example about forgetting bread, it is obviously not beneficial to be affected by the emotion of anger, while in the lawmaker example, you could reasonably argue either that the lawmake made the right choice or that the lawmaker was being too emotional. In general, {understanding our emotions} and {figuring out what's right and wrong} are 2 independent tasks which quite difficult.
+
+My assumption throughout this speech is that reacting to emotions is a bad idea. First, let's better understand how emotions work. James-Lange theory.
 
 ## Intro to mindfulness
 
