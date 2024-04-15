@@ -5,6 +5,7 @@ I know you don't care, but I need to type this paragraph. Part of me has given u
 I guess you would call the previous paragraph "rumination".
 
 # Essay
+
 Some people would say that mindfulness has "crept into mainstream culture".[3] In fact, the number of articles in the WoS about mindfulness has grown exponentially over time since around 2006.[4 # Results] The reason mindfulness is so releavant is its benefits and scientific credibility. Mindfulness improves attention, improves focus, and helps the subject better respond to the subject's emotions.[2] Studies also suggest that mindfulness promotes empathy.[2]
 
 ## Definition
@@ -19,6 +20,17 @@ Mindfulness is often confused with meditation, and both terms have become increa
 To be clear,  ~"Meditation is the practice of regulating the mind, by engaging in a specific set of attention"~.[1 # MINDFULNESS AND MBIs]
 
 Mindfulness and meditation, although different, can be combined into one activity: Mindfulness meditation (MM). ~"MM is the practice paying attention to the present experience with an emphasis on being curious, opennes, acceptant, nonreactive, and nonjudgmental"~.[1 # MINDFULNESS AND MBIs]
+
+## Thesis
+
+*Note: Make sure to not make myself sound too credible. I really don't want to mislead anyone.*
+
+Mindfulness is a helpful state of mind, and you should aim on achieving it and maintaining it. My sources are credible. My first source, for example, is "Mindfulness and Behavior Change", written Zev Schuman-Olivier, 2 other MDs, and 7 PhDs. We can assume there is some truth and validity in what they say, even if they are somewhat mistaken.
+
+## Clarifications
+
+Olivier et al. only discuss how mindfulness stabilizes behaviors related to medical treatment. Therefore, it might have little application outside of medical treatment contexts (such as hospitals).
+
 
 
 # Sources
