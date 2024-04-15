@@ -11,7 +11,7 @@ I guess you would call the previous paragraph "rumination".
 <!-- Not sure what to write here. Super hard to make this point that understanding our own emotions. -->
 Negative emotions can cause poor decision making, which leads to detrimental effects. For example, the impatience that comes with anger can cause a shopper to forget to grab bread at the store, and then have to go to the store again. A lawmaker who is having a hard time empathizing with the LGBTQ community might have a conflicting interest between conforming to what they've been taught and accepting controversial changes in society. This conflict of interest could lead the lawmake to judge the LGBTQ community negatively, and then pass an unfair law against them. In the former example about forgetting bread, it is obviously not beneficial to be affected by the emotion of anger, while in the lawmaker example, you could reasonably argue either that the lawmake made the right choice or that the lawmaker was being too emotional. In general, {understanding our emotions} and {figuring out what's right and wrong} are 2 independent tasks which quite difficult.
 
-My assumption throughout this speech is that reacting to emotions is a bad idea. First, let's better understand how emotions work. James-Lange theory.
+My assumption throughout this speech is that reacting to emotions is a bad idea. First, let's better understand how emotions work. Some people believe that emotions are a quick-acting phenomena, just like the "System 1" described by Daniel Khaneman[R1]. However, the James-Lange theory suggests that emotions are not just slow, but that they are even slower than physiological reactions to the environment, because they are caused by the body's reactions[6 # INTRODUCTION]. A common example is that if a person grabs a hot pan, their brain will first drop the pan, and then become upset, and after a second or two the person might be able to become irritated at themself. However, some researchers have said that this theory is questionable.[6 # INTRODUCTION]
 
 ## Intro to mindfulness
 
@@ -57,3 +57,12 @@ Olivier et al. only discuss how mindfulness stabilizes behaviors related to medi
 
 5:
 *   URL: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5353526/
+
+6:
+*   URL: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2555412/
+
+
+# References
+R1:
+*   Daniel Kahneman (2011). *Thinking, Fast and Slow*. Macmillan. ISBN 978-1-4299-6935-2.
+*   Goolge Books: https://www.google.com/books/edition/Thinking_Fast_and_Slow/ZuKTvERuPG8C?hl=en
