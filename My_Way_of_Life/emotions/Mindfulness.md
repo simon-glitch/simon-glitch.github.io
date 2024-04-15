@@ -17,6 +17,10 @@ These outcomes include quality of life, medical health, self esteem, and followi
 
 
 
+
+
+
+
 ## Intro to mindfulness
 
 Some people would say that mindfulness has "crept into mainstream culture".[3] In fact, the number of articles in the WoS about mindfulness has grown exponentially over time since around 2006.[4 # Results] The reason mindfulness is so releavant is its benefits and scientific credibility. Mindfulness improves attention, improves focus, and helps the subject better respond to the subject's emotions.[2] Studies also suggest that mindfulness promotes empathy.[2]
