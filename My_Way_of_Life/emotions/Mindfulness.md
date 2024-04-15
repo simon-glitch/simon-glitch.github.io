@@ -4,7 +4,15 @@ I know you don't care, but I need to type this paragraph. Part of me has given u
 
 I guess you would call the previous paragraph "rumination".
 
+
 # Essay
+
+## Problem
+
+<!-- Not sure what to write here. Super hard to make this point that understanding our own emotions. -->
+Negative emotions can cause poor decision making, which leads to detrimental effects. For example, the impatience that comes with anger can cause a shopper to forget to grab bread at the store, and then have to go to the store again. A lawmaker who is having a hard time empathizing with the LGBTQ community might have a conflicting interest between conforming to what they've been taught and accepting controversial changes in society. This conflict of interest could lead the lawmake to judge the LGBTQ community negatively, and then pass an unfair law against them. In the former example about forgetting bread, it is obviously not beneficial to be affected by the emotion of anger, while in the lawmaker example, you could reasonably argue either that the lawmake made the right choice or that the lawmaker was being too emotional. In general, {understanding our emotions} and {figuring out what's right and wrong} are 2 independent tasks which quite difficult.
+
+## Intro to mindfulness
 
 Some people would say that mindfulness has "crept into mainstream culture".[3] In fact, the number of articles in the WoS about mindfulness has grown exponentially over time since around 2006.[4 # Results] The reason mindfulness is so releavant is its benefits and scientific credibility. Mindfulness improves attention, improves focus, and helps the subject better respond to the subject's emotions.[2] Studies also suggest that mindfulness promotes empathy.[2]
 
@@ -30,7 +38,6 @@ Mindfulness is a helpful state of mind, and you should aim on achieving it and m
 ## Clarifications
 
 Olivier et al. only discuss how mindfulness stabilizes behaviors related to medical treatment. Therefore, it might have little application outside of medical treatment contexts (such as hospitals).
-
 
 
 # Sources
