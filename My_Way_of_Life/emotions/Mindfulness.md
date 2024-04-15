@@ -8,8 +8,11 @@ I guess you would call the previous paragraph "rumination".
 # Essay
 ## Problem
 
+Negative emotions are bad, because they lead to poor decision making when they are not properly controlled, and those poor decisions lead to negative outcomes.
+* *How do I prove this statement? I was thinking of using an example, but I don't know what to use.*
 
-
+These outcomes include quality of life, medical health, self esteem, and following morals.
+* *I'm now considering finding evidence for 2 to 3 of the items in the list. I don't think finding evidence for the last one is possible. Unfortunately, I don't think I can figure out which search query will lead me to the evidence, and the text I wrote might be too unusual to assosciate with any truth or result that can be extracted from research.*
 
 
 
