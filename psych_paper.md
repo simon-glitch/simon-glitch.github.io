@@ -11,7 +11,7 @@ Jean Piaget was a Swiss psychologist who developed with a 4-stage model of child
 ### Summary of a section of a text
 * {The Language and Thought of the Child}
 
-
+I've decided to summarize the 1st chapter of *The Language and Thought of the Child*. Chapter 1 summarizes the results of an observational study where children were allowed to work and play as they pleased. The observation of this study was that the children participated in a unique form of speech which was undocumented before this study.
 
 ### Critique that seciton
 
