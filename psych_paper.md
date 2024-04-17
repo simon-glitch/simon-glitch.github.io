@@ -11,7 +11,9 @@ Jean Piaget was a Swiss psychologist who developed with a 4-stage model of child
 ### Summary of a section of a text
 * {The Language and Thought of the Child}
 
-I've decided to summarize the 1st chapter of *The Language and Thought of the Child*. Chapter 1 summarizes the results of an observational study where children were allowed to work and play as they pleased. The observation of this study was that the children participated in a unique form of speech which was undocumented before this study.
+I've decided to summarize the 1st chapter of *The Language and Thought of the Child*. Chapter 1 summarizes the results of an observational study where children were allowed to work and play as they pleased. Piaget watched 2 children, and the children around them, and observed 8 forms of speech being produced by the children: Repetition, monologue, collective monologue, adapted information, criticism, commands (and requests and threats), questions, and answers. The children spoke in monologues 5-15% of the time, and spoke in collective monologues 23-30% of the time. Considering the non-communicative, and ego-centric nature of repitition and monologues, Piaget concluded that children don't really care about being heard and enjoy talking to themselves. Piaget explained that children even play a "game" with words when they talk to themselves, where words have inherent value and usefulness all on their own, and that words don't need to be applied in a practical setting in order to be valuabe to children. These ideas are all quite common in modern culture, probably due to Piaget's influence, but I still find Piaget's writing to be inspiring.
+
+
 
 ### Critique that seciton
 
@@ -19,3 +21,7 @@ I've decided to summarize the 1st chapter of *The Language and Thought of the Ch
 * i.e. {Dr. Moes & Dr. Tellinghuisen}'s book
 
 END
+
+## Quotes
+> invariably imagine that they have discovered by themselves what in reality they are only repeating from a model.
+This seems to be an early thought of Piaget that inspired the theory of constructivism.
