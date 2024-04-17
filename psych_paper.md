@@ -22,6 +22,22 @@ A major flaw in Piaget's writing is his authoratitve view of communication. Piag
 
 I would say that Piaget's writing connects to Christianity and M & T's 5 themes quite well. I'm going to be looking at his ideas here, especially the general ideas he describes in the beginning of his book and the general results of his studies.
 
+#### Theme 1: Humans Are Relational Persons
+Piaget theorized that younger children were only interested in speaking and "playing" with words because words were useful to them as infants. This means that all speaking, even non-communicative monologues, is based on relationships and important interactions with other people.
+
+#### Theme 2: Humans Are Broken, in Need of Redemption
+Piaget believed that even though the monologues of children look broken and silly, they ultimately benefit from the process of playing with words.
+
+#### Theme 3: Humans Are Embodied
+Piaget doesn't really explore this theme, since he focuses on language, and he's not a Chistian.
+
+#### Theme 4: Humans Are Responsible Limited Agents
+As limited agents we need to use communication to collect information from other people, and use other people as an extension of ourself. Piaget believed that this was the core, natural, practical reason for communication, and that all other benefits of speech were simply auxilary benefits.
+
+#### Theme 5: Humans Are Meaning Seekers
+Piaget would argue that we humans seek meaning because we are naturally social and talkative.
+
+
 END
 
 ## Quotes
