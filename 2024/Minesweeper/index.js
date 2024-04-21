@@ -44,9 +44,9 @@ const_def(Float64Array  , BYTE_COUNT, 64);
 allows you to encode a 2D array of bits into a unsigned integer `TypedArray` (i.e. `Uint8Array`, `Uint16Array`, `Uint32Array`, and `BigUint64Array`) named `una`.
 */
 const get_bit_at = function(una, width, x, y){
-    const bits = una[BIT_COUNT];
     const c = una.constructor;
-    const i = x + y*width;
+    const bits = c(una[BIT_COUNT]);
+    const i = c(x) + c(y)*c(width);
     const ii = i % bits;
     const iii = (i - ii) / bits;
     return ((una[iii] & (c(1) << ii)) >> ii);
@@ -55,17 +55,25 @@ const get_bit_at = function(una, width, x, y){
 allows you to assign to a 2D array of bits that are encoded as an unsigned integer `TypedArray` (i.e. `Uint8Array`, `Uint16Array`, `Uint32Array`, and `BigUint64Array`) named `una`.
 */
 const set_bit_at = function(una, width, x, y, v){
-    const bits = una[BIT_COUNT];
     const c = una.constructor;
-    const i = x + y*width;
+    const bits = c(una[BIT_COUNT]);
+    const i = c(x) + c(y)*c(width);
     const ii = i % bits;
     const iii = (i - ii) / bits;
-    return ((una[iii] & (c(1) << ii)) >> ii);
+    una[iii] &= ~(c(1) << ii);
+    una[iii] |= (v << ii);
+    return v;
 };
 
 const has_mine = new Uint8Array();
 const has_mine_at = function(x, y){
-    return Boolean(get_bit_at());
+    return Boolean(get_bit_at(has_mine, c.width, x, y));
+};
+const add_mine_at = function(x, y){
+    return Boolean(set_bit_at(has_mine, c.width, x, y, 1));
+};
+const remove_mine_at = function(x, y){
+    return Boolean(set_bit_at(has_mine, c.width, x, y, 0));
 };
 
 const set_dim = function(w, h){
