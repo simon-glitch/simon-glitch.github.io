@@ -45,16 +45,22 @@ allows you to encode a 2D array of bits into a unsigned integer `TypedArray` (i.
 */
 const get_bit_at = function(una, width, x, y){
     const bits = una[BIT_COUNT];
+    const c = una.constructor;
     const i = x + y*width;
     const ii = i % bits;
     const iii = (i - ii) / bits;
-    return ((una[iii] & (1 << ii)) >> ii);
+    return ((una[iii] & (c(1) << ii)) >> ii);
 };
-const get_bit_at = function(u8a, width, x, y){
+/*
+allows you to assign to a 2D array of bits that are encoded as an unsigned integer `TypedArray` (i.e. `Uint8Array`, `Uint16Array`, `Uint32Array`, and `BigUint64Array`) named `una`.
+*/
+const set_bit_at = function(una, width, x, y, v){
+    const bits = una[BIT_COUNT];
+    const c = una.constructor;
     const i = x + y*width;
-    const ii = i % 8;
-    const iii = (i - ii) / 8;
-    return ((my8a[iii] & (1 << ii)) >> ii);
+    const ii = i % bits;
+    const iii = (i - ii) / bits;
+    return ((una[iii] & (c(1) << ii)) >> ii);
 };
 
 const has_mine = new Uint8Array();
