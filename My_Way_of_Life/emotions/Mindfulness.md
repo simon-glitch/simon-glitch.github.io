@@ -1,8 +1,22 @@
 # Read me
 
-I know you don't care, but I need to type this paragraph. Part of me has given up on this assignment, and I don't really understand why. I'm going to try fighting it for now, but the speech / paper might turn out to be really low quality by the time I am done with it. I couldn't find a speech topic that doesn't make me feel like shutting down, so I guess I will just have to bite the bullet and ignore my subconscious's request to shut down and run away. I really don't understand this feeling of severe irrational fear, but I guess I just have to cope with it. Regardless of me coing or not coping, I am officiall unsure about whether I can do this assignment and unsure about whether I should do it. Maybe you don't like to hear that my own emotions are plaguing me this way, but they are. I am dealing with this, but it seems its going to take about 1 week or 2 for them to stop bugging me. And "no", I am not going to incorporate these issues of my own personal struggling into the essay. This paragraph is the best explanation I even have for them, and this paragraph would obviously feel and sound horrible in the paper. Quite literally, these words, and these ones exactly, are the best way I can explain how I feel right now.
+## Good days and bad days
 
-I guess you would call the previous paragraph "rumination".
+I really do have good days and bad days. On a good day, I can feel my emotions and know how to react to them. On a bad day, the only emotion I can even motivate myself to feel is anger, and it doesn't help me say or do anything interesting. On a bad day, like today, I can only handle purely object thinking, and anything with a small bit of subjectivity is just annoying. It's so odd how ridiculously inconsistent my behavior is, but this is just a part of who I am. I'm used to it anyways, so who cares?
+
+Maybe the topic of paper applies here, because I can't meditate on my emotions when there aren't any to meditate on.
+
+I guess since I'm feeling so empty, I may as well write something about it.
+
+### Bonus draft
+
+Apparently, no one can say anything objective about human psychology. When people do make extreme claims and imply objectivity, their claims are so poorly contructed that they don't even make sense at a simple glance. Often times, it's obvious that those people are trying to lie and stir up strong emotional reactions from others. The more intelligent those people are, the more trustworthy their lies will look, usually. This hurt my feelins greatly, because, on one of my bad days, like today, I also feel inclined to write things abour human physhcology that are not true and then imply that my claims are objective fact, but I do so without intending to hurt others, and unfortunately many people infer that I am trying to hurt others when I really am not. This occurence is truly one of the most painful and annoying things. It would make my anger become a fatal storm if I didn't have the common sense to simply not care about what other people think. At least I know how absurd and unprovable my own claims can be sometimes.
+
+In conclusion, I can't write about my emotions right now, because they aren't there. I don't know why they matter or what they do. I guess I just have to wait for them to come back on their own time.
+
+## Rumination
+
+I know you don't care, but I need to type this paragraph. Part of me has given up on this assignment, and I don't really understand why. I'm going to try fighting it for now, but the speech / paper might turn out to be really low quality by the time I am done with it. I couldn't find a speech topic that doesn't make me feel like shutting down, so I guess I will just have to bite the bullet and ignore my subconscious's request to shut down and run away. I really don't understand this feeling of severe irrational fear, but I guess I just have to cope with it. Regardless of me coing or not coping, I am officiall unsure about whether I can do this assignment and unsure about whether I should do it. Maybe you don't like to hear that my own emotions are plaguing me this way, but they are. I am dealing with this, but it seems its going to take about 1 week or 2 for them to stop bugging me. And "no", I am not going to incorporate these issues of my own personal struggling into the essay. This paragraph is the best explanation I even have for them, and this paragraph would obviously feel and sound horrible in the paper. Quite literally, these words, and these ones exactly, are the best way I can explain how I feel right now.
 
 
 # Essay
