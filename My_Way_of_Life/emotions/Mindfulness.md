@@ -6,20 +6,12 @@ I guess you would call the previous paragraph "rumination".
 
 
 # Essay
-## Problem
 
-Negative emotions are bad, because they lead to poor decision making when they are not properly controlled, and those poor decisions lead to negative outcomes.
-* *How do I prove this statement? I was thinking of using an example, but I don't know what to use.*
+## Hook
 
-These outcomes include quality of life, medical health, self esteem, and following morals.
-* *I'm now considering finding evidence for 2 to 3 of the items in the list. I don't think finding evidence for the last one is possible. Unfortunately, I don't think I can figure out which search query will lead me to the evidence, and the text I wrote might be too unusual to assosciate with any truth or result that can be extracted from research.*
+There's apparently no way to prove to anyone that they should want to practice something like mindfulness. Therefore, we will assume that you already do want to practice mindfulness. Now, according to Schuman-Olivier et al., mindfulness is only good for "Initiating and maintaining behavior change" in medical contexts. We will therefore assume that you are a slave to all forms of medical care, and that you want to obey hospitals and doctors as well as possible, but you are too uneducated about mindfulness to do so effectively. I know it's a bit of an extreme assumption to make, but considering the fact that it's not possible to prove that mindfulness has any other uses, we can only explore this topic in a factual way if we make that assumpion first.
 
-
-
-
-
-
-
+If you need more reasons to favor the practice of mindulness, how about this quote? "mindfulness-based interventions (MBIs) are effective in reducing harmful health behaviors, catalyzing chronic disease self-management and health behavior change".[1 # INTRODUCTION] If you think you're too smart for this article, check out this quote: "Despite widespread awareness, it remains exceptionally difficult to initiate and maintain health behavior change".
 
 ## Intro to mindfulness
 
