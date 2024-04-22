@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lemour Operators</title>
+</head>
+<body>
+
+<style>
+:root{
+  --table-border-width: 0.125em;
+  --table-padding: 0.125em;
+}
+table, th, td {
+  border: var(--table-border-width) solid grey;
+  border-collapse: collapse;
+}
+th, td {
+  /* top, right, bottom, left */
+  padding: var(--table-padding);
+}
+th {
+  background-color: #aef;
+}
+td>:is(b,i){
+  display: flex;
+  justify-content: center;
+}
+
+</style>
+
+<b>Key:</b>
+<ol>
+  <li><b><code>Op</code></b> means <b><code>Operator</code></b></li>
+  <li><b>N</b> means <b>Number of (operand) parameters</b></li>
+</ol>
+
+<table><thead>
+  <tr>
+    <th><code>Op</code></th>
+    <th>N</th>
+    <th>Description</th>
+  </tr>
+</thead><tbody>
+  <tr>
+    <td><b><code>+</code></b></td>
+    <td>2</td>
+    <td>Addition</td>
+  </tr>
+  <tr>
+    <td><b><code>++</code></b></td>
+    <td>2</td>
+    <td>Multiplication</td>
+  </tr>
+  <tr>
+    <td><b><code>+++</code></b></td>
+    <td>2</td>
+    <td>Exponentiation</td>
+  </tr>
+</tbody></table>
+
+
+
+
+
+
+
+</body>
+</html>
