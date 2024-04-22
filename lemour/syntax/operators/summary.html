@@ -98,7 +98,12 @@ The descriptions in this table are a bit long, but that's just for the sake of c
   <tr>
     <td><b><code>..</code></b></td>
     <td><i>2</i></td>
-    <td>Nesting: <code>a .. b = (c(aa:..) := a(b(aa:..)))</code> the function a, executed with the (argument or arguments) b already passed into a.</td>
+    <td>Nesting: <code>a .. b = (c(aa:., bb) := a(b(aa:.), bb:.))</code> the function a, executed with the (argument or arguments) b already passed into a.</td>
+  </tr>
+  <tr>
+    <td><b><code>:.</code></b></td>
+    <td><i>1</i></td>
+    <td>Flattening: <code>(b1, b2, </code> etc... <code>, a :..) = (a[0], a[1], a[2], </code> etc, for all the values in <code>a</code> ... <code>)</code> in an expression, the function a, executed with the (argument or arguments) b already passed into a.</td>
   </tr>
 </tbody></table>
 
