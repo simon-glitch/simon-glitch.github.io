@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lemour Operators</title>
+</head>
+<body>
+
+<style>
+:root{
+  --table-border-width: 0.125em;
+  --table-padding: 0.125em;
+}
+table, th, td{
+  border: var(--table-border-width) solid grey;
+  border-collapse: collapse;
+}
+th, td{
+  /* top, right, bottom, left */
+  padding: var(--table-padding);
+}
+th{
+  background-color: #aef;
+}
+:is(td,th) > :is(code,b,i){
+  font-style: normal;
+  display: flex;
+  justify-content: center;
+}
+th > code{
+  font-size: 1.25em;
+}
+
+</style>
+
+The descriptions in this table are a bit long, but that's just for the sake of clarity.
+
+<b>Key:</b>
+<ol>
+  <li>For the heading row</li>
+  <ol>
+    <li><b><code>Op</code></b> means <b><code>Operator</code></b></li>
+    <li><b>N</b> means <b>Number of (operand) parameters</b></li>
+    <li><b>N</b> means <b>Number of (operand) parameters</b></li>
+  </ol>
+  <li><b><code>=</code></b> is used mathematically to describe what the pieces code do.</li>
+  <li><b><code>\=</code></b> is the assignment operator from the lemour language. It is normally just written as <code>=</code>, but it's backslash-escaped in this table for clarify. Backslash itself has various uses in the language and is not described here, because it is not an operator.</li>
+</ol>
+
+
+<table><caption>
+  Overloadable operators
+</caption><thead>
+  <tr>
+    <th><code>Op</code></th>
+    <th><b>N</b></th>
+    <th>Description</th>
+  </tr>
+</thead><tbody>
+  <tr>
+    <td><b><code>+</code></b></td>
+    <td><i>2</i></td>
+    <td>Addition: <code>a + b =</code> (a added to b), (a add b), or (a plus b).</td>
+  </tr>
+  <tr>
+    <td><b><code>++</code></b></td>
+    <td><i>2</i></td>
+    <td>Multiplication: <code>a ++ b =</code> (a multiplied by b), or (a times b).</td>
+  </tr>
+  <tr>
+    <td><b><code>+++</code></b></td>
+    <td><i>2</i></td>
+    <td>Exponentiation: <code>a +++ b =</code> (a to the power of b), or (a to the b).</td>
+  </tr>
+  <tr>
+    <td><b><code>-</code></b></td>
+    <td><i>2</i></td>
+    <td>Subtraction: <code>a - b =</code> (a subtracted by b), (b substracted from a), (a subtract b), or (a minus b).</td>
+  </tr>
+  <tr>
+    <td><b><code>--</code></b></td>
+    <td><i>2</i></td>
+    <td>Division: <code>a -- b =</code> (a divided by b), (a divide b), or (a over b).</td>
+  </tr>
+  <tr>
+    <td><b><code>---</code></b></td>
+    <td><i>2</i></td>
+    <td>Logarithm: <code>a --- b =</code> the base-b logarithm of a = (the natural logarithm of a) divided by (the natural logarithm of b).</td>
+  </tr>
+  <tr>
+    <td><b><code>--^</code></b></td>
+    <td><i>2</i></td>
+    <td>Root: <code>a --^ b =</code> the b-th root of a = a to the power of (1 divided by b).</td>
+  </tr>
+  <tr>
+    <td><b><code>.</code></b></td>
+    <td><i>2</i></td>
+    <td>Currying: <code>a . b =</code> the function a, executed with the (argument or arguments) b already passed into a.</td>
+  <tr>
+    <td><b><code>..</code></b></td>
+    <td><i>2</i></td>
+    <td>Nesting: <code>a .. b = (c(aa:., bb) := a(b(aa:.), bb:.))</code> the function a, executed with the (argument or arguments) b already passed into a.</td>
+  </tr>
+  <tr>
+    <td><b><code>:.</code></b></td>
+    <td><i>1</i></td>
+    <td>Flattening: <code>(b1, b2, </code> etc... <code>, a :..) = (a[0], a[1], a[2], </code> etc, for all the values in <code>a</code> ... <code>)</code> in an expression, the function a, executed with the (argument or arguments) b already passed into a.</td>
+  </tr>
+</tbody></table>
+
+Trying to overload the following operators causes the compiler to throw a syntax error.
+
+<table><caption>
+  Non-overloadable operators
+</caption><thead>
+  <tr>
+    <th><code>Op</code></th>
+    <th><b>N</b></th>
+    <th>Description</th>
+  </tr>
+</thead><tbody>
+  <tr>
+    <td><b><code>@</code></b></td>
+    <td><i>2</i></td>
+    <td>Overloading: the overloading operator cannot be overloaded. Sorry. The left hand side is a list of values to curry in. You can ommit and use this as an unary operator instead. The right hand side is the operator to overload. This must be followed by a function declaration, since that's the whole point of the overload operator. Example: (in <code>Pair</code>code> class) <code> Pair @+ (Pair that) := (x + that>x, y + that>y)</code></td>
+  </tr>
+</tbody></table>
+
+
+
+
+</body>
+</html>
+
+
