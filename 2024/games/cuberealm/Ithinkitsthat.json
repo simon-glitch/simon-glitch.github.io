@@ -1,0 +1,772 @@
+{
+    "3_-6_17": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.000091552734375,
+        "amethyst_ore": 0.00067138671875,
+        "gold_ore": 0,
+        "platinum_ore": 0,
+        "magenta_wood": null,
+        "tomato_crops": null,
+        "asteroid_brick": null,
+        "pumpkin_crops[growth_level=0]": null,
+        "potato_crops[growth_level=0]": null,
+        "blast_furnace[orientation=up_south]": null,
+        "iron_chest[orientation=up_west]": null,
+        "copper_chest[orientation=up_south]": null,
+        "gold_chest": null,
+        "workbench[orientation=up_north]": null,
+        "workbench[orientation=up_west]": null,
+        "oak_wood_fence[east=false,north=true,south=false,west=true]": null,
+        "pine_leaves": null,
+        "wooden_chest[orientation=up_south]": null
+    },
+    "4_-6_17": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.00067138671875,
+        "amethyst_ore": 0.000213623046875,
+        "gold_ore": 0,
+        "platinum_ore": 0,
+        "magenta_wood": null
+    },
+    "3_-6_18": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.00042724609375,
+        "amethyst_ore": 0.0001220703125,
+        "gold_ore": 0,
+        "platinum_ore": 0,
+        "magenta_wood": null,
+        "pine_leaves": null
+    },
+    "3_-5_17": {
+        "diamond_ore": 0,
+        "emerald_ore": 0,
+        "amethyst_ore": 0.0001220703125,
+        "gold_ore": 0.000732421875,
+        "platinum_ore": 0.000579833984375,
+        "magenta_wood": null
+    },
+    "3_-7_17": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.00030517578125,
+        "amethyst_ore": 0.000091552734375,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "3_-6_16": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.000579833984375,
+        "amethyst_ore": 0.00030517578125,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "2_-6_17": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.000518798828125,
+        "amethyst_ore": 0.00030517578125,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "4_-6_18": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.00054931640625,
+        "amethyst_ore": 0.000579833984375,
+        "gold_ore": 0,
+        "platinum_ore": 0,
+        "magenta_wood": null
+    },
+    "4_-5_17": {
+        "diamond_ore": 0,
+        "emerald_ore": 0,
+        "amethyst_ore": 0.0001220703125,
+        "gold_ore": 0.000701904296875,
+        "platinum_ore": 0.0006103515625,
+        "magenta_wood": null
+    },
+    "4_-7_17": {
+        "diamond_ore": 0.000030517578125,
+        "emerald_ore": 0.000274658203125,
+        "amethyst_ore": 0.000213623046875,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "4_-6_16": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.00042724609375,
+        "amethyst_ore": 0.000457763671875,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "3_-5_18": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.00030517578125,
+        "amethyst_ore": 0,
+        "gold_ore": 0.00030517578125,
+        "platinum_ore": 0.000152587890625,
+        "magenta_wood": null
+    },
+    "3_-7_18": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.000732421875,
+        "amethyst_ore": 0,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "3_-5_16": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.000518798828125,
+        "amethyst_ore": 0,
+        "gold_ore": 0.0009765625,
+        "platinum_ore": 0.00067138671875
+    },
+    "3_-7_16": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.000396728515625,
+        "amethyst_ore": 0.000244140625,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "2_-6_18": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.00042724609375,
+        "amethyst_ore": 0.00042724609375,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "2_-5_17": {
+        "diamond_ore": 0,
+        "emerald_ore": 0,
+        "amethyst_ore": 0.0001220703125,
+        "gold_ore": 0.000396728515625,
+        "platinum_ore": 0.000640869140625
+    },
+    "2_-7_17": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.000335693359375,
+        "amethyst_ore": 0.000396728515625,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "2_-6_16": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.001007080078125,
+        "amethyst_ore": 0.000335693359375,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "4_-5_18": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.0001220703125,
+        "amethyst_ore": 0,
+        "gold_ore": 0.000274658203125,
+        "platinum_ore": 0.00054931640625,
+        "magenta_wood": null
+    },
+    "4_-7_18": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.00018310546875,
+        "amethyst_ore": 0.00030517578125,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "4_-5_16": {
+        "diamond_ore": 0,
+        "emerald_ore": 0,
+        "amethyst_ore": 0.0001220703125,
+        "gold_ore": 0.000518798828125,
+        "platinum_ore": 0.000701904296875
+    },
+    "4_-7_16": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.00054931640625,
+        "amethyst_ore": 0.00048828125,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "2_-5_18": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.00030517578125,
+        "amethyst_ore": 0.000274658203125,
+        "gold_ore": 0.000518798828125,
+        "platinum_ore": 0.00067138671875
+    },
+    "2_-7_18": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.000518798828125,
+        "amethyst_ore": 0.000946044921875,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "2_-5_16": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.000274658203125,
+        "amethyst_ore": 0,
+        "gold_ore": 0.000274658203125,
+        "platinum_ore": 0.000396728515625
+    },
+    "2_-7_16": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.000396728515625,
+        "amethyst_ore": 0.0003662109375,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "5_-6_17": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.000823974609375,
+        "amethyst_ore": 0.00048828125,
+        "gold_ore": 0,
+        "platinum_ore": 0,
+        "magenta_wood": null,
+        "realm_chest": null
+    },
+    "3_-6_19": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.000244140625,
+        "amethyst_ore": 0.000152587890625,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "3_-4_17": {
+        "diamond_ore": 0,
+        "emerald_ore": 0,
+        "amethyst_ore": 0,
+        "gold_ore": 0.00030517578125,
+        "platinum_ore": 0.001220703125,
+        "purple_wood": null,
+        "realm_chest": null
+    },
+    "3_-8_17": {
+        "diamond_ore": 0.00067138671875,
+        "emerald_ore": 0.000732421875,
+        "amethyst_ore": 0.0008544921875,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "3_-6_15": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.00042724609375,
+        "amethyst_ore": 0.000244140625,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "1_-6_17": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.00079345703125,
+        "amethyst_ore": 0.000335693359375,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "5_-6_18": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.000823974609375,
+        "amethyst_ore": 0.0001220703125,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "5_-5_17": {
+        "diamond_ore": 0,
+        "emerald_ore": 0,
+        "amethyst_ore": 0.000213623046875,
+        "gold_ore": 0.000274658203125,
+        "platinum_ore": 0.000457763671875
+    },
+    "5_-7_17": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.000335693359375,
+        "amethyst_ore": 0.00042724609375,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "5_-6_16": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.000396728515625,
+        "amethyst_ore": 0.000396728515625,
+        "gold_ore": 0,
+        "platinum_ore": 0,
+        "magenta_wood": null
+    },
+    "4_-6_19": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.000579833984375,
+        "amethyst_ore": 0.000335693359375,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "4_-4_17": {
+        "diamond_ore": 0,
+        "emerald_ore": 0,
+        "amethyst_ore": 0,
+        "gold_ore": 0.000885009765625,
+        "platinum_ore": 0.000640869140625
+    },
+    "4_-8_17": {
+        "diamond_ore": 0.00048828125,
+        "emerald_ore": 0.000701904296875,
+        "amethyst_ore": 0.000030517578125,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "4_-6_15": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.000518798828125,
+        "amethyst_ore": 0.000152587890625,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "3_-5_19": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.000091552734375,
+        "amethyst_ore": 0.000152587890625,
+        "gold_ore": 0.00079345703125,
+        "platinum_ore": 0.0008544921875
+    },
+    "3_-7_19": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.000640869140625,
+        "amethyst_ore": 0.000030517578125,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "3_-4_18": {
+        "diamond_ore": 0,
+        "emerald_ore": 0,
+        "amethyst_ore": 0,
+        "gold_ore": 0.00103759765625,
+        "platinum_ore": 0.00079345703125,
+        "purple_wood": null
+    },
+    "3_-8_18": {
+        "diamond_ore": 0.00042724609375,
+        "emerald_ore": 0.000579833984375,
+        "amethyst_ore": 0.0006103515625,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "3_-4_16": {
+        "diamond_ore": 0,
+        "emerald_ore": 0,
+        "amethyst_ore": 0,
+        "gold_ore": 0.00091552734375,
+        "platinum_ore": 0.0015869140625
+    },
+    "3_-8_16": {
+        "diamond_ore": 0.00103759765625,
+        "emerald_ore": 0.000091552734375,
+        "amethyst_ore": 0.000213623046875,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "3_-5_15": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.00042724609375,
+        "amethyst_ore": 0.0001220703125,
+        "gold_ore": 0.00067138671875,
+        "platinum_ore": 0.000244140625
+    },
+    "3_-7_15": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.000457763671875,
+        "amethyst_ore": 0.000274658203125,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "2_-6_19": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.000396728515625,
+        "amethyst_ore": 0.000274658203125,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "2_-4_17": {
+        "diamond_ore": 0,
+        "emerald_ore": 0,
+        "amethyst_ore": 0,
+        "gold_ore": 0.0009765625,
+        "platinum_ore": 0.001007080078125,
+        "purple_wood": null,
+        "iron_chest[orientation=up_east]": null,
+        "realm_chest": null
+    },
+    "2_-8_17": {
+        "diamond_ore": 0.00042724609375,
+        "emerald_ore": 0.000732421875,
+        "amethyst_ore": 0.00054931640625,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "2_-6_15": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.000579833984375,
+        "amethyst_ore": 0.000274658203125,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "1_-6_18": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.00030517578125,
+        "amethyst_ore": 0.000335693359375,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "1_-5_17": {
+        "diamond_ore": 0,
+        "emerald_ore": 0,
+        "amethyst_ore": 0,
+        "gold_ore": 0.00030517578125,
+        "platinum_ore": 0.00091552734375
+    },
+    "1_-7_17": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.001220703125,
+        "amethyst_ore": 0.00042724609375,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "1_-6_16": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.000732421875,
+        "amethyst_ore": 0.000213623046875,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "5_-5_18": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.0001220703125,
+        "amethyst_ore": 0.000091552734375,
+        "gold_ore": 0.00091552734375,
+        "platinum_ore": 0.00079345703125
+    },
+    "5_-7_18": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.00042724609375,
+        "amethyst_ore": 0,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "5_-5_16": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.000091552734375,
+        "amethyst_ore": 0,
+        "gold_ore": 0.000274658203125,
+        "platinum_ore": 0.000274658203125
+    },
+    "5_-7_16": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.00030517578125,
+        "amethyst_ore": 0.000274658203125,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "4_-5_19": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.000091552734375,
+        "amethyst_ore": 0,
+        "gold_ore": 0.00054931640625,
+        "platinum_ore": 0.000396728515625
+    },
+    "4_-7_19": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.000274658203125,
+        "amethyst_ore": 0.000091552734375,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "4_-4_18": {
+        "diamond_ore": 0,
+        "emerald_ore": 0,
+        "amethyst_ore": 0,
+        "gold_ore": 0.00048828125,
+        "platinum_ore": 0.001007080078125
+    },
+    "4_-8_18": {
+        "diamond_ore": 0.00054931640625,
+        "emerald_ore": 0.000244140625,
+        "amethyst_ore": 0.0001220703125,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "4_-4_16": {
+        "diamond_ore": 0,
+        "emerald_ore": 0,
+        "amethyst_ore": 0,
+        "gold_ore": 0.00103759765625,
+        "platinum_ore": 0.00103759765625
+    },
+    "4_-8_16": {
+        "diamond_ore": 0.000396728515625,
+        "emerald_ore": 0.0003662109375,
+        "amethyst_ore": 0.00018310546875,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "4_-5_15": {
+        "diamond_ore": 0,
+        "emerald_ore": 0,
+        "amethyst_ore": 0.000335693359375,
+        "gold_ore": 0.00079345703125,
+        "platinum_ore": 0.000457763671875
+    },
+    "4_-7_15": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.000518798828125,
+        "amethyst_ore": 0.000701904296875,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "2_-5_19": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.00006103515625,
+        "amethyst_ore": 0.00006103515625,
+        "gold_ore": 0.000091552734375,
+        "platinum_ore": 0.001220703125
+    },
+    "2_-7_19": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.0006103515625,
+        "amethyst_ore": 0.000213623046875,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "2_-4_18": {
+        "diamond_ore": 0,
+        "emerald_ore": 0,
+        "amethyst_ore": 0,
+        "gold_ore": 0.00054931640625,
+        "platinum_ore": 0.0008544921875,
+        "purple_wood": null,
+        "realm_chest": null
+    },
+    "2_-8_18": {
+        "diamond_ore": 0.000762939453125,
+        "emerald_ore": 0.00018310546875,
+        "amethyst_ore": 0.000274658203125,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "2_-4_16": {
+        "diamond_ore": 0,
+        "emerald_ore": 0,
+        "amethyst_ore": 0,
+        "gold_ore": 0.001068115234375,
+        "platinum_ore": 0.000732421875
+    },
+    "2_-8_16": {
+        "diamond_ore": 0.00030517578125,
+        "emerald_ore": 0.00042724609375,
+        "amethyst_ore": 0.000518798828125,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "2_-5_15": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.000091552734375,
+        "amethyst_ore": 0.000091552734375,
+        "gold_ore": 0.000579833984375,
+        "platinum_ore": 0.000701904296875
+    },
+    "2_-7_15": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.000762939453125,
+        "amethyst_ore": 0.00018310546875,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "1_-5_18": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.000274658203125,
+        "amethyst_ore": 0,
+        "gold_ore": 0.00067138671875,
+        "platinum_ore": 0.00030517578125
+    },
+    "1_-7_18": {
+        "diamond_ore": 0.000030517578125,
+        "emerald_ore": 0.00030517578125,
+        "amethyst_ore": 0.000091552734375,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "1_-5_16": {
+        "diamond_ore": 0,
+        "emerald_ore": 0,
+        "amethyst_ore": 0,
+        "gold_ore": 0.001190185546875,
+        "platinum_ore": 0.0015869140625
+    },
+    "1_-7_16": {
+        "diamond_ore": 0,
+        "emerald_ore": 0.000640869140625,
+        "amethyst_ore": 0,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "5_-4_17": {
+        "diamond_ore": 0,
+        "emerald_ore": 0,
+        "amethyst_ore": 0,
+        "gold_ore": 0.00091552734375,
+        "platinum_ore": 0.00048828125
+    },
+    "5_-8_17": {
+        "diamond_ore": 0.000335693359375,
+        "emerald_ore": 0.00091552734375,
+        "amethyst_ore": 0.000335693359375,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "3_-4_19": {
+        "diamond_ore": 0,
+        "emerald_ore": 0,
+        "amethyst_ore": 0,
+        "gold_ore": 0.000762939453125,
+        "platinum_ore": 0.000732421875
+    },
+    "3_-8_19": {
+        "diamond_ore": 0.000457763671875,
+        "emerald_ore": 0.000396728515625,
+        "amethyst_ore": 0.00042724609375,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "3_-4_15": {
+        "diamond_ore": 0,
+        "emerald_ore": 0,
+        "amethyst_ore": 0,
+        "gold_ore": 0.0015869140625,
+        "platinum_ore": 0.000640869140625
+    },
+    "3_-8_15": {
+        "diamond_ore": 0.000457763671875,
+        "emerald_ore": 0.000579833984375,
+        "amethyst_ore": 0.000091552734375,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "1_-4_17": {
+        "diamond_ore": 0,
+        "emerald_ore": 0,
+        "amethyst_ore": 0,
+        "gold_ore": 0.0010986328125,
+        "platinum_ore": 0.000701904296875
+    },
+    "1_-8_17": {
+        "diamond_ore": 0.000579833984375,
+        "emerald_ore": 0.000946044921875,
+        "amethyst_ore": 0.0001220703125,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "5_-4_18": {
+        "diamond_ore": 0,
+        "emerald_ore": 0,
+        "amethyst_ore": 0,
+        "gold_ore": 0.001129150390625,
+        "platinum_ore": 0.00079345703125
+    },
+    "5_-8_18": {
+        "diamond_ore": 0.00042724609375,
+        "emerald_ore": 0.000823974609375,
+        "amethyst_ore": 0.00018310546875,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "5_-4_16": {
+        "diamond_ore": 0,
+        "emerald_ore": 0,
+        "amethyst_ore": 0,
+        "gold_ore": 0.00115966796875,
+        "platinum_ore": 0.00091552734375
+    },
+    "5_-8_16": {
+        "diamond_ore": 0.000213623046875,
+        "emerald_ore": 0.00079345703125,
+        "amethyst_ore": 0.000640869140625,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "4_-4_19": {
+        "diamond_ore": 0,
+        "emerald_ore": 0,
+        "amethyst_ore": 0,
+        "gold_ore": 0.000732421875,
+        "platinum_ore": 0.001068115234375
+    },
+    "4_-8_19": {
+        "diamond_ore": 0.001007080078125,
+        "emerald_ore": 0.000518798828125,
+        "amethyst_ore": 0.00030517578125,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "4_-4_15": {
+        "diamond_ore": 0,
+        "emerald_ore": 0,
+        "amethyst_ore": 0,
+        "gold_ore": 0.00079345703125,
+        "platinum_ore": 0.0006103515625
+    },
+    "4_-8_15": {
+        "diamond_ore": 0.000732421875,
+        "emerald_ore": 0.000579833984375,
+        "amethyst_ore": 0,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "2_-4_19": {
+        "diamond_ore": 0,
+        "emerald_ore": 0,
+        "amethyst_ore": 0,
+        "gold_ore": 0.00128173828125,
+        "platinum_ore": 0.000732421875
+    },
+    "2_-8_19": {
+        "diamond_ore": 0.00042724609375,
+        "emerald_ore": 0.00018310546875,
+        "amethyst_ore": 0.0003662109375,
+        "gold_ore": 0,
+        "platinum_ore": 0,
+        "magenta_wood": null,
+        "realm_chest": null
+    },
+    "2_-4_15": {
+        "diamond_ore": 0,
+        "emerald_ore": 0,
+        "amethyst_ore": 0,
+        "gold_ore": 0.0008544921875,
+        "platinum_ore": 0.001434326171875
+    },
+    "2_-8_15": {
+        "diamond_ore": 0.000396728515625,
+        "emerald_ore": 0.00067138671875,
+        "amethyst_ore": 0.0001220703125,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "1_-4_18": {
+        "diamond_ore": 0,
+        "emerald_ore": 0,
+        "amethyst_ore": 0,
+        "gold_ore": 0.000885009765625,
+        "platinum_ore": 0.000762939453125
+    },
+    "1_-8_18": {
+        "diamond_ore": 0.00054931640625,
+        "emerald_ore": 0.000823974609375,
+        "amethyst_ore": 0.000091552734375,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    },
+    "1_-4_16": {
+        "diamond_ore": 0,
+        "emerald_ore": 0,
+        "amethyst_ore": 0,
+        "gold_ore": 0.00091552734375,
+        "platinum_ore": 0.0008544921875
+    },
+    "1_-8_16": {
+        "diamond_ore": 0.00054931640625,
+        "emerald_ore": 0.000732421875,
+        "amethyst_ore": 0.00030517578125,
+        "gold_ore": 0,
+        "platinum_ore": 0
+    }
+}
