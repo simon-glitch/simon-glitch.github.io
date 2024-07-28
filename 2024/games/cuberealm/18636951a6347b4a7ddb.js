@@ -49,7 +49,7 @@
                         for (var mz = 0x0, mq = Object.entries(mv.keys);
                             mz < mq.length;
                             mz++) {
-                                var mb = mq[mz], mL = mb[0x0], my = mb[0x1];
+                            var mb = mq[mz], mL = mb[0x0], my = mb[0x1];
                             mA.ehq.ezw[mL] = my;
                         } mA.ehq.eHU = mv.terrainTextureURL, mc.length > 0x0 && D.A.emit(K.r.esd, mc);
                     }, this.ess = mu, this.esv = mN, this.ehq = mJ, this._nextKillFeedMessageId = 0x0, D.A.on(K.r.ehg, function () {
@@ -120,7 +120,7 @@
                     }), D.A.on(K.r.evg, function (mv) {
                         for (var mF, ma = m9(mv.evB);
                             !(mF = ma()).done;) {
-                                var mG = mF.value;
+                            var mG = mF.value;
                             switch (mG.eAk) {
                                 case k.Y.eiv: mA.ess.getState().evY(mG.eWN / 0xff);
                                     break;
@@ -143,7 +143,7 @@
                             if (mv.evb === m4.W.JqQ) {
                                 for (var mF, ma = { 'eee': mv.evD }, mG = m9(mv.evB);
                                     !(mF = mG()).done;) {
-                                        var mc = mF.value;
+                                    var mc = mF.value;
                                     mc.eAk === m3.v.JqC ? ma.emK = mc.eWN : mc.eAk === m3.v.Jqo && (ma.evL = mc.eWN);
                                 } mA.ess.getState().evQ(ma);
                             }
@@ -154,7 +154,7 @@
                         if (mv instanceof m7.A) {
                             for (var ma, mG = mv.command, mc = !0x0, mR = m9(mF);
                                 !(ma = mR()).done;) {
-                                    var mj = ma.value, mB = mj[0x0], mz = mj[0x1];
+                                var mj = ma.value, mB = mj[0x0], mz = mj[0x1];
                                 if ('' === mz) {
                                     mc = !0x1;
                                     break;
@@ -183,7 +183,7 @@
                     }), D.A.on(K.r.eGT, function (mv) {
                         for (var mF, ma = new Map(), mG = m9(mv);
                             !(mF = mG()).done;) {
-                                var mc = mF.value, mR = mc[0x0], mj = mc[0x1];
+                            var mc = mF.value, mR = mc[0x0], mj = mc[0x1];
                             ma.set(mR, mA.mapItemStackToInventoryItem(mj));
                         } mA.ess.getState().evO(ma), mA.evw(mJ.eTk.emZ.emx.eUO);
                     }), D.A.on(K.r.eqX, function (mv) {
@@ -228,9 +228,9 @@
                     for (var mN = [], mJ = [], mA = 0x0;
                         mA < W.bR.egj;
                         mA++) {
-                            var mv = mA, mF = W.pg(mv), ma = mF.ingredientSets.some(function (mc) {
-                                return mu.eQM(mc);
-                            });
+                        var mv = mA, mF = W.pg(mv), ma = mF.ingredientSets.some(function (mc) {
+                            return mu.eQM(mc);
+                        });
                         mN.push(ma);
                         var mG = mF.ingredientSets.some(function (mc) {
                             return mu.eQq(mc);
@@ -300,12 +300,12 @@
                     for (var mT = mL.shape[0x1], mi = this.eAz, mo = this.eAQ, mE = this.eAo, md = this.eAj, mD = 0x2 * mb, mK = 0x0, mw = mL.index(my, 0x0, 0x0), mp = mL.stride[0x1], mQ = mL.stride[0x2], mf = mh.index(mX, 0x0, 0x0), mn = mh.stride[0x1], mU = mh.stride[0x2], mM = 0x0, ml = 0x0, mg = [], mx = [], mr = 0x0;
                         mr < mT;
                         ++mr) {
-                            var mY = mw, mW = mf;
+                        var mY = mw, mW = mf;
                         if (mw += mQ, mf += mU, mC && mC[mr] >= 0x0) mK += mT;
                         else for (var mt = 0x0;
                             mt < mT;
                             mt++, mK++, mY += mp, mW += mn) {
-                                var mk = mL.data[mY], mS = mh.data[mW], mP = md(mk, mD), mI = md(mS, mD + 0x1), mZ = mi[mk], ms = mi[mS], mV = mo[mk], e0 = mo[mS], e1 = mE[0x6 * mk + mD], e2 = mE[0x6 * mS + mD + 0x1];
+                            var mk = mL.data[mY], mS = mh.data[mW], mP = md(mk, mD), mI = md(mS, mD + 0x1), mZ = mi[mk], ms = mi[mS], mV = mo[mk], e0 = mo[mS], e1 = mE[0x6 * mk + mD], e2 = mE[0x6 * mS + mD + 0x1];
                             0x0 === mb && ms && e0.eAk === Z.R.eAZ && mx.push({ 'eAx': m2.VB(mX, mr, mt), 'eAc': mS }), m1.Lb(e1, e2, mb) || e1 === e2 && e1 === m0.M.eAX && mk === mS || (mZ ? mV.eAk === Z.R.eAn && mg.push({ 'eAy': V.LX(mr, mt), 'eeA': 0x1, 'eee': mk }) : 0x0 !== mP && (this.eAR[mK] = mP, this.eAN && (this.eAl[mK] = mR(this.eAI, mX, mt, mr)), mM++)), m1.Lb(e2, e1, mb) || e1 === e2 && e1 === m0.M.eAX && mk === mS || (ms ? e0.eAk === Z.R.eAn && mg.push({ 'eAy': V.LX(mr, mt), 'eeA': -0x1, 'eee': mS }) : 0x0 !== mI && (this.eAm[mK] = mI, this.eAN && (this.eAl[mK] = mR(this.eAI, my, mt, mr)), ml++)), mZ && mV.eAk === Z.R.eAn && mg.push({ 'eAy': V.LX(mr, mt), 'eeA': 0x2, 'eee': mk }), ms && e0.eAk === Z.R.eAn && mg.push({ 'eAy': V.LX(mr, mt), 'eeA': -0x2, 'eee': mS });
                         }
                     } return { 'eeJ': mM, 'eeU': ml, 'eer': mg, 'eea': mx };
@@ -317,7 +317,7 @@
                         ++mp)for (var mQ = 0x1, mf = 0x1, mn = 0x0;
                             mn < mT;
                             mn += mQ, md += mQ) {
-                                var mU = 0x0 | mb[md];
+                            var mU = 0x0 | mb[md];
                             if (mU) {
                                 var mM = 0x0 | this.eAl[md];
                                 for (mQ = 0x1;
@@ -328,7 +328,7 @@
                                     ++mf)for (var ml = 0x0;
                                         ml < mQ;
                                         ++ml) {
-                                            if (!mw(md + ml + mf * mT, mb, mU, this.eAl, mM)) break mS;
+                                        if (!mw(md + ml + mf * mT, mb, mU, this.eAl, mM)) break mS;
                                     } var mg = Math.abs(mU), mx = this.eAw[mg];
                                 if (!(mx in mE)) {
                                     var mr = this.eAG.eAr();
@@ -352,7 +352,7 @@
                             mo[mh] = mK.eAy.eeI, mo[mX] = mK.eAy.eeE;
                             for (var mf, mn = m3(mQ.eeg[mp]);
                                 !(mf = mn()).done;) {
-                                    var mU, mM, ml, mg, mx, mr, mY, mW, mt = mf.value, mk = mt.eeB, mS = Math.abs(mk), mP = mT.eAw[mS];
+                                var mU, mM, ml, mg, mx, mr, mY, mW, mt = mf.value, mk = mt.eeB, mS = Math.abs(mk), mP = mT.eAw[mS];
                                 if (!(mP in mC)) {
                                     var mI = mT.eAG.eAr();
                                     mI.numFaces = 0x0, mI.terrainID = mP, mC[mP] = mI;
@@ -375,7 +375,7 @@
                         for (var mL = -0x1;
                             mL < this.eAi + 0x1;
                             mL++) {
-                                var my = mL < 0x0 ? 0x0 : mL < this.eAi ? 0x1 : 0x2;
+                            var my = mL < 0x0 ? 0x0 : mL < this.eAi ? 0x1 : 0x2;
                             this.eAE[mL + 0x1] = [0x0, 0x1, 0x2][my], this.eAf[mL + 0x1] = [this.eAi - 0x1, mL, 0x0][my], this.eAp[mL + 0x1] = [0x0, mL, this.eAi - 0x1][my];
                         }
                     } for (var mh = mb.get(0x0, 0x0, 0x0), mX = 0x0;
@@ -385,7 +385,7 @@
                             mC++)for (var mT = 0x0;
                                 mT < 0x3;
                                 mT++) {
-                                    var mi = 0x9 * mX + 0x3 * mC + mT, mo = mb.get(mX - 0x1, mC - 0x1, mT - 0x1), mE = 0x0;
+                                var mi = 0x9 * mX + 0x3 * mC + mT, mo = mb.get(mX - 0x1, mC - 0x1, mT - 0x1), mE = 0x0;
                                 mo || (mE = 0x1), mo === mh && (mE = 0x2), this.eAB[mi] = mE, this.eAg[mi] = mo || mh;
                             }
                 }, mq.eeb = function (mb) {
@@ -405,7 +405,7 @@
                             for (mX = 0x0;
                                 mX < mL.eAi - 0x1;
                                 mX++) {
-                                    var mg = mL.eAP(mo, mp, mX, mp, mX + 0x1), mx = mg.eeJ, mr = mg.eeU, mY = mg.eer, mW = mg.eea;
+                                var mg = mL.eAP(mo, mp, mX, mp, mX + 0x1), mx = mg.eeJ, mr = mg.eeU, mY = mg.eer, mW = mg.eea;
                                 mC.push.apply(mC, mW), mx > 0x0 && mL.eet(mL.eAR, 0x1, mX + 0x1, mo, mE, md, mL.eAi, mL.eAi, mx, mh), mr > 0x0 && mL.eet(mL.eAm, -0x1, mX + 0x1, mo, mE, md, mL.eAi, mL.eAi, mr, mh), mY.length > 0x0 && mL.eeF(mY, mX + 0x1, mo, mE, md, mh);
                             }
                         }
@@ -421,7 +421,7 @@
                         for (var mU = 0x0;
                             mU < mi.numFaces;
                             mU++) {
-                                var mM = mi.matIDs[mU], ml = mi.dirs[mU], mg = mi.is[mU], mx = mi.js[mU], mr = mi.ks[mU], mY = mi.iOffsetAs[mU], mW = mi.jOffsetAs[mU], mt = mi.kOffsetAs[mU], mk = mi.iOffsetBs[mU], mS = mi.jOffsetBs[mU], mP = mi.kOffsetBs[mU], mI = mi.iOffsetCs[mU], mZ = mi.jOffsetCs[mU], ms = mi.kOffsetCs[mU], mV = 0x10 * mi.uvwids[mU], e0 = 0x10 * mi.uvhts[mU], e1 = ml / 0x2 | 0x0, e2 = ml % 0x2 ? -0x1 : 0x1;
+                            var mM = mi.matIDs[mU], ml = mi.dirs[mU], mg = mi.is[mU], mx = mi.js[mU], mr = mi.ks[mU], mY = mi.iOffsetAs[mU], mW = mi.jOffsetAs[mU], mt = mi.kOffsetAs[mU], mk = mi.iOffsetBs[mU], mS = mi.jOffsetBs[mU], mP = mi.kOffsetBs[mU], mI = mi.iOffsetCs[mU], mZ = mi.jOffsetCs[mU], ms = mi.kOffsetCs[mU], mV = 0x10 * mi.uvwids[mU], e0 = 0x10 * mi.uvhts[mU], e1 = ml / 0x2 | 0x0, e2 = ml % 0x2 ? -0x1 : 0x1;
                             mH(mK, mU, mg, mx, mr, e1, mY, mW, mt, mk, mS, mP, mI, mZ, ms);
                             var e3 = mi.packedAO[mU], e4 = mi.AOAs[mU], e5 = mi.AOBs[mU], e6 = mi.AOCs[mU], e7 = mi.AODs[mU];
                             if (-0x1 !== e3) {
@@ -495,7 +495,7 @@
             } var mB = function (mz) {
                 for (var mq, mb = [], mL = m3(mz);
                     !(mq = mL()).done;) {
-                        var my = mq.value, mh = new X.BufferGeometry();
+                    var my = mq.value, mh = new X.BufferGeometry();
                     mh.setAttribute('position', new X.Float32BufferAttribute(my.eeo, 0x3)), mh.setIndex(new X.Uint32BufferAttribute(my.eeM, 0x1)), my.eej && mh.setAttribute('color', new X.Float32BufferAttribute(my.eej, 0x3)), my.eeq && mh.setAttribute('normal', new X.Float32BufferAttribute(my.eeq, 0x3)), my.eed && mh.setAttribute('uv', new X.Int16BufferAttribute(my.eed, 0x2)), my.ees && mh.setAttribute('ao', new X.Uint8BufferAttribute(my.ees, 0x1, !0x0)), my.atlasIndices && mh.setAttribute('atlasIndex', new X.Uint16BufferAttribute(my.atlasIndices, 0x2));
                     var mX = new X.Mesh(mh, k.A.eAb.eAH.eAD.eev[my.eeC]);
                     mb.push(mX);
@@ -663,7 +663,7 @@
                             for (var mA = mN.matrixWorld, mv = mN.geometry, mF = mv.attributes.instanceStart, ma = mv.attributes.instanceEnd, mG = 0x0, mc = Math.min(mv.instanceCount, mF.count);
                                 mG < mc;
                                 mG++) {
-                                    Y.start.fromBufferAttribute(mF, mG), Y.end.fromBufferAttribute(ma, mG), Y.applyMatrix4(mA);
+                                Y.start.fromBufferAttribute(mF, mG), Y.end.fromBufferAttribute(ma, mG), Y.applyMatrix4(mA);
                                 var mR = new X.Vector3(), mj = new X.Vector3();
                                 q.distanceSqToSegment(Y.start, Y.end, mj, mR), mj.distanceTo(mR) < 0.5 * b && mJ.push({ 'point': mj, 'pointOnLine': mR, 'distance': q.origin.distanceTo(mj), 'object': mN, 'face': null, 'faceIndex': mG, 'uv': null, 'uv1': null });
                             }
@@ -752,7 +752,7 @@
                 }
             };
             L.ShaderLib.line = {
-                'uniforms': L.UniformsUtils.merge([L.UniformsLib.common, L.UniformsLib.fog, L.UniformsLib.line]), 
+                'uniforms': L.UniformsUtils.merge([L.UniformsLib.common, L.UniformsLib.fog, L.UniformsLib.line]),
                 'vertexShader': '\x0a\x09\x09#include <common>\x0a\x09\x09#include <color_pars_vertex>\x0a\x09\x09#include <fog_pars_vertex>\x0a\x09\x09#include <logdepthbuf_pars_vertex>\x0a\x09\x09#include <clipping_planes_pars_vertex>\x0a\x0a\x09\x09uniform float linewidth;\x0a\x09\x09uniform vec2 resolution;\x0a\x0a\x09\x09attribute vec3 instanceStart;\x0a\x09\x09attribute vec3 instanceEnd;\x0a\x0a\x09\x09attribute vec3 instanceColorStart;\x0a\x09\x09attribute vec3 instanceColorEnd;\x0a\x0a\x09\x09#ifdef WORLD_UNITS\x0a\x0a\x09\x09\x09varying vec4 worldPos;\x0a\x09\x09\x09varying vec3 worldStart;\x0a\x09\x09\x09varying vec3 worldEnd;\x0a\x0a\x09\x09\x09#ifdef USE_DASH\x0a\x0a\x09\x09\x09\x09varying vec2 vUv;\x0a\x0a\x09\x09\x09#endif\x0a\x0a\x09\x09#else\x0a\x0a\x09\x09\x09varying vec2 vUv;\x0a\x0a\x09\x09#endif\x0a\x0a\x09\x09#ifdef USE_DASH\x0a\x0a\x09\x09\x09uniform float dashScale;\x0a\x09\x09\x09attribute float instanceDistanceStart;\x0a\x09\x09\x09attribute float instanceDistanceEnd;\x0a\x09\x09\x09varying float vLineDistance;\x0a\x0a\x09\x09#endif\x0a\x0a\x09\x09void trimSegment( const in vec4 start, inout vec4 end ) {\x0a\x0a\x09\x09\x09// trim end segment so it terminates between the camera plane and the near plane\x0a\x0a\x09\x09\x09// conservative estimate of the near plane\x0a\x09\x09\x09float a = projectionMatrix[ 2 ][ 2 ]; // 3nd entry in 3th column\x0a\x09\x09\x09float b = projectionMatrix[ 3 ][ 2 ]; // 3nd entry in 4th column\x0a\x09\x09\x09float nearEstimate = - 0.5 * b / a;\x0a\x0a\x09\x09\x09float alpha = ( nearEstimate - start.z ) / ( end.z - start.z );\x0a\x0a\x09\x09\x09end.xyz = mix( start.xyz, end.xyz, alpha );\x0a\x0a\x09\x09}\x0a\x0a\x09\x09void main() {\x0a\x0a\x09\x09\x09#ifdef USE_COLOR\x0a\x0a\x09\x09\x09\x09vColor.xyz = ( position.y < 0.5 ) ? instanceColorStart : instanceColorEnd;\x0a\x0a\x09\x09\x09#endif\x0a\x0a\x09\x09\x09#ifdef USE_DASH\x0a\x0a\x09\x09\x09\x09vLineDistance = ( position.y < 0.5 ) ? dashScale * instanceDistanceStart : dashScale * instanceDistanceEnd;\x0a\x09\x09\x09\x09vUv = uv;\x0a\x0a\x09\x09\x09#endif\x0a\x0a\x09\x09\x09float aspect = resolution.x / resolution.y;\x0a\x0a\x09\x09\x09// camera space\x0a\x09\x09\x09vec4 start = modelViewMatrix * vec4( instanceStart, 1.0 );\x0a\x09\x09\x09vec4 end = modelViewMatrix * vec4( instanceEnd, 1.0 );\x0a\x0a\x09\x09\x09#ifdef WORLD_UNITS\x0a\x0a\x09\x09\x09\x09worldStart = start.xyz;\x0a\x09\x09\x09\x09worldEnd = end.xyz;\x0a\x0a\x09\x09\x09#else\x0a\x0a\x09\x09\x09\x09vUv = uv;\x0a\x0a\x09\x09\x09#endif\x0a\x0a\x09\x09\x09// special case for perspective projection, and segments that terminate either in, or behind, the camera plane\x0a\x09\x09\x09// clearly the gpu firmware has a way of addressing this issue when projecting into ndc space\x0a\x09\x09\x09// but we need to perform ndc-space calculations in the shader, so we must address this issue directly\x0a\x09\x09\x09// perhaps there is a more elegant solution -- WestLangley\x0a\x0a\x09\x09\x09bool perspective = ( projectionMatrix[ 2 ][ 3 ] == - 1.0 ); // 4th entry in the 3rd column\x0a\x0a\x09\x09\x09if ( perspective ) {\x0a\x0a\x09\x09\x09\x09if ( start.z < 0.0 && end.z >= 0.0 ) {\x0a\x0a\x09\x09\x09\x09\x09trimSegment( start, end );\x0a\x0a\x09\x09\x09\x09} else if ( end.z < 0.0 && start.z >= 0.0 ) {\x0a\x0a\x09\x09\x09\x09\x09trimSegment( end, start );\x0a\x0a\x09\x09\x09\x09}\x0a\x0a\x09\x09\x09}\x0a\x0a\x09\x09\x09// clip space\x0a\x09\x09\x09vec4 clipStart = projectionMatrix * start;\x0a\x09\x09\x09vec4 clipEnd = projectionMatrix * end;\x0a\x0a\x09\x09\x09// ndc space\x0a\x09\x09\x09vec3 ndcStart = clipStart.xyz / clipStart.w;\x0a\x09\x09\x09vec3 ndcEnd = clipEnd.xyz / clipEnd.w;\x0a\x0a\x09\x09\x09// direction\x0a\x09\x09\x09vec2 dir = ndcEnd.xy - ndcStart.xy;\x0a\x0a\x09\x09\x09// account for clip-space aspect ratio\x0a\x09\x09\x09dir.x *= aspect;\x0a\x09\x09\x09dir = normalize( dir );\x0a\x0a\x09\x09\x09#ifdef WORLD_UNITS\x0a\x0a\x09\x09\x09\x09// get the offset direction as perpendicular to the view vector\x0a\x09\x09\x09\x09vec3 worldDir = normalize( end.xyz - start.xyz );\x0a\x09\x09\x09\x09vec3 offset;\x0a\x09\x09\x09\x09if ( position.y < 0.5 ) {\x0a\x0a\x09\x09\x09\x09\x09offset = normalize( cross( start.xyz, worldDir ) );\x0a\x0a\x09\x09\x09\x09} else {\x0a\x0a\x09\x09\x09\x09\x09offset = normalize( cross( end.xyz, worldDir ) );\x0a\x0a\x09\x09\x09\x09}\x0a\x0a\x09\x09\x09\x09// sign flip\x0a\x09\x09\x09\x09if ( position.x < 0.0 ) offset *= - 1.0;\x0a\x0a\x09\x09\x09\x09float forwardOffset = dot( worldDir, vec3( 0.0, 0.0, 1.0 ) );\x0a\x0a\x09\x09\x09\x09// don\x27t extend the line if we\x27re rendering dashes because we\x0a\x09\x09\x09\x09// won\x27t be rendering the endcaps\x0a\x09\x09\x09\x09#ifndef USE_DASH\x0a\x0a\x09\x09\x09\x09\x09// extend the line bounds to encompass  endcaps\x0a\x09\x09\x09\x09\x09start.xyz += - worldDir * linewidth * 0.5;\x0a\x09\x09\x09\x09\x09end.xyz += worldDir * linewidth * 0.5;\x0a\x0a\x09\x09\x09\x09\x09// shift the position of the quad so it hugs the forward edge of the line\x0a\x09\x09\x09\x09\x09offset.xy -= dir * forwardOffset;\x0a\x09\x09\x09\x09\x09offset.z += 0.5;\x0a\x0a\x09\x09\x09\x09#endif\x0a\x0a\x09\x09\x09\x09// endcaps\x0a\x09\x09\x09\x09if ( position.y > 1.0 || position.y < 0.0 ) {\x0a\x0a\x09\x09\x09\x09\x09offset.xy += dir * 2.0 * forwardOffset;\x0a\x0a\x09\x09\x09\x09}\x0a\x0a\x09\x09\x09\x09// adjust for linewidth\x0a\x09\x09\x09\x09offset *= linewidth * 0.5;\x0a\x0a\x09\x09\x09\x09// set the world position\x0a\x09\x09\x09\x09worldPos = ( position.y < 0.5 ) ? start : end;\x0a\x09\x09\x09\x09worldPos.xyz += offset;\x0a\x0a\x09\x09\x09\x09// project the worldpos\x0a\x09\x09\x09\x09vec4 clip = projectionMatrix * worldPos;\x0a\x0a\x09\x09\x09\x09// shift the depth of the projected points so the line\x0a\x09\x09\x09\x09// segments overlap neatly\x0a\x09\x09\x09\x09vec3 clipPose = ( position.y < 0.5 ) ? ndcStart : ndcEnd;\x0a\x09\x09\x09\x09clip.z = clipPose.z * clip.w;\x0a\x0a\x09\x09\x09#else\x0a\x0a\x09\x09\x09\x09vec2 offset = vec2( dir.y, - dir.x );\x0a\x09\x09\x09\x09// undo aspect ratio adjustment\x0a\x09\x09\x09\x09dir.x /= aspect;\x0a\x09\x09\x09\x09offset.x /= aspect;\x0a\x0a\x09\x09\x09\x09// sign flip\x0a\x09\x09\x09\x09if ( position.x < 0.0 ) offset *= - 1.0;\x0a\x0a\x09\x09\x09\x09// endcaps\x0a\x09\x09\x09\x09if ( position.y < 0.0 ) {\x0a\x0a\x09\x09\x09\x09\x09offset += - dir;\x0a\x0a\x09\x09\x09\x09} else if ( position.y > 1.0 ) {\x0a\x0a\x09\x09\x09\x09\x09offset += dir;\x0a\x0a\x09\x09\x09\x09}\x0a\x0a\x09\x09\x09\x09// adjust for linewidth\x0a\x09\x09\x09\x09offset *= linewidth;\x0a\x0a\x09\x09\x09\x09// adjust for clip-space to screen-space conversion // maybe resolution should be based on viewport ...\x0a\x09\x09\x09\x09offset /= resolution.y;\x0a\x0a\x09\x09\x09\x09// select end\x0a\x09\x09\x09\x09vec4 clip = ( position.y < 0.5 ) ? clipStart : clipEnd;\x0a\x0a\x09\x09\x09\x09// back to clip space\x0a\x09\x09\x09\x09offset *= clip.w;\x0a\x0a\x09\x09\x09\x09clip.xy += offset;\x0a\x0a\x09\x09\x09#endif\x0a\x0a\x09\x09\x09// depth offset for block outline\x0a\x09\x09\x09clip.z -= 0.00002f * clip.w;\x0a\x0a\x09\x09\x09gl_Position = clip;\x0a\x0a\x09\x09\x09vec4 mvPosition = ( position.y < 0.5 ) ? start : end; // this is an approximation\x0a\x0a\x09\x09\x09#include <logdepthbuf_vertex>\x0a\x09\x09\x09#include <clipping_planes_vertex>\x0a\x09\x09\x09#include <fog_vertex>\x0a\x0a\x09\x09}\x0a\x09\x09', 'fragmentShader': '\x0a\x09\x09uniform vec3 diffuse;\x0a\x09\x09uniform float opacity;\x0a\x09\x09uniform float linewidth;\x0a\x0a\x09\x09#ifdef USE_DASH\x0a\x0a\x09\x09\x09uniform float dashOffset;\x0a\x09\x09\x09uniform float dashSize;\x0a\x09\x09\x09uniform float gapSize;\x0a\x0a\x09\x09#endif\x0a\x0a\x09\x09varying float vLineDistance;\x0a\x0a\x09\x09#ifdef WORLD_UNITS\x0a\x0a\x09\x09\x09varying vec4 worldPos;\x0a\x09\x09\x09varying vec3 worldStart;\x0a\x09\x09\x09varying vec3 worldEnd;\x0a\x0a\x09\x09\x09#ifdef USE_DASH\x0a\x0a\x09\x09\x09\x09varying vec2 vUv;\x0a\x0a\x09\x09\x09#endif\x0a\x0a\x09\x09#else\x0a\x0a\x09\x09\x09varying vec2 vUv;\x0a\x0a\x09\x09#endif\x0a\x0a\x09\x09#include <common>\x0a\x09\x09#include <color_pars_fragment>\x0a\x09\x09#include <fog_pars_fragment>\x0a\x09\x09#include <logdepthbuf_pars_fragment>\x0a\x09\x09#include <clipping_planes_pars_fragment>\x0a\x0a\x09\x09vec2 closestLineToLine(vec3 p1, vec3 p2, vec3 p3, vec3 p4) {\x0a\x0a\x09\x09\x09float mua;\x0a\x09\x09\x09float mub;\x0a\x0a\x09\x09\x09vec3 p13 = p1 - p3;\x0a\x09\x09\x09vec3 p43 = p4 - p3;\x0a\x0a\x09\x09\x09vec3 p21 = p2 - p1;\x0a\x0a\x09\x09\x09float d1343 = dot( p13, p43 );\x0a\x09\x09\x09float d4321 = dot( p43, p21 );\x0a\x09\x09\x09float d1321 = dot( p13, p21 );\x0a\x09\x09\x09float d4343 = dot( p43, p43 );\x0a\x09\x09\x09float d2121 = dot( p21, p21 );\x0a\x0a\x09\x09\x09float denom = d2121 * d4343 - d4321 * d4321;\x0a\x0a\x09\x09\x09float numer = d1343 * d4321 - d1321 * d4343;\x0a\x0a\x09\x09\x09mua = numer / denom;\x0a\x09\x09\x09mua = clamp( mua, 0.0, 1.0 );\x0a\x09\x09\x09mub = ( d1343 + d4321 * ( mua ) ) / d4343;\x0a\x09\x09\x09mub = clamp( mub, 0.0, 1.0 );\x0a\x0a\x09\x09\x09return vec2( mua, mub );\x0a\x0a\x09\x09}\x0a\x0a\x09\x09void main() {\x0a\x0a\x09\x09\x09#include <clipping_planes_fragment>\x0a\x0a\x09\x09\x09#ifdef USE_DASH\x0a\x0a\x09\x09\x09\x09if ( vUv.y < - 1.0 || vUv.y > 1.0 ) discard; // discard endcaps\x0a\x0a\x09\x09\x09\x09if ( mod( vLineDistance + dashOffset, dashSize + gapSize ) > dashSize ) discard; // todo - FIX\x0a\x0a\x09\x09\x09#endif\x0a\x0a\x09\x09\x09float alpha = opacity;\x0a\x0a\x09\x09\x09#ifdef WORLD_UNITS\x0a\x0a\x09\x09\x09\x09// Find the closest points on the view ray and the line segment\x0a\x09\x09\x09\x09vec3 rayEnd = normalize( worldPos.xyz ) * 1e5;\x0a\x09\x09\x09\x09vec3 lineDir = worldEnd - worldStart;\x0a\x09\x09\x09\x09vec2 params = closestLineToLine( worldStart, worldEnd, vec3( 0.0, 0.0, 0.0 ), rayEnd );\x0a\x0a\x09\x09\x09\x09vec3 p1 = worldStart + lineDir * params.x;\x0a\x09\x09\x09\x09vec3 p2 = rayEnd * params.y;\x0a\x09\x09\x09\x09vec3 delta = p1 - p2;\x0a\x09\x09\x09\x09float len = length( delta );\x0a\x09\x09\x09\x09float norm = len / linewidth;\x0a\x0a\x09\x09\x09\x09#ifndef USE_DASH\x0a\x0a\x09\x09\x09\x09\x09#ifdef USE_ALPHA_TO_COVERAGE\x0a\x0a\x09\x09\x09\x09\x09\x09float dnorm = fwidth( norm );\x0a\x09\x09\x09\x09\x09\x09alpha = 1.0 - smoothstep( 0.5 - dnorm, 0.5 + dnorm, norm );\x0a\x0a\x09\x09\x09\x09\x09#else\x0a\x0a\x09\x09\x09\x09\x09\x09if ( norm > 0.5 ) {\x0a\x0a\x09\x09\x09\x09\x09\x09\x09discard;\x0a\x0a\x09\x09\x09\x09\x09\x09}\x0a\x0a\x09\x09\x09\x09\x09#endif\x0a\x0a\x09\x09\x09\x09#endif\x0a\x0a\x09\x09\x09#else\x0a\x0a\x09\x09\x09\x09#ifdef USE_ALPHA_TO_COVERAGE\x0a\x0a\x09\x09\x09\x09\x09// artifacts appear on some hardware if a derivative is taken within a conditional\x0a\x09\x09\x09\x09\x09float a = vUv.x;\x0a\x09\x09\x09\x09\x09float b = ( vUv.y > 0.0 ) ? vUv.y - 1.0 : vUv.y + 1.0;\x0a\x09\x09\x09\x09\x09float len2 = a * a + b * b;\x0a\x09\x09\x09\x09\x09float dlen = fwidth( len2 );\x0a\x0a\x09\x09\x09\x09\x09if ( abs( vUv.y ) > 1.0 ) {\x0a\x0a\x09\x09\x09\x09\x09\x09alpha = 1.0 - smoothstep( 1.0 - dlen, 1.0 + dlen, len2 );\x0a\x0a\x09\x09\x09\x09\x09}\x0a\x0a\x09\x09\x09\x09#else\x0a\x0a\x09\x09\x09\x09\x09if ( abs( vUv.y ) > 1.0 ) {\x0a\x0a\x09\x09\x09\x09\x09\x09float a = vUv.x;\x0a\x09\x09\x09\x09\x09\x09float b = ( vUv.y > 0.0 ) ? vUv.y - 1.0 : vUv.y + 1.0;\x0a\x09\x09\x09\x09\x09\x09float len2 = a * a + b * b;\x0a\x0a\x09\x09\x09\x09\x09\x09if ( len2 > 1.0 ) discard;\x0a\x0a\x09\x09\x09\x09\x09}\x0a\x0a\x09\x09\x09\x09#endif\x0a\x0a\x09\x09\x09#endif\x0a\x0a\x09\x09\x09vec4 diffuseColor = vec4( diffuse, alpha );\x0a\x0a\x09\x09\x09#include <logdepthbuf_fragment>\x0a\x09\x09\x09#include <color_fragment>\x0a\x0a\x09\x09\x09gl_FragColor = vec4( diffuseColor.rgb, alpha );\x0a\x0a\x09\x09\x09#include <tonemapping_fragment>\x0a\x09\x09\x09#include <colorspace_fragment>\x0a\x09\x09\x09#include <fog_fragment>\x0a\x09\x09\x09#include <premultiplied_alpha_fragment>\x0a\x0a\x09\x09}\x0a\x09\x09'
             };
             var y = function (h) {
@@ -888,7 +888,7 @@
                     for (var E = X.tracks, d = E.length, D = new Array(d), K = { 'endingStart': q.rQf, 'endingEnd': q.rQf }, w = 0x0;
                         w !== d;
                         ++w) {
-                            var p = E[w].createInterpolant(null);
+                        var p = E[w].createInterpolant(null);
                         D[w] = p, p.settings = K;
                     } this._interpolantSettings = K, this._interpolants = D, this._propertyBindings = new Array(d), this._cacheIndex = null, this._byClipCacheIndex = null, this._timeScaleInterpolant = null, this._weightInterpolant = null, this.loop = q.aMy, this._loopCount = -0x1, this._startTime = null, this.time = 0x0, this.timeScale = 0x1, this._effectiveTimeScale = 0x1, this.weight = 0x1, this._effectiveWeight = 0x1, this.repetitions = 0x1 / 0x0, this.paused = !0x1, this.enabled = !0x0, this.clampWhenFinished = !0x1, this.zeroSlopeAtStart = !0x0, this.zeroSlopeAtEnd = !0x0;
                 } var y = L.prototype;
@@ -1040,7 +1040,7 @@
                     for (var I = 0x0;
                         I !== g;
                         ++I) {
-                            var Z = M[I], V = Z.name, m0 = P[V];
+                        var Z = M[I], V = Z.name, m0 = P[V];
                         if (void 0x0 !== m0) ++m0.referenceCount, x[I] = m0;
                         else {
                             if (void 0x0 !== (m0 = x[I])) {
@@ -1058,7 +1058,7 @@
                         } for (var l = Q._propertyBindings, g = 0x0, x = l.length;
                             g !== x;
                             ++g) {
-                                var Y = l[g];
+                            var Y = l[g];
                             0x0 == Y.useCount++ && (this._lendBinding(Y), Y.saveOriginalState());
                         } this._lendAction(Q);
                     }
@@ -1067,7 +1067,7 @@
                         for (var f = Q._propertyBindings, U = 0x0, M = f.length;
                             U !== M;
                             ++U) {
-                                var l = f[U];
+                            var l = f[U];
                             0x0 == --l.useCount && (l.restoreOriginalState(), this._takeBackBinding(l));
                         } this._takeBackAction(Q);
                     }
@@ -1114,7 +1114,7 @@
                     for (var f = Q._propertyBindings, U = 0x0, M = f.length;
                         U !== M;
                         ++U) {
-                            var l = f[U];
+                        var l = f[U];
                         0x0 == --l.referenceCount && this._removeInactiveBinding(l);
                     }
                 }, p._lendAction = function (Q) {
@@ -1163,7 +1163,7 @@
                     for (var f = this._actions, U = this._nActiveActions, M = this.time += Q, l = Math.sign(Q), g = this._accuIndex ^= 0x1, x = 0x0;
                         x !== U;
                         ++x) {
-                            f[x]._update(M, Q, l, g);
+                        f[x]._update(M, Q, l, g);
                     } for (var Y = this._bindings, W = this._nActiveBindings, k = 0x0;
                         k !== W;
                         ++k)Y[k].apply(g);
@@ -1182,7 +1182,7 @@
                         for (var g = l.knownActions, x = 0x0, Y = g.length;
                             x !== Y;
                             ++x) {
-                                var W = g[x];
+                            var W = g[x];
                             this._deactivateAction(W);
                             var k = W._cacheIndex, S = f[f.length - 0x1];
                             W._cacheIndex = null, W._byClipCacheIndex = null, S._cacheIndex = k, f[k] = S, f.pop(), this._removeInactiveBindingsForAction(W);
@@ -1277,14 +1277,14 @@
                     for (var d = 0x1 - T, D = 0x0;
                         D !== E;
                         ++D) {
-                            var K = X + D;
+                        var K = X + D;
                         h[K] = h[K] * d + h[C + D] * T;
                     }
                 }, y._lerpAdditive = function (h, X, C, T, E) {
                     for (var d = 0x0;
                         d !== E;
                         ++d) {
-                            var D = X + d;
+                        var D = X + d;
                         h[D] = h[D] + h[C + d] * T;
                     }
                 }, L;
@@ -1499,30 +1499,30 @@
                         for (var mH = V, mO = 0x0;
                             mO <= Q;
                             mO++) {
-                                var mu = mO / Q * x + g, mN = Math.cos(mu), mJ = Math.sin(mu);
+                            var mu = mO / Q * x + g, mN = Math.cos(mu), mJ = Math.sin(mu);
                             m7.x = m9 * mJ, m7.y = m1 * mm, m7.z = m9 * mN, P.push(m7.x, m7.y, m7.z), I.push(0x0, mm, 0x0), m6.x = 0.5 * mN + 0.5, m6.y = 0.5 * mJ * mm + 0.5, Z.push(m6.x, m6.y), V++;
                         } for (var mA = 0x0;
                             mA < Q;
                             mA++) {
-                                var mv = m5 + mA, mF = mH + mA;
+                            var mv = m5 + mA, mF = mH + mA;
                             !0x0 === m4 ? k.push(mF, mF + 0x1, mv) : k.push(mF + 0x1, mF, mv), m8 += 0x3;
                         } W.addGroup(m2, m8, !0x0 === m4 ? 0x1 : 0x2), m2 += m8;
                     } return (function () {
                         for (var m4 = new y.P(), m5 = new y.P(), m6 = 0x0, m7 = (K - D) / w, m8 = 0x0;
                             m8 <= U;
                             m8++) {
-                                for (var m9 = [], mm = m8 / U, me = mm * (K - D) + D, mH = 0x0;
-                                    mH <= Q;
-                                    mH++) {
-                                        var mO = mH / Q, mu = mO * x + g, mN = Math.sin(mu), mJ = Math.cos(mu);
-                                    m5.x = me * mN, m5.y = -mm * w + m1, m5.z = me * mJ, P.push(m5.x, m5.y, m5.z), m4.set(mN, m7, mJ).normalize(), I.push(m4.x, m4.y, m4.z), Z.push(mO, 0x1 - mm), m9.push(V++);
-                                } m0.push(m9);
+                            for (var m9 = [], mm = m8 / U, me = mm * (K - D) + D, mH = 0x0;
+                                mH <= Q;
+                                mH++) {
+                                var mO = mH / Q, mu = mO * x + g, mN = Math.sin(mu), mJ = Math.cos(mu);
+                                m5.x = me * mN, m5.y = -mm * w + m1, m5.z = me * mJ, P.push(m5.x, m5.y, m5.z), m4.set(mN, m7, mJ).normalize(), I.push(m4.x, m4.y, m4.z), Z.push(mO, 0x1 - mm), m9.push(V++);
+                            } m0.push(m9);
                         } for (var mA = 0x0;
                             mA < Q;
                             mA++)for (var mv = 0x0;
                                 mv < U;
                                 mv++) {
-                                    var mF = m0[mv][mA], ma = m0[mv + 0x1][mA], mG = m0[mv + 0x1][mA + 0x1], mc = m0[mv][mA + 0x1];
+                                var mF = m0[mv][mA], ma = m0[mv + 0x1][mA], mG = m0[mv + 0x1][mA + 0x1], mc = m0[mv][mA + 0x1];
                                 k.push(mF, ma, mc), k.push(ma, mG, mc), m6 += 0x6;
                             } W.addGroup(m2, m6, 0x0), m2 += m6;
                     }()), !0x1 === M && (D > 0x0 && m3(!0x0), K > 0x0 && m3(!0x1)), Y.setIndex(k), Y.setAttribute('position', new L.qt(P, 0x3)), Y.setAttribute('normal', new L.qt(I, 0x3)), Y.setAttribute('uv', new L.qt(Z, 0x2)), Y;
@@ -1549,7 +1549,7 @@
                                     m1 += 0x3)for (var m3 = 0x0;
                                         m3 < 0x3;
                                         m3++) {
-                                            var m4 = k.getX(m1 + m3), m5 = k.getX(m1 + (m3 + 0x1) % 0x3);
+                                        var m4 = k.getX(m1 + m3), m5 = k.getX(m1 + (m3 + 0x1) % 0x3);
                                         x.fromBufferAttribute(W, m4), Y.fromBufferAttribute(W, m5), !0x0 === E(x, Y, M) && (U.push(x.x, x.y, x.z), U.push(Y.x, Y.y, Y.z));
                                     }
                         } else {
@@ -1558,7 +1558,7 @@
                                 m7++)for (var m9 = 0x0;
                                     m9 < 0x3;
                                     m9++) {
-                                        var mm = 0x3 * m7 + m9, me = 0x3 * m7 + (m9 + 0x1) % 0x3;
+                                    var mm = 0x3 * m7 + m9, me = 0x3 * m7 + (m9 + 0x1) % 0x3;
                                     x.fromBufferAttribute(m6, mm), Y.fromBufferAttribute(m6, me), !0x0 === E(x, Y, M) && (U.push(x.x, x.y, x.z), U.push(Y.x, Y.y, Y.z));
                                 }
                         } Q.setAttribute('position', new X.qt(U, 0x3));
@@ -1580,12 +1580,12 @@
                     for (var k = Math.min(x + Y, Math.PI), P = 0x0, Z = [], V = new y.P(), m0 = new y.P(), m1 = [], m2 = [], m3 = [], m4 = [], m5 = 0x0;
                         m5 <= Q;
                         m5++) {
-                            var m6 = [], m7 = m5 / Q, m8 = 0x0;
+                        var m6 = [], m7 = m5 / Q, m8 = 0x0;
                         0x0 === m5 && 0x0 === x ? m8 = 0.5 / K : m5 === Q && k === Math.PI && (m8 = -0.5 / K);
                         for (var m9 = 0x0;
                             m9 <= K;
                             m9++) {
-                                var mm = m9 / K;
+                            var mm = m9 / K;
                             V.x = -D * Math.cos(U + mm * M) * Math.sin(x + m7 * Y), V.y = D * Math.cos(x + m7 * Y), V.z = D * Math.sin(U + mm * M) * Math.sin(x + m7 * Y), m2.push(V.x, V.y, V.z), m0.copy(V).normalize(), m3.push(m0.x, m0.y, m0.z), m4.push(mm + m8, 0x1 - m7), m6.push(P++);
                         } Z.push(m6);
                     } for (var me = 0x0;
@@ -1593,7 +1593,7 @@
                         me++)for (var mH = 0x0;
                             mH < K;
                             mH++) {
-                                var mO = Z[me][mH + 0x1], mu = Z[me][mH], mN = Z[me + 0x1][mH], mJ = Z[me + 0x1][mH + 0x1];
+                            var mO = Z[me][mH + 0x1], mu = Z[me][mH], mN = Z[me + 0x1][mH], mJ = Z[me + 0x1][mH + 0x1];
                             (0x0 !== me || x > 0x0) && m1.push(mO, mu, mJ), (me !== Q - 0x1 || k < Math.PI) && m1.push(mu, mN, mJ);
                         } return W.setIndex(m1), W.setAttribute('position', new L.qt(m2, 0x3)), W.setAttribute('normal', new L.qt(m3, 0x3)), W.setAttribute('uv', new L.qt(m4, 0x2)), W;
                 } return q.A(C, X), C.prototype.copy = function (T) {
@@ -1835,7 +1835,291 @@
             }
         }, 0x58c9: (j, B, z) => {
             z.d(B, { 'f': () => y });
-            var q = z(0x169b1), b = z(0x1264d), L = z(0x3e78), y = { 'common': { 'diffuse': { 'value': new q.Q(0xffffff) }, 'opacity': { 'value': 0x1 }, 'map': { 'value': null }, 'mapTransform': { 'value': new L.d() }, 'alphaMap': { 'value': null }, 'alphaMapTransform': { 'value': new L.d() }, 'alphaTest': { 'value': 0x0 } }, 'specularmap': { 'specularMap': { 'value': null }, 'specularMapTransform': { 'value': new L.d() } }, 'envmap': { 'envMap': { 'value': null }, 'flipEnvMap': { 'value': -0x1 }, 'reflectivity': { 'value': 0x1 }, 'ior': { 'value': 1.5 }, 'refractionRatio': { 'value': 0.98 } }, 'aomap': { 'aoMap': { 'value': null }, 'aoMapIntensity': { 'value': 0x1 }, 'aoMapTransform': { 'value': new L.d() } }, 'lightmap': { 'lightMap': { 'value': null }, 'lightMapIntensity': { 'value': 0x1 }, 'lightMapTransform': { 'value': new L.d() } }, 'bumpmap': { 'bumpMap': { 'value': null }, 'bumpMapTransform': { 'value': new L.d() }, 'bumpScale': { 'value': 0x1 } }, 'normalmap': { 'normalMap': { 'value': null }, 'normalMapTransform': { 'value': new L.d() }, 'normalScale': { 'value': new b.I(0x1, 0x1) } }, 'displacementmap': { 'displacementMap': { 'value': null }, 'displacementMapTransform': { 'value': new L.d() }, 'displacementScale': { 'value': 0x1 }, 'displacementBias': { 'value': 0x0 } }, 'emissivemap': { 'emissiveMap': { 'value': null }, 'emissiveMapTransform': { 'value': new L.d() } }, 'metalnessmap': { 'metalnessMap': { 'value': null }, 'metalnessMapTransform': { 'value': new L.d() } }, 'roughnessmap': { 'roughnessMap': { 'value': null }, 'roughnessMapTransform': { 'value': new L.d() } }, 'gradientmap': { 'gradientMap': { 'value': null } }, 'fog': { 'fogDensity': { 'value': 0.00025 }, 'fogNear': { 'value': 0x1 }, 'fogFar': { 'value': 0x7d0 }, 'fogColor': { 'value': new q.Q(0xffffff) } }, 'lights': { 'ambientLightColor': { 'value': [] }, 'lightProbe': { 'value': [] }, 'directionalLights': { 'value': [], 'properties': { 'direction': {}, 'color': {} } }, 'directionalLightShadows': { 'value': [], 'properties': { 'shadowBias': {}, 'shadowNormalBias': {}, 'shadowRadius': {}, 'shadowMapSize': {} } }, 'directionalShadowMap': { 'value': [] }, 'directionalShadowMatrix': { 'value': [] }, 'spotLights': { 'value': [], 'properties': { 'color': {}, 'position': {}, 'direction': {}, 'distance': {}, 'coneCos': {}, 'penumbraCos': {}, 'decay': {} } }, 'spotLightShadows': { 'value': [], 'properties': { 'shadowBias': {}, 'shadowNormalBias': {}, 'shadowRadius': {}, 'shadowMapSize': {} } }, 'spotLightMap': { 'value': [] }, 'spotShadowMap': { 'value': [] }, 'spotLightMatrix': { 'value': [] }, 'pointLights': { 'value': [], 'properties': { 'color': {}, 'position': {}, 'decay': {}, 'distance': {} } }, 'pointLightShadows': { 'value': [], 'properties': { 'shadowBias': {}, 'shadowNormalBias': {}, 'shadowRadius': {}, 'shadowMapSize': {}, 'shadowCameraNear': {}, 'shadowCameraFar': {} } }, 'pointShadowMap': { 'value': [] }, 'pointShadowMatrix': { 'value': [] }, 'hemisphereLights': { 'value': [], 'properties': { 'direction': {}, 'skyColor': {}, 'groundColor': {} } }, 'rectAreaLights': { 'value': [], 'properties': { 'color': {}, 'position': {}, 'width': {}, 'height': {} } }, 'ltc_1': { 'value': null }, 'ltc_2': { 'value': null } }, 'points': { 'diffuse': { 'value': new q.Q(0xffffff) }, 'opacity': { 'value': 0x1 }, 'size': { 'value': 0x1 }, 'scale': { 'value': 0x1 }, 'map': { 'value': null }, 'alphaMap': { 'value': null }, 'alphaMapTransform': { 'value': new L.d() }, 'alphaTest': { 'value': 0x0 }, 'uvTransform': { 'value': new L.d() } }, 'sprite': { 'diffuse': { 'value': new q.Q(0xffffff) }, 'opacity': { 'value': 0x1 }, 'center': { 'value': new b.I(0.5, 0.5) }, 'rotation': { 'value': 0x0 }, 'map': { 'value': null }, 'mapTransform': { 'value': new L.d() }, 'alphaMap': { 'value': null }, 'alphaMapTransform': { 'value': new L.d() }, 'alphaTest': { 'value': 0x0 } } };
+            var q = z(0x169b1);
+            var b = z(0x1264d);
+            var L = z(0x3e78);
+            var y = {
+                'common': {
+                    'diffuse': {
+                        'value': new q.Q(0xffffff)
+                    },
+                    'opacity': {
+                        'value': 1.0
+                    },
+                    'map': {
+                        'value': null
+                    },
+                    'mapTransform': {
+                        'value': new L.d()
+                    },
+                    'alphaMap': {
+                        'value': null
+                    },
+                    'alphaMapTransform': {
+                        'value': new L.d()
+                    },
+                    'alphaTest': {
+                        'value': 0x0
+                    }
+                },
+                'specularmap': {
+                    'specularMap': {
+                        'value': null
+                    },
+                    'specularMapTransform': {
+                        'value': new L.d()
+                    }
+                },
+                'envmap': {
+                    'envMap': {
+                        'value': null
+
+                    },
+                    'flipEnvMap': {
+                        'value': -0x1
+                    },
+                    'reflectivity': {
+                        'value': 0x1
+                    },
+                    'ior': {
+                        'value': 1.5
+                    },
+                    'refractionRatio': {
+                        'value': 0.98
+                    }
+                },
+                'aomap': {
+                    'aoMap': {
+                        'value': null
+                    }, 'aoMapIntensity': {
+                        'value': 0x1
+                    }, 'aoMapTransform': {
+                        'value': new L.d()
+                    }
+                },
+                'lightmap': {
+                    'lightMap': { 'value': null },
+                    'lightMapIntensity': {
+                        'value': 0x1
+                    },
+                    'lightMapTransform': {
+                        'value': new L.d()
+                    }
+                },
+                'bumpmap': {
+                    'bumpMap': {
+                        'value': null
+                    },
+                    'bumpMapTransform': {
+                        'value': new L.d()
+                    },
+                    'bumpScale': {
+                        'value': 0x1
+                    }
+                },
+                'normalmap': {
+                    'normalMap': {
+                        'value': null
+                    },
+                    'normalMapTransform': {
+                        'value': new L.d()
+                    },
+                    'normalScale': {
+                        'value': new b.I(0x1, 0x1)
+                    }
+                },
+                'displacementmap': {
+                    'displacementMap': {
+                        'value': null
+                    },
+                    'displacementMapTransform': {
+                        'value': new L.d()
+                    },
+                    'displacementScale': {
+                        'value': 0x1
+                    },
+                    'displacementBias': {
+                        'value': 0x0
+                    }
+                },
+                'emissivemap': {
+                    'emissiveMap': {
+                        'value': null
+                    },
+                    'emissiveMapTransform': {
+                        'value': new L.d()
+                    }
+                },
+                'metalnessmap': {
+                    'metalnessMap': {
+                        'value': null
+                    },
+                    'metalnessMapTransform': {
+                        'value': new L.d()
+                    }
+                },
+                'roughnessmap': {
+                    'roughnessMap': {
+                        'value': null
+                    },
+                    'roughnessMapTransform': {
+                        'value': new L.d()
+                    }
+                },
+                'gradientmap': {
+                    'gradientMap': {
+                        'value': null
+                    }
+                },
+                'fog': {
+                    'fogDensity': {
+                        'value': 0.00025
+                    }, 'fogNear': { 'value': 0x1 }, 'fogFar': { 'value': 0x7d0 }, 'fogColor': {
+                        'value': new q.Q(0xffffff)
+                    }
+                }, 'lights': {
+                    'ambientLightColor': { 'value': [] }, 'lightProbe': {
+                        'value': []
+                    },
+                    'directionalLights': {
+                        'value': [],
+                        'properties': {
+                            'direction': {},
+                            'color': {}
+                        }
+                    },
+                    'directionalLightShadows': {
+                        'value': [],
+                        'properties': {
+                            'shadowBias': {},
+                            'shadowNormalBias': {},
+                            'shadowRadius': {},
+                            'shadowMapSize': {}
+                        }
+                    },
+                    'directionalShadowMap': {
+                        'value': []
+                    },
+                    'directionalShadowMatrix': {
+                        'value': []
+                    },
+                    'spotLights': {
+                        'value': [],
+                        'properties': {
+                            'color': {},
+                            'position': {},
+                            'direction': {},
+                            'distance': {},
+                            'coneCos': {},
+                            'penumbraCos': {},
+                            'decay': {}
+                        }
+                    },
+                    'spotLightShadows': {
+                        'value': [],
+                        'properties': {
+                            'shadowBias': {},
+                            'shadowNormalBias': {},
+                            'shadowRadius': {},
+                            'shadowMapSize': {}
+                        }
+                    },
+                    'spotLightMap': {
+                        'value': []
+                    }, 'spotShadowMap': { 'value': [] },
+                    'spotLightMatrix': {
+                        'value': []
+                    },
+                    'pointLights': {
+                        'value': [],
+                        'properties': {
+                            'color': {},
+                            'position': {},
+                            'decay': {},
+                            'distance': {}
+                        }
+                    },
+                    'pointLightShadows': {
+                        'value': [],
+                        'properties': {
+                            'shadowBias': {},
+                            'shadowNormalBias': {},
+                            'shadowRadius': {},
+                            'shadowMapSize': {},
+                            'shadowCameraNear': {},
+                            'shadowCameraFar': {}
+                        }
+                    },
+                   
+                    'pointShadowMap': {
+                        'value': [] },
+                    'pointShadowMatrix': {
+                        'value': [] },
+                    'hemisphereLights': { 'value': [],
+                        'properties': {
+                        'direction': {},
+                    'skyColor': {},
+                    'groundColor': {} } },
+                    'rectAreaLights': {
+                        'value': [],
+                        'properties': {
+                        'color': {},
+                    'position': {},
+                    'width': {},
+                    'height': {}
+                }
+                },
+                    'ltc_1': {
+                        'value': null
+                    },
+                    'ltc_2': {
+                        'value': null
+                    }
+                },
+                'points': {
+                   
+                    'diffuse': {
+                        'value': new q.Q(0xffffff) },
+                   
+                    'opacity': {
+                        'value': 0x1 },
+                    'size': {
+                        'value': 0x1 },
+                    'scale': {
+                        'value': 0x1 }, 'map': { 'value': null },
+                    'alphaMap': { 'value': null },
+                    'alphaMapTransform': { 'value': new L.d() }, 'alphaTest': { 'value': 0x0 }, 'uvTransform': { 'value': new L.d() }
+                },
+                'sprite': {
+                    'diffuse': {
+                        'value': new q.Q(0xffffff)
+                    },
+                    'opacity': {
+                        'value': 0x1
+                    },
+                        'center': {
+                            'value': new b.I(0.5, 0.5)
+                        },
+                        'rotation': {
+                            'value': 0x0
+                        },
+                        'map': {
+                        'value': null
+                    },
+                        'mapTransform': {
+                            'value': new L.d()
+                        },
+                        'alphaMap': {
+                            'value': null
+                        },
+                        'alphaMapTransform': {
+                            'value': new L.d()
+                        },
+                        'alphaTest': {
+                            'value': 0x0
+                        }
+                }
+            };
         }, 0x24cb: (j, B, z) => {
             z.d(B, { 'G': () => b });
             var q = z(0x12e4b), b = function (L) {
@@ -2305,7 +2589,7 @@
                         if (E && D) for (var K = 0x0;
                             K < d.length;
                             K++) {
-                                var w = document.querySelector('#' + d[K].id);
+                            var w = document.querySelector('#' + d[K].id);
                             w && (w.innerHTML = '<div style=\x22font-size: 15px; text-shadow: none; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; flex-direction: column;\x22><div style=\x22margin-bottom: 12px;\x22>Voxiom.io is made possible by displaying online advertisements to our players.</div><div>Please consider supporting us by disabling your ad blocker :(</div></div>', w.style.padding = '24px', w.style.boxSizing = 'border-box');
                         } else {
                             if (T === y.a.JqM) d.forEach(function (f) {
@@ -2478,7 +2762,7 @@
             }, K = ((q = {})[y.eJc] = [y.eJc, y.eUr, y.eUA], q[y.eJX] = [y.eJX, y.eJc, y.eUa, y.eUe], q[y.eJn] = [y.eJn, y.eJc, y.eUt, y.eUJ], q[y.eJy] = [y.eJy, y.eJc, y.eUF, y.eUU], q[y.eUr] = [y.eUr, y.eJc, y.eUA], q[y.eUa] = [y.eUa, y.eJX, y.eJc, y.eUe], q[y.eUt] = [y.eUt, y.eJn, y.eJc, y.eUJ], q[y.eUF] = [y.eUF, y.eJy, y.eJc, y.eUU], q[y.eUA] = [y.eUA, y.eJc, y.eUr], q[y.eUe] = [y.eUe, y.eUA, y.eJX, y.eJc, y.eUa], q[y.eUJ] = [y.eUJ, y.eUA, y.eJn, y.eJc, y.eUt], q[y.eUU] = [y.eUU, y.eUA, y.eJy, y.eJc, y.eUF], q), w = function (p, Q) {
                 for (var f, U = b(K[p]);
                     !(f = U()).done;) {
-                        var M = f.value;
+                    var M = f.value;
                     if (Q.eUI(M)) return M;
                 } return y.eJc;
             };
@@ -2495,7 +2779,7 @@
                 for (var X = [], C = '', T = h, E = 0x0;
                     E < y.length;
                     E++) {
-                        var d = y.codePointAt(E);
+                    var d = y.codePointAt(E);
                     if ((void 0x0 === d ? 0x0 : d) === b.Q.codePointAt(0x0)) {
                         if (C.length > 0x0 && (X.push({ 'message': C, 'color': T }), C = ''), E < y.length - 0x6) {
                             var D = y.slice(E + 0x1, E + 0x7);
@@ -2512,7 +2796,7 @@
                 for (var y = [], h = 0x1, X = L[0x0], C = 0x1;
                     C < L.length;
                     C++) {
-                        var T = L[C];
+                    var T = L[C];
                     T !== X || 0xffff === h ? (y.push(h, X), h = 0x1, X = T) : ++h;
                 } return y.push(h, X), y;
             };
@@ -2607,7 +2891,7 @@
                     M++)for (var g = -0x1;
                         g <= 0x1;
                         g++) {
-                            var x = b.A.eec(p.eeE / T.A.eex + M, (p.eeI - T.A.eex / 0x2) / T.A.eex, p.eef / T.A.eex + g), Y = E.x6(p, x);
+                        var x = b.A.eec(p.eeE / T.A.eex + M, (p.eeI - T.A.eex / 0x2) / T.A.eex, p.eef / T.A.eex + g), Y = E.x6(p, x);
                         if (Y < f) {
                             var W = Q.eeS(p.eeE / T.A.eex + M, (p.eeI - T.A.eex / 0x2) / T.A.eex, p.eef / T.A.eex + g);
                             void 0x0 !== L.A.eAb.eAH.eAD.eUz(W).eUb.eAk && (f = Y, U = W);
@@ -2644,14 +2928,14 @@
                 void 0x0 === K && (K = L.VB(0xff, 0xff, 0xff));
                 for (var w, Q = b.A(C, K), U = '', M = y(Q);
                     !(w = M()).done;) {
-                        U += w.value.message;
+                    U += w.value.message;
                 } var g = document.createElement('canvas').getContext('2d'), x = T + 'px LanaPixel, Unifont, Lato, Helvetica, sans-serif';
                 g.font = x;
                 var Y = g.measureText(U).width + 0x4, W = T + 0x4;
                 g.canvas.width = Y, g.canvas.height = W, g.font = x, g.textBaseline = 'top', g.fillStyle = 'rgba(0, 0, 0, 0)', g.fillRect(0x0, 0x0, Y, W), g.fillText(C, 0x2, 0x2);
                 for (var k, P = 0x0, I = y(Q);
                     !(k = I()).done;) {
-                        var Z = k.value;
+                    var Z = k.value;
                     g.fillStyle = 'rgb(' + Z.color.eeE + ', ' + Z.color.eeI + ', ' + Z.color.eef + ')', g.fillText(Z.message, 0x2 + P, 0x2), P += g.measureText(Z.message).width;
                 } var V = new q.CanvasTexture(g.canvas);
                 V.colorSpace = q.SRGBColorSpace, V.minFilter = q.NearestFilter, V.magFilter = q.NearestFilter, V.wrapS = q.ClampToEdgeWrapping, V.wrapT = q.ClampToEdgeWrapping;
@@ -2698,7 +2982,7 @@
             }, y = function (h) {
                 for (var X, C = new Map(), T = q(h.entries());
                     !(X = T()).done;) {
-                        var E = X.value, d = E[0x0], D = E[0x1];
+                    var E = X.value, d = E[0x0], D = E[0x1];
                     C.set(d, D);
                 } return C;
             };
@@ -2877,7 +3161,7 @@
                         for (var H3 = 0x0;
                             H3 < H2;
                             H3++) {
-                                var H4 = eV.getUint16(this.Jqk);
+                            var H4 = eV.getUint16(this.Jqk);
                             this.Jqk += 0x2;
                             var H5 = eV.getUint16(this.Jqk);
                             this.Jqk += 0x2;
@@ -2968,7 +3252,7 @@
                     this.JqZ.eLv && (eV.setUint8(H1, this.JqZ.eLS), H1 += 0x1), this.JqZ.eLV && (eV.setInt8(H1, this.JqZ.eLK), H1 += 0x1, eV.setInt8(H1, this.JqZ.eLO), H1 += 0x1), this.JqZ.eLw && (eV.setUint8(H1, this.JqZ.eLu), H1 += 0x1, eV.setUint8(H1, this.JqZ.eLP), H1 += 0x1, eV.setUint8(H1, this.JqZ.eLk), H1 += 0x1), this.JqZ.eLZ && (eV.setUint8(H1, this.JqZ.eUT), H1 += 0x1), (this.JqZ.eLx || this.JqZ.eLc) && (eV.setUint16(H1, this.JqZ.eLX), H1 += 0x2, eV.setInt8(H1, this.JqZ.eLO), H1 += 0x1), this.JqZ.eLn && (eV.setFloat32(H1, this.JqZ.eLy.eeE), H1 += 0x4, eV.setFloat32(H1, this.JqZ.eLy.eeI), H1 += 0x4, eV.setFloat32(H1, this.JqZ.eLy.eef), H1 += 0x4), eV.setUint8(H1, this.JqZ.eLs.length), H1 += 0x1;
                     for (var H2, H3 = mg(this.JqZ.eLs);
                         !(H2 = H3()).done;) {
-                            var H4 = H2.value;
+                        var H4 = H2.value;
                         eV.setUint32(H1, H4), H1 += 0x4;
                     } return es;
                 }, eZ.Jqu = function (es) {
@@ -3050,39 +3334,39 @@
                     for (var es = this.eqa.eCm, eV = this.eQE.eCm, H0 = 0x0;
                         H0 < mk.u.egj;
                         H0++) {
-                            var H1 = H0, H2 = es.eQp(H1), H3 = eV.eQp(H1);
+                        var H1 = H0, H2 = es.eQp(H1), H3 = eV.eQp(H1);
                         H3 > 0x0 && H2 !== H3 ? this.Jjr.set(H1, H3) : H2 > 0x0 && 0x0 === H3 && this.Jjr.set(H1, 0x0);
                     } var H4 = this.Jjr.size > 0x0;
                     this.JjU = new Map();
                     for (var H5 = this.eqa.eUO, H6 = this.eQE.eUO, H7 = new mS.A(new mP.z8J(), 0x1), H8 = 0x0;
                         H8 < Math.max(H5.eCf.length, H6.eCf.length);
                         H8++) {
-                            var H9 = H8 < H5.eCf.length ? H5.eCf[H8].eUv : H7, Hm = H8 < H6.eCf.length ? H6.eCf[H8].eUv : H7;
+                        var H9 = H8 < H5.eCf.length ? H5.eCf[H8].eUv : H7, Hm = H8 < H6.eCf.length ? H6.eCf[H8].eUv : H7;
                         H9.eqP(Hm) || this.JjU.set(H8, Hm);
                     } H5.eUc.eqP(H6.eUc) || this.JjU.set(-0x2, H6.eUc);
                     var He = this.JjU.size > 0x0;
                     this.Jja = new Map();
                     for (var HH, HO = this.eqa.emc.eQt, Hu = this.eQE.emc.eQt, HN = mV(Hu.entries());
                         !(HH = HN()).done;) {
-                            var HJ = HH.value, HA = HJ[0x0], Hv = HJ[0x1], HF = HO.get(HA);
+                        var HJ = HH.value, HA = HJ[0x0], Hv = HJ[0x1], HF = HO.get(HA);
                         void 0x0 !== HF && mo.b0(HF, Hv) || this.Jja.set(HA, Hv);
                     } for (var Ha, HG = mV(HO.entries());
                         !(Ha = HG()).done;) {
-                            var Hc = Ha.value, HR = Hc[0x0];
+                        var Hc = Ha.value, HR = Hc[0x0];
                         Hc[0x1], void 0x0 === Hu.get(HR) && this.Jja.set(HR, mo.VB(0x0, 0x0, 0x0));
                     } var Hj = this.Jja.size > 0x0, HB = this.Jqc.length > 0x0, Hq = 0x0;
                     if (Hq |= (this.eQE.emc.eQU ? 0x1 : 0x0) | 0x0, Hq |= (this.eQE.emc.eQr ? 0x1 : 0x0) << 0x1, Hq |= (0x3 & this.eQE.emc.eWL) << 0x2, Hq |= (this.JqX ? 0x1 : 0x0) << 0x4, Hq |= (this.Jqn ? 0x1 : 0x0) << 0x5, Hq |= (this.Jqy ? 0x1 : 0x0) << 0x6, Hq |= (this.JjA ? 0x1 : 0x0) << 0x7, Hq |= (this.Jje ? 0x1 : 0x0) << 0x8, Hq |= (He ? 0x1 : 0x0) << 0x9, Hq |= (H4 ? 0x1 : 0x0) << 0xa, Hq |= (this.JjJ ? 0x1 : 0x0) << 0xb, Hq |= (Hj ? 0x1 : 0x0) << 0xc, Hq |= (HB ? 0x1 : 0x0) << 0xd, this.Jqk += 0x2, this.Jqk += 0x4, this.Jqk += 0x1, this.JqX && (this.Jqk += 0xc), this.Jqn && (this.Jqk += 0xc), this.Jqy && (this.Jqk += 0x4), this.JjA && (this.Jqk += 0x1), this.Jje && (this.Jqk += 0x1), He) {
                         this.Jqk += 0x1;
                         for (var Hb, HL = mV(this.JjU.entries());
                             !(Hb = HL()).done;) {
-                                var Hy = Hb.value, Hh = (Hy[0x0], Hy[0x1]);
+                            var Hy = Hb.value, Hh = (Hy[0x0], Hy[0x1]);
                             this.Jqk += 0x4;
                             var HX = Hh.eUS.JLF();
                             this.Jqk += 0x1;
                             for (var HC = 0x0;
                                 HC < HX.length;
                                 HC++) {
-                                    var HT = HX[HC];
+                                var HT = HX[HC];
                                 switch (this.Jqk += 0x1, mI.f(HT.eAk)) {
                                     case mZ.p.eNz: case mZ.p.JMx: this.Jqk += 0x1;
                                         break;
@@ -3106,14 +3390,14 @@
                         Ho.setUint8(this.Jqk, this.JjU.size), this.Jqk += 0x1;
                         for (var HE, Hd = mV(this.JjU.entries());
                             !(HE = Hd()).done;) {
-                                var HD = HE.value, HK = HD[0x0], Hw = HD[0x1];
+                            var HD = HE.value, HK = HD[0x0], Hw = HD[0x1];
                             Ho.setUint8(this.Jqk, HK), this.Jqk += 0x1, Ho.setUint16(this.Jqk, Hw.eUS.eAk), this.Jqk += 0x2, Ho.setUint8(this.Jqk, Hw.eUK), this.Jqk += 0x1;
                             var Hp = Hw.eUS.JLF();
                             Ho.setUint8(this.Jqk, Hp.length), this.Jqk += 0x1;
                             for (var HQ = 0x0;
                                 HQ < Hp.length;
                                 HQ++) {
-                                    var Hf = Hp[HQ];
+                                var Hf = Hp[HQ];
                                 switch (Ho.setUint8(this.Jqk, Hf.eAk), this.Jqk += 0x1, mI.f(Hf.eAk)) {
                                     case mZ.p.eNz: Ho.setUint8(this.Jqk, Hf.eWN), this.Jqk += 0x1;
                                         break;
@@ -3147,21 +3431,21 @@
                         Ho.setUint8(this.Jqk, this.Jjr.size), this.Jqk += 0x1;
                         for (var HM, Hl = mV(this.Jjr.entries());
                             !(HM = Hl()).done;) {
-                                var Hg = HM.value, Hx = Hg[0x0], Hr = Hg[0x1];
+                            var Hg = HM.value, Hx = Hg[0x0], Hr = Hg[0x1];
                             Ho.setUint8(this.Jqk, Hx), this.Jqk += 0x1, Ho.setUint32(this.Jqk, Hr), this.Jqk += 0x4;
                         }
                     } if (this.JjJ && (Ho.setUint8(this.Jqk, this.eQE.eCW), this.Jqk += 0x1, Ho.setUint8(this.Jqk, this.eQE.eCR), this.Jqk += 0x1), Hj) {
                         Ho.setUint8(this.Jqk, this.Jja.size), this.Jqk += 0x1;
                         for (var HY, HW = mV(this.Jja.entries());
                             !(HY = HW()).done;) {
-                                var Hk = HY.value, HS = Hk[0x0], HP = Hk[0x1];
+                            var Hk = HY.value, HS = Hk[0x0], HP = Hk[0x1];
                             Ho.setUint32(this.Jqk, HS), this.Jqk += 0x4, Ho.setFloat32(this.Jqk, HP.eeE), this.Jqk += 0x4, Ho.setFloat32(this.Jqk, HP.eeI), this.Jqk += 0x4, Ho.setFloat32(this.Jqk, HP.eef), this.Jqk += 0x4;
                         }
                     } if (HB) {
                         Ho.setUint32(this.Jqk, this.Jqc.length), this.Jqk += 0x4;
                         for (var HI, HZ = mV(this.Jqc);
                             !(HI = HZ()).done;) {
-                                var Hs = HI.value;
+                            var Hs = HI.value;
                             Ho.setInt32(this.Jqk, Hs.eAy.eeE), this.Jqk += 0x4, Ho.setInt32(this.Jqk, Hs.eAy.eeI), this.Jqk += 0x4, Ho.setInt32(this.Jqk, Hs.eAy.eef), this.Jqk += 0x4, Ho.setUint16(this.Jqk, Hs.eAk), this.Jqk += 0x2, Ho.setFloat32(this.Jqk, Hs.eHp), this.Jqk += 0x4;
                             var HV = 0x0;
                             Hs.eMZ && (HV |= 0x1), Hs.eMk && (HV |= 0x2), Ho.setUint8(this.Jqk, HV), this.Jqk += 0x1;
@@ -3201,7 +3485,7 @@
                         for (var Hv = 0x0;
                             Hv < HA;
                             Hv++) {
-                                var HF = eV.getInt8(this.Jqk);
+                            var HF = eV.getInt8(this.Jqk);
                             this.Jqk += 0x1;
                             var Ha = eV.getUint16(this.Jqk);
                             this.Jqk += 0x2;
@@ -3212,7 +3496,7 @@
                             for (var Hj = 0x0;
                                 Hj < HR;
                                 Hj++) {
-                                    var HB = eV.getUint8(this.Jqk);
+                                var HB = eV.getUint8(this.Jqk);
                                 this.Jqk += 0x1;
                                 var Hq = 0x0;
                                 switch (mI.f(HB)) {
@@ -3251,7 +3535,7 @@
                         for (var HX = 0x0;
                             HX < Hh;
                             HX++) {
-                                var HC = eV.getUint8(this.Jqk);
+                            var HC = eV.getUint8(this.Jqk);
                             this.Jqk += 0x1;
                             var HT = eV.getUint32(this.Jqk);
                             this.Jqk += 0x4, this.Jjr.set(HC, HT);
@@ -3264,7 +3548,7 @@
                         for (var HE = 0x0;
                             HE < Ho;
                             HE++) {
-                                var Hd = eV.getUint32(this.Jqk);
+                            var Hd = eV.getUint32(this.Jqk);
                             this.Jqk += 0x4;
                             var HD = eV.getFloat32(this.Jqk);
                             this.Jqk += 0x4;
@@ -3279,7 +3563,7 @@
                         for (var HQ = 0x0;
                             HQ < Hp;
                             HQ++) {
-                                var Hf = eV.getInt32(this.Jqk);
+                            var Hf = eV.getInt32(this.Jqk);
                             this.Jqk += 0x4;
                             var Hn = eV.getInt32(this.Jqk);
                             this.Jqk += 0x4;
@@ -3407,21 +3691,21 @@
                     this.Jqk = 0x0, this.Jqk += 0x8, this.Jqk += 0x4;
                     for (var es, eV = e3(this.Jjf.entries());
                         !(es = eV()).done;) {
-                            var H0 = es.value, H1 = (H0[0x0], H0[0x1]);
+                        var H0 = es.value, H1 = (H0[0x0], H0[0x1]);
                         this.Jqk += 0x4, this.Jqk += 0x1, H1.eRp && (this.Jqk += 0xc), H1.eRN && (this.Jqk += 0x8);
                     } this.Jqk += 0x4;
                     var H2 = new ArrayBuffer(this.Jqw), H3 = new DataView(H2);
                     this.Jqk = 0x0, H3.setFloat64(this.Jqk, this.JjB), this.Jqk += 0x8, H3.setUint32(this.Jqk, this.JjY), this.Jqk += 0x4;
                     for (var H4, H5 = e3(this.Jjf.entries());
                         !(H4 = H5()).done;) {
-                            var H6 = H4.value, H7 = H6[0x0], H8 = H6[0x1];
+                        var H6 = H4.value, H7 = H6[0x0], H8 = H6[0x1];
                         H3.setUint32(this.Jqk, H7), this.Jqk += 0x4, H3.setUint8(this.Jqk, H8.JjE), this.Jqk += 0x1, H8.eRp && (H3.setFloat32(this.Jqk, H8.eRi.eeE), this.Jqk += 0x4, H3.setFloat32(this.Jqk, H8.eRi.eeI), this.Jqk += 0x4, H3.setFloat32(this.Jqk, H8.eRi.eef), this.Jqk += 0x4), H8.eRN && (H3.setFloat32(this.Jqk, H8.eRT.eeI), this.Jqk += 0x4, H3.setFloat32(this.Jqk, H8.eRT.eeE), this.Jqk += 0x4);
                     } return H3.setUint32(this.Jqk, 0x0), this.Jqk += 0x4, H2;
                 }, eZ.Jqu = function (es) {
                     var eV = es instanceof ArrayBuffer ? new DataView(es) : new DataView(es.buffer, es.byteOffset, es.byteLength);
                     for (this.Jjf = new Map(), this.Jqk = 0x0, this.JjB = eV.getFloat64(this.Jqk), this.Jqk += 0x8, this.JjY = eV.getUint32(this.Jqk), this.Jqk += 0x4;
                         ;) {
-                            var H0 = eV.getUint32(this.Jqk);
+                        var H0 = eV.getUint32(this.Jqk);
                         if (this.Jqk += 0x4, 0x0 === H0) break;
                         var H1 = eV.getUint8(this.Jqk);
                         this.Jqk += 0x1;
@@ -3511,7 +3795,7 @@
                     for (var es = 0x0;
                         es < this.JjT.length;
                         es++) {
-                            var eV = this.JjT[es];
+                        var eV = this.JjT[es];
                         switch (this.Jqk += 0x1, e9.O(eV.eAk)) {
                             case mZ.p.eNz: case mZ.p.JMx: this.Jqk += 0x1;
                                 break;
@@ -3532,7 +3816,7 @@
                     for (var H3 = 0x0;
                         H3 < this.JjT.length;
                         H3++) {
-                            var H4 = this.JjT[H3];
+                        var H4 = this.JjT[H3];
                         switch (H1.setUint8(this.Jqk, H4.eAk), this.Jqk += 0x1, e9.O(H4.eAk)) {
                             case mZ.p.eNz: H1.setUint8(this.Jqk, H4.eWN), this.Jqk += 0x1;
                                 break;
@@ -3566,7 +3850,7 @@
                     for (var H1 = 0x0;
                         H1 < H0;
                         H1++) {
-                            var H2 = eV.getUint8(this.Jqk);
+                        var H2 = eV.getUint8(this.Jqk);
                         this.Jqk += 0x1;
                         var H3 = 0x0;
                         switch (e9.O(H2)) {
@@ -3687,7 +3971,7 @@
                     for (var es = 0x0;
                         es < this.JjT.length;
                         es++) {
-                            var eV = this.JjT[es];
+                        var eV = this.JjT[es];
                         switch (this.Jqk += 0x1, eN.Q(eV.eAk)) {
                             case mZ.p.eNz: case mZ.p.JMx: this.Jqk += 0x1;
                                 break;
@@ -3708,7 +3992,7 @@
                     for (var H2 = 0x0;
                         H2 < this.JjT.length;
                         H2++) {
-                            var H3 = this.JjT[H2];
+                        var H3 = this.JjT[H2];
                         switch (H1.setUint8(this.Jqk, H3.eAk), this.Jqk += 0x1, eN.Q(H3.eAk)) {
                             case mZ.p.eNz: H1.setUint8(this.Jqk, H3.eWN), this.Jqk += 0x1;
                                 break;
@@ -3745,7 +4029,7 @@
                     for (var H1 = 0x0;
                         H1 < H0;
                         H1++) {
-                            var H2 = eV.getUint8(this.Jqk);
+                        var H2 = eV.getUint8(this.Jqk);
                         this.Jqk += 0x1;
                         var H3 = 0x0;
                         switch (eN.Q(H2)) {
@@ -4058,7 +4342,7 @@
                     for (var es = 0x0;
                         es < this.JjT.length;
                         es++) {
-                            var eV = this.JjT[es];
+                        var eV = this.JjT[es];
                         switch (this.Jqk += 0x1, eC.R(eV.eAk)) {
                             case mZ.p.eNz: case mZ.p.JMx: this.Jqk += 0x1;
                                 break;
@@ -4079,7 +4363,7 @@
                     for (var H2 = 0x0;
                         H2 < this.JjT.length;
                         H2++) {
-                            var H3 = this.JjT[H2];
+                        var H3 = this.JjT[H2];
                         switch (H1.setUint8(this.Jqk, H3.eAk), this.Jqk += 0x1, eC.R(H3.eAk)) {
                             case mZ.p.eNz: H1.setUint8(this.Jqk, H3.eWN), this.Jqk += 0x1;
                                 break;
@@ -4116,7 +4400,7 @@
                     for (var H1 = 0x0;
                         H1 < H0;
                         H1++) {
-                            var H2 = eV.getUint8(this.Jqk);
+                        var H2 = eV.getUint8(this.Jqk);
                         this.Jqk += 0x1;
                         var H3 = 0x0;
                         switch (eC.R(H2)) {
@@ -4254,32 +4538,32 @@
                     this.Jqk = 0x0, this.Jqk += 0x2;
                     for (var es, eV = eK(this.JjO);
                         !(es = eV()).done;) {
-                            var H0 = es.value, H1 = H0[0x0], H2 = H0[0x1];
+                        var H0 = es.value, H1 = H0[0x0], H2 = H0[0x1];
                         this.Jqk += 0x1, this.Jqk += new TextEncoder().encode(H1).byteLength, this.Jqk += 0x2, this.Jqk += 0x4 * H2.length * 0x5;
                     } this.Jqk += 0x2;
                     for (var H3, H4 = eK(this.Jjw);
                         !(H3 = H4()).done;) {
-                            var H5 = H3.value, H6 = H5[0x0], H7 = H5[0x1];
+                        var H5 = H3.value, H6 = H5[0x0], H7 = H5[0x1];
                         this.Jqk += 0x1, this.Jqk += new TextEncoder().encode(H6).byteLength, this.Jqk += 0x2, this.Jqk += 0x4 * H7.length * 0x6;
                     } var H8 = new ArrayBuffer(this.Jqw), H9 = new DataView(H8);
                     this.Jqk = 0x0, H9.setUint16(this.Jqk, this.JjO.size), this.Jqk += 0x2;
                     for (var Hm, He = eK(this.JjO);
                         !(Hm = He()).done;) {
-                            var HH = Hm.value, HO = HH[0x0], Hu = HH[0x1], HN = new TextEncoder().encode(HO);
+                        var HH = Hm.value, HO = HH[0x0], Hu = HH[0x1], HN = new TextEncoder().encode(HO);
                         H9.setUint8(this.Jqk, HN.byteLength), this.Jqk += 0x1, new Uint8Array(H8, this.Jqk, HN.byteLength).set(HN), this.Jqk += HN.byteLength, H9.setUint16(this.Jqk, Hu.length), this.Jqk += 0x2;
                         for (var HJ, HA = eK(Hu);
                             !(HJ = HA()).done;) {
-                                var Hv = HJ.value;
+                            var Hv = HJ.value;
                             H9.setFloat32(this.Jqk, Hv.eAy.eeE), H9.setFloat32(this.Jqk + 0x4, Hv.eAy.eeI), H9.setFloat32(this.Jqk + 0x8, Hv.eAy.eef), H9.setFloat32(this.Jqk + 0xc, Hv.eRT.eeE), H9.setFloat32(this.Jqk + 0x10, Hv.eRT.eeI), this.Jqk += 0x14;
                         }
                     } H9.setUint16(this.Jqk, this.Jjw.size), this.Jqk += 0x2;
                     for (var HF, Ha = eK(this.Jjw);
                         !(HF = Ha()).done;) {
-                            var HG = HF.value, Hc = HG[0x0], HR = HG[0x1], Hj = new TextEncoder().encode(Hc);
+                        var HG = HF.value, Hc = HG[0x0], HR = HG[0x1], Hj = new TextEncoder().encode(Hc);
                         H9.setUint8(this.Jqk, Hj.byteLength), this.Jqk += 0x1, new Uint8Array(H8, this.Jqk, Hj.byteLength).set(Hj), this.Jqk += Hj.byteLength, H9.setUint16(this.Jqk, HR.length), this.Jqk += 0x2;
                         for (var HB, Hq = eK(HR);
                             !(HB = Hq()).done;) {
-                                var Hb = HB.value;
+                            var Hb = HB.value;
                             H9.setFloat32(this.Jqk, Hb.eRC.eeE), H9.setFloat32(this.Jqk + 0x4, Hb.eRC.eeI), H9.setFloat32(this.Jqk + 0x8, Hb.eRC.eef), H9.setFloat32(this.Jqk + 0xc, Hb.eRo.eeE), H9.setFloat32(this.Jqk + 0x10, Hb.eRo.eeI), H9.setFloat32(this.Jqk + 0x14, Hb.eRo.eef), this.Jqk += 0x18;
                         }
                     } return H8;
@@ -4291,7 +4575,7 @@
                     for (var H1 = 0x0;
                         H1 < H0;
                         H1++) {
-                            var H2 = eV.getUint8(this.Jqk);
+                        var H2 = eV.getUint8(this.Jqk);
                         this.Jqk += 0x1;
                         var H3 = new Uint8Array(eV.buffer, this.Jqk, H2);
                         this.Jqk += H2;
@@ -4300,7 +4584,7 @@
                         for (var H5 = new Array(), H6 = 0x0;
                             H6 < H4;
                             H6++) {
-                                var H7 = new eD();
+                            var H7 = new eD();
                             H7.eAy.eeE = eV.getFloat32(this.Jqk), H7.eAy.eeI = eV.getFloat32(this.Jqk + 0x4), H7.eAy.eef = eV.getFloat32(this.Jqk + 0x8), H7.eRT.eeE = eV.getFloat32(this.Jqk + 0xc), H7.eRT.eeI = eV.getFloat32(this.Jqk + 0x10), H5.push(H7), this.Jqk += 0x14;
                         } this.JjO.set(new TextDecoder().decode(H3), H5);
                     } var H8 = eV.getUint16(this.Jqk);
@@ -4308,7 +4592,7 @@
                     for (var H9 = 0x0;
                         H9 < H8;
                         H9++) {
-                            var Hm = eV.getUint8(this.Jqk);
+                        var Hm = eV.getUint8(this.Jqk);
                         this.Jqk += 0x1;
                         var He = new Uint8Array(eV.buffer, this.Jqk, Hm);
                         this.Jqk += Hm;
@@ -4317,7 +4601,7 @@
                         for (var HO = new Array(), Hu = 0x0;
                             Hu < HH;
                             Hu++) {
-                                var HN = new eE();
+                            var HN = new eE();
                             HN.eRC.eeE = eV.getFloat32(this.Jqk), HN.eRC.eeI = eV.getFloat32(this.Jqk + 0x4), HN.eRC.eef = eV.getFloat32(this.Jqk + 0x8), HN.eRo.eeE = eV.getFloat32(this.Jqk + 0xc), HN.eRo.eeI = eV.getFloat32(this.Jqk + 0x10), HN.eRo.eef = eV.getFloat32(this.Jqk + 0x14), HO.push(HN), this.Jqk += 0x18;
                         } this.Jjw.set(new TextDecoder().decode(He), HO);
                     }
@@ -4471,7 +4755,7 @@
                     H0.setUint16(H1, this._tabs.length), H1 += 0x2;
                     for (var H2, H3 = eY(this._tabs);
                         !(H2 = H3()).done;) {
-                            var H4 = H2.value, H5 = new TextEncoder().encode(H4.tabId);
+                        var H4 = H2.value, H5 = new TextEncoder().encode(H4.tabId);
                         H0.setUint8(H1, H5.byteLength), H1 += 0x1, new Uint8Array(eV, H1, H5.byteLength).set(H5), H1 += H5.byteLength;
                         var H6 = new TextEncoder().encode(H4.tabName);
                         if (H0.setUint8(H1, H6.byteLength), H1 += 0x1, new Uint8Array(eV, H1, H6.byteLength).set(H6), H1 += H6.byteLength, H4.icon instanceof eM.A) H0.setUint8(H1, 0x0), H1 += 0x1, H0.setUint8(H1, H4.icon.itemType), H1 += 0x1;
@@ -4485,7 +4769,7 @@
                         H0.setUint16(H1, H8.byteLength), H1 += 0x2, new Uint8Array(eV, H1, H8.byteLength).set(H8), H1 += H8.byteLength, H0.setUint16(H1, H4.items.length), H1 += 0x2;
                         for (var H9, Hm = eY(H4.items);
                             !(H9 = Hm()).done;) {
-                                var He = H9.value, HH = new TextEncoder().encode(He.itemId);
+                            var He = H9.value, HH = new TextEncoder().encode(He.itemId);
                             H0.setUint8(H1, HH.byteLength), H1 += 0x1, new Uint8Array(eV, H1, HH.byteLength).set(HH), H1 += HH.byteLength;
                             var HO = new TextEncoder().encode(He.name);
                             H0.setUint16(H1, HO.byteLength), H1 += 0x2, new Uint8Array(eV, H1, HO.byteLength).set(HO), H1 += HO.byteLength;
@@ -4506,14 +4790,14 @@
                             } H0.setUint8(H1, He.inputs.length), H1 += 0x1;
                             for (var Hv, HF = eY(He.inputs);
                                 !(Hv = HF()).done;) {
-                                    var Ha = Hv.value, HG = new TextEncoder().encode(Ha.inputId);
+                                var Ha = Hv.value, HG = new TextEncoder().encode(Ha.inputId);
                                 H0.setUint8(H1, HG.byteLength), H1 += 0x1, new Uint8Array(eV, H1, HG.byteLength).set(HG), H1 += HG.byteLength;
                                 var Hc = new TextEncoder().encode(Ha.title);
                                 if (H0.setUint8(H1, Hc.byteLength), H1 += 0x1, new Uint8Array(eV, H1, Hc.byteLength).set(Hc), H1 += Hc.byteLength, Ha instanceof eg.A) {
                                     H0.setUint8(H1, 0x0), H1 += 0x1, H0.setUint8(H1, Ha.options.length), H1 += 0x1;
                                     for (var HR, Hj = eY(Ha.options);
                                         !(HR = Hj()).done;) {
-                                            var HB = HR.value, Hq = new TextEncoder().encode(HB);
+                                        var HB = HR.value, Hq = new TextEncoder().encode(HB);
                                         H0.setUint8(H1, Hq.byteLength), H1 += 0x1, new Uint8Array(eV, H1, Hq.byteLength).set(Hq), H1 += Hq.byteLength;
                                     }
                                 } else Ha instanceof ex.A && (H0.setUint8(H1, 0x1), H1 += 0x1);
@@ -4526,7 +4810,7 @@
                     for (var H2 = 0x0;
                         H2 < H1;
                         H2++) {
-                            var H3 = eV.getUint8(H0);
+                        var H3 = eV.getUint8(H0);
                         H0 += 0x1;
                         var H4 = new TextDecoder().decode(new Uint8Array(es, H0, H3));
                         H0 += H3;
@@ -4554,7 +4838,7 @@
                         for (var HN = [], HJ = 0x0;
                             HJ < Hu;
                             HJ++) {
-                                var HA = eV.getUint8(H0);
+                            var HA = eV.getUint8(H0);
                             H0 += 0x1;
                             var Hv = new TextDecoder().decode(new Uint8Array(es, H0, HA));
                             H0 += HA;
@@ -4594,7 +4878,7 @@
                             for (var Ho = [], HE = 0x0;
                                 HE < Hi;
                                 HE++) {
-                                    var Hd = eV.getUint8(H0);
+                                var Hd = eV.getUint8(H0);
                                 H0 += 0x1;
                                 var HD = new TextDecoder().decode(new Uint8Array(es, H0, Hd));
                                 H0 += Hd;
@@ -4609,7 +4893,7 @@
                                     for (var Hf = [], Hn = 0x0;
                                         Hn < HQ;
                                         Hn++) {
-                                            var HU = eV.getUint8(H0);
+                                        var HU = eV.getUint8(H0);
                                         H0 += 0x1;
                                         var HM = new TextDecoder().decode(new Uint8Array(es, H0, HU));
                                         H0 += HU, Hf.push(HM);
@@ -4622,20 +4906,20 @@
                     'key': 'Jqw', 'get': function () {
                         for (var es, eV = 0x2, H0 = eY(this._tabs);
                             !(es = H0()).done;) {
-                                var H1 = es.value;
+                            var H1 = es.value;
                             eV += 0x1 + new TextEncoder().encode(H1.tabId).byteLength, eV += 0x1 + new TextEncoder().encode(H1.tabName).byteLength, eV += 0x1, H1.icon instanceof eM.A ? eV += 0x1 : H1.icon instanceof el.A && (eV += 0x2 + new TextEncoder().encode(H1.icon.url).byteLength), eV += 0x2 + new TextEncoder().encode(H1.description).byteLength, eV += 0x2;
                             for (var H2, H3 = eY(H1.items);
                                 !(H2 = H3()).done;) {
-                                    var H4 = H2.value;
+                                var H4 = H2.value;
                                 eV += 0x1 + new TextEncoder().encode(H4.itemId).byteLength, eV += 0x2 + new TextEncoder().encode(H4.name).byteLength, eV += 0x2 + new TextEncoder().encode(H4.description).byteLength, eV += 0x1, H4.icon instanceof eM.A ? eV += 0x1 : H4.icon instanceof el.A && (eV += 0x2 + new TextEncoder().encode(H4.icon.url).byteLength), eV += 0x1 + new TextEncoder().encode(H4.buttonText).byteLength, eV += 0x1, H4.action instanceof er.A && (eV += 0x1 + new TextEncoder().encode(H4.action.command).byteLength), eV += 0x1;
                                 for (var H5, H6 = eY(H4.inputs);
                                     !(H5 = H6()).done;) {
-                                        var H7 = H5.value;
+                                    var H7 = H5.value;
                                     if (eV += 0x1 + new TextEncoder().encode(H7.inputId).byteLength, eV += 0x1 + new TextEncoder().encode(H7.title).byteLength, eV += 0x1, H7 instanceof eg.A) {
                                         eV += 0x1;
                                         for (var H8, H9 = eY(H7.options);
                                             !(H8 = H9()).done;) {
-                                                var Hm = H8.value;
+                                            var Hm = H8.value;
                                             eV += 0x1 + new TextEncoder().encode(Hm).byteLength;
                                         }
                                     }
@@ -4974,12 +5258,12 @@
                     this.ezQ.push(Oj);
                     for (var OB, Oz = 0x0, Oq = mf(this.ezQ);
                         !(OB = Oq()).done;) {
-                            Oz += OB.value;
+                        Oz += OB.value;
                     } var Ob = Oz / this.ezQ.length;
                     this.ezD = Math.min(Ob, m5.A.ebA);
                     for (var OL, Oy = 0x0, Oh = mf(this.ezQ);
                         !(OL = Oh()).done;) {
-                            var OX = OL.value;
+                        var OX = OL.value;
                         Oy += (OX - Ob) * (OX - Ob);
                     } var OC = Math.sqrt(Oy / Math.max(this.ezQ.length - 0x1, 0x1));
                     if (this.ezL = Math.min(OC, m5.A.ebU), this.ezQ.length >= 0xa && this.ezQ.shift(), this.ezq >= 0x14) {
@@ -5033,7 +5317,7 @@
                                         Oi++)for (var Oo = -0x1;
                                             Oo <= 0x1;
                                             Oo++) {
-                                                var OE = OL.eeK(OX.eeE + OT, OX.eeI + Oi, OX.eef + Oo);
+                                            var OE = OL.eeK(OX.eeE + OT, OX.eeI + Oi, OX.eef + Oo);
                                             void 0x0 === OE ? OC.push(void 0x0) : OC.push({ 'eeH': OE.ebi() || OE.ebN(), 'eeD': OE.eAD });
                                         } var Od = { 'ebT': Oh.ebW(), 'ebR': mM.A.CHUNK_MESH, 'eRB': { 'eeE': OX.eeE, 'eeI': OX.eeI, 'eef': OX.eef }, 'ebm': OC };
                                 Ob = !0x0, Oq.ebI.postMessage(Od);
@@ -5096,13 +5380,13 @@
                 }, OR.ebs = function () {
                     for (var Oj, OB = mS(this.ebM);
                         !(Oj = OB()).done;) {
-                            var Oz = Oj.value;
+                        var Oz = Oj.value;
                         Oz.geometry.dispose(), this.ebg.eNK.remove(Oz);
                     } this.ebM = [];
                 }, OR.ebv = function () {
                     for (var Oj, OB = mS(this.ebq.entries());
                         !(Oj = OB()).done;) {
-                            var Oz = Oj.value, Oq = (Oz[0x0], Oz[0x1]);
+                        var Oz = Oj.value, Oq = (Oz[0x0], Oz[0x1]);
                         this.ebg.ebd.ebj(Oq.eAy.eeE, Oq.eAy.eeI, Oq.eAy.eef, mW._.eeO);
                     }
                 }, OR.eJE = function () {
@@ -5112,7 +5396,7 @@
                         this.ebo = Oj, this.ebs(), this.ebv();
                         for (var Oz, Oq = mS(OB);
                             !(Oz = Oq()).done;) {
-                                var Ob = Oz.value;
+                            var Ob = Oz.value;
                             this.ebM.push(Ob), Ob.scale.set(m5.A.eex, m5.A.eex, m5.A.eex), Ob.position.set(this.ebQ.eRB.eeE * (m5.A.eAt * m5.A.eex), this.ebQ.eRB.eeI * (m5.A.eAt * m5.A.eex), this.ebQ.eRB.eef * (m5.A.eAt * m5.A.eex)), Ob.matrixAutoUpdate = !0x1, Ob.updateMatrix(), this.ebg.eNK.add(Ob);
                         }
                     }
@@ -5244,7 +5528,7 @@
                         for (var Ob = Date.now(), OL = 0x0, Oy = Object.entries(Oz.eHF);
                             OL < Oy.length;
                             OL++) {
-                                var Oh = Oy[OL], OX = Oh[0x0], OC = Oh[0x1];
+                            var Oh = Oy[OL], OX = Oh[0x0], OC = Oh[0x1];
                             if (Ob - OC.eHI >= m5.A.eHE) {
                                 if (OC.eHg = Math.max(0x0, OC.eHg - m5.A.eHB), OC.eHg <= 0x0) Oz.eHY(OX);
                                 else {
@@ -5297,7 +5581,7 @@
                     for (var Oj = 0x0, OB = Object.keys(this.eHF);
                         Oj < OB.length;
                         Oj++) {
-                            var Oz = OB[Oj];
+                        var Oz = OB[Oj];
                         this.eHY(Oz);
                     } this.eHN.clear();
                 }, Oc;
@@ -5377,7 +5661,7 @@
                 }, Oj.ebY = function () {
                     for (var OB = this.eHS.eHo();
                         void 0x0 !== OB;) {
-                            var Oz = this.eeP.get(OB);
+                        var Oz = this.eeP.get(OB);
                         if (void 0x0 !== Oz) return Oz;
                         OB = this.eHS.eHo();
                     }
@@ -5391,7 +5675,7 @@
                     var OL = Oc.prototype.eJU.call(this, OB, Oz, Oq, Ob), Oy = mY.A.eeV(OB, Oz, Oq);
                     if (OL) for (var Oh, OX = mY.A.eew(OB, Oz, Oq), OC = e9(e6.A.values);
                         !(Oh = OC()).done;) {
-                            var OT = Oh.value;
+                        var OT = Oh.value;
                         (0x1 === OT.dir.eeE && OX.eeE === m5.A.eAt - 0x1 || -0x1 === OT.dir.eeE && 0x0 === OX.eeE || 0x0 === OT.dir.eeE) && (0x1 === OT.dir.eeI && OX.eeI === m5.A.eAt - 0x1 || -0x1 === OT.dir.eeI && 0x0 === OX.eeI || 0x0 === OT.dir.eeI) && (0x1 === OT.dir.eef && OX.eef === m5.A.eAt - 0x1 || -0x1 === OT.dir.eef && 0x0 === OX.eef || 0x0 === OT.dir.eef) && this.eHK(Oy.eeE, Oy.eeI, Oy.eef, OT.dir.eeE, OT.dir.eeI, OT.dir.eef, !0x0);
                     } return OL;
                 }, Oj.eHO = function (OB, Oz, Oq, Ob) {
@@ -5402,7 +5686,7 @@
                 }, Oj.eHV = function (OB, Oz, Oq, Ob) {
                     for (var OL, Oy = e9(e6.A.values);
                         !(OL = Oy()).done;) {
-                            var Oh = OL.value;
+                        var Oh = OL.value;
                         this.eHK(OB, Oz, Oq, Oh.dir.eeE, Oh.dir.eeI, Oh.dir.eef, Ob);
                     }
                 }, Oj.eJE = function () {
@@ -5535,7 +5819,7 @@
                     this.eWX.clear();
                     for (var Oj, OB = eJ(this.eHn);
                         !(Oj = OB()).done;) {
-                            var Oz = Oj.value;
+                        var Oz = Oj.value;
                         Oz[0x0], Oz[0x1].eJE();
                     } this.eHn.clear(), this.eHq.eJE(), this.eDU.eJE(), this.eDe.eJE(), this.eDr.eJE(), this.eWX.add(this.eDr.eNK), this.eDF = !0x1, this.eDI.clear();
                 }, OR.ebL = function (Oj, OB, Oz, Oq, Ob, OL) {
@@ -5545,7 +5829,7 @@
                         Oh.ebS(Oj, Ob);
                         for (var OX, OC = eJ(OL);
                             !(OX = OC()).done;) {
-                                var OT = OX.value;
+                            var OT = OX.value;
                             Oh.ebj(OT.eAx.eeE, OT.eAx.eeI, OT.eAx.eef, OT.eAc);
                         }
                     }
@@ -5555,7 +5839,7 @@
                     this.eDF = !0x1;
                     for (var Oj, OB = eJ(this.eDI.entries());
                         !(Oj = OB()).done;) {
-                            var Oz = Oj.value, Oq = (Oz[0x0], Oz[0x1]);
+                        var Oz = Oj.value, Oq = (Oz[0x0], Oz[0x1]);
                         this.eJU(Oq.eAy.eeE, Oq.eAy.eeI, Oq.eAy.eef, Oq.eAk, !0x1);
                     } this.eDI.clear();
                 }, OR.eeS = function (Oj, OB, Oz) {
@@ -5654,7 +5938,7 @@
                             for (var Oz = 0x0, Oq = Object.keys(Oj.eDy);
                                 Oz < Oq.length;
                                 Oz++) {
-                                    var Ob = Oq[Oz];
+                                var Ob = Oq[Oz];
                                 Oj.eDZ(Ob);
                             } Oj.eDy = {};
                         }
@@ -5753,14 +6037,14 @@
                 return function (Oi, Oo, OE, Od, OD, OK, Ow, Op, OQ, Of) {
                     for (var On = mZ.A.eAb.eAH.eAD.eCG, OU = mZ.A.eAb.eAH.eAD.eCh, OM = 0x0, Ol = Math.floor, Og = 0x0 | Ol(Oo), Ox = 0x0 | Ol(OE), Or = 0x0 | Ol(Od), OY = OD > 0x0 ? 0x1 : -0x1, OW = OK > 0x0 ? 0x1 : -0x1, Ok = Ow > 0x0 ? 0x1 : -0x1, OS = Math.abs(0x1 / OD), OP = Math.abs(0x1 / OK), OI = Math.abs(0x1 / Ow), OZ = OS < 0x1 / 0x0 ? OS * (OY > 0x0 ? Og + 0x1 - Oo : Oo - Og) : 0x1 / 0x0, Os = OP < 0x1 / 0x0 ? OP * (OW > 0x0 ? Ox + 0x1 - OE : OE - Ox) : 0x1 / 0x0, OV = OI < 0x1 / 0x0 ? OI * (Ok > 0x0 ? Or + 0x1 - Od : Od - Or) : 0x1 / 0x0, u0 = -0x1;
                         OM <= Op;) {
-                            var u1 = Oi(Og, Ox, Or), u2 = On[u1];
+                        var u1 = Oi(Og, Ox, Or), u2 = On[u1];
                         if (u2 === eb.B.eCz) return OQ[0x0] = Oo + OM * OD, OQ[0x1] = OE + OM * OK, OQ[0x2] = Od + OM * Ow, Of[0x0] = Of[0x1] = Of[0x2] = 0x0, 0x0 === u0 && (Of[0x0] = -OY), 0x1 === u0 && (Of[0x1] = -OW), 0x2 === u0 && (Of[0x2] = -Ok), u1;
                         if (u2 === eb.B.eCb) {
                             var u3 = OU[u1], u4 = mo.VB(Oo + OM * OD, OE + OM * OK, Od + OM * Ow), u5 = mo.VB(OD, OK, Ow);
                             mo._P(u5, Op - OM);
                             for (var u6, u7 = mY.A.eeZ(Og, Ox, Or), u8 = mY.A.eec(u7.eeE, u7.eeI, u7.eef), u9 = 0x1 / 0x0, um = mo.VB(0x0, 0x0, 0x0), uH = ey(u3);
                                 !(u6 = uH()).done;) {
-                                    var uO = u6.value, uu = eL.VL(mo.VB(uO.eRC.eeE + u8.eeE, uO.eRC.eeI + u8.eeI, uO.eRC.eef + u8.eef), mo.VB(uO.eRo.eeE + u8.eeE, uO.eRo.eeI + u8.eeI, uO.eRo.eef + u8.eef)), uN = mo.VB(0x0, 0x0, 0x0), uJ = eV(u4, u5, uu, uN);
+                                var uO = u6.value, uu = eL.VL(mo.VB(uO.eRC.eeE + u8.eeE, uO.eRC.eeI + u8.eeI, uO.eRC.eef + u8.eef), mo.VB(uO.eRo.eeE + u8.eeE, uO.eRo.eeI + u8.eeI, uO.eRo.eef + u8.eef)), uN = mo.VB(0x0, 0x0, 0x0), uJ = eV(u4, u5, uu, uN);
                                 uJ >= 0x0 && uJ < u9 && (u9 = uJ, um.eeE = uN.eeE, um.eeI = uN.eeI, um.eef = uN.eef);
                             } if (u9 < 0x1 / 0x0) return OQ[0x0] = u4.eeE + u9 * u5.eeE, OQ[0x1] = u4.eeI + u9 * u5.eeI, OQ[0x2] = u4.eef + u9 * u5.eef, Of[0x0] = um.eeE, Of[0x1] = um.eeI, Of[0x2] = um.eef, u1;
                         } OZ < Os ? OZ < OV ? (Og += OY, OM = OZ, OZ += OS, u0 = 0x0) : (Or += Ok, OM = OV, OV += OI, u0 = 0x2) : Os < OV ? (Ox += OW, OM = Os, Os += OP, u0 = 0x1) : (Or += Ok, OM = OV, OV += OI, u0 = 0x2);
@@ -5801,7 +6085,7 @@
                     if (OI(), 0x0 === OW) return 0x0;
                     for (Ok = -0x1;
                         OY <= OW;) {
-                            var OP = Os();
+                        var OP = Os();
                         if (OP && OV(OP)) return Or;
                         Ok = void 0x0 !== OP && OP.collidedCustom ? -0x1 : u0();
                     } for (Or += OW, OS = 0x0;
@@ -5812,7 +6096,7 @@
                         if (OY = 0x0, 0x0 !== (OW = Math.sqrt(OE[0x0] * OE[0x0] + OE[0x1] * OE[0x1] + OE[0x2] * OE[0x2]))) for (var u3 = 0x0;
                             u3 < 0x3;
                             u3++) {
-                                var u4 = OE[u3] >= 0x0;
+                            var u4 = OE[u3] >= 0x0;
                             OU[u3] = u4 ? 0x1 : -0x1;
                             var u5 = u4 ? OD[u3] : Od[u3];
                             OQ[u3] = u4 ? Od[u3] : OD[u3], Of[u3] = u1(u5, OU[u3]), On[u3] = u2(OQ[u3], OU[u3]), Og[u3] = OE[u3] / OW, OM[u3] = Math.abs(0x1 / Og[u3]);
@@ -5829,19 +6113,19 @@
                                 uN += u6)for (var uJ = um;
                                     uJ != uH;
                                     uJ += u9) {
-                                        var uA = Oi(uu, uN, uJ), uv = Ow[uA];
+                                    var uA = Oi(uu, uN, uJ), uv = Ow[uA];
                                     if (uv === eb.B.eCz) uO.push({ 'aabb': eL.VL(mo.VB(-0.5, -0.5, -0.5), mo.VB(0.5, 0.5, 0.5)), 'worldPos': mo.VB(uu, uN, uJ), 'blockType': uA });
                                     else {
                                         if (uv === eb.B.eCb) for (var uF, ua = eC(Op[uA]);
                                             !(uF = ua()).done;) {
-                                                var uG = uF.value;
+                                            var uG = uF.value;
                                             uO.push({ 'aabb': uG, 'worldPos': mo.VB(uu, uN, uJ), 'blockType': uA });
                                         }
                                     }
                                 } if (uO.length > 0x0) {
                                     for (var uc, uR = [], uj = eL.VL(mo.VB(OZ(Od[0x0] + OE[0x0] * OY / OW), OZ(Od[0x1] + OE[0x1] * OY / OW), OZ(Od[0x2] + OE[0x2] * OY / OW)), mo.VB(OZ(OD[0x0] + OE[0x0] * OY / OW), OZ(OD[0x1] + OE[0x1] * OY / OW), OZ(OD[0x2] + OE[0x2] * OY / OW))), uB = mo.VB(OE[0x0], OE[0x1], OE[0x2]), uz = 0x1 / 0x0, uq = eC(uO);
                                         !(uc = uq()).done;) {
-                                            var ub = uc.value, uL = ub.worldPos, uy = mY.A.eec(uL.eeE, uL.eeI, uL.eef), uh = eL.VL(mo.VB(ub.aabb.eRC.eeE + uy.eeE, ub.aabb.eRC.eeI + uy.eeI, ub.aabb.eRC.eef + uy.eef), mo.VB(ub.aabb.eRo.eeE + uy.eeE, ub.aabb.eRo.eeI + uy.eeI, ub.aabb.eRo.eef + uy.eef)), uX = mo.VB(0x0, 0x0, 0x0), uC = eZ(uj, uB, uh, uX);
+                                        var ub = uc.value, uL = ub.worldPos, uy = mY.A.eec(uL.eeE, uL.eeI, uL.eef), uh = eL.VL(mo.VB(ub.aabb.eRC.eeE + uy.eeE, ub.aabb.eRC.eeI + uy.eeI, ub.aabb.eRC.eef + uy.eef), mo.VB(ub.aabb.eRo.eeE + uy.eeE, ub.aabb.eRo.eeI + uy.eeI, ub.aabb.eRo.eef + uy.eef)), uX = mo.VB(0x0, 0x0, 0x0), uC = eZ(uj, uB, uh, uX);
                                         if (uC >= 0x0 && uC <= uz) {
                                             uz = uC;
                                             var uT = [uL.eeE, uL.eeI, uL.eef], ui = [uX.eeE, uX.eeI, uX.eef];
@@ -5858,7 +6142,7 @@
                         for (OS = 0x0;
                             OS < 0x3;
                             OS++) {
-                                var u6 = OE[OS] * u4;
+                            var u6 = OE[OS] * u4;
                             Od[OS] += u6, OD[OS] += u6, u5[OS] = OE[OS] - u6;
                         } if (u3.collidedCustom) {
                             for (var u7 = 0x0;
@@ -5968,7 +6252,7 @@
                         OU++)for (var OM = Math.floor(Oz.emc.eRi.eef - m5.A.eTa.eef / 0x2);
                             OM <= Math.floor(Oz.emc.eRi.eef + m5.A.eTa.eef / 0x2);
                             OM++) {
-                                var Ol = Oj(On, OU, OM);
+                            var Ol = Oj(On, OU, OM);
                             mg.lk(Ol) || mg.Qp(Ol) ? OD = !0x0 : Ol === mW._.eCu ? OK = !0x0 : Ol === mW._.eCP ? Ow = !0x0 : Ol === mW._.eCk || Ol === mW._.eCZ || Ol === mW._.eBM || Ol === mW._.eCx ? Op = !0x0 : Ol !== mW._.eCc && Ol !== mW._.eCX && Ol !== mW._.eBq && Ol !== mW._.eCn || (Op = !0x0, Of = 1.2);
                         } if (Ow) return new eg.A(mo.N3(Oz.emc.eRi), OR.eRT, mo.N3(Oz.emc.eQJ), Oz.emc.eQU, Oz.emc.eQr, Oz.emc.eWL, Oz.emc.eQa, er.sd(Oz.emc.eQt));
                 var Og = mo.N3(Oz.emc.eQJ), Ox = Oz.emc.eRi.eeI / m5.A.eex > m5.A.eCy + 0x258, Or = Oj(Oz.emc.eRi.eeE / m5.A.eex, (Oz.emc.eRi.eeI + 0.9) / m5.A.eex, Oz.emc.eRi.eef / m5.A.eex), OY = Oj(Oz.emc.eRi.eeE / m5.A.eex, (Oz.emc.eRi.eeI + 1.1) / m5.A.eex, Oz.emc.eRi.eef / m5.A.eex), OW = mg.lk(Or), Ok = mg.lk(OY), OS = mg.Qp(Or), OP = mg.Qp(OY);
@@ -5987,7 +6271,7 @@
                 mo._P(u4, -OX.eeE * u0 * OV), mo.j9(Og, u4);
                 for (var u5, u6 = er.sd(Oz.emc.eQt), u7 = eP(OR.eLs);
                     !(u5 = u7()).done;) {
-                        var u8 = u5.value, u9 = u6.get(u8);
+                    var u8 = u5.value, u9 = u6.get(u8);
                     void 0x0 !== u9 && (mo.j9(Og, u9), u6.delete(u8));
                 } var um = Og.eeI, uH = H3(Oz.emc.eRi, Od, m5.A.eTa);
                 Math.abs(Og.eeE) < 0.000001 && (Og.eeE = 0x0), Math.abs(Og.eeI) < 0.000001 && (Og.eeI = 0x0), Math.abs(Og.eef) < 0.000001 && (Og.eef = 0x0);
@@ -6005,21 +6289,21 @@
                     0x0 === uZ && (Og.eeE = 0x0), 0x1 === uZ && (Og.eeI = 0x0, ua = uV[0x1] < 0x0), 0x2 === uZ && (Og.eef = 0x0), uu[uZ] = !0x0, uV[uZ] = 0x0;
                     for (var N3, N4 = eP(N2);
                         !(N3 = N4()).done;) {
-                            var N5 = N3.value;
+                        var N5 = N3.value;
                         0x0 === N5.normal[0x1] && ((N5.type === mW._.eCk || N5.type === mW._.eCZ) && 0x0 !== N5.normal[0x0] || (N5.type === mW._.eBM || N5.type === mW._.eCx) && 0x0 !== N5.normal[0x2] ? (uG = !0x0, Of = 0x1) : (N5.type !== mW._.eCc && N5.type !== mW._.eCX || 0x0 === N5.normal[0x0]) && (N5.type !== mW._.eBq && N5.type !== mW._.eCn || 0x0 === N5.normal[0x2]) || (uG = !0x0, Of = 1.2)), Oy[N5.type] && uc.push(N5);
                     } return !0x1;
                 }, !0x1, 0.0001), uG && !OR.eLq && (ua = !0x1, uH = H3(Oz.emc.eRi, Od, m5.A.eTa), Og.eeE = uO.eeE, Og.eeI = uO.eeI = OQ * Of, Og.eef = uO.eef, uu[0x0] = !0x1, uu[0x1] = !0x1, uu[0x2] = !0x1, uc = [], eM(Oj, uH, [Og.eeE, Og.eeI, Og.eef], function (uI, uZ, us, uV, N0, N1, N2) {
                     0x0 === uZ && (Og.eeE = 0x0), 0x1 === uZ && (Og.eeI = 0x0, ua = uV[0x1] < 0x0), 0x2 === uZ && (Og.eef = 0x0), uu[uZ] = !0x0, uV[uZ] = 0x0;
                     for (var N3, N4 = eP(N2);
                         !(N3 = N4()).done;) {
-                            var N5 = N3.value;
+                        var N5 = N3.value;
                         Oy[N5.type] && uc.push(N5);
                     } return !0x1;
                 }, !0x1, 0.0001));
                 for (var uR = 0x0, uj = uc;
                     uR < uj.length;
                     uR++) {
-                        var uB = uj[uR];
+                    var uB = uj[uR];
                     Oh[uB.type](Oc, Oz, mo.VB(uB.pos[0x0], uB.pos[0x1], uB.pos[0x2]), Oq);
                 } var uz, uq = (uz = uH, mo.VB(uz.base[0x0] * m5.A.eex + m5.A.eTa.eeE / 0x2, uz.base[0x1] * m5.A.eex, uz.base[0x2] * m5.A.eex + m5.A.eTa.eef / 0x2));
                 if (uu[0x0] && (uq.eeE += uN * (uO.eeE > 0x0 ? -0x1 : 0x1)), uu[0x1] && (uq.eeI += uN * (uO.eeI > 0x0 ? -0x1 : 0x1)), uu[0x2] && (uq.eef += uN * (uO.eef > 0x0 ? -0x1 : 0x1)), um / m5.A.eUC <= -0x14 && ua) {
@@ -6030,7 +6314,7 @@
                             uy++)for (var uh = Math.floor(uq.eef - m5.A.eTa.eef / 0x2);
                                 uh <= Math.floor(uq.eef + m5.A.eTa.eef / 0x2);
                                 uh++) {
-                                    var uX = Oj(uL, uy, uh);
+                                var uX = Oj(uL, uy, uh);
                                 if (mg.lk(uX) || mg.Qp(uX)) {
                                     ub = !0x0;
                                     break;
@@ -6046,7 +6330,7 @@
                             else {
                                 if (Ob[up] === eb.B.eCb) for (var uQ, uf = H2(uq, Od), un = eP(OL[up]);
                                     !(uQ = un()).done;) {
-                                        var uU = uQ.value, uM = mY.A.eec(uK, uC, uw), ul = eL.VL(mo.VB(uU.eRC.eeE + uM.eeE, uU.eRC.eeI + uM.eeI, uU.eRC.eef + uM.eef), mo.VB(uU.eRo.eeE + uM.eeE, uU.eRo.eeI + uM.eeI, uU.eRo.eef + uM.eef));
+                                    var uU = uQ.value, uM = mY.A.eec(uK, uC, uw), ul = eL.VL(mo.VB(uU.eRC.eeE + uM.eeE, uU.eRC.eeI + uM.eeI, uU.eRC.eef + uM.eef), mo.VB(uU.eRo.eeE + uM.eeE, uU.eRo.eeI + uM.eeI, uU.eRo.eef + uM.eef));
                                     eL.fB(uf, ul) && (uD = Math.max(ul.eRo.eeI, uD), ud = !0x0);
                                 }
                             }
@@ -6116,7 +6400,7 @@
                     Ob.push(OL);
                     for (var Oy, Oh = HF(this._control.eTk.eTu.eRd.elK(Oz, Oq));
                         !(Oy = Oh()).done;) {
-                            var OX = Oy.value;
+                        var OX = Oy.value;
                         if (OX.eAk === HO.c.eND) {
                             var OC = OX;
                             if (OC.eWk.emI) {
@@ -6164,7 +6448,7 @@
                     var OX = this._control.eoE(OB, Oz, Oq, Ob, OL, Oh);
                     if (OX) for (var OC, OT = HF(e6.A.immediateNeighbors);
                         !(OC = OT()).done;) {
-                            var Oi = OC.value, Oo = mo.VB(OB + Oi.dir.eeE, Oz + Oi.dir.eeI, Oq + Oi.dir.eef);
+                        var Oi = OC.value, Oo = mo.VB(OB + Oi.dir.eeE, Oz + Oi.dir.eeI, Oq + Oi.dir.eef);
                         mZ.A.eAb.eAH.eAD.eUz(this._control.eeS(Oo.eeE, Oo.eeI, Oo.eef)).eog(this, this._control.emx, Oo.eeE, Oo.eeI, Oo.eef) || this.eHb(Oo.eeE, Oo.eeI, Oo.eef, mW._.eeO, OL, Oh);
                     } return OX;
                 }, Oj.eHb = function (OB, Oz, Oq, Ob, OL, Oy, Oh, OX, OC, OT) {
@@ -6184,7 +6468,7 @@
                     Ob.eeI += OB.emc.eQa;
                     for (var OL, Oy, Oh = Oz.eLn ? Oz.eLy : eq.ik(Oz.eRT), OX = 0x5f5e0ff, OC = HF(this._control.eTk.eTu.eRd.elK(Ob, Oq));
                         !(Oy = OC()).done;) {
-                            var OT = Oy.value, Oi = void 0x0;
+                        var OT = Oy.value, Oi = void 0x0;
                         if (OT.eAk === HO.c.eND) {
                             var Oo = OT;
                             Oo.eWk.emI && (Oi = H2((0x0, mo['K$'])(Oo.eNK.position), Oo.eWL === el.f.eUh ? m5.A.eCO : m5.A.eQe));
@@ -6330,17 +6614,17 @@
                         for (var Oh = OL.eMK.length - 0x1;
                             Oh >= 0x0;
                             Oh--) {
-                                var OX = OL.eMK[Oh];
+                            var OX = OL.eMK[Oh];
                             if (OX.ezg >= Oy.emx.ezg - 0x1) for (var OC = 0x0, OT = Object.values(OX.eMO);
                                 OC < OT.length;
                                 OC++) {
-                                    var Oi = OT[OC];
+                                var Oi = OT[OC];
                                 OL.elQ.eTP.eJU(Oi.eAy.eeE, Oi.eAy.eeI, Oi.eAy.eef, Oi.eMw, !0x1), OL.elQ.eTP.eDN.eHT(Oi.eAy.eeE, Oi.eAy.eeI, Oi.eAy.eef, Oi.eMu, Oy.emx.ezg, !0x1);
                             }
                         } OL.eMK = [];
                         for (var Oo, OE = Hh(Oy.eMP);
                             !(Oo = OE()).done;) {
-                                var Od = Oo.value;
+                            var Od = Oo.value;
                             OL.elQ.eTP.eDN.eHT(Od.eAy.eeE, Od.eAy.eeI, Od.eAy.eef, Od.eHp, Oy.emx.ezg, Od.eMk), OL.elQ.eTP.eJU(Od.eAy.eeE, Od.eAy.eeI, Od.eAy.eef, Od.eAk, Od.eMZ);
                         } for (var OD = m5.A.eUC, OK = -0x1, Ow = 0x0;
                             Ow < OL.eMx.length;
@@ -6350,16 +6634,16 @@
                             } -0x1 === OK ? OL.eMx = [] : OL.eMx.splice(0x0, OK - 0x1), OL.eMc.emc.eQU = Oy.emx.emc.eQU, OL.eMc.emc.eQr = Oy.emx.emc.eQr, OL.eMc.emc.eWL = Oy.emx.emc.eWL, OL.eMc.ezg = Oy.emx.ezg, Oy.eRp && (OL.eMc.emc.eRi = Oy.emx.emc.eRi), Oy.eMX && (OL.eMc.emc.eQJ = Oy.emx.emc.eQJ), Oy.eMn && (OL.eMc.emc.eQa = Oy.emx.emc.eQa), Oy.eLv && OL.eMc.eUO.eQy(Oy.emx.eUO.eCB, OL.eMy, !0x1), Oy.eqA && (OL.eMc.eUT = Oy.emx.eUT, OL.eMc.eUO.eQV(OL.eMc.eUT));
                         for (var Op, OQ = Hh(Oy.eqe.entries());
                             !(Op = OQ()).done;) {
-                                var Of = Op.value, On = Of[0x0], OU = Of[0x1];
+                            var Of = Op.value, On = Of[0x0], OU = Of[0x1];
                             -0x2 === On ? OL.eMc.eUO.eUc = OU : OL.eMc.eUO.eQK(On, OU, OL.eMy, !0x1);
                         } for (var OM, Ol = Hh(Oy.eqJ.entries());
                             !(OM = Ol()).done;) {
-                                var Og = OM.value, Ox = Og[0x0], Or = Og[0x1];
+                            var Og = OM.value, Ox = Og[0x0], Or = Og[0x1];
                             OL.eMc.eCm.eQR().set(Ox, Or);
                         } Oy.eqU && (OL.eMc.eCW = Oy.emx.eCW, OL.eMc.eCR = Oy.emx.eCR);
                         for (var OY, OW = Hh(Oy.emx.emc.eQt.entries());
                             !(OY = OW()).done;) {
-                                var Ok = OY.value, OS = Ok[0x0], OP = Ok[0x1];
+                            var Ok = OY.value, OS = Ok[0x0], OP = Ok[0x1];
                             0x0 === OP.eeE && 0x0 === OP.eeI && 0x0 === OP.eef ? OL.eMc.emc.eQt.delete(OS) : OL.eMc.emc.eQt.set(OS, OP);
                         } for (var OI = OL.eMc.eUX(), OZ = 0x1;
                             OZ < OL.eMx.length;
@@ -6446,10 +6730,10 @@
                             for (var OD = 0x0;
                                 OD < 0x9;
                                 OD++) {
-                                    if (this.eMv(this.ehq.ezw['SELECT_SLOT_' + (OD + 0x1)])) {
-                                        Oi = OD;
-                                        break;
-                                    }
+                                if (this.eMv(this.ehq.ezw['SELECT_SLOT_' + (OD + 0x1)])) {
+                                    Oi = OD;
+                                    break;
+                                }
                             } Oo = this.eqp.eLS !== Oi;
                         }
                     } Hq.A && (Oi = this.eqf.eoX(), Oo = this.eqp.eLS !== Oi);
@@ -6459,7 +6743,7 @@
                     Of.eLC.eeE = OK, Of.eLC.eeI = Ow, Of.eLo = OL, Of.eLM = Oy, Of.eUw = Oh, Of.eLq = OX, Of.eLj = OC, Of.eLd = OT, Of.eLv = Oo, Of.eLS = Oi, Of.ezg = this.eQE.ezg, Of.elu = this.elQ.eRd.elw();
                     for (var On, OU = Hh(this.eQE.emc.eQt.entries());
                         !(On = OU()).done;) {
-                            var OM = On.value, Ol = OM[0x0];
+                        var OM = On.value, Ol = OM[0x0];
                         OM[0x1], Of.eLs.push(Ol);
                     } this.eQE.eCR <= 0x0 && Of.eQA(), Of.eRT = this.eqE(), this.eMh && (Of.eLn = !0x0, Of.eLy.eeE = this.eMh.eeE, Of.eLy.eeI = this.eMh.eeI, Of.eLy.eef = this.eMh.eef), this.eMd = new eB.A();
                     var Og = this.eqp;
@@ -6470,7 +6754,7 @@
                     for (var Oq = new Map(), Ob = new Hc.A(HR.O(Hj.S.eUV), 0x1), OL = 0x0;
                         OL < Math.max(Oj.eUO.eCf.length, OB.eUO.eCf.length);
                         OL++) {
-                            var Oy = OL < Oj.eUO.eCf.length ? Oj.eUO.eCf[OL].eUv : Ob, Oh = OL < OB.eUO.eCf.length ? OB.eUO.eCf[OL].eUv : Ob;
+                        var Oy = OL < Oj.eUO.eCf.length ? Oj.eUO.eCf[OL].eUv : Ob, Oh = OL < OB.eUO.eCf.length ? OB.eUO.eCf[OL].eUv : Ob;
                         Oy.eqP(Oh) || (Oq.set(OL, Oh), Oz && Oh.eUS.eAk !== Hj.S.eUV && (Oy.eUS.eAk !== Oh.eUS.eAk || Oy.eUK < Oh.eUK) && this.eTk.eUl(eF.W.eCY, 0x12c));
                     } Oj.eUO.eUc.eUS.eAk === OB.eUO.eUc.eUS.eAk && Oj.eUO.eUc.eUK === OB.eUO.eUc.eUK && Oj.eUO.eUc.eUS.eqk() === OB.eUO.eUc.eUS.eqk() || (mX.A.emit(mC.r.eqZ, OB.eUO.eUc), Oz && this.eTk.eUl(eF.W.eCY, 0x12c)), Oj.eUO.eCB !== OB.eUO.eCB && mX.A.emit(mC.r.eqx, OB.eUO.eCB), (this.eqi || Oj.eUO.eCB !== OB.eUO.eCB || Oj.eUO.eQj.eUS.eAk !== OB.eUO.eQj.eUS.eAk) && mX.A.emit(mC.r.eqc, OB.eUO.eQj), Oq.size > 0x0 && mX.A.emit(mC.r.eGT, Oq), Oj.eUT !== OB.eUT && mX.A.emit(mC.r.eqX, OB.eUT), (this.eqi || Oj.eCW !== OB.eCW || Oj.eCR !== OB.eCR || Oj.eCl !== OB.eCl) && mX.A.emit(mC.r.eqn, OB.eCW, OB.eCR, OB.eCl), this.eqi = !0x1;
                 }, OR.eoE = function (Oj, OB, Oz, Oq, Ob, OL) {
@@ -6587,7 +6871,7 @@
                     for (var Oz = 0x0;
                         Oz < this.ejN.length;
                         Oz++) {
-                            this.eji(this.ejN[Oz]) && (this.ejR(Oz), --Oz);
+                        this.eji(this.ejN[Oz]) && (this.ejR(Oz), --Oz);
                     }
                 }, OR.eJE = function () {
                     for (;
@@ -6636,7 +6920,7 @@
                             Ob = 0x0;
                             for (var Oh, OX = HQ(OL);
                                 !(Oh = OX()).done;) {
-                                    var OC = Oh.value, OT = new m4.SphereGeometry(0.1), Oi = new m4.MeshBasicMaterial({ 'color': 0xff00 }), Oo = new m4.Mesh(OT, Oi), OE = mY.A.eec(OC.eAy.eeE, OC.eAy.eeI, OC.eAy.eef);
+                                var OC = Oh.value, OT = new m4.SphereGeometry(0.1), Oi = new m4.MeshBasicMaterial({ 'color': 0xff00 }), Oo = new m4.Mesh(OT, Oi), OE = mY.A.eec(OC.eAy.eeE, OC.eAy.eeI, OC.eAy.eef);
                                 Oo.position.set(OE.eeE, OE.eeI, OE.eef), Oj.eNK.add(Oo);
                                 var Od = eq.ik(OC.eRT), OD = new m4.Vector3(Od.eeE, Od.eeI, Od.eef), OK = new m4.Vector3(OE.eeE, OE.eeI, OE.eef), Ow = new m4.ArrowHelper(OD, OK, 0x1, 0xff0000);
                                 Oj.eNK.add(Ow);
@@ -6647,7 +6931,7 @@
                             Ob = 0x0;
                             for (var Oh, OX = HQ(OL);
                                 !(Oh = OX()).done;) {
-                                    var OC = Oh.value, OT = (OC.eRo.eef - OC.eRC.eef + 0x1) * m5.A.eex, Oi = (OC.eRo.eeE - OC.eRC.eeE + 0x1) * m5.A.eex, Oo = (OC.eRo.eeI - OC.eRC.eeI + 0x1) * m5.A.eex, OE = new m4.BoxGeometry(Oi, Oo, OT), Od = new m4.MeshBasicMaterial({ 'color': 0xffffff, 'transparent': !0x0, 'opacity': 0.5, 'side': m4.DoubleSide }), OD = new m4.Mesh(OE, Od);
+                                var OC = Oh.value, OT = (OC.eRo.eef - OC.eRC.eef + 0x1) * m5.A.eex, Oi = (OC.eRo.eeE - OC.eRC.eeE + 0x1) * m5.A.eex, Oo = (OC.eRo.eeI - OC.eRC.eeI + 0x1) * m5.A.eex, OE = new m4.BoxGeometry(Oi, Oo, OT), Od = new m4.MeshBasicMaterial({ 'color': 0xffffff, 'transparent': !0x0, 'opacity': 0.5, 'side': m4.DoubleSide }), OD = new m4.Mesh(OE, Od);
                                 OD.position.set(OC.eRC.eeE + Oi / 0x2, OC.eRC.eeI + Oo / 0x2, OC.eRC.eef + OT / 0x2), Oj.eNK.add(OD);
                                 var OK = Hp.D(Oy + ' index: ' + Ob.toString() + ' ' + OC.toString(), 0x40, 0.2);
                                 OK.material.depthTest = !0x1, OK.position.set(OC.eRC.eeE + Oi / 0x2, OC.eRo.eeI + m5.A.eex + 0.1, OC.eRC.eef + OT / 0x2), Oj.eNK.add(OK), Ob++;
@@ -6697,7 +6981,7 @@
                 return OR.eTO = function (Oj) {
                     for (var OB, Oz = HM(this.ejz.entries());
                         !(OB = Oz()).done;) {
-                            var Oq = OB.value, Ob = Oq[0x0], OL = Oq[0x1];
+                        var Oq = OB.value, Ob = Oq[0x0], OL = Oq[0x1];
                         if (void 0x0 !== OL.visibleUntil && OL.visibleUntil < Date.now()) this.eRR(Ob);
                         else {
                             if (void 0x0 === OL.chunkPos) {
@@ -6709,7 +6993,7 @@
                 }, OR.eRm = function (Oj) {
                     if (void 0x0 !== Oj.chunkPos) for (var OB, Oz = HM(this.ejz.entries());
                         !(OB = Oz()).done;) {
-                            var Oq = OB.value, Ob = (Oq[0x0], Oq[0x1]);
+                        var Oq = OB.value, Ob = (Oq[0x0], Oq[0x1]);
                         if (void 0x0 !== Ob.chunkPos && mo.b0(Ob.chunkPos, Oj.chunkPos)) return;
                     } if (void 0x0 === Oj.id && (Oj.id = Oc._nextChunkAreaId++), !this.ejz.has(Oj.id)) {
                         for (var OL = m5.A.eAt / m5.A.eex / 0x2, Oy = [], Oh = -OL;
@@ -7093,7 +7377,7 @@
                 return Oj.eWp = function (OB) {
                     for (var Oz, Oq = Hs(OB);
                         !(Oz = Oq()).done;) {
-                            var Ob = Oz.value;
+                        var Ob = Oz.value;
                         if (Ob.eAk === Hy.v.eNl) this.emu = Ob.eWN;
                     }
                 }, Oj.emP = function () {
@@ -7207,7 +7491,7 @@
                     Oc.prototype.eWp.call(this, OB);
                     for (var Oz, Oq = O4(OB);
                         !(Oz = Oq()).done;) {
-                            var Ob = Oz.value;
+                        var Ob = Oz.value;
                         switch (Ob.eAk) {
                             case Hy.v.eNm: this.emy(Ob.eWN);
                                 break;
@@ -7328,7 +7612,7 @@
                     Oc.prototype.eWp.call(this, OB);
                     for (var Oz, Oq = O8(OB);
                         !(Oz = Oq()).done;) {
-                            var Ob = Oz.value;
+                        var Ob = Oz.value;
                         if (Ob.eAk === Hy.v.eNp) {
                             var OL = Ob.eWN;
                             this.eNw && !OL ? this.elY() : !this.eNw && OL && this.elf(), this.eNw = OL;
@@ -7401,7 +7685,7 @@
                         for (var Oq = 0x0, Ob = Object.values(OB.elL);
                             Oq < Ob.length;
                             Oq++) {
-                                Ob[Oq].eTO(Oz);
+                            Ob[Oq].eTO(Oz);
                         }
                     }, this.elQ = Oj, this.eWX = new m4.Object3D(), this.elR = [], this.elL = {}, this.elC = new Map(), this.elo();
                 } var OR = Oc.prototype;
@@ -7412,18 +7696,18 @@
                 }, OR.eTZ = function (Oj, OB) {
                     for (var Oz, Oq, Ob = Date.now() - 0x64;
                         this.elR.length >= 0x2 && Ob >= this.elR[0x0].elS;) {
-                            Oz = this.elR[0x0];
+                        Oz = this.elR[0x0];
                         for (var OL = (Oq = this.elR[0x1]).elS - Ob, Oy = Oq.elS - Oz.elS, Oh = Oq.elS <= Ob ? 0x0 : OL / Oy, OX = 0x0, OC = Object.values(this.elL);
                             OX < OC.length;
                             OX++) {
-                                var OT = OC[OX], Oi = Oz.elV.get(OT.eee), Oo = Oq.elV.get(OT.eee);
+                            var OT = OC[OX], Oi = Oz.elV.get(OT.eee), Oo = Oq.elV.get(OT.eee);
                             OT.eRf(Oi, Oo, Oh);
                         } if (!(this.elR.length > 0x2 && Oq.elS <= Ob)) break;
                         this.elR.shift();
                     } for (var OE = 0x0, Od = Object.values(this.elL);
                         OE < Od.length;
                         OE++) {
-                            Od[OE].eTZ(Oj, OB);
+                        Od[OE].eTZ(Oj, OB);
                     }
                 }, OR.elK = function (Oj, OB) {
                     for (var Oz = Math.ceil(OB / m5.A.eex / m5.A.eAt), Oq = mY.A.worldPosToChunkPos(Oj), Ob = new Set(), OL = Oq.eeE - Oz;
@@ -7433,10 +7717,10 @@
                             Oy++)for (var Oh = Oq.eef - Oz;
                                 Oh <= Oq.eef + Oz;
                                 Oh++) {
-                                    var OX = mo.VB(OL, Oy, Oh);
+                                var OX = mo.VB(OL, Oy, Oh);
                                 if (!(mo.x6(Oq, OX) > Oz * (Oz + 0x1))) for (var OC, OT = OH(this.elO(OX));
                                     !(OC = OT()).done;) {
-                                        var Oi = OC.value;
+                                    var Oi = OC.value;
                                     mo.x6(Oj, Oi.eAy) > OB * OB || Ob.add(Oi);
                                 }
                             } return Ob;
@@ -7444,7 +7728,7 @@
                     if (0x0 === this.elR.length) return -0x1;
                     for (var Oj = Date.now() - 0x64, OB = 0x0, Oz = this.elR.length - 0x1, Oq = -0x1;
                         OB <= Oz;) {
-                            var Ob = Math.floor((OB + Oz) / 0x2);
+                        var Ob = Math.floor((OB + Oz) / 0x2);
                         this.elR[Ob].elS > Oj ? Oz = Ob - 0x1 : (Oq = Ob, OB = Ob + 0x1);
                     } if (-0x1 === Oq) return this.elR[0x0].elu;
                     var OL = Oq, Oy = OL < this.elR.length - 0x1 ? OL + 0x1 : OL, Oh = OL === Oy ? 0x0 : (Oj - this.elR[OL].elS) / (this.elR[Oy].elS - this.elR[OL].elS);
@@ -7510,7 +7794,7 @@
                     for (var Oz = 0x0;
                         Oz < this.edX.length;
                         Oz++) {
-                            var Oq = this.edX[Oz];
+                        var Oq = this.edX[Oz];
                         Oq.sprite.position.set(Oq.sprite.position.x + 0x2 * Oq.dir.eeE * Oj, Oq.sprite.position.y + 0x3 * Oq.dir.eeI * Oj, Oq.sprite.position.z + 0x2 * Oq.dir.eef * Oj), Date.now() - Oq.spawnTime > 0x320 && (this.edn(Oz), --Oz);
                     }
                 }, OR.edn = function (Oj) {
@@ -7726,20 +8010,20 @@
                 return mA.eQF = function () {
                     for (var mv, mF = [], ma = D(this.eQg.entries());
                         !(mv = ma()).done;) {
-                            var mG = mv.value, mc = mG[0x0], mR = mG[0x1];
+                        var mG = mv.value, mc = mG[0x0], mR = mG[0x1];
                         mF.push([mc, mR - this.eQE.ezg]);
                     } return { 'cooldowns': mF };
                 }, mA.eQI = function (mv) {
                     this.eQg.clear();
                     for (var mF, ma = D(mv.cooldowns);
                         !(mF = ma()).done;) {
-                            var mG = mF.value, mc = mG[0x0], mR = mG[0x1];
+                        var mG = mF.value, mc = mG[0x0], mR = mG[0x1];
                         this.eQg.set(mc, mR);
                     }
                 }, mA.eUX = function (mv) {
                     for (var mF, ma = new mJ(mv), mG = D(this.eQg.entries());
                         !(mF = mG()).done;) {
-                            var mc = mF.value, mR = mc[0x0], mj = mc[0x1];
+                        var mc = mF.value, mR = mc[0x0], mj = mc[0x1];
                         ma.eQg.set(mR, mj);
                     } return ma;
                 }, mA.eQB = function (mv) {
@@ -7942,7 +8226,7 @@
                         for (var mG = !0x1, mc = {}, mR = 0x0;
                             mR < ma.length;
                             mR++) {
-                                var mj = ma[mR];
+                            var mj = ma[mR];
                             mj.eUv.eUS.eAk !== U.S.eUV && (mc[mR] = mj.eUv.eQF(), mG = !0x0);
                         } return mG ? mc : void 0x0;
                     }(this.eQz);
@@ -7955,7 +8239,7 @@
                     } else void 0x0 !== mv.items && function (ma, mG) {
                         for (var mc, mR = mm(Object.keys(ma).map(Number));
                             !(mc = mR()).done;) {
-                                var mj = mc.value;
+                            var mj = mc.value;
                             if (!(mj < 0x0 || mj >= mG.length)) {
                                 var mB = new Y.A(M.O(U.S.eUV), 0x1);
                                 mB.eQI(ma[mj]), mG[mj].eUv = mB;
@@ -7975,18 +8259,18 @@
                     for (var mF = 0x0;
                         mF < mv.length;
                         mF++) {
-                            for (var ma, mG = 0x0, mc = mH(mv[mF].type);
-                                !(ma = mc()).done;) {
-                                    var mR, mj, mB = ma.value;
-                                if ((mG += null != (mR = null == (mj = this.eQL[mB]) ? void 0x0 : mj.eUK) ? mR : 0x0) >= mv[mF].count) break;
-                            } if (mG < mv[mF].count) return !0x1;
+                        for (var ma, mG = 0x0, mc = mH(mv[mF].type);
+                            !(ma = mc()).done;) {
+                            var mR, mj, mB = ma.value;
+                            if ((mG += null != (mR = null == (mj = this.eQL[mB]) ? void 0x0 : mj.eUK) ? mR : 0x0) >= mv[mF].count) break;
+                        } if (mG < mv[mF].count) return !0x1;
                     } return !0x0;
                 }, mA.eQq = function (mv) {
                     for (var mF = 0x0;
                         mF < mv.length;
                         mF++)for (var ma, mG = mH(mv[mF].type);
                             !(ma = mG()).done;) {
-                                var mc, mR = ma.value;
+                            var mc, mR = ma.value;
                             if ((null == (mc = this.eQL[mR]) ? void 0x0 : mc.eUK) > 0x0) return !0x0;
                         } return !0x1;
                 }, mA.__beginSelectedItemChangeCheck = function () {
@@ -7999,7 +8283,7 @@
                         this.eQz.length > x.A.eQS;)this.eQz.pop();
                     for (var mF, ma = mH(mv);
                         !(mF = ma()).done;) {
-                            var mG = mF.value;
+                        var mG = mF.value;
                         this.eQz.push(mG);
                     }
                 }, mA.eUX = function (mv) {
@@ -8076,7 +8360,7 @@
                     mF.length > 0x0 && ma.eQn(mF);
                     for (var mG, mc = mH(mv);
                         !(mG = mc()).done;) {
-                            var mR = mG.value, mj = new Y.A(M.O(mR.type), mR.count);
+                        var mR = mG.value, mj = new Y.A(M.O(mR.type), mR.count);
                         if (ma.eCr(mj) < mR.count) return !0x1;
                     } return !0x0;
                 }, mA.eUy = function (mv, mF) {
@@ -8086,7 +8370,7 @@
                     for (var ma = mF.eUv, mG = 0x0;
                         mG < mv.length && ma.eUK > 0x0;
                         mG++) {
-                            var mc = mv[mG];
+                        var mc = mv[mG];
                         if (mc.eUP(ma) && mF.eij(this.eQE, mc)) {
                             var mR = mc.eUv;
                             if (mR.eUS.eAk === ma.eUS.eAk && !(mR.eUK >= mR.eUS.eUn)) {
@@ -8097,7 +8381,7 @@
                     } for (var mB = 0x0;
                         mB < mv.length && ma.eUK > 0x0;
                         mB++) {
-                            var mz = mv[mB];
+                        var mz = mv[mB];
                         if (mz.eUP(ma) && mF.eij(this.eQE, mz)) {
                             var mq = mz.eUv;
                             if (mq.eUS.eAk === U.S.eUV) {
@@ -8112,7 +8396,7 @@
                     for (var mG = ma.eUK, mc = mv;
                         mc < mF && ma.eUK > 0x0;
                         mc++) {
-                            var mR = this.eQz[mc].eUv;
+                        var mR = this.eQz[mc].eUv;
                         if (mR.eUS.eAk === ma.eUS.eAk && !(mR.eUK >= mR.eUS.eUn)) {
                             var mj = Math.min(mR.eUS.eUn - mR.eUK, ma.eUK);
                             mR.eUK = mR.eUK + mj, ma.eUK = ma.eUK - mj;
@@ -8120,7 +8404,7 @@
                     } for (var mB = mv;
                         mB < mF && ma.eUK > 0x0;
                         mB++) {
-                            var mz = this.eQz[mB].eUv;
+                        var mz = this.eQz[mB].eUv;
                         if (mz.eUS.eAk === U.S.eUV) {
                             mz.eUS = ma.eUS, mz.eUK = ma.eUK, ma.eUK = 0x0;
                             break;
@@ -8132,19 +8416,19 @@
                     for (var mF = this.eCI(mv), ma = 0x0;
                         ma < x.A.eCE;
                         ma++) {
-                            var mG = this.eQz[ma].eUv, mc = mG.eUS.eAk, mR = mG.eUK;
+                        var mG = this.eQz[ma].eUv, mc = mG.eUS.eAk, mR = mG.eUK;
                         mc in mF && (mF[mc].eUK -= Math.min(mF[mc].eUK, mR));
                     } for (var mj = 0x0, mB = Object.keys(mF);
                         mj < mB.length;
                         mj++) {
-                            if (mF[mB[mj]].eUK > 0x0) return !0x1;
+                        if (mF[mB[mj]].eUK > 0x0) return !0x1;
                     } return !0x0;
                 }, mA.eCI = function (mv) {
                     for (var mF = {}, ma = 0x0;
                         ma < mv.length;
                         ma++)for (var mG, mc = { 'eUK': mv[ma].count }, mR = mH(mv[ma].type);
                             !(mG = mR()).done;) {
-                                mF[mG.value] = mc;
+                            mF[mG.value] = mc;
                         } return mF;
                 }, mA.eQn = function (mv) {
                     if (!this.eCF(mv)) return !0x1;
@@ -8157,7 +8441,7 @@
                     for (var mc = 0x0;
                         mc < ma.length;
                         mc++) {
-                            var mR = ma[mc], mj = mR.eUv, mB = mj.eUS.eAk, mz = mj.eUK;
+                        var mR = ma[mc], mj = mR.eUv, mB = mj.eUS.eAk, mz = mj.eUK;
                         if (mB in mF) {
                             var mq = Math.min(mF[mB].eUK, mz);
                             mq === mz ? mR.eUv = new Y.A(M.O(U.S.eUV), 0x1) : mR.eUv.eUK = mR.eUv.eUK - mq, mF[mB].eUK -= mq;
@@ -8230,7 +8514,7 @@
                 for (var d = {}, D = 0x0;
                     D < h.egj;
                     D++) {
-                        var K = D, w = X[K];
+                    var K = D, w = X[K];
                     E(K, w) && (d[K] = w);
                 } return d;
             }, T = function (E) {
@@ -8447,7 +8731,7 @@
                     mr.prototype.eWp.call(this, mt);
                     for (var mk, mS = mL(mt);
                         !(mk = mS()).done;) {
-                            var mP = mk.value;
+                        var mP = mk.value;
                         switch (mP.eAk) {
                             case mF.v.eNY: this.eWi(mP.eWN);
                                 break;
@@ -8543,7 +8827,7 @@
                 }, mW.eWo = function (mt, mk) {
                     if (void 0x0 !== mt) for (var mS, mP = mL(mk);
                         !(mS = mP()).done;) {
-                            var mI, mZ = mS.value, ms = mt.getObjectByName(mZ), mV = null == (mI = this.eTI) ? void 0x0 : mI.getObjectByName(mZ);
+                        var mI, mZ = mS.value, ms = mt.getObjectByName(mZ), mV = null == (mI = this.eTI) ? void 0x0 : mI.getObjectByName(mZ);
                         ms && mV && (ms.rotation.copy(mV.rotation), ms.position.copy(mV.position), ms.updateMatrix());
                     }
                 }, mW.eWB = function () {
@@ -8809,28 +9093,28 @@
                 }, D.eWJ = function (K) {
                     for (var w, p = C(this.eRa);
                         !(w = p()).done;) {
-                            w.value.eWJ(K);
+                        w.value.eWJ(K);
                     }
                 }, D.eWp = function (K) {
                     for (var w, p = C(this.eRa);
                         !(w = p()).done;) {
-                            w.value.eWp(K);
+                        w.value.eWp(K);
                     }
                 }, D.eRI = function (K) {
                     for (var w, p = C(this.eRa);
                         !(w = p()).done;) {
-                            w.value.eRI(K);
+                        w.value.eRI(K);
                     }
                 }, D.eTZ = function (K, w) {
                     for (var p, Q = C(this.eRa);
                         !(p = Q()).done;) {
-                            p.value.eTZ(K, w);
+                        p.value.eTZ(K, w);
                     }
                 }, D.eTO = function (K) {
                     this.eRE();
                     for (var w, p = C(this.eRa);
                         !(w = p()).done;) {
-                            w.value.eTO(K);
+                        w.value.eTO(K);
                     }
                 }, D.eTS = function () {
                     var K, w = this.eRe;
@@ -8963,7 +9247,7 @@
                 }, Q.eWp = function (f) {
                     for (var U, M = d(f);
                         !(U = M()).done;) {
-                            var g = U.value;
+                        var g = U.value;
                         if (g.eAk === T.v.eNf) {
                             var x = g.eWN;
                             this.eRS && !x ? this.eRc(!0x1) : !this.eRS && x && this.eRX(), this.eRS = x;
@@ -9286,7 +9570,7 @@
                                     HF.current = !0x1, Ha.current = Date.now();
                                     for (var HR, Hj = eJ(HO);
                                         !(HR = Hj()).done;) {
-                                            var HB = HR.value;
+                                        var HB = HR.value;
                                         document.querySelectorAll('#' + HB.id).forEach(function (Hq) {
                                             Hq.innerHTML = '';
                                         });
@@ -9827,9 +10111,9 @@
             for (X = 0x0;
                 X < N.length;
                 X++) {
-                    for (var [B, z, q] = N[X], L = !0x0, y = 0x0;
-                        y < B.length;
-                        y++)(!0x1 & q || b >= q) && Object.keys(G.O).every(C => G.O[C](B[y])) ? B.splice(y--, 0x1) : (L = !0x1, q < b && (b = q));
+                for (var [B, z, q] = N[X], L = !0x0, y = 0x0;
+                    y < B.length;
+                    y++)(!0x1 & q || b >= q) && Object.keys(G.O).every(C => G.O[C](B[y])) ? B.splice(y--, 0x1) : (L = !0x1, q < b && (b = q));
                 if (L) {
                     N.splice(X--, 0x1);
                     var h = z();
@@ -9860,7 +10144,7 @@
             if (void 0x0 !== z) for (var y = document.getElementsByTagName('script'), X = 0x0;
                 X < y.length;
                 X++) {
-                    var C = y[X];
+                var C = y[X];
                 if (C.getAttribute('src') == j || C.getAttribute('data-webpack') == A + z) {
                     b = C;
                     break;

@@ -29492,7 +29492,7 @@
   }, 31608: (m0, m1, m2) => {
     "use strict";
     m2.d(m1, {A: () => ec});
-    var m3 = m2(10467), m4 = m2(54756), m5 = m2.n(m4), m6 = m2(16259), m7 = {name: "CopyShader", uniforms: {tDiffuse: {value: null}, opacity: {value: 1}}, vertexShader: "\n\n		varying vec2 vUv;\n\n		void main() {\n\n			vUv = uv;\n			gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );\n\n		}", fragmentShader: "\n\n		uniform float opacity;\n\n		uniform sampler2D tDiffuse;\n\n		varying vec2 vUv;\n\n		void main() {\n\n			vec4 texel = texture2D( tDiffuse, vUv );\n			gl_FragColor = opacity * texel;\n\n\n		}"}, m8 = m2(77387), m9 = m2(82212), mm = function () {
+    var m3 = m2(10467), m4 = m2(54756), m5 = m2.n(m4), m6 = m2(16259), m7 = {name: "CopyShader", uniforms: {tDiffuse: {value: null}, opacity: {value: 0.5}}, vertexShader: "\n\n		varying vec2 vUv;\n\n		void main() {\n\n			vUv = uv;\n			gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );\n\n		}", fragmentShader: "\n\n		uniform float opacity;\n\n		uniform sampler2D tDiffuse;\n\n		varying vec2 vUv;\n\n		void main() {\n\n			vec4 texel = texture2D( tDiffuse, vUv );\n			gl_FragColor = opacity * texel;\n\n\n		}"}, m8 = m2(77387), m9 = m2(82212), mm = function () {
       function eR() {
         this.isPass = true, this.enabled = true, this.needsSwap = true, this.clear = false, this.renderToScreen = false;
       }
@@ -30003,7 +30003,7 @@
         return m6.MeshBasicMaterial;
       }, ej.extendParams = function (eB, ez, eq) {
         var eb = [];
-        eB.color = new m6.Color(1, 1, 1), eB.opacity = 1;
+        eB.color = new m6.Color(1, 1, 1), eB.opacity = 0.5;
         var eL = ez.pbrMetallicRoughness;
         if (eL) {
           if (Array.isArray(eL.baseColorFactor)) {
@@ -30659,7 +30659,7 @@
           ez = eC.getMaterialType(), eX.push(eC.extendParams(eh, ey, eq));
         } else {
           var eT = ey.pbrMetallicRoughness || {};
-          if (eh.color = new m6.Color(1, 1, 1), eh.opacity = 1, Array.isArray(eT.baseColorFactor)) {
+          if (eh.color = new m6.Color(1, 1, 1), eh.opacity = 0.5, Array.isArray(eT.baseColorFactor)) {
             var ei = eT.baseColorFactor;
             eh.color.setRGB(ei[0], ei[1], ei[2], m6.LinearSRGBColorSpace), eh.opacity = ei[3];
           }
