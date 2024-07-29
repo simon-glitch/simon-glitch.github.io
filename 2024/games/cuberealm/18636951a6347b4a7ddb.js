@@ -1,52 +1,49 @@
 (()=>{
     const names = {
-        37: "coal",
-        38: "copper",
-        39: "iron",
-        40: "gold",
-        41: "platinum",
-        42: "diamond",
-        43: "ruby",
-        44: "sapphire",
-        45: "emerald",
-        46: "amethyst",
-        47: "infernium",
-        48: "realm_crystal",
-        49: "wooden_chest",
-        50: "wooden_chest",
-        51: "wooden_chest",
-        52: "wooden_chest",
-        53: "stone_chest",
-        54: "stone_chest",
-        55: "stone_chest",
-        56: "stone_chest",
-        57: "copper_chest",
-        58: "copper_chest",
-        59: "copper_chest",
-        60: "copper_chest",
-        61: "iron_chest",
-        62: "iron_chest",
-        63: "iron_chest",
-        64: "iron_chest",
-        65: "gold_chest",
-        66: "gold_chest",
-        67: "gold_chest",
-        68: "gold_chest",
-        69: "diamond_chest",
-        70: "diamond_chest",
-        71: "diamond_chest",
-        72: "diamond_chest",
+        ores: {
+            37: "coal",
+            38: "copper",
+            39: "iron",
+            40: "gold",
+            41: "platinum",
+            42: "diamond",
+            43: "ruby",
+            44: "sapphire",
+            45: "emerald",
+            46: "amethyst",
+            47: "infernium",
+            48: "realm_crystal",
+        },
+        53: "stone_c",
+        54: "stone_c",
+        55: "stone_c",
+        56: "stone_c",
+        57: "copper_c",
+        58: "copper_c",
+        59: "copper_c",
+        60: "copper_c",
+        61: "iron_c",
+        62: "iron_c",
+        63: "iron_c",
+        64: "iron_c",
+        65: "gold_c",
+        66: "gold_c",
+        67: "gold_c",
+        68: "gold_c",
+        69: "diamond_c",
+        70: "diamond_c",
+        71: "diamond_c",
+        72: "diamond_c",
     };
+    
+    window.scan_ores = false;
     
     const looking_for = [[53, 72], [39, 48]];
     const yay_simon = {};
-    const yay_use = [];
+    const yay_use = {};
     window.yay_add = function(pos_x, pos_y, pos_z, type){
         type = Number(type);
-        
-        if(type < 11 && type % 2 == 0) return;
-        
-        let good = names[type];
+        let good = (scan_ores ? names.ores[type] : 0) || names[type];
         /*
         for(let i = 0; i < looking_for.length; i++){
             const j = looking_for[i];
@@ -62,7 +59,6 @@
             }
         };
         */
-        if(type != 39)
         if(!good) return;
         
         // see if pos is logged; if not, then add it to yay_use
@@ -70,15 +66,26 @@
         yay_simon[pos_y] = y;
         const z = y[pos_z] || {};
         y[pos_z] = z;
-        if(!z[pos_x]) return;
+        if(z[pos_x]) return;
         z[pos_x] = true;
-        yay_use.push([[pos_x, pos_y, pos_z], type]);
+        const t = yay_use[type] || [];
+        yay_use[type] = t;
+        t.push([[pos_x, pos_y, pos_z], type]);
+    };
+    window.yay_rem = function(pos_x, pos_y, pos_z, type, use_i){
+        const n_type = my_see(pos_x, pos_y, pos_z);
+        let good = names.ores[n_type] || names[n_type];
+        if(good) return;
+        if(!yay_simon[pos_y]?.[pos_z]?.[pos_x]) return;
+        yay_simon[pos_y][pos_z][pos_x] = false;
+        yay_use[type].splice(use_i, 1);
     };
     let siy = 0;
     let siz = 0;
     let six = 0;
     window.s = function(x,y,z, w, size){
         if(!window.my_see) return;
+        
         const ax = x-w;
         const bx = x+w;
         const ay = y-w;
@@ -111,14 +118,17 @@
             }
             
             
-            const t = my_see(ix, iy, iz);
+            const t = my_see(six, siy, siz);
             if(t == 1002) continue;
-            yay_add(ix, iy, iz, t);
+            yay_add(six, siy, siz, t);
         }
     };
     
-    const scan_wl = 100;
-    let scan_i = 0;
+    window.scan_size = 2000;
+    window.scan_range = 80;
+    const report_wl = 10;
+    let report_i = 0;
+    
     let ready = true;
     const p = function(){
         if(!ready) return;
@@ -130,22 +140,57 @@
             const x = pos.eeE;
             const y = pos.eeI;
             const z = pos.eef;
+            const rx = Math.round(x);
+            const ry = Math.round(y);
+            const rz = Math.round(z);
             
             // checks 64k blocks around the player
             // but only every once in a while
-            scan_i = 0;
-            s(x,y,z, 20, 1_000);
+            s(rx,ry,rz, scan_range, scan_size);
             
             const d = function(ab){
-                (ab[0][0] - x)**2 + (ab[0][1] - y)**2 + (ab[0][2] - z)**2;
+                return ((ab[0][0] - x)**2 + (ab[0][1] - y)**2 + (ab[0][2] - z)**2);
             }
-            yay_use.sort((a,b) => d(a) - d(b));
             
-            console.log(
-                yay_use.slice(10).map(
-                    ab => names[ab[1]] + " @ " + ab[0].join(", ")
+            // mess with block arrays to get flat array, first sorted by block type, then by closeness to player
+            const t = [];
+            for(let i in yay_use){
+                t.push([i, yay_use[i]]);
+            }
+            t.sort((a,b) => b[0] - a[0]);
+            
+            for(let i = 0; i < t.length; i++){
+                const u = t[i];
+                u.sort((a,b) => d(a) - d(b));
+            }
+            const v = t.flat();
+            
+            const my_s = v.slice(0, 10);
+            my_s.forEach(
+                (ab, use_i) => yay_rem(
+                    ab[0][0], ab[0][1], ab[0][2],
+                    ab[1],
+                    use_i
                 )
             );
+            
+            if(report_i >= report_wl) report_i = 0;
+            else{
+                report_i++;
+                console.log(
+                    my_s.map(
+                        ab => (
+                            names[ab[1]] ||
+                            names.ores[ab[1]]
+                        ) +
+                        " @ " +
+                        ab[0].join(", ") +
+                        " - " +
+                        Math.sqrt(d(ab)).toFixed(0) +
+                        "blocks away"
+                    ).join("\n")
+                );
+            }
         }
         catch(e){
             console.log("frame err", e);
@@ -154,7 +199,7 @@
         ready = true;
     };
     
-    setInterval(p, 100);
+    setInterval(p, 50);
 })();
 
 
