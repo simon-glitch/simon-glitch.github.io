@@ -258,8 +258,9 @@
 
             // flatten merged stuff and then sort it
             const tm1 = t.map(a=>a.slice(1).flat(1));
+            // console.log("tm1", tm1);
             for(let i = 0; i < tm1.length; i++){
-                const u = tm1[i][1];
+                const u = tm1[i];
                 u.sort((a,b)=>d(a) - d(b));
             }
             // flatten everything one last time
