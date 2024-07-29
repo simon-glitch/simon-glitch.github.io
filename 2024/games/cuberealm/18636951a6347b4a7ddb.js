@@ -264,10 +264,9 @@
             }
             // flatten everything one last time
             const v = [];
-            const tm2 = tm1.map(a=>a[1]);
-            for(let i = 0; i < tm2.length; i++){
-                for(let ii = 0; ii < tm2[i].length; ii++){
-                    v.push(tm2[i][ii]);
+            for(let i = 0; i < tm1.length; i++){
+                for(let ii = 0; ii < tm1[i].length; ii++){
+                    v.push(tm1[i][ii]);
                 }
             }
 
