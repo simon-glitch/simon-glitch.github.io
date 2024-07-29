@@ -192,7 +192,7 @@
             for(let i in yay_use){
                 if(yay_use[i].length == 0) continue;
                 
-                const p = priority[i];
+                const p = priority.ores[i] || priority[i];
                 t.push([p, yay_use[i]]);
             }
             t.sort((a,b) => b[0] - a[0]);
