@@ -36,9 +36,13 @@
         72: "diamond_c",
     };
     
-    window.scan_ores = false;
+    window.scan_ores = true;
+    window.scan_size = 2000;
+    window.scan_range = 80;
+    const report_wl = 10;
     
-    const looking_for = [[53, 72], [39, 48]];
+    let report_i = 0;
+    
     const yay_simon = {};
     const yay_use = {};
     window.yay_add = function(pos_x, pos_y, pos_z, type){
@@ -124,11 +128,6 @@
         }
     };
     
-    window.scan_size = 2000;
-    window.scan_range = 80;
-    const report_wl = 10;
-    let report_i = 0;
-    
     let ready = true;
     const p = function(){
         if(!ready) return;
@@ -163,7 +162,7 @@
                 const u = t[i];
                 u.sort((a,b) => d(a) - d(b));
             }
-            const v = t.flat();
+            const v = t.flat(1);
             
             const my_s = v.slice(0, 10);
             my_s.forEach(
