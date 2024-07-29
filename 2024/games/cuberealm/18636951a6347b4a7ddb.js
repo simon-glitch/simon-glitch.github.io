@@ -1,4 +1,36 @@
 (()=>{
+    window.nums = {
+        "iron": 39,
+        "gold": 40,
+        "platinum": 41,
+        "diamond": 42,
+        "ruby": 43,
+        "sapphire": 44,
+        "emerald": 45,
+        "amethyst": 46,
+        "infernium": 47,
+        "realm_crystal": 48,
+        "stone_c": 53,
+        "stone_c": 54,
+        "stone_c": 55,
+        "stone_c": 56,
+        "copper_c": 57,
+        "copper_c": 58,
+        "copper_c": 59,
+        "copper_c": 60,
+        "iron_c": 61,
+        "iron_c": 62,
+        "iron_c": 63,
+        "iron_c": 64,
+        "gold_c": 65,
+        "gold_c": 66,
+        "gold_c": 67,
+        "gold_c": 68,
+        "diamond_c": 69,
+        "diamond_c": 70,
+        "diamond_c": 71,
+        "diamond_c": 72,
+    };
     window.names = {
         ores: {
             39: "iron",
@@ -33,7 +65,7 @@
         71: "diamond_c",
         72: "diamond_c",
     };
-    
+
     window.priority = {
         ores: {
             39: 1,
@@ -68,18 +100,18 @@
         71: 24,
         72: 24,
     };
-    
+
     window.scan_ores = true;
-    window.scan_size = 2000;
+    window.scan_size = 1000;
     window.scan_range = 100;
     const report_size = 30;
     const report_wl = 20;
-    
+
     let report_i = 0;
-    
+
     const yay_simon = {};
     const yay_use = {};
-    window.yay_add = function(pos_x, pos_y, pos_z, type){
+    window.yay_add = function(pos_x, pos_y, pos_z, type) {
         type = Number(type);
         let good = (scan_ores ? names.ores[type] : 0) || names[type];
         /*
@@ -97,78 +129,88 @@
             }
         };
         */
-        if(!good) return;
-        
+        if (!good)
+            return;
+
         // see if pos is logged; if not, then add it to yay_use
         const y = yay_simon[pos_y] || {};
         yay_simon[pos_y] = y;
         const z = y[pos_z] || {};
         y[pos_z] = z;
-        if(z[pos_x]) return;
+        if (z[pos_x])
+            return;
         z[pos_x] = true;
         const t = yay_use[type] || [];
         yay_use[type] = t;
         t.push([[pos_x, pos_y, pos_z], type]);
-    };
-    window.yay_rem = function(pos_x, pos_y, pos_z){
+    }
+    ;
+    window.yay_rem = function(pos_x, pos_y, pos_z) {
         const n_type = my_see(pos_x, pos_y, pos_z);
         let good = (scan_ores ? names.ores[n_type] : 0) || names[n_type];
-        if(good) return false;
-        if(!yay_simon[pos_y]?.[pos_z]?.[pos_x]) return false;
+        if (good)
+            return false;
+        if (!yay_simon[pos_y]?.[pos_z]?.[pos_x])
+            return false;
         yay_simon[pos_y][pos_z][pos_x] = false;
         return true;
-    };
+    }
+    ;
     let siy = 0;
     let siz = 0;
     let six = 0;
-    window.s = function(x,y,z, w, size){
-        if(!window.my_see) return;
-        
-        const ax = x-w;
-        const bx = x+w;
-        const ay = y-w;
-        const by = y+w;
-        const az = z-w;
-        const bz = z+w;
-        
-        if(siy < ay) siy = ay;
-        if(siz < az) siz = az;
-        if(six < ax) six = ax;
-        
-        for(let i = 0; i < size; i++){
-            if(six >= bx){
+    window.s = function(x, y, z, w, size) {
+        if (!window.my_see)
+            return;
+
+        const ax = x - w;
+        const bx = x + w;
+        const ay = y - w;
+        const by = y + w;
+        const az = z - w;
+        const bz = z + w;
+
+        if (siy < ay)
+            siy = ay;
+        if (siz < az)
+            siz = az;
+        if (six < ax)
+            six = ax;
+
+        for (let i = 0; i < size; i++) {
+            if (six >= bx) {
                 six = ax;
-                if(siz >= bz){
+                if (siz >= bz) {
                     siz = az;
-                    if(siy >= by){
+                    if (siy >= by) {
                         siy = ay;
-                    }
-                    else{
+                    } else {
                         siy++;
                     }
-                }
-                else{
+                } else {
                     siz++;
                 }
-            }
-            else{
+            } else {
                 six++;
             }
-            
-            
+
             const t = my_see(six, siy, siz);
-            if(t == 1002) continue;
+            if (t == 1002)
+                continue;
             yay_add(six, siy, siz, t);
         }
-    };
-    
+    }
+    ;
+
     let ready = true;
-    const p = function(){
-        if(!ready) return;
+    const p = function() {
+        if (!ready)
+            return;
         ready = false;
-        
-        try{
-            if(!my_see || !my_guy) return;
+
+        try {
+            if (!my_see || !my_guy)
+                return;
             const pos = my_guy.eRA;
             const x = pos.eeE;
             const y = pos.eeI;
@@ -176,95 +218,95 @@
             const rx = Math.round(x);
             const ry = Math.round(y);
             const rz = Math.round(z);
-            
+
             // checks 64k blocks around the player
             // but only every once in a while
-            s(rx,ry,rz, scan_range, scan_size);
-            
-            const d = function(ab){
-                return ((ab[0][0] - x)**2 + (ab[0][1] - y)**2 + (ab[0][2] - z)**2);
+            s(rx, ry, rz, scan_range, scan_size);
+
+            const d = function(ab) {
+                return ((ab[0][0] - x) ** 2 + (ab[0][1] - y) ** 2 + (ab[0][2] - z) ** 2);
             }
-            
+
             // mess with block arrays to get a flat array,
             // first sorted by priority of block type,
             // and then by closeness to player
             const t = [];
-            for(let i in yay_use){
-                if(yay_use[i].length == 0) continue;
-                
+            for (let i in yay_use) {
+                if (yay_use[i].length == 0)
+                    continue;
+
                 const p = priority.ores[i] || priority[i];
                 t.push([p, yay_use[i]]);
             }
-            t.sort((a,b) => b[0] - a[0]);
-            
-            for(let i = 0; i < t.length; i++){
-                const u = t[i][1];
-                u.sort((a,b) => d(a) - d(b));
+            t.sort((a,b)=>b[0] - a[0]);
+            // merge items of the same priority
+            for(let i = 0, j = 0; i < t.length; i++){
+                if(i == j) continue;
+                const u = t[i];
+                const v = t[j];
+                if(u[0] == v[0]){
+                    for(let ii = 1; ii < u.length; ii++){
+                        v.push(u[i]);
+                    }
+                    continue;
+                }
+                j++
             }
+
+            // flatten merged stuff and then sort it
+            const tm1 = t.map(a=>a.slice(1).flat(1));
+            for (let i = 0; i < tm1.length; i++) {
+                const u = tm1[i][1];
+                u.sort((a,b)=>d(a) - d(b));
+            }
+            // flatten everything one last time
             const v = [];
-            const tm = t.map(a=>a[1]);
-            // flat not working???
-            for(let i = 0; i < tm.length; i++){
-                for(let ii = 0; ii < tm[i].length; ii++){
-                    v.push(tm[i][ii]);
+            const tm2 = tm1.map(a=>a[1]);
+            for (let i = 0; i < tm2.length; i++) {
+                for (let ii = 0; ii < tm2[i].length; ii++) {
+                    v.push(tm2[i][ii]);
                 }
             }
-            
+
             const my_s = v.slice(0, report_size);
             const todo = {};
-            my_s.forEach(
-                (ab) => {
-                    // mark blocks that are no longer what we are looking for
-                    if(yay_rem(
-                        ab[0][0], ab[0][1], ab[0][2],
-                        ab[1]
-                    )){
-                        ab[2] = 1;
-                        todo[ab[1]] = 1;
-                    }
+            my_s.forEach((ab)=>{
+                // mark blocks that are no longer what we are looking for
+                if (yay_rem(ab[0][0], ab[0][1], ab[0][2], ab[1])) {
+                    ab[2] = 1;
+                    todo[ab[1]] = 1;
                 }
+            }
             );
-            
+
             // delete everything marked earlier
-            for(let type in todo){
+            for (let type in todo) {
                 let j = 0;
-                for(let i = 0; i < yay_use[type].length; i++){
-                    if(yay_use[type][i][2]) continue;
+                for (let i = 0; i < yay_use[type].length; i++) {
+                    if (yay_use[type][i][2])
+                        continue;
                     yay_use[type][j] = yay_use[type][i];
                     j++
                 }
                 yay_use[type] = yay_use[type].slice(0, j);
             }
-            
-            if(report_i >= report_wl){
+
+            if (report_i >= report_wl) {
                 report_i = 0;
-                console.log(
-                    my_s.map(
-                        ab => (
-                            names[ab[1]] ||
-                            names.ores[ab[1]]
-                        ) +
-                        " @ " +
-                        ab[0].join(", ") +
-                        " - " +
-                        Math.sqrt(d(ab)).toFixed(0) +
-                        " blocks away"
-                    ).join("\n")
-                );
-            }
-            else{
+                console.log(my_s.map(ab=>(names[ab[1]] || names.ores[ab[1]]) + " @ " + ab[0].join(", ") + " - " + Math.sqrt(d(ab)).toFixed(0) + " blocks away").join("\n"));
+            } else {
                 report_i++;
             }
-        }
-        catch(e){
+        } catch (e) {
             console.log("frame err", e);
         }
-        
+
         ready = true;
     };
-    
+
     setInterval(p, 50);
-})();
+}
+)();
 
 
 ((()=>{'use strict';var m,H,O,u,N,J,A,v={0x12bae:(j,B,z)=>{z['d'](B,{'A':()=>b});var q=function(L){return L[L['Unknown']=0x3e8]='Unknown',L[L['NotFound']=0x3e9]='NotFound',L[L['NotAuthenticated']=0x3ea]='NotAuthenticated',L[L['NoPermission']=0x3eb]='NoPermission',L[L['InvalidParameters']=0x3ec]='InvalidParameters',L[L['EntityAuthenticationFailed']=0x3ed]='EntityAuthenticationFailed',L[L['EntityCreationFailed']=0x3ee]='EntityCreationFailed',L[L['EntityNotFound']=0x3ef]='EntityNotFound',L[L['EntityThirdPartyConnectionExists']=0x3f0]='EntityThirdPartyConnectionExists',L[L['ProviderIDAlreadyLinked']=0x3f1]='ProviderIDAlreadyLinked',L[L['LeaderboardNotFound']=0x3f2]='LeaderboardNotFound',L[L['EntityBanned']=0x3f3]='EntityBanned',L[L['IPAddressBanned']=0x3f4]='IPAddressBanned',L[L['ShopProductNotFound']=0x3f5]='ShopProductNotFound',L[L['EntityCantAffordShopProduct']=0x3f6]='EntityCantAffordShopProduct',L[L['ThirdPartyStoreProductConnectionNotFound']=0x3f7]='ThirdPartyStoreProductConnectionNotFound',L[L['ShopProductNotAvailable']=0x3f8]='ShopProductNotAvailable',L[L['ThirdPartyStoreProductConnectionNotAvailable']=0x3f9]='ThirdPartyStoreProductConnectionNotAvailable',L[L['AppleAppStoreReceiptValidationFailed']=0x3fa]='AppleAppStoreReceiptValidationFailed',L[L['GooglePlayStoreReceiptValidationFailed']=0x3fb]='GooglePlayStoreReceiptValidationFailed',L[L['EntityDisplayNameTaken']=0x3fc]='EntityDisplayNameTaken',L[L['BundleNotFound']=0x3fd]='BundleNotFound',L[L['AddonEventCancelled']=0x3fe]='AddonEventCancelled',L[L['EntityRelationshipLimitReached']=0x3ff]='EntityRelationshipLimitReached',L;}(q||{});const b=q;},0x5b9b:(j,B,z)=>{z['d'](B,{'A':()=>me});var q=z(0x28e3),b=z(0xd5e4),X=z['n'](b),D=z(0x1e01),K=z(0x5610),Q=z(0x10355),U=z(0x95b8),M=z(0x287d),x=z(0x81c0),Y=z(0xc179),W=z(0x455d),k=z(0x568),P=z(0x4002),Z=z(0x7b78),V=z(0x3ae6),m0=z(0x1190e),m1=z(0x15c14),m2=z(0xba46),m3=z(0x21ab),m4=z(0x6e02),m5=z(0x30e5),m6=z(0x14338),m7=z(0x129e0),m8=z(0x17cee);function m9(mH,mO){var mu='undefined'!=typeof Symbol&&mH[Symbol['iterator']]||mH['@@iterator'];if(mu)return(mu=mu['call'](mH))['next']['bind'](mu);if(Array['isArray'](mH)||(mu=function(mJ,mA){if(!mJ)return;if('string'==typeof mJ)return mm(mJ,mA);var mv=Object['prototype']['toString']['call'](mJ)['slice'](0x8,-0x1);'Object'===mv&&mJ['constructor']&&(mv=mJ['constructor']['name']);if('Map'===mv||'Set'===mv)return Array['from'](mJ);if('Arguments'===mv||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/['test'](mv))return mm(mJ,mA);}(mH))||mO&&mH&&'number'==typeof mH['length']){mu&&(mH=mu);var mN=0x0;return function(){return mN>=mH['length']?{'done':!0x0}:{'done':!0x1,'value':mH[mN++]};};}throw new TypeError('Invalid\x20attempt\x20to\x20iterate\x20non-iterable\x20instance.\x0aIn\x20order\x20to\x20be\x20iterable,\x20non-array\x20objects\x20must\x20have\x20a\x20[Symbol.iterator]()\x20method.');}function mm(mH,mO){(null==mO||mO>mH['length'])&&(mO=mH['length']);for(var mu=0x0,mN=new Array(mO);mu<mO;mu++)mN[mu]=mH[mu];return mN;}var me=(function(){function mH(mu,mN,mJ){var mA=this;
