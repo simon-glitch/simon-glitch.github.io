@@ -1,5 +1,5 @@
 (()=>{
-    const names = {
+    window.names = {
         ores: {
             39: "iron",
             40: "gold",
@@ -34,10 +34,45 @@
         72: "diamond_c",
     };
     
+    window.priority = {
+        ores: {
+            1: "iron",
+            2: "gold",
+            3: "platinum",
+            5: "diamond",
+            4: "ruby",
+            4: "sapphire",
+            4: "emerald",
+            4: "amethyst",
+            6: "infernium",
+            7: "realm_crystal",
+        },
+        20: "stone_c",
+        20: "stone_c",
+        20: "stone_c",
+        20: "stone_c",
+        21: "copper_c",
+        21: "copper_c",
+        21: "copper_c",
+        21: "copper_c",
+        22: "iron_c",
+        22: "iron_c",
+        22: "iron_c",
+        22: "iron_c",
+        23: "gold_c",
+        23: "gold_c",
+        23: "gold_c",
+        23: "gold_c",
+        24: "diamond_c",
+        24: "diamond_c",
+        24: "diamond_c",
+        24: "diamond_c",
+    };
+    
     window.scan_ores = true;
-    window.scan_size = 5000;
+    window.scan_size = 2000;
     window.scan_range = 100;
-    const report_size = 20;
+    const report_size = 30;
     const report_wl = 10;
     
     let report_i = 0;
@@ -150,10 +185,15 @@
                 return ((ab[0][0] - x)**2 + (ab[0][1] - y)**2 + (ab[0][2] - z)**2);
             }
             
-            // mess with block arrays to get flat array, first sorted by block type, then by closeness to player
+            // mess with block arrays to get a flat array,
+            // first sorted by priority of block type,
+            // and then by closeness to player
             const t = [];
             for(let i in yay_use){
-                t.push([i, yay_use[i]]);
+                if(yay_use[i].length == 0) continue;
+                
+                const p = priority[i];
+                t.push([p, yay_use[i]]);
             }
             t.sort((a,b) => b[0] - a[0]);
             
