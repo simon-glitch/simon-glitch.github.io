@@ -1,8 +1,6 @@
 (()=>{
     const names = {
         ores: {
-            37: "coal",
-            38: "copper",
             39: "iron",
             40: "gold",
             41: "platinum",
@@ -39,6 +37,7 @@
     window.scan_ores = true;
     window.scan_size = 5000;
     window.scan_range = 100;
+    const report_size = 20;
     const report_wl = 10;
     
     let report_i = 0;
@@ -74,15 +73,15 @@
         z[pos_x] = true;
         const t = yay_use[type] || [];
         yay_use[type] = t;
-        t.push([[pos_x, pos_y, pos_z], type, t.length]);
+        t.push([[pos_x, pos_y, pos_z], type]);
     };
-    window.yay_rem = function(pos_x, pos_y, pos_z, type, use_i){
+    window.yay_rem = function(pos_x, pos_y, pos_z){
         const n_type = my_see(pos_x, pos_y, pos_z);
         let good = (scan_ores ? names.ores[n_type] : 0) || names[n_type];
-        if(good) return;
-        if(!yay_simon[pos_y]?.[pos_z]?.[pos_x]) return;
+        if(good) return false;
+        if(!yay_simon[pos_y]?.[pos_z]?.[pos_x]) return false;
         yay_simon[pos_y][pos_z][pos_x] = false;
-        yay_use[type].splice(use_i, 1);
+        return true;
     };
     let siy = 0;
     let siz = 0;
@@ -161,18 +160,41 @@
             for(let i = 0; i < t.length; i++){
                 const u = t[i][1];
                 u.sort((a,b) => d(a) - d(b));
-                u.forEach((ab, use_i) => {ab[2] = use_i;});
             }
-            const v = t.map(a=>a[1]).flat(1);
+            const v = [];
+            const tm = t.map(a=>a[1]);
+            // flat not working???
+            for(let i = 0; i < tm.length; i++){
+                for(let ii = 0; ii < tm[i].length; ii++){
+                    v.push(tm[i][ii]);
+                }
+            }
             
-            const my_s = v.slice(0, 10);
+            const my_s = v.slice(0, report_size);
+            const todo = {};
             my_s.forEach(
-                (ab) => yay_rem(
-                    ab[0][0], ab[0][1], ab[0][2],
-                    ab[1],
-                    ab[2]
-                )
+                (ab) => {
+                    // mark blocks that are no longer what we are looking for
+                    if(yay_rem(
+                        ab[0][0], ab[0][1], ab[0][2],
+                        ab[1]
+                    )){
+                        ab[2] = 1;
+                        todo[ab[1]] = 1;
+                    }
+                }
             );
+            
+            // delete everything marked earlier
+            for(let type in todo){
+                let j = 0;
+                for(let i = 0; i < yay_use[type].length; i++){
+                    if(yay_use[type][i][2]) continue;
+                    yay_use[type][j] = yay_use[type][i];
+                    j++
+                }
+                yay_use[type] = yay_use[type].slice(0, j);
+            }
             
             if(report_i >= report_wl) report_i = 0;
             else{
