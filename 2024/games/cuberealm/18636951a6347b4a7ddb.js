@@ -73,7 +73,7 @@
     window.scan_size = 2000;
     window.scan_range = 100;
     const report_size = 30;
-    const report_wl = 10;
+    const report_wl = 40;
     
     let report_i = 0;
     
@@ -236,9 +236,8 @@
                 yay_use[type] = yay_use[type].slice(0, j);
             }
             
-            if(report_i >= report_wl) report_i = 0;
-            else{
-                report_i++;
+            if(report_i >= report_wl){
+                report_i = 0;
                 console.log(
                     my_s.map(
                         ab => (
@@ -252,6 +251,9 @@
                         " blocks away"
                     ).join("\n")
                 );
+            }
+            else{
+                report_i++;
             }
         }
         catch(e){
