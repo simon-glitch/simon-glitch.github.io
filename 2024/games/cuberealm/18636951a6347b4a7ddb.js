@@ -3,8 +3,9 @@
     window.yay_simon = {};
     window.yay_add = function(pos, type){
         type = Number(type);
+        if(type == 39) console.log("iron!", pos);
         
-        const good = false;
+        let good = false;
         for(let i = 0; i < looking_for.length; i++){
             const j = looking_for[i];
             if(typeof j == "object"){
@@ -18,6 +19,7 @@
                 break;
             }
         };
+        if(type != 39)
         if(!good) return;
         if(yay_simon[pos[0]]?.[pos[1]]?.[pos[2]]) return;
         
