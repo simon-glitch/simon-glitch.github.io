@@ -73,7 +73,7 @@
     window.scan_size = 2000;
     window.scan_range = 100;
     const report_size = 30;
-    const report_wl = 40;
+    const report_wl = 20;
     
     let report_i = 0;
     
