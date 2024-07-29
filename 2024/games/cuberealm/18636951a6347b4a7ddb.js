@@ -37,8 +37,8 @@
     };
     
     window.scan_ores = true;
-    window.scan_size = 2000;
-    window.scan_range = 80;
+    window.scan_size = 5000;
+    window.scan_range = 100;
     const report_wl = 10;
     
     let report_i = 0;
@@ -74,11 +74,11 @@
         z[pos_x] = true;
         const t = yay_use[type] || [];
         yay_use[type] = t;
-        t.push([[pos_x, pos_y, pos_z], type]);
+        t.push([[pos_x, pos_y, pos_z], type, t.length]);
     };
     window.yay_rem = function(pos_x, pos_y, pos_z, type, use_i){
         const n_type = my_see(pos_x, pos_y, pos_z);
-        let good = names.ores[n_type] || names[n_type];
+        let good = (scan_ores ? names.ores[n_type] : 0) || names[n_type];
         if(good) return;
         if(!yay_simon[pos_y]?.[pos_z]?.[pos_x]) return;
         yay_simon[pos_y][pos_z][pos_x] = false;
@@ -161,15 +161,16 @@
             for(let i = 0; i < t.length; i++){
                 const u = t[i][1];
                 u.sort((a,b) => d(a) - d(b));
+                u.forEach((ab, use_i) => {ab[2] = use_i;});
             }
             const v = t.map(a=>a[1]).flat(1);
             
             const my_s = v.slice(0, 10);
             my_s.forEach(
-                (ab, use_i) => yay_rem(
+                (ab) => yay_rem(
                     ab[0][0], ab[0][1], ab[0][2],
                     ab[1],
-                    use_i
+                    ab[2]
                 )
             );
             
@@ -186,7 +187,7 @@
                         ab[0].join(", ") +
                         " - " +
                         Math.sqrt(d(ab)).toFixed(0) +
-                        "blocks away"
+                        " blocks away"
                     ).join("\n")
                 );
             }
