@@ -159,7 +159,7 @@
             t.sort((a,b) => b[0] - a[0]);
             
             for(let i = 0; i < t.length; i++){
-                const u = t[i];
+                const u = t[i][1];
                 u.sort((a,b) => d(a) - d(b));
             }
             const v = t.map(a=>a[1]).flat(1);
