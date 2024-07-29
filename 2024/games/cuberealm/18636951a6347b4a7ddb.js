@@ -74,7 +74,10 @@
         z[pos_x] = true;
         yay_use.push([[pos_x, pos_y, pos_z], type]);
     };
-    window.s = function(x,y,z, w){
+    let siy = 0;
+    let siz = 0;
+    let six = 0;
+    window.s = function(x,y,z, w, size){
         if(!window.my_see) return;
         const ax = x-w;
         const bx = x+w;
@@ -82,14 +85,35 @@
         const by = y+w;
         const az = z-w;
         const bz = z+w;
-        for(let iy = ay; iy < by; iy++){
-            for(let iz = az; iz < bz; iz++){
-                for(let ix = ax; ix < bx; ix++){
-                    const t = my_see(ix, iy, iz);
-                    if(t == 1002) continue;
-                    yay_add(ix, iy, iz, t);
+        
+        if(siy < ay) siy = ay;
+        if(siz < az) siz = az;
+        if(six < ax) six = ax;
+        
+        for(let i = 0; i < size; i++){
+            if(six >= bx){
+                six = ax;
+                if(siz >= bz){
+                    siz = az;
+                    if(siy >= by){
+                        siy = ay;
+                    }
+                    else{
+                        siy++;
+                    }
+                }
+                else{
+                    siz++;
                 }
             }
+            else{
+                six++;
+            }
+            
+            
+            const t = my_see(ix, iy, iz);
+            if(t == 1002) continue;
+            yay_add(ix, iy, iz, t);
         }
     };
     
@@ -100,30 +124,32 @@
         if(!ready) return;
         ready = false;
         
-        if(!my_see || !my_guy) return;
-        const pos = my_guy.erA;
-        const x = pos.eeE;
-        const y = pos.eeI;
-        const z = pos.eef;
-        
-        // checks 64k blocks around the player
-        // but only every once in a while
-        if(scan_i < scan_wl) scan_i++;
-        else{
+        try{
+            if(!my_see || !my_guy) return;
+            const pos = my_guy.eRA;
+            const x = pos.eeE;
+            const y = pos.eeI;
+            const z = pos.eef;
+            
+            // checks 64k blocks around the player
+            // but only every once in a while
             scan_i = 0;
-            s(x,y,z, 20);
+            s(x,y,z, 20, 1_000);
+            
+            const d = function(ab){
+                (ab[0][0] - x)**2 + (ab[0][1] - y)**2 + (ab[0][2] - z)**2;
+            }
+            yay_use.sort((a,b) => d(a) - d(b));
+            
+            console.log(
+                yay_use.slice(10).map(
+                    ab => names[ab[1]] + " @ " + ab[0].join(", ")
+                )
+            );
         }
-        
-        const d = function(ab){
-            (ab[0][0] - x)**2 + (ab[0][1] - y)**2 + (ab[0][2] - z)**2;
+        catch(e){
+            console.log("frame err", e);
         }
-        yay_use.sort((a,b) => d(a) - d(b));
-        
-        console.log(
-            yay_use.slice(10).map(
-                ab => names[ab[1]] + " @ " + ab[0].join(", ")
-            )
-        );
         
         ready = true;
     };
