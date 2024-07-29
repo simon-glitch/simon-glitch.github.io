@@ -162,7 +162,7 @@
                 const u = t[i];
                 u.sort((a,b) => d(a) - d(b));
             }
-            const v = t.flat(1);
+            const v = t.map(a=>a[1]).flat(1);
             
             const my_s = v.slice(0, 10);
             my_s.forEach(
