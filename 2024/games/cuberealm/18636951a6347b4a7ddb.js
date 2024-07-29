@@ -111,7 +111,7 @@
 
     const yay_simon = {};
     const yay_use = {};
-    window.yay_add = function(pos_x, pos_y, pos_z, type) {
+    window.yay_add = function(pos_x, pos_y, pos_z, type){
         type = Number(type);
         let good = (scan_ores ? names.ores[type] : 0) || names[type];
         /*
@@ -129,7 +129,7 @@
             }
         };
         */
-        if (!good)
+        if(!good)
             return;
 
         // see if pos is logged; if not, then add it to yay_use
@@ -145,12 +145,12 @@
         t.push([[pos_x, pos_y, pos_z], type]);
     }
     ;
-    window.yay_rem = function(pos_x, pos_y, pos_z) {
+    window.yay_rem = function(pos_x, pos_y, pos_z){
         const n_type = my_see(pos_x, pos_y, pos_z);
         let good = (scan_ores ? names.ores[n_type] : 0) || names[n_type];
-        if (good)
+        if(good)
             return false;
-        if (!yay_simon[pos_y]?.[pos_z]?.[pos_x])
+        if(!yay_simon[pos_y]?.[pos_z]?.[pos_x])
             return false;
         yay_simon[pos_y][pos_z][pos_x] = false;
         return true;
@@ -159,7 +159,7 @@
     let siy = 0;
     let siz = 0;
     let six = 0;
-    window.s = function(x, y, z, w, size) {
+    window.s = function(x, y, z, w, size){
         if (!window.my_see)
             return;
 
@@ -177,25 +177,28 @@
         if (six < ax)
             six = ax;
 
-        for (let i = 0; i < size; i++) {
-            if (six >= bx) {
+        for(let i = 0; i < size; i++){
+            if(six >= bx){
                 six = ax;
-                if (siz >= bz) {
+                if(siz >= bz){
                     siz = az;
-                    if (siy >= by) {
+                    if(siy >= by){
                         siy = ay;
-                    } else {
+                    }
+                    else{
                         siy++;
                     }
-                } else {
+                }
+                else{
                     siz++;
                 }
-            } else {
+            }
+            else{
                 six++;
             }
 
             const t = my_see(six, siy, siz);
-            if (t == 1002)
+            if(t == 1002)
                 continue;
             yay_add(six, siy, siz, t);
         }
@@ -203,13 +206,13 @@
     ;
 
     let ready = true;
-    const p = function() {
-        if (!ready)
+    const p = function(){
+        if(!ready)
             return;
         ready = false;
 
-        try {
-            if (!my_see || !my_guy)
+        try{
+            if(!my_see || !my_guy)
                 return;
             const pos = my_guy.eRA;
             const x = pos.eeE;
@@ -223,7 +226,7 @@
             // but only every once in a while
             s(rx, ry, rz, scan_range, scan_size);
 
-            const d = function(ab) {
+            const d = function(ab){
                 return ((ab[0][0] - x) ** 2 + (ab[0][1] - y) ** 2 + (ab[0][2] - z) ** 2);
             }
 
@@ -231,8 +234,8 @@
             // first sorted by priority of block type,
             // and then by closeness to player
             const t = [];
-            for (let i in yay_use) {
-                if (yay_use[i].length == 0)
+            for(let i in yay_use){
+                if(yay_use[i].length == 0)
                     continue;
 
                 const p = priority.ores[i] || priority[i];
@@ -246,24 +249,24 @@
                 const v = t[j];
                 if(u[0] == v[0]){
                     for(let ii = 1; ii < u.length; ii++){
-                        v.push(u[i]);
+                        v.push(u[ii]);
                     }
                     continue;
                 }
-                j++
+                j++;
             }
 
             // flatten merged stuff and then sort it
             const tm1 = t.map(a=>a.slice(1).flat(1));
-            for (let i = 0; i < tm1.length; i++) {
+            for(let i = 0; i < tm1.length; i++){
                 const u = tm1[i][1];
                 u.sort((a,b)=>d(a) - d(b));
             }
             // flatten everything one last time
             const v = [];
             const tm2 = tm1.map(a=>a[1]);
-            for (let i = 0; i < tm2.length; i++) {
-                for (let ii = 0; ii < tm2[i].length; ii++) {
+            for(let i = 0; i < tm2.length; i++){
+                for(let ii = 0; ii < tm2[i].length; ii++){
                     v.push(tm2[i][ii]);
                 }
             }
@@ -272,7 +275,7 @@
             const todo = {};
             my_s.forEach((ab)=>{
                 // mark blocks that are no longer what we are looking for
-                if (yay_rem(ab[0][0], ab[0][1], ab[0][2], ab[1])) {
+                if(yay_rem(ab[0][0], ab[0][1], ab[0][2], ab[1])){
                     ab[2] = 1;
                     todo[ab[1]] = 1;
                 }
@@ -280,10 +283,10 @@
             );
 
             // delete everything marked earlier
-            for (let type in todo) {
+            for(let type in todo){
                 let j = 0;
-                for (let i = 0; i < yay_use[type].length; i++) {
-                    if (yay_use[type][i][2])
+                for(let i = 0; i < yay_use[type].length; i++){
+                    if(yay_use[type][i][2])
                         continue;
                     yay_use[type][j] = yay_use[type][i];
                     j++
@@ -291,13 +294,15 @@
                 yay_use[type] = yay_use[type].slice(0, j);
             }
 
-            if (report_i >= report_wl) {
+            if(report_i >= report_wl){
                 report_i = 0;
                 console.log(my_s.map(ab=>(names[ab[1]] || names.ores[ab[1]]) + " @ " + ab[0].join(", ") + " - " + Math.sqrt(d(ab)).toFixed(0) + " blocks away").join("\n"));
-            } else {
+            }
+            else{
                 report_i++;
             }
-        } catch (e) {
+        }
+        catch(e){
             console.log("frame err", e);
         }
 
