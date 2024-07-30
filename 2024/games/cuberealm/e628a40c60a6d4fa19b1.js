@@ -15,7 +15,7 @@ if(1) (()=>{
     var B;
     var B2;
     var FOVX;
-    var b_needs_rebuilt = false;
+    var b_needs_rebuilt = true;
     
     var p_pts = [];
     
@@ -29,7 +29,7 @@ if(1) (()=>{
     var p_rotx = 0; // pitch - applied 2nd
     
     var p_scale = 100;
-    var p_fill = 0.8;
+    var p_fill = 0.5;
     
     window.setup = function() {
         const canvas = createCanvas(innerWidth, innerHeight, WEBGL);
@@ -56,7 +56,7 @@ if(1) (()=>{
 
     window.draw = function() {
         // make sure it looks right
-        camera(0,0,0, 0,0,1);
+        camera(0,0,0, 0,0,-1);
         clear();
         
         // transparent background for good reasons
@@ -68,6 +68,7 @@ if(1) (()=>{
         const TM  = 1/p_fill;
         
         if(b_needs_rebuilt){
+            b_needs_rebuilt = false;
             // this might be causing lag, so let's delete it
             freeGeometry(B2);
             
@@ -86,6 +87,13 @@ if(1) (()=>{
                 [my_p.x, my_p.y - 10, my_p.z],
                 [my_p.x, my_p.y, my_p.z - 10],
             ]);
+
+            for(let i = 0; i < p_pts.length; i++){
+                p_pts[i][0] += 0.5;
+                p_pts[i][1] += 0.5;
+                p_pts[i][2] += 0.5;
+                p_pts[i][2] *= -1;
+            }
             
             let p1 = p_pts[0], p2, pd;
             translate(
@@ -112,8 +120,6 @@ if(1) (()=>{
             
             // oh my! this is just too crazy!!!
             B2 = endGeometry();
-            
-            console.log("just built geo!");
         }
         
         // move it first
@@ -121,15 +127,15 @@ if(1) (()=>{
         translate(
             -my_p.x * p_scale,
             -my_p.y * p_scale,
-            -my_p.z * p_scale,
+             my_p.z * p_scale - 1,
         );
         model(B2);
         const B3 = endGeometry();
         
-        p_rotx = -my_p.rx; // pitch (X)
-        p_roty = -my_p.ry; // yaw   (Y)
-        rotateY(p_roty); // yaw   - applied 1st
+        p_rotx = +my_p.rx + PI; // pitch (X)
+        p_roty = +my_p.ry; // yaw   (Y)
         rotateX(p_rotx); // pitch - applied 2nd
+        rotateY(p_roty); // yaw   - applied 1st
         
         model(B3);
         
@@ -239,8 +245,8 @@ if(1) (()=>{
     };
     
     window.scan_ores = true;
-    window.scan_size = 1000;
-    window.scan_range = 100;
+    window.scan_size = 500;
+    window.scan_range = 20;
     const report_size = 30;
     const report_wl = 20;
     
@@ -450,7 +456,7 @@ if(1) (()=>{
                     new_pts.push([px, py, pz]);
                 }
                 window.my_pts = new_pts;
-                b_needs_rebuilt = (my_pts.length > 0);
+                b_needs_rebuilt = true; // (my_pts.length > 0);
                 
                 // launch p5.js
                 launch();
