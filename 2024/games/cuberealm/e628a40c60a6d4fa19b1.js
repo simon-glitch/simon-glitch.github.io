@@ -112,6 +112,8 @@ if(1) (()=>{
             
             // oh my! this is just too crazy!!!
             B2 = endGeometry();
+            
+            console.log("just built geo!");
         }
         
         // move it first
@@ -123,12 +125,13 @@ if(1) (()=>{
         );
         model(B2);
         const B3 = endGeometry();
-        model(B3);
         
         p_rotx = -my_p.rx; // pitch (X)
         p_roty = -my_p.ry; // yaw   (Y)
         rotateY(p_roty); // yaw   - applied 1st
         rotateX(p_rotx); // pitch - applied 2nd
+        
+        model(B3);
         
         freeGeometry(B3);
     }
