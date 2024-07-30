@@ -1,13 +1,21 @@
-if(0) (()=>{
-    const s = document.createElement("script");
-    s.src = "https://cdn.jsdelivr.net/npm/p5@1.9.4/lib/p5.js";
-    document.body.appendChild(s);
+if(1) (()=>{
+    // only launch once
+    let launched_yet = false;
+    const launch = function(){
+        if(launched_yet) return;
+        launched_yet = true;
+        
+        const s = document.createElement("script");
+        s.src = "https://cdn.jsdelivr.net/npm/p5@1.9.4/lib/p5.js";
+        document.body.appendChild(s);
+    };
     
     const my_p = {x: 0, y: 0, z: 0, rx: 0, ry: 0};
     
     var B;
     var B2;
     var FOVX;
+    var b_needs_rebuilt = false;
     
     var p_pts = [];
     
@@ -24,12 +32,14 @@ if(0) (()=>{
     var p_fill = 0.8;
     
     window.setup = function() {
-        createCanvas(innerWidth, innerHeight, WEBGL);
+        const canvas = createCanvas(innerWidth, innerHeight, WEBGL);
         
         // need to see my stuff
         const main = document.querySelector("main:has(canvas.p5Canvas)");
         main.style.position = "fixed";
         main.style.top = "0";
+        main.style.pointerEvents = "none";
+        canvas.style.pointerEvents = "none";
         
         FOVX = 100 * PI/180;
         
@@ -39,61 +49,71 @@ if(0) (()=>{
             box(1);
         });
         
-        // this works like a stack
+        // set B2 an empty geo
         beginGeometry();
-        
-        // how much to translate, considering the boxes are 1 unit wide
-        const TM  = 1/p_fill;
-        
-        // scale first, because this is applied to the world's coordinates (i.e. everything after)
-        scale(p_scale / TM);
-        
-        p_pts = window.my_pts || [];
-        
-        let p1 = p_pts[0], p2, pd;
-        translate(
-            p1[0] * TM,
-            p1[1] * TM,
-            p1[2] * TM,
-        );
-        for(let i = 0; i < p_pts.length; i++){
-            p2 = p1;
-            p1 = p_pts[i];
-            pd = [
-            p1[0] - p2[0],
-            p1[1] - p2[1],
-            p1[2] - p2[2],
-            ];
-            translate(
-            pd[0] * TM,
-            pd[1] * TM,
-            pd[2] * TM,
-            );
-            
-            model(B);
-        }
-        
-        // oh my! this is just too crazy!!!
         B2 = endGeometry();
-        
     };
 
     window.draw = function() {
+        // make sure it looks right
+        camera(0,0,1, 0,0,0);
+        clear();
+        translate(0,0,1);
+        
         // transparent background for good reasons
         
         // FOV and stuff
         perspective(FOVX * height / width);
         
-        p_rotx = my_p.rx; // pitch (X)
-        p_roty = my_p.ry; // yaw   (Y)
+        // scale(p_scale);
+        // model(B);
+        // scale(1/p_scale);
+        
+        if(b_needs_rebuilt){
+            // this works like a stack
+            beginGeometry();
+            
+            // how much to translate, considering the boxes are 1 unit wide
+            const TM  = 1/p_fill;
+            
+            // scale first, because this is applied to the world's coordinates (i.e. everything after)
+            scale(p_scale / TM);
+            
+            p_pts = window.my_pts || [];
+            
+            let p1 = p_pts[0], p2, pd;
+            translate(
+                p1[0] * TM,
+                p1[1] * TM,
+                p1[2] * TM,
+            );
+            for(let i = 0; i < p_pts.length; i++){
+                p2 = p1;
+                p1 = p_pts[i];
+                pd = [
+                    p1[0] - p2[0],
+                    p1[1] - p2[1],
+                    p1[2] - p2[2],
+                ];
+                translate(
+                    pd[0] * TM,
+                    pd[1] * TM,
+                    pd[2] * TM,
+                );
+                
+                model(B);
+            }
+            
+            // oh my! this is just too crazy!!!
+            B2 = endGeometry();
+        }
+        
+        p_rotx = -my_p.rx; // pitch (X)
+        p_roty = -my_p.ry; // yaw   (Y)
         rotateY(p_roty); // yaw   - applied 1st
         rotateX(p_rotx); // pitch - applied 2nd
         
-        translate(-my_p.x, my_p.y, my_p.z);
-        
         model(B2);
-        
-        orbitControl();
     }
     
     window.nums = {
@@ -311,7 +331,7 @@ if(0) (()=>{
             // WJJ.[wCB.ww[Z,h,p],wCg.ww[Z pitch (X),h yaw (Y)]]
             if(!my_see || !my_guy)
                 return;
-            const pos = my_guy.WJJ;
+            const pos = my_guy.wJJ;
             
             // extract obfuscated stuff
             my_p.x = pos.wCB.wwZ;
@@ -401,20 +421,26 @@ if(0) (()=>{
             
             if(report_i >= report_wl){
                 report_i = 0;
+                
+                const new_pts = [];
+                for(let i = 0; i < my_s.length; i++){
+                    const px = my_s[i][0][0] - x;
+                    const py = my_s[i][0][1] - y;
+                    const pz = my_s[i][0][2] - z;
+                    new_pts.push([px, py, pz]);
+                }
+                window.my_pts = new_pts;
+                b_needs_rebuilt = (my_pts.length > 0);
+                
+                // launch p5.js
+                launch();
+                
                 console.log(my_s.map(ab=>(names[ab[1]] || names.ores[ab[1]]) + " @ " + ab[0].join(", ") + " - " + Math.sqrt(d(ab)).toFixed(0) + " blocks away").join("\n"));
             }
             else{
                 report_i++;
             }
             
-            const new_pts = [];
-            for(let i = 0; i < my_s.length; i++){
-                const px = my_s[i][0][0] - x;
-                const py = my_s[i][0][1] - y;
-                const pz = my_s[i][0][2] - z;
-                new_pts.push([px, py, pz]);
-            }
-            window.my_pts = new_pts;
         }
         catch(e){
             console.log("frame err", e);
