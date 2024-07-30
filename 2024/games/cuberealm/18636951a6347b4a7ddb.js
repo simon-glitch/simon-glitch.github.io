@@ -3,6 +3,93 @@
     s.src = "https://cdn.jsdelivr.net/npm/p5@1.9.4/lib/p5.js";
     document.body.appendChild(s);
     
+    var B;
+    var B2;
+    var FOVX;
+    
+    var p_pts = [];
+    
+    /*
+    pos X is right
+    pos Y is down
+    pos Z is forward
+    */
+    
+    var p_roty = 0; // yaw   - applied 1st
+    var p_rotx = 0; // pitch - applied 2nd
+    
+    var p_scale = 60;
+    var p_fill = 0.1;
+    
+    window.setup = function() {
+        // need to see my stuff
+        document.querySelector("main").style.display = "fixed";
+        
+        createCanvas(innerHeight, innerWidth, WEBGL);
+        
+        FOVX = 100 * PI/180;
+        
+        // when buildGeometry is called, all global fns apply to that Geometry object's data
+        B = buildGeometry(function(){
+            // using scope trickery behind the scenes
+            box(1);
+        });
+        
+        // this works like a stack
+        beginGeometry();
+        
+        p_rotx = eNP.eeE; // pitch (X)
+        p_roty = eNP.eeI; // yaw   (Y)
+        rotateY(p_roty); // yaw   - applied 1st
+        rotateX(p_rotx); // pitch - applied 2nd
+        
+        // how much to translate, considering the boxes are 1 unit wide
+        const TM  = 1/p_fill;
+        
+        // scale first, because this is applied to the world's coordinates (i.e. everything after)
+        scale(p_scale / TM);
+        
+        p_pts = window.my_pts;
+        
+        let p1 = p_pts[0], p2, pd;
+        translate(
+            p1[0] * TM,
+            p1[1] * TM,
+            p1[2] * TM,
+        );
+        for(let i = 0; i < p_pts.length; i++){
+            p2 = p1;
+            p1 = p_pts[i];
+            pd = [
+            p1[0] - p2[0],
+            p1[1] - p2[1],
+            p1[2] - p2[2],
+            ];
+            translate(
+            pd[0] * TM,
+            pd[1] * TM,
+            pd[2] * TM,
+            );
+            
+            model(B);
+        }
+        
+        // oh my! this is just too crazy!!!
+        B2 = endGeometry();
+        
+    };
+
+    window.draw = function() {
+        // transparent background for good reasons
+        
+        // FOV and stuff
+        perspective(FOVX * height / width);
+        
+        model(B2);
+        
+        orbitControl();
+    }
+    
     window.nums = {
         "iron": 39,
         "gold": 40,
@@ -163,7 +250,7 @@
     let siy = 0;
     let siz = 0;
     let six = 0;
-    window.s = function(x, y, z, w, size){
+    window.my_scan = function(x, y, z, w, size){
         if (!window.my_see)
             return;
         
@@ -227,7 +314,7 @@
             
             // checks 64k blocks around the player
             // but only every once in a while
-            s(rx, ry, rz, scan_range, scan_size);
+            my_scan(rx, ry, rz, scan_range, scan_size);
 
             const d = function(ab){
                 return ((ab[0][0] - x) ** 2 + (ab[0][1] - y) ** 2 + (ab[0][2] - z) ** 2);
@@ -304,6 +391,15 @@
             else{
                 report_i++;
             }
+            
+            const new_pts = [];
+            for(let i = 0; i < my_s.length; i++){
+                const px = my_s[i][0][0] - x;
+                const py = my_s[i][0][1] - y;
+                const pz = my_s[i][0][2] - z;
+                new_pts.push([px, py, pz]);
+            }
+            window.my_pts = new_pts;
         }
         catch(e){
             console.log("frame err", e);
