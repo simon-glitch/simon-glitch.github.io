@@ -56,9 +56,8 @@ if(1) (()=>{
 
     window.draw = function() {
         // make sure it looks right
-        camera(0,0,1, 0,0,0);
+        camera(0,0,0, 0,0,1);
         clear();
-        translate(my_p.x, my_p.y, my_p.z + 1);
         
         // transparent background for good reasons
         
@@ -70,6 +69,9 @@ if(1) (()=>{
         // scale(1/p_scale);
         
         if(b_needs_rebuilt){
+            // this might be causing lag, so let's delete it
+            freeGeometry(B2);
+            
             // this works like a stack
             beginGeometry();
             
@@ -108,12 +110,17 @@ if(1) (()=>{
             B2 = endGeometry();
         }
         
+        // move it first
+        beginGeometry();
+        translate(-my_p.x, -my_p.y, -my_p.z);
+        model(B2);
+        const B3 = endGeometry();
+        
         p_rotx = -my_p.rx; // pitch (X)
         p_roty = -my_p.ry; // yaw   (Y)
         rotateY(p_roty); // yaw   - applied 1st
         rotateX(p_rotx); // pitch - applied 2nd
         
-        model(B2);
     }
     
     window.nums = {
