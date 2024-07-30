@@ -22,10 +22,10 @@
     var p_fill = 0.1;
     
     window.setup = function() {
-        // need to see my stuff
-        document.querySelector("main").style.display = "fixed";
-        
         createCanvas(innerHeight, innerWidth, WEBGL);
+        
+        // need to see my stuff
+        document.querySelector("main:has(canvas.p5Canvas)").style.display = "fixed";
         
         FOVX = 100 * PI/180;
         
