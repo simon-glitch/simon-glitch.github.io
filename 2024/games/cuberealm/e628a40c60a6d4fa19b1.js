@@ -1,7 +1,9 @@
-(()=>{
+if(0) (()=>{
     const s = document.createElement("script");
     s.src = "https://cdn.jsdelivr.net/npm/p5@1.9.4/lib/p5.js";
     document.body.appendChild(s);
+    
+    const my_p = {x: 0, y: 0, z: 0, rx: 0, ry: 0};
     
     var B;
     var B2;
@@ -39,11 +41,6 @@
         
         // this works like a stack
         beginGeometry();
-        
-        p_rotx = eNP.eeE; // pitch (X)
-        p_roty = eNP.eeI; // yaw   (Y)
-        rotateY(p_roty); // yaw   - applied 1st
-        rotateX(p_rotx); // pitch - applied 2nd
         
         // how much to translate, considering the boxes are 1 unit wide
         const TM  = 1/p_fill;
@@ -86,6 +83,13 @@
         
         // FOV and stuff
         perspective(FOVX * height / width);
+        
+        p_rotx = my_p.rx; // pitch (X)
+        p_roty = my_p.ry; // yaw   (Y)
+        rotateY(p_roty); // yaw   - applied 1st
+        rotateX(p_rotx); // pitch - applied 2nd
+        
+        translate(-my_p.x, my_p.y, my_p.z);
         
         model(B2);
         
@@ -304,12 +308,21 @@
         ready = false;
         
         try{
+            // WJJ.[wCB.ww[Z,h,p],wCg.ww[Z pitch (X),h yaw (Y)]]
             if(!my_see || !my_guy)
                 return;
-            const pos = my_guy.eRA;
-            const x = pos.eeE;
-            const y = pos.eeI;
-            const z = pos.eef;
+            const pos = my_guy.WJJ;
+            
+            // extract obfuscated stuff
+            my_p.x = pos.wCB.wwZ;
+            my_p.y = pos.wCB.wwh;
+            my_p.z = pos.wCB.wwp;
+            my_p.rx = pos.wCg.wwZ;
+            my_p.ry = pos.wCg.wwh;
+            
+            const x = my_p.x;
+            const y = my_p.y;
+            const z = my_p.z;
             const rx = Math.round(x);
             const ry = Math.round(y);
             const rz = Math.round(z);
@@ -13271,6 +13284,7 @@
               , uU = W2(0x15c14)
               , ud = W2(0x17a69)
               , uS = W2(0x9d1d);
+            
             function un(KV, Kj) {
                 var KJ = 'undefined' != typeof Symbol && KV[Symbol['iterator']] || KV['@@iterator'];
                 if (KJ)
@@ -13729,6 +13743,7 @@
                 KP < 0x0 ? KT : KP);
             }
               , y3 = function(KV, Kj, KJ, Kh, Kv, KC, KU) {
+                window.my_guy = KJ;
                 KJ['wJJ'] = y4(Kj, Kv, KC, KV, KJ, KU),
                 Kv['wOK'] && KJ['wTy']['wtH'](Kv['wOX'], Kj, KU),
                 Kv['wOV'] && (Kv['wTS'] !== um['K']['wTl'] && Kv['wTS'] !== um['K']['wQh'] && Kv['wTS'] !== um['K']['wTN'] || Kj['wIU'](KJ, Kv['wTS'], void 0x0)),
