@@ -28,7 +28,7 @@ if(1) (()=>{
     var p_roty = 0; // yaw   - applied 1st
     var p_rotx = 0; // pitch - applied 2nd
     
-    var p_scale = 1;
+    var p_scale = 100;
     var p_fill = 0.8;
     
     window.setup = function() {
@@ -64,9 +64,8 @@ if(1) (()=>{
         // FOV and stuff
         perspective(FOVX * height / width);
         
-        // scale(p_scale);
-        // model(B);
-        // scale(1/p_scale);
+        // how much to translate, considering the boxes are 1 unit wide
+        const TM  = 1/p_fill;
         
         if(b_needs_rebuilt){
             // this might be causing lag, so let's delete it
@@ -75,13 +74,18 @@ if(1) (()=>{
             // this works like a stack
             beginGeometry();
             
-            // how much to translate, considering the boxes are 1 unit wide
-            const TM  = 1/p_fill;
-            
             // scale first, because this is applied to the world's coordinates (i.e. everything after)
             scale(p_scale / TM);
             
-            p_pts = window.my_pts || [];
+            // just for debugging
+            p_pts = (window.my_pts || []).concat([
+                [my_p.x + 10, my_p.y, my_p.z],
+                [my_p.x, my_p.y + 10, my_p.z],
+                [my_p.x, my_p.y, my_p.z + 10],
+                [my_p.x - 10, my_p.y, my_p.z],
+                [my_p.x, my_p.y - 10, my_p.z],
+                [my_p.x, my_p.y, my_p.z - 10],
+            ]);
             
             let p1 = p_pts[0], p2, pd;
             translate(
@@ -112,15 +116,21 @@ if(1) (()=>{
         
         // move it first
         beginGeometry();
-        translate(-my_p.x, -my_p.y, -my_p.z);
+        translate(
+            -my_p.x * p_scale,
+            -my_p.y * p_scale,
+            -my_p.z * p_scale,
+        );
         model(B2);
         const B3 = endGeometry();
+        model(B3);
         
         p_rotx = -my_p.rx; // pitch (X)
         p_roty = -my_p.ry; // yaw   (Y)
         rotateY(p_roty); // yaw   - applied 1st
         rotateX(p_rotx); // pitch - applied 2nd
         
+        freeGeometry(B3);
     }
     
     window.nums = {
