@@ -28,7 +28,7 @@ if(1) (()=>{
     var p_roty = 0; // yaw   - applied 1st
     var p_rotx = 0; // pitch - applied 2nd
     
-    var p_scale = 60;
+    var p_scale = 1;
     var p_fill = 0.8;
     
     window.setup = function() {
@@ -58,7 +58,7 @@ if(1) (()=>{
         // make sure it looks right
         camera(0,0,1, 0,0,0);
         clear();
-        translate(0,0,1);
+        translate(my_p.x, my_p.y, my_p.z + 1);
         
         // transparent background for good reasons
         
@@ -424,9 +424,9 @@ if(1) (()=>{
                 
                 const new_pts = [];
                 for(let i = 0; i < my_s.length; i++){
-                    const px = my_s[i][0][0] - x;
-                    const py = my_s[i][0][1] - y;
-                    const pz = my_s[i][0][2] - z;
+                    const px = my_s[i][0][0];
+                    const py = my_s[i][0][1];
+                    const pz = my_s[i][0][2];
                     new_pts.push([px, py, pz]);
                 }
                 window.my_pts = new_pts;
