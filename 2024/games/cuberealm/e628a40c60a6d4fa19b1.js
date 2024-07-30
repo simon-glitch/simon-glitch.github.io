@@ -29,7 +29,7 @@ if(1) (()=>{
     var p_rotx = 0; // pitch - applied 2nd
     
     var p_scale = 100;
-    var p_fill = 0.5;
+    var p_fill = 0.3;
     
     window.setup = function() {
         const canvas = createCanvas(innerWidth, innerHeight, WEBGL);
@@ -56,18 +56,19 @@ if(1) (()=>{
 
     window.draw = function() {
         // make sure it looks right
-        camera(0,0,0, 0,0,-1);
+        camera(0,0,0, 0,0,-3000);
         clear();
         
         // transparent background for good reasons
         
         // FOV and stuff
-        perspective(FOVX * height / width);
+        perspective(FOVX * innerHeight / innerWidth);
         
         // how much to translate, considering the boxes are 1 unit wide
         const TM  = 1/p_fill;
         
         if(b_needs_rebuilt){
+            resizeCanvas(innerWidth, innerHeight);
             b_needs_rebuilt = false;
             // this might be causing lag, so let's delete it
             freeGeometry(B2);
@@ -80,17 +81,17 @@ if(1) (()=>{
             
             // just for debugging
             p_pts = (window.my_pts || []).concat([
-                [my_p.x + 10, my_p.y, my_p.z],
-                [my_p.x, my_p.y + 10, my_p.z],
-                [my_p.x, my_p.y, my_p.z + 10],
-                [my_p.x - 10, my_p.y, my_p.z],
-                [my_p.x, my_p.y - 10, my_p.z],
-                [my_p.x, my_p.y, my_p.z - 10],
+                // [my_p.x + 10, my_p.y, my_p.z],
+                // [my_p.x, my_p.y + 10, my_p.z],
+                // [my_p.x, my_p.y, my_p.z + 10],
+                // [my_p.x - 10, my_p.y, my_p.z],
+                // [my_p.x, my_p.y - 10, my_p.z],
+                // [my_p.x, my_p.y, my_p.z - 10],
             ]);
-
+            
             for(let i = 0; i < p_pts.length; i++){
                 p_pts[i][0] += 0.5;
-                p_pts[i][1] += 0.5;
+                p_pts[i][1] -= 0.5;
                 p_pts[i][2] += 0.5;
                 p_pts[i][2] *= -1;
             }
@@ -127,7 +128,7 @@ if(1) (()=>{
         translate(
             -my_p.x * p_scale,
             -my_p.y * p_scale,
-             my_p.z * p_scale - 1,
+             my_p.z * p_scale,
         );
         model(B2);
         const B3 = endGeometry();
@@ -245,9 +246,9 @@ if(1) (()=>{
     };
     
     window.scan_ores = true;
-    window.scan_size = 500;
-    window.scan_range = 20;
-    const report_size = 30;
+    window.scan_size = 200;
+    window.scan_range = 80;
+    const report_size = 80;
     const report_wl = 20;
     
     let report_i = 0;
@@ -458,10 +459,10 @@ if(1) (()=>{
                 window.my_pts = new_pts;
                 b_needs_rebuilt = true; // (my_pts.length > 0);
                 
-                // launch p5.js
+                // launch p5.js or ensure it has launched
                 launch();
                 
-                console.log(my_s.map(ab=>(names[ab[1]] || names.ores[ab[1]]) + " @ " + ab[0].join(", ") + " - " + Math.sqrt(d(ab)).toFixed(0) + " blocks away").join("\n"));
+                // console.log(my_s.map(ab=>(names[ab[1]] || names.ores[ab[1]]) + " @ " + ab[0].join(", ") + " - " + Math.sqrt(d(ab)).toFixed(0) + " blocks away").join("\n"));
             }
             else{
                 report_i++;
