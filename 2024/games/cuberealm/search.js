@@ -26,9 +26,14 @@ if(0) (()=>{
         "?"
     ));
     
-    // only launch once
+    // only launch p5.js once
     let launched_yet = false;
+    // whether to actually use p5.js at all
+    let use_p5js = false;
+    // whether to use the custom renderer with "improved seeing"
+    let use_3d_render = false;
     const launch = function(){
+        if(!use_p5js) return;
         if(launched_yet) return;
         launched_yet = true;
         
@@ -154,7 +159,7 @@ if(0) (()=>{
     var p_scale = 100;
     var p_fill = 0.3;
 
-    // p5.js setup
+    // p5.js setup (for 3D renderer)
     window.setup = function(){
         const canvas = createCanvas(innerWidth, innerHeight, WEBGL);
         
@@ -224,13 +229,13 @@ if(0) (()=>{
         p._setup();
     };
 
-    // p5.js draw
+    // p5.js draw (for 3D renderer)
     window.draw = function() {
+        clear();
+        if(!use_3d_render) return;
+        
         // make sure it looks right
         camera(0,0,0, 0,0,-3000);
-        clear();
-        
-        // transparent background for good reasons
         
         // FOV and stuff
         perspective(FOVX * innerHeight / innerWidth);
@@ -410,6 +415,9 @@ if(0) (()=>{
         72: 24,
     };
     
+    // a simply marker for chunks that have been saved
+    const SAVED = Symbol("SAVED CHUNK");
+    
     // whether to save what data was found in chunks
     window.do_save = true;
     // the data found in chunks
@@ -464,6 +472,23 @@ if(0) (()=>{
             }
         }
     };
+    window.auto_save_chunks = function(){
+        // for now, this will just do nothing
+        // this shouldn't cause any issues except for **slowly** filling up my RAM
+        
+        // first, reverse clone the array
+        const ts = to_save;
+        window.to_save = [];
+        
+        // then process our copy
+        for(let i = 0; i < ts.length; i++){
+            const c = ts[i];
+            // we will just add the items to the saved chunks "list"
+            saved_chunks[c[3]] = SAVED;
+        }
+    };
+    window.auto_scan_chunks = function(){};
+    window.auto_rem_chunks = function(){};
     
     let ready = true;
     const p = function(){
