@@ -1,8 +1,30 @@
 
 if(0) (()=>{
-    // hp = yIr; dura = yfD.yTu.GIA;
-    window.my_dura = (()=>(my_guy?.yfD.yTu.GIA ?? "?"));
-    window.my_hp = (()=>(my_guy?.yIr ?? "?"));
+    window.deob = {
+        inventory: "yfD",
+        main_hand: "yTu",
+        durability: "GIA",
+        health: "yIr",
+        position: "yRR",
+        location: "yoe",
+        orientation: "yok",
+        x: "yyi",
+        y: "yyt",
+        z: "yyb",
+    };
+    
+    window.my_dura = (()=>(
+        my_guy?.
+        [deob.inventory]?.
+        [deob.main_hand]?.
+        [deob.durability] ??
+        "?"
+    ));
+    window.my_hp = (()=>(
+        my_guy?.
+        [deob.health] ??
+        "?"
+    ));
     
     // only launch once
     let launched_yet = false;
@@ -21,6 +43,28 @@ if(0) (()=>{
         six: 0, siy: 0, siz: 0,
         speed: {
         x  : 0, y  : 0, z  : 0,
+        },
+        d_sq: function(ab){
+            return (
+                (ab[0][0] - this.x) ** 2 +
+                (ab[0][1] - this.y) ** 2 +
+                (ab[0][2] - this.z) ** 2
+            );
+        },
+        d: function(ab){
+            return (this.d_sq(ab) ** 0.5);
+        },
+        update: function(){
+            const pos = my_guy[deob.position];
+            const loc = pos[deob.location];
+            const ori = pos[deob.orientation];
+            
+            // extract obfuscated stuff
+            this.x = loc[deob.x];
+            this.y = loc[deob.y];
+            this.z = loc[deob.z];
+            this.rx = ori[deob.x];
+            this.ry = ori[deob.y];
         },
     };
     
@@ -146,6 +190,10 @@ if(0) (()=>{
                 console.log("wft 2?!", canvas);
             };
             p.draw = function(){
+                my_p.update();
+                // track our speed with a moving average
+                track();
+                
                 p.clear();
                 p.textSize(16);
                 p.fill(0);
@@ -159,19 +207,6 @@ if(0) (()=>{
                     "," +
                     my_p.siz
                 ), 20, 60);
-                
-                const pos = my_guy.yRR;
-                
-                // extract obfuscated stuff
-                // pos = yRR.yo[e,k].yy[i,t,b]
-                my_p.x = pos.yoe.yyi;
-                my_p.y = pos.yoe.yyt;
-                my_p.z = pos.yoe.yyb;
-                my_p.rx = pos.yok.yyi;
-                my_p.ry = pos.yok.yyt;
-                
-                // track our speed with a moving average
-                track();
                 
                 // LOL
                 // ive been calling it speed
@@ -395,7 +430,9 @@ if(0) (()=>{
     window.report_i = 0;
     
     // 1002 is the "unloaded_chunk_indicator"
-    window.check_chunks = function(){
+    const UNLOADED = 1002;
+    
+    window.list_chunks = function(){
         const x = Math.floor(my_p.x / 32);
         const y = Math.floor(my_p.y / 32);
         const z = Math.floor(my_p.z / 32);
@@ -408,7 +445,21 @@ if(0) (()=>{
         for(let iy = ay; iy <= by; iy++){
             for(let iz = az; iz <= bz; iz++){
                 for(let ix = ax; ix <= bx; ix++){
-                    s = (ax * 16)
+                    const sx = ix * 16;
+                    const sy = iy * 16;
+                    const sz = iz * 16;
+                    const ss = sx + "_" + sy + "_" + sz;
+                    const sd = [sx, sy, sz, ss];
+                    const loaded = (my_see(sx, sy, sz) != UNLOADED);
+                    if(loaded && do_scan && !scanned_chunks[ss]){
+                        to_scan.push(sd);
+                    }
+                    if(loaded && do_save && !saved_chunks[ss]){
+                        to_save.push(sd);
+                    }
+                    if(!loaded && scanned_chunks[ss]){
+                        to_rem.push(sd);
+                    }
                 }
             }
         }
@@ -424,21 +475,10 @@ if(0) (()=>{
             if(!my_see || !my_guy)
                 return;
             
-            const x = my_p.x;
-            const y = my_p.y;
-            const z = my_p.z;
-            const rx = Math.round(x);
-            const ry = Math.round(y);
-            const rz = Math.round(z);
-
             // checks 64k blocks around the player
             // but only every once in a while
-            my_scan(rx, ry, rz, scan_range, scan_size);
+            list_chunks();
 
-            const d = function(ab){
-                return ((ab[0][0] - x) ** 2 + (ab[0][1] - y) ** 2 + (ab[0][2] - z) ** 2);
-            }
-            
             // mess with block arrays to get a flat array,
             // first sorted by priority of block type,
             // and then by closeness to player
