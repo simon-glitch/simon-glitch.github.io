@@ -173,6 +173,8 @@ Tree.prototype.auto_balance = function(ts, is, m = false, d){
 // remove the left-most item of the tree
 // much simpler than the normal remove function for an ABT
 Tree.prototype.shift = function(){
+    if(this.size <= 0) this.t = [];
+    
     let ts = [this.t];
     let is = [];
     for(let i = 0, t = ts[0]; t[1].length > 0; i++){
@@ -183,12 +185,17 @@ Tree.prototype.shift = function(){
     if(ts[ts.length - 1][3] > 0)
         // first, remove the last node in the stack from the tree, then add its right child, if any, to the stack
         ts[ts.length - 1] = (
+            (ts.length > 1) ?
             ts[ts.length - 2][1] =
+            ts[ts.length - 1][2] :
+            this.t[1] =
             ts[ts.length - 1][2]
         );
     else
         // remove the node from the tree
-        ts[ts.length - 2][1] = [],
+        (ts.length > 1) ?
+        ts[ts.length - 2][1] = [] :
+        this.t[1] = [],
         // then remove it from the stack
         ts.pop();
     // decrease heights for the auto-balancer
