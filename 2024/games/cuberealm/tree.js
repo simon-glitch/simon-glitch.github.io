@@ -243,7 +243,7 @@ Tree.prototype.insert = function(b, d){
             this.measure_heights(ts);
             this.auto_balance(ts, is, 0, d);
             if(at_max){
-                while(this.size >= this.max_size)
+                while(this.size > this.max_size)
                     this.shift();
                 return inc_ts();
             }
