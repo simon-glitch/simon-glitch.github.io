@@ -104,9 +104,10 @@ Tree.prototype.auto_balance = function(ts, is, m = false, d){
             v = 1;
             
             // BIG PULL UP
-            if(ts[j][1][2][3] > ts[j][1][1][3]){
-                console.log("case + k");
-                console.log("j =", j);
+            // i swear if i have to type another "?? 0" on this file, im going to make a post on it somehow
+            if(ts[j][1][2][3] ?? 0 > ts[j][1][1][3] ?? 0){
+                if(d) console.log("case + k");
+                if(d) console.log("j =", j);
                 if(d) console.log("ts 1", copy(ts));
                 k = 1;
                 
@@ -124,12 +125,16 @@ Tree.prototype.auto_balance = function(ts, is, m = false, d){
             
             // rotate clockwise
             else{
-                console.log("case + j");
-                console.log("j =", j);
+                if(d) console.log("case + j");
+                if(d) console.log("j =", j);
                 // i just realized that remove code can't use the insert stack
+                if(d) console.log("ts 1", copy(ts));
                 tp1 = ts[j][1];
+                if(d) console.log("tp1 1", copy(tp1));
                 ts[j][1] = tp1[2];
-                tp1[2] = ts[j][1];
+                if(d) console.log("ts 2", copy(ts));
+                tp1[2] = ts[j];
+                if(d) console.log("tp1 2", copy(tp1));
             }
         }
         // right tree is taller
@@ -137,9 +142,9 @@ Tree.prototype.auto_balance = function(ts, is, m = false, d){
             v = 1;
             
             // BIG PULL UP
-            if(ts[j][2][1][3] > ts[j][2][2][3]){
-                console.log("case - k");
-                console.log("j =", j);
+            if(ts[j][2][1][3] ?? 0 > ts[j][2][2][3] ?? 0){
+                if(d) console.log("case - k");
+                if(d) console.log("j =", j);
                 if(d) console.log("ts 1", copy(ts));
                 k = 1;
                 
@@ -157,14 +162,15 @@ Tree.prototype.auto_balance = function(ts, is, m = false, d){
             
             // rotate counterclockwise
             else{
-                console.log("case - j");
-                console.log("j =", j);
+                if(d) console.log("case - j");
+                if(d) console.log("j =", j);
                 // i just realized that remove code can't use the insert stack
+                if(d) console.log("ts 1", copy(ts));
                 tp1 = ts[j][2];
                 if(d) console.log("tp1 1", copy(tp1));
                 ts[j][2] = tp1[1];
-                if(d) console.log("ts 1", copy(ts));
-                tp1[1] = ts[j][2];
+                if(d) console.log("ts 2", copy(ts));
+                tp1[1] = ts[j];
                 if(d) console.log("tp1 2", copy(tp1));
             }
         }
@@ -292,26 +298,26 @@ const t = new Tree(0, 10);
 const n = "370 961 675 271 303 522 505 714 098 543 047 976 667 527 067 527 130 385 225 014 054 300 797 676 040 712 675 827 130 323 852 250 140 543 006 501 402 730 471 336 752 713 038 522 501 410 205 430 075 976 730 079 768 067 572 700 130 385 225 019 054 300 479 763".split(" ").map(a=>+a);
 
 t.insert(n[0]);
-console.log("check 1", copy(t.t));
+// console.log("check 1", copy(t.t));
 t.insert(n[1]);
-console.log("check 2", copy(t.t));
-t.insert(n[2], true);
-console.log("check 3", copy(t.t));
-// t.insert(n[3]);
+// console.log("check 2", copy(t.t));
+t.insert(n[2]);
+// console.log("check 3", copy(t.t));
+t.insert(n[3]);
 // console.log("check 4", copy(t.t));
-// t.insert(n[4]);
+t.insert(n[4]);
 // console.log("check 5", copy(t.t));
-// t.insert(n[5]);
+t.insert(n[5]);
 // console.log("check 6", copy(t.t));
-// t.insert(n[6]);
+t.insert(n[6]);
 // console.log("check 7", copy(t.t));
-// t.insert(n[7]);
+t.insert(n[7]);
 // console.log("check 8", copy(t.t));
-// t.insert(n[8]);
+t.insert(n[8]);
 // console.log("check 9", copy(t.t));
-// t.insert(n[9]);
+t.insert(n[9]);
 // console.log("check 10", copy(t.t));
-// t.insert(n[10]);
+t.insert(n[10]);
 
 console.log("tree", t);
 console.log("flat", t.to_array());
