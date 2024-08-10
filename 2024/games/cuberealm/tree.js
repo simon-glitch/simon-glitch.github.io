@@ -173,7 +173,7 @@ Tree.prototype.auto_balance = function(ts, is, m = false, d){
 // remove the left-most item of the tree
 // much simpler than the normal remove function for an ABT
 Tree.prototype.shift = function(){
-    if(this.size <= 0) this.t = [];
+    if(this.size <= 0) return this.t = [];
     
     let ts = [this.t];
     let is = [];
