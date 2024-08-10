@@ -1,5 +1,182 @@
 
 if(0) (()=>{
+    // generic auto-balancing binary tree in JavaScript
+    const Tree = function(sort_f,max_size){
+        this.sort_f = sort_f || this.sort_f;
+        this.max_size = max_size ?? -1;
+        // no recursion, and no node class!
+        this.t = [];
+    };
+    // returns true if a > b, and false if a <= b
+    Tree.prototype.sort_f = function(a,b){
+        return a > b;
+    };
+    Tree.prototype.t = [];
+    Tree.prototype.toString = function(){
+        return "Tree (" + this.size + ")";
+    };
+    Tree.prototype.count_items = function(t){
+        let x = 0;
+        // perfectly normal code
+        // if there is a value in this node, it should have left and right branches
+        // leaf nodes have empty left and right branches
+        (t[0] ?? (x =
+            1 +
+            this.count_items(t[1]) +
+            this.count_items(t[2])
+        ));
+        return x;
+    };
+    // eat_parent is whether the subtree should pretend that the parent tree does not exist
+    Tree.prototype._sub_left = function(eat_parent){
+        let a = new Tree(this.max_size);
+        a.t = this.t[1];
+        if(!eat_parent) a.insert = (b)=>{
+            // it's not recursion if you only call it once on a different object
+            this.size += this.insert.call(a,b);
+        };
+        return a;
+    };
+    // eat_parent is whether the subtree should pretend that the parent tree does not exist
+    Tree.prototype._sub_right = function(eat_parent){
+        let a = new Tree(this.max_size);
+        a.t = this.t[2];
+        if(!eat_parent) a.insert = (b)=>{
+            // it's not recursion if you only call it once on a different object
+            this.size += this.insert.call(a,b);
+        };
+        return a;
+    };
+    // converts the tree into a flat array of its items
+    Tree.prototype.to_array = function(){
+        const r = [];
+        const ts = [this.t];
+        const is = [1];
+        while(ts.length > 0){
+            const il = is.length - 1;
+            const t = ts[ts.length - 1];
+            const i = is[il];
+            if(
+                t.length > 0 &&
+                i < 3
+            ){
+                // add item to output
+                r.push(t[0]);
+                
+                ts.push(t[i]);
+                is[il]++;
+            }
+            else{
+                is.pop();
+                ts.pop();
+            }
+        }
+        return r;
+    };
+    // does what it says it does - balances the tree
+    // it takes ts as input; one of the nodes in ts to be imbalanced
+    // is is the list of indices used to travel from the start of ts to the end; it has 1 less item than ts
+    // this only works if there is an imbalance of a height difference of 2
+    // returns 1 if the tree was imbalanced (to begin with), and 0 if the tree was balanced
+    Tree.prototype.auto_balance = function(ts, is){
+        // last item in ts is a leaf node, so lets ignore it
+        for(let j = ts.length - 2; j >= 0; j--){
+            // i had to draw a diagram for this one
+            let d = ts[j][1][3] - ts[j][2][3];
+            // left tree is taller: rotate clockwise
+            if(d == 2){
+                // we can use our stack to avoid duplicate assignments, which is nice
+                ts[j][1] = ts[j + 1][2];
+                ts[j + 1][2] = ts[j][1];
+                // i call this step "pulling it up"
+                ts[j - 1][is[j - 1]] = ts[j + 1];
+                return 1;
+            }
+            // right tree is taller: rotate counterclockwise
+            if(d == -2){
+                ts[j][2] = ts[j + 1][1];
+                ts[j + 1][1] = ts[j][2];
+                // i call this step "pulling it up"
+                // what's really funny is it is the same for both directions!
+                ts[j - 1][is[j - 1]] = ts[j + 1];
+                return 1;
+            }
+        }
+        return 0;
+    };
+    // remove the left-most item of the tree
+    // much simpler than the normal remove function for an ABT
+    Tree.prototype.unshift = function(){
+        let ts = [this.t];
+        for(let i = 0, t = ts[0]; t[1].length > 0; i++){
+            t = t[1];
+            ts.push(t);
+        }
+        ts[ts.length - 1][3]--;
+        // decrease heights for the auto-balancer
+        for(let i = ts.length - 2; i >= 0; i--){
+            ts[i][3] = Math.max(ts[i][1][3], ts[i][2][3]) + 1;
+        }
+    };
+    // this will not give you nightmares
+    // returns the number of items added, kinda like what array.push does
+    Tree.prototype.insert = (b) => {
+        let went_right = false;
+        let ppt = null;
+        let pt = null;
+        let ts = [this.t];
+        let is = [];
+        let t = ts[0];
+        let inc_ts = (v)=>{
+            if(v){
+                ts[ts.length - 1][3] += v;
+                for(let i = ts.length - 2; i >= 0; i--){
+                    ts[i][3] = Math.max(ts[i][1][3], ts[i][2][3]) + 1;
+                }
+            }
+            return v;
+        };
+        while(true){
+            // we are using ts as a stack
+            t = ts[ts.length - 1];
+            
+            // trees in JavaScript definitely are not their own breed of monster
+            // >:D
+            if(!t[0]){
+                if(this.size >= this.max_size){
+                    // avoid building deeper to the left if the size is already too big
+                    if(!went_right)
+                        return inc_ts(0);
+                    // remove the left-most of the tree
+                }
+                // i think ive read too much obfuscated JS lately...
+                size++;
+                t[0] = b;
+                t[1] = [];
+                t[2] = [];
+                t[3] = 0;
+                this.auto_balance(ts, is);
+                if(this.size >= this.max_size){
+                    this.shift();
+                    return inc_ts(0);
+                }
+                return inc_ts(1);
+            }
+            
+            // if b > t[0], go right
+            if(compare(b, t[0])){
+                went_right = true;
+                is.push(2);
+                ts.push(t[2]);
+            }
+            // if b <= t[0], go left
+            else{
+                is.push(1);
+                ts.push(t[1]);
+            }
+        }
+    };
+    
     window.deob = {
         inventory: "yfD",
         main_hand: "yTu",
@@ -70,6 +247,11 @@ if(0) (()=>{
             this.z = loc[deob.z];
             this.rx = ori[deob.x];
             this.ry = ori[deob.y];
+            
+            // get chunk coords!
+            this.cx = Math.floor(this.x / 32);
+            this.cy = Math.floor(this.y / 32);
+            this.cz = Math.floor(this.z / 32);
         },
     };
     
@@ -158,7 +340,7 @@ if(0) (()=>{
     
     var p_scale = 100;
     var p_fill = 0.3;
-
+    
     // p5.js setup (for 3D renderer)
     window.setup = function(){
         const canvas = createCanvas(innerWidth, innerHeight, WEBGL);
@@ -228,7 +410,7 @@ if(0) (()=>{
         });
         p._setup();
     };
-
+    
     // p5.js draw (for 3D renderer)
     window.draw = function() {
         clear();
@@ -433,6 +615,7 @@ if(0) (()=>{
     window.do_scan = true;
     window.do_scan_ores = true;
     window.scan_size = 1;
+    window.report = [];
     window.report_size = 100;
     window.report_wl = 100;
     window.report_i = 0;
@@ -441,9 +624,9 @@ if(0) (()=>{
     const UNLOADED = 1002;
     
     window.list_chunks = function(){
-        const x = Math.floor(my_p.x / 32);
-        const y = Math.floor(my_p.y / 32);
-        const z = Math.floor(my_p.z / 32);
+        const x = my_p.cx;
+        const y = my_p.cy;
+        const z = my_p.cz;
         const ax = x - 8;
         const ay = y - 3;
         const az = z - 8;
@@ -487,8 +670,78 @@ if(0) (()=>{
             saved_chunks[c[3]] = SAVED;
         }
     };
-    window.auto_scan_chunks = function(){};
-    window.auto_rem_chunks = function(){};
+    window.auto_scan_chunks = function(){
+        // first, reverse clone the array
+        const ts = to_save;
+        window.to_save = [];
+        
+        // then process our copy
+        for(let i = 0; i < ts.length; i++){
+            const c = ts[i];
+            const s = [];
+            // we will just add the items to the saved chunks "list"
+            scanned_chunks[c[3]] = s;
+            for(
+                let iy = 0, iz = 0, ix = 0;
+                iy < 16;
+                // if you're using a tripple for-loop
+                // then you must be uneducated;
+                // clearly this is the correct way to iterate 3 independent variables!
+                (ix == 15) ?
+                (ix = 0, (iz == 15) ?
+                (iz = 0, iy++) :
+                (iz++)) :
+                (ix++)
+            ){
+                const type = my_see(ix, iy, iz);
+                const good = !!(priority[type] ?? priority.ores[type]);
+                if(good) s.push([[ix, iy, iz], type]);
+            }
+        }
+    };
+    window.auto_rem_chunks = function(){
+        // first, reverse clone the array
+        const ts = to_save;
+        window.to_save = [];
+        
+        // then process our copy
+        for(let i = 0; i < ts.length; i++){
+            const c = ts[i];
+            // we will just add the items to the saved chunks "list"
+            delete scanned_chunks[c[3]];
+        }
+    };
+    
+    // the only reason this has so many comments is that I know future me will have a hard time understanding it
+    window.make_report = function(){
+        const p = ((type) =>
+            priority[type] ?? priority.ores[type]
+        );
+        // returns true if a > b, and false if a <= b
+        const compare = (a,b) => {
+            // sort FIRST by priority
+            let d = p(a[1]) - p(b[1]);
+            // SECOND by distance from the player
+            if(!d) d = a[2] - b[2];
+        };
+        const tree = new Tree(compare, report_size);
+        
+        const blocks = [];
+        for(let i in scanned_chunks){
+            const s = scanned_chunks[i];
+            for(let b of s){
+                blocks.push(b);
+            }
+        }
+        for(let b of blocks){
+            b[2] = my_p.d_sq(b);
+        }
+        for(let b of blocks){
+            tree.insert(b);
+        }
+        const r = tree.to_array();
+        window.report = r;
+    };
     
     let ready = true;
     const p = function(){
