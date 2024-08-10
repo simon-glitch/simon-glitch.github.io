@@ -245,7 +245,6 @@ Tree.prototype.insert = function(b, d){
             if(at_max){
                 while(this.size >= this.max_size)
                     this.shift();
-                return inc_ts();
             }
             return inc_ts(1);
         }
