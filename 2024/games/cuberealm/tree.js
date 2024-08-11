@@ -340,39 +340,39 @@ t.insert(85);
 t.insert(900);
 // console.log("check 10", t.to_array());
 // console.log(copy(t.t));
-t.insert(899, 1);
-console.log("check 11", t.to_array());
-console.log(copy(t.t));
-t.insert(900, 1);
-console.log("check 12", t.to_array());
-console.log(copy(t.t));
-// t.insert(899);
+t.insert(899);
+// console.log("check 11", t.to_array());
+// console.log(copy(t.t));
+t.insert(900);
+// console.log("check 12", t.to_array());
+// console.log(copy(t.t));
+t.insert(899);
 // console.log("check 13", t.to_array());
 // console.log(copy(t.t));
-// t.insert(900);
+t.insert(900);
 // console.log("check 14", t.to_array());
 // console.log(copy(t.t));
-// t.insert(899);
+t.insert(899);
 // console.log("check 15", t.to_array());
 // console.log(copy(t.t));
-// t.insert(705);
+t.insert(705);
 // console.log("check 16", t.to_array());
 // console.log(copy(t.t));
-// t.insert(705);
+t.insert(705);
 // console.log("check 17", t.to_array());
 // console.log(copy(t.t));
-// t.insert(1705);
+t.insert(1705);
 // console.log("check 18", t.to_array());
 // console.log(copy(t.t));
-// t.insert(1701);
+t.insert(1701);
 // console.log("check 19", t.to_array());
 // console.log(copy(t.t));
 
-// for(let i = 0; i < 100; i++){
-//     t.insert(Math.floor(Math.random() * 10000));
-// }
-// 
-// console.log("tree", t);
-// console.log("flat", t.to_array());
+for(let i = 0; i < 100; i++){
+    t.insert(Math.floor(Math.random() * 10000));
+}
+
+console.log("tree", t);
+console.log("flat", t.to_array());
 
 
