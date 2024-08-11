@@ -5,7 +5,7 @@ let copy = function(a = []){
 // generic auto-balancing binary tree in JavaScript
 const Tree = function(sort_f,max_size){
     this.sort_f = sort_f || this.sort_f;
-    this.max_size = max_size ?? -1;
+    this.max_size = (max_size ?? -1);
     // no recursion, and no node class!
     this.t = [];
 };
@@ -105,15 +105,10 @@ Tree.prototype.auto_balance = function(ts, is, m = false, d){
             
             // BIG PULL UP
             // i swear if i have to type another "?? 0" on this file, im going to make a post on it somehow
-            // aghhhhhhhhhhhhh!
-            // WHY?! WHY MUST IT BE THIS WAY?!
-            // WHY is the operator precedance of `??` greater than `>` ?
-            // i can understand `||` having lesser precedance, but not `??`
-            // imo, `??` should have the 2nd greatest precedances, right after grouping!
             // for reference, see:
             // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_precedence#table
             if((ts[j][1][2][3] ?? 0) > (ts[j][1][1][3] ?? 0)){
-                if(this.size == 5) console.log("failure + k", copy(ts), copy(is), j);
+                // if(this.size == 5) console.log("failure + k", copy(ts), copy(is), j);
                 k = 1;
                 
                 tp1 = ts[j][1][2];
@@ -125,7 +120,7 @@ Tree.prototype.auto_balance = function(ts, is, m = false, d){
             
             // rotate clockwise
             else{
-                if(this.size == 5) console.log("success + j");
+                // if(this.size == 5) console.log("success + j");
                 // i just realized that remove code can't use the insert stack
                 tp1 = ts[j][1];
                 ts[j][1] = tp1[2];
@@ -138,7 +133,7 @@ Tree.prototype.auto_balance = function(ts, is, m = false, d){
             
             // BIG PULL UP
             if((ts[j][2][1][3] ?? 0) > (ts[j][2][2][3] ?? 0)){
-                if(this.size == 5) console.log("failure - k");
+                // if(this.size == 5) console.log("failure - k");
                 k = 1;
                 
                 tp1 = ts[j][2][1];
@@ -150,7 +145,7 @@ Tree.prototype.auto_balance = function(ts, is, m = false, d){
             
             // rotate counterclockwise
             else{
-                if(this.size == 5) console.log("failure - j");
+                // if(this.size == 5) console.log("failure - j");
                 // i just realized that remove code can't use the insert stack
                 tp1 = ts[j][2];
                 ts[j][2] = tp1[1];
@@ -193,7 +188,7 @@ Tree.prototype.shift = function(){
         t = t[1];
         ts.push(t);
     }
-    if(ts[ts.length - 1][3] > 0)
+    if(ts[ts.length - 1][3] > 1)
         // first, remove the last node in the stack from the tree, then add its right child, if any, to the stack
         ts[ts.length - 1] = (
             (ts.length > 1) ?
@@ -207,19 +202,15 @@ Tree.prototype.shift = function(){
         (ts.length > 1) ?
         ts[ts.length - 2][1] = [] :
         this.t[1] = [],
-        // then remove it from the stack
-        ts.pop();
-    // decrease heights for the auto-balancer
-    for(let i = ts.length - 2; i >= 0; i--){
-        ts[i][3] = Math.max(ts[i][1][3] ?? 0, ts[i][2][3] ?? 0) + 1;
-    }
+        // then replace it with 2 empty nodes bc auto_balance is weird like that
+        ts[ts.length - 1] = [], ts.push([]);
     this.auto_balance(ts, is, true);
     // LOL again the classic
     this.size--;
 };
 Tree.prototype.measure_heights = function(ts){
     for(let i = ts.length - 2; i >= 0; i--){
-        ts[i][3] = Math.max(ts[i][1][3] ?? 0, ts[i][2][3] ?? 0) + 1;
+        ts[i][3] = Math.max((ts[i][1][3] ?? 0), (ts[i][2][3] ?? 0)) + 1;
     }
 };
 // this will not give you nightmares
@@ -283,31 +274,65 @@ Tree.prototype.insert = function(b, d){
 
 const t = new Tree(0, 10);
 
+t.insert(300);
+console.log("check 1", t.to_array());
+console.log(copy(t.t));
+t.insert(70);
+console.log("check 2", t.to_array());
+console.log(copy(t.t));
+t.insert(304);
+console.log("check 3", t.to_array());
+console.log(copy(t.t));
+t.insert(320);
+console.log("check 4", t.to_array());
+console.log(copy(t.t));
+t.insert(100);
+console.log("check 5", t.to_array());
+console.log(copy(t.t));
 t.insert(1);
-// console.log("check 1", copy(t.t));
-t.insert(1);
-// console.log("check 2", copy(t.t));
-t.insert(1);
-// console.log("check 3", copy(t.t));
-t.insert(1);
-console.log("check 4", copy(t.t));
-t.insert(1);
-console.log("check 5", copy(t.t));
-t.insert(1);
-// WHAT!?
-console.log("check 6", copy(t.t));
-// t.insert(1);
-// console.log("check 7", copy(t.t));
-// t.insert(1);
-// console.log("check 8", copy(t.t));
-// t.insert(1);
-// console.log("check 9", copy(t.t));
+console.log("check 6", t.to_array());
+console.log(copy(t.t));
+t.insert(0);
+console.log("check 7", t.to_array());
+console.log(copy(t.t));
+t.insert(70);
+console.log("check 8", t.to_array());
+console.log(copy(t.t));
+t.insert(85);
+console.log("check 9", t.to_array());
+console.log(copy(t.t));
+t.insert(900);
+console.log("check 10", t.to_array());
+console.log(copy(t.t));
+t.insert(899);
+console.log("check 11", t.to_array());
+console.log(copy(t.t));
+t.insert(900);
+console.log("check 12", t.to_array());
+console.log(copy(t.t));
+t.insert(899);
+console.log("check 13", t.to_array());
+console.log(copy(t.t));
+t.insert(900);
+console.log("check 14", t.to_array());
+console.log(copy(t.t));
+t.insert(899);
+console.log("check 15", t.to_array());
+console.log(copy(t.t));
+t.insert(705);
+console.log("check 16", t.to_array());
+console.log(copy(t.t));
+t.insert(705);
+console.log("check 17", t.to_array());
+console.log(copy(t.t));
+t.insert(1705);
+console.log("check 18", t.to_array());
+console.log(copy(t.t));
+t.insert(1701);
+console.log("check 19", t.to_array());
+console.log(copy(t.t));
 
-// for(let i = 0; i < 21; i++){
-//     t.insert(Math.floor(Math.random() * 10000));
-// }
-
-console.log("tree", t);
-console.log("flat", t.to_array());
+// console.log("tree", t);
+// console.log("flat", t.to_array());
 
 
