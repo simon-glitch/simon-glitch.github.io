@@ -272,7 +272,7 @@ Tree.prototype.insert = function(b, d){
 
 const t = new Tree(0, 10);
 
-for(let i = 0; i < 20; i++){
+for(let i = 0; i < 21; i++){
     t.insert(Math.floor(Math.random() * 10000));
 }
 
