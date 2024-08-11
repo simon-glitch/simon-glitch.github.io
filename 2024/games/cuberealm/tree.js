@@ -105,8 +105,15 @@ Tree.prototype.auto_balance = function(ts, is, m = false, d){
             
             // BIG PULL UP
             // i swear if i have to type another "?? 0" on this file, im going to make a post on it somehow
-            if(ts[j][1][2][3] ?? 0 > ts[j][1][1][3] ?? 0){
-                if(this.size == 5) console.log("failure + k", copy(ts), j);
+            // aghhhhhhhhhhhhh!
+            // WHY?! WHY MUST IT BE THIS WAY?!
+            // WHY is the operator precedance of `??` greater than `>` ?
+            // i can understand `||` having lesser precedance, but not `??`
+            // imo, `??` should have the 2nd greatest precedances, right after grouping!
+            // for reference, see:
+            // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_precedence#table
+            if((ts[j][1][2][3] ?? 0) > (ts[j][1][1][3] ?? 0)){
+                if(this.size == 5) console.log("failure + k", copy(ts), copy(is), j);
                 k = 1;
                 
                 tp1 = ts[j][1][2];
@@ -130,7 +137,7 @@ Tree.prototype.auto_balance = function(ts, is, m = false, d){
             v = 1;
             
             // BIG PULL UP
-            if(ts[j][2][1][3] ?? 0 > ts[j][2][2][3] ?? 0){
+            if((ts[j][2][1][3] ?? 0) > (ts[j][2][2][3] ?? 0)){
                 if(this.size == 5) console.log("failure - k");
                 k = 1;
                 
