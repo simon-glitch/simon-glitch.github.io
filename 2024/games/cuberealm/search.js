@@ -1,5 +1,4 @@
-
-if(0) (()=>{
+if(1) (()=>{
     let copy = function(a = []){
         return a.map(b => (b instanceof Array) ? copy(b) : b);
     };
@@ -675,11 +674,22 @@ if(0) (()=>{
     // whether or not to scan chunks for `improved seeing`
     window.do_scan = true;
     window.do_scan_ores = true;
+    // chunks that are currently being saved
+    window.saving = [];
+    // index of current chunk (in `saving`) being saved
+    window.save_i = 0;
+    // chunks that are currently being scanned
+    window.scanning = [];
+    // index of current chunk (in `scanning`) being scanned
+    window.scan_i = 0;
+    // number of chunks to scan each frame
+    window.save_size = 1;
     window.scan_size = 1;
     window.report = [];
     window.report_size = 100;
-    window.report_wl = 100;
+    window.report_wl = 300;
     window.report_i = 0;
+    window.do_log_report = false;
     
     // 1002 is the "unloaded_chunk_indicator"
     const UNLOADED = 1002;
@@ -697,19 +707,32 @@ if(0) (()=>{
         for(let iy = ay; iy <= by; iy++){
             for(let iz = az; iz <= bz; iz++){
                 for(let ix = ax; ix <= bx; ix++){
-                    const sx = ix * 16;
-                    const sy = iy * 16;
-                    const sz = iz * 16;
+                    const sx = ix * 32;
+                    const sy = iy * 32;
+                    const sz = iz * 32;
                     const ss = sx + "_" + sy + "_" + sz;
-                    const sd = [sx, sy, sz, ss];
+                    const sd = [ix, iy, iz, ss];
                     const loaded = (my_see(sx, sy, sz) != UNLOADED);
-                    if(loaded && do_scan && !scanned_chunks[ss]){
-                        to_scan.push(sd);
-                    }
-                    if(loaded && do_save && !saved_chunks[ss]){
+                    if(
+                        loaded &&
+                        do_save &&
+                        !saved_chunks[ss] &&
+                        !(save_i < saving.length)
+                    ){
                         to_save.push(sd);
                     }
-                    if(!loaded && scanned_chunks[ss]){
+                    if(
+                        loaded &&
+                        do_scan &&
+                        !scanned_chunks[ss] &&
+                        !(scan_i < scanning.length)
+                    ){
+                        to_scan.push(sd);
+                    }
+                    if(
+                        !loaded &&
+                        scanned_chunks[ss]
+                    ){
                         to_rem.push(sd);
                     }
                 }
@@ -720,54 +743,99 @@ if(0) (()=>{
         // for now, this will just do nothing
         // this shouldn't cause any issues except for **slowly** filling up my RAM
         
-        // first, reverse clone the array
-        const ts = to_save;
-        window.to_save = [];
+        if(save_i >= saving.length){
+            // first, reverse clone the array
+            saving = to_save;
+            to_save = [];
+            save_i = 0;
+        }
         
         // then process our copy
-        for(let i = 0; i < ts.length; i++){
-            const c = ts[i];
+        for(
+            let i_t = 0;
+            (save_i < saving.length) &&
+            (i_t < save_size);
+            save_i++, i_t++
+        ){
+            const c = saving[save_i];
             // we will just add the items to the saved chunks "list"
             saved_chunks[c[3]] = SAVED;
         }
     };
     window.auto_scan_chunks = function(){
-        // first, reverse clone the array
-        const ts = to_save;
-        window.to_save = [];
+        if(scan_i >= scanning.length){
+            // first, reverse clone the array
+            scanning = to_scan;
+            to_scan = [];
+            scan_i = 0;
+        }
         
         // then process our copy
-        for(let i = 0; i < ts.length; i++){
-            const c = ts[i];
-            const s = [];
-            // we will just add the items to the saved chunks "list"
+        for(
+            let i_t = 0;
+            (scan_i < scanning.length) &&
+            (i_t < scan_size);
+            scan_i++, i_t++
+        ){
+            const c = scanning[scan_i];
+            const s = [
+                [
+                    // center of the chunk
+                    [
+                        c[0] * 32 + 16,
+                        c[1] * 32 + 16,
+                        c[2] * 32 + 16,
+                    ],
+                    // bottom north-west corner of the chunk
+                    [
+                        c[0] * 32,
+                        c[1] * 32,
+                        c[2] * 32,
+                    ],
+                    // chunk coords of the chunk
+                    [
+                        c[0],
+                        c[1],
+                        c[2],
+                    ],
+                ],
+                [],
+            ];
             scanned_chunks[c[3]] = s;
             for(
                 let iy = 0, iz = 0, ix = 0;
-                iy < 16;
+                iy < 32;
                 // if you're using a tripple for-loop
                 // then you must be uneducated;
                 // clearly this is the correct way to iterate 3 independent variables!
-                (ix == 15) ?
-                (ix = 0, (iz == 15) ?
+                (ix == 32 - 1) ?
+                (ix = 0, (iz == 32 - 1) ?
                 (iz = 0, iy++) :
                 (iz++)) :
                 (ix++)
+                // cough cough! you could also use bit-masking on a single variable
             ){
-                const type = my_see(ix, iy, iz);
+                const rx = s[0][1][0] + ix;
+                const ry = s[0][1][1] + iy;
+                const rz = s[0][1][2] + iz;
+                const type = my_see(rx, ry, rz);
                 const good = !!(priority[type] ?? priority.ores[type]);
-                if(good) s.push([[ix, iy, iz], type]);
+                if(good) s[1].push([[rx, ry, rz], type]);
             }
         }
     };
     window.auto_rem_chunks = function(){
         // first, reverse clone the array
-        const ts = to_save;
-        window.to_save = [];
+        const tc = to_rem;
+        window.to_rem = [];
         
         // then process our copy
-        for(let i = 0; i < ts.length; i++){
-            const c = ts[i];
+        for(let i = 0; i < tc.length; i++){
+            const c = tc[i];
+            const s = scanned_chunks[c[3]];
+            
+            if(my_p.d(s[0]));
+            
             // we will just add the items to the saved chunks "list"
             delete scanned_chunks[c[3]];
         }
@@ -791,7 +859,7 @@ if(0) (()=>{
         const blocks = [];
         for(let i in scanned_chunks){
             const s = scanned_chunks[i];
-            for(let b of s){
+            for(let b of s[1]){
                 blocks.push(b);
             }
         }
@@ -814,83 +882,31 @@ if(0) (()=>{
         try{
             if(!my_see || !my_guy)
                 return;
-            
-            // checks 64k blocks around the player
-            // but only every once in a while
-            list_chunks();
 
+            if(!use_p5js){
+                my_p.update();
+            }
+            
+            // checks chunks around the player
+            list_chunks();
+            auto_save_chunks();
+            auto_scan_chunks();
+            auto_rem_chunks();
+            
             // mess with block arrays to get a flat array,
             // first sorted by priority of block type,
             // and then by closeness to player
-            const t = [];
-            for(let i in yay_use){
-                if(yay_use[i].length == 0)
-                    continue;
-
-                const p = priority.ores[i] || priority[i];
-                t.push([p, yay_use[i]]);
-            }
-            t.sort((a,b)=>b[0] - a[0]);
-            // merge items of the same priority
-            for(let i = 0, j = 0; i < t.length; i++){
-                if(i == j) continue;
-                const u = t[i];
-                const v = t[j];
-                if(u[0] == v[0]){
-                    for(let ii = 1; ii < u.length; ii++){
-                        v.push(u[ii]);
-                    }
-                    continue;
-                }
-                j++;
-            }
-            
-            // flatten merged stuff and then sort it
-            const tm1 = t.map(a=>a.slice(1).flat(1));
-            // console.log("tm1", tm1);
-            for(let i = 0; i < tm1.length; i++){
-                const u = tm1[i];
-                u.sort((a,b)=>d(a) - d(b));
-            }
-            // flatten everything one last time
-            const v = [];
-            for(let i = 0; i < tm1.length; i++){
-                for(let ii = 0; ii < tm1[i].length; ii++){
-                    v.push(tm1[i][ii]);
-                }
-            }
-            
-            const my_s = v.slice(0, report_size);
-            const todo = {};
-            my_s.forEach((ab)=>{
-                // mark blocks that are no longer what we are looking for
-                if(yay_rem(ab[0][0], ab[0][1], ab[0][2], ab[1])){
-                    ab[2] = 1;
-                    todo[ab[1]] = 1;
-                }
-            }
-            );
-            
-            // delete everything marked earlier
-            for(let type in todo){
-                let j = 0;
-                for(let i = 0; i < yay_use[type].length; i++){
-                    if(yay_use[type][i][2])
-                        continue;
-                    yay_use[type][j] = yay_use[type][i];
-                    j++
-                }
-                yay_use[type] = yay_use[type].slice(0, j);
-            }
             
             if(report_i >= report_wl){
                 report_i = 0;
                 
+                const rs = report.slice();
                 const new_pts = [];
-                for(let i = 0; i < my_s.length; i++){
-                    const px = my_s[i][0][0];
-                    const py = my_s[i][0][1];
-                    const pz = my_s[i][0][2];
+                for(let i = 0; i < rs.length; i++){
+                    const r = rs[i][0];
+                    const px = r[0];
+                    const py = r[1];
+                    const pz = r[2];
                     new_pts.push([px, py, pz]);
                 }
                 window.my_pts = new_pts;
@@ -899,11 +915,20 @@ if(0) (()=>{
                 // launch p5.js or ensure it has launched
                 launch();
                 
-                // console.log(my_s.map(ab=>(names[ab[1]] || names.ores[ab[1]]) + " @ " + ab[0].join(", ") + " - " + Math.sqrt(d(ab)).toFixed(0) + " blocks away").join("\n"));
+                if(do_log_report){
+                    // console.log();
+                    
+                    console.log(my_pts.map(ab=>(
+                        (names[ab[1]] || names.ores[ab[1]]) +
+                        " @ " +
+                        ab[0].join(", ") +
+                        " - " +
+                        Math.sqrt(d(ab)).toFixed(0) +
+                        " blocks away"
+                    ).join("\n")));
+                }
             }
-            else{
-                report_i++;
-            }
+            else report_i++;
             
         }
         catch(e){
@@ -916,4 +941,5 @@ if(0) (()=>{
     setInterval(p, 20);
 }
 )();
+
 
