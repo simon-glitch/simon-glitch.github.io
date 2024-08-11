@@ -846,12 +846,12 @@ if(1) (()=>{
         const p = ((type) =>
             priority[type] ?? priority.ores[type]
         );
-        // returns true if a < b, and false if a >= b
+        // returns true if a > b, and false if a <= b
         const compare = (a,b) => {
             // sort FIRST by priority
             let d = p(a[1]) - p(b[1]);
             // SECOND by distance from the player
-            if(!d) d = a[2] - b[2];
+            if(!d) d = b[2] - a[2];
             return (d < 0);
         };
         const tree = new Tree(compare, report_size);
@@ -882,8 +882,8 @@ if(1) (()=>{
         try{
             if(!my_see || !my_guy)
                 return;
-
-            if(!use_p5js){
+            
+            if(!use_p5js || !launched_yet){
                 my_p.update();
             }
             
