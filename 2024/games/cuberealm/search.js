@@ -686,10 +686,10 @@ if(1) (()=>{
     // number of chunks to scan each frame
     window.scan_size = 1;
     // range to keep scanned chunks in memory
-    window.scan_range = 200;
-    window.list_range = [2, 5, 2];
+    window.scan_range = 120;
+    window.list_range = [2, 4, 2];
     window.report = [];
-    window.report_size = 120;
+    window.report_size = 60;
     window.report_wl = 60;
     window.report_i = 0;
     window.do_log_report = false;
@@ -896,8 +896,9 @@ if(1) (()=>{
             }
         }
         for(let b of blocks){
+            b[1] = my_see(b[0][0], b[0][1], b[0][2]);
             b[2] = my_p.d_sq(b);
-            b[3] = p(b[1]);
+            b[3] = p(b[1]) ?? 0;
         }
         for(let b of blocks){
             tree.insert(b);
