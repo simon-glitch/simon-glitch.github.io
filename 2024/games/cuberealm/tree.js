@@ -106,6 +106,7 @@ Tree.prototype.auto_balance = function(ts, is, m = false, d){
             // BIG PULL UP
             // i swear if i have to type another "?? 0" on this file, im going to make a post on it somehow
             if(ts[j][1][2][3] ?? 0 > ts[j][1][1][3] ?? 0){
+                if(this.size == 5) console.log("failure + k", copy(ts), j);
                 k = 1;
                 
                 tp1 = ts[j][1][2];
@@ -117,6 +118,7 @@ Tree.prototype.auto_balance = function(ts, is, m = false, d){
             
             // rotate clockwise
             else{
+                if(this.size == 5) console.log("success + j");
                 // i just realized that remove code can't use the insert stack
                 tp1 = ts[j][1];
                 ts[j][1] = tp1[2];
@@ -129,6 +131,7 @@ Tree.prototype.auto_balance = function(ts, is, m = false, d){
             
             // BIG PULL UP
             if(ts[j][2][1][3] ?? 0 > ts[j][2][2][3] ?? 0){
+                if(this.size == 5) console.log("failure - k");
                 k = 1;
                 
                 tp1 = ts[j][2][1];
@@ -140,6 +143,7 @@ Tree.prototype.auto_balance = function(ts, is, m = false, d){
             
             // rotate counterclockwise
             else{
+                if(this.size == 5) console.log("failure - j");
                 // i just realized that remove code can't use the insert stack
                 tp1 = ts[j][2];
                 ts[j][2] = tp1[1];
