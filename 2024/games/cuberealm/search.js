@@ -1,51 +1,53 @@
 
 if(0) (()=>{
-    // generic auto-balancing binary tree in JavaScript
-    const Tree = function(sort_f,max_size){
-        this.sort_f = sort_f || this.sort_f;
-        this.max_size = max_size ?? -1;
-        // no recursion, and no node class!
-        this.t = [];
+    let copy = function(a = []){
+        return a.map(b => (b instanceof Array) ? copy(b) : b);
     };
-    // returns true if a > b, and false if a <= b
-    Tree.prototype.sort_f = function(a,b){
+    
+    let _Tree_Factory = function(){
+        // ensure that f is a function
+        const f_check = function(f){
+            return (
+                typeof sort_f == "function" ?
+                sort_f :
+                undefined
+            );
+        }
+        
+        const Tree = function(sort_f, max_size){
+            if(f_check(sort_f)){
+                this.gt_f = sort_f;
+            }
+            if(sort_f ?? false){
+                const lt_s  = f_check(sort_f.lt );
+                const gt_s  = f_check(sort_f.gt );
+                const lte_s = f_check(sort_f.lte);
+                const gte_s = f_check(sort_f.gte);
+                const eq_s  = f_check(sort_f.eq );
+                const ieq_s = f_check(sort_f.neq);
+                this.lt_s  = lt_s ;
+                this.gt_s  = gt_s ;
+                this.lte_s = lte_s;
+                this.gte_s = gte_s;
+                this.eq_s  = eq_s ;
+                this.ieq_s = ieq_s;
+            }
+            
+            this.max_size = (max_size ?? -1);
+            // no recursion, and no node class!
+            this.t = [];
+        };
+        return Tree;
+    }
+    
+    const Tree = _Tree_Factory();
+    Tree.prototype.size = 0;
+    Tree.prototype.gt_f = function(a,b){
         return a > b;
     };
     Tree.prototype.t = [];
     Tree.prototype.toString = function(){
         return "Tree (" + this.size + ")";
-    };
-    Tree.prototype.count_items = function(t){
-        let x = 0;
-        // perfectly normal code
-        // if there is a value in this node, it should have left and right branches
-        // leaf nodes have empty left and right branches
-        (t[0] ?? (x =
-            1 +
-            this.count_items(t[1]) +
-            this.count_items(t[2])
-        ));
-        return x;
-    };
-    // eat_parent is whether the subtree should pretend that the parent tree does not exist
-    Tree.prototype._sub_left = function(eat_parent){
-        let a = new Tree(this.max_size);
-        a.t = this.t[1];
-        if(!eat_parent) a.insert = (b)=>{
-            // it's not recursion if you only call it once on a different object
-            this.size += this.insert.call(a,b);
-        };
-        return a;
-    };
-    // eat_parent is whether the subtree should pretend that the parent tree does not exist
-    Tree.prototype._sub_right = function(eat_parent){
-        let a = new Tree(this.max_size);
-        a.t = this.t[2];
-        if(!eat_parent) a.insert = (b)=>{
-            // it's not recursion if you only call it once on a different object
-            this.size += this.insert.call(a,b);
-        };
-        return a;
     };
     // converts the tree into a flat array of its items
     Tree.prototype.to_array = function(){
@@ -61,10 +63,11 @@ if(0) (()=>{
                 i < 3
             ){
                 // add item to output
-                r.push(t[0]);
+                if(i == 2) r.push(t[0]);
                 
                 ts.push(t[i]);
                 is[il]++;
+                is.push(1);
             }
             else{
                 is.pop();
@@ -73,98 +76,154 @@ if(0) (()=>{
         }
         return r;
     };
-    // does what it says it does - balances the tree
-    // it takes ts as input; one of the nodes in ts to be imbalanced
-    // is is the list of indices used to travel from the start of ts to the end; it has 1 less item than ts
-    // this only works if there is an imbalance of a height difference of 2
-    // returns 1 if the tree was imbalanced (to begin with), and 0 if the tree was balanced
-    Tree.prototype.auto_balance = function(ts, is){
-        // last item in ts is a leaf node, so lets ignore it
-        for(let j = ts.length - 2; j >= 0; j--){
-            // i had to draw a diagram for this one
-            let d = ts[j][1][3] - ts[j][2][3];
-            // left tree is taller: rotate clockwise
+    Tree.prototype.auto_balance = function(ts, is, m = false){
+        let tp1;
+        let tt = [];
+        let j = 0;
+        let v = 0;
+        for(j = ts.length - 3; j >= 0; j--){
+            const d = (ts[j][1][3] ?? 0) - (ts[j][2][3] ?? 0);
+            // left tree is taller
             if(d == 2){
-                // we can use our stack to avoid duplicate assignments, which is nice
-                ts[j][1] = ts[j + 1][2];
-                ts[j + 1][2] = ts[j][1];
-                // i call this step "pulling it up"
-                ts[j - 1][is[j - 1]] = ts[j + 1];
-                return 1;
+                v = 1;
+                
+                // BIG PULL UP
+                if((ts[j][1][2][3] ?? 0) > (ts[j][1][1][3] ?? 0)){
+                    tp1 = ts[j][1][2];
+                    ts[j][1][2] = tp1[1];
+                    tp1[1] = ts[j][1];
+                    ts[j][1] = tp1[2];
+                    tp1[2] = ts[j];
+                    
+                    tt = [tp1, tp1[1], tp1[2]];
+                }
+                
+                // rotate clockwise
+                else{
+                    tp1 = ts[j][1];
+                    ts[j][1] = tp1[2];
+                    tp1[2] = ts[j];
+                    
+                    tt = [tp1, tp1[2]]
+                }
             }
-            // right tree is taller: rotate counterclockwise
+            // right tree is taller
             if(d == -2){
-                ts[j][2] = ts[j + 1][1];
-                ts[j + 1][1] = ts[j][2];
-                // i call this step "pulling it up"
-                // what's really funny is it is the same for both directions!
-                ts[j - 1][is[j - 1]] = ts[j + 1];
-                return 1;
+                v = 1;
+                
+                // BIG PULL UP
+                if((ts[j][2][1][3] ?? 0) > (ts[j][2][2][3] ?? 0)){
+                    k = 1;
+                    
+                    tp1 = ts[j][2][1];
+                    ts[j][2][1] = tp1[2];
+                    tp1[2] = ts[j][2];
+                    ts[j][2] = tp1[1];
+                    tp1[1] = ts[j];
+                    
+                    tt = [tp1, tp1[2], tp1[1]];
+                }
+                
+                // rotate counterclockwise
+                else{
+                    tp1 = ts[j][2];
+                    ts[j][2] = tp1[1];
+                    tp1[1] = ts[j];
+                    
+                    tt = [tp1, tp1[1]];
+                }
+            }
+            if(v){
+                if(j == 0)
+                    this.t = tp1;
+                else
+                    ts[j - 1][is[j - 1]] = tp1;
+                
+                break;
             }
         }
-        return 0;
+        // fix the heights
+        if(v || m){
+            const tu = ts.slice(0, j + 1 - v);
+            tu.push(...tt);
+            tu.push([]);
+            
+            this.measure_heights(tu);
+        }
+        
+        return v;
     };
-    // remove the left-most item of the tree
-    // much simpler than the normal remove function for an ABT
-    Tree.prototype.unshift = function(){
+    Tree.prototype.shift = function(){
+        if(this.size <= 0) return this.t = [];
+        
         let ts = [this.t];
+        let is = [];
         for(let i = 0, t = ts[0]; t[1].length > 0; i++){
+            is.push(1);
             t = t[1];
             ts.push(t);
         }
-        ts[ts.length - 1][3]--;
-        // decrease heights for the auto-balancer
+        if(ts[ts.length - 1][3] > 1)
+            // first, remove the last node in the stack from the tree, then add its right child, if any, to the stack
+            ts[ts.length - 1] = (
+                (ts.length > 1) ?
+                ts[ts.length - 2][1] =
+                ts[ts.length - 1][2] :
+                this.t[1] =
+                ts[ts.length - 1][2]
+            );
+        else
+            // remove the node from the tree
+            (ts.length > 1) ?
+            ts[ts.length - 2][1] = [] :
+            this.t[1] = [],
+            // then replace it with 2 empty nodes bc auto_balance is weird like that
+            ts[ts.length - 1] = [0,[],[],1], ts.push(ts[ts.length - 1][2]);
+        
+        this.measure_heights(ts);
+        this.auto_balance(ts, is, true);
+        this.size--;
+    };
+    Tree.prototype.measure_heights = function(ts){
         for(let i = ts.length - 2; i >= 0; i--){
-            ts[i][3] = Math.max(ts[i][1][3], ts[i][2][3]) + 1;
+            ts[i][3] = Math.max((ts[i][1][3] ?? 0), (ts[i][2][3] ?? 0)) + 1;
         }
     };
-    // this will not give you nightmares
-    // returns the number of items added, kinda like what array.push does
-    Tree.prototype.insert = (b) => {
+    Tree.prototype.insert = function(b){
         let went_right = false;
-        let ppt = null;
-        let pt = null;
         let ts = [this.t];
         let is = [];
         let t = ts[0];
-        let inc_ts = (v)=>{
-            if(v){
-                ts[ts.length - 1][3] += v;
-                for(let i = ts.length - 2; i >= 0; i--){
-                    ts[i][3] = Math.max(ts[i][1][3], ts[i][2][3]) + 1;
-                }
-            }
+        let inc_ts = (v = 0)=>{
+            this.size += v;
             return v;
         };
         while(true){
-            // we are using ts as a stack
             t = ts[ts.length - 1];
-            
-            // trees in JavaScript definitely are not their own breed of monster
-            // >:D
             if(!t[0]){
-                if(this.size >= this.max_size){
-                    // avoid building deeper to the left if the size is already too big
+                const at_max = (
+                    this.max_size >= 0 &&
+                    this.size >= this.max_size
+                );
+                if(at_max){
                     if(!went_right)
-                        return inc_ts(0);
-                    // remove the left-most of the tree
+                        return inc_ts();
                 }
-                // i think ive read too much obfuscated JS lately...
-                size++;
                 t[0] = b;
                 t[1] = [];
                 t[2] = [];
-                t[3] = 0;
-                this.auto_balance(ts, is);
-                if(this.size >= this.max_size){
-                    this.shift();
-                    return inc_ts(0);
+                t[3] = 1;
+                this.measure_heights(ts);
+                this.auto_balance(ts, is, 0);
+                if(at_max){
+                    while(this.size >= this.max_size)
+                        this.shift();
                 }
                 return inc_ts(1);
             }
             
             // if b > t[0], go right
-            if(compare(b, t[0])){
+            if(this.gt_f(b, t[0])){
                 went_right = true;
                 is.push(2);
                 ts.push(t[2]);
@@ -177,6 +236,8 @@ if(0) (()=>{
         }
     };
     
+    
+        
     window.deob = {
         inventory: "yfD",
         main_hand: "yTu",
@@ -717,12 +778,13 @@ if(0) (()=>{
         const p = ((type) =>
             priority[type] ?? priority.ores[type]
         );
-        // returns true if a > b, and false if a <= b
+        // returns true if a < b, and false if a >= b
         const compare = (a,b) => {
             // sort FIRST by priority
             let d = p(a[1]) - p(b[1]);
             // SECOND by distance from the player
             if(!d) d = a[2] - b[2];
+            return (d < 0);
         };
         const tree = new Tree(compare, report_size);
         
