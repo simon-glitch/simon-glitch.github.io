@@ -7,8 +7,8 @@ if(1) (()=>{
         // ensure that f is a function
         const f_check = function(f){
             return (
-                typeof sort_f == "function" ?
-                sort_f :
+                typeof f == "function" ?
+                f :
                 undefined
             );
         }

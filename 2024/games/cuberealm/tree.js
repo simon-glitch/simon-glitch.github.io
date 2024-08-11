@@ -70,17 +70,18 @@ let _Tree_Factory = function(){
     // ensure that f is a function
     const f_check = function(f){
         return (
-            typeof sort_f == "function" ?
-            sort_f :
+            typeof f == "function" ?
+            f :
             undefined
         );
     }
     
     const Tree = function(sort_f, max_size){
         if(f_check(sort_f)){
+            alert("yay");
             this.gt_f = sort_f;
         }
-        if(sort_f ?? false){
+        else if(sort_f ?? false){
             const lt_s  = f_check(sort_f.lt );
             const gt_s  = f_check(sort_f.gt );
             const lte_s = f_check(sort_f.lte);
@@ -461,4 +462,22 @@ Tree.prototype.insert = function(b){
     }
 };
 
+
+const t = new Tree(
+    (a, b)=>(
+        a[0]==b[0] ?
+        (a[1]>b[1]) :
+        (a[0]>b[0])
+    ),
+    100
+);
+
+for(let i = 0; i < 10000; i++){
+    t.insert([
+        Math.floor(Math.random() * 100),
+        Math.floor(Math.random() * 100),
+    ]);
+}
+
+console.log("flat", t.to_array());
 
