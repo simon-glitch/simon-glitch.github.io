@@ -160,7 +160,7 @@ Tree.prototype.auto_balance = function(ts, is, m = false, d){
         }
     }
     // fix the heights
-    const tt = ts.slice(0, j - k);
+    const tt = ts.slice(0, j + 1 - k);
     // add this guy bc he's the relevant item when removing
     if(v) tt.push(tp1);
     // why must the BIG PULL UP be so complicated?!
