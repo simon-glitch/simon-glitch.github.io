@@ -266,9 +266,9 @@ if(1) (()=>{
     // only launch p5.js once
     let launched_yet = false;
     // whether to actually use p5.js at all
-    let use_p5js = false;
+    let use_p5js = true;
     // whether to use the custom renderer with "improved seeing"
-    let use_3d_render = false;
+    let use_3d_render = true;
     const launch = function(){
         if(!use_p5js) return;
         if(launched_yet) return;
@@ -899,6 +899,8 @@ if(1) (()=>{
             
             if(report_i >= report_wl){
                 report_i = 0;
+                
+                make_report();
                 
                 const rs = report.slice();
                 const new_pts = [];
