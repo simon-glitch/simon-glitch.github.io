@@ -175,11 +175,22 @@ Tree.prototype.auto_balance = function(ts, is, m = false, de){
             but with the rotation cases, we only pull it up 1 layer
             NOTE: pulling up to the root node is different
             */
+            if(de) console.log("time to pull up");
+            if(de) console.log("tp1", copy(tp1));
+            if(de) console.log("this.t", copy(this.t));
+            if(de) console.log("ts", copy(ts));
+            if(de) console.log("ts[j - 1]", copy(ts[j - 1]));
             if(j == 0)
                 this.t = tp1;
             else
                 ts[j - 1][is[j - 1]] = tp1;
             
+            if(de) console.log("post pull up check");
+            if(de) console.log("tp1", copy(tp1));
+            if(de) console.log("this.t", copy(this.t));
+            if(de) console.log("ts", copy(ts));
+            if(de) console.log("ts[j - 1]", copy(ts[j - 1]));
+                
             break;
         }
     }
@@ -187,7 +198,7 @@ Tree.prototype.auto_balance = function(ts, is, m = false, de){
     if(v || m){
         // when we rebalance the tree, the nodes that we need to remeasure heights on can vary
         // so we use tt to specify which nodes need their heights measured, since not all nodes of the tree are effected by rebalancing
-        const tu = ts.slice(0, j - v);
+        const tu = ts.slice(0, j + 1 - v);
         tu.push(...tt);
         tu.push([]);
         
