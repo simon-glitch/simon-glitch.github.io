@@ -428,13 +428,11 @@ if(1) (()=>{
         let p;
         new p5(function(pa){
             p = (this == window) ? pa : this;
-            console.log("wtf?!", p);
             p.setup = function(){
                 const canvas = p.createCanvas(innerWidth, innerHeight).canvas;
                 canvas.style.position = "fixed";
                 canvas.style.pointerEvents = "none";
                 canvas.style.top = "0";
-                console.log("wft 2?!", canvas);
             };
             p.draw = function(){
                 my_p.update();
@@ -674,20 +672,25 @@ if(1) (()=>{
     // whether or not to scan chunks for `improved seeing`
     window.do_scan = true;
     window.do_scan_ores = true;
+    window.busy_saving = false;
     // chunks that are currently being saved
     window.saving = [];
     // index of current chunk (in `saving`) being saved
     window.save_i = 0;
+    window.save_size = 1;
+    window.busy_scanning = false;
     // chunks that are currently being scanned
     window.scanning = [];
     // index of current chunk (in `scanning`) being scanned
     window.scan_i = 0;
     // number of chunks to scan each frame
-    window.save_size = 1;
     window.scan_size = 1;
+    // range to keep scanned chunks in memory
+    window.scan_range = 200;
+    window.list_range = [2, 5, 2];
     window.report = [];
-    window.report_size = 100;
-    window.report_wl = 300;
+    window.report_size = 120;
+    window.report_wl = 60;
     window.report_i = 0;
     window.do_log_report = false;
     
@@ -698,12 +701,12 @@ if(1) (()=>{
         const x = my_p.cx;
         const y = my_p.cy;
         const z = my_p.cz;
-        const ax = x - 8;
-        const ay = y - 3;
-        const az = z - 8;
-        const bx = x + 8;
-        const by = y + 3;
-        const bz = z + 8;
+        const ax = x - list_range[0];
+        const ay = y - list_range[1];
+        const az = z - list_range[2];
+        const bx = x + list_range[0];
+        const by = y + list_range[1];
+        const bz = z + list_range[2];
         for(let iy = ay; iy <= by; iy++){
             for(let iz = az; iz <= bz; iz++){
                 for(let ix = ax; ix <= bx; ix++){
@@ -739,7 +742,10 @@ if(1) (()=>{
             }
         }
     };
-    window.auto_save_chunks = function(){
+    window.auto_save_chunks = async function(){
+        if(busy_saving) return;
+        busy_saving = true;
+        
         // for now, this will just do nothing
         // this shouldn't cause any issues except for **slowly** filling up my RAM
         
@@ -761,8 +767,13 @@ if(1) (()=>{
             // we will just add the items to the saved chunks "list"
             saved_chunks[c[3]] = SAVED;
         }
+        
+        busy_saving = false;
     };
-    window.auto_scan_chunks = function(){
+    window.auto_scan_chunks = async function(){
+        if(busy_scanning) return;
+        busy_scanning = true;
+        
         if(scan_i >= scanning.length){
             // first, reverse clone the array
             scanning = to_scan;
@@ -801,6 +812,14 @@ if(1) (()=>{
                 ],
                 [],
             ];
+            
+            // don't scan unloaded chunks
+            if(my_see(
+                s[0][1][0],
+                s[0][1][1],
+                s[0][1][2]
+            ) == UNLOADED) continue;
+            
             scanned_chunks[c[3]] = s;
             for(
                 let iy = 0, iz = 0, ix = 0;
@@ -822,7 +841,11 @@ if(1) (()=>{
                 const good = !!(priority[type] ?? priority.ores[type]);
                 if(good) s[1].push([[rx, ry, rz], type]);
             }
+            
+            s[2] = true;
         }
+        
+        busy_scanning = false;
     };
     window.auto_rem_chunks = function(){
         // first, reverse clone the array
@@ -831,10 +854,17 @@ if(1) (()=>{
         
         // then process our copy
         for(let i = 0; i < tc.length; i++){
+            // console.log("yes, i really do rem chunks");
+            // console.log("i", i);
             const c = tc[i];
+            // console.log("c", c);
             const s = scanned_chunks[c[3]];
+            // console.log("s", s);
             
-            if(my_p.d(s[0]));
+            // check if the chunk was even scanned properly
+            if(s[2]) continue;
+            // keep it scanned if its in range
+            if(my_p.d(s[0]) <= scan_range) continue;
             
             // we will just add the items to the saved chunks "list"
             delete scanned_chunks[c[3]];
@@ -847,12 +877,14 @@ if(1) (()=>{
             priority[type] ?? priority.ores[type]
         );
         // returns true if a > b, and false if a <= b
-        const compare = (a,b) => {
+        const compare = (a, b) => {
             // sort FIRST by priority
-            let d = p(a[1]) - p(b[1]);
             // SECOND by distance from the player
-            if(!d) d = b[2] - a[2];
-            return (d < 0);
+            return (
+                (a[3] == b[3]) ?
+                (a[2] < b[2]) :
+                (a[3] > b[3])
+            );
         };
         const tree = new Tree(compare, report_size);
         
@@ -865,11 +897,13 @@ if(1) (()=>{
         }
         for(let b of blocks){
             b[2] = my_p.d_sq(b);
+            b[3] = p(b[1]);
         }
         for(let b of blocks){
             tree.insert(b);
         }
-        const r = tree.to_array();
+        
+        const r = tree.to_array().reverse();
         window.report = r;
     };
     
@@ -936,7 +970,7 @@ if(1) (()=>{
         catch(e){
             console.log("frame err", e);
         }
-
+        
         ready = true;
     };
     
