@@ -2,17 +2,199 @@ let copy = function(a = []){
     return a.map(b => (b instanceof Array) ? copy(b) : b);
 };
 
-// generic auto-balancing binary tree in JavaScript
-const Tree = function(sort_f,max_size){
-    this.sort_f = sort_f || this.sort_f;
-    this.max_size = (max_size ?? -1);
-    // no recursion, and no node class!
-    this.t = [];
-};
+let _Tree_Factory = function(){
+    const lt_f = function(a, b){
+        return a < b;
+    };
+    const gt_f = function(a, b){
+        return a < b;
+    };
+    const lte_f = function(a, b){
+        return a < b;
+    };
+    const gte_f = function(a, b){
+        return a < b;
+    };
+    const eq_f = function(a, b){
+        return a < b;
+    };
+    const nlt_f = function(a, b){
+        return !this.lt_f(a, b);
+    };
+    const ngt_f = function(a, b){
+        return !this.gt_f(a, b);
+    };
+    const nlte_f = function(a, b){
+        return !this.lte_f(a, b);
+    };
+    const ngte_f = function(a, b){
+        return !this.gte_f(a, b);
+    };
+    const neq_f = function(a, b){
+        return !this.eq_f(a, b);
+    };
+    const nieq_f = function(a, b){
+        return !this.neq_f(a, b);
+    };
+    const llte_f = function(a, b){
+        return this.le_f(a, b) || this.eq_f(a, b);
+    };
+    const lgte_f = function(a, b){
+        return this.ge_f(a, b) || this.eq_f(a, b);
+    };
+    const nltangt_f = function(a, b){
+        return !this.lt_f(a, b) && !this.gt_f(a, b);
+    };
+    const ltexgte_f = function(a, b){
+        return !!(this.lte_f(a, b) ^ this.gte_f(a, b));
+    };
+    const nltogt_f = function(a, b){
+        return !this.lt_f(a, b) || this.gt_f(a, b);
+    };
+    const lteagte_f = function(a, b){
+        return this.lte_f(a, b) && this.gte_f(a, b);
+    };
+    const lteanlt_f = function(a, b){
+        return this.lte_f(a, b) && !this.lt_f(a, b);
+    };
+    const gteangt_f = function(a, b){
+        return this.gte_f(a, b) && !this.gt_f(a, b);
+    };
+    const lteaieq_f = function(a, b){
+        return this.lte_f(a, b) && this.neq_f(a, b);
+    };
+    const gteaieq_f = function(a, b){
+        return this.gte_f(a, b) && this.neq_f(a, b);
+    };
+    
+    // ensure that f is a function
+    const f_check = function(f){
+        return (
+            typeof sort_f == "function" ?
+            sort_f :
+            undefined
+        );
+    }
+    
+    const Tree = function(sort_f, max_size){
+        if(f_check(sort_f)){
+            this.gt_f = sort_f;
+        }
+        if(sort_f ?? false){
+            const lt_s  = f_check(sort_f.lt );
+            const gt_s  = f_check(sort_f.gt );
+            const lte_s = f_check(sort_f.lte);
+            const gte_s = f_check(sort_f.gte);
+            const eq_s  = f_check(sort_f.eq );
+            const ieq_s = f_check(sort_f.neq);
+            const lt_so  = lt_s;
+            const gt_so  = gt_s;
+            const lte_so  = lte_s;
+            const gte_so  = gte_s;
+            
+            if(!(lt_s || gt_s || lte_s || gte_s)){
+                throw new TypeError("sort_f does not contain any valid sorting functions");
+            }
+            
+            // dynamically use `<`, `>`, `<=`, `>=`, and `==` to construct each other
+            // this is all simple logic / algebra
+            
+            // i would love to see someone obfuscate this
+            
+            if(!lte_s && lt_s && eq_s){
+                lte_s = llte_f;
+            }
+            if(!gte_s && gt_s && eq_s){
+                gte_s = lgte_f;
+            }
+            if(!gt_s && lte_s){
+                gt_s = nlte_f;
+            }
+            if(!lt_s && gte_s){
+                lt_s = ngte_f;
+            }
+            if(!gte_s && lt_s){
+                gte_s = nlt_f;
+            }
+            if(!lte_s && gt_s){
+                lte_s = ngt_f;
+            }
+            if(!gt_s && gte_s && ieq_s){
+                gt_s = gteaieq_f;
+            }
+            if(!lt_s && lte_s && ieq_s){
+                lt_s = lteaieq_f;
+            }
+            if(!eq_s && ieq_s){
+                eq_s = nieq_f;
+            }
+            if(!eq_s && lt_so && gt_so){
+                eq_s = nltogt_f;
+            }
+            if(!eq_s && lte_so && gte_so){
+                eq_s = lteagte_f;
+            }
+            if(!eq_s && lt_so && lte_so){
+                eq_s = lteanlt_f;
+            }
+            if(!eq_s && gt_so && gte_so){
+                eq_s = gteangt_f;
+            }
+            if(!ieq_s && lt_so && gt_so){
+                ieq_s = nltangt;
+            }
+            if(!ieq_s && lte_so && gte_so){
+                ieq_s = ltexgte_f;
+            }
+            if(!ieq_s && eq_s){
+                ieq_s = neq_f;
+            }
+        }
+        
+        this.max_size = (max_size ?? -1);
+        // no recursion, and no node class!
+        this.t = [];
+    };
+    return Tree;
+}
+
+
+/**
+  * A gseneric auto-balancing binary tree in JavaScript
+  * 
+  * NOTE: this class is still a WIP! I need to add multiple features:
+  * - `contains` method
+  * - feature for `measure_heights` to measure sizes of subtrees too, because that's needed in order to add the `Array` methods
+  * - all Array methods
+  * 
+  * @example new Tree({lt_f: (a,b) => a < b}, 100)
+  * @param sort_f (function or object)
+  * - if sort_f is a function, it should take in parameters `(a, b)` and define `a > b`
+  * - if sort_f is an object, it should a dictionary of functions that take `(a, b)` and define the following:
+  * - - `a > b`, `a < b`,
+  * - - `a >= b`, `a <= b`,
+  * - - `a == b`, and `a != b`
+  * @param max_size (number)
+  * - the maximum size (or capacity) of the tree; defaults to `-1`
+  * - a negative maximum size means that the tree has no maximum size
+  * - the tree will keep all of the "greatest" values (according to `a > b`) when it restricts itself to a maximum size
+  * - this allows the tree to be used to make a leaderboard,
+  * - - or give search results according to a metric
+  * - of course, there are many more uses
+  * @param track_subsizes (boolean)
+  * - whether the tree should add an "subtree size" property to every node
+  * - this allows you to index into the tree in `lg n` time complexity
+  * - you can combine this with setting `sort_f` to `()=>true` to use the tree as a list with `lg n` time complexity on all insertions, shifts, and accesses
+**/
+const Tree = _Tree_Factory();
 Tree.prototype.size = 0;
 // returns true if a > b, and false if a <= b
-Tree.prototype.sort_f = function(a,b){
+Tree.prototype.gt_f = function(a,b){
     return a > b;
+};
+// returns true if a == b, and false if a != b
+Tree.prototype.eq_f = function(a,b){
+    return a == b;
 };
 Tree.prototype.t = [];
 Tree.prototype.toString = function(){
@@ -86,18 +268,12 @@ Tree.prototype.to_array = function(){
     
     this function WILL give you nightmares
 */
-Tree.prototype.auto_balance = function(ts, is, m = false, de){
-    // console.log("ts", copy(ts)),
-    // console.log("is", copy(is));
+Tree.prototype.auto_balance = function(ts, is, m = false){
     
     let tp1;
-    // let trj = 0;
     let tt = [];
     let j = 0;
     let v = 0;
-    let k = 0;
-    // last item in ts is a leaf node, so lets ignore it
-    // the item before it also can't be unbalanced due to one insertion or removal
     for(j = ts.length - 3; j >= 0; j--){
         // i had to draw a diagram for this one
         
@@ -115,15 +291,10 @@ Tree.prototype.auto_balance = function(ts, is, m = false, de){
             // BIG PULL UP
             if((ts[j][1][2][3] ?? 0) > (ts[j][1][1][3] ?? 0)){
                 tp1 = ts[j][1][2];
-                if(de) console.log("+ k", j);
-                if(de) console.log("tp1", copy(tp1));
-                if(de) console.log("ts", copy(ts));
                 ts[j][1][2] = tp1[1];
                 tp1[1] = ts[j][1];
                 ts[j][1] = tp1[2];
                 tp1[2] = ts[j];
-                if(de) console.log("tp1 2", copy(tp1));
-                if(de) console.log("ts 2", copy(ts));
                 
                 tt = [tp1, tp1[1], tp1[2]];
             }
@@ -131,7 +302,6 @@ Tree.prototype.auto_balance = function(ts, is, m = false, de){
             // rotate clockwise
             else{
                 tp1 = ts[j][1];
-                if(de) console.log("+ j", j);
                 ts[j][1] = tp1[2];
                 tp1[2] = ts[j];
                 
@@ -144,7 +314,6 @@ Tree.prototype.auto_balance = function(ts, is, m = false, de){
             
             // BIG PULL UP
             if((ts[j][2][1][3] ?? 0) > (ts[j][2][2][3] ?? 0)){
-                if(de) console.log("- k", j);
                 k = 1;
                 
                 tp1 = ts[j][2][1];
@@ -158,7 +327,6 @@ Tree.prototype.auto_balance = function(ts, is, m = false, de){
             
             // rotate counterclockwise
             else{
-                if(de) console.log("- j", j);
                 tp1 = ts[j][2];
                 ts[j][2] = tp1[1];
                 tp1[1] = ts[j];
@@ -175,22 +343,11 @@ Tree.prototype.auto_balance = function(ts, is, m = false, de){
             but with the rotation cases, we only pull it up 1 layer
             NOTE: pulling up to the root node is different
             */
-            if(de) console.log("time to pull up");
-            if(de) console.log("tp1", copy(tp1));
-            if(de) console.log("this.t", copy(this.t));
-            if(de) console.log("ts", copy(ts));
-            if(de) console.log("ts[j - 1]", copy(ts[j - 1]));
             if(j == 0)
                 this.t = tp1;
             else
                 ts[j - 1][is[j - 1]] = tp1;
             
-            if(de) console.log("post pull up check");
-            if(de) console.log("tp1", copy(tp1));
-            if(de) console.log("this.t", copy(this.t));
-            if(de) console.log("ts", copy(ts));
-            if(de) console.log("ts[j - 1]", copy(ts[j - 1]));
-                
             break;
         }
     }
@@ -203,17 +360,13 @@ Tree.prototype.auto_balance = function(ts, is, m = false, de){
         tu.push([]);
         
         this.measure_heights(tu);
-        
-        if(de) console.log("tt", copy(tt));
-        if(de) console.log("tu", copy(tu));
-        if(de) console.log("balanced", copy(this.t));
     }
     
     return v;
 };
 // remove the left-most item of the tree
 // much simpler than the normal remove function for an ABT
-Tree.prototype.shift = function(de){
+Tree.prototype.shift = function(){
     if(this.size <= 0) return this.t = [];
     
     let ts = [this.t];
@@ -223,7 +376,6 @@ Tree.prototype.shift = function(de){
         t = t[1];
         ts.push(t);
     }
-    if(de) console.log("ts 1", copy(ts));
     if(ts[ts.length - 1][3] > 1)
         // first, remove the last node in the stack from the tree, then add its right child, if any, to the stack
         ts[ts.length - 1] = (
@@ -240,20 +392,21 @@ Tree.prototype.shift = function(de){
         this.t[1] = [],
         // then replace it with 2 empty nodes bc auto_balance is weird like that
         ts[ts.length - 1] = [0,[],[],1], ts.push(ts[ts.length - 1][2]);
-    if(de) console.log("ts 2", copy(ts));
+    
     this.measure_heights(ts);
-    this.auto_balance(ts, is, true, de);
+    this.auto_balance(ts, is, true);
     // LOL again the classic
     this.size--;
 };
-Tree.prototype.measure_heights = function(ts, r = 2){
-    for(let i = ts.length - r; i >= 0; i--){
+// this uses a parameter for which stack of nodes to measure heights on, since measuring the heights of the entire tree would be inefficient if was very large
+Tree.prototype.measure_heights = function(ts){
+    for(let i = ts.length - 2; i >= 0; i--){
         ts[i][3] = Math.max((ts[i][1][3] ?? 0), (ts[i][2][3] ?? 0)) + 1;
     }
 };
 // this will not give you nightmares
 // returns the number of items added, kinda like what array.push does
-Tree.prototype.insert = function(b, de = 0){
+Tree.prototype.insert = function(b){
     let went_right = false;
     let ts = [this.t];
     let is = [];
@@ -286,16 +439,16 @@ Tree.prototype.insert = function(b, de = 0){
             t[2] = [];
             t[3] = 1;
             this.measure_heights(ts);
-            this.auto_balance(ts, is, 0, de);
+            this.auto_balance(ts, is, 0);
             if(at_max){
                 while(this.size >= this.max_size)
-                    this.shift(de);
+                    this.shift();
             }
             return inc_ts(1);
         }
         
         // if b > t[0], go right
-        if(this.sort_f(b, t[0])){
+        if(this.gt_f(b, t[0])){
             went_right = true;
             is.push(2);
             ts.push(t[2]);
@@ -307,72 +460,5 @@ Tree.prototype.insert = function(b, de = 0){
         }
     }
 };
-
-const t = new Tree(0, 10);
-
-t.insert(300);
-// console.log("check 1", t.to_array());
-// console.log(copy(t.t));
-t.insert(70);
-// console.log("check 2", t.to_array());
-// console.log(copy(t.t));
-t.insert(304);
-// console.log("check 3", t.to_array());
-// console.log(copy(t.t));
-t.insert(320);
-// console.log("check 4", t.to_array());
-// console.log(copy(t.t));
-t.insert(100);
-// console.log("check 5", t.to_array());
-// console.log(copy(t.t));
-t.insert(1);
-// console.log("check 6", t.to_array());
-// console.log(copy(t.t));
-t.insert(0);
-// console.log("check 7", t.to_array());
-// console.log(copy(t.t));
-t.insert(70);
-// console.log("check 8", t.to_array());
-// console.log(copy(t.t));
-t.insert(85);
-// console.log("check 9", t.to_array());
-// console.log(copy(t.t));
-t.insert(900);
-// console.log("check 10", t.to_array());
-// console.log(copy(t.t));
-t.insert(899);
-// console.log("check 11", t.to_array());
-// console.log(copy(t.t));
-t.insert(900);
-// console.log("check 12", t.to_array());
-// console.log(copy(t.t));
-t.insert(899);
-// console.log("check 13", t.to_array());
-// console.log(copy(t.t));
-t.insert(900);
-// console.log("check 14", t.to_array());
-// console.log(copy(t.t));
-t.insert(899);
-// console.log("check 15", t.to_array());
-// console.log(copy(t.t));
-t.insert(705);
-// console.log("check 16", t.to_array());
-// console.log(copy(t.t));
-t.insert(705);
-// console.log("check 17", t.to_array());
-// console.log(copy(t.t));
-t.insert(1705);
-// console.log("check 18", t.to_array());
-// console.log(copy(t.t));
-t.insert(1701);
-// console.log("check 19", t.to_array());
-// console.log(copy(t.t));
-
-for(let i = 0; i < 100; i++){
-    t.insert(Math.floor(Math.random() * 10000));
-}
-
-console.log("tree", t);
-console.log("flat", t.to_array());
 
 
