@@ -273,11 +273,24 @@ Tree.prototype.insert = function(b, d){
 const t = new Tree(0, 10);
 
 t.insert(1);
-console.log("check 1", copy(t.t));
+// console.log("check 1", copy(t.t));
 t.insert(1);
-console.log("check 2", copy(t.t));
+// console.log("check 2", copy(t.t));
 t.insert(1);
-console.log("check 3", copy(t.t));
+// console.log("check 3", copy(t.t));
+t.insert(1);
+console.log("check 4", copy(t.t));
+t.insert(1);
+console.log("check 5", copy(t.t));
+t.insert(1);
+// WHAT!?
+console.log("check 6", copy(t.t));
+// t.insert(1);
+// console.log("check 7", copy(t.t));
+// t.insert(1);
+// console.log("check 8", copy(t.t));
+// t.insert(1);
+// console.log("check 9", copy(t.t));
 
 // for(let i = 0; i < 21; i++){
 //     t.insert(Math.floor(Math.random() * 10000));
