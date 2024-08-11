@@ -82,11 +82,12 @@ Tree.prototype.to_array = function(){
 // is is the list of indices used to travel from the start of ts to the end; it has 1 less item than ts
 // this only works if there is an imbalance of a height difference of 2
 // returns 1 if the tree was imbalanced (to begin with), and 0 if the tree was balanced
-Tree.prototype.auto_balance = function(ts, is, m = false, d){
+Tree.prototype.auto_balance = function(ts, is, m = false, de){
     // console.log("ts", copy(ts)),
     // console.log("is", copy(is));
     
     let tp1;
+    let tp2;
     let j;
     let v = 0;
     let k = 0;
@@ -108,21 +109,24 @@ Tree.prototype.auto_balance = function(ts, is, m = false, d){
             // for reference, see:
             // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_precedence#table
             if((ts[j][1][2][3] ?? 0) > (ts[j][1][1][3] ?? 0)){
-                // if(this.size == 5) console.log("failure + k", copy(ts), copy(is), j);
                 k = 1;
                 
                 tp1 = ts[j][1][2];
+                if(de) console.log("+ k", j);
+                if(de) console.log("tp1", copy(tp1));
+                if(de) console.log("ts", copy(ts));
                 ts[j][1][2] = tp1[1];
                 tp1[1] = ts[j][1];
                 ts[j][1] = tp1[2];
                 tp1[2] = ts[j];
+                if(de) console.log("tp1 2", copy(tp1));
+                if(de) console.log("ts 2", copy(ts));
             }
             
             // rotate clockwise
             else{
-                // if(this.size == 5) console.log("success + j");
-                // i just realized that remove code can't use the insert stack
                 tp1 = ts[j][1];
+                if(de) console.log("+ j", j);
                 ts[j][1] = tp1[2];
                 tp1[2] = ts[j];
             }
@@ -133,7 +137,7 @@ Tree.prototype.auto_balance = function(ts, is, m = false, d){
             
             // BIG PULL UP
             if((ts[j][2][1][3] ?? 0) > (ts[j][2][2][3] ?? 0)){
-                // if(this.size == 5) console.log("failure - k");
+                if(de) console.log("- k", j);
                 k = 1;
                 
                 tp1 = ts[j][2][1];
@@ -145,8 +149,7 @@ Tree.prototype.auto_balance = function(ts, is, m = false, d){
             
             // rotate counterclockwise
             else{
-                // if(this.size == 5) console.log("failure - j");
-                // i just realized that remove code can't use the insert stack
+                if(de) console.log("- j", j);
                 tp1 = ts[j][2];
                 ts[j][2] = tp1[1];
                 tp1[1] = ts[j];
@@ -166,19 +169,24 @@ Tree.prototype.auto_balance = function(ts, is, m = false, d){
         }
     }
     // fix the heights
-    const tt = ts.slice(0, j + 1 - k);
-    // add this guy bc he's the relevant item when removing
-    if(v) tt.push(tp1);
-    // why must the BIG PULL UP be so complicated?!
-    if(k) tt.push([]);
-    
-    if(v || m) this.measure_heights(tt);
+    if(v || m){
+        const tt = ts.slice(0, j + 1 - k);
+        // add this guy bc he's the relevant item when removing
+        if(v) tt.splice(j, 0, tp1);
+        // why must the BIG PULL UP be so complicated?!
+        if(k) tt.splice(j+1, 0, tp1[1], tp1[2]), tt.push([]);
+        
+        this.measure_heights(tt);
+        
+        if(de) console.log("tt", copy(tt));
+        if(de) console.log("balanced", copy(this.t));
+    }
     
     return v;
 };
 // remove the left-most item of the tree
 // much simpler than the normal remove function for an ABT
-Tree.prototype.shift = function(){
+Tree.prototype.shift = function(de){
     if(this.size <= 0) return this.t = [];
     
     let ts = [this.t];
@@ -188,6 +196,7 @@ Tree.prototype.shift = function(){
         t = t[1];
         ts.push(t);
     }
+    if(de) console.log("ts 1", copy(ts));
     if(ts[ts.length - 1][3] > 1)
         // first, remove the last node in the stack from the tree, then add its right child, if any, to the stack
         ts[ts.length - 1] = (
@@ -203,8 +212,10 @@ Tree.prototype.shift = function(){
         ts[ts.length - 2][1] = [] :
         this.t[1] = [],
         // then replace it with 2 empty nodes bc auto_balance is weird like that
-        ts[ts.length - 1] = [], ts.push([]);
-    this.auto_balance(ts, is, true);
+        ts[ts.length - 1] = [0,[],[],1], ts.push(ts[ts.length - 1][2]);
+    if(de) console.log("ts 2", copy(ts));
+    this.measure_heights(ts);
+    this.auto_balance(ts, is, true, de);
     // LOL again the classic
     this.size--;
 };
@@ -215,10 +226,8 @@ Tree.prototype.measure_heights = function(ts){
 };
 // this will not give you nightmares
 // returns the number of items added, kinda like what array.push does
-Tree.prototype.insert = function(b, d){
+Tree.prototype.insert = function(b, de = 0){
     let went_right = false;
-    let ppt = null;
-    let pt = null;
     let ts = [this.t];
     let is = [];
     let t = ts[0];
@@ -250,10 +259,10 @@ Tree.prototype.insert = function(b, d){
             t[2] = [];
             t[3] = 1;
             this.measure_heights(ts);
-            this.auto_balance(ts, is, 0, d);
+            this.auto_balance(ts, is, 0, de);
             if(at_max){
                 while(this.size >= this.max_size)
-                    this.shift();
+                    this.shift(de);
             }
             return inc_ts(1);
         }
@@ -304,12 +313,12 @@ t.insert(85);
 t.insert(900);
 // console.log("check 10", t.to_array());
 // console.log(copy(t.t));
-t.insert(899);
+t.insert(899, 1);
 console.log("check 11", t.to_array());
 console.log(copy(t.t));
-// t.insert(900);
-// console.log("check 12", t.to_array());
-// console.log(copy(t.t));
+t.insert(900, 1);
+console.log("check 12", t.to_array());
+console.log(copy(t.t));
 // t.insert(899);
 // console.log("check 13", t.to_array());
 // console.log(copy(t.t));
@@ -328,10 +337,14 @@ console.log(copy(t.t));
 // t.insert(1705);
 // console.log("check 18", t.to_array());
 // console.log(copy(t.t));
-// t.insert(1701, 1);
+// t.insert(1701);
 // console.log("check 19", t.to_array());
 // console.log(copy(t.t));
 
+// for(let i = 0; i < 100; i++){
+//     t.insert(Math.floor(Math.random() * 10000));
+// }
+// 
 // console.log("tree", t);
 // console.log("flat", t.to_array());
 
