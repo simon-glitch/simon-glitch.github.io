@@ -77,18 +77,23 @@ Tree.prototype.to_array = function(){
     }
     return r;
 };
-// does what it says it does - balances the tree
-// it takes ts as input; one of the nodes in ts to be imbalanced
-// is is the list of indices used to travel from the start of ts to the end; it has 1 less item than ts
-// this only works if there is an imbalance of a height difference of 2
-// returns 1 if the tree was imbalanced (to begin with), and 0 if the tree was balanced
+/*
+    does what it says it does - balances the tree
+    it takes ts as input; one of the nodes in ts to be imbalanced
+    is is the list of indices used to travel from the start of ts to the end; it has 1 less item than ts
+    this only works if there is an imbalance of a height difference of 2
+    returns 1 if the tree was imbalanced (to begin with), and 0 if the tree was balanced
+    
+    this function WILL give you nightmares
+*/
 Tree.prototype.auto_balance = function(ts, is, m = false, de){
     // console.log("ts", copy(ts)),
     // console.log("is", copy(is));
     
     let tp1;
-    let tp2;
-    let j;
+    // let trj = 0;
+    let tt = [];
+    let j = 0;
     let v = 0;
     let k = 0;
     // last item in ts is a leaf node, so lets ignore it
@@ -99,18 +104,16 @@ Tree.prototype.auto_balance = function(ts, is, m = false, de){
         // this code could be obfuscated quite a bit, with all the indices and 1s and 2s, but I won't do that
         // that would be too bad, even for me
         
+        // i swear if i have to type another "?? 0" on this file, im going to make a post on it somehow
+        // for reference, see:
+        // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_precedence#table
         const d = (ts[j][1][3] ?? 0) - (ts[j][2][3] ?? 0);
         // left tree is taller
         if(d == 2){
             v = 1;
             
             // BIG PULL UP
-            // i swear if i have to type another "?? 0" on this file, im going to make a post on it somehow
-            // for reference, see:
-            // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_precedence#table
             if((ts[j][1][2][3] ?? 0) > (ts[j][1][1][3] ?? 0)){
-                k = 1;
-                
                 tp1 = ts[j][1][2];
                 if(de) console.log("+ k", j);
                 if(de) console.log("tp1", copy(tp1));
@@ -121,6 +124,8 @@ Tree.prototype.auto_balance = function(ts, is, m = false, de){
                 tp1[2] = ts[j];
                 if(de) console.log("tp1 2", copy(tp1));
                 if(de) console.log("ts 2", copy(ts));
+                
+                tt = [tp1, tp1[1], tp1[2]];
             }
             
             // rotate clockwise
@@ -129,6 +134,8 @@ Tree.prototype.auto_balance = function(ts, is, m = false, de){
                 if(de) console.log("+ j", j);
                 ts[j][1] = tp1[2];
                 tp1[2] = ts[j];
+                
+                tt = [tp1, tp1[2]]
             }
         }
         // right tree is taller
@@ -145,6 +152,8 @@ Tree.prototype.auto_balance = function(ts, is, m = false, de){
                 tp1[2] = ts[j][2];
                 ts[j][2] = tp1[1];
                 tp1[1] = ts[j];
+                
+                tt = [tp1, tp1[2], tp1[1]];
             }
             
             // rotate counterclockwise
@@ -153,32 +162,39 @@ Tree.prototype.auto_balance = function(ts, is, m = false, de){
                 tp1 = ts[j][2];
                 ts[j][2] = tp1[1];
                 tp1[1] = ts[j];
+                
+                tt = [tp1, tp1[1]];
             }
         }
         if(v){
-            // i call this step "pulling it up"
-            // what's really funny is it is the same for both directions!
-            // NOTE: pulling up to the root node is different
+            /*
+            i call this step "pulling it up"
+            what's really funny is it is the same for both directions!
+            with BIG PULL UP, we pull tp1 up 2 layers
+            the 1st layer of the BIG PULL UP was already pushed down in earlier if-statements
+            but with the rotation cases, we only pull it up 1 layer
+            NOTE: pulling up to the root node is different
+            */
             if(j == 0)
                 this.t = tp1;
             else
                 ts[j - 1][is[j - 1]] = tp1;
             
-            // LOL it's the classic!
             break;
         }
     }
     // fix the heights
     if(v || m){
-        const tt = ts.slice(0, j + 1 - k);
-        // add this guy bc he's the relevant item when removing
-        if(v) tt.splice(j, 0, tp1);
-        // why must the BIG PULL UP be so complicated?!
-        if(k) tt.splice(j+1, 0, tp1[1], tp1[2]), tt.push([]);
+        // when we rebalance the tree, the nodes that we need to remeasure heights on can vary
+        // so we use tt to specify which nodes need their heights measured, since not all nodes of the tree are effected by rebalancing
+        const tu = ts.slice(0, j - v);
+        tu.push(...tt);
+        tu.push([]);
         
-        this.measure_heights(tt);
+        this.measure_heights(tu);
         
         if(de) console.log("tt", copy(tt));
+        if(de) console.log("tu", copy(tu));
         if(de) console.log("balanced", copy(this.t));
     }
     
@@ -219,8 +235,8 @@ Tree.prototype.shift = function(de){
     // LOL again the classic
     this.size--;
 };
-Tree.prototype.measure_heights = function(ts){
-    for(let i = ts.length - 2; i >= 0; i--){
+Tree.prototype.measure_heights = function(ts, r = 2){
+    for(let i = ts.length - r; i >= 0; i--){
         ts[i][3] = Math.max((ts[i][1][3] ?? 0), (ts[i][2][3] ?? 0)) + 1;
     }
 };
