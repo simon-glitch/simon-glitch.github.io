@@ -272,9 +272,16 @@ Tree.prototype.insert = function(b, d){
 
 const t = new Tree(0, 10);
 
-for(let i = 0; i < 21; i++){
-    t.insert(Math.floor(Math.random() * 10000));
-}
+t.insert(1);
+console.log("check 1", copy(t.t));
+t.insert(1);
+console.log("check 2", copy(t.t));
+t.insert(1);
+console.log("check 3", copy(t.t));
+
+// for(let i = 0; i < 21; i++){
+//     t.insert(Math.floor(Math.random() * 10000));
+// }
 
 console.log("tree", t);
 console.log("flat", t.to_array());
