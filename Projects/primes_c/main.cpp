@@ -215,9 +215,23 @@ int main(const int argc, char *argv[]){
         if(max_c == max_max_c) break;
     }
     
-    if(argc >= 2){
+    const ulint limits[] = {
+        (0xFFFFFFFF / 0x101),           // 32 bit uint w utf-8
+        (0xFFFFFFFF / 0x10001),         // 32 bit uint w utf-16
+        (0x7FFFFFFF / 0x101),           // 32 bit int  w utf-8
+        (0x7FFFFFFF / 0x10001),         // 32 bit int  w utf-16
+        (0xFFFFFFFFFFFFFFFF / 0x101),   // 64 bit uint w utf-8
+        (0xFFFFFFFFFFFFFFFF / 0x10001), // 64 bit uint w utf-16
+        (0x7FFFFFFFFFFFFFFF / 0x101),   // 64 bit int  w utf-8
+        (0x7FFFFFFFFFFFFFFF / 0x10001), // 64 bit int  w utf-16
+        (0x800000 / 0x101),             // safe int within (32-bit) float  w utf-8
+        (0x800000 / 0x10001),           // safe int within (32-bit) float  w utf-16
+        (0x20FFFFFFFFFFFF / 0x101),     // safe int within (64-bit) double w utf-8
+        (0x20FFFFFFFFFFFF / 0x10001),   // safe int within (64-bit) double w utf-16
+    };
+    for(uint i = 0; i < 12; i++){
         ulint n, p;
-        n = atoi(argv[1]);
+        n = limits[i];
         
         // find the largest prime <= n
         for(p = n; !is_prime_64(p); p--);
