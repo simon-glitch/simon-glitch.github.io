@@ -241,3 +241,28 @@ int main(const int argc, char *argv[]){
     
     return 0;
 }
+
+/*
+the 100,000,000th prime is 2,038,074,743;
+* so the largest number i could check in 400 MB was 4,153,748,658,054,516,049;
+
+unfortunately, that's less than 2**63 - 1 and 2**64 - 1
+* 2**63 - 1 ==  9,223,372,036,854,775,807
+* 2**64 - 1 == 18,446,744,073,709,551,615
+
+i can still check for the other large primes though
+
+according to [this site](  ), these numbers are prime:
+* 2**63 - 25 ==  9,223,372,036,854,775,783
+* 2**64 - 59 == 18,446,744,073,709,551,557
+
+i guess i can just use those numbers
+
+... wait
+... im being dumb
+
+i only need to check up to floor((2**64 - 1) / 101) and smaller
+* floor((2**64 - 1) / 0x101) == 71,777,214,294,589,695
+* 71 quadrillion is a good bit smaller than my limit of 4 septillion
+
+*/
