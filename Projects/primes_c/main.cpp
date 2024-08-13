@@ -199,7 +199,7 @@ int main(const int argc, char *argv[]){
         time_2 = chrono::system_clock::now();
         
         cout << "Run time: ";
-        cout << ((time_2 - time_0) / my_unit);
+        cout << (double) ((time_2 - time_0) / my_unit) / my_scale;
         cout << "s \n";
         
         speed = my_scale * ((double) batch_size) / ((time_2 - time_1) / my_unit);
