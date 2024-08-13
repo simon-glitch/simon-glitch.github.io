@@ -71,7 +71,7 @@ f2_of_x(uint, ulint, hycube,,_l, n * n * n * n)
   * 
   * If there aren't currently enough primes to compare `p` to, this function sets `might_be` to `true`.
   * 
-  * Therefore, `might_be` is used to report the non-fatal error of not having enough primes. `might_be` being `false` means that the return value is definitely correct. Also, the return value being `true` means the number if [definitely](https://wolframalpha.com) prime.
+  * Therefore, `might_be` is used to report the non-fatal error of not having enough primes. `might_be` being `false` means that the return value is definitely correct. Also, the return value being `true` means the number is [definitely](https://wolframalpha.com) prime.
 **/
 inline bool is_prime(const uint p, bool &might_be){
     vector<uint>::iterator i;
@@ -97,19 +97,44 @@ inline bool is_prime(const uint p, bool &might_be){
     // cout << "";
     // cout << "";
     */
-    for(i = primes.begin() + 1, ii = 1; ii < prime_c && square_l(*i) <= p; i++, ii++)
-      if(p % (*i) == 0){
-        return false;
-      }
+    for(
+        i = primes.begin() + 1, ii = 1;
+        ii < prime_c && square_l(*i) <= p;
+        i++, ii++
+    )
+        if(p % (*i) == 0)
+            return false;
     
     might_be = (ii == prime_c);
     // base case: all tests were passed AND it's not the case that this MIGHT BE prime
     return !might_be;
 }
 
+inline bool is_prime_64(const ulint p){
+    vector<uint>::iterator i;
+    uint ii;
+    const uint prime_c = primes.size();
+    
+    // if the loops return false, then it can't be the case that the value might be prime
+    bool might_be = false;
+    
+    for(
+        i = primes.begin(), ii = 1;
+        ii < prime_c && square_l(*i) <= p;
+        i++, ii++
+    )
+        if(p % (*i) == 0)
+            return false;
+    
+    might_be = (ii == prime_c);
+    // base case: all tests were passed AND it's not the case that this MIGHT BE prime
+    return !might_be;
+}
+
+
 // Largest odd composite found so far
-int curr_comp = 3;
-int comp_limit = 10000;
+uint curr_comp = 3;
+uint comp_limit = 0xFFFFFFFD;
 void sieve_primes(const uint max_prime_c){
     // start with 2 and 3
     if(primes.size() == 0) primes.push_back(2), primes.push_back(3);
@@ -143,7 +168,26 @@ string vec_to_str(vector<uint> v, const string &sep = ", "){
     return res;
 }
 
-int main(){
+int main(const int argc, char *argv[]){
+    if(argc >= 2){
+        sieve_primes(10*1000*1000);
+        sieve_primes(10*1000*1000);
+        sieve_primes(10*1000*1000);
+        cout << "Number of primes found:\n";
+        cout << primes.size() << "\n";
+        cout << "Largest prime found:\n";
+        cout << primes[primes.size() - 1] << "\n";
+        
+        ulint n, p;
+        n = atoi(argv[1]);
+        
+        // find the largest prime <= n
+        for(p = n; !is_prime_64(p); p--);
+        cout << "Largest prime up to " << n << ":\n";
+        cout << p << "\n";
+        return 0;
+    }
+    
     cout << vec_to_str(vector<uint>({1, 2, 3, 4, 5, 6})) << "\n";
     
     primes = vector<uint>();
