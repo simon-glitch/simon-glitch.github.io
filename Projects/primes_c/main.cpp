@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
+#include <ctime>
 using namespace std;
 
 // I don't need primes larger than 4 billion
@@ -73,7 +74,7 @@ f2_of_x(uint, ulint, hycube,,_l, n * n * n * n)
   * 
   * Therefore, `might_be` is used to report the non-fatal error of not having enough primes. `might_be` being `false` means that the return value is definitely correct. Also, the return value being `true` means the number is [definitely](https://wolframalpha.com) prime.
 **/
-inline bool is_prime(const uint p, bool &might_be){
+inline bool is_prime(const uint p){
     vector<uint>::iterator i;
     /*
     the 4 billion-th prime is WAY larger than 32 bits long, obviously;
@@ -84,7 +85,7 @@ inline bool is_prime(const uint p, bool &might_be){
     const uint prime_c = primes.size();
     
     // if the loops return false, then it can't be the case that the value might be prime
-    might_be = false;
+    bool might_be = false;
     
     /*
     for(i = primes.begin() + 1, ii = 1; ii < prime_c && cube_l(*i) <= p; i++, ii++)
@@ -141,14 +142,13 @@ void sieve_primes(const uint max_prime_c){
     // ...
     if(primes.size() >= max_prime_c) return;
     
-    bool might_be = false;
     // then just start from curr_comp
-    while(!might_be){
+    while(true){
         if(curr_comp >= comp_limit) break;
         
         curr_comp += 2;
         // as long as `might_be` is false, we know that `is_prime`'s value can be fully trusted
-        if(is_prime(curr_comp, might_be)){
+        if(is_prime(curr_comp)){
             primes.push_back(curr_comp);
             // ...
             if(primes.size() >= max_prime_c) return;
@@ -170,8 +170,7 @@ string vec_to_str(vector<uint> v, const string &sep = ", "){
 
 int main(const int argc, char *argv[]){
     if(argc >= 2){
-        sieve_primes(10*1000*1000);
-        sieve_primes(10*1000*1000);
+        
         sieve_primes(10*1000*1000);
         cout << "Number of primes found:\n";
         cout << primes.size() << "\n";
@@ -212,7 +211,7 @@ int main(const int argc, char *argv[]){
     cout << "7^3 = " << cube_l(7U) << "\n";
     cout << "101^3 = " << cube_l(101U) << "\n";
     cout << "1001^3 = " << cube_l(1001U) << "\n";
-    /* */
+    */
     
     /*
     bool maybe = false;
@@ -221,7 +220,7 @@ int main(const int argc, char *argv[]){
     cout << (string) "9 " + (is_prime(9, maybe)? (maybe ?"might be": "is not") :"is") + " prime.\n";
     cout << (string) "11 " + (is_prime(11, maybe)? (maybe ?"might be": "is not") :"is") + " prime.\n";
     cout << (string) "13 " + (is_prime(13, maybe)? (maybe ?"might be": "is not") :"is") + " prime.\n";
-    /* */
+    */
     
     sieve_primes(10);
     cout << "Current comp = " << curr_comp << "\n";
@@ -235,7 +234,7 @@ int main(const int argc, char *argv[]){
     cout << "Prime count: " << primes.size() << "\n";
     cout << vec_to_str(primes, ", ") << "\n";
     cout << "Largest prime: " << to_string(*(primes.end() - 1)) << "\n";
-    /* */
+    */
    
     return 0;
 }

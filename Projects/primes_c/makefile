@@ -1,6 +1,6 @@
 # project name (generate executable with this name)
 TARGET   = main
-CPP      = g++ --std=c++17 -c
+CPP      = g++ --std=c++17 -c -Ofast
 # compiling flags here
 CPPFLAGS = -Wall -I.
 LINKER   = g++ -o
