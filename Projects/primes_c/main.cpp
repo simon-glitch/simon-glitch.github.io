@@ -2,6 +2,7 @@
 #include <vector>
 #include <cmath>
 #include <ctime>
+#include <chrono>
 using namespace std;
 
 // I don't need primes larger than 4 billion
@@ -169,14 +170,52 @@ string vec_to_str(vector<uint> v, const string &sep = ", "){
 }
 
 int main(const int argc, char *argv[]){
+    const uint max_batch_size = 1000*1000;
+    const uint max_max_c = 100*1000*1000;
+    uint max_c = 0;
+    double speed = 10000000000000;
+    const double wave_length = 1;
+    uint batch_size = max_batch_size;
+    
+    const chrono::seconds second(1);
+    const chrono::microseconds my_unit(1);
+    const double my_scale = second / my_unit;
+    
+    auto time_0 = chrono::system_clock::now();
+    auto time_1 = chrono::system_clock::now();
+    auto time_2 = chrono::system_clock::now();
+    
+    for(; true;){
+        // make sure we don't have an issue
+        if(curr_comp >= comp_limit) break;
+        
+        batch_size = min(max_batch_size, (uint) (speed * wave_length));
+        if(!isfinite(batch_size)) batch_size = max_batch_size;
+        max_c += batch_size;
+        if(max_c > max_max_c) max_c = max_max_c;
+        
+        time_1 = time_2;
+        sieve_primes(max_c);
+        time_2 = chrono::system_clock::now();
+        
+        cout << "Run time: ";
+        cout << ((time_2 - time_0) / my_unit);
+        cout << "s \n";
+        
+        speed = my_scale * ((double) batch_size) / ((time_2 - time_1) / my_unit);
+        cout << "Speed: ";
+        cout << speed;
+        cout << " per second\n";
+        
+        cout << "Prime # " << max_c;
+        cout << " = " << primes[max_c - 1];
+        cout << "\n";
+        
+        // ain't got RAM for EVERY prime
+        if(max_c == max_max_c) break;
+    }
+    
     if(argc >= 2){
-        
-        sieve_primes(10*1000*1000);
-        cout << "Number of primes found:\n";
-        cout << primes.size() << "\n";
-        cout << "Largest prime found:\n";
-        cout << primes[primes.size() - 1] << "\n";
-        
         ulint n, p;
         n = atoi(argv[1]);
         
@@ -184,57 +223,7 @@ int main(const int argc, char *argv[]){
         for(p = n; !is_prime_64(p); p--);
         cout << "Largest prime up to " << n << ":\n";
         cout << p << "\n";
-        return 0;
     }
     
-    cout << vec_to_str(vector<uint>({1, 2, 3, 4, 5, 6})) << "\n";
-    
-    primes = vector<uint>();
-    
-    sieve_primes(2);
-    cout << "Current comp = " << curr_comp << "\n";
-    cout << "Prime count: " << primes.size() << "\n";
-    cout << vec_to_str(primes, ", ") << "\n";
-    cout << "Largest prime: " << to_string(*(primes.end() - 1)) << "\n";
-    
-    sieve_primes(3);
-    cout << "Current comp = " << curr_comp << "\n";
-    cout << "Prime count: " << primes.size() << "\n";
-    cout << vec_to_str(primes, ", ") << "\n";
-    cout << "Largest prime: " << to_string(*(primes.end() - 1)) << "\n";
-    
-    /*
-    cout << "81^2 = " << square_l(81U) << "\n";
-    cout << "101^2 = " << square_l(101U) << "\n";
-    cout << "125^2 = " << square_l(125U) << "\n";
-    cout << "1001^2 = " << square_l(1001U) << "\n";
-    cout << "7^3 = " << cube_l(7U) << "\n";
-    cout << "101^3 = " << cube_l(101U) << "\n";
-    cout << "1001^3 = " << cube_l(1001U) << "\n";
-    */
-    
-    /*
-    bool maybe = false;
-    cout << (string) "5 " + (is_prime(5, maybe)? (maybe ?"might be": "is not") :"is") + " prime.\n";
-    cout << (string) "7 " + (is_prime(7, maybe)? (maybe ?"might be": "is not") :"is") + " prime.\n";
-    cout << (string) "9 " + (is_prime(9, maybe)? (maybe ?"might be": "is not") :"is") + " prime.\n";
-    cout << (string) "11 " + (is_prime(11, maybe)? (maybe ?"might be": "is not") :"is") + " prime.\n";
-    cout << (string) "13 " + (is_prime(13, maybe)? (maybe ?"might be": "is not") :"is") + " prime.\n";
-    */
-    
-    sieve_primes(10);
-    cout << "Current comp = " << curr_comp << "\n";
-    cout << "Prime count: " << primes.size() << "\n";
-    cout << vec_to_str(primes, ", ") << "\n";
-    cout << "Largest prime: " << to_string(*(primes.end() - 1)) << "\n";
-    
-    /*
-    sieve_primes(50);
-    cout << "Current comp = " << curr_comp << "\n";
-    cout << "Prime count: " << primes.size() << "\n";
-    cout << vec_to_str(primes, ", ") << "\n";
-    cout << "Largest prime: " << to_string(*(primes.end() - 1)) << "\n";
-    */
-   
     return 0;
 }
