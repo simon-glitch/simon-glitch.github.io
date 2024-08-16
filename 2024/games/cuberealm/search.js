@@ -835,6 +835,7 @@ if(1) (()=>{
             const cy = c[1] * 32;
             const cz = c[2] * 32;
             
+            const ores = {};
             /**
             patch structure: `p = [block_type, size, is_pure, is_valid]`
             *- `p[0] = block_type` is the ID of the block the patch is composed of
@@ -852,13 +853,16 @@ if(1) (()=>{
                 const ix = td[0];
                 const iy = td[1];
                 const iz = td[2];
-                if(!blocks_e[iy]) blocks_e[iy] = [];
-                if(!blocks_e[iy][iz]) blocks_e[iy][iz] = [];
-                if(!blocks_e[iy][iz][ix])
-                    blocks_e[iy][iz][ix] = my_see(
-                        ix, iy, iz
+                const rx = cx + ix;
+                const rz = cz + iz;
+                const ry = cy + iy;
+                if(!blocks_e[ry]) blocks_e[ry] = [];
+                if(!blocks_e[ry][rz]) blocks_e[ry][rz] = [];
+                if(!blocks_e[ry][rz][rx])
+                    blocks_e[ry][rz][rx] = my_see(
+                        rx, ry, rz
                     );
-                const t = blocks_e[iy][iz][ix];
+                const t = blocks_e[ry][rz][rx];
                 if(td[3][0] == t) td[3][1]++;
                 else if(td[3][2] && t != stone_type[p[0]]){
                     td[3][2] = false;
@@ -878,8 +882,11 @@ if(1) (()=>{
                 const t = my_see(rx, ry, rz);
                 
                 const v = priority.ores[t];
-                let scanned = !!v;
+                // if its an ore, count it in the ores in this chunk
+                if(v) ores[t] ??= 0, ores[t]++;
+                
                 // if its an ore, find the patch surrounding it
+                let scanned = !!v;
                 if(p){
                     if(t == p[0]) p[1]++;
                     else if(p[2] && t != stone_type[p[0]]){
@@ -895,31 +902,33 @@ if(1) (()=>{
                 if(!v) return null;
                 // then push all blocks adjacent to this block to the todo list
                 const f = (a, b) => {
-                    const c = [ix, iy, iz];
-                    c[a] += b;
+                    const e = [ix, iy, iz];
+                    e[a] += b;
                     // check if adjacent block is outside chunk
-                    if(c[a] < 0 || c[a] >= 32){
+                    if(e[a] < 0 || e[a] >= 32){
                         // if the chunk that block is in was already scanned, then delete this patch
-                        const d = [cx, cy, cz];
+                        const d = c.slice(0, 3);
                         d[a] += b;
                         if(saved_chunks[chunk_name(d[0], d[1], d[2])]){
                             p[3] = false;
                             return null;
                         }
                         
-                        c.push(p);
-                        return c;
+                        e.push(p);
+                        return e;
                     }
                     const d = [i];
                     d.push(p);
                     return d;
                 };
-                todo.push(f(0,  1)) && // east
-                todo.push(f(0, -1)) && // west
-                todo.push(f(1,  1)) && // up
-                todo.push(f(1, -1)) && // down
-                todo.push(f(2,  1)) && // south
-                todo.push(f(2, -1));   // north
+                // don't share this code with anyone
+                let d;
+                (todo.push(d = f(0,  1)), d) && // east
+                (todo.push(d = f(0, -1)), d) && // west
+                (todo.push(d = f(1,  1)), d) && // up
+                (todo.push(d = f(1, -1)), d) && // down
+                (todo.push(d = f(2,  1)), d) && // south
+                (todo.push(    f(2, -1))   );   // north
                 
                 return p;
             };
@@ -947,9 +956,10 @@ if(1) (()=>{
                 todo = [];
                 if(p[3]) patches.push(p);
             }
-            s[1] = patches;
-            s[2] = blocks_i;
-            s[3] = blocks_e;
+            s[1] = ores;
+            s[2] = patches;
+            s[3] = blocks_i;
+            s[4] = blocks_e;
             
             saved_chunks[c[3]] = s;
         }
