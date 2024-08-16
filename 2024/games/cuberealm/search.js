@@ -235,19 +235,18 @@ if(1) (()=>{
         }
     };
     
-    
-        
+    // EWa,EHn,v,EEU,s,Z,EiK,ELS,EfC,uCc
     window.deob = {
-        inventory: "yfD",
-        main_hand: "yTu",
-        durability: "GIA",
-        health: "yIr",
-        position: "yRR",
-        location: "yoe",
-        orientation: "yok",
-        x: "yyi",
-        y: "yyt",
-        z: "yyb",
+        inventory: "ELS",
+        main_hand: "EfC",
+        durability: "uCc",
+        health: "EiK",
+        position: "EWa",
+        location: "EHn",
+        orientation: "EHv",
+        x: "EEU",
+        y: "EEs",
+        z: "EEZ",
     };
     
     window.my_dura = (()=>(
@@ -687,7 +686,7 @@ if(1) (()=>{
     window.scan_size = 1;
     // range to keep scanned chunks in memory
     window.scan_range = 120;
-    window.list_range = [2, 4, 2];
+    window.list_range = [1, 1, 1];
     window.report = [];
     window.report_size = 60;
     window.report_wl = 60;
@@ -696,6 +695,10 @@ if(1) (()=>{
     
     // 1002 is the "unloaded_chunk_indicator"
     const UNLOADED = 1002;
+    
+    const chunk_name = function(cx, cy, cz){
+        return cx + "_" + cy + "_" + cz;
+    };
     
     window.list_chunks = function(){
         const x = my_p.cx;
@@ -713,7 +716,7 @@ if(1) (()=>{
                     const sx = ix * 32;
                     const sy = iy * 32;
                     const sz = iz * 32;
-                    const ss = sx + "_" + sy + "_" + sz;
+                    const ss = chunk_name(sx, sy, sz);
                     const sd = [ix, iy, iz, ss];
                     const loaded = (my_see(sx, sy, sz) != UNLOADED);
                     if(
@@ -765,7 +768,127 @@ if(1) (()=>{
         ){
             const c = saving[save_i];
             // we will just add the items to the saved chunks "list"
-            saved_chunks[c[3]] = SAVED;
+            const s = [c];
+            const cx = c[0] * 32;
+            const cy = c[1] * 32;
+            const cz = c[2] * 32;
+            
+            /**
+            patch structure: `p = [block_type, size, is_pure, is_valid]`
+            *- `p[0] = block_type` is the ID of the block the patch is composed of
+            *- `p[1] = size` is the number of blocks in the patch
+            *- `p[2] = is_pure` being `true` means this patch is only surrounded by its respective stone type, and its [size / shape] was not influenced by any other generation features
+            *- `p[3] = is_valid` indicates whether the patch needs to be saved in this chunk
+            **/
+            const patches  = [];
+            const blocks_e = [];
+            const blocks_i = [];
+            const todo = [];
+            
+            // check block outside this chunk
+            const check_e = function(td){
+                const ix = td[0];
+                const iy = td[1];
+                const iz = td[2];
+                if(!blocks_e[iy]) blocks_e[iy] = [];
+                if(!blocks_e[iy][iz]) blocks_e[iy][iz] = [];
+                if(!blocks_e[iy][iz][ix])
+                    blocks_e[iy][iz][ix] = my_see(
+                        ix, iy, iz
+                    );
+                const t = blocks_e[iy][iz][ix];
+                if(td[3][0] == t) td[3][1]++;
+                else if(td[3][2] && t != stone_type[p[0]]){
+                    td[3][2] = false;
+                }
+            };
+            
+            // check block within this chunk
+            const check_i = function(i, p){
+                if(blocks_i[i]) return null;
+                
+                const ix = i &   0x1F; // last   5 bits
+                const iz = i &  0x3E0; // middle 5 bits
+                const iy = i & 0x7C00; // first  5 bits
+                const rx = cx + ix;
+                const rz = cz + iz;
+                const ry = cy + iy;
+                const t = my_see(rx, ry, rz);
+                
+                const v = priority.ores[t];
+                let scanned = !!v;
+                // if its an ore, find the patch surrounding it
+                if(p){
+                    if(t == p[0]) p[1]++;
+                    else if(p[2] && t != stone_type[p[0]]){
+                        scanned = false;
+                        p[2] = false;
+                    }
+                }
+                if(!p && v) p = [t, 1, true, true];
+                // we don't need to rescan the block later if we added it to our patch
+                if(scanned) blocks_i[i] = true;
+                
+                // if this block is an ore ...
+                if(!v) return null;
+                // then push all blocks adjacent to this block to the todo list
+                const f = (a, b) => {
+                    const c = [ix, iy, iz];
+                    c[a] += b;
+                    // check if adjacent block is outside chunk
+                    if(c[a] < 0 || c[a] >= 32){
+                        // if the chunk that block is in was already scanned, then delete this patch
+                        const d = [cx, cy, cz];
+                        d[a] += b;
+                        if(saved_chunks[chunk_name(d[0], d[1], d[2])]){
+                            p[3] = false;
+                            return null;
+                        }
+                        
+                        return c;
+                    }
+                    const d = [i];
+                    d.push(p);
+                    return d;
+                };
+                todo.push(f(0,  1)) && // east
+                todo.push(f(0, -1)) && // west
+                todo.push(f(1,  1)) && // up
+                todo.push(f(1, -1)) && // down
+                todo.push(f(2,  1)) && // south
+                todo.push(f(2, -1));   // north
+                
+                return p;
+            };
+            
+            // check any block
+            const check_a = function(td){
+                return (
+                    (t.length == 2) ?
+                    check_i(td[0], td[1]) :
+                    check_e(td)
+                );
+            };
+            
+            for(let i = 0; i < 0x8000; i++){
+                if(todo.length){
+                    console.log("FATAL ERROR!");
+                    break;
+                }
+                
+                const p = check_i(i);
+                if(!p) continue;
+                for(let i = 0; i < todo.length; i++){
+                    check_a(todo[i]);
+                }
+                todo = [];
+                if(p[3]) patches.push(p);
+            }
+            s[1] = patches;
+            s[2] = blocks_i;
+            s[3] = blocks_e;
+            
+            saved_chunks[c[3]] = s;
         }
         
         busy_saving = false;
@@ -925,8 +1048,8 @@ if(1) (()=>{
             // checks chunks around the player
             list_chunks();
             auto_save_chunks();
-            auto_scan_chunks();
-            auto_rem_chunks();
+            // auto_scan_chunks();
+            // auto_rem_chunks();
             
             // mess with block arrays to get a flat array,
             // first sorted by priority of block type,
