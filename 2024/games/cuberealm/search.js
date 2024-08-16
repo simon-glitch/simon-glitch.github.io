@@ -576,6 +576,32 @@ if(1) (()=>{
         "gold_c": 65,
         "diamond_c": 69,
         "obsidian_c": 214,
+        "stone": 4,
+        "deep_stone": 6,
+        "bedrock": 8,
+        "hell_stone": 10,
+        "sky_stone": 114,
+    };
+    window.stone_type_names = {
+        4: "stone",
+        6: "deep_stone",
+        8: "bedrock",
+        10: "hell_stone",
+        114: "sky_stone",
+    };
+    window.stone_type = {
+        37: 4,
+        38: 4,
+        39: 4,
+        40: 6,
+        41: 6,
+        42: 8, // dia
+        43: 8, // rub
+        44: 8, // sap
+        45: 8, // eme
+        46: 8, // ame
+        47: 10,
+        48: 114,
     };
     window.names = {
         ores: {
@@ -616,6 +642,42 @@ if(1) (()=>{
         215: "obsidian_c",
         216: "obsidian_c",
         217: "obsidian_c",
+    };
+    window.priority = {
+        ores: {
+            37: 0,
+            38: 1,
+            39: 1,
+            40: 2,
+            41: 3,
+            42: 6, // dia
+            43: 4, // rub
+            44: 4, // sap
+            45: 5, // eme
+            46: 4, // ame
+            47: 8,
+            48: 9,
+        },
+        53: 20,
+        54: 20,
+        55: 20,
+        56: 20,
+        57: 21,
+        58: 21,
+        59: 21,
+        60: 21,
+        61: 22,
+        62: 22,
+        63: 22,
+        64: 22,
+        65: 23,
+        66: 23,
+        67: 23,
+        68: 23,
+        69: 24,
+        70: 24,
+        71: 24,
+        72: 24,
     };
     window.priority = {
         ores: {
