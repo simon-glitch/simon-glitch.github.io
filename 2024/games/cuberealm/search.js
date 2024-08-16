@@ -845,6 +845,7 @@ if(1) (()=>{
                             return null;
                         }
                         
+                        c.push(p);
                         return c;
                     }
                     const d = [i];
@@ -864,7 +865,7 @@ if(1) (()=>{
             // check any block
             const check_a = function(td){
                 return (
-                    (t.length == 2) ?
+                    (td.length == 2) ?
                     check_i(td[0], td[1]) :
                     check_e(td)
                 );
@@ -1101,5 +1102,6 @@ if(1) (()=>{
     setInterval(p, 20);
 }
 )();
+
 
 
