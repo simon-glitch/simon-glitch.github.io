@@ -842,9 +842,18 @@ if(1) (()=>{
             *- `p[1] = size` is the number of blocks in the patch
             *- `p[2] = is_pure` being `true` means this patch is only surrounded by its respective stone type, and its [size / shape] was not influenced by any other generation features
             *- `p[3] = is_valid` indicates whether the patch needs to be saved in this chunk
+            *- `p[4] = blocks` list of pointers to the blocks that this patch contains
             **/
             const patches  = [];
+            /**
+            block structure: `b = [patch]`
+            *- `b[0] = patch` is a pointer to the patch that contains this block
+            **/
             const blocks_e = [];
+            /**
+            block structure: `b = [patch]`
+            *- `b[0] = patch` is a pointer to the patch that contains this block
+            **/
             const blocks_i = [];
             const todo = [];
             
@@ -858,11 +867,31 @@ if(1) (()=>{
                 const ry = cy + iy;
                 if(!blocks_e[ry]) blocks_e[ry] = [];
                 if(!blocks_e[ry][rz]) blocks_e[ry][rz] = [];
-                if(!blocks_e[ry][rz][rx])
-                    blocks_e[ry][rz][rx] = my_see(
+                // if you thought check_i was fun ... then strap yourself in!
+                const t = (
+                    (blocks_e[ry][rz][rx]) ?
+                    blocks_e[ry][rz][rx][0][0] :
+                    my_see(
                         rx, ry, rz
-                    );
-                const t = blocks_e[ry][rz][rx];
+                    )
+                );
+                // if this block has a patch that is NOT part of this patch, AND they have the same type
+                if(p != blocks_e[ry][rz][rx][0][0] && p[0] == blocks_e[ry][rz][rx][0]){
+                    // move each of the blocks from the patch of this block to the patch of the block this block is being scanned from
+                    // i.e. combine the 2 patches
+                    // we can just make the old patch invalid
+                    // it will take up memory space for now, but we can just let the garbage collector take care of it later
+                    blocks_e[ry][rz][rx][0][3] = false;
+                    blocks_e[ry][rz][rx][0][4].forEach(a => {
+                        p[4].push(a);
+                        a[0] = p;
+                    });
+                    
+                    return null;
+                }
+                // okay, yes, i know it was the same code
+                // but c'mon, give me a break!
+                
                 if(td[3][0] == t) td[3][1]++;
                 else if(td[3][2] && t != stone_type[p[0]]){
                     td[3][2] = false;
@@ -871,7 +900,21 @@ if(1) (()=>{
             
             // check block within this chunk
             const check_i = function(i, p){
-                if(blocks_i[i]) return null;
+                if(!p && blocks_i[i]) return null;
+                // if this block has a patch that is NOT part of this patch, AND they have the same type
+                if(p != blocks_i[i][0][0] && p[0] == blocks_i[i][0]){
+                    // move each of the blocks from the patch of this block to the patch of the block this block is being scanned from
+                    // i.e. combine the 2 patches
+                    // we can just make the old patch invalid
+                    // it will take up memory space for now, but we can just let the garbage collector take care of it later
+                    blocks_i[i][0][3] = false;
+                    blocks_i[i][0][4].forEach(a => {
+                        p[4].push(a);
+                        a[0] = p;
+                    });
+                    
+                    return null;
+                }
                 
                 const ix = i &   0x1F; // last   5 bits
                 const iz = i &  0x3E0; // middle 5 bits
@@ -898,8 +941,10 @@ if(1) (()=>{
                 // we don't need to rescan the block later if we added it to our patch
                 if(scanned) blocks_i[i] = true;
                 
-                // if this block is an ore ...
+                // if this block is not an ore, then we aren't interested in it
+                // we already checked if it affected the purity of the patch
                 if(!v) return null;
+                // if this block is an ore ...
                 // then push all blocks adjacent to this block to the todo list
                 const f = (a, b) => {
                     const e = [ix, iy, iz];
@@ -1149,8 +1194,6 @@ if(1) (()=>{
                 launch();
                 
                 if(do_log_report){
-                    // console.log();
-                    
                     console.log(my_pts.map(ab=>(
                         (names[ab[1]] || names.ores[ab[1]]) +
                         " @ " +

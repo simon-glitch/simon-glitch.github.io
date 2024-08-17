@@ -4,7 +4,7 @@ t1 = time.time()
 k = 0
 t = 231
 s = 4**t - 1
-for i in range(1000*1000):
+for i in range(100*1000):
     l = 0
     m = random.randint(0, s)
     while (m > 3):
