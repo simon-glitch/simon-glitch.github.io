@@ -888,7 +888,7 @@ if(1) (()=>{
                 // if this block has a patch,
                 // AND is NOT part of this patch,
                 // AND they have the same type
-                if(p != b[0][0] && p[0] == b[0]){
+                if(p != b[0] && p[0] == b[0][0]){
                     // move each of the blocks from the patch of this block to the patch of the block this block is being scanned from
                     // i.e. combine the 2 patches
                     // we can just make the old patch invalid
