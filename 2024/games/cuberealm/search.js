@@ -927,6 +927,46 @@ if(1) (()=>{
                 // == ADJACENT BLOCK SCANNING ==
                 // AKA
                 // === PRE PATCH APPENDING ===
+                // you might have seen this pattern before somewhere
+                const f = (a, b) => {
+                    const e = [p, ix, iy, iz];
+                    e[a] += b;
+                    
+                    // check if adjacent block is outside chunk
+                    if(
+                        (e[0] < 0 || e[0] >= 32) ||
+                        (e[1] < 0 || e[1] >= 32) ||
+                        (e[2] < 0 || e[2] >= 32)
+                    ){
+                        // if the chunk that block is in was already scanned, then delete this patch
+                        if(saved_chunks[chunk_name(
+                            d[0] + b*(a == 0),
+                            d[1] + b*(a == 1),
+                            d[2] + b*(a == 2)
+                        )]){
+                            // a ptch is DELETED by settings its `is_valid` property to false
+                            p[2] = false;
+                            // we return null here because this is a helper function and we need to pass its result dynamically
+                            return null;
+                        }
+                        return e;
+                    }
+                    return [
+                        p,
+                        // if the block is actually within the original chunk, then calculate its index
+                        ((iy << 10) & (iz << 5) & ix)
+                    ];
+                };
+                // AGAIN don't share this code with anyone
+                let d;
+                (todo.push(d = f(0,  1)), d) && // east
+                (todo.push(d = f(0, -1)), d) && // west
+                (todo.push(d = f(1,  1)), d) && // up
+                (todo.push(d = f(1, -1)), d) && // down
+                (todo.push(d = f(2,  1)), d) && // south
+                (todo.push(    f(2, -1))   );   // north
+                
+                return p;
                 
                 return p;
             };
@@ -1059,6 +1099,47 @@ if(1) (()=>{
                 const p = check_i(i);
                 if(!p) continue;
                 for(let i = 0; i < todo.length; i++){
+                    // ...........................
+                    // ...........................
+                    // ...........................
+                    // ...........................
+                    // Ummmmm ...
+                    // Mr. coder, I have a question.
+                    // ?! Uwah, wah ... okay, what is it,
+                    // Mr. student?
+                    // Well, you see ...
+                    // ...
+                    // Go on ...
+                    // Gimme a sec XD ...
+                    // *A wave of fear ripples
+                    // through the programmer's
+                    // smooth yet coarse brain*
+                    // ...
+                    // What happens if some patch A
+                    // fuses with some patch B
+                    // because B checked A in the
+                    // adjacency scan from B
+                    // and then some patch C
+                    // tries to fuse with A
+                    // but the adjacency scan from A
+                    // to C
+                    // was sent
+                    // before B sents its adjacency scan
+                    // to A?
+                    // ...
+                    // Well ... OH NO!
+                    // OH NO!! OH NO!!! OH NOOO!!!!
+                    // ...
+                    // Welp, I guess I'll take my leave now.
+                    // Bye!
+                    // ...
+                    // Ah! I know!
+                    // I'll just wrap everything in an additional layer of pointers.
+                    // Then the pointer pointer from A will
+                    // dynamically map itself back to B
+                    // and C will be able to connect with B properly!
+                    // ...
+                    // Yeah, we should be fine.
                     check_a(todo[i]);
                 }
                 todo = [];
