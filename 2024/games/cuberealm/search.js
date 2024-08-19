@@ -866,11 +866,18 @@ if(1) (()=>{
                 const rz = cz + iz;
                 const ry = cy + iy;
                 
+                // == EXISTENCE ==
                 // construct objects if they don't exist
                 if(!blocks_e[ry]) blocks_e[ry] = [];
                 if(!blocks_e[ry][rz]) blocks_e[ry][rz] = [];
                 const b = (blocks_e[ry][rz][rx] ??= []);
                 
+                // if this block is part of the given patch, do nothing
+                if(p == b[0]){
+                    return p;
+                }
+                
+                // == TYPE READING ==
                 // if you thought check_i was fun ... then strap yourself in!
                 const t = (
                     // if b has a patch
@@ -882,11 +889,9 @@ if(1) (()=>{
                         rx, ry, rz
                     )
                 );
-                // if this block is part of the given patch, do nothing
                 
-                
-                // if this block has a patch,
-                // AND is NOT part of this patch,
+                // == PATCH FUSION ==
+                // if this block is NOT part of the parameter patch,
                 // AND they have the same type
                 if(p != b[0] && p[0] == b[0][0]){
                     // move each of the blocks from the patch of this block to the patch of the block this block is being scanned from
@@ -901,8 +906,11 @@ if(1) (()=>{
                     
                     return p;
                 }
+                
                 // okay, yes, i know it was the same code
                 // but c'mon, give me a break!
+                
+                // == PATCH EXTENSION ==
                 
                 if(td[0][0] == t){
                     td[0][3].push(b);
@@ -911,6 +919,16 @@ if(1) (()=>{
                 else if(td[0][1] && t != stone_type[p[0]]){
                     td[0][1] = false;
                 }
+                // === BLOCK SKIPPING ===
+                else{
+                    return null;
+                }
+                
+                // == ADJACENT BLOCK SCANNING ==
+                // AKA
+                // === PRE PATCH APPENDING ===
+                
+                return p;
             };
         1
             // check block within this chunk
@@ -918,9 +936,14 @@ if(1) (()=>{
                 const p = td[0];
                 const i = td[1];
                 
+                // EXISTENCE
                 if(!p && blocks_i[i]) return null;
                 const b = (blocks_i[i] ??= []);
-                // if this block has a patch that is NOT part of this patch, AND they have the same type
+                
+                // == PATCH FUSION ==
+                // if this block has a patch,
+                // AND is NOT part of the parameter patch,
+                // AND they have the same type
                 if(p && p != b[0] && p[0] == b[0][0]){
                     // move each of the blocks from the patch of this block to the patch of the block this block is being scanned from
                     // i.e. combine the 2 patches
@@ -935,6 +958,7 @@ if(1) (()=>{
                     return p;
                 }
                 
+                // == TYPE READING ==
                 const ix = i &   0x1F; // last   5 bits
                 const iz = i &  0x3E0; // middle 5 bits
                 const iy = i & 0x7C00; // first  5 bits
@@ -943,11 +967,15 @@ if(1) (()=>{
                 const ry = cy + iy;
                 const t = my_see(rx, ry, rz);
                 
+                // == ORE CATEGORIZATION ==
                 const v = priority.ores[t];
                 // if its an ore, count it in the ores in this chunk
                 if(v) ores[t] ??= 0, ores[t]++;
                 
                 let scanned = !!v;
+                
+                // == PATCH EXTENSION ==
+                
                 // if this block is an ore, find the patch surrounding it
                 // we don't need to rescan this block later if we are adding it to our patch now
                 if(scanned) blocks_i[i] = b;
@@ -961,14 +989,23 @@ if(1) (()=>{
                         p[1] = false;
                     }
                 }
+                
+                // === BLOCK SKIPPING ===
+                // if this block is not an ore, then we aren't interested in it
+                // we already checked if it affected the purity of the patch
+                if(!v) return null;
+                
+                // == PATCH CONSTRUCTION ==
+                
                 if(!p && v){
                     p = [t, true, true, [b]];
                     b[0] = p;
                 }
                 
-                // if this block is not an ore, then we aren't interested in it
-                // we already checked if it affected the purity of the patch
-                if(!v) return null;
+                // == ADJACENT BLOCK SCANNING ==
+                // AKA
+                // === PRE PATCH APPENDING ===
+                
                 // if this block is an ore ...
                 // then push all blocks adjacent to this block to the todo list
                 const f = (a, b) => {
