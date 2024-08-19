@@ -894,6 +894,8 @@ if(1) (()=>{
                 // if this block is NOT part of the parameter patch,
                 // AND they have the same type
                 if(p != b[0] && p[0] == b[0][0]){
+                    throw Error("I thought I didn't need patch fusion for a depth-first search!");
+                    
                     // move each of the blocks from the patch of this block to the patch of the block this block is being scanned from
                     // i.e. combine the 2 patches
                     // we can just make the old patch invalid
@@ -934,17 +936,17 @@ if(1) (()=>{
                     
                     // check if adjacent block is outside chunk
                     if(
-                        (e[0] < 0 || e[0] >= 32) ||
                         (e[1] < 0 || e[1] >= 32) ||
-                        (e[2] < 0 || e[2] >= 32)
+                        (e[2] < 0 || e[2] >= 32) ||
+                        (e[3] < 0 || e[3] >= 32)
                     ){
                         // if the chunk that block is in was already scanned, then delete this patch
                         if(saved_chunks[chunk_name(
-                            d[0] + b*(a == 0),
-                            d[1] + b*(a == 1),
-                            d[2] + b*(a == 2)
+                            (e[1] >> 5),
+                            (e[2] >> 5),
+                            (e[3] >> 5)
                         )]){
-                            // a ptch is DELETED by settings its `is_valid` property to false
+                            // a patch is DELETED by settings its `is_valid` property to false
                             p[2] = false;
                             // we return null here because this is a helper function and we need to pass its result dynamically
                             return null;
@@ -965,8 +967,6 @@ if(1) (()=>{
                 (todo.push(d = f(1, -1)), d) && // down
                 (todo.push(d = f(2,  1)), d) && // south
                 (todo.push(    f(2, -1))   );   // north
-                
-                return p;
                 
                 return p;
             };
@@ -1056,9 +1056,9 @@ if(1) (()=>{
                     if(e[a] < 0 || e[a] >= 32){
                         // if the chunk that block is in was already scanned, then delete this patch
                         if(saved_chunks[chunk_name(
-                            d[0] + b*(a == 0),
-                            d[1] + b*(a == 1),
-                            d[2] + b*(a == 2)
+                            cx + b*(a == 0),
+                            cy + b*(a == 1),
+                            cz + b*(a == 2)
                         )]){
                             // a ptch is DELETED by settings its `is_valid` property to false
                             p[2] = false;
@@ -1134,12 +1134,7 @@ if(1) (()=>{
                     // Bye!
                     // ...
                     // Ah! I know!
-                    // I'll just wrap everything in an additional layer of pointers.
-                    // Then the pointer pointer from A will
-                    // dynamically map itself back to B
-                    // and C will be able to connect with B properly!
-                    // ...
-                    // Yeah, we should be fine.
+                    // I'll just store the coordinates we came from and dynamically check those
                     check_a(todo[i]);
                 }
                 todo = [];
