@@ -156,7 +156,7 @@ convert_b.onclick = function(){
     
     const d = {};
     const t = [code1.value, code2.value];
-    for(let i in regexs[0]){
+    for(let i in regexs){
         const r = regexs[i];
         const ss = t[r[2]].match(r[0])?.[r[1]];
         d[i] = ss;
