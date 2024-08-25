@@ -1101,44 +1101,6 @@ if(1) (()=>{
                 const p = check_i(i);
                 if(!p) continue;
                 for(let i = 0; i < todo.length; i++){
-                    /*
-...........................
-...........................
-...........................
-...........................
-Ummmmm ...
-Mr. coder, I have a question.
-?! Uwah, wah ... okay, what is it,
-Mr. student?
-Well, you see ...
-...
-Go on ...
-Gimme a sec XD ...
-*A wave of fear ripples
-through the programmer's
-smooth yet coarse brain*
-...
-What happens if some patch A
-fuses with some patch B
-because B checked A in the
-adjacency scan from B
-and then some patch C
-tries to fuse with A
-but the adjacency scan from A
-to C
-was sent
-before B sents its adjacency scan
-to A?
-...
-Well ... OH NO!
-OH NO!! OH NO!!! OH NOOO!!!!
-...
-Welp, I guess I'll take my leave now.
-Bye!
-...
-ACTUALLY
-I don't need to worry about any of that, since we should never need to do any patch fusion
-                    */
                     check_a(todo[i]);
                 }
                 todo = [];
