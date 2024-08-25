@@ -774,13 +774,20 @@ if(1) (()=>{
         const bx = x + list_range[0];
         const by = y + list_range[1];
         const bz = z + list_range[2];
+        console.log("guess what! one of these vars is wrong:", {
+            my_p, list_range,
+            x, y, z,
+            ax, ay, az,
+            bx, by, bz,
+        });
         for(let iy = ay; iy <= by; iy++){
             for(let iz = az; iz <= bz; iz++){
                 for(let ix = ax; ix <= bx; ix++){
+                    console.log("peeking at chunk:", ix, iy, iz);
                     const sx = ix * 32;
                     const sy = iy * 32;
                     const sz = iz * 32;
-                    const ss = chunk_name(sx, sy, sz);
+                    const ss = chunk_name(ix, iy, iz);
                     const sd = [ix, iy, iz, ss];
                     const loaded = (my_see(sx, sy, sz) != UNLOADED);
                     if(
@@ -822,6 +829,10 @@ if(1) (()=>{
             to_save = [];
             save_i = 0;
         }
+        
+        console.log("save index:", save_i);
+        console.log("chunks being saved:", saving);
+        console.log("chunks to save later:", to_save);
         
         // then process our copy
         for(
@@ -1062,9 +1073,9 @@ if(1) (()=>{
                     if(e[a] < 0 || e[a] >= 32){
                         // if the chunk that block is in was already scanned, then delete this patch
                         if(saved_chunks[chunk_name(
-                            cx + b*(a == 0),
-                            cy + b*(a == 1),
-                            cz + b*(a == 2)
+                            c[0] + b*(a == 0),
+                            c[1] + b*(a == 1),
+                            c[2] + b*(a == 2)
                         )]){
                             // a ptch is DELETED by settings its `is_valid` property to false
                             p[2] = false;
@@ -1259,12 +1270,16 @@ if(1) (()=>{
     };
     
     const q = function(){
+        console.log("running very important q function");
         // checks chunks around the player
         if(!(do_save || do_scan)) return;
+        console.log("listing chunks");
         list_chunks();
         if(do_save)
+            console.log("saving chunks"),
             auto_save_chunks();
         if(!do_scan) return;
+        console.log("scanning chunks");
         auto_scan_chunks();
         auto_rem_chunks();        
     };
@@ -1279,7 +1294,7 @@ if(1) (()=>{
             my_see.constructor;
             my_guy.constructor;
             
-            if(use_p5js && !launched_yet){
+            if(!use_p5js || !launched_yet){
                 my_p.update();
             }
             
@@ -1330,7 +1345,7 @@ if(1) (()=>{
         ready = true;
     };
     
-    setInterval(p, 20);
+    setInterval(p, 2000);
 }
 )();
 
