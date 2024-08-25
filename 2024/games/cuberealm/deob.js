@@ -37,6 +37,7 @@ yG['matIDs'][yr] = yI,
 */
 
 const xyz = /(\w+)\['numFaces'\]\+\+;\n *var +(\w+) *= *\[\]\['concat'\]\(\w+\);\n *\2\[\w+\] *\+= *(\w+)\['(\w+)'\]\['(\w+)'\][,;]\n *\2\[\w+\] *\+= *\3\['\4'\]\['(\w+)'\][,;]\n *\2\[\w+\] *\+= *\3\['\4'\]\['(\w+)'\][,;]\n *\1\['matIDs'\]\[\w+\] *= *\w+[,;]\n/;
+const locori = /return new \w+\['\w+'\]\(\(0x0,\n *\w+\['\w+'\]\)\(\w+\['\w+'\]\['(\w+)'\]\),\w+\['(\w+)'\],\(0x0,/;
 
 
 const regexs = {
@@ -68,6 +69,25 @@ const regexs = {
     main_hand: [
         /\w+\['__beginSelectedItemChangeCheck'\] *= *function\(\) *\{\n.+\n *this\['(\w+)'\] *= *this\['\w+'\]\['\w+'\][,;]/,
         1,
+        0,
+    ],
+    /*
+return new tD['A']((0x0,
+yJ['N3'])(Kc['vrt']['vHf']),KC['vHU'],(0x0,
+                     loc        ori
+
+return new \w+\['\w+'\]\(\(0x0,
+\w+\['\w+'\]\)\(\w+\['\w+'\]\['(\w+)'\]\),\w+\['(\w+)'\],\(0x0,
+
+    */
+    location: [
+        locori,
+        1,
+        0,
+    ],
+    orientation: [
+        locori,
+        2,
         0,
     ],
     x: [
@@ -156,15 +176,16 @@ convert_b.onclick = function(){
     }
     code1.value = s;
     
-    const d = {};
     const t = [code1.value, code2.value];
+    let res = "{";
     for(let i in regexs){
         const r = regexs[i];
         const ss = t[r[2]].match(r[0])?.[r[1]];
-        d[i] = ss;
+        res += "\n    " + i + ": "+ ss + ",";
     }
+    res += "\n}";
     
-    console.log(d);
+    code3.value = res;
 };
 
 

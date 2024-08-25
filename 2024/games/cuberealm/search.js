@@ -235,18 +235,20 @@ if(1) (()=>{
     
     const Tree = _Tree_Factory();
     
-    // Nkq.NVP,o.NNl,t,C,Nym.NDK.dIB,NwI
+    // done automatically now
     window.deob = {
-        inventory: "Nym",
-        main_hand: "NDK",
-        durability: "dIB",
-        health: "NwI",
-        position: "Nkq",
-        location: "NVP",
-        orientation: "NVo",
-        x: "NNl",
-        y: "NNt",
-        z: "NNc",
+        inventory: vdi,
+        position: vrt,
+        cooldowns: vQw,
+        max_health: vQQ,
+        health: vQu,
+        main_hand: vkI,
+        location: vHf,
+        orientation: vHU,
+        x: vvx,
+        y: vvp,
+        z: vvG,
+        durability: guW,
     };
     
     window.my_dura = (()=>(
