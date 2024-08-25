@@ -18,18 +18,82 @@ sh['Nym']['NwN'](sv, sp),
     var sp = xZ['A']['Nci']['NcB']['Ncu']['Nwm']
 
 
+this['vdi']['vkK'](yn['inventory']),
+this['vrt']['vkK'](yn['physicsStep']),
+this['vQw']['vkK'](yn['cooldowns']),
+this['vQQ'] = yn['maxHealth'],
+this['vQu'] = yn['health'];
 
 
+yG['numFaces']++;
+var t0 = []['concat'](yJ);
+t0[yV] += yA['vvO']['vvx'],
+t0[yc] += yA['vvO']['vvp'],
+t0[yo] += yA['vvO']['vvG'],
+yG['matIDs'][yr] = yI,
 
 */
+
+const xyz = /(\w+)\['numFaces'\]\+\+;\n *var +(\w+) *= *\[\]\['concat'\]\(\w+\);\n *\2\[\w+\] *\+= *(\w+)\['(\w+)'\]\['(\w+)'\][,;]\n *\2\[\w+\] *\+= *\3\['\4'\]\['(\w+)'\][,;]\n *\2\[\w+\] *\+= *\3\['\4'\]\['(\w+)'\][,;]\n *\1\['matIDs'\]\[\w+\] *= *\w+[,;]\n/;
+
+
 const regexs = {
-    inventory:  /this\['(\w+)'\]\['\w+'\]\(\w+\['inventory' *\]\)[,;]/,
-    position:   /this\['(\w+)'\]\['\w+'\]\(\w+\['physicsStep'\]\)[,;]/,
-    cooldowns:  /this\['(\w+)'\]\['\w+'\]\(\w+\['cooldowns' *\]\)[,;]/,
-    max_health: /this\['(\w+)'\]\(\w+\['maxHealth' *\]\)[,;]/,
-    health:     /this\['(\w+)'\]\(\w+\['health' *? *\]\)[,;]/,
-    main_hand:  /\w+ *\['__beginSelectedItemChangeCheck'\] *= *function\(\) *\{\n.+\n *this\['(\w+)'\] *= *this\['\w+'\]\['\w+'\][,;]/,
-    
+    inventory: [
+        /this\['(\w+)'\]\['\w+'\]\(\w+\['inventory'\]\)[,;]/,
+        1,
+        0,
+    ],
+    position: [
+        /this\['(\w+)'\]\['\w+'\]\(\w+\['physicsStep'\]\)[,;]/,
+        1,
+        0,
+    ],
+    cooldowns: [
+        /this\['(\w+)'\]\['\w+'\]\(\w+\['cooldowns'\]\)[,;]/,
+        1,
+        0,
+    ],
+    max_health: [
+        /this\['(\w+)'\] *= *\w+\['maxHealth'\][,;]/,
+        1,
+        0,
+    ],
+    health: [
+        /this\['(\w+)'\] *= *\w+\['health'\][,;]/,
+        1,
+        0,
+    ],
+    main_hand: [
+        /\w+\['__beginSelectedItemChangeCheck'\] *= *function\(\) *\{\n.+\n *this\['(\w+)'\] *= *this\['\w+'\]\['\w+'\][,;]/,
+        1,
+        0,
+    ],
+    x: [
+        xyz,
+        5,
+        0,
+    ],
+    y: [
+        xyz,
+        6,
+        0,
+    ],
+    z: [
+        xyz,
+        7,
+        0,
+    ],
+        /*
+        mK['gQF'] = function(mX) {
+            this['guW'] <= 0x0 || (this['guW'] -= mX,
+            this['guW'] <= 0x0 && this['gum'](0x1));
+        }
+        */
+    durability: [
+        /mK\['\w+'\] *= *function\((\w+)\) *\{\n *this\['(\w+)'\] *<= *(?:0x)?0 *\|\| *\(this\['\2'\] *-= *\1,\n *this\['\2'\] *<= *(?:0x)?0 *&& *this\['\w+'\]\((?:0x)?1\)\);\n *\}/,
+        2,
+        1,
+    ],
 };
 
 const replaces = [
@@ -60,10 +124,10 @@ sh['Nym']['NwN'](sv, sp),
         "(" +
         " *\\}, *(\\w+), *0\\.00001\\);\\n" +
         " *\\}\\n" +
-        ", *\\w+ *= *function\\(\\w+, *\\w+, *\\2, *\\w+, *\\w+, *\\w+\\) *\\{\\n" +
+        " *, *\\w+ *= *function\\(\\w+, *\\w+, *\\2, *\\w+, *\\w+, *\\w+\\) *\\{\\n" +
         ")" +
         "(" +
-        "( *)var *\\w+ *= *\\w+\\['\\w+'\\]\\['\\w+'\\]\\['\\w+'\\]\\['\\w+'\\]\\['\\w+'\\]\\n" +
+        "( *)var +\\w+ *= *\\w+\\['\\w+'\\]\\['\\w+'\\]\\['\\w+'\\]\\['\\w+'\\]\\['\\w+'\\]\\n" +
         ")" +
         "",
         "$1" +
@@ -78,6 +142,8 @@ sh['Nym']['NwN'](sv, sp),
 const code1 = document.querySelector("#code1");
 /** @type HTMLTextareaElement */
 const code2 = document.querySelector("#code2");
+/** @type HTMLTextareaElement */
+const code3 = document.querySelector("#code3");
 /** @type HTMLButtonElement */
 const convert_b = document.querySelector("#convert");
 
@@ -89,11 +155,13 @@ convert_b.onclick = function(){
     code1.value = s;
     
     const d = {};
-    for(let i in regexs){
+    const t = [code1.value, code2.value];
+    for(let i in regexs[0]){
         const r = regexs[i];
-        const ss = s.match(r)?.[1];
+        const ss = t[r[2]].match(r[0])?.[r[1]];
         d[i] = ss;
     }
+    
     console.log(d);
 };
 
