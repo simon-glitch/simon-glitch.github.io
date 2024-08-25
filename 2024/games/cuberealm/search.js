@@ -774,16 +774,9 @@ if(1) (()=>{
         const bx = x + list_range[0];
         const by = y + list_range[1];
         const bz = z + list_range[2];
-        console.log("guess what! one of these vars is wrong:", {
-            my_p, list_range,
-            x, y, z,
-            ax, ay, az,
-            bx, by, bz,
-        });
         for(let iy = ay; iy <= by; iy++){
             for(let iz = az; iz <= bz; iz++){
                 for(let ix = ax; ix <= bx; ix++){
-                    console.log("peeking at chunk:", ix, iy, iz);
                     const sx = ix * 32;
                     const sy = iy * 32;
                     const sz = iz * 32;
@@ -830,10 +823,6 @@ if(1) (()=>{
             save_i = 0;
         }
         
-        console.log("save index:", save_i);
-        console.log("chunks being saved:", saving);
-        console.log("chunks to save later:", to_save);
-        
         // then process our copy
         for(
             let i_t = 0;
@@ -842,7 +831,6 @@ if(1) (()=>{
             save_i++, i_t++
         ){
             const c = saving[save_i];
-            console.log("saving chunk:", c);
             // we will just add the items to the saved chunks "list"
             const s = [c];
             console.log("saved data:", s);
@@ -906,9 +894,10 @@ if(1) (()=>{
                 );
                 
                 // == PATCH FUSION ==
-                // if this block is NOT part of the parameter patch,
+                // if this block is part of a patch,
+                // AND is NOT part of the parameter patch,
                 // AND they have the same type
-                if(p != b[0] && p[0] == b[0][0]){
+                if(b[0] && p != b[0] && p[0] == b[0][0]){
                     throw Error("I thought I didn't need patch fusion for a depth-first search!");
                     
                     // move each of the blocks from the patch of this block to the patch of the block this block is being scanned from
@@ -988,7 +977,7 @@ if(1) (()=>{
         1
             // check block within this chunk
             const check_i = function(td){
-                const p = td[0];
+                let p = td[0];
                 const i = td[1];
                 
                 // EXISTENCE
@@ -997,9 +986,10 @@ if(1) (()=>{
                 
                 // == PATCH FUSION ==
                 // if this block has a patch,
+                // AND the parameter patch exists,
                 // AND is NOT part of the parameter patch,
                 // AND they have the same type
-                if(p && p != b[0] && p[0] == b[0][0]){
+                if(b[0] && p && p != b[0] && p[0] == b[0][0]){
                     throw Error("I thought I didn't need patch fusion for a depth-first search!");
                     
                     // move each of the blocks from the patch of this block to the patch of the block this block is being scanned from
@@ -1113,7 +1103,7 @@ if(1) (()=>{
                     break;
                 }
                 
-                const p = check_i(i);
+                const p = check_i([null, i]);
                 if(!p) continue;
                 for(let i = 0; i < todo.length; i++){
                     check_a(todo[i]);
