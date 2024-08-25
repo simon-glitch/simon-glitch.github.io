@@ -1,5 +1,5 @@
 if(1) (()=>{
-    let copy = function(a = []){
+    const copy = function(a = []){
         return a.map(b => (b instanceof Array) ? copy(b) : b);
     };
     
@@ -235,18 +235,18 @@ if(1) (()=>{
     
     const Tree = _Tree_Factory();
     
-    // EWa,EHn,v,EEU,s,Z,EiK,ELS,EfC,uCc
+    // Nkq.NVP,o.NNl,t,C,Nym.NDK.dIB,NwI
     window.deob = {
-        inventory: "ELS",
-        main_hand: "EfC",
-        durability: "uCc",
-        health: "EiK",
-        position: "EWa",
-        location: "EHn",
-        orientation: "EHv",
-        x: "EEU",
-        y: "EEs",
-        z: "EEZ",
+        inventory: "Nym",
+        main_hand: "NDK",
+        durability: "dIB",
+        health: "NwI",
+        position: "Nkq",
+        location: "NVP",
+        orientation: "NVo",
+        x: "NNl",
+        y: "NNt",
+        z: "NNc",
     };
     
     window.my_dura = (()=>(
@@ -265,7 +265,7 @@ if(1) (()=>{
     // only launch p5.js once
     let launched_yet = false;
     // whether to actually use p5.js at all
-    let use_p5js = true;
+    let use_p5js = false;
     // whether to use the custom renderer with "improved seeing"
     let use_3d_render = true;
     const launch = function(){
@@ -731,7 +731,7 @@ if(1) (()=>{
     window.to_rem = [];
     
     // whether or not to scan chunks for `improved seeing`
-    window.do_scan = true;
+    window.do_scan = false;
     window.do_scan_ores = true;
     window.busy_saving = false;
     // chunks that are currently being saved
@@ -747,7 +747,7 @@ if(1) (()=>{
     // number of chunks to scan each frame
     window.scan_size = 1;
     // range to keep scanned chunks in memory
-    window.scan_range = 120;
+    window.scan_range = 80;
     window.list_range = [1, 1, 1];
     window.report = [];
     window.report_size = 60;
@@ -807,7 +807,7 @@ if(1) (()=>{
             }
         }
     };
-    window.auto_save_chunks = async function(){
+    window.auto_save_chunks = function(){
         if(busy_saving) return;
         busy_saving = true;
         
@@ -829,8 +829,10 @@ if(1) (()=>{
             save_i++, i_t++
         ){
             const c = saving[save_i];
+            console.log("saving chunk:", c);
             // we will just add the items to the saved chunks "list"
             const s = [c];
+            console.log("saved data:", s);
             const cx = c[0] * 32;
             const cy = c[1] * 32;
             const cz = c[2] * 32;
@@ -1254,6 +1256,17 @@ if(1) (()=>{
         window.report = r;
     };
     
+    const q = function(){
+        // checks chunks around the player
+        if(!(do_save || do_scan)) return;
+        list_chunks();
+        if(do_save)
+            auto_save_chunks();
+        if(!do_scan) return;
+        auto_scan_chunks();
+        auto_rem_chunks();        
+    };
+    
     let ready = true;
     const p = function(){
         if(!ready)
@@ -1261,18 +1274,14 @@ if(1) (()=>{
         ready = false;
         
         try{
-            if(!my_see || !my_guy)
-                return;
+            my_see.constructor;
+            my_guy.constructor;
             
-            if(!use_p5js || !launched_yet){
+            if(use_p5js && !launched_yet){
                 my_p.update();
             }
             
-            // checks chunks around the player
-            list_chunks();
-            auto_save_chunks();
-            // auto_scan_chunks();
-            // auto_rem_chunks();
+            q();
             
             // mess with block arrays to get a flat array,
             // first sorted by priority of block type,
@@ -1322,7 +1331,6 @@ if(1) (()=>{
     setInterval(p, 20);
 }
 )();
-
 
 
 
