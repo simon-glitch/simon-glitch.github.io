@@ -237,18 +237,18 @@ if(1) (()=>{
     
     // done automatically now
     window.deob = {
-        inventory: vdi,
-        position: vrt,
-        cooldowns: vQw,
-        max_health: vQQ,
-        health: vQu,
-        main_hand: vkI,
-        location: vHf,
-        orientation: vHU,
-        x: vvx,
-        y: vvp,
-        z: vvG,
-        durability: guW,
+        inventory: "vdi",
+        position: "vrt",
+        cooldowns: "vQw",
+        max_health: "vQQ",
+        health: "vQu",
+        main_hand: "vkI",
+        location: "vHf",
+        orientation: "vHU",
+        x: "vvx",
+        y: "vvp",
+        z: "vvG",
+        durability: "guW",
     };
     
     window.my_dura = (()=>(

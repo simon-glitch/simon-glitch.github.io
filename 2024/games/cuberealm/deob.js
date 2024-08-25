@@ -181,7 +181,7 @@ convert_b.onclick = function(){
     for(let i in regexs){
         const r = regexs[i];
         const ss = t[r[2]].match(r[0])?.[r[1]];
-        res += "\n    " + i + ": "+ ss + ",";
+        res += "\n    " + i + ": \""+ ss + "\",";
     }
     res += "\n}";
     
