@@ -106,5 +106,47 @@ const get_cookie_q = function(c_name){
 /**a week          @default number = 604,800,000   */ const WEEK =    604_800_000;
 /**a non-leap year @default number = 31,536,000,000*/ const YR   = 31_536_000_000;
 
+/**
+  * test the speed of a function
+  * @param {()=>any} f the function to test the speed of
+  * @param {number} mspt the number of milliseconds this test should take
+  * @return {number[]} `res`
+  * - `res[0] = time`: the approximate number of milliseconds that `f` was running for
+  * - `res[1] = total_time`: the number of milliseconds this test actually took
+  * - `res[2] = count`: the number of times f was executed
+  * - `res[3] = loops`: the number of times the "time" loop was restarted; this value being very high might cause poor performance, especially if `f` takes an inconsistent amount of time to run
+  * - `res[4] = subloops`: the number of times the inner loop was restarted; this value being too high or too low might cause poor performance, especially if `f` takes an inconsistent amount of time to run
+**/
+const time_it = function(f, mspt){
+    // the number of times we should try to run the "time" loop, if `f` seems to be really fast
+    const LOOP_MUL = 1_000;
+    // JavaScript's maximum loop speed is around 300 million op/s
+    const MIN_TIME = 0.000_003;
+    const TIME = (t = 0) => (
+        isFinite(t) ? Math.max(MIN_TIME, t) : MIN_TIME
+    );
+    const times = [1];
+    const counts = [1];
+    const speeds = [1];
+    const start_time = (new Date).getTime();
+    const end_time = start_time + mspt;
+    
+    // dummy test, in case your fn is REALLY slow
+    f();
+    let t = (new Date).getTime();
+    times[0] = TIME(t - start_time);
+    counts[0] = 1;
+    speeds[0] = counts[0] / times[0];
+    let speed = speeds[0];
+    
+    while(t <= end_time){
+        const rem_time = end_time - t;
+        const c = Math.round(Math.max(1, rem_time * speed / LOOP_MUL));
+        
+    }
+};
+
+
+
 
 
