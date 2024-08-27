@@ -319,20 +319,32 @@ const inv_cdf = function(p, mean = 0, stdev = 1){
     return (_inv_cdf(p) * stdev + mean);
 };
 
-const mean = function(pop = [0]){
+/**
+  * calculate the sum of a list of values
+  * @param {number} pop the values to sum
+  * @param {(v: number) => number} mapf the function to transform each value before adding it to the sum; each value `v` in `pop` is replaced with `mapf(v)`, and those values are summed up
+  * @returns {number} the sum of the values
+**/
+const sum = function(pop, mapf){
     let s = 0;
-    for(let i = 0; i < pop.length; i++){
+    if(typeof mapf == "function") for(let i = 0; i < pop.length; i++){
+        s += mapf(pop[i]);
+    }
+    else for(let i = 0; i < pop.length; i++){
         s += pop[i];
     }
-    return (s / pop.length);
+    return s;
+};
+const mean = function(pop = [0]){
+    return (sum(pop) / pop.length);
 };
 const stdev = function(pop = [0], its_mean = 0){
-    let s = 0;
-    for(let i = 0; i < pop.length; i++){
-        s += (pop[i] - its_mean) ** 2;
-    }
     return (
-        (s / pop.length) ** 0.5
+        (
+            sum(pop, v => (
+                (v - its_mean) ** 2
+            )) / pop.length
+        ) ** 0.5
     );
 };
 
@@ -341,16 +353,30 @@ class time_it_result{
     time = 0;
     /** the number of milliseconds this test actually took */
     total_time = 0;
-    /** the number of times f was executed */
+    /** the number of times `f` was executed */
     count = 0;
-    /** the mean execution speed of f */
+    /** the mean execution speed of `f` */
     speed = 0;
-    /** the standard deviation of the execution speed of f; this being high can cause poor or unreliable performance; the execution speed is assumed to  */
+    /** the *other* mean execution speed of `f`; this is the speed that `time_it` uses while timing `f` */
+    speed_other = 0;
+    /** the standard deviation of the execution speed of `f`; this being high can cause poor or unreliable performance; the execution speed is assumed to  */
     speed_stdev = 0;
-    /** the number of times the "time" loop was restarted; this value being very high might cause poor performance, especially if `f` takes an inconsistent amount of time to run */
+    /** the number of times the 1st inner loop was restarted; this value being too high or too low might cause poor performance, especially if `f` takes an inconsistent amount of time to run */
     loops = 0;
-    /** the number of times the inner loop was restarted; this value being too high or too low might cause poor performance, especially if `f` takes an inconsistent amount of time to run */
+    /** the number of times the 2nd inner loop was restarted; this value being too high might cause poor performance, especially if `f` takes an inconsistent amount of time to run */
     subloops = 0;
+    /** the number of times the 3rd inner loop was restarted; this value being too high might cause poor performance, especially if `f` takes an inconsistent amount of time to run */
+    subsubloops = 0;
+    /** the number of frames the function was timed for; this value being very high might cause poor performance, especially if `f` takes an inconsistent amount of time to run */
+    frames = 0;
+    /** the number of frames that the function was actually being timed on */
+    used_frames = 0;
+    /** the number of frames that were skipped due to the function taking longer than 1 frame to run; this is just `= frames - used_frames` */
+    unused_frames = 0;
+    /** the actual time that `time_it` started timing `f` */
+    start_time = new Date;
+    /** the actual time that `time_it` finished timing `f` */
+    end_time = new Date;
 }
 
 /**
@@ -364,21 +390,23 @@ class time_it_result{
   * @param {()=>any} f the function to test the speed of
   * @param {number} time_limit the number of milliseconds this test should take
   * @param {number} async_mode whether `f` is asynchronous or not; `f` is assumed to be synchronous
-  * @return {time_it_result} returns various information about the performance of `f` and how it was timed
+  * @return {Promise<time_it_result>} returns various information about the performance of `f` and how it was timed
   * - see `time_it_result`'s class for more information
 **/
 const time_it = async function(f, time_limit){
     // the number of milliseconds each "time" loop should run for
     const MSPF = 50;
-    // the number of times we should try to run the "time" loop, if `f` seems to be really fast
+    // the number of times we should try to run the inner loop, if `f` seems to be really fast
     const LOOP_MUL = 1_000;
+    // the number of times we should try to run the inner loop, even if we are very sure that `f` is really fast
+    const LOOP_MUL_MIN = 10;
     // JavaScript's maximum loop speed is around 300 million op/s
     const MIN_TIME = 0.000_003;
     const TIME = (t = 0) => (
         isFinite(t) ? Math.max(MIN_TIME, t) : MIN_TIME
     );
     
-    let total_count = 1;
+    let total_time = 0;
     const times = [1];
     const counts = [1];
     const speeds = [1];
@@ -393,24 +421,114 @@ const time_it = async function(f, time_limit){
     speeds[0] = counts[0] / times[0];
     let speed = speeds[0];
     
-    // "time" loop
     let time_i = 0;
-    while(t <= end_time){
-        const time_t = (new Date).getTime();
-        const rem_time = end_time - t;
-        const usable_time = Math.min(MSPF, rem_time);
-        const c = Math.round(Math.max(1, usable_time * speed / LOOP_MUL));
-        
-        // inner loop
-        const inner_time = (new Date).getTime();
+    let time_ii = 0;
+    let time_iii = 0;
+    const tf = async function(){
+        const time_time = (new Date).getTime();
+        const return_time = Math.min(time_time + MSPF, end_time);
+        while(t <= return_time){
+            const rem_time = return_time - t;
+            const REL_LOOP_MUL = Math.max(
+                LOOP_MUL_MIN,
+                LOOP_MUL / (
+                    (1 + time_i) ** 0.5
+                )
+            );
+            const c = Math.round(
+                Math.max(
+                    1,
+                    rem_time *
+                    speed / REL_LOOP_MUL
+                )
+            );
+            
+            // inner loop
+            const inner_time = (new Date).getTime();
+            
+            let i = 0;
+            let j = 0, k = 0, l = 0;
+            let ji = 0;
+            // let ii = 0;
+            while(i < c || t - inner_time == 0){
+                ji++;
+                j += ji;
+                k = (time_i + 1) ** 2;
+                l = Math.min(j * k, c - i);
+                for(let ii = 0; ii < l; ii++){
+                    f();
+                }
+                t = (new Date).getTime();
+                i += l;
+            }
+            time_ii += ji;
+            time_iii += i;
+            
+            t = (new Date).getTime();
+            time_i++;
+            counts[time_i] = c;
+            times[time_i] = t - inner_time;
+        }
         
         t = (new Date).getTime();
         
-        total_count += counts[time_i];
-        time_i++;
+        total_time += (t - time_time);
     }
     
+    const [p, resolve_f] = (function(){
+        /** @type (value: time_it_result | PromiseLike<time_it_result>) => void */
+        let resolve_f;
+        /** @type Promise<time_it_result> */
+        const p = new Promise((res, rej) => {
+            resolve_f = res;
+        });
+        return [p, resolve_f];
+    })();
     
+    let frames = 0;
+    let used_frames = 0;
+    let fid = -1;
+    /** this is the part of the function where we return everything */
+    const finish = function(){
+        clearInterval(fid);
+        
+        const res = new time_it_result();
+        res.start_time = start_time;
+        res.end_time = t;
+        res.loops = time_i;
+        res.subloops = time_ii;
+        res.subsubloops = time_ii;
+        res.count = sum(counts);
+        res.time = sum(times);
+        res.speed = res.count / res.time;
+        res.speed_other = mean(speeds);
+        res.speed_stdev = stdev(speeds);
+        res.frames = frames;
+        res.used_frames = used_frames;
+        res.unused_frames = frames - used_frames;
+        resolve_f(res);
+    };
+    
+    // FUN FACT: you can run an async function in a setInterval, and ensure there is only 1 call running at a time
+    let running = false;
+    const ff = function(){
+        frames++;
+        if(running) return;
+        
+        running = true;
+        used_frames++;
+        
+        tf().then(() => {
+            if(t >= end_time) finish();
+            running = false;
+        });
+    };
+    
+    setInterval(ff, MSPF);
+    
+    /** see local `finish` function for full return value */
+    const res = await p;
+    return res;
 };
 
 
