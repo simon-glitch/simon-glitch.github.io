@@ -493,11 +493,11 @@ const time_it = async function(f, time_limit){
         clearInterval(fid);
         
         const res = new time_it_result();
-        res.start_time = start_time;
-        res.end_time = t;
-        res.loops = time_i;
-        res.subloops = time_ii;
-        res.subsubloops = time_ii;
+        res.start_time  = start_time;
+        res.end_time    = t;
+        res.loops       = time_i;
+        res.subloops    = time_ii;
+        res.subsubloops = time_iii;
         res.count = sum(counts);
         res.time = sum(times);
         res.speed = res.count / res.time;
