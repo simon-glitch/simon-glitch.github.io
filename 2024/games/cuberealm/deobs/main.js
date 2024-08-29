@@ -1,44 +1,66 @@
 
+/*
+???
+036321f687060b162e6d
+fbbbb7dc6e910299bf7d
+9bd1ffd9d641092822ed
+74f3b913e6504d2fac31
+1a36725d1496635207c2
+
+
+imports:        69cb7c029c2d7489712f
+blocks n items: c3e53f01e123ae74ed3b
+*/
+
+const TWO_WAY_MAP = function(C, D){
+    for(let i in D){
+        C[i] = D[i];
+        C[D[i]] = i;
+    }
+    return C;
+};
+
 (( () => {
     'use strict';
     var F, E, p, S, R, H, y, d = {
         0x12bae: (M, X, m) => {
             m.d(X, {
-                'A': () => l
+                A: () => l
             });
             var w = function(C) {
-                return C[C.Unknown = 0x3e8] = 'Unknown',
-                C[C.NotFound = 0x3e9] = 'NotFound',
-                C[C.NotAuthenticated = 0x3ea] = 'NotAuthenticated',
-                C[C.NoPermission = 0x3eb] = 'NoPermission',
-                C[C.InvalidParameters = 0x3ec] = 'InvalidParameters',
-                C[C.EntityAuthenticationFailed = 0x3ed] = 'EntityAuthenticationFailed',
-                C[C.EntityCreationFailed = 0x3ee] = 'EntityCreationFailed',
-                C[C.EntityNotFound = 0x3ef] = 'EntityNotFound',
-                C[C.EntityThirdPartyConnectionExists = 0x3f0] = 'EntityThirdPartyConnectionExists',
-                C[C.ProviderIDAlreadyLinked = 0x3f1] = 'ProviderIDAlreadyLinked',
-                C[C.LeaderboardNotFound = 0x3f2] = 'LeaderboardNotFound',
-                C[C.EntityBanned = 0x3f3] = 'EntityBanned',
-                C[C.IPAddressBanned = 0x3f4] = 'IPAddressBanned',
-                C[C.ShopProductNotFound = 0x3f5] = 'ShopProductNotFound',
-                C[C.EntityCantAffordShopProduct = 0x3f6] = 'EntityCantAffordShopProduct',
-                C[C.ThirdPartyStoreProductConnectionNotFound = 0x3f7] = 'ThirdPartyStoreProductConnectionNotFound',
-                C[C.ShopProductNotAvailable = 0x3f8] = 'ShopProductNotAvailable',
-                C[C.ThirdPartyStoreProductConnectionNotAvailable = 0x3f9] = 'ThirdPartyStoreProductConnectionNotAvailable',
-                C[C.AppleAppStoreReceiptValidationFailed = 0x3fa] = 'AppleAppStoreReceiptValidationFailed',
-                C[C.GooglePlayStoreReceiptValidationFailed = 0x3fb] = 'GooglePlayStoreReceiptValidationFailed',
-                C[C.EntityDisplayNameTaken = 0x3fc] = 'EntityDisplayNameTaken',
-                C[C.BundleNotFound = 0x3fd] = 'BundleNotFound',
-                C[C.AddonEventCancelled = 0x3fe] = 'AddonEventCancelled',
-                C[C.EntityRelationshipLimitReached = 0x3ff] = 'EntityRelationshipLimitReached',
-                C;
+                return TWO_WAY_MAP(C, {
+                    Unknown: 1000,
+                    NotFound: 0x3e9,
+                    NotAuthenticated: 0x3ea,
+                    NoPermission: 0x3eb,
+                    InvalidParameters: 0x3ec,
+                    EntityAuthenticationFailed: 0x3ed,
+                    EntityCreationFailed: 0x3ee,
+                    EntityNotFound: 0x3ef,
+                    EntityThirdPartyConnectionExists: 0x3f0,
+                    ProviderIDAlreadyLinked: 0x3f1,
+                    LeaderboardNotFound: 0x3f2,
+                    EntityBanned: 0x3f3,
+                    IPAddressBanned: 0x3f4,
+                    ShopProductNotFound: 0x3f5,
+                    EntityCantAffordShopProduct: 0x3f6,
+                    ThirdPartyStoreProductConnectionNotFound: 0x3f7,
+                    ShopProductNotAvailable: 0x3f8,
+                    ThirdPartyStoreProductConnectionNotAvailable: 0x3f9,
+                    AppleAppStoreReceiptValidationFailed: 0x3fa,
+                    GooglePlayStoreReceiptValidationFailed: 0x3fb,
+                    EntityDisplayNameTaken: 0x3fc,
+                    BundleNotFound: 0x3fd,
+                    AddonEventCancelled: 0x3fe,
+                    EntityRelationshipLimitReached: 0x3ff,
+                });
             }(w || {});
             const l = w;
         }
         ,
         0x5b9b: (M, X, N) => {
             N.d(X, {
-                'A': () => rE
+                A: () => rE
             });
             var Z = N(0x28e3)
               , U = N(0xd5e4)
@@ -74,7 +96,7 @@
                         return;
                     if ('string' == typeof rH)
                         return rF(rH, ry);
-                    var rd = Object.prototype.toString.call(rH).slice(0x8, -1);
+                    var rd = Object.prototype.toString.call(rH).slice(8, -1);
                     'Object' === rd && rH.constructor && (rd = rH.constructor.name);
                     if ('Map' === rd || 'Set' === rd)
                         return Array.from(rH);
@@ -93,7 +115,7 @@
                     }
                     ;
                 }
-                throw new TypeError('Invalid\x20attempt\x20to\x20iterate\x20non-iterable\x20instance.\x0aIn\x20order\x20to\x20be\x20iterable,\x20non-array\x20objects\x20must\x20have\x20a\x20[Symbol.iterator]()\x20method.');
+                throw new TypeError('Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.');
             }
             function rF(rp, rS) {
                 (null == rS || rS > rp.length) && (rS = rp.length);
@@ -105,14 +127,14 @@
                 function rp(re, rR, rH) {
                     var ry = this;
                     this.bxa = function(rd, rP, rQ) {
-                        ry.bjX.bQs = (0,
-                        r1.qE)(rd.sensitivity, r2.A.bxT.bxp, r2.A.bxT.bxV),
-                        ry.bjX.bxZ = (0,
-                        r1.qE)(rd.soundVolume, r2.A.bxE.bxp, r2.A.bxE.bxV),
+                        ry.bjX.bQs =
+                        r1.qE(rd.sensitivity, r2.A.bxT.bxp, r2.A.bxT.bxV),
+                        ry.bjX.bxZ =
+                        r1.qE(rd.soundVolume, r2.A.bxE.bxp, r2.A.bxE.bxV),
                         ry.bjX.bQQ = rd.invertYAxis,
                         ry.bjX.bcU = rd.invertMouseWheel;
-                        var rB = (0,
-                        r1.qE)(rd.renderScale, r2.A.bgI.bxp, r2.A.bgI.bxV);
+                        var rB =
+                        r1.qE(rd.renderScale, r2.A.bgI.bxp, r2.A.bgI.bxV);
                         ry.bjX.bjK !== rB && (ry.bjX.bjK = rB,
                         void 0 !== rP && rP.bLw.setPixelRatio(window.devicePixelRatio * ry.bjX.bjK));
                         var rM = []
@@ -131,13 +153,13 @@
                             'bWz': rt
                         }),
                         ry.bjX.bgF = rt),
-                        ry.bjX.bjw = (0,
-                        r1.qE)(rd.generalFOV, r2.A.bgf.bxp, r2.A.bgf.bxV);
-                        var rm = (0,
-                        r1.qE)(rd.firstPersonModelFOV, r2.A.bgD.bxp, r2.A.bgD.bxV);
+                        ry.bjX.bjw =
+                        r1.qE(rd.generalFOV, r2.A.bgf.bxp, r2.A.bgf.bxV);
+                        var rm =
+                        r1.qE(rd.firstPersonModelFOV, r2.A.bgD.bxp, r2.A.bgD.bxV);
                         ry.bjX.bgh !== rm && (ry.bjX.bgh = rm),
-                        ry.bjX.bxA = (0,
-                        r1.qE)(rd.runningFOVMultiplier, r2.A.bgk.bxp, r2.A.bgk.bxV);
+                        ry.bjX.bxA =
+                        r1.qE(rd.runningFOVMultiplier, r2.A.bgk.bxp, r2.A.bgk.bxV);
                         for (var rw = 0, rl = Object.entries(rd.keys); rw < rl.length; rw++) {
                             var rC = rl[rw]
                               , rN = rC[0]
@@ -174,51 +196,51 @@
                         r6.A.bfD();
                     }),
                     G.A.on(k.r.bgR, (function() {
-                        var rd = (0,
-                        Z.A)(V().mark(function rP(rQ) {
+                        var rd =
+                        Z.A(V().mark(function rP(rQ) {
                             var rB, rM, rX, rt;
                             return V().wrap(function(rm) {
                                 for (; ; )
                                     switch (rm.prev = rm.next) {
                                     case 0:
-                                        if (rB = '{{killer}}\x20{{itemIcon}}\x20{{victim}}',
+                                        if (rB = '{{killer}} {{itemIcon}} {{victim}}',
                                         rM = '',
                                         rQ.bgn !== J.i.bOL) {
-                                            rm.next = 0x6;
+                                            rm.next = 6;
                                             break;
                                         }
-                                        rB = (0,
-                                        r8.IQ)(['{{victim}}\x20fell\x20to\x20their\x20death', '{{victim}}\x20fell\x20from\x20a\x20great\x20height', '{{victim}}\x20took\x20a\x20fatal\x20fall']),
+                                        rB =
+                                        r8.IQ(['{{victim}} fell to their death', '{{victim}} fell from a great height', '{{victim}} took a fatal fall']),
                                         rm.next = 0x1d;
                                         break;
-                                    case 0x6:
+                                    case 6:
                                         if (rQ.bgn !== J.i.bgt) {
-                                            rm.next = 0xa;
+                                            rm.next = 10;
                                             break;
                                         }
-                                        rB = (0,
-                                        r8.IQ)(['{{victim}}\x20melted\x20in\x20lava', '{{victim}}\x20was\x20incinerated\x20by\x20lava', '{{victim}}\x20was\x20scorched\x20by\x20lava', '{{victim}}\x27s\x20adventure\x20ended\x20in\x20lava']),
+                                        rB =
+                                        r8.IQ(['{{victim}} melted in lava', '{{victim}} was incinerated by lava', '{{victim}} was scorched by lava', '{{victim}}\x27s adventure ended in lava']),
                                         rm.next = 0x1d;
                                         break;
-                                    case 0xa:
+                                    case 10:
                                         if (rQ.bgn !== J.i.bgA) {
-                                            rm.next = 0xe;
+                                            rm.next = 14;
                                             break;
                                         }
-                                        rB = (0,
-                                        r8.IQ)(['{{victim}}\x20underestimated\x20the\x20sharpness\x20of\x20a\x20cactus', '{{victim}}\x20hugged\x20a\x20cactus', '{{victim}}\x20lost\x20to\x20a\x20plant']),
+                                        rB =
+                                        r8.IQ(['{{victim}} underestimated the sharpness of a cactus', '{{victim}} hugged a cactus', '{{victim}} lost to a plant']),
                                         rm.next = 0x1d;
                                         break;
-                                    case 0xe:
+                                    case 14:
                                         if (rQ.bgn !== J.i.bgN) {
-                                            rm.next = 0x12;
+                                            rm.next = 18;
                                             break;
                                         }
-                                        rB = (0,
-                                        r8.IQ)(['{{victim}}\x20died\x20somehow', '{{victim}}\x20encountered\x20a\x20mysterious\x20demise', '{{victim}}\x27s\x20end\x20is\x20shrouded\x20in\x20mystery', '{{victim}}\x20succumbed\x20to\x20the\x20unknown']),
+                                        rB =
+                                        r8.IQ(['{{victim}} died somehow', '{{victim}} encountered a mysterious demise', '{{victim}}\x27s end is shrouded in mystery', '{{victim}} succumbed to the unknown']),
                                         rm.next = 0x1d;
                                         break;
-                                    case 0x12:
+                                    case 18:
                                         if (rQ.bgn !== J.i.bLN) {
                                             rm.next = 0x1d;
                                             break;
@@ -238,8 +260,8 @@
                                         rm.t1 = '';
                                     case 0x1b:
                                         rM = rm.t1,
-                                        rQ.bgW === D.S.bDI && (rB = (0,
-                                        r8.IQ)(['{{killer}}\x20punched\x20{{victim}}\x20to\x20death', '{{killer}}\x20knocked\x20out\x20{{victim}}\x20with\x20a\x20punch', '{{killer}}\x20delivered\x20a\x20fatal\x20punch\x20to\x20{{victim}}', '{{killer}}\x20overpowered\x20{{victim}}\x20with\x20a\x20punch']));
+                                        rQ.bgW === D.S.bDI && (rB =
+                                        r8.IQ(['{{killer}} punched {{victim}} to death', '{{killer}} knocked out {{victim}} with a punch', '{{killer}} delivered a fatal punch to {{victim}}', '{{killer}} overpowered {{victim}} with a punch']));
                                     case 0x1d:
                                         rt = ry._nextKillFeedMessageId++,
                                         ry.bgB.getState().bgL({
@@ -428,10 +450,10 @@
                     G.A.on(k.r.bMQ, function(rd, rP, rQ) {
                         if ((0,
                         W.HF)() === q.v.bje && void 0 === ry.bgB.getState().bJk) {
-                            var rB = (0,
-                            W.VB)();
+                            var rB =
+                            W.VB();
                             if (rB) {
-                                if (0xd !== rP)
+                                if (13 !== rP)
                                     return;
                                 var rM = ry.bgB.getState().bJA;
                                 rM.length > 0 && (G.A.emit(k.r.bJD, rM),
@@ -504,8 +526,8 @@
                     re.bsr();
                     for (var rR = [], rH = [], ry = 0; ry < z.bR.bzA; ry++) {
                         var rd = ry
-                          , rP = (0,
-                        z.pg)(rd)
+                          , rP =
+                        z.pg(rd)
                           , rQ = rP.ingredientSets.some(function(rM) {
                             return re.bsP(rM);
                         });
@@ -551,7 +573,7 @@
                         return;
                     if ('string' == typeof rC)
                         return r3(rC, rN);
-                    var rZ = Object.prototype.toString.call(rC).slice(0x8, -1);
+                    var rZ = Object.prototype.toString.call(rC).slice(8, -1);
                     'Object' === rZ && rC.constructor && (rZ = rC.constructor.name);
                     if ('Map' === rZ || 'Set' === rZ)
                         return Array.from(rC);
@@ -570,7 +592,7 @@
                     }
                     ;
                 }
-                throw new TypeError('Invalid\x20attempt\x20to\x20iterate\x20non-iterable\x20instance.\x0aIn\x20order\x20to\x20be\x20iterable,\x20non-array\x20objects\x20must\x20have\x20a\x20[Symbol.iterator]()\x20method.');
+                throw new TypeError('Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.');
             }
             function r3(rt, rm) {
                 (null == rm || rm > rt.length) && (rm = rt.length);
@@ -643,10 +665,10 @@
                     void 0 === rC && (rC = false),
                     void 0 === rN && (rN = W.A.bIy),
                     this.bIB = function(rh, ro, rU) {
-                        var ri = 0x9 * rZ.bIZ[rh + 1] + 0x3 * rZ.bIZ[ro + 1] + rZ.bIZ[rU + 1]
+                        var ri = 9 * rZ.bIZ[rh + 1] + 3 * rZ.bIZ[ro + 1] + rZ.bIZ[rU + 1]
                           , rT = rZ.bIe[ri]
                           , rV = rZ.bIz[ri];
-                        if (0x2 === rV)
+                        if (2 === rV)
                             return !rZ.bIH[rT.get(rh, ro, rU)];
                         var rs = [rZ.bId, rZ.bIR][rV]
                           , rG = rs[rh + 1]
@@ -682,7 +704,7 @@
                 var rm = rt.prototype;
                 return rm.bIr = function(rw, rl, rC, rN, rZ, rh) {
                     void 0 === rh && (rh = null);
-                    for (var ro = rl.shape[1], rU = this.bIj, ri = this.bIQ, rT = this.bIC, rV = this.bIK, rs = 0x2 * rw, rG = 0, rk = rl.index(rC, 0, 0), rW = rl.stride[1], rx = rl.stride[0x2], ra = rN.index(rZ, 0, 0), rI = rN.stride[1], rg = rN.stride[0x2], rL = 0, rc = 0, rq = [], rf = [], rK = 0; rK < ro; ++rK) {
+                    for (var ro = rl.shape[1], rU = this.bIj, ri = this.bIQ, rT = this.bIC, rV = this.bIK, rs = 2 * rw, rG = 0, rk = rl.index(rC, 0, 0), rW = rl.stride[1], rx = rl.stride[2], ra = rN.index(rZ, 0, 0), rI = rN.stride[1], rg = rN.stride[2], rL = 0, rc = 0, rq = [], rf = [], rK = 0; rK < ro; ++rK) {
                         var rY = rk
                           , rz = ra;
                         if (rk += rx,
@@ -702,8 +724,8 @@
                                   , rb = rU[rO]
                                   , rD = ri[rj]
                                   , ru = ri[rO]
-                                  , F0 = rT[0x6 * rj + rs]
-                                  , F1 = rT[0x6 * rO + rs + 1];
+                                  , F0 = rT[6 * rj + rs]
+                                  , F1 = rT[6 * rO + rs + 1];
                                 0 === rw && rb && ru.bIo === z.R.bIP && rf.push({
                                     'bIa': (0,
                                     r1.VB)(rZ, rK, rA),
@@ -730,13 +752,13 @@
                                 rn && rD.bIo === z.R.bIV && rq.push({
                                     'bIE': (0,
                                     j.LX)(rK, rA),
-                                    'bbI': 0x2,
+                                    'bbI': 2,
                                     'bbb': rj
                                 }),
                                 rb && ru.bIo === z.R.bIV && rq.push({
                                     'bIE': (0,
                                     j.LX)(rK, rA),
-                                    'bbI': -0x2,
+                                    'bbI': -2,
                                     'bbb': rO
                                 });
                             }
@@ -751,7 +773,7 @@
                 ,
                 rm.bbk = function(rw, rl, rC, rN, rZ, rh, ro, rU, ri, rT) {
                     var rV = 0
-                      , rs = 0x2 * rN
+                      , rs = 2 * rN
                       , rG = [0, 0, 0];
                     rG[rN] = rC;
                     for (var rk = this.bIt ? r8 : r9, rW = 0; rW < rU; ++rW)
@@ -783,7 +805,7 @@
                                 rG[rh] = rW,
                                 rY.is[rz] = rG[0],
                                 rY.js[rz] = rG[1],
-                                rY.ks[rz] = rG[0x2],
+                                rY.ks[rz] = rG[2],
                                 rY.iOffsetAs[rz] = 0,
                                 rY.jOffsetAs[rz] = rx,
                                 rY.kOffsetAs[rz] = 0,
@@ -811,13 +833,13 @@
                 ,
                 rm.bby = function(rw, rl, rC, rN, rZ, rh) {
                     var ro = this
-                      , rU = 0x2 * rC
+                      , rU = 2 * rC
                       , ri = [0, 0, 0];
                     ri[rC] = rl;
                     for (var rT, rV = function() {
                         var rG = rT.value
                           , rk = rG.bbI > 0 ? rU : rU + 1
-                          , rW = 0x2 === rG.bbI || -0x2 === rG.bbI ? rk + 0x6 : rk
+                          , rW = 2 === rG.bbI || -2 === rG.bbI ? rk + 6 : rk
                           , rx = ro.bIQ[rG.bbb];
                         if (rx.bIo === z.R.bIV) {
                             ri[rN] = rG.bIE.bbB,
@@ -840,7 +862,7 @@
                                 rn.matIDs[rb] = rO,
                                 rn.is[rb] = rD[0],
                                 rn.js[rb] = rD[1],
-                                rn.ks[rb] = rD[0x2],
+                                rn.ks[rb] = rD[2],
                                 rn.iOffsetAs[rb] = rA.bbR.bbZ,
                                 rn.jOffsetAs[rb] = rA.bbR.bbB,
                                 rn.kOffsetAs[rb] = rA.bbR.bbd,
@@ -859,7 +881,7 @@
                                     var F3 = ri[rC] + F2
                                       , F4 = ri[rN] + F0
                                       , F5 = ri[rZ] + F1;
-                                    return 1 !== rk && 0x3 !== rk && 0x5 !== rk || (F3 -= 1),
+                                    return 1 !== rk && 3 !== rk && 5 !== rk || (F3 -= 1),
                                     ro.bIB(F3, F4, F5);
                                 }),
                                 rn.packedAO[rb] = -1,
@@ -878,20 +900,20 @@
                     if (this.bIU !== this.bIn) {
                         this.bIU = this.bIn;
                         for (var rl = -1; rl < this.bIn + 1; rl++) {
-                            var rC = rl < 0 ? 0 : rl < this.bIn ? 1 : 0x2;
-                            this.bIZ[rl + 1] = [0, 1, 0x2][rC],
+                            var rC = rl < 0 ? 0 : rl < this.bIn ? 1 : 2;
+                            this.bIZ[rl + 1] = [0, 1, 2][rC],
                             this.bId[rl + 1] = [this.bIn - 1, rl, 0][rC],
                             this.bIR[rl + 1] = [0, rl, this.bIn - 1][rC];
                         }
                     }
-                    for (var rN = rw.get(0, 0, 0), rZ = 0; rZ < 0x3; rZ++)
-                        for (var rh = 0; rh < 0x3; rh++)
-                            for (var ro = 0; ro < 0x3; ro++) {
-                                var rU = 0x9 * rZ + 0x3 * rh + ro
+                    for (var rN = rw.get(0, 0, 0), rZ = 0; rZ < 3; rZ++)
+                        for (var rh = 0; rh < 3; rh++)
+                            for (var ro = 0; ro < 3; ro++) {
+                                var rU = 9 * rZ + 3 * rh + ro
                                   , ri = rw.get(rZ - 1, rh - 1, ro - 1)
                                   , rT = 0;
                                 ri || (rT = 1),
-                                ri === rN && (rT = 0x2),
+                                ri === rN && (rT = 2),
                                 this.bIz[rU] = rT,
                                 this.bIe[rU] = ri || rN;
                             }
@@ -899,16 +921,16 @@
                 ,
                 rm.bbM = function(rw, rl) {
                     var rC = this
-                      , rN = rw[0xd].bbS
+                      , rN = rw[13].bbS
                       , rZ = {};
                     this.bIm.bIh();
                     for (var rh, ro = [], rU = function(rT) {
-                        var rV = 0x2 === rT ? 0 : 0x2
+                        var rV = 2 === rT ? 0 : 2
                           , rs = 1 === rT ? 0 : 1
                           , rG = rw.map(function(rb) {
-                            return rb ? G()(rb.bbw, [rC.bIn, rC.bIn, rC.bIn]).transpose(1, 0, 0x2).transpose(rT, rV, rs) : void 0;
+                            return rb ? G()(rb.bbw, [rC.bIn, rC.bIn, rC.bIn]).transpose(1, 0, 2).transpose(rT, rV, rs) : void 0;
                         })
-                          , rk = G()(rG, [0x3, 0x3, 0x3]).lo(1, 1, 1).transpose(rT, rV, rs);
+                          , rk = G()(rG, [3, 3, 3]).lo(1, 1, 1).transpose(rT, rV, rs);
                         rC.bbj(rk);
                         var rW = rk.get(-1, 0, 0)
                           , rx = rk.get(0, 0, 0);
@@ -953,7 +975,7 @@
                                 rv.length > 0 && rC.bby(rv, rh + 1, rT, rV, rs, rZ);
                             }
                         }
-                    }, ri = 0; ri < 0x3; ++ri)
+                    }, ri = 0; ri < 3; ++ri)
                         rU(ri);
                     return {
                         'bbv': rZ,
@@ -972,16 +994,16 @@
                           , ri = rU.terrainID
                           , rT = rl[rU.matIDs[0]].bbZ >= 0
                           , rV = rU.numFaces
-                          , rs = new Uint32Array(0x6 * rV)
-                          , rG = new Float32Array(0xc * rV)
-                          , rk = this.bIA ? new Int8Array(0xc * rV) : void 0
+                          , rs = new Uint32Array(6 * rV)
+                          , rG = new Float32Array(12 * rV)
+                          , rk = this.bIA ? new Int8Array(12 * rV) : void 0
                           , rW = void 0
                           , rx = void 0
                           , ra = void 0
                           , rI = void 0;
-                        rT ? (rx = new Int16Array(0x8 * rV),
-                        ra = new Uint16Array(0x2 * rV * 0x4),
-                        this.bIt && (rI = new Uint8Array(0x4 * rV))) : rW = new Float32Array(0xc * rV);
+                        rT ? (rx = new Int16Array(8 * rV),
+                        ra = new Uint16Array(2 * rV * 4),
+                        this.bIt && (rI = new Uint8Array(4 * rV))) : rW = new Float32Array(12 * rV);
                         for (var rg = 0; rg < rU.numFaces; rg++) {
                             var rL = rU.matIDs[rg]
                               , rc = rU.dirs[rg]
@@ -997,10 +1019,10 @@
                               , rv = rU.iOffsetCs[rg]
                               , rn = rU.jOffsetCs[rg]
                               , rb = rU.kOffsetCs[rg]
-                              , rD = 0x10 * rU.uvwids[rg]
-                              , ru = 0x10 * rU.uvhts[rg]
-                              , F0 = rc / 0x2 | 0
-                              , F1 = rc % 0x2 ? -1 : 1;
+                              , rD = 16 * rU.uvwids[rg]
+                              , ru = 16 * rU.uvhts[rg]
+                              , F0 = rc / 2 | 0
+                              , F1 = rc % 2 ? -1 : 1;
                             rF(rG, rg, rq, rf, rK, F0, rY, rz, rA, rj, rO, rJ, rv, rn, rb);
                             var F2 = rU.packedAO[rg]
                               , F3 = rU.AOAs[rg]
@@ -1011,8 +1033,8 @@
                                 var F7 = rM(F2);
                                 F3 = this.bIN[F7[0]],
                                 F4 = this.bIN[F7[1]],
-                                F5 = this.bIN[F7[0x2]],
-                                F6 = this.bIN[F7[0x3]];
+                                F5 = this.bIN[F7[2]],
+                                F6 = this.bIN[F7[3]];
                             }
                             if (rS(rs, rg, F0, F1, rH(F3, F4, F5, F6)),
                             this.bIA && rk) {
@@ -1052,10 +1074,10 @@
                 rt;
             }());
             function rF(rt, rm, rw, rl, rC, rN, rZ, rh, ro, rU, ri, rT, rV, rs, rG) {
-                var rk = 0xc * rm
+                var rk = 12 * rm
                   , rW = [rw, rl, rC]
                   , rx = rN
-                  , ra = 0x2 === rx ? 0 : 0x2
+                  , ra = 2 === rx ? 0 : 2
                   , rI = 1 === rx ? 0 : 1
                   , rg = [0, 0, 0];
                 rg[rx] = rZ,
@@ -1071,122 +1093,122 @@
                 rc[rI] = rG,
                 rt[rk + 0] = rW[0],
                 rt[rk + 1] = rW[1],
-                rt[rk + 0x2] = rW[0x2],
-                rt[rk + 0x3 + 0] = rW[0] + rg[0],
-                rt[rk + 0x3 + 1] = rW[1] + rg[1],
-                rt[rk + 0x3 + 0x2] = rW[0x2] + rg[0x2],
-                rt[rk + 0x6 + 0] = rW[0] + rL[0],
-                rt[rk + 0x6 + 1] = rW[1] + rL[1],
-                rt[rk + 0x6 + 0x2] = rW[0x2] + rL[0x2],
-                rt[rk + 0x9 + 0] = rW[0] + rc[0],
-                rt[rk + 0x9 + 1] = rW[1] + rc[1],
-                rt[rk + 0x9 + 0x2] = rW[0x2] + rc[0x2];
+                rt[rk + 2] = rW[2],
+                rt[rk + 3 + 0] = rW[0] + rg[0],
+                rt[rk + 3 + 1] = rW[1] + rg[1],
+                rt[rk + 3 + 2] = rW[2] + rg[2],
+                rt[rk + 6 + 0] = rW[0] + rL[0],
+                rt[rk + 6 + 1] = rW[1] + rL[1],
+                rt[rk + 6 + 2] = rW[2] + rL[2],
+                rt[rk + 9 + 0] = rW[0] + rc[0],
+                rt[rk + 9 + 1] = rW[1] + rc[1],
+                rt[rk + 9 + 2] = rW[2] + rc[2];
             }
             function rE(rt, rm, rw, rl, rC, rN, rZ) {
-                for (var rh = 0x8 * rm, ro = 0; ro < 0x8; ro++)
+                for (var rh = 8 * rm, ro = 0; ro < 8; ro++)
                     rt[rh + ro] = 0;
                 var rU = 1
-                  , ri = 0x3
-                  , rT = 0x2
-                  , rV = 0x4
-                  , rs = 1 === (rZ = (0,
-                q.Wh)(rZ, 0x4)) || 0x3 === rZ
+                  , ri = 3
+                  , rT = 2
+                  , rV = 4
+                  , rs = 1 === (rZ =
+                q.Wh(rZ, 4)) || 3 === rZ
                   , rG = rC - 0
                   , rk = rN * rl;
                 1 === rw ? (rU = 1,
-                ri = 0x7,
-                rT = 0x4,
-                rV = 0x6,
+                ri = 7,
+                rT = 4,
+                rV = 6,
                 rG = rl - 0,
-                rk = rN * rC) : 0x2 == rw && (rU = 1,
-                ri = 0x3,
-                rT = 0x2,
-                rV = 0x4,
+                rk = rN * rC) : 2 == rw && (rU = 1,
+                ri = 3,
+                rT = 2,
+                rV = 4,
                 rG = rC - 0,
                 rk = -rN * rl),
-                rU = (0,
-                q.Wh)(rU + 0x2 * rZ, 0x8),
-                ri = (0,
-                q.Wh)(ri + 0x2 * rZ, 0x8),
-                rT = (0,
-                q.Wh)(rT + 0x2 * rZ, 0x8),
-                rV = (0,
-                q.Wh)(rV + 0x2 * rZ, 0x8),
+                rU =
+                q.Wh(rU + 2 * rZ, 8),
+                ri =
+                q.Wh(ri + 2 * rZ, 8),
+                rT =
+                q.Wh(rT + 2 * rZ, 8),
+                rV =
+                q.Wh(rV + 2 * rZ, 8),
                 rt[rh + rU] = rt[rh + ri] = rs ? rk : rG,
                 rt[rh + rT] = rt[rh + rV] = rs ? rG : rk;
             }
             function rp(rt, rm, rw) {
-                for (var rl = 0xc * rm, rC = 0; rC < 0xc; rC++)
-                    rt[rl + rC] = rw[rC % 0x3];
+                for (var rl = 12 * rm, rC = 0; rC < 12; rC++)
+                    rt[rl + rC] = rw[rC % 3];
             }
             function rS(rt, rm, rw, rl, rC) {
-                var rN = 0x6 * rm
-                  , rZ = 0x4 * rm;
+                var rN = 6 * rm
+                  , rZ = 4 * rm;
                 0 === rw && (rl = -rl);
                 var rh = rl < 0 ? 0 : 1;
-                rC || (rh += 0x2);
-                for (var ro = re[rh], rU = 0; rU < 0x6; rU++)
+                rC || (rh += 2);
+                for (var ro = re[rh], rU = 0; rU < 6; rU++)
                     rt[rN + rU] = rZ + ro[rU];
             }
-            var re = [[0, 0x2, 1, 0, 0x3, 0x2], [0, 1, 0x2, 0, 0x2, 0x3], [1, 0x3, 0x2, 1, 0, 0x3], [1, 0x2, 0x3, 1, 0x3, 0]];
+            var re = [[0, 2, 1, 0, 3, 2], [0, 1, 2, 0, 2, 3], [1, 3, 2, 1, 0, 3], [1, 2, 3, 1, 3, 0]];
             function rR(rt, rm, rw, rl, rC) {
-                for (var rN = 0x8 * rm, rZ = 0; rZ < 0x8; rZ += 0x2)
-                    rt[rN + rZ] = 0x10 * (rw.bbZ + rl),
-                    rt[rN + rZ + 1] = 0x10 * (rw.bbB + rC);
+                for (var rN = 8 * rm, rZ = 0; rZ < 8; rZ += 2)
+                    rt[rN + rZ] = 16 * (rw.bbZ + rl),
+                    rt[rN + rZ + 1] = 16 * (rw.bbB + rC);
             }
             function rH(rt, rm, rw, rl) {
                 return rt + rw >= rm + rl;
             }
             function ry(rt, rm, rw) {
-                for (var rl = 0xc * rm, rC = 0; rC < 0xc; rC += 0x3)
+                for (var rl = 12 * rm, rC = 0; rC < 12; rC += 3)
                     rt[rl + rC] = rw[0],
                     rt[rl + rC + 1] = rw[1],
-                    rt[rl + rC + 0x2] = rw[0x2];
+                    rt[rl + rC + 2] = rw[2];
             }
             function rd(rt, rm, rw, rl, rC, rN, rZ) {
-                var rh = 0xc * rm;
+                var rh = 12 * rm;
                 rP(rt, rh, rw, rl),
-                rP(rt, rh + 0x3, rw, rZ),
-                rP(rt, rh + 0x6, rw, rN),
-                rP(rt, rh + 0x9, rw, rC);
+                rP(rt, rh + 3, rw, rZ),
+                rP(rt, rh + 6, rw, rN),
+                rP(rt, rh + 9, rw, rC);
             }
             function rP(rt, rm, rw, rl) {
                 rt[rm] = rw[0] * rl,
                 rt[rm + 1] = rw[1] * rl,
-                rt[rm + 0x2] = rw[0x2] * rl;
+                rt[rm + 2] = rw[2] * rl;
             }
             function rQ(rt, rm, rw, rl, rC, rN, rZ) {
                 var rh = 1;
-                0 === rZ || 1 === rZ ? rh = 0.9 : 0x4 === rZ || 0x5 === rZ ? rh = 0.825 : 0x3 === rZ && (rh = 0.75);
-                var ro = 0x4 * rm;
+                0 === rZ || 1 === rZ ? rh = 0.9 : 4 === rZ || 5 === rZ ? rh = 0.825 : 3 === rZ && (rh = 0.75);
+                var ro = 4 * rm;
                 rt[ro] = rw * rh * 0xff,
                 rt[ro + 1] = rN * rh * 0xff,
-                rt[ro + 0x2] = rC * rh * 0xff,
-                rt[ro + 0x3] = rl * rh * 0xff;
+                rt[ro + 2] = rC * rh * 0xff,
+                rt[ro + 3] = rl * rh * 0xff;
             }
             function rB(rt, rm, rw, rl) {
                 var rC = [[rt(rm, rw + 1, rl + 1), rt(rm, rw + 1, rl), rt(rm, rw + 1, rl - 1)], [rt(rm, rw, rl + 1), false, rt(rm, rw, rl - 1)], [rt(rm, rw - 1, rl + 1), rt(rm, rw - 1, rl), rt(rm, rw - 1, rl - 1)]]
-                  , rN = (0,
-                r0.Mc)(rC[1][0], rC[0x2][1], rC[0x2][0]);
+                  , rN =
+                r0.Mc(rC[1][0], rC[2][1], rC[2][0]);
                 return (0,
-                r0.Mc)(rC[1][0], rC[0][1], rC[0][0]) << 0x6 | (0,
-                r0.Mc)(rC[0][1], rC[1][0x2], rC[0][0x2]) << 0x4 | rN << 0x2 | (0,
-                r0.Mc)(rC[1][0x2], rC[0x2][1], rC[0x2][0x2]);
+                r0.Mc)(rC[1][0], rC[0][1], rC[0][0]) << 6 | (0,
+                r0.Mc)(rC[0][1], rC[1][2], rC[0][2]) << 4 | rN << 2 | (0,
+                r0.Mc)(rC[1][2], rC[2][1], rC[2][2]);
             }
             function rM(rt) {
-                return [0x3 & rt, rt >> 0x2 & 0x3, rt >> 0x6 & 0x3, rt >> 0x4 & 0x3];
+                return [3 & rt, rt >> 2 & 3, rt >> 6 & 3, rt >> 4 & 3];
             }
             var rX = function(rt) {
                 for (var rm, rw = [], rl = r2(rt); !(rm = rl()).done; ) {
                     var rC = rm.value
                       , rN = new U.BufferGeometry();
-                    rN.setAttribute('position', new U.Float32BufferAttribute(rC.bbC,0x3)),
+                    rN.setAttribute('position', new U.Float32BufferAttribute(rC.bbC,3)),
                     rN.setIndex(new U.Uint32BufferAttribute(rC.bbO,1)),
-                    rC.bbK && rN.setAttribute('color', new U.Float32BufferAttribute(rC.bbK,0x3)),
-                    rC.bbu && rN.setAttribute('normal', new U.Int8BufferAttribute(rC.bbu,0x3)),
-                    rC.bbc && rN.setAttribute('uv', new U.Int16BufferAttribute(rC.bbc,0x2)),
+                    rC.bbK && rN.setAttribute('color', new U.Float32BufferAttribute(rC.bbK,3)),
+                    rC.bbu && rN.setAttribute('normal', new U.Int8BufferAttribute(rC.bbu,3)),
+                    rC.bbc && rN.setAttribute('uv', new U.Int16BufferAttribute(rC.bbc,2)),
                     rC.bbY && rN.setAttribute('ao', new U.Uint8BufferAttribute(rC.bbY,1,true)),
-                    rC.atlasIndices && rN.setAttribute('atlasIndex', new U.Uint16BufferAttribute(rC.atlasIndices,0x2));
+                    rC.atlasIndices && rN.setAttribute('atlasIndex', new U.Uint16BufferAttribute(rC.atlasIndices,2));
                     var rZ = new U.Mesh(rN,Y.A.bIM.bIS.bIw.bbx[rC.bbs]);
                     rw.push(rZ);
                 }
@@ -1241,8 +1263,8 @@
                       , rr = new J.A(b.x,r0.C$,r1.A.bxs);
                     rr.bJe(r9.bLv, r9.bcD, r9.bNg),
                     r0.C$.persist.onFinishHydration((function() {
-                        var rp = (0,
-                        U.A)(G().mark(function rS(re) {
+                        var rp =
+                        U.A(G().mark(function rS(re) {
                             return G().wrap(function(rR) {
                                 for (; ; )
                                     switch (rR.prev = rR.next) {
@@ -1251,7 +1273,7 @@
                                         r1.A.bJC(),
                                         new z.A('#app'),
                                         r6.A.bfk();
-                                    case 0x4:
+                                    case 4:
                                     case 'end':
                                         return rR.stop();
                                     }
@@ -1265,66 +1287,66 @@
                     r0.C$.persist.rehydrate();
                     var rF = new r4.A();
                     r3.B.persist.onFinishHydration((function() {
-                        var rp = (0,
-                        U.A)(G().mark(function rS(re) {
+                        var rp =
+                        U.A(G().mark(function rS(re) {
                             var rR;
                             return G().wrap(function(rH) {
                                 for (; ; )
                                     switch (rH.prev = rH.next) {
                                     case 0:
                                         return rH.prev = 0,
-                                        rH.next = 0x3,
+                                        rH.next = 3,
                                         r2.A.bFw(re.token);
-                                    case 0x3:
+                                    case 3:
                                         if (window.adSDKType !== r7.a.bFr) {
-                                            rH.next = 0x9;
+                                            rH.next = 9;
                                             break;
                                         }
                                         if (!window.CrazyGames.SDK.user.isUserAccountAvailable) {
-                                            rH.next = 0x9;
+                                            rH.next = 9;
                                             break;
                                         }
                                         return rR = (function() {
-                                            var ry = (0,
-                                            U.A)(G().mark(function rd() {
+                                            var ry =
+                                            U.A(G().mark(function rd() {
                                                 var rP, rQ, rB, rM, rX;
                                                 return G().wrap(function(rt) {
                                                     for (; ; )
                                                         switch (rt.prev = rt.next) {
                                                         case 0:
-                                                            return rt.next = 0x2,
+                                                            return rt.next = 2,
                                                             window.CrazyGames.SDK.user.getUser();
-                                                        case 0x2:
+                                                        case 2:
                                                             if (null === rt.sent) {
                                                                 rt.next = 0x15;
                                                                 break;
                                                             }
-                                                            return rt.next = 0x6,
+                                                            return rt.next = 6,
                                                             window.CrazyGames.SDK.user.getUserToken();
-                                                        case 0x6:
+                                                        case 6:
                                                             if (rQ = rt.sent,
                                                             void 0 !== (null == (rP = b.x.getState().bFq) || null == (rP = rP.Connections) ? void 0 : rP.CrazyGames)) {
-                                                                rt.next = 0x11;
+                                                                rt.next = 17;
                                                                 break;
                                                             }
-                                                            return rt.prev = 0x8,
-                                                            rt.next = 0xb,
+                                                            return rt.prev = 8,
+                                                            rt.next = 11,
                                                             r2.A.bFK(rQ);
-                                                        case 0xb:
-                                                            rt.next = 0x11;
+                                                        case 11:
+                                                            rt.next = 17;
                                                             break;
-                                                        case 0xd:
-                                                            if (rt.prev = 0xd,
-                                                            rt.t0 = rt.catch(0x8),
+                                                        case 13:
+                                                            if (rt.prev = 13,
+                                                            rt.t0 = rt.catch(8),
                                                             (null == (rB = rt.t0.response) || null == (rB = rB.data) ? void 0 : rB.ErrorCode) === r8.A.EntityThirdPartyConnectionExists || (null == (rM = rt.t0.response) || null == (rM = rM.data) ? void 0 : rM.ErrorCode) === r8.A.ProviderIDAlreadyLinked) {
-                                                                rt.next = 0x11;
+                                                                rt.next = 17;
                                                                 break;
                                                             }
                                                             throw rt.t0;
-                                                        case 0x11:
-                                                            return rt.next = 0x13,
+                                                        case 17:
+                                                            return rt.next = 19,
                                                             r2.A.bFc(rQ);
-                                                        case 0x13:
+                                                        case 19:
                                                             rt.next = 0x1a;
                                                             break;
                                                         case 0x15:
@@ -1341,51 +1363,51 @@
                                                         case 'end':
                                                             return rt.stop();
                                                         }
-                                                }, rd, null, [[0x8, 0xd]]);
+                                                }, rd, null, [[8, 13]]);
                                             }));
                                             return function() {
                                                 return ry.apply(this, arguments);
                                             }
                                             ;
                                         }()),
-                                        rH.next = 0x8,
+                                        rH.next = 8,
                                         rR();
-                                    case 0x8:
+                                    case 8:
                                         window.CrazyGames.SDK.user.addAuthListener((0,
                                         U.A)(G().mark(function ry() {
                                             return G().wrap(function(rd) {
                                                 for (; ; )
                                                     switch (rd.prev = rd.next) {
                                                     case 0:
-                                                        return rd.next = 0x2,
+                                                        return rd.next = 2,
                                                         rR();
-                                                    case 0x2:
+                                                    case 2:
                                                         window.onbeforeunload = function() {}
                                                         ,
                                                         window.location.reload();
-                                                    case 0x4:
+                                                    case 4:
                                                     case 'end':
                                                         return rd.stop();
                                                     }
                                             }, ry);
                                         })));
-                                    case 0x9:
-                                        rH.next = 0xf;
+                                    case 9:
+                                        rH.next = 15;
                                         break;
-                                    case 0xb:
-                                        rH.prev = 0xb,
+                                    case 11:
+                                        rH.prev = 11,
                                         rH.t0 = rH.catch(0),
                                         console.error(rH.t0),
                                         b.x.getState().bFQ(null);
-                                    case 0xf:
-                                        return rH.prev = 0xf,
+                                    case 15:
+                                        return rH.prev = 15,
                                         rF.release(),
-                                        rH.finish(0xf);
-                                    case 0x12:
+                                        rH.finish(15);
+                                    case 18:
                                     case 'end':
                                         return rH.stop();
                                     }
-                            }, rS, null, [[0, 0xb, 0xf, 0x12]]);
+                            }, rS, null, [[0, 11, 15, 18]]);
                         }));
                         return function(re) {
                             return rp.apply(this, arguments);
@@ -1395,21 +1417,21 @@
                     r3.B.persist.rehydrate();
                     var rE = new j.A(r9.bLv);
                     x.A.on(q.r.bUr, (function() {
-                        var rp = (0,
-                        U.A)(G().mark(function rS(re, rR, rH, ry, rd) {
+                        var rp =
+                        U.A(G().mark(function rS(re, rR, rH, ry, rd) {
                             return G().wrap(function(rP) {
                                 for (; ; )
                                     switch (rP.prev = rP.next) {
                                     case 0:
                                         return r6.A.bFE(rd),
                                         b.x.getState().bfS(D.v.bUE),
-                                        rP.next = 0x4,
+                                        rP.next = 4,
                                         rF.await();
-                                    case 0x4:
+                                    case 4:
                                         return b.x.getState().bfS(D.v.bUi),
-                                        rP.next = 0x7,
+                                        rP.next = 7,
                                         rE.bQK(re, rR, rH, ry, rd);
-                                    case 0x7:
+                                    case 7:
                                     case 'end':
                                         return rP.stop();
                                     }
@@ -1420,19 +1442,19 @@
                         }
                         ;
                     }())),
-                    x.A.on(q.r.bGL, (0,
-                    U.A)(G().mark(function rp() {
+                    x.A.on(q.r.bGL,
+                    U.A(G().mark(function rp() {
                         return G().wrap(function(rS) {
                             for (; ; )
                                 switch (rS.prev = rS.next) {
                                 case 0:
                                     return b.x.getState().bfS(D.v.bjz),
-                                    rS.next = 0x3,
+                                    rS.next = 3,
                                     rE.FYK();
-                                case 0x3:
+                                case 3:
                                     b.x.getState().bfS(D.v.bUq),
                                     x.A.emit(q.r.bUV);
-                                case 0x5:
+                                case 5:
                                 case 'end':
                                     return rS.stop();
                                 }
@@ -1441,11 +1463,11 @@
                     b.x.getState().bfS(D.v.bUq),
                     r5.GameAnalytics.initialize('b3296cee59caef0f872506b17d145821', '20c33a152838e467b0d21a677ddfbb084891fb3d'),
                     setTimeout(function() {
-                        console.log('%cSTOP\x20RIGHT\x20THERE!', 'background-color:\x20yellow;\x20color:\x20red;\x20-webkit-text-stroke:\x202px\x20black;\x20font-size:\x2072px;\x20font-weight:\x20bold;'),
-                        console.log('%cThis\x20is\x20a\x20tool\x20for\x20developers.\x20If\x20anyone\x20told\x20you\x20to\x20copy/paste\x20something\x20here,\x20they\x20are\x20trying\x20to\x20scam\x20you!!!', 'font-size:\x2020px'),
-                        console.log('%cPasting\x20ANYTHING\x20in\x20here\x20might\x20give\x20hackers\x20access\x20to\x20your\x20account!!!', 'color:\x20red;\x20font-size:\x2020px'),
-                        console.log('%cDO\x20NOT\x20PASTE\x20ANYTHING!', 'background-color:\x20yellow;\x20color:\x20red;\x20-webkit-text-stroke:\x202px\x20black;\x20font-size:\x2072px;\x20font-weight:\x20bold;');
-                    }, 0x3e8),
+                        console.log('%cSTOP RIGHT THERE!', 'background-color: yellow; color: red; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;'),
+                        console.log('%cThis is a tool for developers. If anyone told you to copy/paste something here, they are trying to scam you!!!', 'font-size: 20px'),
+                        console.log('%cPasting ANYTHING in here might give hackers access to your account!!!', 'color: red; font-size: 20px'),
+                        console.log('%cDO NOT PASTE ANYTHING!', 'background-color: yellow; color: red; -webkit-text-stroke: 2px black; font-size: 72px; font-weight: bold;');
+                    }, 1000),
                     Z();
                 } catch (rS) {
                     Z(rS);
@@ -1463,9 +1485,9 @@
               , l = {
                 'FCn': 0,
                 'FCt': 1,
-                'FCA': 0x2,
-                'FCN': 0x3,
-                'FCk': 0x4
+                'FCA': 2,
+                'FCN': 3,
+                'FCk': 4
             }
               , C = [w.p.bAW, w.p.bAX, w.p.bHx, w.p.bAW, w.p.bAW]
               , N = function(Z) {
@@ -1502,13 +1524,13 @@
                 Z.A)(r3, r2);
                 var r4 = r3.prototype;
                 return r4.computeLineDistances = function() {
-                    for (var r5 = this.geometry, r6 = r5.attributes.instanceStart, r7 = r5.attributes.instanceEnd, r8 = new Float32Array(0x2 * r6.count), r9 = 0, rr = 0, rF = r6.count; r9 < rF; r9++,
-                    rr += 0x2)
+                    for (var r5 = this.geometry, r6 = r5.attributes.instanceStart, r7 = r5.attributes.instanceEnd, r8 = new Float32Array(2 * r6.count), r9 = 0, rr = 0, rF = r6.count; r9 < rF; r9++,
+                    rr += 2)
                         G.fromBufferAttribute(r6, r9),
                         k.fromBufferAttribute(r7, r9),
                         r8[rr] = 0 === rr ? 0 : r8[rr - 1],
                         r8[rr + 1] = r8[rr] + G.distanceTo(k);
-                    var rE = new U.InstancedInterleavedBuffer(r8,0x2,1);
+                    var rE = new U.InstancedInterleavedBuffer(r8,2,1);
                     return r5.setAttribute('instanceDistanceStart', new U.InterleavedBufferAttribute(rE,1,0)),
                     r5.setAttribute('instanceDistanceEnd', new U.InterleavedBufferAttribute(rE,1,1)),
                     this;
@@ -1517,16 +1539,27 @@
                 r4.raycast = function(r5, r6) {
                     var r7 = this.material.worldUnits
                       , r8 = r5.camera;
-                    null !== r8 || r7 || console.error('LineSegments2:\x20\x22Raycaster.camera\x22\x20needs\x20to\x20be\x20set\x20in\x20order\x20to\x20raycast\x20against\x20LineSegments2\x20while\x20worldUnits\x20is\x20set\x20to\x20false.');
+                    null !== r8 || r7 || console.error('LineSegments2: \x22Raycaster.camera\x22 needs to be set in order to raycast against LineSegments2 while worldUnits is set to false.');
                     var r9 = void 0 !== r5.params.Line2 && r5.params.Line2.threshold || 0;
                     C = r5.ray;
                     var rr, rF = this.matrixWorld, rE = this.geometry, rp = this.material;
-                    (N = rp.linewidth + r9,
-                    null === rE.boundingSphere && rE.computeBoundingSphere(),
-                    j.copy(rE.boundingSphere).applyMatrix4(rF),
-                    r7) ? rr = 0.5 * N : rr = b(r8, Math.max(r8.near, j.distanceToPoint(C.origin)), rp.resolution);
-                    if (j.radius += rr,
-                    false !== C.intersectsSphere(j)) {
+                    if (
+                        N = rp.linewidth + r9,
+                        null === rE.boundingSphere && rE.computeBoundingSphere(),
+                        j.copy(rE.boundingSphere).applyMatrix4(rF),
+                        r7
+                    )
+                        rr = 0.5 * N;
+                    else
+                        rr = b(
+                            r8,
+                            Math.max(r8.near, j.distanceToPoint(C.origin)),
+                            rp.resolution
+                        );
+                    if (
+                        j.radius += rr,
+                        false !== C.intersectsSphere(j)
+                    ) {
                         var rS;
                         if (null === rE.boundingBox && rE.computeBoundingBox(),
                         z.copy(rE.boundingBox).applyMatrix4(rF),
@@ -1554,7 +1587,8 @@
                                     'uv1': null
                                 });
                             }
-                        }(this, r6) : function(re, rR, rH) {
+                        }(this, r6) :
+                        function(re, rR, rH) {
                             var ry = rR.projectionMatrix
                               , rd = re.material.resolution
                               , rP = re.matrixWorld
@@ -1568,19 +1602,21 @@
                             I.applyMatrix4(rR.matrixWorldInverse),
                             I.applyMatrix4(ry),
                             I.multiplyScalar(1 / I.w),
-                            I.x *= rd.x / 0x2,
-                            I.y *= rd.y / 0x2,
+                            I.x *= rd.x / 2,
+                            I.y *= rd.y / 2,
                             I.z = 0,
                             L.copy(I),
                             q.multiplyMatrices(rR.matrixWorldInverse, rP);
                             for (var rm = 0, rw = rX; rm < rw; rm++)
-                                if (W.fromBufferAttribute(rB, rm),
-                                x.fromBufferAttribute(rM, rm),
-                                W.w = 1,
-                                x.w = 1,
-                                W.applyMatrix4(q),
-                                x.applyMatrix4(q),
-                                !(W.z > rt && x.z > rt)) {
+                                if (
+                                    W.fromBufferAttribute(rB, rm),
+                                    x.fromBufferAttribute(rM, rm),
+                                    W.w = 1,
+                                    x.w = 1,
+                                    W.applyMatrix4(q),
+                                    x.applyMatrix4(q),
+                                    !(W.z > rt && x.z > rt)
+                                ) {
                                     if (W.z > rt) {
                                         var rl = W.z - x.z
                                           , rC = (W.z - rt) / rl;
@@ -1596,10 +1632,10 @@
                                     x.applyMatrix4(ry),
                                     W.multiplyScalar(1 / W.w),
                                     x.multiplyScalar(1 / x.w),
-                                    W.x *= rd.x / 0x2,
-                                    W.y *= rd.y / 0x2,
-                                    x.x *= rd.x / 0x2,
-                                    x.y *= rd.y / 0x2,
+                                    W.x *= rd.x / 2,
+                                    W.y *= rd.y / 2,
+                                    x.x *= rd.x / 2,
+                                    x.y *= rd.y / 2,
                                     K.start.copy(W),
                                     K.start.z = 0,
                                     K.end.copy(x),
@@ -1669,27 +1705,33 @@
                 w.A)(N, C);
                 var Z = N.prototype;
                 return Z.setPositions = function(h) {
-                    for (var U = h.length - 0x3, T = new Float32Array(0x2 * U), V = 0; V < U; V += 0x3)
-                        T[0x2 * V] = h[V],
-                        T[0x2 * V + 1] = h[V + 1],
-                        T[0x2 * V + 0x2] = h[V + 0x2],
-                        T[0x2 * V + 0x3] = h[V + 0x3],
-                        T[0x2 * V + 0x4] = h[V + 0x4],
-                        T[0x2 * V + 0x5] = h[V + 0x5];
+                    for (var U = h.length - 3, T = new Float32Array(2 * U), V = 0; V < U; V += 3)
+                        T[2 * V] = h[V],
+                        T[2 * V + 1] = h[V + 1],
+                        T[2 * V + 2] = h[V + 2],
+                        T[2 * V + 3] = h[V + 3],
+                        T[2 * V + 4] = h[V + 4],
+                        T[2 * V + 5] = h[V + 5];
                     return C.prototype.setPositions.call(this, T),
                     this;
                 }
                 ,
                 Z.setColors = function(h) {
-                    for (var U = h.length - 0x3, T = new Float32Array(0x2 * U), V = 0; V < U; V += 0x3)
-                        T[0x2 * V] = h[V],
-                        T[0x2 * V + 1] = h[V + 1],
-                        T[0x2 * V + 0x2] = h[V + 0x2],
-                        T[0x2 * V + 0x3] = h[V + 0x3],
-                        T[0x2 * V + 0x4] = h[V + 0x4],
-                        T[0x2 * V + 0x5] = h[V + 0x5];
-                    return C.prototype.setColors.call(this, T),
-                    this;
+                    for (
+                        var U = h.length - 3,
+                        T = new Float32Array(2 * U),
+                        V = 0;
+                        V < U;
+                        V += 3
+                    )
+                        T[2 * V    ] = h[V    ],
+                        T[2 * V + 1] = h[V + 1],
+                        T[2 * V + 2] = h[V + 2],
+                        T[2 * V + 3] = h[V + 3],
+                        T[2 * V + 4] = h[V + 4],
+                        T[2 * V + 5] = h[V + 5];
+                    C.prototype.setColors.call(this, T);
+                    return this;
                 }
                 ,
                 Z.fromLine = function(h) {
@@ -1734,8 +1776,255 @@
             },
             C.ShaderLib.line = {
                 'uniforms': C.UniformsUtils.merge([C.UniformsLib.common, C.UniformsLib.fog, C.UniformsLib.line]),
-                'vertexShader': '\x0a\x09\x09#include\x20<common>\x0a\x09\x09#include\x20<color_pars_vertex>\x0a\x09\x09#include\x20<fog_pars_vertex>\x0a\x09\x09#include\x20<logdepthbuf_pars_vertex>\x0a\x09\x09#include\x20<clipping_planes_pars_vertex>\x0a\x0a\x09\x09uniform\x20float\x20linewidth;\x0a\x09\x09uniform\x20vec2\x20resolution;\x0a\x0a\x09\x09attribute\x20vec3\x20instanceStart;\x0a\x09\x09attribute\x20vec3\x20instanceEnd;\x0a\x0a\x09\x09attribute\x20vec3\x20instanceColorStart;\x0a\x09\x09attribute\x20vec3\x20instanceColorEnd;\x0a\x0a\x09\x09#ifdef\x20WORLD_UNITS\x0a\x0a\x09\x09\x09varying\x20vec4\x20worldPos;\x0a\x09\x09\x09varying\x20vec3\x20worldStart;\x0a\x09\x09\x09varying\x20vec3\x20worldEnd;\x0a\x0a\x09\x09\x09#ifdef\x20USE_DASH\x0a\x0a\x09\x09\x09\x09varying\x20vec2\x20vUv;\x0a\x0a\x09\x09\x09#endif\x0a\x0a\x09\x09#else\x0a\x0a\x09\x09\x09varying\x20vec2\x20vUv;\x0a\x0a\x09\x09#endif\x0a\x0a\x09\x09#ifdef\x20USE_DASH\x0a\x0a\x09\x09\x09uniform\x20float\x20dashScale;\x0a\x09\x09\x09attribute\x20float\x20instanceDistanceStart;\x0a\x09\x09\x09attribute\x20float\x20instanceDistanceEnd;\x0a\x09\x09\x09varying\x20float\x20vLineDistance;\x0a\x0a\x09\x09#endif\x0a\x0a\x09\x09void\x20trimSegment(\x20const\x20in\x20vec4\x20start,\x20inout\x20vec4\x20end\x20)\x20{\x0a\x0a\x09\x09\x09//\x20trim\x20end\x20segment\x20so\x20it\x20terminates\x20between\x20the\x20camera\x20plane\x20and\x20the\x20near\x20plane\x0a\x0a\x09\x09\x09//\x20conservative\x20estimate\x20of\x20the\x20near\x20plane\x0a\x09\x09\x09float\x20a\x20=\x20projectionMatrix[\x202\x20][\x202\x20];\x20//\x203nd\x20entry\x20in\x203th\x20column\x0a\x09\x09\x09float\x20b\x20=\x20projectionMatrix[\x203\x20][\x202\x20];\x20//\x203nd\x20entry\x20in\x204th\x20column\x0a\x09\x09\x09float\x20nearEstimate\x20=\x20-\x200.5\x20*\x20b\x20/\x20a;\x0a\x0a\x09\x09\x09float\x20alpha\x20=\x20(\x20nearEstimate\x20-\x20start.z\x20)\x20/\x20(\x20end.z\x20-\x20start.z\x20);\x0a\x0a\x09\x09\x09end.xyz\x20=\x20mix(\x20start.xyz,\x20end.xyz,\x20alpha\x20);\x0a\x0a\x09\x09}\x0a\x0a\x09\x09void\x20main()\x20{\x0a\x0a\x09\x09\x09#ifdef\x20USE_COLOR\x0a\x0a\x09\x09\x09\x09vColor.xyz\x20=\x20(\x20position.y\x20<\x200.5\x20)\x20?\x20instanceColorStart\x20:\x20instanceColorEnd;\x0a\x0a\x09\x09\x09#endif\x0a\x0a\x09\x09\x09#ifdef\x20USE_DASH\x0a\x0a\x09\x09\x09\x09vLineDistance\x20=\x20(\x20position.y\x20<\x200.5\x20)\x20?\x20dashScale\x20*\x20instanceDistanceStart\x20:\x20dashScale\x20*\x20instanceDistanceEnd;\x0a\x09\x09\x09\x09vUv\x20=\x20uv;\x0a\x0a\x09\x09\x09#endif\x0a\x0a\x09\x09\x09float\x20aspect\x20=\x20resolution.x\x20/\x20resolution.y;\x0a\x0a\x09\x09\x09//\x20camera\x20space\x0a\x09\x09\x09vec4\x20start\x20=\x20modelViewMatrix\x20*\x20vec4(\x20instanceStart,\x201.0\x20);\x0a\x09\x09\x09vec4\x20end\x20=\x20modelViewMatrix\x20*\x20vec4(\x20instanceEnd,\x201.0\x20);\x0a\x0a\x09\x09\x09#ifdef\x20WORLD_UNITS\x0a\x0a\x09\x09\x09\x09worldStart\x20=\x20start.xyz;\x0a\x09\x09\x09\x09worldEnd\x20=\x20end.xyz;\x0a\x0a\x09\x09\x09#else\x0a\x0a\x09\x09\x09\x09vUv\x20=\x20uv;\x0a\x0a\x09\x09\x09#endif\x0a\x0a\x09\x09\x09//\x20special\x20case\x20for\x20perspective\x20projection,\x20and\x20segments\x20that\x20terminate\x20either\x20in,\x20or\x20behind,\x20the\x20camera\x20plane\x0a\x09\x09\x09//\x20clearly\x20the\x20gpu\x20firmware\x20has\x20a\x20way\x20of\x20addressing\x20this\x20issue\x20when\x20projecting\x20into\x20ndc\x20space\x0a\x09\x09\x09//\x20but\x20we\x20need\x20to\x20perform\x20ndc-space\x20calculations\x20in\x20the\x20shader,\x20so\x20we\x20must\x20address\x20this\x20issue\x20directly\x0a\x09\x09\x09//\x20perhaps\x20there\x20is\x20a\x20more\x20elegant\x20solution\x20--\x20WestLangley\x0a\x0a\x09\x09\x09bool\x20perspective\x20=\x20(\x20projectionMatrix[\x202\x20][\x203\x20]\x20==\x20-\x201.0\x20);\x20//\x204th\x20entry\x20in\x20the\x203rd\x20column\x0a\x0a\x09\x09\x09if\x20(\x20perspective\x20)\x20{\x0a\x0a\x09\x09\x09\x09if\x20(\x20start.z\x20<\x200.0\x20&&\x20end.z\x20>=\x200.0\x20)\x20{\x0a\x0a\x09\x09\x09\x09\x09trimSegment(\x20start,\x20end\x20);\x0a\x0a\x09\x09\x09\x09}\x20else\x20if\x20(\x20end.z\x20<\x200.0\x20&&\x20start.z\x20>=\x200.0\x20)\x20{\x0a\x0a\x09\x09\x09\x09\x09trimSegment(\x20end,\x20start\x20);\x0a\x0a\x09\x09\x09\x09}\x0a\x0a\x09\x09\x09}\x0a\x0a\x09\x09\x09//\x20clip\x20space\x0a\x09\x09\x09vec4\x20clipStart\x20=\x20projectionMatrix\x20*\x20start;\x0a\x09\x09\x09vec4\x20clipEnd\x20=\x20projectionMatrix\x20*\x20end;\x0a\x0a\x09\x09\x09//\x20ndc\x20space\x0a\x09\x09\x09vec3\x20ndcStart\x20=\x20clipStart.xyz\x20/\x20clipStart.w;\x0a\x09\x09\x09vec3\x20ndcEnd\x20=\x20clipEnd.xyz\x20/\x20clipEnd.w;\x0a\x0a\x09\x09\x09//\x20direction\x0a\x09\x09\x09vec2\x20dir\x20=\x20ndcEnd.xy\x20-\x20ndcStart.xy;\x0a\x0a\x09\x09\x09//\x20account\x20for\x20clip-space\x20aspect\x20ratio\x0a\x09\x09\x09dir.x\x20*=\x20aspect;\x0a\x09\x09\x09dir\x20=\x20normalize(\x20dir\x20);\x0a\x0a\x09\x09\x09#ifdef\x20WORLD_UNITS\x0a\x0a\x09\x09\x09\x09//\x20get\x20the\x20offset\x20direction\x20as\x20perpendicular\x20to\x20the\x20view\x20vector\x0a\x09\x09\x09\x09vec3\x20worldDir\x20=\x20normalize(\x20end.xyz\x20-\x20start.xyz\x20);\x0a\x09\x09\x09\x09vec3\x20offset;\x0a\x09\x09\x09\x09if\x20(\x20position.y\x20<\x200.5\x20)\x20{\x0a\x0a\x09\x09\x09\x09\x09offset\x20=\x20normalize(\x20cross(\x20start.xyz,\x20worldDir\x20)\x20);\x0a\x0a\x09\x09\x09\x09}\x20else\x20{\x0a\x0a\x09\x09\x09\x09\x09offset\x20=\x20normalize(\x20cross(\x20end.xyz,\x20worldDir\x20)\x20);\x0a\x0a\x09\x09\x09\x09}\x0a\x0a\x09\x09\x09\x09//\x20sign\x20flip\x0a\x09\x09\x09\x09if\x20(\x20position.x\x20<\x200.0\x20)\x20offset\x20*=\x20-\x201.0;\x0a\x0a\x09\x09\x09\x09float\x20forwardOffset\x20=\x20dot(\x20worldDir,\x20vec3(\x200.0,\x200.0,\x201.0\x20)\x20);\x0a\x0a\x09\x09\x09\x09//\x20don\x27t\x20extend\x20the\x20line\x20if\x20we\x27re\x20rendering\x20dashes\x20because\x20we\x0a\x09\x09\x09\x09//\x20won\x27t\x20be\x20rendering\x20the\x20endcaps\x0a\x09\x09\x09\x09#ifndef\x20USE_DASH\x0a\x0a\x09\x09\x09\x09\x09//\x20extend\x20the\x20line\x20bounds\x20to\x20encompass\x20\x20endcaps\x0a\x09\x09\x09\x09\x09start.xyz\x20+=\x20-\x20worldDir\x20*\x20linewidth\x20*\x200.5;\x0a\x09\x09\x09\x09\x09end.xyz\x20+=\x20worldDir\x20*\x20linewidth\x20*\x200.5;\x0a\x0a\x09\x09\x09\x09\x09//\x20shift\x20the\x20position\x20of\x20the\x20quad\x20so\x20it\x20hugs\x20the\x20forward\x20edge\x20of\x20the\x20line\x0a\x09\x09\x09\x09\x09offset.xy\x20-=\x20dir\x20*\x20forwardOffset;\x0a\x09\x09\x09\x09\x09offset.z\x20+=\x200.5;\x0a\x0a\x09\x09\x09\x09#endif\x0a\x0a\x09\x09\x09\x09//\x20endcaps\x0a\x09\x09\x09\x09if\x20(\x20position.y\x20>\x201.0\x20||\x20position.y\x20<\x200.0\x20)\x20{\x0a\x0a\x09\x09\x09\x09\x09offset.xy\x20+=\x20dir\x20*\x202.0\x20*\x20forwardOffset;\x0a\x0a\x09\x09\x09\x09}\x0a\x0a\x09\x09\x09\x09//\x20adjust\x20for\x20linewidth\x0a\x09\x09\x09\x09offset\x20*=\x20linewidth\x20*\x200.5;\x0a\x0a\x09\x09\x09\x09//\x20set\x20the\x20world\x20position\x0a\x09\x09\x09\x09worldPos\x20=\x20(\x20position.y\x20<\x200.5\x20)\x20?\x20start\x20:\x20end;\x0a\x09\x09\x09\x09worldPos.xyz\x20+=\x20offset;\x0a\x0a\x09\x09\x09\x09//\x20project\x20the\x20worldpos\x0a\x09\x09\x09\x09vec4\x20clip\x20=\x20projectionMatrix\x20*\x20worldPos;\x0a\x0a\x09\x09\x09\x09//\x20shift\x20the\x20depth\x20of\x20the\x20projected\x20points\x20so\x20the\x20line\x0a\x09\x09\x09\x09//\x20segments\x20overlap\x20neatly\x0a\x09\x09\x09\x09vec3\x20clipPose\x20=\x20(\x20position.y\x20<\x200.5\x20)\x20?\x20ndcStart\x20:\x20ndcEnd;\x0a\x09\x09\x09\x09clip.z\x20=\x20clipPose.z\x20*\x20clip.w;\x0a\x0a\x09\x09\x09#else\x0a\x0a\x09\x09\x09\x09vec2\x20offset\x20=\x20vec2(\x20dir.y,\x20-\x20dir.x\x20);\x0a\x09\x09\x09\x09//\x20undo\x20aspect\x20ratio\x20adjustment\x0a\x09\x09\x09\x09dir.x\x20/=\x20aspect;\x0a\x09\x09\x09\x09offset.x\x20/=\x20aspect;\x0a\x0a\x09\x09\x09\x09//\x20sign\x20flip\x0a\x09\x09\x09\x09if\x20(\x20position.x\x20<\x200.0\x20)\x20offset\x20*=\x20-\x201.0;\x0a\x0a\x09\x09\x09\x09//\x20endcaps\x0a\x09\x09\x09\x09if\x20(\x20position.y\x20<\x200.0\x20)\x20{\x0a\x0a\x09\x09\x09\x09\x09offset\x20+=\x20-\x20dir;\x0a\x0a\x09\x09\x09\x09}\x20else\x20if\x20(\x20position.y\x20>\x201.0\x20)\x20{\x0a\x0a\x09\x09\x09\x09\x09offset\x20+=\x20dir;\x0a\x0a\x09\x09\x09\x09}\x0a\x0a\x09\x09\x09\x09//\x20adjust\x20for\x20linewidth\x0a\x09\x09\x09\x09offset\x20*=\x20linewidth;\x0a\x0a\x09\x09\x09\x09//\x20adjust\x20for\x20clip-space\x20to\x20screen-space\x20conversion\x20//\x20maybe\x20resolution\x20should\x20be\x20based\x20on\x20viewport\x20...\x0a\x09\x09\x09\x09offset\x20/=\x20resolution.y;\x0a\x0a\x09\x09\x09\x09//\x20select\x20end\x0a\x09\x09\x09\x09vec4\x20clip\x20=\x20(\x20position.y\x20<\x200.5\x20)\x20?\x20clipStart\x20:\x20clipEnd;\x0a\x0a\x09\x09\x09\x09//\x20back\x20to\x20clip\x20space\x0a\x09\x09\x09\x09offset\x20*=\x20clip.w;\x0a\x0a\x09\x09\x09\x09clip.xy\x20+=\x20offset;\x0a\x0a\x09\x09\x09#endif\x0a\x0a\x09\x09\x09//\x20depth\x20offset\x20for\x20block\x20outline\x0a\x09\x09\x09clip.z\x20-=\x200.00002f\x20*\x20clip.w;\x0a\x0a\x09\x09\x09gl_Position\x20=\x20clip;\x0a\x0a\x09\x09\x09vec4\x20mvPosition\x20=\x20(\x20position.y\x20<\x200.5\x20)\x20?\x20start\x20:\x20end;\x20//\x20this\x20is\x20an\x20approximation\x0a\x0a\x09\x09\x09#include\x20<logdepthbuf_vertex>\x0a\x09\x09\x09#include\x20<clipping_planes_vertex>\x0a\x09\x09\x09#include\x20<fog_vertex>\x0a\x0a\x09\x09}\x0a\x09\x09',
-                'fragmentShader': '\x0a\x09\x09uniform\x20vec3\x20diffuse;\x0a\x09\x09uniform\x20float\x20opacity;\x0a\x09\x09uniform\x20float\x20linewidth;\x0a\x0a\x09\x09#ifdef\x20USE_DASH\x0a\x0a\x09\x09\x09uniform\x20float\x20dashOffset;\x0a\x09\x09\x09uniform\x20float\x20dashSize;\x0a\x09\x09\x09uniform\x20float\x20gapSize;\x0a\x0a\x09\x09#endif\x0a\x0a\x09\x09varying\x20float\x20vLineDistance;\x0a\x0a\x09\x09#ifdef\x20WORLD_UNITS\x0a\x0a\x09\x09\x09varying\x20vec4\x20worldPos;\x0a\x09\x09\x09varying\x20vec3\x20worldStart;\x0a\x09\x09\x09varying\x20vec3\x20worldEnd;\x0a\x0a\x09\x09\x09#ifdef\x20USE_DASH\x0a\x0a\x09\x09\x09\x09varying\x20vec2\x20vUv;\x0a\x0a\x09\x09\x09#endif\x0a\x0a\x09\x09#else\x0a\x0a\x09\x09\x09varying\x20vec2\x20vUv;\x0a\x0a\x09\x09#endif\x0a\x0a\x09\x09#include\x20<common>\x0a\x09\x09#include\x20<color_pars_fragment>\x0a\x09\x09#include\x20<fog_pars_fragment>\x0a\x09\x09#include\x20<logdepthbuf_pars_fragment>\x0a\x09\x09#include\x20<clipping_planes_pars_fragment>\x0a\x0a\x09\x09vec2\x20closestLineToLine(vec3\x20p1,\x20vec3\x20p2,\x20vec3\x20p3,\x20vec3\x20p4)\x20{\x0a\x0a\x09\x09\x09float\x20mua;\x0a\x09\x09\x09float\x20mub;\x0a\x0a\x09\x09\x09vec3\x20p13\x20=\x20p1\x20-\x20p3;\x0a\x09\x09\x09vec3\x20p43\x20=\x20p4\x20-\x20p3;\x0a\x0a\x09\x09\x09vec3\x20p21\x20=\x20p2\x20-\x20p1;\x0a\x0a\x09\x09\x09float\x20d1343\x20=\x20dot(\x20p13,\x20p43\x20);\x0a\x09\x09\x09float\x20d4321\x20=\x20dot(\x20p43,\x20p21\x20);\x0a\x09\x09\x09float\x20d1321\x20=\x20dot(\x20p13,\x20p21\x20);\x0a\x09\x09\x09float\x20d4343\x20=\x20dot(\x20p43,\x20p43\x20);\x0a\x09\x09\x09float\x20d2121\x20=\x20dot(\x20p21,\x20p21\x20);\x0a\x0a\x09\x09\x09float\x20denom\x20=\x20d2121\x20*\x20d4343\x20-\x20d4321\x20*\x20d4321;\x0a\x0a\x09\x09\x09float\x20numer\x20=\x20d1343\x20*\x20d4321\x20-\x20d1321\x20*\x20d4343;\x0a\x0a\x09\x09\x09mua\x20=\x20numer\x20/\x20denom;\x0a\x09\x09\x09mua\x20=\x20clamp(\x20mua,\x200.0,\x201.0\x20);\x0a\x09\x09\x09mub\x20=\x20(\x20d1343\x20+\x20d4321\x20*\x20(\x20mua\x20)\x20)\x20/\x20d4343;\x0a\x09\x09\x09mub\x20=\x20clamp(\x20mub,\x200.0,\x201.0\x20);\x0a\x0a\x09\x09\x09return\x20vec2(\x20mua,\x20mub\x20);\x0a\x0a\x09\x09}\x0a\x0a\x09\x09void\x20main()\x20{\x0a\x0a\x09\x09\x09#include\x20<clipping_planes_fragment>\x0a\x0a\x09\x09\x09#ifdef\x20USE_DASH\x0a\x0a\x09\x09\x09\x09if\x20(\x20vUv.y\x20<\x20-\x201.0\x20||\x20vUv.y\x20>\x201.0\x20)\x20discard;\x20//\x20discard\x20endcaps\x0a\x0a\x09\x09\x09\x09if\x20(\x20mod(\x20vLineDistance\x20+\x20dashOffset,\x20dashSize\x20+\x20gapSize\x20)\x20>\x20dashSize\x20)\x20discard;\x20//\x20todo\x20-\x20FIX\x0a\x0a\x09\x09\x09#endif\x0a\x0a\x09\x09\x09float\x20alpha\x20=\x20opacity;\x0a\x0a\x09\x09\x09#ifdef\x20WORLD_UNITS\x0a\x0a\x09\x09\x09\x09//\x20Find\x20the\x20closest\x20points\x20on\x20the\x20view\x20ray\x20and\x20the\x20line\x20segment\x0a\x09\x09\x09\x09vec3\x20rayEnd\x20=\x20normalize(\x20worldPos.xyz\x20)\x20*\x201e5;\x0a\x09\x09\x09\x09vec3\x20lineDir\x20=\x20worldEnd\x20-\x20worldStart;\x0a\x09\x09\x09\x09vec2\x20params\x20=\x20closestLineToLine(\x20worldStart,\x20worldEnd,\x20vec3(\x200.0,\x200.0,\x200.0\x20),\x20rayEnd\x20);\x0a\x0a\x09\x09\x09\x09vec3\x20p1\x20=\x20worldStart\x20+\x20lineDir\x20*\x20params.x;\x0a\x09\x09\x09\x09vec3\x20p2\x20=\x20rayEnd\x20*\x20params.y;\x0a\x09\x09\x09\x09vec3\x20delta\x20=\x20p1\x20-\x20p2;\x0a\x09\x09\x09\x09float\x20len\x20=\x20length(\x20delta\x20);\x0a\x09\x09\x09\x09float\x20norm\x20=\x20len\x20/\x20linewidth;\x0a\x0a\x09\x09\x09\x09#ifndef\x20USE_DASH\x0a\x0a\x09\x09\x09\x09\x09#ifdef\x20USE_ALPHA_TO_COVERAGE\x0a\x0a\x09\x09\x09\x09\x09\x09float\x20dnorm\x20=\x20fwidth(\x20norm\x20);\x0a\x09\x09\x09\x09\x09\x09alpha\x20=\x201.0\x20-\x20smoothstep(\x200.5\x20-\x20dnorm,\x200.5\x20+\x20dnorm,\x20norm\x20);\x0a\x0a\x09\x09\x09\x09\x09#else\x0a\x0a\x09\x09\x09\x09\x09\x09if\x20(\x20norm\x20>\x200.5\x20)\x20{\x0a\x0a\x09\x09\x09\x09\x09\x09\x09discard;\x0a\x0a\x09\x09\x09\x09\x09\x09}\x0a\x0a\x09\x09\x09\x09\x09#endif\x0a\x0a\x09\x09\x09\x09#endif\x0a\x0a\x09\x09\x09#else\x0a\x0a\x09\x09\x09\x09#ifdef\x20USE_ALPHA_TO_COVERAGE\x0a\x0a\x09\x09\x09\x09\x09//\x20artifacts\x20appear\x20on\x20some\x20hardware\x20if\x20a\x20derivative\x20is\x20taken\x20within\x20a\x20conditional\x0a\x09\x09\x09\x09\x09float\x20a\x20=\x20vUv.x;\x0a\x09\x09\x09\x09\x09float\x20b\x20=\x20(\x20vUv.y\x20>\x200.0\x20)\x20?\x20vUv.y\x20-\x201.0\x20:\x20vUv.y\x20+\x201.0;\x0a\x09\x09\x09\x09\x09float\x20len2\x20=\x20a\x20*\x20a\x20+\x20b\x20*\x20b;\x0a\x09\x09\x09\x09\x09float\x20dlen\x20=\x20fwidth(\x20len2\x20);\x0a\x0a\x09\x09\x09\x09\x09if\x20(\x20abs(\x20vUv.y\x20)\x20>\x201.0\x20)\x20{\x0a\x0a\x09\x09\x09\x09\x09\x09alpha\x20=\x201.0\x20-\x20smoothstep(\x201.0\x20-\x20dlen,\x201.0\x20+\x20dlen,\x20len2\x20);\x0a\x0a\x09\x09\x09\x09\x09}\x0a\x0a\x09\x09\x09\x09#else\x0a\x0a\x09\x09\x09\x09\x09if\x20(\x20abs(\x20vUv.y\x20)\x20>\x201.0\x20)\x20{\x0a\x0a\x09\x09\x09\x09\x09\x09float\x20a\x20=\x20vUv.x;\x0a\x09\x09\x09\x09\x09\x09float\x20b\x20=\x20(\x20vUv.y\x20>\x200.0\x20)\x20?\x20vUv.y\x20-\x201.0\x20:\x20vUv.y\x20+\x201.0;\x0a\x09\x09\x09\x09\x09\x09float\x20len2\x20=\x20a\x20*\x20a\x20+\x20b\x20*\x20b;\x0a\x0a\x09\x09\x09\x09\x09\x09if\x20(\x20len2\x20>\x201.0\x20)\x20discard;\x0a\x0a\x09\x09\x09\x09\x09}\x0a\x0a\x09\x09\x09\x09#endif\x0a\x0a\x09\x09\x09#endif\x0a\x0a\x09\x09\x09vec4\x20diffuseColor\x20=\x20vec4(\x20diffuse,\x20alpha\x20);\x0a\x0a\x09\x09\x09#include\x20<logdepthbuf_fragment>\x0a\x09\x09\x09#include\x20<color_fragment>\x0a\x0a\x09\x09\x09gl_FragColor\x20=\x20vec4(\x20diffuseColor.rgb,\x20alpha\x20);\x0a\x0a\x09\x09\x09#include\x20<tonemapping_fragment>\x0a\x09\x09\x09#include\x20<colorspace_fragment>\x0a\x09\x09\x09#include\x20<fog_fragment>\x0a\x09\x09\x09#include\x20<premultiplied_alpha_fragment>\x0a\x0a\x09\x09}\x0a\x09\x09'
+                'vertexShader':
+                '\n' +
+                '\t\t' + '#include <common>\n' +
+                '\t\t' + '#include <color_pars_vertex>\n' +
+                '\t\t' + '#include <fog_pars_vertex>\n' +
+                '\t\t' + '#include <logdepthbuf_pars_vertex>\n' +
+                '\t\t' + '#include <clipping_planes_pars_vertex>\n\n' +
+                '\t\t' + 'uniform float linewidth;\n' +
+                '\t\t' + 'uniform vec2 resolution;\n\n' +
+                '\t\t' + 'attribute vec3 instanceStart;\n' +
+                '\t\t' + 'attribute vec3 instanceEnd;\n\n' +
+                '\t\t' + 'attribute vec3 instanceColorStart;\n' +
+                '\t\t' + 'attribute vec3 instanceColorEnd;\n\n' +
+                '\t\t' + '#ifdef WORLD_UNITS\n\n' +
+                '\t\t\t' + 'varying vec4 worldPos;\n' +
+                '\t\t\t' + 'varying vec3 worldStart;\n' +
+                '\t\t\t' + 'varying vec3 worldEnd;\n\n' +
+                '\t\t\t' + '#ifdef USE_DASH\n\n' +
+                '\t\t\t\t' + 'varying vec2 vUv;\n\n' +
+                '\t\t\t' + '#endif\n\n' +
+                '\t\t' + '#else\n\n' +
+                '\t\t\t' + 'varying vec2 vUv;\n\n' +
+                '\t\t' + '#endif\n\n' +
+                '\t\t' + '#ifdef USE_DASH\n\n' +
+                '\t\t\t' + 'uniform float dashScale;\n' +
+                '\t\t\t' + 'attribute float instanceDistanceStart;\n' +
+                '\t\t\t' + 'attribute float instanceDistanceEnd;\n' +
+                '\t\t\t' + 'varying float vLineDistance;\n\n' +
+                '\t\t' + '#endif\n\n' +
+                '\t\t' + 'void trimSegment( const in vec4 start, inout vec4 end ) {\n\n' +
+                '\t\t\t' + '// trim end segment so it terminates between the camera plane and the near plane\n\n' +
+                '\t\t\t' + '// conservative estimate of the near plane\n' +
+                '\t\t\t' + 'float a = projectionMatrix[ 2 ][ 2 ]; // 3nd entry in 3th column\n' +
+                '\t\t\t' + 'float b = projectionMatrix[ 3 ][ 2 ]; // 3nd entry in 4th column\n' +
+                '\t\t\t' + 'float nearEstimate = - 0.5 * b / a;\n\n' +
+                '\t\t\t' + 'float alpha = ( nearEstimate - start.z ) / ( end.z - start.z );\n\n' +
+                '\t\t\t' + 'end.xyz = mix( start.xyz, end.xyz, alpha );\n\n' +
+                '\t\t' + '}\n\n' +
+                '\t\t' + 'void main() {\n\n' +
+                '\t\t\t' + '#ifdef USE_COLOR\n\n' +
+                '\t\t\t\t' + 'vColor.xyz = ( position.y < 0.5 ) ? instanceColorStart : instanceColorEnd;\n\n' +
+                '\t\t\t' + '#endif\n\n' +
+                '\t\t\t' + '#ifdef USE_DASH\n\n' +
+                '\t\t\t\t' + 'vLineDistance = ( position.y < 0.5 ) ? dashScale * instanceDistanceStart : dashScale * instanceDistanceEnd;\n' +
+                '\t\t\t\t' + 'vUv = uv;\n\n' +
+                '\t\t\t' + '#endif\n\n' +
+                '\t\t\t' + 'float aspect = resolution.x / resolution.y;\n\n' +
+                '\t\t\t' + '// camera space\n' +
+                '\t\t\t' + 'vec4 start = modelViewMatrix * vec4( instanceStart, 1.0 );\n' +
+                '\t\t\t' + 'vec4 end = modelViewMatrix * vec4( instanceEnd, 1.0 );\n\n' +
+                '\t\t\t' + '#ifdef WORLD_UNITS\n\n' +
+                '\t\t\t\t' + 'worldStart = start.xyz;\n' +
+                '\t\t\t\t' + 'worldEnd = end.xyz;\n\n' +
+                '\t\t\t' + '#else\n\n' +
+                '\t\t\t\t' + 'vUv = uv;\n\n' +
+                '\t\t\t' + '#endif\n\n' +
+                '\t\t\t' + '// special case for perspective projection, and segments that terminate either in, or behind, the camera plane\n' +
+                '\t\t\t' + '// clearly the gpu firmware has a way of addressing this issue when projecting into ndc space\n' +
+                '\t\t\t' + '// but we need to perform ndc-space calculations in the shader, so we must address this issue directly\n' +
+                '\t\t\t' + '// perhaps there is a more elegant solution -- WestLangley\n\n' +
+                '\t\t\t' + 'bool perspective = ( projectionMatrix[ 2 ][ 3 ] == - 1.0 ); // 4th entry in the 3rd column\n\n' +
+                '\t\t\t' + 'if ( perspective ) {\n\n' +
+                '\t\t\t\t' + 'if ( start.z < 0.0 && end.z >= 0.0 ) {\n\n' +
+                '\t\t\t\t\t' + 'trimSegment( start, end );\n\n' +
+                '\t\t\t\t' + '} else if ( end.z < 0.0 && start.z >= 0.0 ) {\n\n' +
+                '\t\t\t\t\t' + 'trimSegment( end, start );\n\n' +
+                '\t\t\t\t' + '}\n\n' +
+                '\t\t\t' + '}\n\n' +
+                '\t\t\t' + '// clip space\n' +
+                '\t\t\t' + 'vec4 clipStart = projectionMatrix * start;\n' +
+                '\t\t\t' + 'vec4 clipEnd = projectionMatrix * end;\n\n' +
+                '\t\t\t' + '// ndc space\n' +
+                '\t\t\t' + 'vec3 ndcStart = clipStart.xyz / clipStart.w;\n' +
+                '\t\t\t' + 'vec3 ndcEnd = clipEnd.xyz / clipEnd.w;\n\n' +
+                '\t\t\t' + '// direction\n' +
+                '\t\t\t' + 'vec2 dir = ndcEnd.xy - ndcStart.xy;\n\n' +
+                '\t\t\t' + '// account for clip-space aspect ratio\n' +
+                '\t\t\t' + 'dir.x *= aspect;\n' +
+                '\t\t\t' + 'dir = normalize( dir );\n\n' +
+                '\t\t\t' + '#ifdef WORLD_UNITS\n\n' +
+                '\t\t\t\t' + '// get the offset direction as perpendicular to the view vector\n' +
+                '\t\t\t\t' + 'vec3 worldDir = normalize( end.xyz - start.xyz );\n' +
+                '\t\t\t\t' + 'vec3 offset;\n' +
+                '\t\t\t\t' + 'if ( position.y < 0.5 ) {\n\n' +
+                '\t\t\t\t\t' + 'offset = normalize( cross( start.xyz, worldDir ) );\n\n' +
+                '\t\t\t\t' + '} else {\n\n' +
+                '\t\t\t\t\t' + 'offset = normalize( cross( end.xyz, worldDir ) );\n\n' +
+                '\t\t\t\t' + '}\n\n' +
+                '\t\t\t\t' + '// sign flip\n' +
+                '\t\t\t\t' + 'if ( position.x < 0.0 ) offset *= - 1.0;\n\n' +
+                '\t\t\t\t' + 'float forwardOffset = dot( worldDir, vec3( 0.0, 0.0, 1.0 ) );\n\n' +
+                '\t\t\t\t' + '// don\x27t extend the line if we\x27re rendering dashes because we\n' +
+                '\t\t\t\t' + '// won\x27t be rendering the endcaps\n' +
+                '\t\t\t\t' + '#ifndef USE_DASH\n\n' +
+                '\t\t\t\t\t' + '// extend the line bounds to encompass  endcaps\n' +
+                '\t\t\t\t\t' + 'start.xyz += - worldDir * linewidth * 0.5;\n' +
+                '\t\t\t\t\t' + 'end.xyz += worldDir * linewidth * 0.5;\n\n' +
+                '\t\t\t\t\t' + '// shift the position of the quad so it hugs the forward edge of the line\n' +
+                '\t\t\t\t\t' + 'offset.xy -= dir * forwardOffset;\n' +
+                '\t\t\t\t\t' + 'offset.z += 0.5;\n\n' +
+                '\t\t\t\t' + '#endif\n\n' +
+                '\t\t\t\t' + '// endcaps\n' +
+                '\t\t\t\t' + 'if ( position.y > 1.0 || position.y < 0.0 ) {\n\n' +
+                '\t\t\t\t\t' + 'offset.xy += dir * 2.0 * forwardOffset;\n\n' +
+                '\t\t\t\t' + '}\n\n' +
+                '\t\t\t\t' + '// adjust for linewidth\n' +
+                '\t\t\t\t' + 'offset *= linewidth * 0.5;\n\n' +
+                '\t\t\t\t' + '// set the world position\n' +
+                '\t\t\t\t' + 'worldPos = ( position.y < 0.5 ) ? start : end;\n' +
+                '\t\t\t\t' + 'worldPos.xyz += offset;\n\n' +
+                '\t\t\t\t' + '// project the worldpos\n' +
+                '\t\t\t\t' + 'vec4 clip = projectionMatrix * worldPos;\n\n' +
+                '\t\t\t\t' + '// shift the depth of the projected points so the line\n' +
+                '\t\t\t\t' + '// segments overlap neatly\n' +
+                '\t\t\t\t' + 'vec3 clipPose = ( position.y < 0.5 ) ? ndcStart : ndcEnd;\n' +
+                '\t\t\t\t' + 'clip.z = clipPose.z * clip.w;\n\n' +
+                '\t\t\t' + '#else\n\n' +
+                '\t\t\t\t' + 'vec2 offset = vec2( dir.y, - dir.x );\n' +
+                '\t\t\t\t' + '// undo aspect ratio adjustment\n' +
+                '\t\t\t\t' + 'dir.x /= aspect;\n' +
+                '\t\t\t\t' + 'offset.x /= aspect;\n\n' +
+                '\t\t\t\t' + '// sign flip\n' +
+                '\t\t\t\t' + 'if ( position.x < 0.0 ) offset *= - 1.0;\n\n' +
+                '\t\t\t\t' + '// endcaps\n' +
+                '\t\t\t\t' + 'if ( position.y < 0.0 ) {\n\n' +
+                '\t\t\t\t\t' + 'offset += - dir;\n\n' +
+                '\t\t\t\t' + '} else if ( position.y > 1.0 ) {\n\n' +
+                '\t\t\t\t\t' + 'offset += dir;\n\n' +
+                '\t\t\t\t' + '}\n\n' +
+                '\t\t\t\t' + '// adjust for linewidth\n' +
+                '\t\t\t\t' + 'offset *= linewidth;\n\n' +
+                '\t\t\t\t' + '// adjust for clip-space to screen-space conversion // maybe resolution should be based on viewport ...\n' +
+                '\t\t\t\t' + 'offset /= resolution.y;\n\n' +
+                '\t\t\t\t' + '// select end\n' +
+                '\t\t\t\t' + 'vec4 clip = ( position.y < 0.5 ) ? clipStart : clipEnd;\n\n' +
+                '\t\t\t\t' + '// back to clip space\n' +
+                '\t\t\t\t' + 'offset *= clip.w;\n\n' +
+                '\t\t\t\t' + 'clip.xy += offset;\n\n' +
+                '\t\t\t' + '#endif\n\n' +
+                '\t\t\t' + '// depth offset for block outline\n' +
+                '\t\t\t' + 'clip.z -= 0.00002f * clip.w;\n\n' +
+                '\t\t\t' + 'gl_Position = clip;\n\n' +
+                '\t\t\t' + 'vec4 mvPosition = ( position.y < 0.5 ) ? start : end; // this is an approximation\n\n' +
+                '\t\t\t' + '#include <logdepthbuf_vertex>\n' +
+                '\t\t\t' + '#include <clipping_planes_vertex>\n' +
+                '\t\t\t' + '#include <fog_vertex>\n\n' +
+                '\t\t' + '}\n' +
+                '\t\t' + '',
+                'fragmentShader':
+                '\n' +
+                '\t\t' + 'uniform vec3 diffuse;\n' +
+                '\t\t' + 'uniform float opacity;\n' +
+                '\t\t' + 'uniform float linewidth;\n\n' +
+                '\t\t' + '#ifdef USE_DASH\n\n' +
+                '\t\t\t' + 'uniform float dashOffset;\n' +
+                '\t\t\t' + 'uniform float dashSize;\n' +
+                '\t\t\t' + 'uniform float gapSize;\n\n' +
+                '\t\t' + '#endif\n\n' +
+                '\t\t' + 'varying float vLineDistance;\n\n' +
+                '\t\t' + '#ifdef WORLD_UNITS\n\n' +
+                '\t\t\t' + 'varying vec4 worldPos;\n' +
+                '\t\t\t' + 'varying vec3 worldStart;\n' +
+                '\t\t\t' + 'varying vec3 worldEnd;\n\n' +
+                '\t\t\t' + '#ifdef USE_DASH\n\n' +
+                '\t\t\t\t' + 'varying vec2 vUv;\n\n' +
+                '\t\t\t' + '#endif\n\n' +
+                '\t\t' + '#else\n\n' +
+                '\t\t\t' + 'varying vec2 vUv;\n\n' +
+                '\t\t' + '#endif\n\n' +
+                '\t\t' + '#include <common>\n' +
+                '\t\t' + '#include <color_pars_fragment>\n' +
+                '\t\t' + '#include <fog_pars_fragment>\n' +
+                '\t\t' + '#include <logdepthbuf_pars_fragment>\n' +
+                '\t\t' + '#include <clipping_planes_pars_fragment>\n\n' +
+                '\t\t' + 'vec2 closestLineToLine(vec3 p1, vec3 p2, vec3 p3, vec3 p4) {\n\n' +
+                '\t\t\t' + 'float mua;\n' +
+                '\t\t\t' + 'float mub;\n\n' +
+                '\t\t\t' + 'vec3 p13 = p1 - p3;\n' +
+                '\t\t\t' + 'vec3 p43 = p4 - p3;\n\n' +
+                '\t\t\t' + 'vec3 p21 = p2 - p1;\n\n' +
+                '\t\t\t' + 'float d1343 = dot( p13, p43 );\n' +
+                '\t\t\t' + 'float d4321 = dot( p43, p21 );\n' +
+                '\t\t\t' + 'float d1321 = dot( p13, p21 );\n' +
+                '\t\t\t' + 'float d4343 = dot( p43, p43 );\n' +
+                '\t\t\t' + 'float d2121 = dot( p21, p21 );\n\n' +
+                '\t\t\t' + 'float denom = d2121 * d4343 - d4321 * d4321;\n\n' +
+                '\t\t\t' + 'float numer = d1343 * d4321 - d1321 * d4343;\n\n' +
+                '\t\t\t' + 'mua = numer / denom;\n' +
+                '\t\t\t' + 'mua = clamp( mua, 0.0, 1.0 );\n' +
+                '\t\t\t' + 'mub = ( d1343 + d4321 * ( mua ) ) / d4343;\n' +
+                '\t\t\t' + 'mub = clamp( mub, 0.0, 1.0 );\n\n' +
+                '\t\t\t' + 'return vec2( mua, mub );\n\n' +
+                '\t\t' + '}\n\n' +
+                '\t\t' + 'void main() {\n\n' +
+                '\t\t\t' + '#include <clipping_planes_fragment>\n\n' +
+                '\t\t\t' + '#ifdef USE_DASH\n\n' +
+                '\t\t\t\t' + 'if ( vUv.y < - 1.0 || vUv.y > 1.0 ) discard; // discard endcaps\n\n' +
+                '\t\t\t\t' + 'if ( mod( vLineDistance + dashOffset, dashSize + gapSize ) > dashSize ) discard; // todo - FIX\n\n' +
+                '\t\t\t' + '#endif\n\n' +
+                '\t\t\t' + 'float alpha = opacity;\n\n' +
+                '\t\t\t' + '#ifdef WORLD_UNITS\n\n' +
+                '\t\t\t\t' + '// Find the closest points on the view ray and the line segment\n' +
+                '\t\t\t\t' + 'vec3 rayEnd = normalize( worldPos.xyz ) * 1e5;\n' +
+                '\t\t\t\t' + 'vec3 lineDir = worldEnd - worldStart;\n' +
+                '\t\t\t\t' + 'vec2 params = closestLineToLine( worldStart, worldEnd, vec3( 0.0, 0.0, 0.0 ), rayEnd );\n\n' +
+                '\t\t\t\t' + 'vec3 p1 = worldStart + lineDir * params.x;\n' +
+                '\t\t\t\t' + 'vec3 p2 = rayEnd * params.y;\n' +
+                '\t\t\t\t' + 'vec3 delta = p1 - p2;\n' +
+                '\t\t\t\t' + 'float len = length( delta );\n' +
+                '\t\t\t\t' + 'float norm = len / linewidth;\n\n' +
+                '\t\t\t\t' + '#ifndef USE_DASH\n\n' +
+                '\t\t\t\t\t' + '#ifdef USE_ALPHA_TO_COVERAGE\n\n' +
+                '\t\t\t\t\t\t' + 'float dnorm = fwidth( norm );\n' +
+                '\t\t\t\t\t\t' + 'alpha = 1.0 - smoothstep( 0.5 - dnorm, 0.5 + dnorm, norm );\n\n' +
+                '\t\t\t\t\t' + '#else\n\n' +
+                '\t\t\t\t\t\t' + 'if ( norm > 0.5 ) {\n\n' +
+                '\t\t\t\t\t\t\t' + 'discard;\n\n' +
+                '\t\t\t\t\t\t' + '}\n\n' +
+                '\t\t\t\t\t' + '#endif\n\n' +
+                '\t\t\t\t' + '#endif\n\n' +
+                '\t\t\t' + '#else\n\n' +
+                '\t\t\t\t' + '#ifdef USE_ALPHA_TO_COVERAGE\n\n' +
+                '\t\t\t\t\t' + '// artifacts appear on some hardware if a derivative is taken within a conditional\n' +
+                '\t\t\t\t\t' + 'float a = vUv.x;\n' +
+                '\t\t\t\t\t' + 'float b = ( vUv.y > 0.0 ) ? vUv.y - 1.0 : vUv.y + 1.0;\n' +
+                '\t\t\t\t\t' + 'float len2 = a * a + b * b;\n' +
+                '\t\t\t\t\t' + 'float dlen = fwidth( len2 );\n\n' +
+                '\t\t\t\t\t' + 'if ( abs( vUv.y ) > 1.0 ) {\n\n' +
+                '\t\t\t\t\t\t' + 'alpha = 1.0 - smoothstep( 1.0 - dlen, 1.0 + dlen, len2 );\n\n' +
+                '\t\t\t\t\t' + '}\n\n' +
+                '\t\t\t\t' + '#else\n\n' +
+                '\t\t\t\t\t' + 'if ( abs( vUv.y ) > 1.0 ) {\n\n' +
+                '\t\t\t\t\t\t' + 'float a = vUv.x;\n' +
+                '\t\t\t\t\t\t' + 'float b = ( vUv.y > 0.0 ) ? vUv.y - 1.0 : vUv.y + 1.0;\n' +
+                '\t\t\t\t\t\t' + 'float len2 = a * a + b * b;\n\n' +
+                '\t\t\t\t\t\t' + 'if ( len2 > 1.0 ) discard;\n\n' +
+                '\t\t\t\t\t' + '}\n\n' +
+                '\t\t\t\t' + '#endif\n\n' +
+                '\t\t\t' + '#endif\n\n' +
+                '\t\t\t' + 'vec4 diffuseColor = vec4( diffuse, alpha );\n\n' +
+                '\t\t\t' + '#include <logdepthbuf_fragment>\n' +
+                '\t\t\t' + '#include <color_fragment>\n\n' +
+                '\t\t\t' + 'gl_FragColor = vec4( diffuseColor.rgb, alpha );\n\n' +
+                '\t\t\t' + '#include <tonemapping_fragment>\n' +
+                '\t\t\t' + '#include <colorspace_fragment>\n' +
+                '\t\t\t' + '#include <fog_fragment>\n' +
+                '\t\t\t' + '#include <premultiplied_alpha_fragment>\n\n' +
+                '\t\t' + '}\n' +
+                '\t\t' + ''
             };
             var N = function(Z) {
                 function h(U) {
@@ -1862,9 +2151,9 @@
                     var V;
                     return (V = h.call(this) || this).isLineSegmentsGeometry = true,
                     V.type = 'LineSegmentsGeometry',
-                    (V.setIndex([0, 0x2, 1, 0x2, 0x3, 1, 0x2, 0x4, 0x3, 0x4, 0x5, 0x3, 0x4, 0x6, 0x5, 0x6, 0x7, 0x5]),
-                    V.setAttribute('position', new l.Float32BufferAttribute([-1, 0x2, 0, 1, 0x2, 0, -1, 1, 0, 1, 1, 0, -1, 0, 0, 1, 0, 0, -1, -1, 0, 1, -1, 0],0x3)),
-                    V.setAttribute('uv', new l.Float32BufferAttribute([-1, 0x2, 1, 0x2, -1, 1, 1, 1, -1, -1, 1, -1, -1, -0x2, 1, -0x2],0x2)),
+                    (V.setIndex([0, 2, 1, 2, 3, 1, 2, 4, 3, 4, 5, 3, 4, 6, 5, 6, 7, 5]),
+                    V.setAttribute('position', new l.Float32BufferAttribute([-1, 2, 0, 1, 2, 0, -1, 1, 0, 1, 1, 0, -1, 0, 0, 1, 0, 0, -1, -1, 0, 1, -1, 0],3)),
+                    V.setAttribute('uv', new l.Float32BufferAttribute([-1, 2, 1, 2, -1, 1, 1, 1, -1, -1, 1, -1, -1, -2, 1, -2],2)),
                     V);
                 }
                 (0,
@@ -1884,9 +2173,9 @@
                 T.setPositions = function(V) {
                     var G;
                     V instanceof Float32Array ? G = V : Array.isArray(V) && (G = new Float32Array(V));
-                    var k = new l.InstancedInterleavedBuffer(G,0x6,1);
-                    return this.setAttribute('instanceStart', new l.InterleavedBufferAttribute(k,0x3,0)),
-                    this.setAttribute('instanceEnd', new l.InterleavedBufferAttribute(k,0x3,0x3)),
+                    var k = new l.InstancedInterleavedBuffer(G,6,1);
+                    return this.setAttribute('instanceStart', new l.InterleavedBufferAttribute(k,3,0)),
+                    this.setAttribute('instanceEnd', new l.InterleavedBufferAttribute(k,3,3)),
                     this.computeBoundingBox(),
                     this.computeBoundingSphere(),
                     this;
@@ -1895,9 +2184,9 @@
                 T.setColors = function(V) {
                     var G;
                     V instanceof Float32Array ? G = V : Array.isArray(V) && (G = new Float32Array(V));
-                    var k = new l.InstancedInterleavedBuffer(G,0x6,1);
-                    return this.setAttribute('instanceColorStart', new l.InterleavedBufferAttribute(k,0x3,0)),
-                    this.setAttribute('instanceColorEnd', new l.InterleavedBufferAttribute(k,0x3,0x3)),
+                    var k = new l.InstancedInterleavedBuffer(G,6,1);
+                    return this.setAttribute('instanceColorStart', new l.InterleavedBufferAttribute(k,3,0)),
+                    this.setAttribute('instanceColorEnd', new l.InterleavedBufferAttribute(k,3,3)),
                     this;
                 }
                 ,
@@ -1945,14 +2234,14 @@
                             N.fromBufferAttribute(G, x),
                             W = Math.max(W, k.distanceToSquared(N));
                         this.boundingSphere.radius = Math.sqrt(W),
-                        isNaN(this.boundingSphere.radius) && console.error('THREE.LineSegmentsGeometry.computeBoundingSphere():\x20Computed\x20radius\x20is\x20NaN.\x20The\x20instanced\x20position\x20data\x20is\x20likely\x20to\x20have\x20NaN\x20values.', this);
+                        isNaN(this.boundingSphere.radius) && console.error('THREE.LineSegmentsGeometry.computeBoundingSphere(): Computed radius is NaN. The instanced position data is likely to have NaN values.', this);
                     }
                 }
                 ,
                 T.toJSON = function() {}
                 ,
                 T.applyMatrix = function(V) {
-                    return console.warn('THREE.LineSegmentsGeometry:\x20applyMatrix()\x20has\x20been\x20renamed\x20to\x20applyMatrix4().'),
+                    return console.warn('THREE.LineSegmentsGeometry: applyMatrix() has been renamed to applyMatrix4().'),
                     this.applyMatrix4(V);
                 }
                 ,
@@ -2232,7 +2521,7 @@
                     'revision': r3.sPf
                 }
             })),
-            'undefined' != typeof window && (window.__THREE__ ? console.warn('WARNING:\x20Multiple\x20instances\x20of\x20Three.js\x20being\x20imported.') : window.__THREE__ = r3.sPf));
+            'undefined' != typeof window && (window.__THREE__ ? console.warn('WARNING: Multiple instances of Three.js being imported.') : window.__THREE__ = r3.sPf));
         }
         ,
         0x143ce: (M, X, m) => {
@@ -2832,7 +3121,7 @@
                     var g = this._controlInterpolants
                       , L = this._nActiveControlInterpolants++
                       , q = g[L];
-                    return void 0 === q && ((q = new N.e(new Float32Array(0x2),new Float32Array(0x2),1,G)).__cacheIndex = L,
+                    return void 0 === q && ((q = new N.e(new Float32Array(2),new Float32Array(2),1,G)).__cacheIndex = L,
                     g[L] = q),
                     q;
                 }
@@ -2971,27 +3260,27 @@
                         T = this._slerp,
                         V = this._slerpAdditive,
                         G = this._setAdditiveIdentityQuaternion,
-                        this.buffer = new Float64Array(0x6 * U),
-                        this._workIndex = 0x5;
+                        this.buffer = new Float64Array(6 * U),
+                        this._workIndex = 5;
                         break;
                     case 'string':
                     case 'bool':
                         T = this._select,
                         V = this._select,
                         G = this._setAdditiveIdentityOther,
-                        this.buffer = new Array(0x5 * U);
+                        this.buffer = new Array(5 * U);
                         break;
                     default:
                         T = this._lerp,
                         V = this._lerpAdditive,
                         G = this._setAdditiveIdentityNumeric,
-                        this.buffer = new Float64Array(0x5 * U);
+                        this.buffer = new Float64Array(5 * U);
                     }
                     this._mixBufferRegion = T,
                     this._mixBufferRegionAdditive = V,
                     this._setIdentity = G,
-                    this._origIndex = 0x3,
-                    this._addIndex = 0x4,
+                    this._origIndex = 3,
+                    this._addIndex = 4,
                     this.cumulativeWeight = 0,
                     this.cumulativeWeightAdditive = 0,
                     this.useCount = 0,
@@ -3058,7 +3347,7 @@
                 }
                 ,
                 N.restoreOriginalState = function() {
-                    var Z = 0x3 * this.valueSize;
+                    var Z = 3 * this.valueSize;
                     this.binding.setValue(this.buffer, Z);
                 }
                 ,
@@ -3069,7 +3358,7 @@
                 ,
                 N._setAdditiveIdentityQuaternion = function() {
                     this._setAdditiveIdentityNumeric(),
-                    this.buffer[this._addIndex * this.valueSize + 0x3] = 1;
+                    this.buffer[this._addIndex * this.valueSize + 3] = 1;
                 }
                 ,
                 N._setAdditiveIdentityOther = function() {
@@ -3200,9 +3489,9 @@
                             this.setPlaybackRate(this.playbackRate),
                             this.connect();
                         }
-                        console.warn('THREE.Audio:\x20this\x20Audio\x20has\x20no\x20playback\x20control.');
+                        console.warn('THREE.Audio: this Audio has no playback control.');
                     } else
-                        console.warn('THREE.Audio:\x20Audio\x20is\x20already\x20playing.');
+                        console.warn('THREE.Audio: Audio is already playing.');
                 }
                 ,
                 Z.pause = function() {
@@ -3213,7 +3502,7 @@
                         this.source.onended = null,
                         this.isPlaying = false),
                         this;
-                    console.warn('THREE.Audio:\x20this\x20Audio\x20has\x20no\x20playback\x20control.');
+                    console.warn('THREE.Audio: this Audio has no playback control.');
                 }
                 ,
                 Z.stop = function() {
@@ -3223,7 +3512,7 @@
                         this.source.onended = null),
                         this.isPlaying = false,
                         this;
-                    console.warn('THREE.Audio:\x20this\x20Audio\x20has\x20no\x20playback\x20control.');
+                    console.warn('THREE.Audio: this Audio has no playback control.');
                 }
                 ,
                 Z.connect = function() {
@@ -3288,7 +3577,7 @@
                         return this.playbackRate = h,
                         true === this.isPlaying && this.source.playbackRate.setTargetAtTime(this.playbackRate, this.context.currentTime, 0.01),
                         this;
-                    console.warn('THREE.Audio:\x20this\x20Audio\x20has\x20no\x20playback\x20control.');
+                    console.warn('THREE.Audio: this Audio has no playback control.');
                 }
                 ,
                 Z.getPlaybackRate = function() {
@@ -3300,7 +3589,7 @@
                 }
                 ,
                 Z.getLoop = function() {
-                    return false === this.hasPlaybackControl ? (console.warn('THREE.Audio:\x20this\x20Audio\x20has\x20no\x20playback\x20control.'),
+                    return false === this.hasPlaybackControl ? (console.warn('THREE.Audio: this Audio has no playback control.'),
                     false) : this.loop;
                 }
                 ,
@@ -3309,7 +3598,7 @@
                         return this.loop = h,
                         true === this.isPlaying && (this.source.loop = this.loop),
                         this;
-                    console.warn('THREE.Audio:\x20this\x20Audio\x20has\x20no\x20playback\x20control.');
+                    console.warn('THREE.Audio: this Audio has no playback control.');
                 }
                 ,
                 Z.setLoopStart = function(h) {
@@ -3703,19 +3992,19 @@
             var r3 = '159'
               , r4 = 0
               , r5 = 1
-              , r6 = 0x2
+              , r6 = 2
               , r7 = 1
-              , r8 = 0x2
-              , r9 = 0x3
+              , r8 = 2
+              , r9 = 3
               , rr = 0
               , rF = 1
-              , rE = 0x2
+              , rE = 2
               , rp = 0
               , rS = 1
-              , rR = 0x2
-              , rH = 0x3
-              , ry = 0x4
-              , rd = 0x5
+              , rR = 2
+              , rH = 3
+              , ry = 4
+              , rd = 5
               , rP = 0x64
               , rQ = 0x65
               , rB = 0x66
@@ -3738,21 +4027,21 @@
               , rk = 0xd6
               , rW = 0
               , rx = 1
-              , ra = 0x2
-              , rI = 0x3
-              , rg = 0x4
-              , rL = 0x5
-              , rc = 0x6
-              , rq = 0x7
+              , ra = 2
+              , rI = 3
+              , rg = 4
+              , rL = 5
+              , rc = 6
+              , rq = 7
               , rf = 0
               , rK = 1
-              , rY = 0x2
+              , rY = 2
               , rz = 0
               , rA = 1
-              , rj = 0x2
-              , rO = 0x3
-              , rJ = 0x4
-              , rv = 0x5
+              , rj = 2
+              , rO = 3
+              , rJ = 4
+              , rv = 5
               , rn = 'attached'
               , rb = 'detached'
               , rD = 0x12c
@@ -3761,7 +4050,7 @@
               , F1 = 0x12f
               , F2 = 0x130
               , F3 = 0x132
-              , F4 = 0x3e8
+              , F4 = 1000
               , F5 = 0x3e9
               , F6 = 0x3ea
               , F7 = 0x3eb
@@ -3837,7 +4126,7 @@
               , Ey = 0x9c5
               , Ed = 0
               , EP = 1
-              , EQ = 0x2
+              , EQ = 2
               , EB = 0xbb8
               , EM = 0xbb9
               , EX = 0xc80
@@ -3864,7 +4153,7 @@
               , EL = 0x206
               , Ec = 0x207
               , Eq = 0x88e4
-              , Ef = '300\x20es'
+              , Ef = '300 es'
               , EK = 0x40b
               , EY = 0x7d0
               , Ez = 0x7d1;
@@ -3957,11 +4246,11 @@
                     void 0 === V && (V = 1),
                     void 0 === G && (G = 1),
                     void 0 === k && (k = 1),
-                    void 0 === W && (W = 0x20),
+                    void 0 === W && (W = 32),
                     void 0 === x && (x = 1),
                     void 0 === I && (I = false),
                     void 0 === g && (g = 0),
-                    void 0 === L && (L = 0x2 * Math.PI),
+                    void 0 === L && (L = 2 * Math.PI),
                     (q = U.call(this) || this).type = 'CylinderGeometry',
                     q.parameters = {
                         'radiusTop': V,
@@ -3982,7 +4271,7 @@
                       , J = []
                       , b = 0
                       , D = []
-                      , r0 = k / 0x2
+                      , r0 = k / 2
                       , r1 = 0;
                     function r2(r3) {
                         for (var r4 = b, r5 = new Z.I(), r6 = new N.P(), r7 = 0, r8 = true === r3 ? V : G, r9 = true === r3 ? 1 : -1, rr = 1; rr <= W; rr++)
@@ -4008,9 +4297,9 @@
                             var rH = r4 + rR
                               , ry = rF + rR;
                             true === r3 ? Y.push(ry, ry + 1, rH) : Y.push(ry + 1, ry, rH),
-                            r7 += 0x3;
+                            r7 += 3;
                         }
-                        K.addGroup(r1, r7, true === r3 ? 1 : 0x2),
+                        K.addGroup(r1, r7, true === r3 ? 1 : 2),
                         r1 += r7;
                     }
                     return (function() {
@@ -4039,7 +4328,7 @@
                                   , rQ = D[rH][rR + 1];
                                 Y.push(ry, rd, rQ),
                                 Y.push(rd, rP, rQ),
-                                r5 += 0x6;
+                                r5 += 6;
                             }
                         K.addGroup(r1, r5, 0),
                         r1 += r5;
@@ -4047,9 +4336,9 @@
                     false === I && (V > 0 && r2(true),
                     G > 0 && r2(false)),
                     q.setIndex(Y),
-                    q.setAttribute('position', new C.qt(z,0x3)),
-                    q.setAttribute('normal', new C.qt(j,0x3)),
-                    q.setAttribute('uv', new C.qt(J,0x2)),
+                    q.setAttribute('position', new C.qt(z,3)),
+                    q.setAttribute('normal', new C.qt(j,3)),
+                    q.setAttribute('uv', new C.qt(J,2)),
                     q;
                 }
                 return (0,
@@ -4119,7 +4408,7 @@
                         'widthSegments': G,
                         'heightSegments': k
                     };
-                    for (var x = U / 0x2, L = V / 0x2, q = Math.floor(G), K = Math.floor(k), Y = q + 1, z = K + 1, j = U / q, J = V / K, b = [], D = [], r0 = [], r1 = [], r2 = 0; r2 < z; r2++)
+                    for (var x = U / 2, L = V / 2, q = Math.floor(G), K = Math.floor(k), Y = q + 1, z = K + 1, j = U / q, J = V / K, b = [], D = [], r0 = [], r1 = [], r2 = 0; r2 < z; r2++)
                         for (var r3 = r2 * J - L, r4 = 0; r4 < Y; r4++) {
                             var r5 = r4 * j - x;
                             D.push(r5, -r3, 0),
@@ -4137,9 +4426,9 @@
                             b.push(r9, rr, rF);
                         }
                     return W.setIndex(b),
-                    W.setAttribute('position', new C.qt(D,0x3)),
-                    W.setAttribute('normal', new C.qt(r0,0x3)),
-                    W.setAttribute('uv', new C.qt(r1,0x2)),
+                    W.setAttribute('position', new C.qt(D,3)),
+                    W.setAttribute('normal', new C.qt(r0,3)),
+                    W.setAttribute('uv', new C.qt(r1,2)),
                     W;
                 }
                 return (0,
@@ -4170,10 +4459,10 @@
                 function U(V, G, k, W, x, q, K) {
                     var Y;
                     void 0 === V && (V = 1),
-                    void 0 === G && (G = 0x20),
-                    void 0 === k && (k = 0x10),
+                    void 0 === G && (G = 32),
+                    void 0 === k && (k = 16),
                     void 0 === W && (W = 0),
-                    void 0 === x && (x = 0x2 * Math.PI),
+                    void 0 === x && (x = 2 * Math.PI),
                     void 0 === q && (q = 0),
                     void 0 === K && (K = Math.PI),
                     (Y = h.call(this) || this).type = 'SphereGeometry',
@@ -4186,8 +4475,8 @@
                         'thetaStart': q,
                         'thetaLength': K
                     },
-                    G = Math.max(0x3, Math.floor(G)),
-                    k = Math.max(0x2, Math.floor(k));
+                    G = Math.max(3, Math.floor(G)),
+                    k = Math.max(2, Math.floor(k));
                     for (var z = Math.min(q + K, Math.PI), j = 0, J = [], b = new N.P(), D = new N.P(), r0 = [], r1 = [], r2 = [], r3 = [], r4 = 0; r4 <= k; r4++) {
                         var r5 = []
                           , r6 = r4 / k
@@ -4216,9 +4505,9 @@
                             (rr !== k - 1 || z < Math.PI) && r0.push(rp, rS, re);
                         }
                     return Y.setIndex(r0),
-                    Y.setAttribute('position', new C.qt(r1,0x3)),
-                    Y.setAttribute('normal', new C.qt(r2,0x3)),
-                    Y.setAttribute('uv', new C.qt(r3,0x2)),
+                    Y.setAttribute('position', new C.qt(r1,3)),
+                    Y.setAttribute('normal', new C.qt(r2,3)),
+                    Y.setAttribute('uv', new C.qt(r3,2)),
                     Y;
                 }
                 return (0,
@@ -4268,27 +4557,27 @@
                                 'materialIndex': 0
                             }]);
                             for (var Y = 0, z = K.length; Y < z; ++Y)
-                                for (var j = K[Y], J = j.start, b = J, D = J + j.count; b < D; b += 0x3)
-                                    for (var r0 = 0; r0 < 0x3; r0++) {
+                                for (var j = K[Y], J = j.start, b = J, D = J + j.count; b < D; b += 3)
+                                    for (var r0 = 0; r0 < 3; r0++) {
                                         var r1 = q.getX(b + r0)
-                                          , r2 = q.getX(b + (r0 + 1) % 0x3);
+                                          , r2 = q.getX(b + (r0 + 1) % 3);
                                         x.fromBufferAttribute(L, r1),
                                         I.fromBufferAttribute(L, r2),
                                         true === h(x, I, W) && (k.push(x.x, x.y, x.z),
                                         k.push(I.x, I.y, I.z));
                                     }
                         } else {
-                            for (var r3 = V.attributes.position, r4 = 0, r5 = r3.count / 0x3; r4 < r5; r4++)
-                                for (var r6 = 0; r6 < 0x3; r6++) {
-                                    var r7 = 0x3 * r4 + r6
-                                      , r8 = 0x3 * r4 + (r6 + 1) % 0x3;
+                            for (var r3 = V.attributes.position, r4 = 0, r5 = r3.count / 3; r4 < r5; r4++)
+                                for (var r6 = 0; r6 < 3; r6++) {
+                                    var r7 = 3 * r4 + r6
+                                      , r8 = 3 * r4 + (r6 + 1) % 3;
                                     x.fromBufferAttribute(r3, r7),
                                     I.fromBufferAttribute(r3, r8),
                                     true === h(x, I, W) && (k.push(x.x, x.y, x.z),
                                     k.push(I.x, I.y, I.z));
                                 }
                         }
-                        G.setAttribute('position', new C.qt(k,0x3));
+                        G.setAttribute('position', new C.qt(k,3));
                     }
                     return G;
                 }
@@ -4325,8 +4614,8 @@
                     void 0 === J && (J = 0.2 * A),
                     void 0 === v && (v = 0.2 * J),
                     (b = q.call(this) || this).type = 'ArrowHelper',
-                    void 0 === w && ((w = new U.L()).setAttribute('position', new Z.qt([0, 0, 0, 0, 1, 0],0x3)),
-                    (C = new V.H(0,0.5,1,0x5,1)).translate(0, -0.5, 0)),
+                    void 0 === w && ((w = new U.L()).setAttribute('position', new Z.qt([0, 0, 0, 0, 1, 0],3)),
+                    (C = new V.H(0,0.5,1,5,1)).translate(0, -0.5, 0)),
                     b.position.copy(z),
                     b.line = new x.N(w,new k.m({
                         'color': j,
@@ -4442,9 +4731,9 @@
                 function g() {
                     var L;
                     return (L = I.call(this, new N.u(0x5a,1,0.5,0x1f4)) || this).isPointLightShadow = true,
-                    L._frameExtents = new U.I(0x4,0x2),
-                    L._viewportCount = 0x6,
-                    L._viewports = [new V.I(0x2,1,1,1), new V.I(0,1,1,1), new V.I(0x3,1,1,1), new V.I(1,1,1,1), new V.I(0x3,0,1,1), new V.I(1,0,1,1)],
+                    L._frameExtents = new U.I(4,2),
+                    L._viewportCount = 6,
+                    L._viewports = [new V.I(2,1,1,1), new V.I(0,1,1,1), new V.I(3,1,1,1), new V.I(1,1,1,1), new V.I(3,0,1,1), new V.I(1,0,1,1)],
                     L._cubeDirections = [new T.P(1,0,0), new T.P(-1,0,0), new T.P(0,0,1), new T.P(0,0,-1), new T.P(0,1,0), new T.P(0,-1,0)],
                     L._cubeUps = [new T.P(0,1,0), new T.P(0,1,0), new T.P(0,1,0), new T.P(0,1,0), new T.P(0,0,1), new T.P(0,0,-1)],
                     L;
@@ -4499,7 +4788,7 @@
                     function L(f) {
                         I.load(V[f], function(K) {
                             x.images[f] = K,
-                            0x6 === ++g && (x.needsUpdate = true,
+                            6 === ++g && (x.needsUpdate = true,
                             G && G(x));
                         }, void 0, W);
                     }
@@ -4676,10 +4965,10 @@
                     void 0 === Z) {
                         Z = new I.L();
                         var rp = new Float32Array([-0.5, -0.5, 0, 0, 0, 0.5, -0.5, 0, 1, 0, 0.5, 0.5, 0, 1, 1, -0.5, 0.5, 0, 0, 1])
-                          , rS = new L.e(rp,0x5);
-                        Z.setIndex([0, 1, 0x2, 0, 0x2, 0x3]),
-                        Z.setAttribute('position', new q.e(rS,0x3,0,false)),
-                        Z.setAttribute('uv', new q.e(rS,0x2,0x3,false));
+                          , rS = new L.e(rp,5);
+                        Z.setIndex([0, 1, 2, 0, 2, 3]),
+                        Z.setAttribute('position', new q.e(rS,3,0,false)),
+                        Z.setAttribute('uv', new q.e(rS,2,3,false));
                     }
                     return rE.geometry = Z,
                     rE.material = rF,
@@ -4690,7 +4979,7 @@
                 U.A)(r9, r8);
                 var rr = r9.prototype;
                 return rr.raycast = function(rF, rE) {
-                    null === rF.camera && console.error('THREE.Sprite:\x20\x22Raycaster.camera\x22\x20needs\x20to\x20be\x20set\x20in\x20order\x20to\x20raycast\x20against\x20sprites.'),
+                    null === rF.camera && console.error('THREE.Sprite: \x22Raycaster.camera\x22 needs to be set in order to raycast against sprites.'),
                     z.setFromMatrixScale(this.matrixWorld),
                     D.copy(rF.camera.matrixWorld),
                     this.modelViewMatrix.multiplyMatrices(rF.camera.matrixWorldInverse, this.matrixWorld),
@@ -5092,20 +5381,20 @@
                 }
                 var Y = K.prototype;
                 return Y.bFz = (function() {
-                    var z = (0,
-                    T.A)(k().mark(function A() {
+                    var z =
+                    T.A(k().mark(function A() {
                         var j, J;
                         return k().wrap(function(v) {
                             for (; ; )
                                 switch (v.prev = v.next) {
                                 case 0:
-                                    return v.next = 0x2,
+                                    return v.next = 2,
                                     this.bFe.get('/health/GetStatus');
-                                case 0x2:
+                                case 2:
                                     return j = v.sent,
                                     J = j.data,
                                     v.abrupt('return', J);
-                                case 0x5:
+                                case 5:
                                 case 'end':
                                     return v.stop();
                                 }
@@ -5117,20 +5406,20 @@
                     ;
                 }()),
                 Y.bFH = (function() {
-                    var z = (0,
-                    T.A)(k().mark(function A(j) {
+                    var z =
+                    T.A(k().mark(function A(j) {
                         var J, v;
                         return k().wrap(function(b) {
                             for (; ; )
                                 switch (b.prev = b.next) {
                                 case 0:
-                                    return b.next = 0x2,
+                                    return b.next = 2,
                                     this.bFe.post('/auth/LoginWithCustomID', j);
-                                case 0x2:
+                                case 2:
                                     return J = b.sent,
                                     v = J.data,
                                     b.abrupt('return', v);
-                                case 0x5:
+                                case 5:
                                 case 'end':
                                     return b.stop();
                                 }
@@ -5142,20 +5431,20 @@
                     ;
                 }()),
                 Y.bFd = (function() {
-                    var z = (0,
-                    T.A)(k().mark(function A(j) {
+                    var z =
+                    T.A(k().mark(function A(j) {
                         var J, v;
                         return k().wrap(function(b) {
                             for (; ; )
                                 switch (b.prev = b.next) {
                                 case 0:
-                                    return b.next = 0x2,
+                                    return b.next = 2,
                                     this.bFe.post('/auth/LoginWithSessionID', j);
-                                case 0x2:
+                                case 2:
                                     return J = b.sent,
                                     v = J.data,
                                     b.abrupt('return', v);
-                                case 0x5:
+                                case 5:
                                 case 'end':
                                     return b.stop();
                                 }
@@ -5167,8 +5456,8 @@
                     ;
                 }()),
                 Y.bFR = (function() {
-                    var z = (0,
-                    T.A)(k().mark(function A(j) {
+                    var z =
+                    T.A(k().mark(function A(j) {
                         var J, v, b, D, r0, r1;
                         return k().wrap(function(r2) {
                             for (; ; )
@@ -5178,9 +5467,9 @@
                                     j && (J.headers = {
                                         'X-Authorization-Token': j
                                     }),
-                                    r2.next = 0x4,
+                                    r2.next = 4,
                                     this.bFe.post('/entity/GetEntityInfoWithToken', void 0, J);
-                                case 0x4:
+                                case 4:
                                     for (v = r2.sent,
                                     b = v.data,
                                     D = 0,
@@ -5189,7 +5478,7 @@
                                         b.Status[r1].EndTime = b.Status[r1].EndTime ? new Date(b.Status[r1].EndTime) : null;
                                     return b.CreateTime = new Date(b.CreateTime),
                                     r2.abrupt('return', b);
-                                case 0x9:
+                                case 9:
                                 case 'end':
                                     return r2.stop();
                                 }
@@ -5201,8 +5490,8 @@
                     ;
                 }()),
                 Y.bFn = (function() {
-                    var z = (0,
-                    T.A)(k().mark(function A(j) {
+                    var z =
+                    T.A(k().mark(function A(j) {
                         var J;
                         return k().wrap(function(v) {
                             for (; ; )
@@ -5212,9 +5501,9 @@
                                     j && (J.headers = {
                                         'X-Authorization-Token': j
                                     }),
-                                    v.next = 0x4,
+                                    v.next = 4,
                                     this.bFe.post('/auth/LogoutWithToken', void 0, J);
-                                case 0x4:
+                                case 4:
                                 case 'end':
                                     return v.stop();
                                 }
@@ -5226,20 +5515,20 @@
                     ;
                 }()),
                 Y.bFt = (function() {
-                    var z = (0,
-                    T.A)(k().mark(function A(j) {
+                    var z =
+                    T.A(k().mark(function A(j) {
                         var J, v;
                         return k().wrap(function(b) {
                             for (; ; )
                                 switch (b.prev = b.next) {
                                 case 0:
-                                    return b.next = 0x2,
+                                    return b.next = 2,
                                     this.bFe.post('/auth/LoginWithCrazyGamesAccount', j);
-                                case 0x2:
+                                case 2:
                                     return J = b.sent,
                                     v = J.data,
                                     b.abrupt('return', v);
-                                case 0x5:
+                                case 5:
                                 case 'end':
                                     return b.stop();
                                 }
@@ -5251,8 +5540,8 @@
                     ;
                 }()),
                 Y.bFA = (function() {
-                    var z = (0,
-                    T.A)(k().mark(function A(j, J) {
+                    var z =
+                    T.A(k().mark(function A(j, J) {
                         var v, b, D;
                         return k().wrap(function(r0) {
                             for (; ; )
@@ -5262,15 +5551,15 @@
                                     J && (v.headers = {
                                         'X-Authorization-Token': J
                                     }),
-                                    r0.next = 0x4,
+                                    r0.next = 4,
                                     this.bFe.post('/auth/LinkCrazyGamesAccount', {
                                         'UserToken': j
                                     }, v);
-                                case 0x4:
+                                case 4:
                                     return b = r0.sent,
                                     D = b.data,
                                     r0.abrupt('return', D);
-                                case 0x7:
+                                case 7:
                                 case 'end':
                                     return r0.stop();
                                 }
@@ -5282,8 +5571,8 @@
                     ;
                 }()),
                 Y.bFN = (function() {
-                    var z = (0,
-                    T.A)(k().mark(function A(j) {
+                    var z =
+                    T.A(k().mark(function A(j) {
                         var J = this;
                         return k().wrap(function(v) {
                             for (; ; )
@@ -5305,14 +5594,14 @@
                                         var r3 = setInterval(function() {
                                             null != r2 && r2.closed && (clearInterval(r3),
                                             window.removeEventListener('message', r4),
-                                            D(new Error('Google\x20authentication\x20popup\x20closed')));
+                                            D(new Error('Google authentication popup closed')));
                                         }, 0x64)
                                           , r4 = function r5(r6) {
                                             'auth_success' === r6.data.type ? (clearInterval(r3),
                                             window.removeEventListener('message', r5),
                                             b(r6.data.data)) : 'auth_fail' === r6.data.type && (clearInterval(r3),
                                             window.removeEventListener('message', r5),
-                                            D(new Error('Failed\x20to\x20login\x20with\x20Google\x20account')));
+                                            D(new Error('Failed to login with Google account')));
                                         };
                                         window.addEventListener('message', r4);
                                     }
@@ -5329,8 +5618,8 @@
                     ;
                 }()),
                 Y.bFW = (function() {
-                    var z = (0,
-                    T.A)(k().mark(function A(j) {
+                    var z =
+                    T.A(k().mark(function A(j) {
                         var J = this;
                         return k().wrap(function(v) {
                             for (; ; )
@@ -5352,14 +5641,14 @@
                                         var r3 = setInterval(function() {
                                             null != r2 && r2.closed && (clearInterval(r3),
                                             window.removeEventListener('message', r4),
-                                            D(new Error('Google\x20authentication\x20popup\x20closed')));
+                                            D(new Error('Google authentication popup closed')));
                                         }, 0x64)
                                           , r4 = function r5(r6) {
                                             'account_link_success' === r6.data.type ? (clearInterval(r3),
                                             window.removeEventListener('message', r5),
                                             b(r6.data.data)) : 'account_link_fail' === r6.data.type && (clearInterval(r3),
                                             window.removeEventListener('message', r5),
-                                            D(new Error('Failed\x20to\x20link\x20Google\x20account')));
+                                            D(new Error('Failed to link Google account')));
                                         };
                                         window.addEventListener('message', r4);
                                     }
@@ -5376,8 +5665,8 @@
                     ;
                 }()),
                 Y.bFL = (function() {
-                    var z = (0,
-                    T.A)(k().mark(function A(j) {
+                    var z =
+                    T.A(k().mark(function A(j) {
                         var J = this;
                         return k().wrap(function(v) {
                             for (; ; )
@@ -5399,14 +5688,14 @@
                                         var r3 = setInterval(function() {
                                             null != r2 && r2.closed && (clearInterval(r3),
                                             window.removeEventListener('message', r4),
-                                            D(new Error('Discord\x20authentication\x20popup\x20closed')));
+                                            D(new Error('Discord authentication popup closed')));
                                         }, 0x64)
                                           , r4 = function r5(r6) {
                                             'auth_success' === r6.data.type ? (clearInterval(r3),
                                             window.removeEventListener('message', r5),
                                             b(r6.data.data)) : 'auth_fail' === r6.data.type && (clearInterval(r3),
                                             window.removeEventListener('message', r5),
-                                            D(new Error('Failed\x20to\x20login\x20with\x20Discord\x20account')));
+                                            D(new Error('Failed to login with Discord account')));
                                         };
                                         window.addEventListener('message', r4);
                                     }
@@ -5423,8 +5712,8 @@
                     ;
                 }()),
                 Y.bFX = (function() {
-                    var z = (0,
-                    T.A)(k().mark(function A(j) {
+                    var z =
+                    T.A(k().mark(function A(j) {
                         var J = this;
                         return k().wrap(function(v) {
                             for (; ; )
@@ -5446,14 +5735,14 @@
                                         var r3 = setInterval(function() {
                                             null != r2 && r2.closed && (clearInterval(r3),
                                             window.removeEventListener('message', r4),
-                                            D(new Error('Discord\x20authentication\x20popup\x20closed')));
+                                            D(new Error('Discord authentication popup closed')));
                                         }, 0x64)
                                           , r4 = function r5(r6) {
                                             'account_link_success' === r6.data.type ? (clearInterval(r3),
                                             window.removeEventListener('message', r5),
                                             b(r6.data.data)) : 'account_link_fail' === r6.data.type && (clearInterval(r3),
                                             window.removeEventListener('message', r5),
-                                            D(new Error('Failed\x20to\x20link\x20Discord\x20account')));
+                                            D(new Error('Failed to link Discord account')));
                                         };
                                         window.addEventListener('message', r4);
                                     }
@@ -5470,8 +5759,8 @@
                     ;
                 }()),
                 Y.bFm = (function() {
-                    var z = (0,
-                    T.A)(k().mark(function A(j, J) {
+                    var z =
+                    T.A(k().mark(function A(j, J) {
                         var v;
                         return k().wrap(function(b) {
                             for (; ; )
@@ -5481,9 +5770,9 @@
                                     J && (v.headers = {
                                         'X-Authorization-Token': J
                                     }),
-                                    b.next = 0x4,
+                                    b.next = 4,
                                     this.bFe.post('/addon/ChangeEntityDisplayName', j, v);
-                                case 0x4:
+                                case 4:
                                 case 'end':
                                     return b.stop();
                                 }
@@ -5512,43 +5801,43 @@
                 }
                 var Y = K.prototype;
                 return Y.bFw = (function() {
-                    var z = (0,
-                    w.A)(Z().mark(function A(j) {
+                    var z =
+                    w.A(Z().mark(function A(j) {
                         var J, v, b, D;
                         return Z().wrap(function(r0) {
                             for (; ; )
                                 switch (r0.prev = r0.next) {
                                 case 0:
                                     return r0.prev = 0,
-                                    r0.next = 0x3,
+                                    r0.next = 3,
                                     this.bFv(j);
-                                case 0x3:
-                                case 0xe:
-                                    r0.next = 0x11;
+                                case 3:
+                                case 14:
+                                    r0.next = 17;
                                     break;
-                                case 0x5:
-                                    if (r0.prev = 0x5,
+                                case 5:
+                                    if (r0.prev = 5,
                                     r0.t0 = r0.catch(0),
                                     (null == (J = r0.t0.response) || null == (J = J.data) ? void 0 : J.ErrorCode) !== I.A.NotAuthenticated && (null == (v = r0.t0.response) || null == (v = v.data) ? void 0 : v.ErrorCode) !== I.A.EntityNotFound) {
-                                        r0.next = 0x10;
+                                        r0.next = 16;
                                         break;
                                     }
-                                    return r0.next = 0xa,
+                                    return r0.next = 10,
                                     this.bFM.bFd({
                                         'Create': true
                                     });
-                                case 0xa:
+                                case 10:
                                     return b = r0.sent,
                                     D = b.Token,
-                                    r0.next = 0xe,
+                                    r0.next = 14,
                                     this.bFv(D);
-                                case 0x10:
+                                case 16:
                                     throw r0.t0;
-                                case 0x11:
+                                case 17:
                                 case 'end':
                                     return r0.stop();
                                 }
-                        }, A, this, [[0, 0x5]]);
+                        }, A, this, [[0, 5]]);
                     }));
                     return function(j) {
                         return z.apply(this, arguments);
@@ -5556,16 +5845,16 @@
                     ;
                 }()),
                 Y.bFv = (function() {
-                    var z = (0,
-                    w.A)(Z().mark(function A(j) {
+                    var z =
+                    w.A(Z().mark(function A(j) {
                         var J;
                         return Z().wrap(function(v) {
                             for (; ; )
                                 switch (v.prev = v.next) {
                                 case 0:
-                                    return v.next = 0x2,
+                                    return v.next = 2,
                                     this.bFM.bFR(j);
-                                case 0x2:
+                                case 2:
                                     J = v.sent,
                                     L.x.getState().bFQ(J),
                                     q.B.getState().bFj(j),
@@ -5574,7 +5863,7 @@
                                         'id': J.UUID,
                                         'username': J.DisplayName
                                     });
-                                case 0x7:
+                                case 7:
                                 case 'end':
                                     return v.stop();
                                 }
@@ -5586,17 +5875,17 @@
                     ;
                 }()),
                 Y.bFC = (function() {
-                    var z = (0,
-                    w.A)(Z().mark(function A() {
+                    var z =
+                    w.A(Z().mark(function A() {
                         return Z().wrap(function(j) {
                             for (; ; )
                                 switch (j.prev = j.next) {
                                 case 0:
-                                    return j.next = 0x2,
+                                    return j.next = 2,
                                     this.bFM.bFn(this.bFs);
-                                case 0x2:
+                                case 2:
                                     this.bFs = void 0;
-                                case 0x3:
+                                case 3:
                                 case 'end':
                                     return j.stop();
                                 }
@@ -5608,25 +5897,25 @@
                     ;
                 }()),
                 Y.bFO = (function() {
-                    var z = (0,
-                    w.A)(Z().mark(function A() {
+                    var z =
+                    w.A(Z().mark(function A() {
                         var j;
                         return Z().wrap(function(J) {
                             for (; ; )
                                 switch (J.prev = J.next) {
                                 case 0:
                                     if (this.bFu) {
-                                        J.next = 0x2;
+                                        J.next = 2;
                                         break;
                                     }
-                                    throw new Error('Not\x20authenticated');
-                                case 0x2:
-                                    return J.next = 0x4,
+                                    throw new Error('Not authenticated');
+                                case 2:
+                                    return J.next = 4,
                                     this.bFM.bFR(this.bFs);
-                                case 0x4:
+                                case 4:
                                     j = J.sent,
                                     L.x.getState().bFQ(j);
-                                case 0x6:
+                                case 6:
                                 case 'end':
                                     return J.stop();
                                 }
@@ -5638,26 +5927,26 @@
                     ;
                 }()),
                 Y.bFK = (function() {
-                    var z = (0,
-                    w.A)(Z().mark(function A(j) {
+                    var z =
+                    w.A(Z().mark(function A(j) {
                         var J;
                         return Z().wrap(function(v) {
                             for (; ; )
                                 switch (v.prev = v.next) {
                                 case 0:
                                     if (this.bFu) {
-                                        v.next = 0x2;
+                                        v.next = 2;
                                         break;
                                     }
-                                    throw new Error('Not\x20authenticated');
-                                case 0x2:
-                                    return v.next = 0x4,
+                                    throw new Error('Not authenticated');
+                                case 2:
+                                    return v.next = 4,
                                     this.bFM.bFA(j, this.bFs);
-                                case 0x4:
+                                case 4:
                                     return J = v.sent.Token,
-                                    v.next = 0x7,
+                                    v.next = 7,
                                     this.bFv(J);
-                                case 0x7:
+                                case 7:
                                 case 'end':
                                     return v.stop();
                                 }
@@ -5669,23 +5958,23 @@
                     ;
                 }()),
                 Y.bFc = (function() {
-                    var z = (0,
-                    w.A)(Z().mark(function A(j) {
+                    var z =
+                    w.A(Z().mark(function A(j) {
                         var J;
                         return Z().wrap(function(v) {
                             for (; ; )
                                 switch (v.prev = v.next) {
                                 case 0:
-                                    return v.next = 0x2,
+                                    return v.next = 2,
                                     this.bFM.bFt({
                                         'UserToken': j,
                                         'Create': true
                                     });
-                                case 0x2:
+                                case 2:
                                     return J = v.sent.Token,
-                                    v.next = 0x5,
+                                    v.next = 5,
                                     this.bFv(J);
-                                case 0x5:
+                                case 5:
                                 case 'end':
                                     return v.stop();
                                 }
@@ -5697,26 +5986,26 @@
                     ;
                 }()),
                 Y.bFY = (function() {
-                    var z = (0,
-                    w.A)(Z().mark(function A() {
+                    var z =
+                    w.A(Z().mark(function A() {
                         var j;
                         return Z().wrap(function(J) {
                             for (; ; )
                                 switch (J.prev = J.next) {
                                 case 0:
                                     if (this.bFu) {
-                                        J.next = 0x2;
+                                        J.next = 2;
                                         break;
                                     }
-                                    throw new Error('Not\x20authenticated');
-                                case 0x2:
-                                    return J.next = 0x4,
+                                    throw new Error('Not authenticated');
+                                case 2:
+                                    return J.next = 4,
                                     this.bFM.bFX(this.bFs);
-                                case 0x4:
+                                case 4:
                                     return j = J.sent,
-                                    J.next = 0x7,
+                                    J.next = 7,
                                     this.bFv(j);
-                                case 0x7:
+                                case 7:
                                 case 'end':
                                     return J.stop();
                                 }
@@ -5728,22 +6017,22 @@
                     ;
                 }()),
                 Y.bFx = (function() {
-                    var z = (0,
-                    w.A)(Z().mark(function A() {
+                    var z =
+                    w.A(Z().mark(function A() {
                         var j;
                         return Z().wrap(function(J) {
                             for (; ; )
                                 switch (J.prev = J.next) {
                                 case 0:
-                                    return J.next = 0x2,
+                                    return J.next = 2,
                                     this.bFM.bFL({
                                         'Create': true
                                     });
-                                case 0x2:
+                                case 2:
                                     return j = J.sent,
-                                    J.next = 0x5,
+                                    J.next = 5,
                                     this.bFv(j);
-                                case 0x5:
+                                case 5:
                                 case 'end':
                                     return J.stop();
                                 }
@@ -5755,26 +6044,26 @@
                     ;
                 }()),
                 Y.bFg = (function() {
-                    var z = (0,
-                    w.A)(Z().mark(function A() {
+                    var z =
+                    w.A(Z().mark(function A() {
                         var j;
                         return Z().wrap(function(J) {
                             for (; ; )
                                 switch (J.prev = J.next) {
                                 case 0:
                                     if (this.bFu) {
-                                        J.next = 0x2;
+                                        J.next = 2;
                                         break;
                                     }
-                                    throw new Error('Not\x20authenticated');
-                                case 0x2:
-                                    return J.next = 0x4,
+                                    throw new Error('Not authenticated');
+                                case 2:
+                                    return J.next = 4,
                                     this.bFM.bFW(this.bFs);
-                                case 0x4:
+                                case 4:
                                     return j = J.sent,
-                                    J.next = 0x7,
+                                    J.next = 7,
                                     this.bFv(j);
-                                case 0x7:
+                                case 7:
                                 case 'end':
                                     return J.stop();
                                 }
@@ -5786,22 +6075,22 @@
                     ;
                 }()),
                 Y.bFJ = (function() {
-                    var z = (0,
-                    w.A)(Z().mark(function A() {
+                    var z =
+                    w.A(Z().mark(function A() {
                         var j;
                         return Z().wrap(function(J) {
                             for (; ; )
                                 switch (J.prev = J.next) {
                                 case 0:
-                                    return J.next = 0x2,
+                                    return J.next = 2,
                                     this.bFM.bFN({
                                         'Create': true
                                     });
-                                case 0x2:
+                                case 2:
                                     return j = J.sent,
-                                    J.next = 0x5,
+                                    J.next = 5,
                                     this.bFv(j);
-                                case 0x5:
+                                case 5:
                                 case 'end':
                                     return J.stop();
                                 }
@@ -5813,23 +6102,23 @@
                     ;
                 }()),
                 Y.bFG = (function() {
-                    var z = (0,
-                    w.A)(Z().mark(function A(j) {
+                    var z =
+                    w.A(Z().mark(function A(j) {
                         return Z().wrap(function(J) {
                             for (; ; )
                                 switch (J.prev = J.next) {
                                 case 0:
                                     if (this.bFu) {
-                                        J.next = 0x2;
+                                        J.next = 2;
                                         break;
                                     }
-                                    throw new Error('Not\x20authenticated');
-                                case 0x2:
-                                    return J.next = 0x4,
+                                    throw new Error('Not authenticated');
+                                case 2:
+                                    return J.next = 4,
                                     this.bFM.bFm({
                                         'NewDisplayName': j
                                     }, this.bFs);
-                                case 0x4:
+                                case 4:
                                 case 'end':
                                     return J.stop();
                                 }
@@ -5876,7 +6165,7 @@
                         if (V && k)
                             for (var W = 0; W < G.length; W++) {
                                 var x = document.querySelector('#' + G[W].id);
-                                x && (x.innerHTML = '<div\x20style=\x22font-size:\x2015px;\x20text-shadow:\x20none;\x20width:\x20100%;\x20height:\x20100%;\x20display:\x20flex;\x20justify-content:\x20center;\x20align-items:\x20center;\x20flex-direction:\x20column;\x22><div\x20style=\x22margin-bottom:\x2012px;\x22>Voxiom.io\x20is\x20made\x20possible\x20by\x20displaying\x20online\x20advertisements\x20to\x20our\x20players.</div><div>Please\x20consider\x20supporting\x20us\x20by\x20disabling\x20your\x20ad\x20blocker\x20:(</div></div>',
+                                x && (x.innerHTML = '<div style=\x22font-size: 15px; text-shadow: none; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; flex-direction: column;\x22><div style=\x22margin-bottom: 12px;\x22>Voxiom.io is made possible by displaying online advertisements to our players.</div><div>Please consider supporting us by disabling your ad blocker :(</div></div>',
                                 x.style.padding = '24px',
                                 x.style.boxSizing = 'border-box');
                             }
@@ -5907,46 +6196,46 @@
                 }
                 var U = h.prototype;
                 return U.bFT = (function() {
-                    var T = (0,
-                    w.A)(C().mark(function V() {
+                    var T =
+                    w.A(C().mark(function V() {
                         return C().wrap(function(G) {
                             for (; ; )
                                 switch (G.prev = G.next) {
                                 case 0:
-                                    return void 0 === this.bFp && (this.bFp = (0,
-                                    w.A)(C().mark(function k() {
+                                    return void 0 === this.bFp && (this.bFp =
+                                    w.A(C().mark(function k() {
                                         return C().wrap(function(W) {
                                             for (; ; )
                                                 switch (W.prev = W.next) {
                                                 case 0:
                                                     if (window.adSDKType !== N.a.bFr) {
-                                                        W.next = 0x8;
+                                                        W.next = 8;
                                                         break;
                                                     }
                                                 case 1:
                                                     if (void 0 !== window.CrazyGames) {
-                                                        W.next = 0x6;
+                                                        W.next = 6;
                                                         break;
                                                     }
-                                                    return W.next = 0x4,
+                                                    return W.next = 4,
                                                     new Promise(function(x) {
                                                         return setTimeout(x, 1);
                                                     }
                                                     );
-                                                case 0x4:
+                                                case 4:
                                                     W.next = 1;
                                                     break;
-                                                case 0x6:
-                                                    return W.next = 0x8,
+                                                case 6:
+                                                    return W.next = 8,
                                                     window.CrazyGames.SDK.init();
-                                                case 0x8:
+                                                case 8:
                                                 case 'end':
                                                     return W.stop();
                                                 }
                                         }, k);
                                     }))()),
                                     G.abrupt('return', this.bFp);
-                                case 0x2:
+                                case 2:
                                 case 'end':
                                     return G.stop();
                                 }
@@ -5958,14 +6247,14 @@
                     ;
                 }()),
                 U.bFV = (function() {
-                    var T = (0,
-                    w.A)(C().mark(function V() {
+                    var T =
+                    w.A(C().mark(function V() {
                         return C().wrap(function(G) {
                             for (; ; )
                                 switch (G.prev = G.next) {
                                 case 0:
                                     if (window.adSDKType !== N.a.bFr) {
-                                        G.next = 0x2;
+                                        G.next = 2;
                                         break;
                                     }
                                     return G.abrupt('return', new Promise(function(k, W) {
@@ -5979,7 +6268,7 @@
                                         });
                                     }
                                     ));
-                                case 0x2:
+                                case 2:
                                 case 'end':
                                     return G.stop();
                                 }
@@ -6083,7 +6372,7 @@
                         return;
                     if ('string' == typeof K)
                         return N(K, Y);
-                    var z = Object.prototype.toString.call(K).slice(0x8, -1);
+                    var z = Object.prototype.toString.call(K).slice(8, -1);
                     'Object' === z && K.constructor && (z = K.constructor.name);
                     if ('Map' === z || 'Set' === z)
                         return Array.from(K);
@@ -6102,7 +6391,7 @@
                     }
                     ;
                 }
-                throw new TypeError('Invalid\x20attempt\x20to\x20iterate\x20non-iterable\x20instance.\x0aIn\x20order\x20to\x20be\x20iterable,\x20non-array\x20objects\x20must\x20have\x20a\x20[Symbol.iterator]()\x20method.');
+                throw new TypeError('Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.');
             }
             function N(g, L) {
                 (null == L || L > g.length) && (L = g.length);
@@ -6193,21 +6482,21 @@
               , V = function(g) {
                 switch (g) {
                 case Z.bfe:
-                    return 'Up\x20North';
+                    return 'Up North';
                 case Z.bfz:
-                    return 'Up\x20East';
+                    return 'Up East';
                 case Z.bfH:
-                    return 'Up\x20South';
+                    return 'Up South';
                 case Z.bfd:
-                    return 'Up\x20West';
+                    return 'Up West';
                 case Z.bfR:
-                    return 'Down\x20North';
+                    return 'Down North';
                 case Z.bfn:
-                    return 'Down\x20East';
+                    return 'Down East';
                 case Z.bft:
-                    return 'Down\x20South';
+                    return 'Down South';
                 case Z.bfA:
-                    return 'Down\x20West';
+                    return 'Down West';
                 case Z.bfN:
                     return 'North';
                 case Z.bfW:
@@ -6227,29 +6516,29 @@
               , W = function(g) {
                 var L = g.bbZ
                   , q = g.bbB
-                  , f = Math.PI / 0x4;
+                  , f = Math.PI / 4;
                 if (L < -f) {
                     if (q >= -f && q < f)
                         return Z.bfR;
-                    if (q >= f && q < 0x3 * f)
+                    if (q >= f && q < 3 * f)
                         return Z.bfA;
-                    if (q >= 0x3 * f || q < -0x3 * f)
+                    if (q >= 3 * f || q < -3 * f)
                         return Z.bft;
-                    if (q >= -0x3 * f && q < -f)
+                    if (q >= -3 * f && q < -f)
                         return Z.bfn;
                 } else {
                     if (L > f) {
                         if (q >= -f && q < f)
                             return Z.bfe;
-                        if (q >= f && q < 0x3 * f)
+                        if (q >= f && q < 3 * f)
                             return Z.bfd;
-                        if (q >= 0x3 * f || q < -0x3 * f)
+                        if (q >= 3 * f || q < -3 * f)
                             return Z.bfH;
-                        if (q >= -0x3 * f && q < -f)
+                        if (q >= -3 * f && q < -f)
                             return Z.bfz;
                     }
                 }
-                return q >= -f && q < f ? Z.bfN : q >= f && q < 0x3 * f ? Z.bfX : q >= 0x3 * f || q < -0x3 * f ? Z.bfL : q >= -0x3 * f && q < -f ? Z.bfW : Z.bfe;
+                return q >= -f && q < f ? Z.bfN : q >= f && q < 3 * f ? Z.bfX : q >= 3 * f || q < -3 * f ? Z.bfL : q >= -3 * f && q < -f ? Z.bfW : Z.bfe;
             }
               , x = ((w = {})[Z.bfe] = [Z.bfe, Z.bfN, Z.bfR],
             w[Z.bfz] = [Z.bfz, Z.bfe, Z.bfW, Z.bfn],
@@ -6303,14 +6592,14 @@
               , l = m(0x608)
               , C = m(0x12460)
               , N = function(Z, h) {
-                void 0 === h && (h = (0,
-                w.VB)(0xff, 0xff, 0xff));
-                for (var U = [], T = (0,
-                l.A)(Z, h), V = 0; V < T.length; V++)
+                void 0 === h && (h =
+                w.VB(0xff, 0xff, 0xff));
+                for (var U = [], T =
+                l.A(Z, h), V = 0; V < T.length; V++)
                     U.push((0,
                     C.jsx)('span', {
                         'style': {
-                            'color': 'rgb(' + T[V].color.bbZ + ',\x20' + T[V].color.bbB + ',\x20' + T[V].color.bbd + ')'
+                            'color': 'rgb(' + T[V].color.bbZ + ', ' + T[V].color.bbB + ', ' + T[V].color.bbd + ')'
                         },
                         'children': T[V].message
                     }, V));
@@ -6426,10 +6715,10 @@
                 return K + (z = Math.max(0, Math.min(1, z))) * (Y - K);
             }
               , T = function(K, Y, z) {
-                return K < -Math.PI / 0x2 && Y > Math.PI / 0x2 ? U(K + 0x2 * Math.PI, Y, z) - 0x2 * Math.PI : K > Math.PI / 0x2 && Y < -Math.PI / 0x2 ? U(K, Y + 0x2 * Math.PI, z) - 0x2 * Math.PI : U(K, Y, z);
+                return K < -Math.PI / 2 && Y > Math.PI / 2 ? U(K + 2 * Math.PI, Y, z) - 2 * Math.PI : K > Math.PI / 2 && Y < -Math.PI / 2 ? U(K, Y + 2 * Math.PI, z) - 2 * Math.PI : U(K, Y, z);
             }
               , V = function(K) {
-                return K = ((K += Math.PI) + 0x2 * Math.PI) % (0x2 * Math.PI),
+                return K = ((K += Math.PI) + 2 * Math.PI) % (2 * Math.PI),
                 K -= Math.PI;
             }
               , G = function(K) {
@@ -6492,8 +6781,8 @@
                 }
                 ;
                 if (void 0 === f.prevOnGround && (f.prevOnGround = q),
-                void 0 === f.prevPos && (f.prevPos = (0,
-                G.N3)(g)),
+                void 0 === f.prevPos && (f.prevPos =
+                G.N3(g)),
                 L !== T.f.bfY) {
                     f.swamDistFromLastSoundPlayed = 0;
                     var j = I(g, K)
@@ -6502,13 +6791,13 @@
                       , v = O.bfJ
                       , b = O.bfG;
                     void 0 !== J && (!f.prevOnGround && q ? (A(J, v, b),
-                    f.walkedDistFromLastSoundPlayed = 0) : q && f.prevOnGround && (f.walkedDistFromLastSoundPlayed += (0,
-                    G.z5)(g, f.prevPos),
+                    f.walkedDistFromLastSoundPlayed = 0) : q && f.prevOnGround && (f.walkedDistFromLastSoundPlayed +=
+                    G.z5(g, f.prevPos),
                     f.walkedDistFromLastSoundPlayed >= 1.5 && (A(J, v, b),
                     f.walkedDistFromLastSoundPlayed = 0)));
                 }
-                f.prevPos = (0,
-                G.N3)(g),
+                f.prevPos =
+                G.N3(g),
                 f.prevOnGround = q;
             }
               , x = function() {
@@ -6517,11 +6806,11 @@
               , I = function(g, L) {
                 for (var q = 0x98967f, f = w._.bbl, K = -1; K <= 1; K++)
                     for (var Y = -1; Y <= 1; Y++) {
-                        var z = C.A.bbT(g.bbZ / V.A.bba + K, (g.bbB - V.A.bba / 0x2) / V.A.bba, g.bbd / V.A.bba + Y)
-                          , A = (0,
-                        G.x6)(g, z);
+                        var z = C.A.bbT(g.bbZ / V.A.bba + K, (g.bbB - V.A.bba / 2) / V.A.bba, g.bbd / V.A.bba + Y)
+                          , A =
+                        G.x6(g, z);
                         if (A < q) {
-                            var j = L.bbg(g.bbZ / V.A.bba + K, (g.bbB - V.A.bba / 0x2) / V.A.bba, g.bbd / V.A.bba + Y);
+                            var j = L.bbg(g.bbZ / V.A.bba + K, (g.bbB - V.A.bba / 2) / V.A.bba, g.bbd / V.A.bba + Y);
                             void 0 !== N.A.bIM.bIS.bIw.bfx(j).bfg.bIo && (q = A,
                             f = j);
                         }
@@ -6547,7 +6836,7 @@
                         return;
                     if ('string' == typeof W)
                         return Z(W, x);
-                    var I = Object.prototype.toString.call(W).slice(0x8, -1);
+                    var I = Object.prototype.toString.call(W).slice(8, -1);
                     'Object' === I && W.constructor && (I = W.constructor.name);
                     if ('Map' === I || 'Set' === I)
                         return Array.from(W);
@@ -6566,7 +6855,7 @@
                     }
                     ;
                 }
-                throw new TypeError('Invalid\x20attempt\x20to\x20iterate\x20non-iterable\x20instance.\x0aIn\x20order\x20to\x20be\x20iterable,\x20non-array\x20objects\x20must\x20have\x20a\x20[Symbol.iterator]()\x20method.');
+                throw new TypeError('Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.');
             }
             function Z(T, V) {
                 (null == V || V > T.length) && (V = T.length);
@@ -6575,10 +6864,10 @@
                 return k;
             }
             var h = function(T, V, G, k) {
-                void 0 === G && (G = (0,
-                C.VB)(0xff, 0xff, 0xff)),
-                void 0 === k && (k = 0x2);
-                var W = T.split('\x0a')
+                void 0 === G && (G =
+                C.VB(0xff, 0xff, 0xff)),
+                void 0 === k && (k = 2);
+                var W = T.split('\n')
                   , x = W.map(function(r5) {
                     return (0,
                     l.A)(r5, G);
@@ -6589,9 +6878,9 @@
                     }).join('');
                 })
                   , L = document.createElement('canvas').getContext('2d')
-                  , q = V + 'px\x20LanaPixel,\x20Unifont,\x20Lato,\x20Helvetica,\x20sans-serif';
+                  , q = V + 'px LanaPixel, Unifont, Lato, Helvetica, sans-serif';
                 L.font = q;
-                var K = 0x2 * k
+                var K = 2 * k
                   , Y = I.map(function(r5) {
                     return L.measureText(r5).width;
                 })
@@ -6603,13 +6892,13 @@
                 L.font = q,
                 L.textBaseline = 'top',
                 L.textAlign = 'center',
-                L.fillStyle = 'rgba(0,\x200,\x200,\x200)',
+                L.fillStyle = 'rgba(0, 0, 0, 0)',
                 L.fillRect(0, 0, j, J);
                 for (var b = 0; b < x.length; b++)
                     for (var D, r0 = 0, r1 = N(x[b]); !(D = r1()).done; ) {
                         var r2 = D.value;
-                        L.fillStyle = 'rgb(' + r2.color.bbZ + ',\x20' + r2.color.bbB + ',\x20' + r2.color.bbd + ')',
-                        L.fillText(r2.message, k + r0 + z / 0x2, k + V * b),
+                        L.fillStyle = 'rgb(' + r2.color.bbZ + ', ' + r2.color.bbB + ', ' + r2.color.bbd + ')',
+                        L.fillText(r2.message, k + r0 + z / 2, k + V * b),
                         r0 += L.measureText(r2.message).width;
                     }
                 var r3 = L.getImageData(0, 0, L.canvas.width, L.canvas.height)
@@ -6625,9 +6914,9 @@
                 r4;
             }
               , U = function(T, V, G, k, W) {
-                void 0 === k && (k = (0,
-                C.VB)(0xff, 0xff, 0xff)),
-                void 0 === W && (W = 0x2);
+                void 0 === k && (k =
+                C.VB(0xff, 0xff, 0xff)),
+                void 0 === W && (W = 2);
                 var x = h(T, V, k, W)
                   , I = new w.SpriteMaterial({
                     'map': x,
@@ -6657,7 +6946,7 @@
             }
               , N = function() {
                 var Z = new Date();
-                return Z.getFullYear() + '-' + (Z.getMonth() + 1).toString().padStart(0x2, '0') + '-' + Z.getDate().toString().padStart(0x2, '0') + '\x20at\x20' + Z.getHours().toString().padStart(0x2, '0') + '.' + Z.getMinutes().toString().padStart(0x2, '0') + '.' + Z.getSeconds().toString().padStart(0x2, '0') + '.png';
+                return Z.getFullYear() + '-' + (Z.getMonth() + 1).toString().padStart(2, '0') + '-' + Z.getDate().toString().padStart(2, '0') + ' at ' + Z.getHours().toString().padStart(2, '0') + '.' + Z.getMinutes().toString().padStart(2, '0') + '.' + Z.getSeconds().toString().padStart(2, '0') + '.png';
             };
         }
         ,
@@ -6676,7 +6965,7 @@
                         return;
                     if ('string' == typeof V)
                         return l(V, G);
-                    var k = Object.prototype.toString.call(V).slice(0x8, -1);
+                    var k = Object.prototype.toString.call(V).slice(8, -1);
                     'Object' === k && V.constructor && (k = V.constructor.name);
                     if ('Map' === k || 'Set' === k)
                         return Array.from(V);
@@ -6695,7 +6984,7 @@
                     }
                     ;
                 }
-                throw new TypeError('Invalid\x20attempt\x20to\x20iterate\x20non-iterable\x20instance.\x0aIn\x20order\x20to\x20be\x20iterable,\x20non-array\x20objects\x20must\x20have\x20a\x20[Symbol.iterator]()\x20method.');
+                throw new TypeError('Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.');
             }
             function l(Z, h) {
                 (null == h || h > Z.length) && (h = Z.length);
@@ -6772,7 +7061,7 @@
                 w.qE)(q, g, L));
             }
               , x = function(I) {
-                return 'vec2(x=' + I.bbZ.toFixed(0x2) + ',\x20y=' + I.bbB.toFixed(0x2) + ')';
+                return 'vec2(x=' + I.bbZ.toFixed(2) + ', y=' + I.bbB.toFixed(2) + ')';
             };
         }
         ,
@@ -6888,7 +7177,7 @@
                 return z(r4);
             }
               , r1 = function(r2) {
-                return 'vec3(x=' + r2.bbZ.toFixed(0x2) + ',\x20y=' + r2.bbB.toFixed(0x2) + ',\x20z=' + r2.bbd.toFixed(0x2) + ')';
+                return 'vec3(x=' + r2.bbZ.toFixed(2) + ', y=' + r2.bbB.toFixed(2) + ', z=' + r2.bbd.toFixed(2) + ')';
             };
         }
         ,
@@ -6901,9 +7190,9 @@
               , l = {
                 'bGF': 0,
                 'bGf': 1,
-                'bGD': 0x2,
-                'bGh': 0x3,
-                'bzA': 0x4
+                'bGD': 2,
+                'bGh': 3,
+                'bzA': 4
             }
               , C = [w.p.bHx, w.p.bHx, w.p.bHx, w.p.bHx]
               , N = function(Z) {
@@ -6918,7 +7207,7 @@
             var w = {
                 'bgN': 0,
                 'FYc': 1,
-                'bvc': 0x2
+                'bvc': 2
             };
         }
         ,
@@ -6931,11 +7220,11 @@
               , l = {
                 'FYw': 0,
                 'btU': 1,
-                'FYM': 0x2,
-                'FYS': 0x3,
-                'FYv': 0x4,
-                'FYQ': 0x5,
-                'bzA': 0x6
+                'FYM': 2,
+                'FYS': 3,
+                'FYv': 4,
+                'FYQ': 5,
+                'bzA': 6
             }
               , C = [w.p.bAW, w.p.bAW, w.p.bAW, w.p.bAW, w.p.bHx, w.p.bHx]
               , N = function(Z) {
@@ -6962,7 +7251,7 @@
               , l = {
                 'FYO': 0,
                 'FYY': 1,
-                'FYu': 0x2
+                'FYu': 2
             }
               , C = [w.p.bHx, w.p.bHx, w.p.bAX]
               , N = function(Z) {
@@ -6982,25 +7271,25 @@
               , r8 = r2(0x12e4b)
               , r9 = 0
               , rr = 1
-              , rF = 0x2
-              , rE = 0x3
-              , rp = 0x4
-              , rS = 0x5
-              , rR = 0x6
-              , rH = 0x7
-              , ry = 0x8
-              , rd = 0x9
-              , rP = 0xa
-              , rQ = 0xb
-              , rB = 0xc
-              , rM = 0xd
-              , rX = 0xe
-              , rm = 0xf
-              , rw = 0x10
-              , rl = 0x11
-              , rC = 0x12
-              , rN = 0x13
-              , rZ = 0x14
+              , rF = 2
+              , rE = 3
+              , rp = 4
+              , rS = 5
+              , rR = 6
+              , rH = 7
+              , ry = 8
+              , rd = 9
+              , rP = 10
+              , rQ = 11
+              , rB = 12
+              , rM = 13
+              , rX = 14
+              , rm = 15
+              , rw = 16
+              , rl = 17
+              , rC = 18
+              , rN = 19
+              , rZ = 20
               , rh = 0x15
               , ro = 0x16
               , rU = 0x17
@@ -7026,10 +7315,10 @@
                     var E5;
                     return void 0 === E1 && (E1 = 0),
                     void 0 === E2 && (E2 = ''),
-                    void 0 === E3 && (E3 = (0,
-                    rG.VB)(0, 0, 0)),
-                    void 0 === E4 && (E4 = (0,
-                    rk.LX)(0, 0)),
+                    void 0 === E3 && (E3 =
+                    rG.VB(0, 0, 0)),
+                    void 0 === E4 && (E4 =
+                    rk.LX(0, 0)),
                     (E5 = FD.call(this, r9) || this).FYx = E1,
                     E5.FYg = E2,
                     E5.FYJ = E3,
@@ -7044,36 +7333,36 @@
                       , E2 = new DataView(E1);
                     E2.setUint32(0, this.FYx);
                     var E3 = this.FYg.length;
-                    E2.setUint8(0x4, this.FYg.length);
+                    E2.setUint8(4, this.FYg.length);
                     for (var E4 = 0; E4 < E3; E4++)
-                        E2.setUint8(0x5 + E4, this.FYg.charCodeAt(E4));
-                    return E2.setFloat32(0x5 + E3 + 0, this.FYJ.bbZ),
-                    E2.setFloat32(0x5 + E3 + 0x4, this.FYJ.bbB),
-                    E2.setFloat32(0x5 + E3 + 0x8, this.FYJ.bbd),
-                    E2.setFloat32(0x5 + E3 + 0xc, this.FYG.bbZ),
-                    E2.setFloat32(0x5 + E3 + 0x10, this.FYG.bbB),
+                        E2.setUint8(5 + E4, this.FYg.charCodeAt(E4));
+                    return E2.setFloat32(5 + E3 + 0, this.FYJ.bbZ),
+                    E2.setFloat32(5 + E3 + 4, this.FYJ.bbB),
+                    E2.setFloat32(5 + E3 + 8, this.FYJ.bbd),
+                    E2.setFloat32(5 + E3 + 12, this.FYG.bbZ),
+                    E2.setFloat32(5 + E3 + 16, this.FYG.bbB),
                     E1;
                 }
                 ,
                 E0.FYi = function(E1) {
                     var E2 = E1 instanceof ArrayBuffer ? new DataView(E1) : new DataView(E1.buffer,E1.byteOffset,E1.byteLength);
                     this.FYx = E2.getUint32(0);
-                    var E3 = E2.getUint8(0x4);
+                    var E3 = E2.getUint8(4);
                     this.FYg = '';
                     for (var E4 = 0; E4 < E3; E4++)
-                        this.FYg += String.fromCharCode(E2.getUint8(0x5 + E4));
-                    this.FYJ.bbZ = E2.getFloat32(0x5 + E3),
-                    this.FYJ.bbB = E2.getFloat32(0x5 + E3 + 0x4),
-                    this.FYJ.bbd = E2.getFloat32(0x5 + E3 + 0x8),
-                    this.FYG.bbZ = E2.getFloat32(0x5 + E3 + 0xc),
-                    this.FYG.bbB = E2.getFloat32(0x5 + E3 + 0x10);
+                        this.FYg += String.fromCharCode(E2.getUint8(5 + E4));
+                    this.FYJ.bbZ = E2.getFloat32(5 + E3),
+                    this.FYJ.bbB = E2.getFloat32(5 + E3 + 4),
+                    this.FYJ.bbd = E2.getFloat32(5 + E3 + 8),
+                    this.FYG.bbZ = E2.getFloat32(5 + E3 + 12),
+                    this.FYG.bbB = E2.getFloat32(5 + E3 + 16);
                 }
                 ,
                 (0,
                 r7.A)(Fu, [{
                     'key': 'FYq',
                     'get': function() {
-                        return 0x5 + this.FYg.length + 0xc + 0x8;
+                        return 5 + this.FYg.length + 12 + 8;
                     }
                 }, {
                     'key': 'bgV',
@@ -7104,8 +7393,8 @@
               , rc = function(FD) {
                 function Fu(E1, E2, E3) {
                     var E4;
-                    return void 0 === E1 && (E1 = (0,
-                    rG.VB)(0, 0, 0)),
+                    return void 0 === E1 && (E1 =
+                    rG.VB(0, 0, 0)),
                     void 0 === E2 && (E2 = new Uint16Array()),
                     void 0 === E3 && (E3 = 0),
                     (E4 = FD.call(this, rr) || this).Fsz = E1,
@@ -7118,35 +7407,35 @@
                 r8.A)(Fu, FD);
                 var E0 = Fu.prototype;
                 return E0.FYl = function() {
-                    var E1 = (0,
-                    rL.G)(this.Fst);
-                    this.FYo += 0xf,
-                    E1.length < this.Fst.length ? this.FYo += 0x2 + 0x2 * E1.length : this.FYo += 0x2 * this.Fst.length;
+                    var E1 =
+                    rL.G(this.Fst);
+                    this.FYo += 15,
+                    E1.length < this.Fst.length ? this.FYo += 2 + 2 * E1.length : this.FYo += 2 * this.Fst.length;
                     var E2 = new ArrayBuffer(this.FYq)
                       , E3 = new DataView(E2);
                     if (this.FYo = 0,
                     E3.setInt32(this.FYo, this.Fsz.bbZ),
-                    this.FYo += 0x4,
+                    this.FYo += 4,
                     E3.setInt32(this.FYo, this.Fsz.bbB),
-                    this.FYo += 0x4,
+                    this.FYo += 4,
                     E3.setInt32(this.FYo, this.Fsz.bbd),
-                    this.FYo += 0x4,
+                    this.FYo += 4,
                     E3.setUint16(this.FYo, this.FsH),
-                    this.FYo += 0x2,
+                    this.FYo += 2,
                     E1.length < this.Fst.length) {
                         E3.setUint8(this.FYo, 1),
                         this.FYo += 1,
-                        E3.setUint16(this.FYo, E1.length / 0x2),
-                        this.FYo += 0x2;
+                        E3.setUint16(this.FYo, E1.length / 2),
+                        this.FYo += 2;
                         for (var E4 = 0; E4 < E1.length; E4++)
                             E3.setUint16(this.FYo, E1[E4]),
-                            this.FYo += 0x2;
+                            this.FYo += 2;
                     } else {
                         E3.setUint8(this.FYo, 0),
                         this.FYo += 1;
                         for (var E5 = 0; E5 < this.Fst.length; E5++)
                             E3.setUint16(this.FYo, this.Fst[E5]),
-                            this.FYo += 0x2;
+                            this.FYo += 2;
                     }
                     return E2;
                 }
@@ -7155,32 +7444,32 @@
                     var E2 = E1 instanceof ArrayBuffer ? new DataView(E1) : new DataView(E1.buffer,E1.byteOffset,E1.byteLength);
                     this.FYo = 0,
                     this.Fsz.bbZ = E2.getInt32(this.FYo),
-                    this.FYo += 0x4,
+                    this.FYo += 4,
                     this.Fsz.bbB = E2.getInt32(this.FYo),
-                    this.FYo += 0x4,
+                    this.FYo += 4,
                     this.Fsz.bbd = E2.getInt32(this.FYo),
-                    this.FYo += 0x4,
+                    this.FYo += 4,
                     this.FsH = E2.getInt16(this.FYo),
-                    this.FYo += 0x2,
+                    this.FYo += 2,
                     this.Fst = new Uint16Array(rg.A.FsA);
                     var E3 = E2.getUint8(this.FYo) > 0;
                     if (this.FYo += 1,
                     E3) {
                         var E4 = 0
                           , E5 = E2.getUint16(this.FYo);
-                        this.FYo += 0x2;
+                        this.FYo += 2;
                         for (var E6 = 0; E6 < E5; E6++) {
                             var E7 = E2.getUint16(this.FYo);
-                            this.FYo += 0x2;
+                            this.FYo += 2;
                             var E8 = E2.getUint16(this.FYo);
-                            this.FYo += 0x2;
+                            this.FYo += 2;
                             for (var E9 = 0; E9 < E7; E9++)
                                 this.Fst[E4++] = E8;
                         }
                     } else {
                         for (var Er = 0; Er < rg.A.FsA; Er++)
                             this.Fst[Er] = E2.getUint16(this.FYo),
-                            this.FYo += 0x2;
+                            this.FYo += 2;
                     }
                 }
                 ,
@@ -7189,7 +7478,7 @@
                     'key': 'FYq',
                     'get': function() {
                         if (0 === this.FYo)
-                            throw new Error('Size\x20is\x20unknown');
+                            throw new Error('Size is unknown');
                         return this.FYo;
                     }
                 }, {
@@ -7212,8 +7501,8 @@
               , rq = function(FD) {
                 function Fu(E1) {
                     var E2;
-                    return void 0 === E1 && (E1 = (0,
-                    rG.VB)(0, 0, 0)),
+                    return void 0 === E1 && (E1 =
+                    rG.VB(0, 0, 0)),
                     (E2 = FD.call(this, rF) || this).Fsz = E1,
                     E2;
                 }
@@ -7224,23 +7513,23 @@
                     var E1 = new ArrayBuffer(this.FYq)
                       , E2 = new DataView(E1);
                     return E2.setInt32(0, this.Fsz.bbZ),
-                    E2.setInt32(0x4, this.Fsz.bbB),
-                    E2.setInt32(0x8, this.Fsz.bbd),
+                    E2.setInt32(4, this.Fsz.bbB),
+                    E2.setInt32(8, this.Fsz.bbd),
                     E1;
                 }
                 ,
                 E0.FYi = function(E1) {
                     var E2 = E1 instanceof ArrayBuffer ? new DataView(E1) : new DataView(E1.buffer,E1.byteOffset,E1.byteLength);
                     this.Fsz.bbZ = E2.getInt32(0),
-                    this.Fsz.bbB = E2.getInt32(0x4),
-                    this.Fsz.bbd = E2.getInt32(0x8);
+                    this.Fsz.bbB = E2.getInt32(4),
+                    this.Fsz.bbd = E2.getInt32(8);
                 }
                 ,
                 (0,
                 r7.A)(Fu, [{
                     'key': 'FYq',
                     'get': function() {
-                        return 0xc;
+                        return 12;
                     }
                 }, {
                     'key': 'bLk',
@@ -7261,7 +7550,7 @@
                         return;
                     if ('string' == typeof E2)
                         return rA(E2, E3);
-                    var E4 = Object.prototype.toString.call(E2).slice(0x8, -1);
+                    var E4 = Object.prototype.toString.call(E2).slice(8, -1);
                     'Object' === E4 && E2.constructor && (E4 = E2.constructor.name);
                     if ('Map' === E4 || 'Set' === E4)
                         return Array.from(E2);
@@ -7280,7 +7569,7 @@
                     }
                     ;
                 }
-                throw new TypeError('Invalid\x20attempt\x20to\x20iterate\x20non-iterable\x20instance.\x0aIn\x20order\x20to\x20be\x20iterable,\x20non-array\x20objects\x20must\x20have\x20a\x20[Symbol.iterator]()\x20method.');
+                throw new TypeError('Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.');
             }
             function rA(FD, Fu) {
                 (null == Fu || Fu > FD.length) && (Fu = FD.length);
@@ -7302,58 +7591,58 @@
                     var E1 = new ArrayBuffer(this.FYq)
                       , E2 = new DataView(E1);
                     E2.setUint32(0, this.FYP.bjV),
-                    E2.setFloat32(0x4, this.FYP.bLH.bbZ),
-                    E2.setFloat32(0x8, this.FYP.bLH.bbB),
-                    E2.setFloat32(0xc, this.FYP.bmg),
-                    E2.setUint8(0x10, 0x7f * this.FYP.bQq.bbZ + 0x7f),
-                    E2.setUint8(0x11, 0x7f * this.FYP.bQq.bbB + 0x7f);
+                    E2.setFloat32(4, this.FYP.bLH.bbZ),
+                    E2.setFloat32(8, this.FYP.bLH.bbB),
+                    E2.setFloat32(12, this.FYP.bmg),
+                    E2.setUint8(16, 0x7f * this.FYP.bQq.bbZ + 0x7f),
+                    E2.setUint8(17, 0x7f * this.FYP.bQq.bbB + 0x7f);
                     var E3 = 0;
                     E3 |= (this.FYP.bQi ? 1 : 0) | 0,
                     E3 |= (this.FYP.bQr ? 1 : 0) << 1,
-                    E3 |= (this.FYP.bDD ? 1 : 0) << 0x2,
-                    E3 |= (this.FYP.bQo ? 1 : 0) << 0x3,
-                    E3 |= (this.FYP.bQP ? 1 : 0) << 0x4,
-                    E3 |= (this.FYP.bQa ? 1 : 0) << 0x5,
-                    E3 |= (this.FYP.bQT ? 1 : 0) << 0x6,
-                    E3 |= (this.FYP.bQV ? 1 : 0) << 0x7,
-                    E3 |= (this.FYP.bsI ? 1 : 0) << 0x8,
-                    E3 |= (this.FYP.bsf ? 1 : 0) << 0x9,
-                    E3 |= (this.FYP.bsy ? 1 : 0) << 0xa,
-                    E3 |= (this.FYP.bsB ? 1 : 0) << 0xb,
-                    E3 |= (this.FYP.bsZ ? 1 : 0) << 0xc,
-                    E3 |= (this.FYP.bsz ? 1 : 0) << 0xd,
-                    E2.setUint16(0x12, E3);
-                    var E4 = 0x14;
+                    E3 |= (this.FYP.bDD ? 1 : 0) << 2,
+                    E3 |= (this.FYP.bQo ? 1 : 0) << 3,
+                    E3 |= (this.FYP.bQP ? 1 : 0) << 4,
+                    E3 |= (this.FYP.bQa ? 1 : 0) << 5,
+                    E3 |= (this.FYP.bQT ? 1 : 0) << 6,
+                    E3 |= (this.FYP.bQV ? 1 : 0) << 7,
+                    E3 |= (this.FYP.bsI ? 1 : 0) << 8,
+                    E3 |= (this.FYP.bsf ? 1 : 0) << 9,
+                    E3 |= (this.FYP.bsy ? 1 : 0) << 10,
+                    E3 |= (this.FYP.bsB ? 1 : 0) << 11,
+                    E3 |= (this.FYP.bsZ ? 1 : 0) << 12,
+                    E3 |= (this.FYP.bsz ? 1 : 0) << 13,
+                    E2.setUint16(18, E3);
+                    var E4 = 20;
                     this.FYP.bQV && (E2.setUint8(E4, this.FYP.bQE),
                     E4 += 1),
                     this.FYP.bsI && (E2.setInt16(E4, this.FYP.bsb),
-                    E4 += 0x2,
+                    E4 += 2,
                     E2.setInt8(E4, this.FYP.bsF),
                     E4 += 1),
                     this.FYP.bsf && (E2.setInt16(E4, this.FYP.bsD),
-                    E4 += 0x2,
+                    E4 += 2,
                     E2.setInt16(E4, this.FYP.bsh),
-                    E4 += 0x2,
+                    E4 += 2,
                     E2.setUint8(E4, this.FYP.bsk),
                     E4 += 1),
                     this.FYP.bsy && (E2.setUint8(E4, this.FYP.bfs),
                     E4 += 1),
                     (this.FYP.bsB || this.FYP.bsZ) && (E2.setUint16(E4, this.FYP.bse),
-                    E4 += 0x2,
+                    E4 += 2,
                     E2.setInt8(E4, this.FYP.bsF),
                     E4 += 1),
                     this.FYP.bsz && (E2.setFloat32(E4, this.FYP.bsH.bbZ),
-                    E4 += 0x4,
+                    E4 += 4,
                     E2.setFloat32(E4, this.FYP.bsH.bbB),
-                    E4 += 0x4,
+                    E4 += 4,
                     E2.setFloat32(E4, this.FYP.bsH.bbd),
-                    E4 += 0x4),
+                    E4 += 4),
                     E2.setUint8(E4, this.FYP.bQp.length),
                     E4 += 1;
                     for (var E5, E6 = rz(this.FYP.bQp); !(E5 = E6()).done; ) {
                         var E7 = E5.value;
                         E2.setUint32(E4, E7),
-                        E4 += 0x4;
+                        E4 += 4;
                     }
                     return E1;
                 }
@@ -7361,59 +7650,59 @@
                 E0.FYi = function(E1) {
                     var E2 = E1 instanceof ArrayBuffer ? new DataView(E1) : new DataView(E1.buffer,E1.byteOffset,E1.byteLength);
                     this.FYP.bjV = E2.getUint32(0),
-                    this.FYP.bLH.bbZ = (0,
-                    rK.qE)((0,
-                    rY.zD)(E2, 0x4), -Math.PI / 0x2, Math.PI / 0x2),
-                    this.FYP.bLH.bbB = (0,
-                    rK.qE)((0,
-                    rY.zD)(E2, 0x8), -Math.PI, Math.PI),
-                    this.FYP.bmg = (0,
-                    rY.zD)(E2, 0xc),
-                    this.FYP.bQq.bbZ = (E2.getUint8(0x10) - 0x7f) / 0x7f,
-                    this.FYP.bQq.bbB = (E2.getUint8(0x11) - 0x7f) / 0x7f;
-                    var E3 = E2.getUint16(0x12);
+                    this.FYP.bLH.bbZ =
+                    rK.qE((0,
+                    rY.zD)(E2, 4), -Math.PI / 2, Math.PI / 2),
+                    this.FYP.bLH.bbB =
+                    rK.qE((0,
+                    rY.zD)(E2, 8), -Math.PI, Math.PI),
+                    this.FYP.bmg =
+                    rY.zD(E2, 12),
+                    this.FYP.bQq.bbZ = (E2.getUint8(16) - 0x7f) / 0x7f,
+                    this.FYP.bQq.bbB = (E2.getUint8(17) - 0x7f) / 0x7f;
+                    var E3 = E2.getUint16(18);
                     this.FYP.bQi = (1 & E3) > 0,
-                    this.FYP.bQr = (0x2 & E3) > 0,
-                    this.FYP.bDD = (0x4 & E3) > 0,
-                    this.FYP.bQo = (0x8 & E3) > 0,
-                    this.FYP.bQP = (0x10 & E3) > 0,
-                    this.FYP.bQa = (0x20 & E3) > 0,
-                    this.FYP.bQT = (0x40 & E3) > 0,
-                    this.FYP.bQV = (0x80 & E3) > 0,
-                    this.FYP.bsI = (0x100 & E3) > 0,
+                    this.FYP.bQr = (2 & E3) > 0,
+                    this.FYP.bDD = (4 & E3) > 0,
+                    this.FYP.bQo = (8 & E3) > 0,
+                    this.FYP.bQP = (16 & E3) > 0,
+                    this.FYP.bQa = (32 & E3) > 0,
+                    this.FYP.bQT = (64 & E3) > 0,
+                    this.FYP.bQV = (128 & E3) > 0,
+                    this.FYP.bsI = (256 & E3) > 0,
                     this.FYP.bsf = (0x200 & E3) > 0,
                     this.FYP.bsy = (0x400 & E3) > 0,
                     this.FYP.bsB = (0x800 & E3) > 0,
                     this.FYP.bsZ = (0x1000 & E3) > 0,
                     this.FYP.bsz = (0x2000 & E3) > 0;
-                    var E4 = 0x14;
+                    var E4 = 20;
                     this.FYP.bQV && (this.FYP.bQE = E2.getUint8(E4),
                     E4 += 1),
                     this.FYP.bsI && (this.FYP.bsb = E2.getInt16(E4),
-                    E4 += 0x2,
+                    E4 += 2,
                     this.FYP.bsF = E2.getInt8(E4),
                     E4 += 1),
                     this.FYP.bsf && (this.FYP.bsD = E2.getInt16(E4),
-                    E4 += 0x2,
+                    E4 += 2,
                     this.FYP.bsh = E2.getInt16(E4),
-                    E4 += 0x2,
+                    E4 += 2,
                     this.FYP.bsk = E2.getUint8(E4),
                     E4 += 1),
                     this.FYP.bsy && (this.FYP.bfs = E2.getUint8(E4),
                     E4 += 1),
                     (this.FYP.bsB || this.FYP.bsZ) && (this.FYP.bse = E2.getUint16(E4),
-                    E4 += 0x2,
+                    E4 += 2,
                     this.FYP.bsF = E2.getInt8(E4),
                     E4 += 1),
-                    this.FYP.bsz && (this.FYP.bsH.bbZ = (0,
-                    rY.zD)(E2, E4),
-                    E4 += 0x4,
-                    this.FYP.bsH.bbB = (0,
-                    rY.zD)(E2, E4),
-                    E4 += 0x4,
-                    this.FYP.bsH.bbd = (0,
-                    rY.zD)(E2, E4),
-                    E4 += 0x4,
+                    this.FYP.bsz && (this.FYP.bsH.bbZ =
+                    rY.zD(E2, E4),
+                    E4 += 4,
+                    this.FYP.bsH.bbB =
+                    rY.zD(E2, E4),
+                    E4 += 4,
+                    this.FYP.bsH.bbd =
+                    rY.zD(E2, E4),
+                    E4 += 4,
                     0 !== this.FYP.bsH.bbZ && 0 !== this.FYP.bsH.bbB && 0 !== this.FYP.bsH.bbd && (0,
                     rG.JA)(this.FYP.bsH),
                     (0,
@@ -7423,7 +7712,7 @@
                     E4 += 1;
                     for (var E6 = 0; E6 < E5; E6++)
                         this.FYP.bQp.push(E2.getUint32(E4)),
-                        E4 += 0x4;
+                        E4 += 4;
                 }
                 ,
                 (0,
@@ -7432,12 +7721,12 @@
                     'get': function() {
                         var E1 = 0;
                         return this.FYP.bQV && (E1 += 1),
-                        this.FYP.bsI && (E1 += 0x2),
-                        this.FYP.bsf && (E1 += 0x3),
+                        this.FYP.bsI && (E1 += 2),
+                        this.FYP.bsf && (E1 += 3),
                         this.FYP.bsy && (E1 += 1),
-                        (this.FYP.bsB || this.FYP.bsZ) && (E1 += 0x3),
-                        this.FYP.bsz && (E1 += 0xc),
-                        0x20 + (E1 += 1 + 0x4 * this.FYP.bQp.length);
+                        (this.FYP.bsB || this.FYP.bsZ) && (E1 += 3),
+                        this.FYP.bsz && (E1 += 12),
+                        32 + (E1 += 1 + 4 * this.FYP.bQp.length);
                     }
                 }, {
                     'key': 'FYa',
@@ -7463,7 +7752,7 @@
                         return;
                     if ('string' == typeof E2)
                         return F2(E2, E3);
-                    var E4 = Object.prototype.toString.call(E2).slice(0x8, -1);
+                    var E4 = Object.prototype.toString.call(E2).slice(8, -1);
                     'Object' === E4 && E2.constructor && (E4 = E2.constructor.name);
                     if ('Map' === E4 || 'Set' === E4)
                         return Array.from(E2);
@@ -7482,7 +7771,7 @@
                     }
                     ;
                 }
-                throw new TypeError('Invalid\x20attempt\x20to\x20iterate\x20non-iterable\x20instance.\x0aIn\x20order\x20to\x20be\x20iterable,\x20non-array\x20objects\x20must\x20have\x20a\x20[Symbol.iterator]()\x20method.');
+                throw new TypeError('Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.');
             }
             function F2(FD, Fu) {
                 (null == Fu || Fu > FD.length) && (Fu = FD.length);
@@ -7536,7 +7825,7 @@
                           , Ep = EF < E9.bCS.length ? E9.bCS[EF].bfV : Er;
                         EE.bcH(Ep) || this.Fxf.set(EF, Ep);
                     }
-                    E8.bDZ.bcH(E9.bDZ) || this.Fxf.set(-0x2, E9.bDZ);
+                    E8.bDZ.bcH(E9.bDZ) || this.Fxf.set(-2, E9.bDZ);
                     var ES = this.Fxf.size > 0;
                     this.Fxh = new Map();
                     for (var Ee, ER = this.bKL.bXi.bsW, EH = this.bsm.bXi.bsW, Ey = F1(EH.entries()); !(Ee = Ey()).done; ) {
@@ -7551,41 +7840,41 @@
                         var Em = EM.value
                           , Ew = Em[0];
                         Em[1],
-                        void 0 === EH.get(Ew) && this.Fxh.set(Ew, (0,
-                        rG.VB)(0, 0, 0));
+                        void 0 === EH.get(Ew) && this.Fxh.set(Ew,
+                        rG.VB(0, 0, 0));
                     }
                     var El = this.Fxh.size > 0
                       , EC = this.FYT.length > 0
                       , EN = 0;
                     if (EN |= (this.bsm.bXi.bst ? 1 : 0) | 0,
                     EN |= (this.bsm.bXi.bsA ? 1 : 0) << 1,
-                    EN |= (0x7 & this.bsm.bXi.bWU) << 0x2,
-                    EN |= (0x3 & this.bsm.bXi.bUK) << 0x5,
-                    EN |= (this.FYp ? 1 : 0) << 0x7,
-                    EN |= (this.FYV ? 1 : 0) << 0x8,
-                    EN |= (this.FYE ? 1 : 0) << 0x9,
-                    EN |= (this.FxI ? 1 : 0) << 0xa,
-                    EN |= (this.Fxb ? 1 : 0) << 0xb,
-                    EN |= (ES ? 1 : 0) << 0xc,
-                    EN |= (E7 ? 1 : 0) << 0xd,
-                    EN |= (this.FxF ? 1 : 0) << 0xe,
-                    EN |= (El ? 1 : 0) << 0xf,
-                    EN |= (EC ? 1 : 0) << 0x10,
-                    this.FYo += 0x4,
-                    this.FYo += 0x4,
+                    EN |= (7 & this.bsm.bXi.bWU) << 2,
+                    EN |= (3 & this.bsm.bXi.bUK) << 5,
+                    EN |= (this.FYp ? 1 : 0) << 7,
+                    EN |= (this.FYV ? 1 : 0) << 8,
+                    EN |= (this.FYE ? 1 : 0) << 9,
+                    EN |= (this.FxI ? 1 : 0) << 10,
+                    EN |= (this.Fxb ? 1 : 0) << 11,
+                    EN |= (ES ? 1 : 0) << 12,
+                    EN |= (E7 ? 1 : 0) << 13,
+                    EN |= (this.FxF ? 1 : 0) << 14,
+                    EN |= (El ? 1 : 0) << 15,
+                    EN |= (EC ? 1 : 0) << 16,
+                    this.FYo += 4,
+                    this.FYo += 4,
                     this.FYo += 1,
                     this.FYp && (this.FYo += 0x18),
                     this.FYV && (this.FYo += 0x18),
-                    this.FYE && (this.FYo += 0x4),
+                    this.FYE && (this.FYo += 4),
                     this.FxI && (this.FYo += 1),
-                    this.Fxb && (this.FYo += 0xe),
+                    this.Fxb && (this.FYo += 14),
                     ES) {
-                        this.FYo += 0x2;
+                        this.FYo += 2;
                         for (var EZ, Eh = F1(this.Fxf.entries()); !(EZ = Eh()).done; ) {
                             var Eo = EZ.value
                               , EU = (Eo[0],
                             Eo[1]);
-                            this.FYo += 0x5;
+                            this.FYo += 5;
                             var Ei = EU.bfE.FCy();
                             this.FYo += 1;
                             for (var ET = 0; ET < Ei.length; ET++) {
@@ -7599,15 +7888,15 @@
                                     break;
                                 case ru.p.bAL:
                                 case ru.p.Fcp:
-                                    this.FYo += 0x2;
+                                    this.FYo += 2;
                                     break;
                                 case ru.p.bAX:
                                 case ru.p.FcV:
                                 case ru.p.FcE:
-                                    this.FYo += 0x4;
+                                    this.FYo += 4;
                                     break;
                                 case ru.p.FYI:
-                                    this.FYo += 0x8;
+                                    this.FYo += 8;
                                     break;
                                 case ru.p.bHx:
                                     this.FYo += 1 + EV.bWz.length;
@@ -7616,36 +7905,36 @@
                                     this.FYo += 1;
                                     break;
                                 default:
-                                    console.error('Encountered\x20unknown\x20data\x20type\x20when\x20reading\x20Entity\x20Metadata\x20Packet');
+                                    console.error('Encountered unknown data type when reading Entity Metadata Packet');
                                 }
                             }
                         }
                     }
-                    E7 && (this.FYo += 1 + 0x5 * this.FxD.size),
-                    this.FxF && (this.FYo += 0x2),
-                    El && (this.FYo += 1 + 0x10 * this.Fxh.size),
-                    EC && (this.FYo += 0x4 + 0x13 * this.FYT.length);
+                    E7 && (this.FYo += 1 + 5 * this.FxD.size),
+                    this.FxF && (this.FYo += 2),
+                    El && (this.FYo += 1 + 16 * this.Fxh.size),
+                    EC && (this.FYo += 4 + 19 * this.FYT.length);
                     var Es = new ArrayBuffer(this.FYq)
                       , EG = new DataView(Es);
                     if (this.FYo = 0,
                     EG.setUint32(this.FYo, EN),
-                    this.FYo += 0x4,
+                    this.FYo += 4,
                     EG.setUint32(this.FYo, this.bsm.bjV),
-                    this.FYo += 0x4,
+                    this.FYo += 4,
                     this.FYp && (EG.setFloat64(this.FYo, this.bsm.bXi.bLe.bbZ),
-                    this.FYo += 0x8,
+                    this.FYo += 8,
                     EG.setFloat64(this.FYo, this.bsm.bXi.bLe.bbB),
-                    this.FYo += 0x8,
+                    this.FYo += 8,
                     EG.setFloat64(this.FYo, this.bsm.bXi.bLe.bbd),
-                    this.FYo += 0x8),
+                    this.FYo += 8),
                     this.FYV && (EG.setFloat64(this.FYo, this.bsm.bXi.bsn.bbZ),
-                    this.FYo += 0x8,
+                    this.FYo += 8,
                     EG.setFloat64(this.FYo, this.bsm.bXi.bsn.bbB),
-                    this.FYo += 0x8,
+                    this.FYo += 8,
                     EG.setFloat64(this.FYo, this.bsm.bXi.bsn.bbd),
-                    this.FYo += 0x8),
+                    this.FYo += 8),
                     this.FYE && (EG.setFloat32(this.FYo, this.bsm.bXi.bsN),
-                    this.FYo += 0x4),
+                    this.FYo += 4),
                     this.FxI && (EG.setUint8(this.FYo, this.bsm.bDF.bCj),
                     this.FYo += 1),
                     this.Fxb && (EG.setUint8(this.FYo, this.bsm.bfs),
@@ -7653,29 +7942,29 @@
                     void 0 === this.bsm.bCC ? (EG.setUint8(this.FYo, 0),
                     this.FYo += 1,
                     EG.setInt32(this.FYo, 0),
-                    this.FYo += 0x4,
+                    this.FYo += 4,
                     EG.setInt32(this.FYo, 0),
-                    this.FYo += 0x4,
+                    this.FYo += 4,
                     EG.setInt32(this.FYo, 0),
-                    this.FYo += 0x4) : (EG.setUint8(this.FYo, 1),
+                    this.FYo += 4) : (EG.setUint8(this.FYo, 1),
                     this.FYo += 1,
                     EG.setInt32(this.FYo, this.bsm.bCC.bbZ),
-                    this.FYo += 0x4,
+                    this.FYo += 4,
                     EG.setInt32(this.FYo, this.bsm.bCC.bbB),
-                    this.FYo += 0x4,
+                    this.FYo += 4,
                     EG.setInt32(this.FYo, this.bsm.bCC.bbd),
-                    this.FYo += 0x4)),
+                    this.FYo += 4)),
                     ES) {
                         EG.setUint16(this.FYo, this.Fxf.size),
-                        this.FYo += 0x2;
+                        this.FYo += 2;
                         for (var Ek, EW = F1(this.Fxf.entries()); !(Ek = EW()).done; ) {
                             var Ex = Ek.value
                               , Ea = Ex[0]
                               , EI = Ex[1];
                             EG.setInt16(this.FYo, Ea),
-                            this.FYo += 0x2,
+                            this.FYo += 2,
                             EG.setUint16(this.FYo, EI.bfE.bIo),
-                            this.FYo += 0x2,
+                            this.FYo += 2,
                             EG.setUint8(this.FYo, EI.bDb),
                             this.FYo += 1;
                             var Eg = EI.bfE.FCy();
@@ -7697,27 +7986,27 @@
                                     break;
                                 case ru.p.bAL:
                                     EG.setUint16(this.FYo, Ec.bWz),
-                                    this.FYo += 0x2;
+                                    this.FYo += 2;
                                     break;
                                 case ru.p.Fcp:
                                     EG.setInt16(this.FYo, Ec.bWz),
-                                    this.FYo += 0x2;
+                                    this.FYo += 2;
                                     break;
                                 case ru.p.bAX:
                                     EG.setUint32(this.FYo, Ec.bWz),
-                                    this.FYo += 0x4;
+                                    this.FYo += 4;
                                     break;
                                 case ru.p.FcV:
                                     EG.setInt32(this.FYo, Ec.bWz),
-                                    this.FYo += 0x4;
+                                    this.FYo += 4;
                                     break;
                                 case ru.p.FcE:
                                     EG.setFloat32(this.FYo, Ec.bWz),
-                                    this.FYo += 0x4;
+                                    this.FYo += 4;
                                     break;
                                 case ru.p.FYI:
                                     EG.setFloat64(this.FYo, Ec.bWz),
-                                    this.FYo += 0x8;
+                                    this.FYo += 8;
                                     break;
                                 case ru.p.bHx:
                                     var Eq = Ec.bWz;
@@ -7732,7 +8021,7 @@
                                     this.FYo += 1;
                                     break;
                                 default:
-                                    console.error('Encountered\x20unknown\x20data\x20type\x20when\x20reading\x20Entity\x20Metadata\x20Packet');
+                                    console.error('Encountered unknown data type when reading Entity Metadata Packet');
                                 }
                             }
                         }
@@ -7747,7 +8036,7 @@
                             EG.setUint8(this.FYo, EA),
                             this.FYo += 1,
                             EG.setUint32(this.FYo, Ej),
-                            this.FYo += 0x4;
+                            this.FYo += 4;
                         }
                     }
                     if (this.FxF && (EG.setUint8(this.FYo, this.bsm.bCO),
@@ -7762,33 +8051,33 @@
                               , En = Ev[0]
                               , Eb = Ev[1];
                             EG.setUint32(this.FYo, En),
-                            this.FYo += 0x4,
+                            this.FYo += 4,
                             EG.setFloat32(this.FYo, Eb.bbZ),
-                            this.FYo += 0x4,
+                            this.FYo += 4,
                             EG.setFloat32(this.FYo, Eb.bbB),
-                            this.FYo += 0x4,
+                            this.FYo += 4,
                             EG.setFloat32(this.FYo, Eb.bbd),
-                            this.FYo += 0x4;
+                            this.FYo += 4;
                         }
                     }
                     if (EC) {
                         EG.setUint32(this.FYo, this.FYT.length),
-                        this.FYo += 0x4;
+                        this.FYo += 4;
                         for (var ED, Eu = F1(this.FYT); !(ED = Eu()).done; ) {
                             var p0 = ED.value;
                             EG.setInt32(this.FYo, p0.bIE.bbZ),
-                            this.FYo += 0x4,
+                            this.FYo += 4,
                             EG.setInt32(this.FYo, p0.bIE.bbB),
-                            this.FYo += 0x4,
+                            this.FYo += 4,
                             EG.setInt32(this.FYo, p0.bIE.bbd),
-                            this.FYo += 0x4,
+                            this.FYo += 4,
                             EG.setUint16(this.FYo, p0.bIo),
-                            this.FYo += 0x2,
+                            this.FYo += 2,
                             EG.setFloat32(this.FYo, p0.bwz),
-                            this.FYo += 0x4;
+                            this.FYo += 4;
                             var p1 = 0;
                             p0.bKe && (p1 |= 1),
-                            p0.bKZ && (p1 |= 0x2),
+                            p0.bKZ && (p1 |= 2),
                             EG.setUint8(this.FYo, p1),
                             this.FYo += 1;
                         }
@@ -7800,13 +8089,13 @@
                     var E2 = E1 instanceof ArrayBuffer ? new DataView(E1) : new DataView(E1.buffer,E1.byteOffset,E1.byteLength);
                     this.FYo = 0;
                     var E3 = E2.getUint32(this.FYo);
-                    this.FYo += 0x4;
+                    this.FYo += 4;
                     var E4 = (1 & E3) > 0
-                      , E5 = (0x2 & E3) > 0
-                      , E6 = (0x1c & E3) >> 0x2
-                      , E7 = (0x60 & E3) >> 0x5;
-                    this.FYp = (0x80 & E3) > 0,
-                    this.FYV = (0x100 & E3) > 0,
+                      , E5 = (2 & E3) > 0
+                      , E6 = (0x1c & E3) >> 2
+                      , E7 = (0x60 & E3) >> 5;
+                    this.FYp = (128 & E3) > 0,
+                    this.FYV = (256 & E3) > 0,
                     this.FYE = (0x200 & E3) > 0,
                     this.FxI = (0x400 & E3) > 0,
                     this.Fxb = (0x800 & E3) > 0;
@@ -7816,36 +8105,36 @@
                     var Er = (0x8000 & E3) > 0
                       , EF = (0x10000 & E3) > 0;
                     this.bsm.bjV = E2.getUint32(this.FYo),
-                    this.FYo += 0x4;
-                    var EE = (0,
-                    rG.VB)(0, 0, 0);
+                    this.FYo += 4;
+                    var EE =
+                    rG.VB(0, 0, 0);
                     if (this.FYp) {
                         var Ep = E2.getFloat64(this.FYo);
-                        this.FYo += 0x8;
+                        this.FYo += 8;
                         var ES = E2.getFloat64(this.FYo);
-                        this.FYo += 0x8;
+                        this.FYo += 8;
                         var Ee = E2.getFloat64(this.FYo);
-                        this.FYo += 0x8,
+                        this.FYo += 8,
                         EE.bbZ = Ep,
                         EE.bbB = ES,
                         EE.bbd = Ee;
                     }
-                    var ER = (0,
-                    rG.VB)(0, 0, 0);
+                    var ER =
+                    rG.VB(0, 0, 0);
                     if (this.FYV) {
                         var EH = E2.getFloat64(this.FYo);
-                        this.FYo += 0x8;
+                        this.FYo += 8;
                         var Ey = E2.getFloat64(this.FYo);
-                        this.FYo += 0x8;
+                        this.FYo += 8;
                         var Ed = E2.getFloat64(this.FYo);
-                        this.FYo += 0x8,
+                        this.FYo += 8,
                         ER.bbZ = EH,
                         ER.bbB = Ey,
                         ER.bbd = Ed;
                     }
                     var EP = 0;
                     if (this.FYE && (EP = E2.getFloat32(this.FYo),
-                    this.FYo += 0x4),
+                    this.FYo += 4),
                     this.FxI && (this.bsm.bDF.bCj = E2.getUint8(this.FYo),
                     this.FYo += 1),
                     this.Fxb) {
@@ -7855,24 +8144,24 @@
                         if (this.FYo += 1,
                         EQ) {
                             var EB = E2.getInt32(this.FYo);
-                            this.FYo += 0x4;
+                            this.FYo += 4;
                             var EM = E2.getInt32(this.FYo);
-                            this.FYo += 0x4;
+                            this.FYo += 4;
                             var EX = E2.getInt32(this.FYo);
-                            this.FYo += 0x4,
-                            this.bsm.bCC = (0,
-                            rG.VB)(EB, EM, EX);
+                            this.FYo += 4,
+                            this.bsm.bCC =
+                            rG.VB(EB, EM, EX);
                         } else
-                            this.FYo += 0xc;
+                            this.FYo += 12;
                     }
                     if (E8) {
                         var Em = E2.getUint16(this.FYo);
-                        this.FYo += 0x2;
+                        this.FYo += 2;
                         for (var Ew = 0; Ew < Em; Ew++) {
                             var El = E2.getInt16(this.FYo);
-                            this.FYo += 0x2;
+                            this.FYo += 2;
                             var EC = E2.getUint16(this.FYo);
-                            this.FYo += 0x2;
+                            this.FYo += 2;
                             var EN = E2.getUint8(this.FYo);
                             this.FYo += 1;
                             var EZ = []
@@ -7894,27 +8183,27 @@
                                     break;
                                 case ru.p.bAL:
                                     Ei = E2.getUint16(this.FYo),
-                                    this.FYo += 0x2;
+                                    this.FYo += 2;
                                     break;
                                 case ru.p.Fcp:
                                     Ei = E2.getInt16(this.FYo),
-                                    this.FYo += 0x2;
+                                    this.FYo += 2;
                                     break;
                                 case ru.p.bAX:
                                     Ei = E2.getUint32(this.FYo),
-                                    this.FYo += 0x4;
+                                    this.FYo += 4;
                                     break;
                                 case ru.p.FcV:
                                     Ei = E2.getInt32(this.FYo),
-                                    this.FYo += 0x4;
+                                    this.FYo += 4;
                                     break;
                                 case ru.p.FcE:
                                     Ei = E2.getFloat32(this.FYo),
-                                    this.FYo += 0x4;
+                                    this.FYo += 4;
                                     break;
                                 case ru.p.FYI:
                                     Ei = E2.getFloat64(this.FYo),
-                                    this.FYo += 0x8;
+                                    this.FYo += 8;
                                     break;
                                 case ru.p.bHx:
                                     var ET = E2.getUint8(this.FYo);
@@ -7929,15 +8218,15 @@
                                     this.FYo += 1;
                                     break;
                                 default:
-                                    console.error('Encountered\x20unknown\x20data\x20type\x20when\x20reading\x20Item\x20Metadata\x20in\x20Input\x20Response\x20Packet');
+                                    console.error('Encountered unknown data type when reading Item Metadata in Input Response Packet');
                                 }
                                 EZ.push({
                                     'bIo': EU,
                                     'bWz': Ei
                                 });
                             }
-                            var Es = (0,
-                            F0.O)(EC);
+                            var Es =
+                            F0.O(EC);
                             Es.bWZ(EZ),
                             this.Fxf.set(El, new rn.A(Es,EN));
                         }
@@ -7949,7 +8238,7 @@
                             var EW = E2.getUint8(this.FYo);
                             this.FYo += 1;
                             var Ex = E2.getUint32(this.FYo);
-                            this.FYo += 0x4,
+                            this.FYo += 4,
                             this.FxD.set(EW, Ex);
                         }
                     }
@@ -7963,34 +8252,34 @@
                         this.FYo += 1;
                         for (var Eg = 0; Eg < EI; Eg++) {
                             var EL = E2.getUint32(this.FYo);
-                            this.FYo += 0x4;
+                            this.FYo += 4;
                             var Ec = E2.getFloat32(this.FYo);
-                            this.FYo += 0x4;
+                            this.FYo += 4;
                             var Eq = E2.getFloat32(this.FYo);
-                            this.FYo += 0x4;
+                            this.FYo += 4;
                             var Ef = E2.getFloat32(this.FYo);
-                            this.FYo += 0x4,
-                            Ea.set(EL, (0,
-                            rG.VB)(Ec, Eq, Ef));
+                            this.FYo += 4,
+                            Ea.set(EL,
+                            rG.VB(Ec, Eq, Ef));
                         }
                     }
                     if (EF) {
                         var EK = E2.getUint32(this.FYo);
-                        this.FYo += 0x4;
+                        this.FYo += 4;
                         for (var EY = 0; EY < EK; EY++) {
                             var Ez = E2.getInt32(this.FYo);
-                            this.FYo += 0x4;
+                            this.FYo += 4;
                             var EA = E2.getInt32(this.FYo);
-                            this.FYo += 0x4;
+                            this.FYo += 4;
                             var Ej = E2.getInt32(this.FYo);
-                            this.FYo += 0x4;
+                            this.FYo += 4;
                             var EO = E2.getUint16(this.FYo);
-                            this.FYo += 0x2;
+                            this.FYo += 2;
                             var EJ = E2.getFloat32(this.FYo);
-                            this.FYo += 0x4;
+                            this.FYo += 4;
                             var Ev = E2.getUint8(this.FYo)
                               , En = (1 & Ev) > 0
-                              , Eb = (0x2 & Ev) > 0;
+                              , Eb = (2 & Ev) > 0;
                             this.FYo += 1,
                             this.FYT.push({
                                 'bIE': (0,
@@ -8002,8 +8291,8 @@
                             });
                         }
                     }
-                    this.bsm.bXi = new rO.A(EE,(0,
-                    rk.LX)(0, 0),ER,E4,E5,E6,E7,EP,Ea);
+                    this.bsm.bXi = new rO.A(EE,
+                    rk.LX(0, 0),ER,E4,E5,E6,E7,EP,Ea);
                 }
                 ,
                 (0,
@@ -8011,7 +8300,7 @@
                     'key': 'FYq',
                     'get': function() {
                         if (0 === this.FYo)
-                            throw new Error('Size\x20is\x20unknown');
+                            throw new Error('Size is unknown');
                         return this.FYo;
                     }
                 }, {
@@ -8076,10 +8365,10 @@
                 r7.A)(function(FD, Fu) {
                     this.Fxy = FD,
                     this.FxB = Fu,
-                    this.bLe = (0,
-                    rG.VB)(0, 0, 0),
-                    this.bLH = (0,
-                    rk.LX)(0, 0);
+                    this.bLe =
+                    rG.VB(0, 0, 0),
+                    this.bLH =
+                    rk.LX(0, 0);
                 }, [{
                     'key': 'bmz',
                     'get': function() {
@@ -8096,7 +8385,7 @@
                         return (1 & this.FxB) > 0;
                     },
                     'set': function(FD) {
-                        FD ? this.FxB |= 1 : this.FxB &= -0x2;
+                        FD ? this.FxB |= 1 : this.FxB &= -2;
                     }
                 }, {
                     'key': 'bLz',
@@ -8104,15 +8393,15 @@
                         return (this.FxB >> 1 & 1) > 0;
                     },
                     'set': function(FD) {
-                        FD ? this.FxB |= 0x2 : this.FxB &= -0x3;
+                        FD ? this.FxB |= 2 : this.FxB &= -3;
                     }
                 }, {
                     'key': 'bLd',
                     'get': function() {
-                        return (this.FxB >> 0x2 & 1) > 0;
+                        return (this.FxB >> 2 & 1) > 0;
                     },
                     'set': function(FD) {
-                        FD ? this.FxB |= 0x4 : this.FxB &= -0x5;
+                        FD ? this.FxB |= 4 : this.FxB &= -5;
                     }
                 }]);
             }());
@@ -8125,7 +8414,7 @@
                         return;
                     if ('string' == typeof E2)
                         return F6(E2, E3);
-                    var E4 = Object.prototype.toString.call(E2).slice(0x8, -1);
+                    var E4 = Object.prototype.toString.call(E2).slice(8, -1);
                     'Object' === E4 && E2.constructor && (E4 = E2.constructor.name);
                     if ('Map' === E4 || 'Set' === E4)
                         return Array.from(E2);
@@ -8144,7 +8433,7 @@
                     }
                     ;
                 }
-                throw new TypeError('Invalid\x20attempt\x20to\x20iterate\x20non-iterable\x20instance.\x0aIn\x20order\x20to\x20be\x20iterable,\x20non-array\x20objects\x20must\x20have\x20a\x20[Symbol.iterator]()\x20method.');
+                throw new TypeError('Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.');
             }
             function F6(FD, Fu) {
                 (null == Fu || Fu > FD.length) && (Fu = FD.length);
@@ -8171,46 +8460,46 @@
                 var E0 = Fu.prototype;
                 return E0.FYl = function() {
                     this.FYo = 0,
-                    this.FYo += 0x8,
-                    this.FYo += 0x4;
+                    this.FYo += 8,
+                    this.FYo += 4;
                     for (var E1, E2 = F5(this.Fxd.entries()); !(E1 = E2()).done; ) {
                         var E3 = E1.value
                           , E4 = (E3[0],
                         E3[1]);
-                        this.FYo += 0x4,
+                        this.FYo += 4,
                         this.FYo += 1,
-                        E4.bLZ && (this.FYo += 0xc),
-                        E4.bLz && (this.FYo += 0x8);
+                        E4.bLZ && (this.FYo += 12),
+                        E4.bLz && (this.FYo += 8);
                     }
-                    this.FYo += 0x4;
+                    this.FYo += 4;
                     var E5 = new ArrayBuffer(this.FYq)
                       , E6 = new DataView(E5);
                     this.FYo = 0,
                     E6.setFloat64(this.FYo, this.Fxz),
-                    this.FYo += 0x8,
+                    this.FYo += 8,
                     E6.setUint32(this.FYo, this.FxH),
-                    this.FYo += 0x4;
+                    this.FYo += 4;
                     for (var E7, E8 = F5(this.Fxd.entries()); !(E7 = E8()).done; ) {
                         var E9 = E7.value
                           , Er = E9[0]
                           , EF = E9[1];
                         E6.setUint32(this.FYo, Er),
-                        this.FYo += 0x4,
+                        this.FYo += 4,
                         E6.setUint8(this.FYo, EF.FxZ),
                         this.FYo += 1,
                         EF.bLZ && (E6.setFloat32(this.FYo, EF.bLe.bbZ),
-                        this.FYo += 0x4,
+                        this.FYo += 4,
                         E6.setFloat32(this.FYo, EF.bLe.bbB),
-                        this.FYo += 0x4,
+                        this.FYo += 4,
                         E6.setFloat32(this.FYo, EF.bLe.bbd),
-                        this.FYo += 0x4),
+                        this.FYo += 4),
                         EF.bLz && (E6.setFloat32(this.FYo, EF.bLH.bbB),
-                        this.FYo += 0x4,
+                        this.FYo += 4,
                         E6.setFloat32(this.FYo, EF.bLH.bbZ),
-                        this.FYo += 0x4);
+                        this.FYo += 4);
                     }
                     return E6.setUint32(this.FYo, 0),
-                    this.FYo += 0x4,
+                    this.FYo += 4,
                     E5;
                 }
                 ,
@@ -8219,23 +8508,23 @@
                     for (this.Fxd = new Map(),
                     this.FYo = 0,
                     this.Fxz = E2.getFloat64(this.FYo),
-                    this.FYo += 0x8,
+                    this.FYo += 8,
                     this.FxH = E2.getUint32(this.FYo),
-                    this.FYo += 0x4; ; ) {
+                    this.FYo += 4; ; ) {
                         var E3 = E2.getUint32(this.FYo);
-                        if (this.FYo += 0x4,
+                        if (this.FYo += 4,
                         0 === E3)
                             break;
                         var E4 = E2.getUint8(this.FYo);
                         this.FYo += 1;
                         var E5 = new F4(E3,E4);
                         E5.bLZ && (E5.bLe.bbZ = E2.getFloat32(this.FYo),
-                        E5.bLe.bbB = E2.getFloat32(this.FYo + 0x4),
-                        E5.bLe.bbd = E2.getFloat32(this.FYo + 0x8),
-                        this.FYo += 0xc),
+                        E5.bLe.bbB = E2.getFloat32(this.FYo + 4),
+                        E5.bLe.bbd = E2.getFloat32(this.FYo + 8),
+                        this.FYo += 12),
                         E5.bLz && (E5.bLH.bbB = E2.getFloat32(this.FYo),
-                        E5.bLH.bbZ = E2.getFloat32(this.FYo + 0x4),
-                        this.FYo += 0x8),
+                        E5.bLH.bbZ = E2.getFloat32(this.FYo + 4),
+                        this.FYo += 8),
                         this.Fxd.set(E3, E5);
                     }
                     if (void 0 !== this.Fxe) {
@@ -8250,7 +8539,7 @@
                     'key': 'FYq',
                     'get': function() {
                         if (0 === this.FYo)
-                            throw new Error('Size\x20is\x20unknown');
+                            throw new Error('Size is unknown');
                         return this.FYo;
                     }
                 }, {
@@ -8292,21 +8581,21 @@
                     var E1 = new ArrayBuffer(this.FYq)
                       , E2 = new DataView(E1);
                     return E2.setUint32(0, this.Fxy),
-                    E2.setUint8(0x4, this.Fxt),
+                    E2.setUint8(4, this.Fxt),
                     E1;
                 }
                 ,
                 E0.FYi = function(E1) {
                     var E2 = E1 instanceof ArrayBuffer ? new DataView(E1) : new DataView(E1.buffer,E1.byteOffset,E1.byteLength);
                     this.Fxy = E2.getUint32(0),
-                    this.Fxt = E2.getUint8(0x4);
+                    this.Fxt = E2.getUint8(4);
                 }
                 ,
                 (0,
                 r7.A)(Fu, [{
                     'key': 'FYq',
                     'get': function() {
-                        return 0x5;
+                        return 5;
                     }
                 }, {
                     'key': 'bmz',
@@ -8345,7 +8634,7 @@
                 r7.A)(Fu, [{
                     'key': 'FYq',
                     'get': function() {
-                        return 0x4;
+                        return 4;
                     }
                 }, {
                     'key': 'bmz',
@@ -8370,7 +8659,7 @@
                 var E0 = Fu.prototype;
                 return E0.FYl = function() {
                     this.FYo = 0,
-                    this.FYo += 0x4,
+                    this.FYo += 4,
                     this.FYo += 1;
                     for (var E1 = 0; E1 < this.FxA.length; E1++) {
                         var E2 = this.FxA[E1];
@@ -8383,15 +8672,15 @@
                             break;
                         case ru.p.bAL:
                         case ru.p.Fcp:
-                            this.FYo += 0x2;
+                            this.FYo += 2;
                             break;
                         case ru.p.bAX:
                         case ru.p.FcV:
                         case ru.p.FcE:
-                            this.FYo += 0x4;
+                            this.FYo += 4;
                             break;
                         case ru.p.FYI:
-                            this.FYo += 0x8;
+                            this.FYo += 8;
                             break;
                         case ru.p.bHx:
                             this.FYo += 1 + new TextEncoder().encode(E2.bWz).length;
@@ -8400,7 +8689,7 @@
                             this.FYo += 1;
                             break;
                         default:
-                            console.error('Encountered\x20unknown\x20data\x20type\x20when\x20reading\x20Entity\x20Metadata\x20Packet');
+                            console.error('Encountered unknown data type when reading Entity Metadata Packet');
                         }
                     }
                     var E3 = new ArrayBuffer(this.FYq)
@@ -8408,7 +8697,7 @@
                       , E5 = new Uint8Array(E3);
                     this.FYo = 0,
                     E4.setUint32(this.FYo, this.Fxy),
-                    this.FYo += 0x4,
+                    this.FYo += 4,
                     E4.setUint8(this.FYo, this.FxA.length),
                     this.FYo += 1;
                     for (var E6 = 0; E6 < this.FxA.length; E6++) {
@@ -8427,27 +8716,27 @@
                             break;
                         case ru.p.bAL:
                             E4.setUint16(this.FYo, E7.bWz),
-                            this.FYo += 0x2;
+                            this.FYo += 2;
                             break;
                         case ru.p.Fcp:
                             E4.setInt16(this.FYo, E7.bWz),
-                            this.FYo += 0x2;
+                            this.FYo += 2;
                             break;
                         case ru.p.bAX:
                             E4.setUint32(this.FYo, E7.bWz),
-                            this.FYo += 0x4;
+                            this.FYo += 4;
                             break;
                         case ru.p.FcV:
                             E4.setInt32(this.FYo, E7.bWz),
-                            this.FYo += 0x4;
+                            this.FYo += 4;
                             break;
                         case ru.p.FcE:
                             E4.setFloat32(this.FYo, E7.bWz),
-                            this.FYo += 0x4;
+                            this.FYo += 4;
                             break;
                         case ru.p.FYI:
                             E4.setFloat64(this.FYo, E7.bWz),
-                            this.FYo += 0x8;
+                            this.FYo += 8;
                             break;
                         case ru.p.bHx:
                             var E8 = E7.bWz
@@ -8462,7 +8751,7 @@
                             this.FYo += 1;
                             break;
                         default:
-                            console.error('Encountered\x20unknown\x20data\x20type\x20when\x20reading\x20Entity\x20Metadata\x20Packet');
+                            console.error('Encountered unknown data type when reading Entity Metadata Packet');
                         }
                     }
                     return E3;
@@ -8472,7 +8761,7 @@
                     var E2 = E1 instanceof ArrayBuffer ? new DataView(E1) : new DataView(E1.buffer,E1.byteOffset,E1.byteLength);
                     this.FYo = 0,
                     this.Fxy = E2.getUint32(this.FYo),
-                    this.FYo += 0x4;
+                    this.FYo += 4;
                     var E3 = E2.getUint8(this.FYo);
                     this.FYo += 1;
                     for (var E4 = 0; E4 < E3; E4++) {
@@ -8491,27 +8780,27 @@
                             break;
                         case ru.p.bAL:
                             E6 = E2.getUint16(this.FYo),
-                            this.FYo += 0x2;
+                            this.FYo += 2;
                             break;
                         case ru.p.Fcp:
                             E6 = E2.getInt16(this.FYo),
-                            this.FYo += 0x2;
+                            this.FYo += 2;
                             break;
                         case ru.p.bAX:
                             E6 = E2.getUint32(this.FYo),
-                            this.FYo += 0x4;
+                            this.FYo += 4;
                             break;
                         case ru.p.FcV:
                             E6 = E2.getInt32(this.FYo),
-                            this.FYo += 0x4;
+                            this.FYo += 4;
                             break;
                         case ru.p.FcE:
                             E6 = E2.getFloat32(this.FYo),
-                            this.FYo += 0x4;
+                            this.FYo += 4;
                             break;
                         case ru.p.FYI:
                             E6 = E2.getFloat64(this.FYo),
-                            this.FYo += 0x8;
+                            this.FYo += 8;
                             break;
                         case ru.p.bHx:
                             var E7 = E2.getUint8(this.FYo);
@@ -8525,7 +8814,7 @@
                             this.FYo += 1;
                             break;
                         default:
-                            console.error('Encountered\x20unknown\x20data\x20type\x20when\x20reading\x20Entity\x20Metadata\x20Packet');
+                            console.error('Encountered unknown data type when reading Entity Metadata Packet');
                         }
                         this.FxA.push({
                             'bIo': E5,
@@ -8539,7 +8828,7 @@
                     'key': 'FYq',
                     'get': function() {
                         if (0 === this.FYo)
-                            throw new Error('Size\x20is\x20unknown');
+                            throw new Error('Size is unknown');
                         return this.FYo;
                     }
                 }, {
@@ -8579,7 +8868,7 @@
                 r7.A)(Fu, [{
                     'key': 'FYq',
                     'get': function() {
-                        return 0x4;
+                        return 4;
                     }
                 }, {
                     'key': 'FxW',
@@ -8616,7 +8905,7 @@
                     'key': 'FYq',
                     'get': function() {
                         if (0 === this.FYo)
-                            throw new Error('Size\x20is\x20unknown');
+                            throw new Error('Size is unknown');
                         return this.FYo;
                     }
                 }, {
@@ -8642,21 +8931,21 @@
                     var E1 = new ArrayBuffer(this.FYq)
                       , E2 = new DataView(E1);
                     return E2.setUint32(0, this.Fxy),
-                    E2.setUint8(0x4, this.Fxm),
+                    E2.setUint8(4, this.Fxm),
                     E1;
                 }
                 ,
                 E0.FYi = function(E1) {
                     var E2 = E1 instanceof ArrayBuffer ? new DataView(E1) : new DataView(E1.buffer,E1.byteOffset,E1.byteLength);
                     this.Fxy = E2.getUint32(0),
-                    this.Fxm = E2.getUint8(0x4);
+                    this.Fxm = E2.getUint8(4);
                 }
                 ,
                 (0,
                 r7.A)(Fu, [{
                     'key': 'FYq',
                     'get': function() {
-                        return 0x5;
+                        return 5;
                     }
                 }, {
                     'key': 'bmz',
@@ -8696,15 +8985,15 @@
                             break;
                         case ru.p.bAL:
                         case ru.p.Fcp:
-                            this.FYo += 0x2;
+                            this.FYo += 2;
                             break;
                         case ru.p.bAX:
                         case ru.p.FcV:
                         case ru.p.FcE:
-                            this.FYo += 0x4;
+                            this.FYo += 4;
                             break;
                         case ru.p.FYI:
-                            this.FYo += 0x8;
+                            this.FYo += 8;
                             break;
                         case ru.p.bHx:
                             this.FYo += 1 + E2.bWz.length;
@@ -8713,7 +9002,7 @@
                             this.FYo += 1;
                             break;
                         default:
-                            console.error('Encountered\x20unknown\x20data\x20type\x20when\x20reading\x20Entity\x20Metadata\x20Packet');
+                            console.error('Encountered unknown data type when reading Entity Metadata Packet');
                         }
                     }
                     var E3 = new ArrayBuffer(this.FYq)
@@ -8737,27 +9026,27 @@
                             break;
                         case ru.p.bAL:
                             E4.setUint16(this.FYo, E6.bWz),
-                            this.FYo += 0x2;
+                            this.FYo += 2;
                             break;
                         case ru.p.Fcp:
                             E4.setInt16(this.FYo, E6.bWz),
-                            this.FYo += 0x2;
+                            this.FYo += 2;
                             break;
                         case ru.p.bAX:
                             E4.setUint32(this.FYo, E6.bWz),
-                            this.FYo += 0x4;
+                            this.FYo += 4;
                             break;
                         case ru.p.FcV:
                             E4.setInt32(this.FYo, E6.bWz),
-                            this.FYo += 0x4;
+                            this.FYo += 4;
                             break;
                         case ru.p.FcE:
                             E4.setFloat32(this.FYo, E6.bWz),
-                            this.FYo += 0x4;
+                            this.FYo += 4;
                             break;
                         case ru.p.FYI:
                             E4.setFloat64(this.FYo, E6.bWz),
-                            this.FYo += 0x8;
+                            this.FYo += 8;
                             break;
                         case ru.p.bHx:
                             var E7 = E6.bWz;
@@ -8772,7 +9061,7 @@
                             this.FYo += 1;
                             break;
                         default:
-                            console.error('Encountered\x20unknown\x20data\x20type\x20when\x20reading\x20Entity\x20Metadata\x20Packet');
+                            console.error('Encountered unknown data type when reading Entity Metadata Packet');
                         }
                     }
                     return E3;
@@ -8799,29 +9088,29 @@
                             break;
                         case ru.p.bAL:
                             E6 = E2.getUint16(this.FYo),
-                            this.FYo += 0x2;
+                            this.FYo += 2;
                             break;
                         case ru.p.Fcp:
                             E6 = E2.getInt16(this.FYo),
-                            this.FYo += 0x2;
+                            this.FYo += 2;
                             break;
                         case ru.p.bAX:
                             E6 = E2.getUint32(this.FYo),
-                            this.FYo += 0x4;
+                            this.FYo += 4;
                             break;
                         case ru.p.FcV:
                             E6 = E2.getInt32(this.FYo),
-                            this.FYo += 0x4;
+                            this.FYo += 4;
                             break;
                         case ru.p.FcE:
-                            E6 = (0,
-                            rY.zD)(E2, this.FYo),
-                            this.FYo += 0x4;
+                            E6 =
+                            rY.zD(E2, this.FYo),
+                            this.FYo += 4;
                             break;
                         case ru.p.FYI:
-                            E6 = (0,
-                            rY.if)(E2, this.FYo),
-                            this.FYo += 0x8;
+                            E6 =
+                            rY.if(E2, this.FYo),
+                            this.FYo += 8;
                             break;
                         case ru.p.bHx:
                             var E7 = E2.getUint8(this.FYo);
@@ -8836,7 +9125,7 @@
                             this.FYo += 1;
                             break;
                         default:
-                            console.error('Encountered\x20unknown\x20data\x20type\x20when\x20reading\x20Entity\x20Metadata\x20Packet');
+                            console.error('Encountered unknown data type when reading Entity Metadata Packet');
                         }
                         this.FxA.push({
                             'bIo': E5,
@@ -8850,7 +9139,7 @@
                     'key': 'FYq',
                     'get': function() {
                         if (0 === this.FYo)
-                            throw new Error('Size\x20is\x20unknown');
+                            throw new Error('Size is unknown');
                         return this.FYo;
                     }
                 }, {
@@ -8866,7 +9155,7 @@
                     var E4;
                     return void 0 === E1 && (E1 = rg.A.FYm),
                     void 0 === E2 && (E2 = Fy.i.bgN),
-                    void 0 === E3 && (E3 = 'unknown\x20causes'),
+                    void 0 === E3 && (E3 = 'unknown causes'),
                     (E4 = FD.call(this, rm) || this).FxU = E1,
                     E4.Fxj = E2,
                     E4.FxM = E3,
@@ -8881,8 +9170,8 @@
                       , E2 = new DataView(E1);
                     E2.setUint8(0, this.FxU),
                     E2.setUint8(1, this.Fxj),
-                    E2.setUint8(0x2, this.FxS.byteLength);
-                    var E3 = 0x3;
+                    E2.setUint8(2, this.FxS.byteLength);
+                    var E3 = 3;
                     return this.FxS.forEach(function(E4) {
                         E2.setUint8(E3, E4),
                         ++E3;
@@ -8894,8 +9183,8 @@
                     var E2 = E1 instanceof ArrayBuffer ? new DataView(E1) : new DataView(E1.buffer,E1.byteOffset,E1.byteLength);
                     this.FxU = E2.getUint8(0),
                     this.Fxj = E2.getUint8(1);
-                    var E3 = E2.getUint8(0x2)
-                      , E4 = new Uint8Array(E2.buffer,0x3,E3);
+                    var E3 = E2.getUint8(2)
+                      , E4 = new Uint8Array(E2.buffer,3,E3);
                     this.FxM = new TextDecoder().decode(E4);
                 }
                 ,
@@ -8904,7 +9193,7 @@
                     'key': 'FYq',
                     'get': function() {
                         var E1, E2;
-                        return 0x3 + (null != (E1 = null == (E2 = this.FxS) ? void 0 : E2.byteLength) ? E1 : 0);
+                        return 3 + (null != (E1 = null == (E2 = this.FxS) ? void 0 : E2.byteLength) ? E1 : 0);
                     }
                 }, {
                     'key': 'bJm',
@@ -8947,10 +9236,10 @@
               , FQ = function(FD) {
                 function Fu(E1, E2) {
                     var E3;
-                    return void 0 === E1 && (E1 = (0,
-                    rG.VB)(0, 0, 0)),
-                    void 0 === E2 && (E2 = (0,
-                    rk.LX)(0, 0)),
+                    return void 0 === E1 && (E1 =
+                    rG.VB(0, 0, 0)),
+                    void 0 === E2 && (E2 =
+                    rk.LX(0, 0)),
                     (E3 = FD.call(this, rl) || this).FYJ = E1,
                     E3.FYG = E2,
                     E3;
@@ -8962,27 +9251,27 @@
                     var E1 = new ArrayBuffer(this.FYq)
                       , E2 = new DataView(E1);
                     return E2.setFloat32(0, this.FYJ.bbZ),
-                    E2.setFloat32(0x4, this.FYJ.bbB),
-                    E2.setFloat32(0x8, this.FYJ.bbd),
-                    E2.setFloat32(0xc, this.FYG.bbZ),
-                    E2.setFloat32(0x10, this.FYG.bbB),
+                    E2.setFloat32(4, this.FYJ.bbB),
+                    E2.setFloat32(8, this.FYJ.bbd),
+                    E2.setFloat32(12, this.FYG.bbZ),
+                    E2.setFloat32(16, this.FYG.bbB),
                     E1;
                 }
                 ,
                 E0.FYi = function(E1) {
                     var E2 = E1 instanceof ArrayBuffer ? new DataView(E1) : new DataView(E1.buffer,E1.byteOffset,E1.byteLength);
                     this.FYJ.bbZ = E2.getFloat32(0),
-                    this.FYJ.bbB = E2.getFloat32(0x4),
-                    this.FYJ.bbd = E2.getFloat32(0x8),
-                    this.FYG.bbZ = E2.getFloat32(0xc),
-                    this.FYG.bbB = E2.getFloat32(0x10);
+                    this.FYJ.bbB = E2.getFloat32(4),
+                    this.FYJ.bbd = E2.getFloat32(8),
+                    this.FYG.bbZ = E2.getFloat32(12),
+                    this.FYG.bbB = E2.getFloat32(16);
                 }
                 ,
                 (0,
                 r7.A)(Fu, [{
                     'key': 'FYq',
                     'get': function() {
-                        return 0x14;
+                        return 20;
                     }
                 }, {
                     'key': 'buP',
@@ -9060,7 +9349,7 @@
                     'key': 'FYq',
                     'get': function() {
                         var E1, E2, E3, E4;
-                        return 1 + (null != (E1 = null == (E2 = this.FxQ) ? void 0 : E2.byteLength) ? E1 : 0) + 1 + (null != (E3 = null == (E4 = this.Fxs) ? void 0 : E4.byteLength) ? E3 : 0) + 1 + 0x2;
+                        return 1 + (null != (E1 = null == (E2 = this.FxQ) ? void 0 : E2.byteLength) ? E1 : 0) + 1 + (null != (E3 = null == (E4 = this.Fxs) ? void 0 : E4.byteLength) ? E3 : 0) + 1 + 2;
                     }
                 }, {
                     'key': 'bgU',
@@ -9087,9 +9376,9 @@
               , FX = function(FD) {
                 function Fu(E1, E2) {
                     var E3;
-                    return void 0 === E1 && (E1 = (0,
-                    rG.VB)(0, 0, 0)),
-                    void 0 === E2 && (E2 = 0xa),
+                    return void 0 === E1 && (E1 =
+                    rG.VB(0, 0, 0)),
+                    void 0 === E2 && (E2 = 10),
                     (E3 = FD.call(this, rC) || this).FxC = E1,
                     E3.FxO = E2,
                     E3;
@@ -9101,25 +9390,25 @@
                     var E1 = new ArrayBuffer(this.FYq)
                       , E2 = new DataView(E1);
                     return E2.setFloat32(0, this.FxC.bbZ),
-                    E2.setFloat32(0x4, this.FxC.bbB),
-                    E2.setFloat32(0x8, this.FxC.bbd),
-                    E2.setUint16(0xc, this.FxO),
+                    E2.setFloat32(4, this.FxC.bbB),
+                    E2.setFloat32(8, this.FxC.bbd),
+                    E2.setUint16(12, this.FxO),
                     E1;
                 }
                 ,
                 E0.FYi = function(E1) {
                     var E2 = E1 instanceof ArrayBuffer ? new DataView(E1) : new DataView(E1.buffer,E1.byteOffset,E1.byteLength);
                     this.FxC.bbZ = E2.getFloat32(0),
-                    this.FxC.bbB = E2.getFloat32(0x4),
-                    this.FxC.bbd = E2.getFloat32(0x8),
-                    this.FxO = E2.getUint16(0xc);
+                    this.FxC.bbB = E2.getFloat32(4),
+                    this.FxC.bbd = E2.getFloat32(8),
+                    this.FxO = E2.getUint16(12);
                 }
                 ,
                 (0,
                 r7.A)(Fu, [{
                     'key': 'FYq',
                     'get': function() {
-                        return 0xe;
+                        return 14;
                     }
                 }, {
                     'key': 'bcK',
@@ -9150,21 +9439,21 @@
                     var E1 = new ArrayBuffer(this.FYq)
                       , E2 = new DataView(E1);
                     return E2.setUint32(0, this.Fxy),
-                    E2.setUint8(0x4, this.Fxu),
+                    E2.setUint8(4, this.Fxu),
                     E1;
                 }
                 ,
                 E0.FYi = function(E1) {
                     var E2 = E1 instanceof ArrayBuffer ? new DataView(E1) : new DataView(E1.buffer,E1.byteOffset,E1.byteLength);
                     this.Fxy = E2.getUint32(0),
-                    this.Fxu = E2.getUint8(0x4);
+                    this.Fxu = E2.getUint8(4);
                 }
                 ,
                 (0,
                 r7.A)(Fu, [{
                     'key': 'FYq',
                     'get': function() {
-                        return 0x5;
+                        return 5;
                     }
                 }, {
                     'key': 'bmz',
@@ -9218,10 +9507,10 @@
               , Fh = function(FD) {
                 function Fu(E1, E2) {
                     var E3;
-                    return void 0 === E1 && (E1 = (0,
-                    rG.VB)(0, 0, 0)),
-                    void 0 === E2 && (E2 = (0,
-                    rk.LX)(0, 0)),
+                    return void 0 === E1 && (E1 =
+                    rG.VB(0, 0, 0)),
+                    void 0 === E2 && (E2 =
+                    rk.LX(0, 0)),
                     (E3 = FD.call(this, rZ) || this).bWa = E1,
                     E3.bAJ = E2,
                     E3;
@@ -9233,27 +9522,27 @@
                     var E1 = new ArrayBuffer(this.FYq)
                       , E2 = new DataView(E1);
                     return E2.setFloat32(0, this.bWa.bbZ),
-                    E2.setFloat32(0x4, this.bWa.bbB),
-                    E2.setFloat32(0x8, this.bWa.bbd),
-                    E2.setFloat32(0xc, this.bAJ.bbZ),
-                    E2.setFloat32(0x10, this.bAJ.bbB),
+                    E2.setFloat32(4, this.bWa.bbB),
+                    E2.setFloat32(8, this.bWa.bbd),
+                    E2.setFloat32(12, this.bAJ.bbZ),
+                    E2.setFloat32(16, this.bAJ.bbB),
                     E1;
                 }
                 ,
                 E0.FYi = function(E1) {
                     var E2 = E1 instanceof ArrayBuffer ? new DataView(E1) : new DataView(E1.buffer,E1.byteOffset,E1.byteLength);
                     this.bWa.bbZ = E2.getFloat32(0),
-                    this.bWa.bbB = E2.getFloat32(0x4),
-                    this.bWa.bbd = E2.getFloat32(0x8),
-                    this.bAJ.bbZ = E2.getFloat32(0xc),
-                    this.bAJ.bbB = E2.getFloat32(0x10);
+                    this.bWa.bbB = E2.getFloat32(4),
+                    this.bWa.bbd = E2.getFloat32(8),
+                    this.bAJ.bbZ = E2.getFloat32(12),
+                    this.bAJ.bbB = E2.getFloat32(16);
                 }
                 ,
                 (0,
                 r7.A)(Fu, [{
                     'key': 'FYq',
                     'get': function() {
-                        return 0x14;
+                        return 20;
                     }
                 }, {
                     'key': 'bIE',
@@ -9291,17 +9580,17 @@
                       , E2 = new TextEncoder().encode(this.FxY)
                       , E3 = E1.length
                       , E4 = E2.length;
-                    this.FYo = 1 + E3 + 1 + E4 + 0x4 + 0x4 + 0x4;
+                    this.FYo = 1 + E3 + 1 + E4 + 4 + 4 + 4;
                     var E5 = new ArrayBuffer(this.FYq)
                       , E6 = new DataView(E5);
                     E6.setUint8(0, E3);
                     var E7 = new Uint8Array(E5);
                     return E7.set(E1, 1),
                     E6.setUint8(1 + E3, E4),
-                    E7.set(E2, 0x2 + E3),
-                    E6.setUint32(0x2 + E3 + E4, this.Fxx),
-                    E6.setUint32(0x6 + E3 + E4, this.Fxg),
-                    E6.setUint32(0xa + E3 + E4, this.FxJ),
+                    E7.set(E2, 2 + E3),
+                    E6.setUint32(2 + E3 + E4, this.Fxx),
+                    E6.setUint32(6 + E3 + E4, this.Fxg),
+                    E6.setUint32(10 + E3 + E4, this.FxJ),
                     E5;
                 }
                 ,
@@ -9311,10 +9600,10 @@
                     var E3 = E2.getUint8(0);
                     this.Fxc = new TextDecoder().decode(new Uint8Array(E1,1,E3));
                     var E4 = E2.getUint8(1 + E3);
-                    this.FxY = new TextDecoder().decode(new Uint8Array(E1,0x2 + E3,E4)),
-                    this.Fxx = E2.getUint32(0x2 + E3 + E4),
-                    this.Fxg = E2.getUint32(0x6 + E3 + E4),
-                    this.FxJ = E2.getUint32(0xa + E3 + E4);
+                    this.FxY = new TextDecoder().decode(new Uint8Array(E1,2 + E3,E4)),
+                    this.Fxx = E2.getUint32(2 + E3 + E4),
+                    this.Fxg = E2.getUint32(6 + E3 + E4),
+                    this.FxJ = E2.getUint32(10 + E3 + E4);
                 }
                 ,
                 (0,
@@ -9322,7 +9611,7 @@
                     'key': 'FYq',
                     'get': function() {
                         if (0 === this.FYo)
-                            throw new Error('Size\x20is\x20unknown');
+                            throw new Error('Size is unknown');
                         return this.FYo;
                     }
                 }, {
@@ -9371,7 +9660,7 @@
                 var E0 = Fu.prototype;
                 return E0.FYl = function() {
                     this.FYo = 0,
-                    this.FYo += 0x4,
+                    this.FYo += 4,
                     this.FYo += 1,
                     this.FYo += 1;
                     for (var E1 = 0; E1 < this.FxA.length; E1++) {
@@ -9385,15 +9674,15 @@
                             break;
                         case ru.p.bAL:
                         case ru.p.Fcp:
-                            this.FYo += 0x2;
+                            this.FYo += 2;
                             break;
                         case ru.p.bAX:
                         case ru.p.FcV:
                         case ru.p.FcE:
-                            this.FYo += 0x4;
+                            this.FYo += 4;
                             break;
                         case ru.p.FYI:
-                            this.FYo += 0x8;
+                            this.FYo += 8;
                             break;
                         case ru.p.bHx:
                             this.FYo += 1 + E2.bWz.length;
@@ -9402,14 +9691,14 @@
                             this.FYo += 1;
                             break;
                         default:
-                            console.error('Encountered\x20unknown\x20data\x20type\x20when\x20reading\x20Player\x20Metadata\x20Packet');
+                            console.error('Encountered unknown data type when reading Player Metadata Packet');
                         }
                     }
                     var E3 = new ArrayBuffer(this.FYq)
                       , E4 = new DataView(E3);
                     this.FYo = 0,
                     E4.setUint32(this.FYo, this.FYx),
-                    this.FYo += 0x4,
+                    this.FYo += 4,
                     E4.setUint8(this.FYo, this.FxG),
                     this.FYo += 1,
                     E4.setUint8(this.FYo, this.FxA.length),
@@ -9430,27 +9719,27 @@
                             break;
                         case ru.p.bAL:
                             E4.setUint16(this.FYo, E6.bWz),
-                            this.FYo += 0x2;
+                            this.FYo += 2;
                             break;
                         case ru.p.Fcp:
                             E4.setInt16(this.FYo, E6.bWz),
-                            this.FYo += 0x2;
+                            this.FYo += 2;
                             break;
                         case ru.p.bAX:
                             E4.setUint32(this.FYo, E6.bWz),
-                            this.FYo += 0x4;
+                            this.FYo += 4;
                             break;
                         case ru.p.FcV:
                             E4.setInt32(this.FYo, E6.bWz),
-                            this.FYo += 0x4;
+                            this.FYo += 4;
                             break;
                         case ru.p.FcE:
                             E4.setFloat32(this.FYo, E6.bWz),
-                            this.FYo += 0x4;
+                            this.FYo += 4;
                             break;
                         case ru.p.FYI:
                             E4.setFloat64(this.FYo, E6.bWz),
-                            this.FYo += 0x8;
+                            this.FYo += 8;
                             break;
                         case ru.p.bHx:
                             var E7 = E6.bWz;
@@ -9465,7 +9754,7 @@
                             this.FYo += 1;
                             break;
                         default:
-                            console.error('Encountered\x20unknown\x20data\x20type\x20when\x20reading\x20Entity\x20Metadata\x20Packet');
+                            console.error('Encountered unknown data type when reading Entity Metadata Packet');
                         }
                     }
                     return E3;
@@ -9475,7 +9764,7 @@
                     var E2 = E1 instanceof ArrayBuffer ? new DataView(E1) : new DataView(E1.buffer,E1.byteOffset,E1.byteLength);
                     this.FYo = 0,
                     this.FYx = E2.getUint32(this.FYo),
-                    this.FYo += 0x4,
+                    this.FYo += 4,
                     this.FxG = E2.getUint8(this.FYo),
                     this.FYo += 1;
                     var E3 = E2.getUint8(this.FYo);
@@ -9496,27 +9785,27 @@
                             break;
                         case ru.p.bAL:
                             E6 = E2.getUint16(this.FYo),
-                            this.FYo += 0x2;
+                            this.FYo += 2;
                             break;
                         case ru.p.Fcp:
                             E6 = E2.getInt16(this.FYo),
-                            this.FYo += 0x2;
+                            this.FYo += 2;
                             break;
                         case ru.p.bAX:
                             E6 = E2.getUint32(this.FYo),
-                            this.FYo += 0x4;
+                            this.FYo += 4;
                             break;
                         case ru.p.FcV:
                             E6 = E2.getInt32(this.FYo),
-                            this.FYo += 0x4;
+                            this.FYo += 4;
                             break;
                         case ru.p.FcE:
                             E6 = E2.getFloat32(this.FYo),
-                            this.FYo += 0x4;
+                            this.FYo += 4;
                             break;
                         case ru.p.FYI:
                             E6 = E2.getFloat64(this.FYo),
-                            this.FYo += 0x8;
+                            this.FYo += 8;
                             break;
                         case ru.p.bHx:
                             var E7 = E2.getUint8(this.FYo);
@@ -9531,7 +9820,7 @@
                             this.FYo += 1;
                             break;
                         default:
-                            console.error('Encountered\x20unknown\x20data\x20type\x20when\x20reading\x20Player\x20Metadata\x20Packet');
+                            console.error('Encountered unknown data type when reading Player Metadata Packet');
                         }
                         this.FxA.push({
                             'bIo': E5,
@@ -9545,7 +9834,7 @@
                     'key': 'FYq',
                     'get': function() {
                         if (0 === this.FYo)
-                            throw new Error('Size\x20is\x20unknown');
+                            throw new Error('Size is unknown');
                         return this.FYo;
                     }
                 }, {
@@ -9590,7 +9879,7 @@
                 r7.A)(Fu, [{
                     'key': 'FYq',
                     'get': function() {
-                        return 0x4;
+                        return 4;
                     }
                 }, {
                     'key': 'FxW',
@@ -9602,10 +9891,10 @@
               , Fs = r2(0x1739c)
               , FG = (function() {
                 function FD(E0, E1) {
-                    void 0 === E0 && (E0 = (0,
-                    rG.VB)(0, 0, 0)),
-                    void 0 === E1 && (E1 = (0,
-                    rG.VB)(0, 0, 0)),
+                    void 0 === E0 && (E0 =
+                    rG.VB(0, 0, 0)),
+                    void 0 === E1 && (E1 =
+                    rG.VB(0, 0, 0)),
                     this.bLM = E0,
                     this.bLS = E1;
                 }
@@ -9620,15 +9909,15 @@
                 }
                 ,
                 Fu.bsX = function(E0) {
-                    this.bLM = (0,
-                    rG.tg)(E0.min),
-                    this.bLS = (0,
-                    rG.tg)(E0.max);
+                    this.bLM =
+                    rG.tg(E0.min),
+                    this.bLS =
+                    rG.tg(E0.max);
                 }
                 ,
                 Fu.toString = function() {
                     return 'region(min=' + (0,
-                    rG.QS)(this.bLM) + ',\x20max=' + (0,
+                    rG.QS)(this.bLM) + ', max=' + (0,
                     rG.QS)(this.bLS) + ')';
                 }
                 ,
@@ -9637,10 +9926,10 @@
               , Fk = r2(0x8b48)
               , FW = (function() {
                 function FD(E0, E1) {
-                    void 0 === E0 && (E0 = (0,
-                    rG.VB)(0, 0, 0)),
-                    void 0 === E1 && (E1 = (0,
-                    rk.LX)(0, 0)),
+                    void 0 === E0 && (E0 =
+                    rG.VB(0, 0, 0)),
+                    void 0 === E1 && (E1 =
+                    rk.LX(0, 0)),
                     this.bWa = E0,
                     this.bAJ = E1;
                 }
@@ -9655,15 +9944,15 @@
                 }
                 ,
                 Fu.bsX = function(E0) {
-                    this.bIE = (0,
-                    rG.tg)(E0.position),
-                    this.bLH = (0,
-                    rk.QV)(E0.pitchYaw);
+                    this.bIE =
+                    rG.tg(E0.position),
+                    this.bLH =
+                    rk.QV(E0.pitchYaw);
                 }
                 ,
                 Fu.toString = function() {
                     return 'pd(pos=' + (0,
-                    rG.QS)(this.bIE) + ',\x20pitchYaw=' + (0,
+                    rG.QS)(this.bIE) + ', pitchYaw=' + (0,
                     rk.H3)(this.bLH) + ')';
                 }
                 ,
@@ -9695,7 +9984,7 @@
                         return;
                     if ('string' == typeof E2)
                         return Fa(E2, E3);
-                    var E4 = Object.prototype.toString.call(E2).slice(0x8, -1);
+                    var E4 = Object.prototype.toString.call(E2).slice(8, -1);
                     'Object' === E4 && E2.constructor && (E4 = E2.constructor.name);
                     if ('Map' === E4 || 'Set' === E4)
                         return Array.from(E2);
@@ -9714,7 +10003,7 @@
                     }
                     ;
                 }
-                throw new TypeError('Invalid\x20attempt\x20to\x20iterate\x20non-iterable\x20instance.\x0aIn\x20order\x20to\x20be\x20iterable,\x20non-array\x20objects\x20must\x20have\x20a\x20[Symbol.iterator]()\x20method.');
+                throw new TypeError('Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.');
             }
             function Fa(FD, Fu) {
                 (null == Fu || Fu > FD.length) && (Fu = FD.length);
@@ -9737,31 +10026,31 @@
                 var E0 = Fu.prototype;
                 return E0.FYl = function() {
                     this.FYo = 0,
-                    this.FYo += 0x2;
+                    this.FYo += 2;
                     for (var E1, E2 = Fx(this.Fxl); !(E1 = E2()).done; ) {
                         var E3 = E1.value
                           , E4 = E3[0]
                           , E5 = E3[1];
                         this.FYo += 1,
                         this.FYo += new TextEncoder().encode(E4).byteLength,
-                        this.FYo += 0x2,
-                        this.FYo += 0x4 * E5.length * 0x5;
+                        this.FYo += 2,
+                        this.FYo += 4 * E5.length * 5;
                     }
-                    this.FYo += 0x2;
+                    this.FYo += 2;
                     for (var E6, E7 = Fx(this.Fxq); !(E6 = E7()).done; ) {
                         var E8 = E6.value
                           , E9 = E8[0]
                           , Er = E8[1];
                         this.FYo += 1,
                         this.FYo += new TextEncoder().encode(E9).byteLength,
-                        this.FYo += 0x2,
-                        this.FYo += 0x4 * Er.length * 0x6;
+                        this.FYo += 2,
+                        this.FYo += 4 * Er.length * 6;
                     }
                     var EF = new ArrayBuffer(this.FYq)
                       , EE = new DataView(EF);
                     this.FYo = 0,
                     EE.setUint16(this.FYo, this.Fxl.size),
-                    this.FYo += 0x2;
+                    this.FYo += 2;
                     for (var Ep, ES = Fx(this.Fxl); !(Ep = ES()).done; ) {
                         var Ee = Ep.value
                           , ER = Ee[0]
@@ -9772,19 +10061,19 @@
                         new Uint8Array(EF,this.FYo,Ey.byteLength).set(Ey),
                         this.FYo += Ey.byteLength,
                         EE.setUint16(this.FYo, EH.length),
-                        this.FYo += 0x2;
+                        this.FYo += 2;
                         for (var Ed, EP = Fx(EH); !(Ed = EP()).done; ) {
                             var EQ = Ed.value;
                             EE.setFloat32(this.FYo, EQ.bIE.bbZ),
-                            EE.setFloat32(this.FYo + 0x4, EQ.bIE.bbB),
-                            EE.setFloat32(this.FYo + 0x8, EQ.bIE.bbd),
-                            EE.setFloat32(this.FYo + 0xc, EQ.bLH.bbZ),
-                            EE.setFloat32(this.FYo + 0x10, EQ.bLH.bbB),
-                            this.FYo += 0x14;
+                            EE.setFloat32(this.FYo + 4, EQ.bIE.bbB),
+                            EE.setFloat32(this.FYo + 8, EQ.bIE.bbd),
+                            EE.setFloat32(this.FYo + 12, EQ.bLH.bbZ),
+                            EE.setFloat32(this.FYo + 16, EQ.bLH.bbB),
+                            this.FYo += 20;
                         }
                     }
                     EE.setUint16(this.FYo, this.Fxq.size),
-                    this.FYo += 0x2;
+                    this.FYo += 2;
                     for (var EB, EM = Fx(this.Fxq); !(EB = EM()).done; ) {
                         var EX = EB.value
                           , Em = EX[0]
@@ -9795,15 +10084,15 @@
                         new Uint8Array(EF,this.FYo,El.byteLength).set(El),
                         this.FYo += El.byteLength,
                         EE.setUint16(this.FYo, Ew.length),
-                        this.FYo += 0x2;
+                        this.FYo += 2;
                         for (var EC, EN = Fx(Ew); !(EC = EN()).done; ) {
                             var EZ = EC.value;
                             EE.setFloat32(this.FYo, EZ.bLM.bbZ),
-                            EE.setFloat32(this.FYo + 0x4, EZ.bLM.bbB),
-                            EE.setFloat32(this.FYo + 0x8, EZ.bLM.bbd),
-                            EE.setFloat32(this.FYo + 0xc, EZ.bLS.bbZ),
-                            EE.setFloat32(this.FYo + 0x10, EZ.bLS.bbB),
-                            EE.setFloat32(this.FYo + 0x14, EZ.bLS.bbd),
+                            EE.setFloat32(this.FYo + 4, EZ.bLM.bbB),
+                            EE.setFloat32(this.FYo + 8, EZ.bLM.bbd),
+                            EE.setFloat32(this.FYo + 12, EZ.bLS.bbZ),
+                            EE.setFloat32(this.FYo + 16, EZ.bLS.bbB),
+                            EE.setFloat32(this.FYo + 20, EZ.bLS.bbd),
                             this.FYo += 0x18;
                         }
                     }
@@ -9816,43 +10105,43 @@
                     this.Fxq = new Map(),
                     this.FYo = 0;
                     var E3 = E2.getUint16(this.FYo);
-                    this.FYo += 0x2;
+                    this.FYo += 2;
                     for (var E4 = 0; E4 < E3; E4++) {
                         var E5 = E2.getUint8(this.FYo);
                         this.FYo += 1;
                         var E6 = new Uint8Array(E2.buffer,this.FYo,E5);
                         this.FYo += E5;
                         var E7 = E2.getUint16(this.FYo);
-                        this.FYo += 0x2;
+                        this.FYo += 2;
                         for (var E8 = new Array(), E9 = 0; E9 < E7; E9++) {
                             var Er = new FW();
                             Er.bIE.bbZ = E2.getFloat32(this.FYo),
-                            Er.bIE.bbB = E2.getFloat32(this.FYo + 0x4),
-                            Er.bIE.bbd = E2.getFloat32(this.FYo + 0x8),
-                            Er.bLH.bbZ = E2.getFloat32(this.FYo + 0xc),
-                            Er.bLH.bbB = E2.getFloat32(this.FYo + 0x10),
+                            Er.bIE.bbB = E2.getFloat32(this.FYo + 4),
+                            Er.bIE.bbd = E2.getFloat32(this.FYo + 8),
+                            Er.bLH.bbZ = E2.getFloat32(this.FYo + 12),
+                            Er.bLH.bbB = E2.getFloat32(this.FYo + 16),
                             E8.push(Er),
-                            this.FYo += 0x14;
+                            this.FYo += 20;
                         }
                         this.Fxl.set(new TextDecoder().decode(E6), E8);
                     }
                     var EF = E2.getUint16(this.FYo);
-                    this.FYo += 0x2;
+                    this.FYo += 2;
                     for (var EE = 0; EE < EF; EE++) {
                         var Ep = E2.getUint8(this.FYo);
                         this.FYo += 1;
                         var ES = new Uint8Array(E2.buffer,this.FYo,Ep);
                         this.FYo += Ep;
                         var Ee = E2.getUint16(this.FYo);
-                        this.FYo += 0x2;
+                        this.FYo += 2;
                         for (var ER = new Array(), EH = 0; EH < Ee; EH++) {
                             var Ey = new FG();
                             Ey.bLM.bbZ = E2.getFloat32(this.FYo),
-                            Ey.bLM.bbB = E2.getFloat32(this.FYo + 0x4),
-                            Ey.bLM.bbd = E2.getFloat32(this.FYo + 0x8),
-                            Ey.bLS.bbZ = E2.getFloat32(this.FYo + 0xc),
-                            Ey.bLS.bbB = E2.getFloat32(this.FYo + 0x10),
-                            Ey.bLS.bbd = E2.getFloat32(this.FYo + 0x14),
+                            Ey.bLM.bbB = E2.getFloat32(this.FYo + 4),
+                            Ey.bLM.bbd = E2.getFloat32(this.FYo + 8),
+                            Ey.bLS.bbZ = E2.getFloat32(this.FYo + 12),
+                            Ey.bLS.bbB = E2.getFloat32(this.FYo + 16),
+                            Ey.bLS.bbd = E2.getFloat32(this.FYo + 20),
                             ER.push(Ey),
                             this.FYo += 0x18;
                         }
@@ -9865,7 +10154,7 @@
                     'key': 'FYq',
                     'get': function() {
                         if (0 === this.FYo)
-                            throw new Error('Size\x20is\x20unknown');
+                            throw new Error('Size is unknown');
                         return this.FYo;
                     }
                 }, {
@@ -9900,14 +10189,14 @@
                 return E0.FYl = function() {
                     var E1 = new TextEncoder().encode(this.Fxi)
                       , E2 = E1.length;
-                    this.FYo = 1 + E2 + 0x4 + 0x4 + 0x4;
+                    this.FYo = 1 + E2 + 4 + 4 + 4;
                     var E3 = new ArrayBuffer(this.FYq)
                       , E4 = new DataView(E3);
                     return E4.setUint8(0, E2),
                     new Uint8Array(E3).set(E1, 1),
                     E4.setUint32(1 + E2, this.Fxx),
-                    E4.setUint32(0x5 + E2, this.Fxg),
-                    E4.setUint32(0x9 + E2, this.FxJ),
+                    E4.setUint32(5 + E2, this.Fxg),
+                    E4.setUint32(9 + E2, this.FxJ),
                     E3;
                 }
                 ,
@@ -9917,8 +10206,8 @@
                     var E3 = E2.getUint8(0);
                     this.Fxi = new TextDecoder().decode(new Uint8Array(E1,1,E3)),
                     this.Fxx = E2.getUint32(1 + E3),
-                    this.Fxg = E2.getUint32(0x5 + E3),
-                    this.FxJ = E2.getUint32(0x9 + E3);
+                    this.Fxg = E2.getUint32(5 + E3),
+                    this.FxJ = E2.getUint32(9 + E3);
                 }
                 ,
                 (0,
@@ -9926,7 +10215,7 @@
                     'key': 'FYq',
                     'get': function() {
                         if (0 === this.FYo)
-                            throw new Error('Size\x20is\x20unknown');
+                            throw new Error('Size is unknown');
                         return this.FYo;
                     }
                 }, {
@@ -10060,7 +10349,7 @@
                         return;
                     if ('string' == typeof E2)
                         return FO(E2, E3);
-                    var E4 = Object.prototype.toString.call(E2).slice(0x8, -1);
+                    var E4 = Object.prototype.toString.call(E2).slice(8, -1);
                     'Object' === E4 && E2.constructor && (E4 = E2.constructor.name);
                     if ('Map' === E4 || 'Set' === E4)
                         return Array.from(E2);
@@ -10079,7 +10368,7 @@
                     }
                     ;
                 }
-                throw new TypeError('Invalid\x20attempt\x20to\x20iterate\x20non-iterable\x20instance.\x0aIn\x20order\x20to\x20be\x20iterable,\x20non-array\x20objects\x20must\x20have\x20a\x20[Symbol.iterator]()\x20method.');
+                throw new TypeError('Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.');
             }
             function FO(FD, Fu) {
                 (null == Fu || Fu > FD.length) && (Fu = FD.length);
@@ -10103,7 +10392,7 @@
                       , E3 = new DataView(E2)
                       , E4 = 0;
                     E3.setUint16(E4, this._tabs.length),
-                    E4 += 0x2;
+                    E4 += 2;
                     for (var E5, E6 = Fj(this._tabs); !(E5 = E6()).done; ) {
                         var E7 = E5.value
                           , E8 = new TextEncoder().encode(E7.tabId);
@@ -10127,18 +10416,18 @@
                                 E4 += 1;
                                 var Er = new TextEncoder().encode(E7.icon.url);
                                 E3.setUint16(E4, Er.byteLength),
-                                E4 += 0x2,
+                                E4 += 2,
                                 new Uint8Array(E2,E4,Er.byteLength).set(Er),
                                 E4 += Er.byteLength;
                             }
                         }
                         var EF = new TextEncoder().encode(E7.description);
                         E3.setUint16(E4, EF.byteLength),
-                        E4 += 0x2,
+                        E4 += 2,
                         new Uint8Array(E2,E4,EF.byteLength).set(EF),
                         E4 += EF.byteLength,
                         E3.setUint16(E4, E7.items.length),
-                        E4 += 0x2;
+                        E4 += 2;
                         for (var EE, Ep = Fj(E7.items); !(EE = Ep()).done; ) {
                             var ES = EE.value
                               , Ee = new TextEncoder().encode(ES.itemId);
@@ -10148,12 +10437,12 @@
                             E4 += Ee.byteLength;
                             var ER = new TextEncoder().encode(ES.name);
                             E3.setUint16(E4, ER.byteLength),
-                            E4 += 0x2,
+                            E4 += 2,
                             new Uint8Array(E2,E4,ER.byteLength).set(ER),
                             E4 += ER.byteLength;
                             var EH = new TextEncoder().encode(ES.description);
                             E3.setUint16(E4, EH.byteLength),
-                            E4 += 0x2,
+                            E4 += 2,
                             new Uint8Array(E2,E4,EH.byteLength).set(EH),
                             E4 += EH.byteLength;
                             var Ey = new TextEncoder().encode(ES.buttonText);
@@ -10172,7 +10461,7 @@
                                     E4 += 1;
                                     var Ed = new TextEncoder().encode(ES.icon.url);
                                     E3.setUint16(E4, Ed.byteLength),
-                                    E4 += 0x2,
+                                    E4 += 2,
                                     new Uint8Array(E2,E4,Ed.byteLength).set(Ed),
                                     E4 += Ed.byteLength;
                                 }
@@ -10226,7 +10515,7 @@
                     var E2 = new DataView(E1 instanceof ArrayBuffer ? E1 : E1.buffer)
                       , E3 = 0
                       , E4 = E2.getUint16(E3);
-                    E3 += 0x2,
+                    E3 += 2,
                     this._tabs = [];
                     for (var E5 = 0; E5 < E4; E5++) {
                         var E6 = E2.getUint8(E3);
@@ -10246,28 +10535,28 @@
                             EF = new Ff.A(EE);
                         } else {
                             var Ep = E2.getUint16(E3);
-                            E3 += 0x2;
+                            E3 += 2;
                             var ES = new TextDecoder().decode(new Uint8Array(E1,E3,Ep));
                             E3 += Ep,
                             EF = new FK.A(ES);
                         }
                         var Ee = E2.getUint16(E3);
-                        E3 += 0x2;
+                        E3 += 2;
                         var ER = new TextDecoder().decode(new Uint8Array(E1,E3,Ee));
                         E3 += Ee;
                         var EH = E2.getUint16(E3);
-                        E3 += 0x2;
+                        E3 += 2;
                         for (var Ey = [], Ed = 0; Ed < EH; Ed++) {
                             var EP = E2.getUint8(E3);
                             E3 += 1;
                             var EQ = new TextDecoder().decode(new Uint8Array(E1,E3,EP));
                             E3 += EP;
                             var EB = E2.getUint16(E3);
-                            E3 += 0x2;
+                            E3 += 2;
                             var EM = new TextDecoder().decode(new Uint8Array(E1,E3,EB));
                             E3 += EB;
                             var EX = E2.getUint16(E3);
-                            E3 += 0x2;
+                            E3 += 2;
                             var Em = new TextDecoder().decode(new Uint8Array(E1,E3,EX));
                             E3 += EX;
                             var Ew = E2.getUint8(E3);
@@ -10283,7 +10572,7 @@
                                 EN = new Ff.A(EZ);
                             } else {
                                 var Eh = E2.getUint16(E3);
-                                E3 += 0x2;
+                                E3 += 2;
                                 var Eo = new TextDecoder().decode(new Uint8Array(E1,E3,Eh));
                                 E3 += Eh,
                                 EN = new FK.A(Eo);
@@ -10335,21 +10624,21 @@
                 r7.A)(Fu, [{
                     'key': 'FYq',
                     'get': function() {
-                        for (var E1, E2 = 0x2, E3 = Fj(this._tabs); !(E1 = E3()).done; ) {
+                        for (var E1, E2 = 2, E3 = Fj(this._tabs); !(E1 = E3()).done; ) {
                             var E4 = E1.value;
                             E2 += 1 + new TextEncoder().encode(E4.tabId).byteLength,
                             E2 += 1 + new TextEncoder().encode(E4.tabName).byteLength,
                             E2 += 1,
-                            E4.icon instanceof Ff.A ? E2 += 1 : E4.icon instanceof FK.A && (E2 += 0x2 + new TextEncoder().encode(E4.icon.url).byteLength),
-                            E2 += 0x2 + new TextEncoder().encode(E4.description).byteLength,
-                            E2 += 0x2;
+                            E4.icon instanceof Ff.A ? E2 += 1 : E4.icon instanceof FK.A && (E2 += 2 + new TextEncoder().encode(E4.icon.url).byteLength),
+                            E2 += 2 + new TextEncoder().encode(E4.description).byteLength,
+                            E2 += 2;
                             for (var E5, E6 = Fj(E4.items); !(E5 = E6()).done; ) {
                                 var E7 = E5.value;
                                 E2 += 1 + new TextEncoder().encode(E7.itemId).byteLength,
-                                E2 += 0x2 + new TextEncoder().encode(E7.name).byteLength,
-                                E2 += 0x2 + new TextEncoder().encode(E7.description).byteLength,
+                                E2 += 2 + new TextEncoder().encode(E7.name).byteLength,
+                                E2 += 2 + new TextEncoder().encode(E7.description).byteLength,
                                 E2 += 1,
-                                E7.icon instanceof Ff.A ? E2 += 1 : E7.icon instanceof FK.A && (E2 += 0x2 + new TextEncoder().encode(E7.icon.url).byteLength),
+                                E7.icon instanceof Ff.A ? E2 += 1 : E7.icon instanceof FK.A && (E2 += 2 + new TextEncoder().encode(E7.icon.url).byteLength),
                                 E2 += 1 + new TextEncoder().encode(E7.buttonText).byteLength,
                                 E2 += 1,
                                 E7.action instanceof FA.A && (E2 += 1 + new TextEncoder().encode(E7.action.command).byteLength),
@@ -10382,8 +10671,8 @@
               , Fn = function(FD) {
                 function Fu(E1, E2) {
                     var E3;
-                    return void 0 === E1 && (E1 = (0,
-                    rG.VB)(0, 0, 0)),
+                    return void 0 === E1 && (E1 =
+                    rG.VB(0, 0, 0)),
                     void 0 === E2 && (E2 = []),
                     (E3 = FD.call(this, rs) || this).FQp = E1,
                     E3.FxA = E2,
@@ -10395,7 +10684,7 @@
                 var E0 = Fu.prototype;
                 return E0.FYl = function() {
                     this.FYo = 0,
-                    this.FYo += 0xc,
+                    this.FYo += 12,
                     this.FYo += 1;
                     for (var E1 = 0; E1 < this.FxA.length; E1++) {
                         var E2 = this.FxA[E1];
@@ -10408,15 +10697,15 @@
                             break;
                         case ru.p.bAL:
                         case ru.p.Fcp:
-                            this.FYo += 0x2;
+                            this.FYo += 2;
                             break;
                         case ru.p.bAX:
                         case ru.p.FcV:
                         case ru.p.FcE:
-                            this.FYo += 0x4;
+                            this.FYo += 4;
                             break;
                         case ru.p.FYI:
-                            this.FYo += 0x8;
+                            this.FYo += 8;
                             break;
                         case ru.p.bHx:
                             this.FYo += 1 + new TextEncoder().encode(E2.bWz).length;
@@ -10425,7 +10714,7 @@
                             this.FYo += 1;
                             break;
                         default:
-                            console.error('Encountered\x20unknown\x20data\x20type\x20when\x20reading\x20Block\x20Entity\x20Metadata\x20Packet');
+                            console.error('Encountered unknown data type when reading Block Entity Metadata Packet');
                         }
                     }
                     var E3 = new ArrayBuffer(this.FYq)
@@ -10433,11 +10722,11 @@
                       , E5 = new Uint8Array(E3);
                     this.FYo = 0,
                     E4.setInt32(this.FYo, this.FQp.bbZ),
-                    this.FYo += 0x4,
+                    this.FYo += 4,
                     E4.setInt32(this.FYo, this.FQp.bbB),
-                    this.FYo += 0x4,
+                    this.FYo += 4,
                     E4.setInt32(this.FYo, this.FQp.bbd),
-                    this.FYo += 0x4,
+                    this.FYo += 4,
                     E4.setUint8(this.FYo, this.FxA.length),
                     this.FYo += 1;
                     for (var E6 = 0; E6 < this.FxA.length; E6++) {
@@ -10456,27 +10745,27 @@
                             break;
                         case ru.p.bAL:
                             E4.setUint16(this.FYo, E7.bWz),
-                            this.FYo += 0x2;
+                            this.FYo += 2;
                             break;
                         case ru.p.Fcp:
                             E4.setInt16(this.FYo, E7.bWz),
-                            this.FYo += 0x2;
+                            this.FYo += 2;
                             break;
                         case ru.p.bAX:
                             E4.setUint32(this.FYo, E7.bWz),
-                            this.FYo += 0x4;
+                            this.FYo += 4;
                             break;
                         case ru.p.FcV:
                             E4.setInt32(this.FYo, E7.bWz),
-                            this.FYo += 0x4;
+                            this.FYo += 4;
                             break;
                         case ru.p.FcE:
                             E4.setFloat32(this.FYo, E7.bWz),
-                            this.FYo += 0x4;
+                            this.FYo += 4;
                             break;
                         case ru.p.FYI:
                             E4.setFloat64(this.FYo, E7.bWz),
-                            this.FYo += 0x8;
+                            this.FYo += 8;
                             break;
                         case ru.p.bHx:
                             var E8 = E7.bWz
@@ -10491,7 +10780,7 @@
                             this.FYo += 1;
                             break;
                         default:
-                            console.error('Encountered\x20unknown\x20data\x20type\x20when\x20reading\x20Block\x20Entity\x20Metadata\x20Packet');
+                            console.error('Encountered unknown data type when reading Block Entity Metadata Packet');
                         }
                     }
                     return E3;
@@ -10501,11 +10790,11 @@
                     var E2 = E1 instanceof ArrayBuffer ? new DataView(E1) : new DataView(E1.buffer,E1.byteOffset,E1.byteLength);
                     this.FYo = 0,
                     this.FQp.bbZ = E2.getInt32(this.FYo),
-                    this.FYo += 0x4,
+                    this.FYo += 4,
                     this.FQp.bbB = E2.getInt32(this.FYo),
-                    this.FYo += 0x4,
+                    this.FYo += 4,
                     this.FQp.bbd = E2.getInt32(this.FYo),
-                    this.FYo += 0x4;
+                    this.FYo += 4;
                     var E3 = E2.getUint8(this.FYo);
                     this.FYo += 1;
                     for (var E4 = 0; E4 < E3; E4++) {
@@ -10524,29 +10813,29 @@
                             break;
                         case ru.p.bAL:
                             E6 = E2.getUint16(this.FYo),
-                            this.FYo += 0x2;
+                            this.FYo += 2;
                             break;
                         case ru.p.Fcp:
                             E6 = E2.getInt16(this.FYo),
-                            this.FYo += 0x2;
+                            this.FYo += 2;
                             break;
                         case ru.p.bAX:
                             E6 = E2.getUint32(this.FYo),
-                            this.FYo += 0x4;
+                            this.FYo += 4;
                             break;
                         case ru.p.FcV:
                             E6 = E2.getInt32(this.FYo),
-                            this.FYo += 0x4;
+                            this.FYo += 4;
                             break;
                         case ru.p.FcE:
-                            E6 = (0,
-                            rY.zD)(E2, this.FYo),
-                            this.FYo += 0x4;
+                            E6 =
+                            rY.zD(E2, this.FYo),
+                            this.FYo += 4;
                             break;
                         case ru.p.FYI:
-                            E6 = (0,
-                            rY.if)(E2, this.FYo),
-                            this.FYo += 0x8;
+                            E6 =
+                            rY.if(E2, this.FYo),
+                            this.FYo += 8;
                             break;
                         case ru.p.bHx:
                             var E7 = E2.getUint8(this.FYo);
@@ -10560,7 +10849,7 @@
                             this.FYo += 1;
                             break;
                         default:
-                            console.error('Encountered\x20unknown\x20data\x20type\x20when\x20reading\x20Block\x20Entity\x20Metadata\x20Packet');
+                            console.error('Encountered unknown data type when reading Block Entity Metadata Packet');
                         }
                         this.FxA.push({
                             'bIo': E5,
@@ -10574,7 +10863,7 @@
                     'key': 'FYq',
                     'get': function() {
                         if (0 === this.FYo)
-                            throw new Error('Size\x20is\x20unknown');
+                            throw new Error('Size is unknown');
                         return this.FYo;
                     }
                 }, {
@@ -10635,8 +10924,8 @@
                 }
                 var Fu = FD.prototype;
                 return Fu.bQK = (function() {
-                    var E0 = (0,
-                    r3.A)(r5().mark(function E1(E2, E3, E4, E5, E6) {
+                    var E0 =
+                    r3.A(r5().mark(function E1(E2, E3, E4, E5, E6) {
                         var E7, E8, E9, Er, EF;
                         return r5().wrap(function(EE) {
                             for (; ; )
@@ -10646,14 +10935,14 @@
                                     this.FgF = E3,
                                     this.Fgf = E4,
                                     this.bFe = new r6.Kj((this.Fgf ? 'wss' : 'ws') + '://' + this.Fgb + ':' + this.FgF),
-                                    EE.prev = 0x4,
-                                    EE.next = 0x7,
+                                    EE.prev = 4,
+                                    EE.next = 7,
                                     this.bFe.joinOrCreate(E5, {
                                         'clientVersion': rg.A.bUo,
                                         'token': Fs.B.getState().token || '',
                                         'serverName': E6
                                     });
-                                case 0x7:
+                                case 7:
                                     this.FgD = EE.sent,
                                     E7 = E6.split('-'),
                                     E8 = E7.length > 1 ? E7[0] : 'unknown',
@@ -10661,15 +10950,15 @@
                                     this.Fgh(),
                                     EE.next = 0x1a;
                                     break;
-                                case 0xe:
-                                    return EE.prev = 0xe,
-                                    EE.t0 = EE.catch(0x4),
+                                case 14:
+                                    return EE.prev = 14,
+                                    EE.t0 = EE.catch(4),
                                     console.error(EE.t0),
-                                    E9 = 'Failed\x20to\x20join\x20server',
-                                    Er = 'Please\x20try\x20again',
-                                    EE.t0 instanceof Error && (1 === (EF = EE.t0.message.split('\x20-\x20')).length ? Er = EF[0] : EF.length >= 0x2 && (E9 = EF[0],
+                                    E9 = 'Failed to join server',
+                                    Er = 'Please try again',
+                                    EE.t0 instanceof Error && (1 === (EF = EE.t0.message.split(' - ')).length ? Er = EF[0] : EF.length >= 2 && (E9 = EF[0],
                                     Er = EF[1])),
-                                    'offline' === Er && (Er = 'Please\x20try\x20again'),
+                                    'offline' === Er && (Er = 'Please try again'),
                                     EE.next = 0x17,
                                     this.FYK();
                                 case 0x17:
@@ -10683,7 +10972,7 @@
                                 case 'end':
                                     return EE.stop();
                                 }
-                        }, E1, this, [[0x4, 0xe]]);
+                        }, E1, this, [[4, 14]]);
                     }));
                     return function(E2, E3, E4, E5, E6) {
                         return E0.apply(this, arguments);
@@ -10768,16 +11057,16 @@
                                     for (; ; )
                                         switch (Eo.prev = Eo.next) {
                                         case 0:
-                                            return Eo.next = 0x2,
+                                            return Eo.next = 2,
                                             El.FYK();
-                                        case 0x2:
+                                        case 2:
                                             FN.x.getState().bfS(FZ.v.bUP),
                                             FN.x.getState().bUx({
-                                                'bUa': 'Connection\x20timed\x20out',
-                                                'bUT': 'Please\x20check\x20your\x20internet'
+                                                'bUa': 'Connection timed out',
+                                                'bUT': 'Please check your internet'
                                             }),
                                             ra.A.emit(rI.r.bKP);
-                                        case 0x5:
+                                        case 5:
                                         case 'end':
                                             return Eo.stop();
                                         }
@@ -10875,23 +11164,23 @@
                         ra.A.emit(rI.r.bvD, EN);
                     }),
                     null == (Ew = this.FgD) || Ew.onLeave((function() {
-                        var EC = (0,
-                        r3.A)(r5().mark(function EN(EZ) {
+                        var EC =
+                        r3.A(r5().mark(function EN(EZ) {
                             return r5().wrap(function(Eh) {
                                 for (; ; )
                                     switch (Eh.prev = Eh.next) {
                                     case 0:
                                         if (ra.A.emit(rI.r.bKP),
                                         FN.x.getState().bfM === FZ.v.bjz) {
-                                            Eh.next = 0x6;
+                                            Eh.next = 6;
                                             break;
                                         }
                                         return FN.x.getState().bfS(FZ.v.bjz),
-                                        Eh.next = 0x5,
+                                        Eh.next = 5,
                                         El.FYK();
-                                    case 0x5:
+                                    case 5:
                                         FN.x.getState().bfS(FZ.v.bUP);
-                                    case 0x6:
+                                    case 6:
                                     case 'end':
                                         return Eh.stop();
                                     }
@@ -10928,8 +11217,8 @@
                 }
                 ,
                 Fu.FYK = (function() {
-                    var E0 = (0,
-                    r3.A)(r5().mark(function E1() {
+                    var E0 =
+                    r3.A(r5().mark(function E1() {
                         var E2, E3, E4, E5;
                         return r5().wrap(function(E6) {
                             for (; ; )
@@ -10937,25 +11226,25 @@
                                 case 0:
                                     if (ra.A.emit(rI.r.bjg),
                                     null == (E2 = this.FgD) || !E2.connection.isOpen) {
-                                        E6.next = 0xa;
+                                        E6.next = 10;
                                         break;
                                     }
                                     return E4 = Date.now(),
-                                    E6.next = 0x5,
+                                    E6.next = 5,
                                     null == (E3 = this.FgD) ? void 0 : E3.leave();
-                                case 0x5:
+                                case 5:
                                     if (E5 = Date.now() - E4,
                                     0x1f4,
                                     !(E5 < 0x1f4)) {
-                                        E6.next = 0xa;
+                                        E6.next = 10;
                                         break;
                                     }
-                                    return E6.next = 0xa,
+                                    return E6.next = 10,
                                     new Promise(function(E7) {
                                         return setTimeout(E7, 0x1f4 - E5);
                                     }
                                     );
-                                case 0xa:
+                                case 10:
                                     clearTimeout(this.Fgk),
                                     this.Fgk = void 0,
                                     this.FgD = void 0,
@@ -10966,7 +11255,7 @@
                                     this.Fxe = void 0,
                                     this.FxT = 0,
                                     this.Fxp = {};
-                                case 0x14:
+                                case 20:
                                 case 'end':
                                     return E6.stop();
                                 }
@@ -11036,9 +11325,9 @@
                     this.bjN = function() {
                         if (null === pm.bjR.background) {
                             var pw = Math.random();
-                            pm.bjR.background = pw < 1 / 0x3 ? pm.bjW.load([rH, rE, rR, rp, rS, ry]) : pw < 0x2 / 0x3 ? pm.bjW.load([rM, rd, rB, rP, rQ, rX]) : pm.bjW.load([rr, r6, r9, r7, r8, rF]),
+                            pm.bjR.background = pw < 1 / 3 ? pm.bjW.load([rH, rE, rR, rp, rS, ry]) : pw < 2 / 3 ? pm.bjW.load([rM, rd, rB, rP, rQ, rX]) : pm.bjW.load([rr, r6, r9, r7, r8, rF]),
                             pm.bjR.background.flipY = true,
-                            pm.bjL.rotation.copy(new r4.Euler(0,0x2 * Math.random() * Math.PI,0)),
+                            pm.bjL.rotation.copy(new r4.Euler(0,2 * Math.random() * Math.PI,0)),
                             pm.bjn.visible = false,
                             pm.bjt.visible = false,
                             pm.bjA.visible = false;
@@ -11051,9 +11340,9 @@
                     this.bjj = 1,
                     this.bjM = r5.A.bjB,
                     this.bjS = r5.A.bjZ,
-                    this.bjL = new r4.PerspectiveCamera(this.bjX.bjw,window.innerWidth / window.innerHeight,0.01,0x3e8),
-                    this.bjv = new r4.PerspectiveCamera(0x3c,window.innerWidth / window.innerHeight,0.01,0x3e8),
-                    this.bjQ = new r4.PerspectiveCamera(0x3c,window.innerWidth / window.innerHeight,0.01,0x3e8),
+                    this.bjL = new r4.PerspectiveCamera(this.bjX.bjw,window.innerWidth / window.innerHeight,0.01,1000),
+                    this.bjv = new r4.PerspectiveCamera(0x3c,window.innerWidth / window.innerHeight,0.01,1000),
+                    this.bjQ = new r4.PerspectiveCamera(0x3c,window.innerWidth / window.innerHeight,0.01,1000),
                     this.bjs = r5.A.bjC,
                     this.bjR = new r4.Scene(),
                     this.bjO = new r4.Scene(),
@@ -11110,16 +11399,16 @@
                                 pl.width = pm.width,
                                 pl.height = pm.height,
                                 pC.drawImage(pm, 0, 0);
-                                var pN = pm.width / 0x5
+                                var pN = pm.width / 5
                                   , pZ = pN * (pw.height / pw.width);
                                 pC.drawImage(pw, 0x32, pm.height - pZ - 0x1e, pN, pZ);
                                 var ph = pl.toDataURL('image/png')
                                   , po = document.createElement('a');
                                 po.href = ph,
-                                po.download = 'CubeRealm.io\x20Screenshot\x20' + (0,
+                                po.download = 'CubeRealm.io Screenshot ' + (0,
                                 rC.$d)(),
                                 po.click(),
-                                rw.A.emit(rl.r.bjG, 'Screenshot\x20downloaded\x20as\x20\x22' + po.download + '\x22');
+                                rw.A.emit(rl.r.bjG, 'Screenshot downloaded as \x22' + po.download + '\x22');
                             }
                             ,
                             pw.src = rm;
@@ -11211,7 +11500,7 @@
                         return;
                     if ('string' == typeof pm)
                         return rk(pm, pw);
-                    var pl = Object.prototype.toString.call(pm).slice(0x8, -1);
+                    var pl = Object.prototype.toString.call(pm).slice(8, -1);
                     'Object' === pl && pm.constructor && (pl = pm.constructor.name);
                     if ('Map' === pl || 'Set' === pl)
                         return Array.from(pm);
@@ -11230,7 +11519,7 @@
                     }
                     ;
                 }
-                throw new TypeError('Invalid\x20attempt\x20to\x20iterate\x20non-iterable\x20instance.\x0aIn\x20order\x20to\x20be\x20iterable,\x20non-array\x20objects\x20must\x20have\x20a\x20[Symbol.iterator]()\x20method.');
+                throw new TypeError('Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.');
             }
             function rk(pQ, pB) {
                 (null == pB || pB > pQ.length) && (pB = pQ.length);
@@ -11255,19 +11544,19 @@
                     this.bMf = 0,
                     this.bMD = 0,
                     this.bMh = 0,
-                    this.bMk = (0,
-                    rZ.VB)(0, 0, 0),
-                    this.bMy = (0,
-                    rZ.VB)(0, 0, 0),
-                    this.bMB = (0,
-                    rZ.VB)(0, 0, 0),
-                    this.bMZ = (0,
-                    rZ.VB)(0, 0, 0),
+                    this.bMk =
+                    rZ.VB(0, 0, 0),
+                    this.bMy =
+                    rZ.VB(0, 0, 0),
+                    this.bMB =
+                    rZ.VB(0, 0, 0),
+                    this.bMZ =
+                    rZ.VB(0, 0, 0),
                     this.bMe = 0,
                     this.bMz = 0,
                     this.bMH = 0,
-                    this.bMd = (0,
-                    ri.LX)(0, 0),
+                    this.bMd =
+                    ri.LX(0, 0),
                     this.bMR = 0,
                     this.bMn = 0,
                     this.bMt = 0,
@@ -11283,7 +11572,7 @@
                     this.bMj = Date.now(),
                     this.bMM = 0,
                     this.bMS = document.body.appendChild(document.createElement('div')),
-                    this.bMS.style.cssText = 'z-index:\x201;\x20width:\x20550px;\x20position:\x20absolute;\x20top:\x200;\x20left:\x200;\x20padding:\x2010px;\x20pointer-events:\x20none;\x20font-size:\x2020px;\x20text-shadow:\x202px\x202px\x200\x20#3b3b3b;',
+                    this.bMS.style.cssText = 'z-index: 1; width: 550px; position: absolute; top: 0; left: 0; padding: 10px; pointer-events: none; font-size: 20px; text-shadow: 2px 2px 0 #3b3b3b;',
                     this.bMw = false,
                     this.bLR(),
                     this.bmS(),
@@ -11321,9 +11610,9 @@
                 pB.bNY = function() {
                     ++this.bMM;
                     var pM = Date.now();
-                    pM - this.bMj >= 0x3e8 && (this.bMh = 0x3e8 * this.bMM / (pM - this.bMj),
-                    this.bMf = 0x3e8 * this.bMb / (pM - this.bMj),
-                    this.bMD = 0x3e8 * this.bMF / (pM - this.bMj),
+                    pM - this.bMj >= 1000 && (this.bMh = 1000 * this.bMM / (pM - this.bMj),
+                    this.bMf = 1000 * this.bMb / (pM - this.bMj),
+                    this.bMD = 1000 * this.bMF / (pM - this.bMj),
                     this.bMM = 0,
                     this.bMb = 0,
                     this.bMF = 0,
@@ -11341,9 +11630,9 @@
                 }
                 ,
                 pB.bMY = function() {
-                    return 'FPS:\x20' + this.bMh.toFixed(0x2) + '\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20Player\x20Position:\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20x:\x20' + this.bMk.bbZ.toFixed(0x2) + '\x20y:\x20' + this.bMk.bbB.toFixed(0x2) + '\x20z:\x20' + this.bMk.bbd.toFixed(0x2) + '\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20Player\x20Block\x20Position:\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20x:\x20' + Math.floor(this.bMy.bbZ) + '\x20y:\x20' + Math.floor(this.bMy.bbB) + '\x20z:\x20' + Math.floor(this.bMy.bbd) + '\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20Player\x20Chunk\x20Position:\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20x:\x20' + Math.floor(this.bMB.bbZ) + '\x20y:\x20' + Math.floor(this.bMB.bbB) + '\x20z:\x20' + Math.floor(this.bMB.bbd) + '\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20Player\x20Velocity:\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20x:\x20' + (this.bMZ.bbZ / r5.A.bfi).toFixed(0x2) + '\x20y:\x20' + (this.bMZ.bbB / r5.A.bfi).toFixed(0x2) + '\x20z:\x20' + (this.bMZ.bbd / r5.A.bfi).toFixed(0x2) + '\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20Player\x20Speed:\x20' + (this.bMe / r5.A.bfi).toFixed(0x2) + '\x20m/s\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20Player\x20Horizontal\x20Speed:\x20' + (this.bMz / r5.A.bfi).toFixed(0x2) + '\x20m/s\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20Player\x20Vertical\x20Speed:\x20' + (this.bMH / r5.A.bfi).toFixed(0x2) + '\x20m/s\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20Player\x20Yaw:\x20' + this.bMd.bbB.toFixed(0x2) + '\x20Player\x20Pitch:\x20' + this.bMd.bbZ.toFixed(0x2) + '\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20Player\x20Orientation:\x20' + (0,
+                    return 'FPS: ' + this.bMh.toFixed(2) + '\n            Player Position:\n            x: ' + this.bMk.bbZ.toFixed(2) + ' y: ' + this.bMk.bbB.toFixed(2) + ' z: ' + this.bMk.bbd.toFixed(2) + '\n            Player Block Position:\n            x: ' + Math.floor(this.bMy.bbZ) + ' y: ' + Math.floor(this.bMy.bbB) + ' z: ' + Math.floor(this.bMy.bbd) + '\n            Player Chunk Position:\n            x: ' + Math.floor(this.bMB.bbZ) + ' y: ' + Math.floor(this.bMB.bbB) + ' z: ' + Math.floor(this.bMB.bbd) + '\n            Player Velocity:\n            x: ' + (this.bMZ.bbZ / r5.A.bfi).toFixed(2) + ' y: ' + (this.bMZ.bbB / r5.A.bfi).toFixed(2) + ' z: ' + (this.bMZ.bbd / r5.A.bfi).toFixed(2) + '\n            Player Speed: ' + (this.bMe / r5.A.bfi).toFixed(2) + ' m/s\n            Player Horizontal Speed: ' + (this.bMz / r5.A.bfi).toFixed(2) + ' m/s\n            Player Vertical Speed: ' + (this.bMH / r5.A.bfi).toFixed(2) + ' m/s\n            Player Yaw: ' + this.bMd.bbB.toFixed(2) + ' Player Pitch: ' + this.bMd.bbZ.toFixed(2) + '\n            Player Orientation: ' + (0,
                     rT.Fk)((0,
-                    rT.Op)(this.bMd)) + '\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20Total\x20Chunks\x20Loaded:\x20' + this.bMR + '\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20Input\x20Buffer\x20Size:\x20' + (this.bjp - (this.bMI + Math.round(this.bMJ() / 0x3e8 / r5.A.bfi))) + '\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20Tick\x20Delta:\x20' + this.bMU.toFixed(0x4) + '\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20Verified\x20SeqId:\x20' + this.bMI + '\x20Sent:\x20' + this.bjp + '\x20Diff:\x20' + (this.bjp - this.bMI) + '\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20Latency:\x20' + (this.bMn >= r5.A.bMG ? '>' : '') + Math.round(this.bMn) + 'ms\x20Jitter:\x20' + (this.bMt >= r5.A.bMG ? '>' : '') + Math.round(this.bMt) + 'ms\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20Download:\x20' + (this.bMD / 0x400).toFixed(0x2) + '\x20KB/s\x20Upload:\x20' + (this.bMf / 0x400).toFixed(0x2) + '\x20KB/s';
+                    rT.Op)(this.bMd)) + '\n            Total Chunks Loaded: ' + this.bMR + '\n            Input Buffer Size: ' + (this.bjp - (this.bMI + Math.round(this.bMJ() / 1000 / r5.A.bfi))) + '\n            Tick Delta: ' + this.bMU.toFixed(4) + '\n            Verified SeqId: ' + this.bMI + ' Sent: ' + this.bjp + ' Diff: ' + (this.bjp - this.bMI) + '\n            Latency: ' + (this.bMn >= r5.A.bMG ? '>' : '') + Math.round(this.bMn) + 'ms Jitter: ' + (this.bMt >= r5.A.bMG ? '>' : '') + Math.round(this.bMt) + 'ms\n            Download: ' + (this.bMD / 0x400).toFixed(2) + ' KB/s Upload: ' + (this.bMf / 0x400).toFixed(2) + ' KB/s';
                 }
                 ,
                 pB.bMJ = function() {
@@ -11367,8 +11656,8 @@
                     }
                     var po = Math.sqrt(pN / Math.max(this.bMA.length - 1, 1));
                     if (this.bMt = Math.min(po, r5.A.bMi),
-                    this.bMA.length >= 0xa && this.bMA.shift(),
-                    this.bMX >= 0x14) {
+                    this.bMA.length >= 10 && this.bMA.shift(),
+                    this.bMX >= 20) {
                         var pU = this.bMm / this.bMX;
                         rh.GameAnalytics.addDesignEvent('GA:AveragePing:All', pU),
                         this.bMX = 0,
@@ -11381,7 +11670,7 @@
                         if (++this.bMN,
                         this.bMW += this.bMh,
                         this.bML = Math.min(this.bML, this.bMh),
-                        this.bMN >= 0x14) {
+                        this.bMN >= 20) {
                             var pM = this.bMW / this.bMN;
                             rh.GameAnalytics.addDesignEvent('GA:AverageFPS:All', pM),
                             rh.GameAnalytics.addDesignEvent('GA:AverageFPS:Max60', Math.min(pM, 0x3c)),
@@ -11523,8 +11812,8 @@
                       , pw = pM.bSA
                       , pl = pM.bSZ
                       , pC = pM.bbh
-                      , pN = (0,
-                    rI.dl)(pw);
+                      , pN =
+                    rI.dl(pw);
                     this.bMV.bSN(pX, pm.bbZ, pm.bbB, pm.bbd, pN, pl, pC);
                 }
                 ,
@@ -11542,7 +11831,7 @@
                         return;
                     if ('string' == typeof pm)
                         return rY(pm, pw);
-                    var pl = Object.prototype.toString.call(pm).slice(0x8, -1);
+                    var pl = Object.prototype.toString.call(pm).slice(8, -1);
                     'Object' === pl && pm.constructor && (pl = pm.constructor.name);
                     if ('Map' === pl || 'Set' === pl)
                         return Array.from(pm);
@@ -11561,7 +11850,7 @@
                     }
                     ;
                 }
-                throw new TypeError('Invalid\x20attempt\x20to\x20iterate\x20non-iterable\x20instance.\x0aIn\x20order\x20to\x20be\x20iterable,\x20non-array\x20objects\x20must\x20have\x20a\x20[Symbol.iterator]()\x20method.');
+                throw new TypeError('Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.');
             }
             function rY(pQ, pB) {
                 (null == pB || pB > pQ.length) && (pB = pQ.length);
@@ -11580,8 +11869,8 @@
                 }
                 var pB = pQ.prototype;
                 return pB.bSj = function(pM, pX, pm, pw) {
-                    var pl = (0,
-                    rZ.VB)(this.bSW.bLk.bbZ * r5.A.bIk + pM, this.bSW.bLk.bbB * r5.A.bIk + pX, this.bSW.bLk.bbd * r5.A.bIk + pm);
+                    var pl =
+                    rZ.VB(this.bSW.bLk.bbZ * r5.A.bIk + pM, this.bSW.bLk.bbB * r5.A.bIk + pX, this.bSW.bLk.bbd * r5.A.bIk + pm);
                     this.bMV.bSM.bSj(pl.bbZ, pl.bbB, pl.bbd, pw),
                     this.bSU.set((0,
                     rf.u)(pM, pX, pm), {
@@ -11663,14 +11952,14 @@
                             for (; ; )
                                 switch (pN.prev = pN.next) {
                                 case 0:
-                                    return pN.next = 0x2,
+                                    return pN.next = 2,
                                     pw.bSQ();
-                                case 0x2:
+                                case 2:
                                     pC = pN.sent,
                                     pw.bSO = pC.geometry,
                                     pw.bSu = pC.material,
                                     pw.bSK(pw.bSs);
-                                case 0x6:
+                                case 6:
                                 case 'end':
                                     return pN.stop();
                                 }
@@ -11693,8 +11982,8 @@
                         pX.y += this.bmj.bSl.bSq.bbB,
                         pX.z += this.bmj.bSl.bSq.bbd,
                         pC.compose(pX, pm, pw);
-                        for (var pN = 0; pN < 0x10; pN++)
-                            this.bSG.instanceMatrix.array[0x10 * pl + pN] = pC.elements[pN];
+                        for (var pN = 0; pN < 16; pN++)
+                            this.bSG.instanceMatrix.array[16 * pl + pN] = pC.elements[pN];
                         this.bSG.count = this.bSC + 1,
                         this.bSx = true,
                         this.bSG.instanceMatrix.needsUpdate = true;
@@ -11722,21 +12011,21 @@
                         pX.y += this.bmj.bSl.bSq.bbB,
                         pX.z += this.bmj.bSl.bSq.bbd,
                         pC.compose(pX, pm, pw);
-                        for (var pN = 0; pN < 0x10; pN++)
-                            this.bSG.instanceMatrix.array[0x10 * pl + pN] = pC.elements[pN];
+                        for (var pN = 0; pN < 16; pN++)
+                            this.bSG.instanceMatrix.array[16 * pl + pN] = pC.elements[pN];
                         this.bSG.instanceMatrix.needsUpdate = true;
                     }
                 }
                 ,
                 pB.bSJ = function() {
                     if (!(this.bSC < this.bSs)) {
-                        var pM = 0x2 * this.bSs;
+                        var pM = 2 * this.bSs;
                         this.bSK(pM);
                     }
                 }
                 ,
                 pB.bSo = function() {
-                    this.bSC > 0.4 * this.bSs || this.bSs < 0x64 || this.bSK(Math.round(this.bSs / 0x2));
+                    this.bSC > 0.4 * this.bSs || this.bSs < 0x64 || this.bSK(Math.round(this.bSs / 2));
                 }
                 ,
                 pB.bSK = function(pM) {
@@ -11757,16 +12046,16 @@
                 pB.bSP = function(pM) {
                     if (this.bSG) {
                         for (var pX = 0; pX < this.bSC; pX++)
-                            for (var pm = 0; pm < 0x10; pm++)
-                                this.bSG.instanceMatrix.array[0x10 * pX + pm] = pM.instanceMatrix.array[0x10 * pX + pm];
+                            for (var pm = 0; pm < 16; pm++)
+                                this.bSG.instanceMatrix.array[16 * pX + pm] = pM.instanceMatrix.array[16 * pX + pm];
                         this.bSG.instanceMatrix.needsUpdate = true;
                     }
                 }
                 ,
                 pB.bSr = function(pM, pX) {
                     if (this.bSG) {
-                        for (var pm = 0; pm < 0x10; pm++)
-                            this.bSG.instanceMatrix.array[0x10 * pX + pm] = this.bSG.instanceMatrix.array[0x10 * pM + pm];
+                        for (var pm = 0; pm < 16; pm++)
+                            this.bSG.instanceMatrix.array[16 * pX + pm] = this.bSG.instanceMatrix.array[16 * pM + pm];
                     }
                     var pw = this.bSY[pM];
                     this.bSc.set(pw, pX),
@@ -11784,8 +12073,8 @@
                             pw.y += pM.bbB,
                             pw.z += pM.bbd,
                             pm.setPosition(pw.x, pw.y, pw.z);
-                            for (var pl = 0; pl < 0x10; pl++)
-                                this.bSG.instanceMatrix.array[0x10 * pX + pl] = pm.elements[pl];
+                            for (var pl = 0; pl < 16; pl++)
+                                this.bSG.instanceMatrix.array[16 * pX + pl] = pm.elements[pl];
                         }
                         this.bSG.instanceMatrix.needsUpdate = true,
                         this.bSG.computeBoundingSphere();
@@ -11827,8 +12116,8 @@
               , rD = function(pQ) {
                 function pB(pX, pm) {
                     var pw;
-                    pw = pQ.call(this, pX, (0,
-                    rj.A)(rv().mark(function pN() {
+                    pw = pQ.call(this, pX,
+                    rj.A(rv().mark(function pN() {
                         var pZ, ph, po;
                         return rv().wrap(function(pU) {
                             for (; ; )
@@ -11841,31 +12130,31 @@
                                         'fog': false,
                                         'depthWrite': false
                                     }),
-                                    pU.next = 0x4,
+                                    pU.next = 4,
                                     rn.A.bXp(pm.bSE, true);
-                                case 0x4:
+                                case 4:
                                     if (pU.t0 = pZ = pU.sent,
                                     null == pU.t0) {
-                                        pU.next = 0x9;
+                                        pU.next = 9;
                                         break;
                                     }
                                     pU.t1 = pZ,
-                                    pU.next = 0xa;
+                                    pU.next = 10;
                                     break;
-                                case 0x9:
+                                case 9:
                                     pU.t1 = null;
-                                case 0xa:
+                                case 10:
                                     return po.map = pU.t1,
                                     po.onBeforeCompile = function(pi) {
-                                        pi.vertexShader = pi.vertexShader.replace('#include\x20<common>', '\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20attribute\x20float\x20instanceCrack;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20varying\x20float\x20vInstanceCrack;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20#include\x20<common>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20').replace('#include\x20<begin_vertex>', '\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20#include\x20<begin_vertex>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20vInstanceCrack\x20=\x20instanceCrack;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20'),
-                                        pi.fragmentShader = pi.fragmentShader.replace('#include\x20<common>', '\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20varying\x20float\x20vInstanceCrack;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20#include\x20<common>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20').replace('#include\x20<map_fragment>', '\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20float\x20atlasDim\x20=\x20' + r5.A.bwI.toFixed(1) + ';\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20vec2\x20rawUv\x20=\x20vec2(\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20fract(vMapUv.x)\x20/\x20atlasDim,\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20fract(vMapUv.y)\x20/\x20atlasDim\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20float\x20crackU\x20=\x20max(floor(vInstanceCrack\x20*\x2010.0\x20-\x200.01f),\x200.0f)\x20/\x20atlasDim;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20float\x20crackV\x20=\x2011.0\x20/\x20atlasDim;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20vec4\x20crackTexture\x20=\x20texture2D(map,\x20vec2(rawUv.x\x20+\x20crackU,\x20rawUv.y\x20+\x20crackV));\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20vec4\x20identity\x20=\x20vec4(1.0,\x201.0,\x201.0,\x201.0);\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20diffuseColor\x20=\x20(1.0\x20-\x20crackTexture.a)\x20*\x20identity\x20+\x20crackTexture.a\x20*\x20crackTexture;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20');
+                                        pi.vertexShader = pi.vertexShader.replace('#include <common>', '\n                        attribute float instanceCrack;\n                        varying float vInstanceCrack;\n                        #include <common>\n                    ').replace('#include <begin_vertex>', '\n                        #include <begin_vertex>\n                        vInstanceCrack = instanceCrack;\n                    '),
+                                        pi.fragmentShader = pi.fragmentShader.replace('#include <common>', '\n                        varying float vInstanceCrack;\n                        #include <common>\n                    ').replace('#include <map_fragment>', '\n                        float atlasDim = ' + r5.A.bwI.toFixed(1) + ';\n                        vec2 rawUv = vec2(\n                            fract(vMapUv.x) / atlasDim,\n                            fract(vMapUv.y) / atlasDim\n                        );\n                        float crackU = max(floor(vInstanceCrack * 10.0 - 0.01f), 0.0f) / atlasDim;\n                        float crackV = 11.0 / atlasDim;\n                        vec4 crackTexture = texture2D(map, vec2(rawUv.x + crackU, rawUv.y + crackV));\n                        vec4 identity = vec4(1.0, 1.0, 1.0, 1.0);\n                        diffuseColor = (1.0 - crackTexture.a) * identity + crackTexture.a * crackTexture;\n                    ');
                                     }
                                     ,
                                     pU.abrupt('return', {
                                         'geometry': ph,
                                         'material': po
                                     });
-                                case 0xd:
+                                case 13:
                                 case 'end':
                                     return pU.stop();
                                 }
@@ -11938,14 +12227,14 @@
                 }
                 var pB = pQ.prototype;
                 return pB.bwd = function(pM, pX, pm, pw, pl, pC) {
-                    var pN = (0,
-                    rf.u)(pM, pX, pm);
-                    if (0 === (pw = Math.round(0x3e8 * pw) / 0x3e8))
+                    var pN =
+                    rf.u(pM, pX, pm);
+                    if (0 === (pw = Math.round(1000 * pw) / 1000))
                         return this.bwZ(pN),
                         false;
                     var pZ = false
-                      , ph = (0,
-                    rZ.VB)(pM, pX, pm)
+                      , ph =
+                    rZ.VB(pM, pX, pm)
                       , po = this.bMV.bbg(ph.bbZ, ph.bbB, ph.bbd)
                       , pU = rA.A.bIM.bIS.bIw.bfx(po)
                       , pi = pU.bwe;
@@ -11992,8 +12281,8 @@
                 }
                 ,
                 pB.bwA = function(pM, pX, pm) {
-                    var pw = (0,
-                    rf.u)(pM, pX, pm);
+                    var pw =
+                    rf.u(pM, pX, pm);
                     this.bwZ(pw);
                 }
                 ,
@@ -12003,8 +12292,8 @@
                 }
                 ,
                 pB.bwN = function(pM, pX, pm) {
-                    var pw = (0,
-                    rf.u)(pM, pX, pm);
+                    var pw =
+                    rf.u(pM, pX, pm);
                     return pw in this.bwD ? this.bwD[pw].bwy : 0;
                 }
                 ,
@@ -12125,7 +12414,7 @@
                         return;
                     if ('string' == typeof pm)
                         return F4(pm, pw);
-                    var pl = Object.prototype.toString.call(pm).slice(0x8, -1);
+                    var pl = Object.prototype.toString.call(pm).slice(8, -1);
                     'Object' === pl && pm.constructor && (pl = pm.constructor.name);
                     if ('Map' === pl || 'Set' === pl)
                         return Array.from(pm);
@@ -12144,7 +12433,7 @@
                     }
                     ;
                 }
-                throw new TypeError('Invalid\x20attempt\x20to\x20iterate\x20non-iterable\x20instance.\x0aIn\x20order\x20to\x20be\x20iterable,\x20non-array\x20objects\x20must\x20have\x20a\x20[Symbol.iterator]()\x20method.');
+                throw new TypeError('Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.');
             }
             function F4(pQ, pB) {
                 (null == pB || pB > pQ.length) && (pB = pQ.length);
@@ -12175,8 +12464,8 @@
                 }
                 ,
                 pM.bbV = function(pX, pm, pw, pl, pC) {
-                    var pN = new F2(this,(0,
-                    rZ.VB)(pX, pm, pw),pl,pC);
+                    var pN = new F2(this,
+                    rZ.VB(pX, pm, pw),pl,pC);
                     return this.bbr.set(pN.bbE(), pN),
                     pN;
                 }
@@ -12221,7 +12510,7 @@
                         return;
                     if ('string' == typeof pm)
                         return F8(pm, pw);
-                    var pl = Object.prototype.toString.call(pm).slice(0x8, -1);
+                    var pl = Object.prototype.toString.call(pm).slice(8, -1);
                     'Object' === pl && pm.constructor && (pl = pm.constructor.name);
                     if ('Map' === pl || 'Set' === pl)
                         return Array.from(pm);
@@ -12240,7 +12529,7 @@
                     }
                     ;
                 }
-                throw new TypeError('Invalid\x20attempt\x20to\x20iterate\x20non-iterable\x20instance.\x0aIn\x20order\x20to\x20be\x20iterable,\x20non-array\x20objects\x20must\x20have\x20a\x20[Symbol.iterator]()\x20method.');
+                throw new TypeError('Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.');
             }
             function F8(pQ, pB) {
                 (null == pB || pB > pQ.length) && (pB = pQ.length);
@@ -12266,8 +12555,8 @@
                 }
                 var pB = pQ.prototype;
                 return pB.bSj = function(pM, pX, pm, pw) {
-                    var pl = (0,
-                    rf.u)(pM, pX, pm)
+                    var pl =
+                    rf.u(pM, pX, pm)
                       , pC = this.bwG.get(pl);
                     if (pC !== pw) {
                         if (void 0 !== pC) {
@@ -12291,23 +12580,23 @@
                 ,
                 pB.bwl = function(pM) {
                     if (!this.bwg.has(pM)) {
-                        var pX = new rb(this.bMV.bNg,(0,
-                        rj.A)(rv().mark(function pm() {
+                        var pX = new rb(this.bMV.bNg,
+                        rj.A(rv().mark(function pm() {
                             var pw, pl;
                             return rv().wrap(function(pC) {
                                 for (; ; )
                                     switch (pC.prev = pC.next) {
                                     case 0:
-                                        return pC.next = 0x2,
+                                        return pC.next = 2,
                                         rn.A.bNF(pM);
-                                    case 0x2:
+                                    case 2:
                                         return pw = pC.sent,
                                         pl = pw.bND,
                                         pC.abrupt('return', {
                                             'geometry': pl.geometry,
                                             'material': pl.material
                                         });
-                                    case 0x5:
+                                    case 5:
                                     case 'end':
                                         return pC.stop();
                                     }
@@ -12353,7 +12642,7 @@
                         return;
                     if ('string' == typeof pm)
                         return FF(pm, pw);
-                    var pl = Object.prototype.toString.call(pm).slice(0x8, -1);
+                    var pl = Object.prototype.toString.call(pm).slice(8, -1);
                     'Object' === pl && pm.constructor && (pl = pm.constructor.name);
                     if ('Map' === pl || 'Set' === pl)
                         return Array.from(pm);
@@ -12372,7 +12661,7 @@
                     }
                     ;
                 }
-                throw new TypeError('Invalid\x20attempt\x20to\x20iterate\x20non-iterable\x20instance.\x0aIn\x20order\x20to\x20be\x20iterable,\x20non-array\x20objects\x20must\x20have\x20a\x20[Symbol.iterator]()\x20method.');
+                throw new TypeError('Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.');
             }
             function FF(pQ, pB) {
                 (null == pB || pB > pQ.length) && (pB = pQ.length);
@@ -12403,12 +12692,12 @@
                     }
                     ,
                     this.bNY = function(pm) {
-                        for (var pw, pl = (0,
-                        rZ.K$)(pX.bMV.bNg.bNG.bXl.bvb.bAc.position), pC = [], pN = Fr(pX.bvF.values()); !(pw = pN()).done; )
+                        for (var pw, pl =
+                        rZ.K$(pX.bMV.bNg.bNG.bXl.bvb.bAc.position), pC = [], pN = Fr(pX.bvF.values()); !(pw = pN()).done; )
                             for (var pZ, ph = Fr(pw.value.values()); !(pZ = ph()).done; ) {
                                 var po = pZ.value
-                                  , pU = (0,
-                                rZ.x6)(po.bwo, pl);
+                                  , pU =
+                                rZ.x6(po.bwo, pl);
                                 pC.push({
                                     'bLw': po,
                                     'bvf': pU
@@ -12437,9 +12726,9 @@
                 }
                 ,
                 pB.bwP = function(pM) {
-                    var pX, pm = (0,
-                    rf.u)(pM.bbZ, pM.bbB, pM.bbd), pw = rc.A.bbJ(pM.bbZ, pM.bbB, pM.bbd), pl = (0,
-                    rf.u)(pw.bbZ, pw.bbB, pw.bbd), pC = null == (pX = this.bvF.get(pl)) ? void 0 : pX.get(pm);
+                    var pX, pm =
+                    rf.u(pM.bbZ, pM.bbB, pM.bbd), pw = rc.A.bbJ(pM.bbZ, pM.bbB, pM.bbd), pl =
+                    rf.u(pw.bbZ, pw.bbB, pw.bbd), pC = null == (pX = this.bvF.get(pl)) ? void 0 : pX.get(pm);
                     if (void 0 === pC) {
                         var pN, pZ = rA.A.bIM.bIS.bIw.bfx(this.bMV.bbg(pM.bbZ, pM.bbB, pM.bbd));
                         if (void 0 === pZ)
@@ -12454,8 +12743,8 @@
                 }
                 ,
                 pB.bwE = function(pM, pX, pm) {
-                    var pw = (0,
-                    rf.u)(pM, pX, pm)
+                    var pw =
+                    rf.u(pM, pX, pm)
                       , pl = this.bvF.get(pw);
                     if (void 0 !== pl) {
                         for (var pC, pN = Fr(pl.values()); !(pC = pN()).done; ) {
@@ -12468,9 +12757,9 @@
                 }
                 ,
                 pB.bvB = function(pM) {
-                    var pX, pm, pw, pl = (0,
-                    rf.u)(pM.bbZ, pM.bbB, pM.bbd), pC = rc.A.bbJ(pM.bbZ, pM.bbB, pM.bbd), pN = (0,
-                    rf.u)(pC.bbZ, pC.bbB, pC.bbd), pZ = null == (pX = this.bvF.get(pN)) ? void 0 : pX.get(pl);
+                    var pX, pm, pw, pl =
+                    rf.u(pM.bbZ, pM.bbB, pM.bbd), pC = rc.A.bbJ(pM.bbZ, pM.bbB, pM.bbd), pN =
+                    rf.u(pC.bbZ, pC.bbB, pC.bbd), pZ = null == (pX = this.bvF.get(pN)) ? void 0 : pX.get(pl);
                     void 0 !== pZ && (this.bWr.remove(pZ.bAc),
                     pZ.bFy(),
                     null == (pm = this.bvF.get(pN)) || pm.delete(pl),
@@ -12509,7 +12798,7 @@
                         return;
                     if ('string' == typeof pm)
                         return FS(pm, pw);
-                    var pl = Object.prototype.toString.call(pm).slice(0x8, -1);
+                    var pl = Object.prototype.toString.call(pm).slice(8, -1);
                     'Object' === pl && pm.constructor && (pl = pm.constructor.name);
                     if ('Map' === pl || 'Set' === pl)
                         return Array.from(pm);
@@ -12528,7 +12817,7 @@
                     }
                     ;
                 }
-                throw new TypeError('Invalid\x20attempt\x20to\x20iterate\x20non-iterable\x20instance.\x0aIn\x20order\x20to\x20be\x20iterable,\x20non-array\x20objects\x20must\x20have\x20a\x20[Symbol.iterator]()\x20method.');
+                throw new TypeError('Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.');
             }
             function FS(pQ, pB) {
                 (null == pB || pB > pQ.length) && (pB = pQ.length);
@@ -12570,7 +12859,7 @@
                         ro.ZB)() < 1 && (0,
                         ro.HF)() === rV.v.bje) {
                             var pN = Math.min(1, pl.bws.bbo().size / 0x1f);
-                            pN >= 1 - 0x2 / 0x1f && !(0,
+                            pN >= 1 - 2 / 0x1f && !(0,
                             ro.Qk)() && rw.A.emit(rl.r.bvn),
                             pN >= 1 && rw.A.emit(rl.r.bjx),
                             (0,
@@ -12751,13 +13040,13 @@
                     this.bLU.position.z = -r5.A.bvx,
                     this.bvg = new r4.Sprite(new r4.SpriteMaterial({
                         'color': pl,
-                        'rotation': Math.PI / 0x4,
+                        'rotation': Math.PI / 4,
                         'opacity': 0
                     })),
                     this.bvg.scale.set(pm, 1.6500000000000001, 1),
                     this.bvJ = new r4.Sprite(new r4.SpriteMaterial({
                         'color': pl,
-                        'rotation': -Math.PI / 0x4,
+                        'rotation': -Math.PI / 4,
                         'opacity': 0
                     })),
                     this.bvJ.scale.set(pm, 1.6500000000000001, 1),
@@ -12837,7 +13126,7 @@
                     }
                     ,
                     this.bQf = function(pX) {
-                        return 0 === pX ? rs.A.bQy : 0x2 === pX ? rs.A.bQB : rs.A.bQZ(pX);
+                        return 0 === pX ? rs.A.bQy : 2 === pX ? rs.A.bQB : rs.A.bQZ(pX);
                     }
                     ,
                     this.bQD = function(pX) {
@@ -12921,7 +13210,7 @@
                     return (pN = pQ.call(this) || this).bNl = function(pZ, ph) {
                         pN.bQW.x -= pN.bQL.bQX === FQ.b.bQm ? -pN.bQU.y : pN.bQU.y,
                         pN.bQW.y -= pN.bQU.x,
-                        pN.bQW.x = Math.max(Math.PI / 0x2 - pN.bQj, Math.min(Math.PI / 0x2 - pN.bQM, pN.bQW.x)),
+                        pN.bQW.x = Math.max(Math.PI / 2 - pN.bQj, Math.min(Math.PI / 2 - pN.bQM, pN.bQW.x)),
                         pN.bjL.quaternion.setFromEuler(pN.bQW),
                         pN.bQS.quaternion.setFromEuler(pN.bQW),
                         pN.bQU.set(0, 0);
@@ -12948,7 +13237,7 @@
                     }
                     ,
                     pN.bQu = function() {
-                        console.error('Unable\x20to\x20use\x20Pointer\x20Lock\x20API');
+                        console.error('Unable to use Pointer Lock API');
                     }
                     ,
                     pN.bQK = function() {
@@ -13003,15 +13292,15 @@
                         return pm.then(function() {}).catch(function(pw) {
                             if ('NotSupportedError' === pw.name)
                                 return pX.requestPointerLock();
-                            console.error('Pointer\x20lock\x20error\x20' + pw.name);
+                            console.error('Pointer lock error ' + pw.name);
                         });
-                    console.log('disabling\x20mouse\x20acceleration\x20is\x20not\x20supported');
+                    console.log('disabling mouse acceleration is not supported');
                 }
                 ,
                 pM.bWX = function(pX) {
                     this.bQW.x = pX.bbZ,
                     this.bQW.y = pX.bbB,
-                    this.bQW.x = Math.max(Math.PI / 0x2 - this.bQj, Math.min(Math.PI / 0x2 - this.bQM, this.bQW.x)),
+                    this.bQW.x = Math.max(Math.PI / 2 - this.bQj, Math.min(Math.PI / 2 - this.bQM, this.bQW.x)),
                     this.bjL.quaternion.setFromEuler(this.bQW),
                     this.bQS.quaternion.setFromEuler(this.bQW);
                 }
@@ -13038,7 +13327,7 @@
                         return;
                     if ('string' == typeof pm)
                         return FN(pm, pw);
-                    var pl = Object.prototype.toString.call(pm).slice(0x8, -1);
+                    var pl = Object.prototype.toString.call(pm).slice(8, -1);
                     'Object' === pl && pm.constructor && (pl = pm.constructor.name);
                     if ('Map' === pl || 'Set' === pl)
                         return Array.from(pm);
@@ -13057,7 +13346,7 @@
                     }
                     ;
                 }
-                throw new TypeError('Invalid\x20attempt\x20to\x20iterate\x20non-iterable\x20instance.\x0aIn\x20order\x20to\x20be\x20iterable,\x20non-array\x20objects\x20must\x20have\x20a\x20[Symbol.iterator]()\x20method.');
+                throw new TypeError('Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.');
             }
             function FN(pQ, pB) {
                 (null == pB || pB > pQ.length) && (pB = pQ.length);
@@ -13068,13 +13357,13 @@
             const FZ = function(pQ, pB, pM, pX, pm, pw) {
                 var pl = +pB[0]
                   , pC = +pB[1]
-                  , pN = +pB[0x2]
+                  , pN = +pB[2]
                   , pZ = +pM[0]
                   , ph = +pM[1]
-                  , po = +pM[0x2]
+                  , po = +pM[2]
                   , pU = Math.sqrt(pZ * pZ + ph * ph + po * po);
                 if (0 === pU)
-                    throw new Error('Can\x27t\x20raycast\x20along\x20a\x20zero\x20vector');
+                    throw new Error('Can\x27t raycast along a zero vector');
                 return function(pi, pT, pV, ps, pG, pk, pW, px, pa, pI) {
                     for (var pg = rA.A.bIM.bIS.bIw.bCY, pL = rA.A.bIM.bIS.bIw.bCx, pc = 0, pq = Math.floor, pf = 0 | pq(pT), pK = 0 | pq(pV), pY = 0 | pq(ps), pz = pG > 0 ? 1 : -1, pA = pk > 0 ? 1 : -1, pj = pW > 0 ? 1 : -1, pO = Math.abs(1 / pG), pJ = Math.abs(1 / pk), pv = Math.abs(1 / pW), pn = pO < 1 / 0 ? pO * (pz > 0 ? pf + 1 - pT : pT - pf) : 1 / 0, pb = pJ < 1 / 0 ? pJ * (pA > 0 ? pK + 1 - pV : pV - pK) : 1 / 0, pD = pv < 1 / 0 ? pv * (pj > 0 ? pY + 1 - ps : ps - pY) : 1 / 0, pu = -1; pc <= px; ) {
                         var S0 = pi(pf, pK, pY)
@@ -13082,29 +13371,29 @@
                         if (S1 === Fw.B.bCg)
                             return pa[0] = pT + pc * pG,
                             pa[1] = pV + pc * pk,
-                            pa[0x2] = ps + pc * pW,
-                            pI[0] = pI[1] = pI[0x2] = 0,
+                            pa[2] = ps + pc * pW,
+                            pI[0] = pI[1] = pI[2] = 0,
                             0 === pu && (pI[0] = -pz),
                             1 === pu && (pI[1] = -pA),
-                            0x2 === pu && (pI[0x2] = -pj),
+                            2 === pu && (pI[2] = -pj),
                             S0;
                         if (S1 === Fw.B.bCJ) {
                             var S2 = pL[S0]
-                              , S3 = (0,
-                            rZ.VB)(pT + pc * pG, pV + pc * pk, ps + pc * pW)
-                              , S4 = (0,
-                            rZ.VB)(pG, pk, pW);
+                              , S3 =
+                            rZ.VB(pT + pc * pG, pV + pc * pk, ps + pc * pW)
+                              , S4 =
+                            rZ.VB(pG, pk, pW);
                             (0,
                             rZ._P)(S4, px - pc);
-                            for (var S5, S6 = rc.A.bbP(pf, pK, pY), S7 = rc.A.bbT(S6.bbZ, S6.bbB, S6.bbd), S8 = 1 / 0, S9 = (0,
-                            rZ.VB)(0, 0, 0), Sr = FC(S2); !(S5 = Sr()).done; ) {
+                            for (var S5, S6 = rc.A.bbP(pf, pK, pY), S7 = rc.A.bbT(S6.bbZ, S6.bbB, S6.bbd), S8 = 1 / 0, S9 =
+                            rZ.VB(0, 0, 0), Sr = FC(S2); !(S5 = Sr()).done; ) {
                                 var SF = S5.value
-                                  , SE = (0,
-                                Fl.VL)((0,
-                                rZ.VB)(SF.bLM.bbZ + S7.bbZ, SF.bLM.bbB + S7.bbB, SF.bLM.bbd + S7.bbd), (0,
-                                rZ.VB)(SF.bLS.bbZ + S7.bbZ, SF.bLS.bbB + S7.bbB, SF.bLS.bbd + S7.bbd))
-                                  , Sp = (0,
-                                rZ.VB)(0, 0, 0)
+                                  , SE =
+                                Fl.VL((0,
+                                rZ.VB)(SF.bLM.bbZ + S7.bbZ, SF.bLM.bbB + S7.bbB, SF.bLM.bbd + S7.bbd),
+                                rZ.VB(SF.bLS.bbZ + S7.bbZ, SF.bLS.bbB + S7.bbB, SF.bLS.bbd + S7.bbd))
+                                  , Sp =
+                                rZ.VB(0, 0, 0)
                                   , SS = FD(S3, S4, SE, Sp);
                                 SS >= 0 && SS < S8 && (S8 = SS,
                                 S9.bbZ = Sp.bbZ,
@@ -13114,10 +13403,10 @@
                             if (S8 < 1 / 0)
                                 return pa[0] = S3.bbZ + S8 * S4.bbZ,
                                 pa[1] = S3.bbB + S8 * S4.bbB,
-                                pa[0x2] = S3.bbd + S8 * S4.bbd,
+                                pa[2] = S3.bbd + S8 * S4.bbd,
                                 pI[0] = S9.bbZ,
                                 pI[1] = S9.bbB,
-                                pI[0x2] = S9.bbd,
+                                pI[2] = S9.bbd,
                                 S0;
                         }
                         pn < pb ? pn < pD ? (pf += pz,
@@ -13126,20 +13415,20 @@
                         pu = 0) : (pY += pj,
                         pc = pD,
                         pD += pv,
-                        pu = 0x2) : pb < pD ? (pK += pA,
+                        pu = 2) : pb < pD ? (pK += pA,
                         pc = pb,
                         pb += pJ,
                         pu = 1) : (pY += pj,
                         pc = pD,
                         pD += pv,
-                        pu = 0x2);
+                        pu = 2);
                     }
                     return pa && (pa[0] = pT + pc * pG,
                     pa[1] = pV + pc * pk,
-                    pa[0x2] = ps + pc * pW),
-                    pI && (pI[0] = pI[1] = pI[0x2] = 0),
+                    pa[2] = ps + pc * pW),
+                    pI && (pI[0] = pI[1] = pI[2] = 0),
                     0;
-                }(pQ, pl, pC, pN, pZ /= pU, ph /= pU, po /= pU, pX = void 0 === pX ? 0x40 : +pX, pm, pw);
+                }(pQ, pl, pC, pN, pZ /= pU, ph /= pU, po /= pU, pX = void 0 === pX ? 64 : +pX, pm, pw);
             };
             function Fh(pQ, pB) {
                 var pM = 'undefined' != typeof Symbol && pQ[Symbol.iterator] || pQ['@@iterator'];
@@ -13150,7 +13439,7 @@
                         return;
                     if ('string' == typeof pm)
                         return Fo(pm, pw);
-                    var pl = Object.prototype.toString.call(pm).slice(0x8, -1);
+                    var pl = Object.prototype.toString.call(pm).slice(8, -1);
                     'Object' === pl && pm.constructor && (pl = pm.constructor.name);
                     if ('Map' === pl || 'Set' === pl)
                         return Array.from(pm);
@@ -13169,7 +13458,7 @@
                     }
                     ;
                 }
-                throw new TypeError('Invalid\x20attempt\x20to\x20iterate\x20non-iterable\x20instance.\x0aIn\x20order\x20to\x20be\x20iterable,\x20non-array\x20objects\x20must\x20have\x20a\x20[Symbol.iterator]()\x20method.');
+                throw new TypeError('Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.');
             }
             function Fo(pQ, pB) {
                 (null == pB || pB > pQ.length) && (pB = pQ.length);
@@ -13190,7 +13479,7 @@
               , FI = [0, 0, 0]
               , Fg = [0, 0, 0];
             const FL = function(pQ, pB, pM, pX, pm, pw) {
-                for (var pl = Fk, pC = Fx, pN = Fa, pZ = Fg, ph = 0; ph < 0x3; ph++)
+                for (var pl = Fk, pC = Fx, pN = Fa, pZ = Fg, ph = 0; ph < 3; ph++)
                     pl[ph] = +pM[ph],
                     pN[ph] = +pB.max[ph],
                     pC[ph] = +pB.base[ph];
@@ -13221,14 +13510,14 @@
                         pj = void 0 !== pJ && pJ.collidedCustom ? -1 : pu();
                     }
                     for (pY += pA,
-                    pO = 0; pO < 0x3; pO++)
+                    pO = 0; pO < 3; pO++)
                         ps[pO] += pV[pO],
                         pG[pO] += pV[pO];
                     return pY;
                     function pv() {
                         if (pz = 0,
-                        0 !== (pA = Math.sqrt(pV[0] * pV[0] + pV[1] * pV[1] + pV[0x2] * pV[0x2])))
-                            for (var S2 = 0; S2 < 0x3; S2++) {
+                        0 !== (pA = Math.sqrt(pV[0] * pV[0] + pV[1] * pV[1] + pV[2] * pV[2])))
+                            for (var S2 = 0; S2 < 3; S2++) {
                                 var S3 = pV[S2] >= 0;
                                 pL[S2] = S3 ? 1 : -1;
                                 var S4 = S3 ? pG[S2] : ps[S2];
@@ -13245,7 +13534,7 @@
                         return Math.round(0x2540be400 * S2) / 0x2540be400;
                     }
                     function pb() {
-                        for (var S2 = pL[0], S3 = pg[0], S4 = pI[0] + S2, S5 = pL[1], S6 = pg[1], S7 = pI[1] + S5, S8 = pL[0x2], S9 = pg[0x2], Sr = pI[0x2] + S8, SF = [], SE = S3; SE != S4; SE += S2)
+                        for (var S2 = pL[0], S3 = pg[0], S4 = pI[0] + S2, S5 = pL[1], S6 = pg[1], S7 = pI[1] + S5, S8 = pL[2], S9 = pg[2], Sr = pI[2] + S8, SF = [], SE = S3; SE != S4; SE += S2)
                             for (var Sp = S6; Sp != S7; Sp += S5)
                                 for (var SS = S9; SS != Sr; SS += S8) {
                                     var SR = pi(SE, Sp, SS)
@@ -13254,8 +13543,8 @@
                                         SF.push({
                                             'aabb': (0,
                                             Fl.VL)((0,
-                                            rZ.VB)(-0.5, -0.5, -0.5), (0,
-                                            rZ.VB)(0.5, 0.5, 0.5)),
+                                            rZ.VB)(-0.5, -0.5, -0.5),
+                                            rZ.VB(0.5, 0.5, 0.5)),
                                             'worldPos': (0,
                                             rZ.VB)(SE, Sp, SS),
                                             'blockType': SR
@@ -13274,20 +13563,20 @@
                                     }
                                 }
                         if (SF.length > 0) {
-                            for (var SQ, SB = [], SM = (0,
-                            Fl.VL)((0,
-                            rZ.VB)(pn(ps[0] + pV[0] * pz / pA), pn(ps[1] + pV[1] * pz / pA), pn(ps[0x2] + pV[0x2] * pz / pA)), (0,
-                            rZ.VB)(pn(pG[0] + pV[0] * pz / pA), pn(pG[1] + pV[1] * pz / pA), pn(pG[0x2] + pV[0x2] * pz / pA))), SX = (0,
-                            rZ.VB)(pV[0], pV[1], pV[0x2]), Sm = 1 / 0, Sw = Fh(SF); !(SQ = Sw()).done; ) {
+                            for (var SQ, SB = [], SM =
+                            Fl.VL((0,
+                            rZ.VB)(pn(ps[0] + pV[0] * pz / pA), pn(ps[1] + pV[1] * pz / pA), pn(ps[2] + pV[2] * pz / pA)),
+                            rZ.VB(pn(pG[0] + pV[0] * pz / pA), pn(pG[1] + pV[1] * pz / pA), pn(pG[2] + pV[2] * pz / pA))), SX =
+                            rZ.VB(pV[0], pV[1], pV[2]), Sm = 1 / 0, Sw = Fh(SF); !(SQ = Sw()).done; ) {
                                 var Sl = SQ.value
                                   , SC = Sl.worldPos
                                   , SN = rc.A.bbT(SC.bbZ, SC.bbB, SC.bbd)
-                                  , SZ = (0,
-                                Fl.VL)((0,
-                                rZ.VB)(Sl.aabb.bLM.bbZ + SN.bbZ, Sl.aabb.bLM.bbB + SN.bbB, Sl.aabb.bLM.bbd + SN.bbd), (0,
-                                rZ.VB)(Sl.aabb.bLS.bbZ + SN.bbZ, Sl.aabb.bLS.bbB + SN.bbB, Sl.aabb.bLS.bbd + SN.bbd))
-                                  , Sh = (0,
-                                rZ.VB)(0, 0, 0)
+                                  , SZ =
+                                Fl.VL((0,
+                                rZ.VB)(Sl.aabb.bLM.bbZ + SN.bbZ, Sl.aabb.bLM.bbB + SN.bbB, Sl.aabb.bLM.bbd + SN.bbd),
+                                rZ.VB(Sl.aabb.bLS.bbZ + SN.bbZ, Sl.aabb.bLS.bbB + SN.bbB, Sl.aabb.bLS.bbd + SN.bbd))
+                                  , Sh =
+                                rZ.VB(0, 0, 0)
                                   , So = Fn(SM, SX, SZ, Sh);
                                 if (So >= 0 && So <= Sm) {
                                     Sm = So;
@@ -13302,7 +13591,7 @@
                                 }
                             }
                             if (Sm < 1 / 0) {
-                                var ST = Math.min(Sm * pA, pq[0] - pz, pq[1] - pz, pq[0x2] - pz);
+                                var ST = Math.min(Sm * pA, pq[0] - pz, pq[1] - pz, pq[2] - pz);
                                 return {
                                     'blocks': SB,
                                     't': ST,
@@ -13316,14 +13605,14 @@
                         pY += pz;
                         var S3 = pz / pA
                           , S4 = FI;
-                        for (pO = 0; pO < 0x3; pO++) {
+                        for (pO = 0; pO < 3; pO++) {
                             var S5 = pV[pO] * S3;
                             ps[pO] += S5,
                             pG[pO] += S5,
                             S4[pO] = pV[pO] - S5;
                         }
                         if (S2.collidedCustom) {
-                            for (var S6 = 0; S6 < 0x3; S6++)
+                            for (var S6 = 0; S6 < 3; S6++)
                                 if (0 !== S2.blocks[0].normal[S6]) {
                                     pj = S6;
                                     break;
@@ -13334,18 +13623,18 @@
                             if (pT(pY, pj, S7, S4, ps, pG, S2.blocks))
                                 return true;
                         }
-                        for (pO = 0; pO < 0x3; pO++)
+                        for (pO = 0; pO < 3; pO++)
                             pV[pO] = S4[pO];
                         return pv(),
                         0 === pA;
                     }
                     function pu() {
-                        var S2 = pq[0] < pq[1] ? pq[0] < pq[0x2] ? 0 : 0x2 : pq[1] < pq[0x2] ? 1 : 0x2
+                        var S2 = pq[0] < pq[1] ? pq[0] < pq[2] ? 0 : 2 : pq[1] < pq[2] ? 1 : 2
                           , S3 = pq[S2] - pz;
                         for (pz = pq[S2],
                         pI[S2] += pL[S2],
                         pq[S2] += pc[S2],
-                        pO = 0; pO < 0x3; pO++)
+                        pO = 0; pO < 3; pO++)
                             pa[pO] += S3 * pf[pO],
                             pg[pO] = S1(pa[pO], pL[pO]);
                         return S2;
@@ -13358,7 +13647,7 @@
                     }
                 }(pQ, pX, pl, pC, pN, pw);
                 if (!pm) {
-                    for (var pU = 0; pU < 0x3; pU++)
+                    for (var pU = 0; pU < 3; pU++)
                         pZ[pU] = pM[pU] > 0 ? pN[pU] - pB.max[pU] : pC[pU] - pB.base[pU];
                     pB.translate(pZ);
                 }
@@ -13382,7 +13671,7 @@
                         return;
                     if ('string' == typeof pm)
                         return Fv(pm, pw);
-                    var pl = Object.prototype.toString.call(pm).slice(0x8, -1);
+                    var pl = Object.prototype.toString.call(pm).slice(8, -1);
                     'Object' === pl && pm.constructor && (pl = pm.constructor.name);
                     if ('Map' === pl || 'Set' === pl)
                         return Array.from(pm);
@@ -13401,7 +13690,7 @@
                     }
                     ;
                 }
-                throw new TypeError('Invalid\x20attempt\x20to\x20iterate\x20non-iterable\x20instance.\x0aIn\x20order\x20to\x20be\x20iterable,\x20non-array\x20objects\x20must\x20have\x20a\x20[Symbol.iterator]()\x20method.');
+                throw new TypeError('Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.');
             }
             function Fv(pQ, pB) {
                 (null == pB || pB > pQ.length) && (pB = pQ.length);
@@ -13412,10 +13701,10 @@
             var Fn = function(pQ, pB, pM, pX) {
                 var pm, pw, pl, pC, pN, pZ, ph, po, pU, pi, pT, pV, ps, pG, pk, pW, px = (pm = pQ,
                 pw = pB,
-                pl = (0,
-                rZ.VB)(pw.bbZ > 0 ? pm.bLM.bbZ : pm.bLM.bbZ + pw.bbZ, pw.bbB > 0 ? pm.bLM.bbB : pm.bLM.bbB + pw.bbB, pw.bbd > 0 ? pm.bLM.bbd : pm.bLM.bbd + pw.bbd),
-                pC = (0,
-                rZ.VB)(pw.bbZ > 0 ? pm.bLS.bbZ + pw.bbZ : pm.bLS.bbZ, pw.bbB > 0 ? pm.bLS.bbB + pw.bbB : pm.bLS.bbB, pw.bbd > 0 ? pm.bLS.bbd + pw.bbd : pm.bLS.bbd),
+                pl =
+                rZ.VB(pw.bbZ > 0 ? pm.bLM.bbZ : pm.bLM.bbZ + pw.bbZ, pw.bbB > 0 ? pm.bLM.bbB : pm.bLM.bbB + pw.bbB, pw.bbd > 0 ? pm.bLM.bbd : pm.bLM.bbd + pw.bbd),
+                pC =
+                rZ.VB(pw.bbZ > 0 ? pm.bLS.bbZ + pw.bbZ : pm.bLS.bbZ, pw.bbB > 0 ? pm.bLS.bbB + pw.bbB : pm.bLS.bbB, pw.bbd > 0 ? pm.bLS.bbd + pw.bbd : pm.bLS.bbd),
                 (0,
                 Fl.VL)(pl, pC));
                 if (!(0,
@@ -13464,8 +13753,8 @@
               , Fb = function(pQ, pB) {
                 return (0,
                 Fl.VL)((0,
-                rZ.VB)(pQ.bbZ + pB.bLM.bbZ, pQ.bbB + pB.bLM.bbB, pQ.bbd + pB.bLM.bbd), (0,
-                rZ.VB)(pQ.bbZ + pB.bLS.bbZ, pQ.bbB + pB.bLS.bbB, pQ.bbd + pB.bLS.bbd));
+                rZ.VB)(pQ.bbZ + pB.bLM.bbZ, pQ.bbB + pB.bLM.bbB, pQ.bbd + pB.bLM.bbd),
+                rZ.VB(pQ.bbZ + pB.bLS.bbZ, pQ.bbB + pB.bLS.bbB, pQ.bbd + pB.bLS.bbd));
             }
               , FD = function(pQ, pB, pM, pX) {
                 var pm = (pM.bLM.bbZ - pQ.bbZ) / pB.bbZ
@@ -13499,29 +13788,29 @@
                 pM.bjV += 1;
             }
               , E0 = function(pQ, pB, pM, pX, pm, pw) {
-                return pm.bXi.bWU === Fc.f.bCV ? E7(pQ, pB, pM, pX, pm, pw, true, 0xa) : pm.bXi.bWU === Fc.f.bCE ? E7(pQ, pB, pM, pX, pm, pw, false) : E6(pQ, pB, pM, pX, pm, pw);
+                return pm.bXi.bWU === Fc.f.bCV ? E7(pQ, pB, pM, pX, pm, pw, true, 10) : pm.bXi.bWU === Fc.f.bCE ? E7(pQ, pB, pM, pX, pm, pw, false) : E6(pQ, pB, pM, pX, pm, pw);
             }
               , E1 = function(pQ) {
                 return (0,
-                rZ.VB)(pQ.base[0] * r5.A.bba + r5.A.bNI.bbZ / 0x2, pQ.base[1] * r5.A.bba, pQ.base[0x2] * r5.A.bba + r5.A.bNI.bbd / 0x2);
+                rZ.VB)(pQ.base[0] * r5.A.bba + r5.A.bNI.bbZ / 2, pQ.base[1] * r5.A.bba, pQ.base[2] * r5.A.bba + r5.A.bNI.bbd / 2);
             }
               , E2 = function(pQ, pB) {
                 return (0,
                 Fl.VL)((0,
-                rZ.VB)(pQ.bbZ - r5.A.bNI.bbZ / 0x2, pQ.bbB, pQ.bbd - r5.A.bNI.bbd / 0x2), (0,
-                rZ.VB)(pQ.bbZ + r5.A.bNI.bbZ / 0x2, pQ.bbB + pB + (r5.A.bNI.bbB - r5.A.bsR), pQ.bbd + r5.A.bNI.bbd / 0x2));
+                rZ.VB)(pQ.bbZ - r5.A.bNI.bbZ / 2, pQ.bbB, pQ.bbd - r5.A.bNI.bbd / 2),
+                rZ.VB(pQ.bbZ + r5.A.bNI.bbZ / 2, pQ.bbB + pB + (r5.A.bNI.bbB - r5.A.bsR), pQ.bbd + r5.A.bNI.bbd / 2));
             }
               , E3 = function(pQ, pB, pM) {
                 return {
-                    'base': [(pQ.bbZ - pM.bbZ / 0x2) / r5.A.bba, pQ.bbB / r5.A.bba, (pQ.bbd - pM.bbd / 0x2) / r5.A.bba],
-                    'max': [(pQ.bbZ + pM.bbZ / 0x2) / r5.A.bba, (pQ.bbB + pB + (r5.A.bNI.bbB - r5.A.bsR)) / r5.A.bba, (pQ.bbd + pM.bbd / 0x2) / r5.A.bba],
+                    'base': [(pQ.bbZ - pM.bbZ / 2) / r5.A.bba, pQ.bbB / r5.A.bba, (pQ.bbd - pM.bbd / 2) / r5.A.bba],
+                    'max': [(pQ.bbZ + pM.bbZ / 2) / r5.A.bba, (pQ.bbB + pB + (r5.A.bNI.bbB - r5.A.bsR)) / r5.A.bba, (pQ.bbd + pM.bbd / 2) / r5.A.bba],
                     'translate': function(pX) {
                         this.base[0] += pX[0],
                         this.base[1] += pX[1],
-                        this.base[0x2] += pX[0x2],
+                        this.base[2] += pX[2],
                         this.max[0] += pX[0],
                         this.max[1] += pX[1],
-                        this.max[0x2] += pX[0x2];
+                        this.max[2] += pX[2];
                     }
                 };
             }
@@ -13546,8 +13835,8 @@
                   , pC = rA.A.bIM.bIS.bIw.bCl
                   , pN = rA.A.bIM.bIS.bIw.bOI
                   , pZ = rA.A.bIM.bIS.bIw.bOb
-                  , ph = (0,
-                rZ.VB)(pB.bQq.bbZ, 0, pB.bQq.bbB);
+                  , ph =
+                rZ.VB(pB.bQq.bbZ, 0, pB.bQq.bbB);
                 (0,
                 rZ.Bw)(ph, 0, 1);
                 var po = pm.bDF.bsT.bfE
@@ -13564,9 +13853,9 @@
                 }(pM, pm.bXi) >= r5.A.bsR - r5.A.bOD + 0.00001 && (pV = Fc.f.bAO);
                 var ps = pm.bXi.bsN;
                 pm.bXi.bWU === Fc.f.bfY && Math.abs(ps - r5.A.bOD) > 0.00001 ? ps = Math.max(r5.A.bOD, ps - r5.A.bOh) : pm.bXi.bWU !== Fc.f.bfY && Math.abs(ps - r5.A.bsR) > 0.00001 && (ps = Math.min(r5.A.bsR, ps + r5.A.bOh));
-                for (var pG = false, pk = false, pW = false, px = false, pa = 0.15, pI = 1, pg = Math.floor(pm.bXi.bLe.bbZ - r5.A.bNI.bbZ / 0x2); pg <= Math.floor(pm.bXi.bLe.bbZ + r5.A.bNI.bbZ / 0x2); pg++)
+                for (var pG = false, pk = false, pW = false, px = false, pa = 0.15, pI = 1, pg = Math.floor(pm.bXi.bLe.bbZ - r5.A.bNI.bbZ / 2); pg <= Math.floor(pm.bXi.bLe.bbZ + r5.A.bNI.bbZ / 2); pg++)
                     for (var pL = Math.floor(pm.bXi.bLe.bbB); pL <= Math.floor(pm.bXi.bLe.bbB + pm.bXi.bsN + (r5.A.bNI.bbB - r5.A.bsR)); pL++)
-                        for (var pc = Math.floor(pm.bXi.bLe.bbd - r5.A.bNI.bbd / 0x2); pc <= Math.floor(pm.bXi.bLe.bbd + r5.A.bNI.bbd / 0x2); pc++) {
+                        for (var pc = Math.floor(pm.bXi.bLe.bbd - r5.A.bNI.bbd / 2); pc <= Math.floor(pm.bXi.bLe.bbd + r5.A.bNI.bbd / 2); pc++) {
                             var pq = pM(pg, pL, pc);
                             (0,
                             rI.lk)(pq) || (0,
@@ -13575,22 +13864,22 @@
                         }
                 if (pW)
                     return new Fq.A((0,
-                    rZ.N3)(pm.bXi.bLe),pB.bLH,(0,
-                    rZ.N3)(pm.bXi.bsn),pm.bXi.bst,pm.bXi.bsA,pm.bXi.bWU,pm.bXi.bUK,pm.bXi.bsN,(0,
-                    FK.sd)(pm.bXi.bsW));
-                var pf = (0,
-                rZ.N3)(pm.bXi.bsn)
+                    rZ.N3)(pm.bXi.bLe),pB.bLH,
+                    rZ.N3(pm.bXi.bsn),pm.bXi.bst,pm.bXi.bsA,pm.bXi.bWU,pm.bXi.bUK,pm.bXi.bsN,
+                    FK.sd(pm.bXi.bsW));
+                var pf =
+                rZ.N3(pm.bXi.bsn)
                   , pK = pm.bXi.bLe.bbB / r5.A.bba > r5.A.bOR + 0x258
                   , pY = pM(pm.bXi.bLe.bbZ / r5.A.bba, (pm.bXi.bLe.bbB + 0.9) / r5.A.bba, pm.bXi.bLe.bbd / r5.A.bba)
                   , pz = pM(pm.bXi.bLe.bbZ / r5.A.bba, (pm.bXi.bLe.bbB + 1.1) / r5.A.bba, pm.bXi.bLe.bbd / r5.A.bba)
-                  , pA = (0,
-                rI.lk)(pY)
-                  , pj = (0,
-                rI.lk)(pz)
-                  , pO = (0,
-                rI.Qp)(pY)
-                  , pJ = (0,
-                rI.Qp)(pz);
+                  , pA =
+                rI.lk(pY)
+                  , pj =
+                rI.lk(pz)
+                  , pO =
+                rI.Qp(pY)
+                  , pJ =
+                rI.Qp(pz);
                 pA || pO ? (pf.bbB -= 0.005,
                 pf.bbB *= 0.9) : pK ? (pf.bbB -= 0.02,
                 pf.bbB *= 0.95) : px ? pB.bQP ? pf.bbB = 0 : pf.bbB = -0.15 * pI : (pf.bbB -= 0.08,
@@ -13609,27 +13898,27 @@
                 pu = 0.02),
                 pf.bbZ = pm.bXi.bsn.bbZ * pb * 0.9,
                 pf.bbd = pm.bXi.bsn.bbd * pb * 0.9;
-                var S0 = (0,
-                rZ.VB)(-Math.sin(pB.bLH.bbB), 0, -Math.cos(pB.bLH.bbB))
-                  , S1 = (0,
-                rZ.N3)(S0);
+                var S0 =
+                rZ.VB(-Math.sin(pB.bLH.bbB), 0, -Math.cos(pB.bLH.bbB))
+                  , S1 =
+                rZ.N3(S0);
                 (0,
-                rZ.GV)(S1, (0,
-                rZ.VB)(0, 1, 0));
-                var S2 = (0,
-                rZ.N3)(S0);
+                rZ.GV)(S1,
+                rZ.VB(0, 1, 0));
+                var S2 =
+                rZ.N3(S0);
                 (0,
                 rZ._P)(S2, ph.bbd * pu * pD),
                 (0,
                 rZ.j9)(pf, S2);
-                var S3 = (0,
-                rZ.N3)(S1);
+                var S3 =
+                rZ.N3(S1);
                 (0,
                 rZ._P)(S3, -ph.bbZ * pu * pD),
                 (0,
                 rZ.j9)(pf, S3);
-                for (var S4, S5 = (0,
-                FK.sd)(pm.bXi.bsW), S6 = FJ(pB.bQp); !(S4 = S6()).done; ) {
+                for (var S4, S5 =
+                FK.sd(pm.bXi.bsW), S6 = FJ(pB.bQp); !(S4 = S6()).done; ) {
                     var S7 = S4.value
                       , S8 = S5.get(S7);
                     void 0 !== S8 && ((0,
@@ -13640,8 +13929,8 @@
                 Math.abs(pf.bbZ) < 0.000001 && (pf.bbZ = 0),
                 Math.abs(pf.bbB) < 0.000001 && (pf.bbB = 0),
                 Math.abs(pf.bbd) < 0.000001 && (pf.bbd = 0);
-                var Sr = (0,
-                rZ.N3)(pf)
+                var Sr =
+                rZ.N3(pf)
                   , SF = [false, false, false];
                 (0,
                 rZ.N3)(pf).bbB = 0;
@@ -13652,11 +13941,11 @@
                 var SR = [Sr.bbZ, 0, Sr.bbd];
                 E5(Sp, [0, r5.A.bba, 0], false, pM),
                 E5(Sp, SR, false, pM);
-                var SH = (SS[0] !== Sr.bbZ || SS[0x2] !== Sr.bbd) && SS[0] * SS[0] + SS[0x2] * SS[0x2] < SR[0] * SR[0] + SR[0x2] * SR[0x2] ? function(SO, SJ, Sv) {
+                var SH = (SS[0] !== Sr.bbZ || SS[2] !== Sr.bbd) && SS[0] * SS[0] + SS[2] * SS[2] < SR[0] * SR[0] + SR[2] * SR[2] ? function(SO, SJ, Sv) {
                     var Sn = pM(SO, SJ, Sv)
                       , Sb = pl[Sn]
                       , SD = Math.floor(pm.bXi.bLe.bbB / r5.A.bba);
-                    return pm.bXi.bst && pm.bXi.bWU !== Fc.f.bfY && Sb !== Fw.B.bfy && pl[pM(SO, SJ + 1, Sv)] === Fw.B.bfy && pl[pM(SO, SJ + 0x2, Sv)] === Fw.B.bfy && SJ === SD ? rq._.bbl : pl[pM(SO, SJ + 1, Sv)] !== Fw.B.bfy && Sb === Fw.B.bfy && SD + 1 === SJ ? rq._.bHX : Sn;
+                    return pm.bXi.bst && pm.bXi.bWU !== Fc.f.bfY && Sb !== Fw.B.bfy && pl[pM(SO, SJ + 1, Sv)] === Fw.B.bfy && pl[pM(SO, SJ + 2, Sv)] === Fw.B.bfy && SJ === SD ? rq._.bbl : pl[pM(SO, SJ + 1, Sv)] !== Fw.B.bfy && Sb === Fw.B.bfy && SD + 1 === SJ ? rq._.bHX : Sn;
                 }
                 : pM
                   , Sy = false
@@ -13666,13 +13955,13 @@
                     0 === SJ && (pf.bbZ = 0),
                     1 === SJ && (pf.bbB = 0,
                     Sy = Sn[1] < 0),
-                    0x2 === SJ && (pf.bbd = 0),
+                    2 === SJ && (pf.bbd = 0),
                     SF[SJ] = true,
                     Sn[SJ] = 0;
                     for (var e0, e1 = FJ(Su); !(e0 = e1()).done; ) {
                         var e2 = e0.value;
-                        0 === e2.normal[1] && ((e2.type === rq._.bOB || e2.type === rq._.bOZ) && 0 !== e2.normal[0] || (e2.type === rq._.bHn || e2.type === rq._.bOe) && 0 !== e2.normal[0x2] ? (Sd = true,
-                        pI = 1) : (e2.type !== rq._.bOz && e2.type !== rq._.bOH || 0 === e2.normal[0]) && (e2.type !== rq._.bHt && e2.type !== rq._.bOd || 0 === e2.normal[0x2]) || (Sd = true,
+                        0 === e2.normal[1] && ((e2.type === rq._.bOB || e2.type === rq._.bOZ) && 0 !== e2.normal[0] || (e2.type === rq._.bHn || e2.type === rq._.bOe) && 0 !== e2.normal[2] ? (Sd = true,
+                        pI = 1) : (e2.type !== rq._.bOz && e2.type !== rq._.bOH || 0 === e2.normal[0]) && (e2.type !== rq._.bHt && e2.type !== rq._.bOd || 0 === e2.normal[2]) || (Sd = true,
                         pI = 1.2)),
                         pN[e2.type] && SP.push(e2);
                     }
@@ -13685,13 +13974,13 @@
                 pf.bbd = Sr.bbd,
                 SF[0] = false,
                 SF[1] = false,
-                SF[0x2] = false,
+                SF[2] = false,
                 SP = [],
                 FL(pM, S9, [pf.bbZ, pf.bbB, pf.bbd], function(SO, SJ, Sv, Sn, Sb, SD, Su) {
                     0 === SJ && (pf.bbZ = 0),
                     1 === SJ && (pf.bbB = 0,
                     Sy = Sn[1] < 0),
-                    0x2 === SJ && (pf.bbd = 0),
+                    2 === SJ && (pf.bbd = 0),
                     SF[SJ] = true,
                     Sn[SJ] = 0;
                     for (var e0, e1 = FJ(Su); !(e0 = e1()).done; ) {
@@ -13706,19 +13995,19 @@
                         'bOt': pf,
                         'bOA': Sr,
                         'bwo': (0,
-                        rZ.VB)(SM.pos[0], SM.pos[1], SM.pos[0x2]),
+                        rZ.VB)(SM.pos[0], SM.pos[1], SM.pos[2]),
                         'bON': (0,
-                        rZ.VB)(SM.normal[0], SM.normal[1], SM.normal[0x2])
+                        rZ.VB)(SM.normal[0], SM.normal[1], SM.normal[2])
                     }, pw);
                 }
                 var SX = E1(S9);
                 if (SF[0] && (SX.bbZ += SE * (Sr.bbZ > 0 ? -1 : 1)),
                 SF[1] && (SX.bbB += SE * (Sr.bbB > 0 ? -1 : 1)),
-                SF[0x2] && (SX.bbd += SE * (Sr.bbd > 0 ? -1 : 1)),
-                Sr.bbB / r5.A.bfi <= -0x14 && Sy) {
-                    for (var Sm = false, Sw = Math.floor(SX.bbZ - r5.A.bNI.bbZ / 0x2); Sw <= Math.floor(SX.bbZ + r5.A.bNI.bbZ / 0x2); Sw++)
+                SF[2] && (SX.bbd += SE * (Sr.bbd > 0 ? -1 : 1)),
+                Sr.bbB / r5.A.bfi <= -20 && Sy) {
+                    for (var Sm = false, Sw = Math.floor(SX.bbZ - r5.A.bNI.bbZ / 2); Sw <= Math.floor(SX.bbZ + r5.A.bNI.bbZ / 2); Sw++)
                         for (var Sl = Math.floor(SX.bbB - 1); Sl <= Math.floor(SX.bbB + ps + (r5.A.bNI.bbB - r5.A.bsR)); Sl++)
-                            for (var SC = Math.floor(SX.bbd - r5.A.bNI.bbd / 0x2); SC <= Math.floor(SX.bbd + r5.A.bNI.bbd / 0x2); SC++) {
+                            for (var SC = Math.floor(SX.bbd - r5.A.bNI.bbd / 2); SC <= Math.floor(SX.bbd + r5.A.bNI.bbd / 2); SC++) {
                                 var SN = pM(Sw, Sl, SC);
                                 if ((0,
                                 rI.lk)(SN) || (0,
@@ -13727,12 +14016,12 @@
                                     break;
                                 }
                             }
-                    Sm || pQ.bOW(Math.round(0x3 * (-Sr.bbB / r5.A.bfi - 0x13)), (0,
-                    rZ.VB)(0, 0, 0), Fz.i.bOL, pm.bXi.bLe, void 0, void 0);
+                    Sm || pQ.bOW(Math.round(3 * (-Sr.bbB / r5.A.bfi - 19)),
+                    rZ.VB(0, 0, 0), Fz.i.bOL, pm.bXi.bLe, void 0, void 0);
                 }
-                for (var SZ = Math.floor((SX.bbB + 0.1) / r5.A.bba), Sh = Math.floor((SX.bbZ - r5.A.bNI.bbZ / 0x2) / r5.A.bba), So = Math.floor((SX.bbd - r5.A.bNI.bbd / 0x2) / r5.A.bba), SU = Math.floor((SX.bbZ + r5.A.bNI.bbZ / 0x2) / r5.A.bba), Si = Math.floor((SX.bbd + r5.A.bNI.bbd / 0x2) / r5.A.bba), ST = false, SV = -1 / 0, Ss = Sh; Ss <= SU; Ss++)
+                for (var SZ = Math.floor((SX.bbB + 0.1) / r5.A.bba), Sh = Math.floor((SX.bbZ - r5.A.bNI.bbZ / 2) / r5.A.bba), So = Math.floor((SX.bbd - r5.A.bNI.bbd / 2) / r5.A.bba), SU = Math.floor((SX.bbZ + r5.A.bNI.bbZ / 2) / r5.A.bba), Si = Math.floor((SX.bbd + r5.A.bNI.bbd / 2) / r5.A.bba), ST = false, SV = -1 / 0, Ss = Sh; Ss <= SU; Ss++)
                     for (var SG = So; SG <= Si; SG++)
-                        if (pl[pM(Ss, SZ + 1, SG)] === Fw.B.bfy && pl[pM(Ss, SZ + 0x2, SG)] === Fw.B.bfy) {
+                        if (pl[pM(Ss, SZ + 1, SG)] === Fw.B.bfy && pl[pM(Ss, SZ + 2, SG)] === Fw.B.bfy) {
                             var Sk = pM(Ss, SZ, SG);
                             if (pl[Sk] === Fw.B.bCg)
                                 SV = Math.max((SZ + 1) * r5.A.bba, SV),
@@ -13742,34 +14031,34 @@
                                     for (var SW, Sx = E2(SX, ps), Sa = FJ(pC[Sk]); !(SW = Sa()).done; ) {
                                         var SI = SW.value
                                           , Sg = rc.A.bbT(Ss, SZ, SG)
-                                          , SL = (0,
-                                        Fl.VL)((0,
-                                        rZ.VB)(SI.bLM.bbZ + Sg.bbZ, SI.bLM.bbB + Sg.bbB, SI.bLM.bbd + Sg.bbd), (0,
-                                        rZ.VB)(SI.bLS.bbZ + Sg.bbZ, SI.bLS.bbB + Sg.bbB, SI.bLS.bbd + Sg.bbd));
+                                          , SL =
+                                        Fl.VL((0,
+                                        rZ.VB)(SI.bLM.bbZ + Sg.bbZ, SI.bLM.bbB + Sg.bbB, SI.bLM.bbd + Sg.bbd),
+                                        rZ.VB(SI.bLS.bbZ + Sg.bbZ, SI.bLS.bbB + Sg.bbB, SI.bLS.bbd + Sg.bbd));
                                         (0,
                                         Fl.fB)(Sx, SL) && (SV = Math.max(SL.bLS.bbB, SV),
                                         ST = true);
                                     }
                             }
                         }
-                if (ST && (SX.bbB = Math.min(SX.bbB + 0xf * pX, SV)),
+                if (ST && (SX.bbB = Math.min(SX.bbB + 15 * pX, SV)),
                 pm.bXi.bst && Sy && pV === Fc.f.bfY) {
                     var Sc = E3((0,
                     rZ.VB)(SX.bbZ, pm.bXi.bLe.bbB, pm.bXi.bLe.bbd), ps, r5.A.bOX);
                     if (E4(Sc, [0, -0.1, 0], false, pM)) {
                         var Sq = SX.bbZ
-                          , Sf = Math.floor((pm.bXi.bLe.bbZ - Math.sign(Sr.bbZ) * r5.A.bNI.bbZ / 0x2) / r5.A.bba) * r5.A.bba
+                          , Sf = Math.floor((pm.bXi.bLe.bbZ - Math.sign(Sr.bbZ) * r5.A.bNI.bbZ / 2) / r5.A.bba) * r5.A.bba
                           , SK = Sf + r5.A.bba;
-                        SX.bbZ > SK + r5.A.bOX.bbZ / 0x2 ? SX.bbZ = SK + r5.A.bOX.bbZ / 0x2 - SE : SX.bbZ < Sf - r5.A.bOX.bbZ / 0x2 && (SX.bbZ = Sf - r5.A.bOX.bbZ / 0x2 + SE),
+                        SX.bbZ > SK + r5.A.bOX.bbZ / 2 ? SX.bbZ = SK + r5.A.bOX.bbZ / 2 - SE : SX.bbZ < Sf - r5.A.bOX.bbZ / 2 && (SX.bbZ = Sf - r5.A.bOX.bbZ / 2 + SE),
                         SX.bbZ !== Sq && (pf.bbZ = 0);
                     }
                     var SY = E3((0,
                     rZ.VB)(pm.bXi.bLe.bbZ, pm.bXi.bLe.bbB, SX.bbd), ps, r5.A.bOX);
                     if (E4(SY, [0, -0.1, 0], false, pM)) {
                         var Sz = SX.bbd
-                          , SA = Math.floor((pm.bXi.bLe.bbd - Math.sign(Sr.bbd) * r5.A.bNI.bbd / 0x2) / r5.A.bba) * r5.A.bba
+                          , SA = Math.floor((pm.bXi.bLe.bbd - Math.sign(Sr.bbd) * r5.A.bNI.bbd / 2) / r5.A.bba) * r5.A.bba
                           , Sj = SA + r5.A.bba;
-                        SX.bbd > Sj + r5.A.bOX.bbd / 0x2 ? SX.bbd = Sj + r5.A.bOX.bbd / 0x2 - SE : SX.bbd < SA - r5.A.bOX.bbd / 0x2 && (SX.bbd = SA - r5.A.bOX.bbd / 0x2 + SE),
+                        SX.bbd > Sj + r5.A.bOX.bbd / 2 ? SX.bbd = Sj + r5.A.bOX.bbd / 2 - SE : SX.bbd < SA - r5.A.bOX.bbd / 2 && (SX.bbd = SA - r5.A.bOX.bbd / 2 + SE),
                         SX.bbd !== Sz && (pf.bbd = 0);
                     }
                 }
@@ -13777,35 +14066,35 @@
             }
               , E7 = function(pQ, pB, pM, pX, pm, pw, pl, pC) {
                 void 0 === pC && (pC = 1.6);
-                var pN = (0,
-                rZ.VB)(pB.bQq.bbZ, 0, pB.bQq.bbB);
+                var pN =
+                rZ.VB(pB.bQq.bbZ, 0, pB.bQq.bbB);
                 (0,
                 rZ.Bw)(pN, 0, 1);
-                var pZ = (0,
-                rZ.VB)(-Math.sin(pB.bLH.bbB), 0, -Math.cos(pB.bLH.bbB))
-                  , ph = (0,
-                rZ.N3)(pZ);
+                var pZ =
+                rZ.VB(-Math.sin(pB.bLH.bbB), 0, -Math.cos(pB.bLH.bbB))
+                  , ph =
+                rZ.N3(pZ);
                 (0,
-                rZ.GV)(ph, (0,
-                rZ.VB)(0, 1, 0));
+                rZ.GV)(ph,
+                rZ.VB(0, 1, 0));
                 var po = pm.bXi.bWU;
                 pm.bXi.bUK === FO.b.btT && pB.bQT && (po = Fc.f.bAO);
-                var pU = (0,
-                rZ.N3)(pm.bXi.bsn)
+                var pU =
+                rZ.N3(pm.bXi.bsn)
                   , pi = 0.15
                   , pT = 1;
                 pB.bQa && (pT = pC),
                 pU.bbZ = 0.6 * pm.bXi.bsn.bbZ,
                 pU.bbB = 0.6 * pm.bXi.bsn.bbB,
                 pU.bbd = 0.6 * pm.bXi.bsn.bbd;
-                var pV = (0,
-                rZ.N3)(pZ);
+                var pV =
+                rZ.N3(pZ);
                 (0,
                 rZ._P)(pV, pN.bbd * pi * pT),
                 (0,
                 rZ.j9)(pU, pV);
-                var ps = (0,
-                rZ.N3)(ph);
+                var ps =
+                rZ.N3(ph);
                 (0,
                 rZ._P)(ps, -pN.bbZ * pi * pT),
                 (0,
@@ -13816,21 +14105,21 @@
                 Math.abs(pU.bbB) < 0.000001 && (pU.bbB = 0),
                 Math.abs(pU.bbd) < 0.000001 && (pU.bbd = 0);
                 var pG = 0.001
-                  , pk = (0,
-                rZ.N3)(pm.bXi.bLe);
+                  , pk =
+                rZ.N3(pm.bXi.bLe);
                 if (pl)
                     (0,
                     rZ.j9)(pk, pU);
                 else {
                     var pW = E3(pm.bXi.bLe, pm.bXi.bsN, r5.A.bNI)
-                      , px = (0,
-                    rZ.N3)(pU)
+                      , px =
+                    rZ.N3(pU)
                       , pa = [false, false, false];
                     FL(pM, pW, [pU.bbZ, pU.bbB, pU.bbd], function(pg, pL, pc, pq, pf, pK, pY) {
                         return 0 === pL && (pU.bbZ = 0),
                         1 === pL && (pU.bbB = 0,
                         pq[1] < 0 && (po = Fc.f.bAO)),
-                        0x2 === pL && (pU.bbd = 0),
+                        2 === pL && (pU.bbd = 0),
                         pa[pL] = true,
                         pq[pL] = 0,
                         false;
@@ -13838,10 +14127,10 @@
                     pk = E1(pW),
                     pa[0] && (pk.bbZ += pG * (px.bbZ > 0 ? -1 : 1)),
                     pa[1] && (pk.bbB += pG * (px.bbB > 0 ? -1 : 1)),
-                    pa[0x2] && (pk.bbd += pG * (px.bbd > 0 ? -1 : 1));
+                    pa[2] && (pk.bbd += pG * (px.bbd > 0 ? -1 : 1));
                 }
-                var pI = (0,
-                FK.sd)(pm.bXi.bsW);
+                var pI =
+                FK.sd(pm.bXi.bsW);
                 return new Fq.A(pk,pB.bLH,pU,false,pm.bXi.bsA,po,pm.bXi.bUK,r5.A.bsR,pI);
             }
               , E8 = function(pQ, pB, pM, pX) {
@@ -13857,9 +14146,9 @@
                     } : {
                         'bDt': true,
                         'bIE': (0,
-                        rZ.VB)(pN[0], pN[1], pN[0x2]),
+                        rZ.VB)(pN[0], pN[1], pN[2]),
                         'bON': (0,
-                        rZ.VB)(pZ[0], pZ[1], pZ[0x2])
+                        rZ.VB)(pZ[0], pZ[1], pZ[2])
                     };
                 }(pQ, pB.bsz ? pB.bsH : (0,
                 Fm.ik)(pB.bLH), pM, pX);
@@ -13882,7 +14171,7 @@
                         return;
                     if ('string' == typeof pm)
                         return EP(pm, pw);
-                    var pl = Object.prototype.toString.call(pm).slice(0x8, -1);
+                    var pl = Object.prototype.toString.call(pm).slice(8, -1);
                     'Object' === pl && pm.constructor && (pl = pm.constructor.name);
                     if ('Map' === pl || 'Set' === pl)
                         return Array.from(pm);
@@ -13901,7 +14190,7 @@
                     }
                     ;
                 }
-                throw new TypeError('Invalid\x20attempt\x20to\x20iterate\x20non-iterable\x20instance.\x0aIn\x20order\x20to\x20be\x20iterable,\x20non-array\x20objects\x20must\x20have\x20a\x20[Symbol.iterator]()\x20method.');
+                throw new TypeError('Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.');
             }
             function EP(pQ, pB) {
                 (null == pB || pB > pQ.length) && (pB = pQ.length);
@@ -13954,11 +14243,11 @@
                 pM.bDn = function(pX, pm, pw, pl) {
                     var pC = this;
                     return function(pN, pZ, ph, po) {
-                        var pU = (0,
-                        rZ.N3)(pN.bXi.bLe);
+                        var pU =
+                        rZ.N3(pN.bXi.bLe);
                         (0,
-                        rZ.j9)(pU, (0,
-                        rZ.VB)(0, pN.bXi.bsN, 0)),
+                        rZ.j9)(pU,
+                        rZ.VB(0, pN.bXi.bsN, 0)),
                         (0,
                         rZ.RN)(pU, r5.A.bba);
                         var pi = E8(pU, pZ, ph, po);
@@ -13967,8 +14256,8 @@
                                 'bDt': false
                             };
                         var pT = rc.A.bbP(pi.bIE.bbZ - 0.01 * pi.bON.bbZ, pi.bIE.bbB - 0.01 * pi.bON.bbB, pi.bIE.bbd - 0.01 * pi.bON.bbd)
-                          , pV = (0,
-                        rZ.z5)(pU, pi.bIE);
+                          , pV =
+                        rZ.z5(pU, pi.bIE);
                         return {
                             'bDt': true,
                             'bIE': pi.bIE,
@@ -13984,11 +14273,11 @@
                 pM.bDR = function(pX, pm, pw, pl) {
                     var pC = this;
                     return function(pN, pZ, ph, po) {
-                        var pU = (0,
-                        rZ.N3)(pN.bXi.bLe);
+                        var pU =
+                        rZ.N3(pN.bXi.bLe);
                         (0,
-                        rZ.j9)(pU, (0,
-                        rZ.VB)(0, pN.bXi.bsN, 0)),
+                        rZ.j9)(pU,
+                        rZ.VB(0, pN.bXi.bsN, 0)),
                         (0,
                         rZ.RN)(pU, r5.A.bba);
                         var pi = E8(pU, pZ, ph, po);
@@ -13997,8 +14286,8 @@
                                 'bDt': false
                             };
                         var pT = rc.A.bbP(pi.bIE.bbZ + 0.01 * pi.bON.bbZ, pi.bIE.bbB + 0.01 * pi.bON.bbB, pi.bIE.bbd + 0.01 * pi.bON.bbd)
-                          , pV = (0,
-                        rZ.z5)(pU, pi.bIE);
+                          , pV =
+                        rZ.z5(pU, pi.bIE);
                         return {
                             'bDt': true,
                             'bIE': pi.bIE,
@@ -14016,8 +14305,8 @@
                     if (ph)
                         for (var po, pU = Ed(F0.A.immediateNeighbors); !(po = pU()).done; ) {
                             var pi = po.value
-                              , pT = (0,
-                            rZ.VB)(pX + pi.dir.bbZ, pm + pi.dir.bbB, pw + pi.dir.bbd);
+                              , pT =
+                            rZ.VB(pX + pi.dir.bbZ, pm + pi.dir.bbB, pw + pi.dir.bbd);
                             rA.A.bIM.bIS.bIw.bfx(this._control.bbg(pT.bbZ, pT.bbB, pT.bbd)).bOw(this, this._control.bXq, pT.bbZ, pT.bbB, pT.bbd) || this.bwX(pT.bbZ, pT.bbB, pT.bbd, rq._.bbl, pC, pZ, this._control.bXq.bXi.bUK === FO.b.btJ);
                         }
                     return ph;
@@ -14030,10 +14319,10 @@
                     void 0 === pU && (pU = ER.z$.bfr);
                     var pi = this.bbg(pX, pm, pw);
                     return this._control.bOv(pX, pm, pw, pl, pC, pN),
-                    pU !== ER.z$.bfr && pU !== ER.z$.bfP || (pi !== rq._.bbl && pl === rq._.bbl && rA.A.bIM.bIS.bIw.bfx(pi).bOQ(this, this._control.bXq, (0,
-                    rZ.VB)(pX, pm, pw), pC, pN),
-                    pl !== rq._.bbl && pl !== pi && rA.A.bIM.bIS.bIw.bfx(pl).bOs(this, this._control.bXq, (0,
-                    rZ.VB)(pX, pm, pw), pN)),
+                    pU !== ER.z$.bfr && pU !== ER.z$.bfP || (pi !== rq._.bbl && pl === rq._.bbl && rA.A.bIM.bIS.bIw.bfx(pi).bOQ(this, this._control.bXq,
+                    rZ.VB(pX, pm, pw), pC, pN),
+                    pl !== rq._.bbl && pl !== pi && rA.A.bIM.bIS.bIw.bfx(pl).bOs(this, this._control.bXq,
+                    rZ.VB(pX, pm, pw), pN)),
                     true;
                 }
                 ,
@@ -14059,8 +14348,8 @@
                     void 0 === pl && (pl = 1),
                     void 0 === pN && (pN = 0),
                     void 0 === pZ && (pZ = 0x50 * r5.A.bba),
-                    void 0 === ph && (ph = 0xa * r5.A.bba),
-                    void 0 === po && (po = 0x2),
+                    void 0 === ph && (ph = 10 * r5.A.bba),
+                    void 0 === po && (po = 2),
                     this._control.bNG.bOC(pX, pm, pw, pl, pC, pN, pZ, ph, po);
                 }
                 ,
@@ -14068,14 +14357,14 @@
                     void 0 === pl && (pl = 1),
                     void 0 === pN && (pN = 0),
                     void 0 === pZ && (pZ = 0x50 * r5.A.bba),
-                    void 0 === ph && (ph = 0xa * r5.A.bba),
-                    void 0 === po && (po = 0x2),
+                    void 0 === ph && (ph = 10 * r5.A.bba),
+                    void 0 === po && (po = 2),
                     this._control.bNG.bfc(pX, pm, pw, pl, pC, pN, pZ, ph, po);
                 }
                 ,
                 pM.bDd = function(pX, pm, pw) {
-                    var pl = (0,
-                    rZ.N3)(pX.bXi.bLe);
+                    var pl =
+                    rZ.N3(pX.bXi.bLe);
                     pl.bbB += pX.bXi.bsN;
                     for (var pC, pN, pZ = pm.bsz ? pm.bsH : (0,
                     Fm.ik)(pm.bLH), ph = 0x5f5e0ff, po = Ed(this._control.bNG.bNg.bNx.bmc(pl, pw)); !(pN = po()).done; ) {
@@ -14251,7 +14540,7 @@
                         return;
                     if ('string' == typeof pm)
                         return Eh(pm, pw);
-                    var pl = Object.prototype.toString.call(pm).slice(0x8, -1);
+                    var pl = Object.prototype.toString.call(pm).slice(8, -1);
                     'Object' === pl && pm.constructor && (pl = pm.constructor.name);
                     if ('Map' === pl || 'Set' === pl)
                         return Array.from(pm);
@@ -14270,7 +14559,7 @@
                     }
                     ;
                 }
-                throw new TypeError('Invalid\x20attempt\x20to\x20iterate\x20non-iterable\x20instance.\x0aIn\x20order\x20to\x20be\x20iterable,\x20non-array\x20objects\x20must\x20have\x20a\x20[Symbol.iterator]()\x20method.');
+                throw new TypeError('Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.');
             }
             function Eh(pQ, pB) {
                 (null == pB || pB > pQ.length) && (pB = pQ.length);
@@ -14320,22 +14609,22 @@
                             var pZ = new r4.Vector3(pN.bbZ,pN.bbB,0.5)
                               , ph = pC.bux.bjP;
                             pZ.unproject(ph);
-                            var po = (0,
-                            rZ.N3)(pC.bXq.bXi.bLe);
+                            var po =
+                            rZ.N3(pC.bXq.bXi.bLe);
                             (0,
-                            rZ.j9)(po, (0,
-                            rZ.VB)(0, pC.bXq.bXi.bsN, 0)),
+                            rZ.j9)(po,
+                            rZ.VB(0, pC.bXq.bXi.bsN, 0)),
                             (0,
                             rZ.RN)(po, r5.A.bba);
-                            var pU = (0,
-                            rZ.VB)(pZ.x, pZ.y, pZ.z);
+                            var pU =
+                            rZ.VB(pZ.x, pZ.y, pZ.z);
                             (0,
-                            rZ.yz)(pU, (0,
-                            rZ.K$)(ph.position)),
+                            rZ.yz)(pU,
+                            rZ.K$(ph.position)),
                             (0,
                             rZ.JA)(pU),
-                            pC.buJ = (0,
-                            rZ.VB)(pU.bbZ, pU.bbB, pU.bbd),
+                            pC.buJ =
+                            rZ.VB(pU.bbZ, pU.bbB, pU.bbd),
                             (0,
                             rZ.JA)(pC.buJ);
                         } else
@@ -14355,8 +14644,8 @@
                             'bsN': pC.bsm.bXi.bsN
                         },
                         pC.buq.bIE.bbB += pC.bsm.bXi.bsN,
-                        pC.bsm.bXi.bLe = (0,
-                        rZ.N3)(pN),
+                        pC.bsm.bXi.bLe =
+                        rZ.N3(pN),
                         pC.bui = pZ;
                     }
                     ,
@@ -14384,8 +14673,8 @@
                             'bsN': pC.bsm.bXi.bsN
                         },
                         pC.buq.bIE.bbB += pC.bsm.bXi.bsN,
-                        pC.bsm.bXi.bLe = (0,
-                        rZ.N3)(pN.buP),
+                        pC.bsm.bXi.bLe =
+                        rZ.N3(pN.buP),
                         pC.bui = pN.bua;
                     }
                     ,
@@ -14465,7 +14754,7 @@
                             var pI = px.value
                               , pg = pI[0]
                               , pL = pI[1];
-                            -0x2 === pg ? pC.bKH.bDF.bDZ = pL : pC.bKH.bDF.bCb(pg, pL, pC.bKn, false);
+                            -2 === pg ? pC.bKH.bDF.bDZ = pL : pC.bKH.bDF.bCb(pg, pL, pC.bKn, false);
                         }
                         for (var pc, pq = EZ(pN.bKA.entries()); !(pc = pq()).done; ) {
                             var pf = pc.value
@@ -14497,11 +14786,11 @@
                     this.bNl = function(pN, pZ) {
                         pC.buX.bNl(pN, pZ);
                         var ph = pZ / r5.A.bfi
-                          , po = (0,
-                        rZ.VB)((0,
-                        Fm.Cc)(pC.bul.bIE.bbZ, pC.buq.bIE.bbZ, ph), (0,
-                        Fm.Cc)(pC.bul.bIE.bbB, pC.buq.bIE.bbB, ph), (0,
-                        Fm.Cc)(pC.bul.bIE.bbd, pC.buq.bIE.bbd, ph));
+                          , po =
+                        rZ.VB((0,
+                        Fm.Cc)(pC.bul.bIE.bbZ, pC.buq.bIE.bbZ, ph),
+                        Fm.Cc(pC.bul.bIE.bbB, pC.buq.bIE.bbB, ph),
+                        Fm.Cc(pC.bul.bIE.bbd, pC.buq.bIE.bbd, ph));
                         if (pC.bKm(po),
                         pC.bui && (pC.buX.bWX(pC.bui),
                         pC.bui = void 0),
@@ -14518,10 +14807,10 @@
                             pC.buw.bWG.bXD = pC.buK === FQ.b.bKU || pC.buK === FQ.b.bQm,
                             pC.buK === FQ.b.bus ? pC.buC.buO.bLn() : pC.buK !== FQ.b.bKU && pC.buK !== FQ.b.bQm || pC.buC.buO.bLR();
                         }
-                        var pT = (0,
-                        rZ.N3)(po);
-                        pT.bbB -= (0,
-                        Fm.Cc)(pC.bul.bsN, pC.buq.bsN, ph),
+                        var pT =
+                        rZ.N3(po);
+                        pT.bbB -=
+                        Fm.Cc(pC.bul.bsN, pC.buq.bsN, ph),
                         pC.buw.bWN(pT),
                         pC.buw.bWX(pC.bKM()),
                         pC.buw.bNl(pN, pZ),
@@ -14631,8 +14920,8 @@
                 ,
                 pB.bKm = function(pM) {
                     if (!(Math.abs(pM.bbZ + this.bmj.bSl.bSq.bbZ) <= 0x64 && Math.abs(pM.bbB + this.bmj.bSl.bSq.bbB) <= 0x64 && Math.abs(pM.bbd + this.bmj.bSl.bSq.bbd) <= 0x64)) {
-                        var pX = (0,
-                        rZ.N3)(pM);
+                        var pX =
+                        rZ.N3(pM);
                         pX.bbZ += this.bmj.bSl.bSq.bbZ,
                         pX.bbB += this.bmj.bSl.bSq.bbB,
                         pX.bbd += this.bmj.bSl.bSq.bbd,
@@ -14673,18 +14962,18 @@
                     var po = new r4.Vector3();
                     this.bux.bjP.getWorldDirection(po);
                     var pU, pi, pT, pV, ps, pG = po.negate(), pk = (pV = pm,
-                    ps = (0,
-                    rZ.VB)(0.1, 0.1, 0.1),
+                    ps =
+                    rZ.VB(0.1, 0.1, 0.1),
                     pU = {
-                        'base': [(pV.bbZ - ps.bbZ / 0x2) / r5.A.bba, (pV.bbB - ps.bbB / 0x2) / r5.A.bba, (pV.bbd - ps.bbd / 0x2) / r5.A.bba],
-                        'max': [(pV.bbZ + ps.bbZ / 0x2) / r5.A.bba, (pV.bbB + ps.bbB / 0x2) / r5.A.bba, (pV.bbd + ps.bbd / 0x2) / r5.A.bba],
+                        'base': [(pV.bbZ - ps.bbZ / 2) / r5.A.bba, (pV.bbB - ps.bbB / 2) / r5.A.bba, (pV.bbd - ps.bbd / 2) / r5.A.bba],
+                        'max': [(pV.bbZ + ps.bbZ / 2) / r5.A.bba, (pV.bbB + ps.bbB / 2) / r5.A.bba, (pV.bbd + ps.bbd / 2) / r5.A.bba],
                         'translate': function(pW) {
                             this.base[0] += pW[0],
                             this.base[1] += pW[1],
-                            this.base[0x2] += pW[0x2],
+                            this.base[2] += pW[2],
                             this.max[0] += pW[0],
                             this.max[1] += pW[1],
-                            this.max[0x2] += pW[0x2];
+                            this.max[2] += pW[2];
                         }
                     },
                     pi = [pG.x * r5.A.bcF, pG.y * r5.A.bcF, pG.z * r5.A.bcF],
@@ -14694,7 +14983,7 @@
                         true;
                     }, false, 0.00001),
                     (0,
-                    rZ.VB)((pU.base[0] + (pU.max[0] - pU.base[0]) / 0x2) * r5.A.bba, (pU.base[1] + (pU.max[1] - pU.base[1]) / 0x2) * r5.A.bba, (pU.base[0x2] + (pU.max[0x2] - pU.base[0x2]) / 0x2) * r5.A.bba));
+                    rZ.VB)((pU.base[0] + (pU.max[0] - pU.base[0]) / 2) * r5.A.bba, (pU.base[1] + (pU.max[1] - pU.base[1]) / 2) * r5.A.bba, (pU.base[2] + (pU.max[2] - pU.base[2]) / 2) * r5.A.bba));
                     this.bux.bjP.position.set(pk.bbZ + this.bmj.bSl.bSq.bbZ, pk.bbB + this.bmj.bSl.bSq.bbB, pk.bbd + this.bmj.bSl.bSq.bbd);
                 }
                 ,
@@ -14760,16 +15049,16 @@
                       , pG = this.bcZ()
                       , pk = this.bce();
                     if (pG)
-                        pV = (0,
-                        Fm.zi)(this.bsm.bDF.bCj + 1, r5.A.bsg),
+                        pV =
+                        Fm.zi(this.bsm.bDF.bCj + 1, r5.A.bsg),
                         ps = true;
                     else {
                         if (pk)
-                            pV = (0,
-                            Fm.zi)(this.bsm.bDF.bCj - 1, r5.A.bsg),
+                            pV =
+                            Fm.zi(this.bsm.bDF.bCj - 1, r5.A.bsg),
                             ps = true;
                         else {
-                            for (var pW = 0; pW < 0x9; pW++) {
+                            for (var pW = 0; pW < 9; pW++) {
                                 if (this.bKb(this.bjX.bMs['SELECT_SLOT_' + (pW + 1)])) {
                                     pV = pW;
                                     break;
@@ -14835,17 +15124,17 @@
                 }
                 ,
                 pB.bcz = function() {
-                    this.bvH.bMK() && (this.bvH.bMk = (0,
-                    rZ.N3)(this.bsm.bXi.bLe),
-                    this.bvH.bMy = (0,
-                    rZ.VB)(Math.floor(this.bsm.bXi.bLe.bbZ / r5.A.bba), Math.floor(this.bsm.bXi.bLe.bbB / r5.A.bba), Math.floor(this.bsm.bXi.bLe.bbd / r5.A.bba)),
+                    this.bvH.bMK() && (this.bvH.bMk =
+                    rZ.N3(this.bsm.bXi.bLe),
+                    this.bvH.bMy =
+                    rZ.VB(Math.floor(this.bsm.bXi.bLe.bbZ / r5.A.bba), Math.floor(this.bsm.bXi.bLe.bbB / r5.A.bba), Math.floor(this.bsm.bXi.bLe.bbd / r5.A.bba)),
                     this.bvH.bMB = rc.A.bbJ(this.bsm.bXi.bLe.bbZ / r5.A.bba, this.bsm.bXi.bLe.bbB / r5.A.bba, this.bsm.bXi.bLe.bbd / r5.A.bba),
-                    this.bvH.bMZ = (0,
-                    rZ.N3)(this.bsm.bXi.bsn),
-                    this.bvH.bMe = (0,
-                    rZ.mZ)(this.bsm.bXi.bsn),
-                    this.bvH.bMz = (0,
-                    ri.X3)((0,
+                    this.bvH.bMZ =
+                    rZ.N3(this.bsm.bXi.bsn),
+                    this.bvH.bMe =
+                    rZ.mZ(this.bsm.bXi.bsn),
+                    this.bvH.bMz =
+                    ri.X3((0,
                     ri.LX)(this.bsm.bXi.bsn.bbZ, this.bsm.bXi.bsn.bbd)),
                     this.bvH.bMH = Math.abs(this.bsm.bXi.bsn.bbB),
                     this.bvH.bMd = this.bKM());
@@ -14873,8 +15162,8 @@
                 }
                 ,
                 pB.bOS = function(pM, pX, pm, pw, pl, pC) {
-                    var pN, pZ = (0,
-                    rf.u)(pM, pX, pm), ph = this.bmj.bNJ.bvw.bwN(pM, pX, pm), po = this.bmj.bNJ.bbg(pM, pX, pm), pU = this.buC.bNg.bNJ.bvw.bwW(pM, pX, pm, pw, pl, pC), pi = {
+                    var pN, pZ =
+                    rf.u(pM, pX, pm), ph = this.bmj.bNJ.bvw.bwN(pM, pX, pm), po = this.bmj.bNJ.bbg(pM, pX, pm), pU = this.buC.bNg.bNJ.bvw.bwW(pM, pX, pm, pw, pl, pC), pi = {
                         'bIE': (0,
                         rZ.VB)(pM, pX, pm),
                         'bKk': po,
@@ -14888,13 +15177,13 @@
                         pN[pZ] = pi,
                         pN)
                     }) : this.bKD[this.bKD.length - 1].bjV === pl ? pZ in this.bKD[this.bKD.length - 1].bKh ? (this.bKD[this.bKD.length - 1].bKh[pZ].bKy = ph,
-                    this.bKD[this.bKD.length - 1].bKh[pZ].bcX = pw) : this.bKD[this.bKD.length - 1].bKh[pZ] = pi : console.error('Invalid\x20crack\x20update\x20snapshot\x20state!!!'),
+                    this.bKD[this.bKD.length - 1].bKh[pZ].bcX = pw) : this.bKD[this.bKD.length - 1].bKh[pZ] = pi : console.error('Invalid crack update snapshot state!!!'),
                     pU;
                 }
                 ,
                 pB.bOv = function(pM, pX, pm, pw, pl, pC) {
-                    var pN = (0,
-                    rf.u)(pM, pX, pm)
+                    var pN =
+                    rf.u(pM, pX, pm)
                       , pZ = this.bmj.bNJ.bvw.bwN(pM, pX, pm)
                       , ph = this.bmj.bNJ.bbg(pM, pX, pm);
                     this.bmj.bNJ.bFb(pM, pX, pm, pw, pC);
@@ -14911,7 +15200,7 @@
                         'bKh': (po = {},
                         po[pN] = pU,
                         po)
-                    }) : this.bKD[this.bKD.length - 1].bjV === pl ? pN in this.bKD[this.bKD.length - 1].bKh ? this.bKD[this.bKD.length - 1].bKh[pN].bcL = pw : this.bKD[this.bKD.length - 1].bKh[pN] = pU : console.error('Invalid\x20block\x20update\x20snapshot\x20state!!!');
+                    }) : this.bKD[this.bKD.length - 1].bjV === pl ? pN in this.bKD[this.bKD.length - 1].bKh ? this.bKD[this.bKD.length - 1].bKh[pN].bcL = pw : this.bKD[this.bKD.length - 1].bKh[pN] = pU : console.error('Invalid block update snapshot state!!!');
                 }
                 ,
                 pB.bck = function(pM) {
@@ -14990,7 +15279,7 @@
                 function pQ(pM) {
                     this.bcM = pM;
                     var pX = new ET.v();
-                    pX.setPositions([-r5.A.bba / 0x2, -r5.A.bba / 0x2, -r5.A.bba / 0x2, r5.A.bba / 0x2, -r5.A.bba / 0x2, -r5.A.bba / 0x2, r5.A.bba / 0x2, -r5.A.bba / 0x2, -r5.A.bba / 0x2, r5.A.bba / 0x2, -r5.A.bba / 0x2, r5.A.bba / 0x2, r5.A.bba / 0x2, -r5.A.bba / 0x2, r5.A.bba / 0x2, -r5.A.bba / 0x2, -r5.A.bba / 0x2, r5.A.bba / 0x2, -r5.A.bba / 0x2, -r5.A.bba / 0x2, r5.A.bba / 0x2, -r5.A.bba / 0x2, -r5.A.bba / 0x2, -r5.A.bba / 0x2, -r5.A.bba / 0x2, r5.A.bba / 0x2, -r5.A.bba / 0x2, r5.A.bba / 0x2, r5.A.bba / 0x2, -r5.A.bba / 0x2, r5.A.bba / 0x2, r5.A.bba / 0x2, -r5.A.bba / 0x2, r5.A.bba / 0x2, r5.A.bba / 0x2, r5.A.bba / 0x2, r5.A.bba / 0x2, r5.A.bba / 0x2, r5.A.bba / 0x2, -r5.A.bba / 0x2, r5.A.bba / 0x2, r5.A.bba / 0x2, -r5.A.bba / 0x2, r5.A.bba / 0x2, r5.A.bba / 0x2, -r5.A.bba / 0x2, r5.A.bba / 0x2, -r5.A.bba / 0x2, -r5.A.bba / 0x2, -r5.A.bba / 0x2, -r5.A.bba / 0x2, -r5.A.bba / 0x2, r5.A.bba / 0x2, -r5.A.bba / 0x2, -r5.A.bba / 0x2, r5.A.bba / 0x2, -r5.A.bba / 0x2, r5.A.bba / 0x2, r5.A.bba / 0x2, -r5.A.bba / 0x2, r5.A.bba / 0x2, r5.A.bba / 0x2, -r5.A.bba / 0x2, r5.A.bba / 0x2, -r5.A.bba / 0x2, -r5.A.bba / 0x2, r5.A.bba / 0x2, -r5.A.bba / 0x2, -r5.A.bba / 0x2, r5.A.bba / 0x2, -r5.A.bba / 0x2, r5.A.bba / 0x2, r5.A.bba / 0x2, -r5.A.bba / 0x2, r5.A.bba / 0x2, r5.A.bba / 0x2, r5.A.bba / 0x2, r5.A.bba / 0x2, r5.A.bba / 0x2, r5.A.bba / 0x2, r5.A.bba / 0x2, -r5.A.bba / 0x2, r5.A.bba / 0x2, r5.A.bba / 0x2, -r5.A.bba / 0x2, r5.A.bba / 0x2, r5.A.bba / 0x2, -r5.A.bba / 0x2, -r5.A.bba / 0x2, r5.A.bba / 0x2]),
+                    pX.setPositions([-r5.A.bba / 2, -r5.A.bba / 2, -r5.A.bba / 2, r5.A.bba / 2, -r5.A.bba / 2, -r5.A.bba / 2, r5.A.bba / 2, -r5.A.bba / 2, -r5.A.bba / 2, r5.A.bba / 2, -r5.A.bba / 2, r5.A.bba / 2, r5.A.bba / 2, -r5.A.bba / 2, r5.A.bba / 2, -r5.A.bba / 2, -r5.A.bba / 2, r5.A.bba / 2, -r5.A.bba / 2, -r5.A.bba / 2, r5.A.bba / 2, -r5.A.bba / 2, -r5.A.bba / 2, -r5.A.bba / 2, -r5.A.bba / 2, r5.A.bba / 2, -r5.A.bba / 2, r5.A.bba / 2, r5.A.bba / 2, -r5.A.bba / 2, r5.A.bba / 2, r5.A.bba / 2, -r5.A.bba / 2, r5.A.bba / 2, r5.A.bba / 2, r5.A.bba / 2, r5.A.bba / 2, r5.A.bba / 2, r5.A.bba / 2, -r5.A.bba / 2, r5.A.bba / 2, r5.A.bba / 2, -r5.A.bba / 2, r5.A.bba / 2, r5.A.bba / 2, -r5.A.bba / 2, r5.A.bba / 2, -r5.A.bba / 2, -r5.A.bba / 2, -r5.A.bba / 2, -r5.A.bba / 2, -r5.A.bba / 2, r5.A.bba / 2, -r5.A.bba / 2, -r5.A.bba / 2, r5.A.bba / 2, -r5.A.bba / 2, r5.A.bba / 2, r5.A.bba / 2, -r5.A.bba / 2, r5.A.bba / 2, r5.A.bba / 2, -r5.A.bba / 2, r5.A.bba / 2, -r5.A.bba / 2, -r5.A.bba / 2, r5.A.bba / 2, -r5.A.bba / 2, -r5.A.bba / 2, r5.A.bba / 2, -r5.A.bba / 2, r5.A.bba / 2, r5.A.bba / 2, -r5.A.bba / 2, r5.A.bba / 2, r5.A.bba / 2, r5.A.bba / 2, r5.A.bba / 2, r5.A.bba / 2, r5.A.bba / 2, r5.A.bba / 2, -r5.A.bba / 2, r5.A.bba / 2, r5.A.bba / 2, -r5.A.bba / 2, r5.A.bba / 2, r5.A.bba / 2, -r5.A.bba / 2, -r5.A.bba / 2, r5.A.bba / 2]),
                     this.bcS = new EV.G({
                         'color': 0,
                         'linewidth': 0.0012,
@@ -15048,25 +15337,25 @@
                 function pQ(pM) {
                     var pX = this;
                     this.buS = (function() {
-                        var pm = (0,
-                        rj.A)(rv().mark(function pw(pl) {
+                        var pm =
+                        rj.A(rv().mark(function pw(pl) {
                             var pC, pN, pZ, ph;
                             return rv().wrap(function(po) {
                                 for (; ; )
                                     switch (po.prev = po.next) {
                                     case 0:
                                         return pX._controlRenderer.bvu(FH.W.bcC, 0, 1),
-                                        po.next = 0x3,
+                                        po.next = 3,
                                         rn.A.bXp(EG, true);
-                                    case 0x3:
+                                    case 3:
                                         pC = po.sent,
                                         pN = new r4.SpriteMaterial({
                                             'map': pC,
                                             'transparent': true
                                         }),
                                         pZ = new r4.Sprite(pN),
-                                        0x3,
-                                        pC && pZ.scale.set(0x3, pC.image.height / pC.image.width * 0x3, 1),
+                                        3,
+                                        pC && pZ.scale.set(3, pC.image.height / pC.image.width * 3, 1),
                                         pX.bAc.add(pZ),
                                         ph = {
                                             'bcO': pZ,
@@ -15075,7 +15364,7 @@
                                         },
                                         pX.bcY(ph),
                                         pX.bcx.push(ph);
-                                    case 0xc:
+                                    case 12:
                                     case 'end':
                                         return po.stop();
                                     }
@@ -15106,16 +15395,16 @@
                         true;
                     pX > pm && (pM.bcO.material.opacity = (pm + pw - pX) / pw);
                     var pl = this._controlRenderer.bXl.bKM().bbB
-                      , pC = (0,
-                    ri.LX)(-Math.sin(pl), -Math.cos(pl))
-                      , pN = (0,
-                    ri.LX)(pM.bcu.bbZ - this._controlRenderer.bNg.bcG.bbZ, pM.bcu.bbd - this._controlRenderer.bNg.bcG.bbd);
+                      , pC =
+                    ri.LX(-Math.sin(pl), -Math.cos(pl))
+                      , pN =
+                    ri.LX(pM.bcu.bbZ - this._controlRenderer.bNg.bcG.bbZ, pM.bcu.bbd - this._controlRenderer.bNg.bcG.bbd);
                     (0,
                     ri.yG)(pN);
-                    var pZ = Math.PI - (Math.atan2(pC.bbZ * pN.bbB - pC.bbB * pN.bbZ, pC.bbZ * pN.bbZ + pC.bbB * pN.bbB) + Math.PI / 0x2);
-                    return pM.bcO.position.x = 0xa * Math.cos(pZ),
-                    pM.bcO.position.y = 0xa * Math.sin(pZ),
-                    pM.bcO.material.rotation = pZ - Math.PI / 0x2,
+                    var pZ = Math.PI - (Math.atan2(pC.bbZ * pN.bbB - pC.bbB * pN.bbZ, pC.bbZ * pN.bbZ + pC.bbB * pN.bbB) + Math.PI / 2);
+                    return pM.bcO.position.x = 10 * Math.cos(pZ),
+                    pM.bcO.position.y = 10 * Math.sin(pZ),
+                    pM.bcO.material.rotation = pZ - Math.PI / 2,
                     false;
                 }
                 ,
@@ -15164,7 +15453,7 @@
                         return;
                     if ('string' == typeof pm)
                         return EI(pm, pw);
-                    var pl = Object.prototype.toString.call(pm).slice(0x8, -1);
+                    var pl = Object.prototype.toString.call(pm).slice(8, -1);
                     'Object' === pl && pm.constructor && (pl = pm.constructor.name);
                     if ('Map' === pl || 'Set' === pl)
                         return Array.from(pm);
@@ -15183,7 +15472,7 @@
                     }
                     ;
                 }
-                throw new TypeError('Invalid\x20attempt\x20to\x20iterate\x20non-iterable\x20instance.\x0aIn\x20order\x20to\x20be\x20iterable,\x20non-array\x20objects\x20must\x20have\x20a\x20[Symbol.iterator]()\x20method.');
+                throw new TypeError('Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.');
             }
             function EI(pQ, pB) {
                 (null == pB || pB > pQ.length) && (pB = pQ.length);
@@ -15211,14 +15500,14 @@
                                   , pV = rc.A.bbT(po.bIE.bbZ, po.bIE.bbB, po.bIE.bbd);
                                 pT.position.set(pV.bbZ, pV.bbB, pV.bbd),
                                 pM.bAc.add(pT);
-                                var ps = (0,
-                                Fm.ik)(po.bLH)
+                                var ps =
+                                Fm.ik(po.bLH)
                                   , pG = new r4.Vector3(ps.bbZ,ps.bbB,ps.bbd)
                                   , pk = new r4.Vector3(pV.bbZ,pV.bbB,pV.bbd)
                                   , pW = new r4.ArrowHelper(pG,pk,1,0xff0000);
                                 pM.bAc.add(pW);
-                                var px = (0,
-                                Ex.q)(pN + '\x20index:\x20' + pl.toString() + '\x20' + po.toString(), 0x40, 0.2);
+                                var px =
+                                Ex.q(pN + ' index: ' + pl.toString() + ' ' + po.toString(), 64, 0.2);
                                 px.material.depthTest = false,
                                 px.position.set(pV.bbZ, pV.bbB + 0.1, pV.bbd),
                                 pM.bAc.add(px),
@@ -15240,12 +15529,12 @@
                                     'side': r4.DoubleSide
                                 })
                                   , pG = new r4.Mesh(pV,ps);
-                                pG.position.set(po.bLM.bbZ + pi / 0x2, po.bLM.bbB + pT / 0x2, po.bLM.bbd + pU / 0x2),
+                                pG.position.set(po.bLM.bbZ + pi / 2, po.bLM.bbB + pT / 2, po.bLM.bbd + pU / 2),
                                 pM.bAc.add(pG);
-                                var pk = (0,
-                                Ex.q)(pN + '\x20index:\x20' + pl.toString() + '\x20' + po.toString(), 0x40, 0.2);
+                                var pk =
+                                Ex.q(pN + ' index: ' + pl.toString() + ' ' + po.toString(), 64, 0.2);
                                 pk.material.depthTest = false,
-                                pk.position.set(po.bLM.bbZ + pi / 0x2, po.bLS.bbB + r5.A.bba + 0.1, po.bLM.bbd + pU / 0x2),
+                                pk.position.set(po.bLM.bbZ + pi / 2, po.bLS.bbB + r5.A.bba + 0.1, po.bLM.bbd + pU / 2),
                                 pM.bAc.add(pk),
                                 pl++;
                             }
@@ -15286,7 +15575,7 @@
                         return;
                     if ('string' == typeof pm)
                         return Eq(pm, pw);
-                    var pl = Object.prototype.toString.call(pm).slice(0x8, -1);
+                    var pl = Object.prototype.toString.call(pm).slice(8, -1);
                     'Object' === pl && pm.constructor && (pl = pm.constructor.name);
                     if ('Map' === pl || 'Set' === pl)
                         return Array.from(pm);
@@ -15305,7 +15594,7 @@
                     }
                     ;
                 }
-                throw new TypeError('Invalid\x20attempt\x20to\x20iterate\x20non-iterable\x20instance.\x0aIn\x20order\x20to\x20be\x20iterable,\x20non-array\x20objects\x20must\x20have\x20a\x20[Symbol.iterator]()\x20method.');
+                throw new TypeError('Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.');
             }
             function Eq(pQ, pB) {
                 (null == pB || pB > pQ.length) && (pB = pQ.length);
@@ -15331,8 +15620,8 @@
                             if (void 0 === pC.chunkPos) {
                                 var pN = this.buC.bXl.bXq.bXi
                                   , pZ = rc.A.bbJ(pN.bLe.bbZ, pN.bLe.bbB, pN.bLe.bbd)
-                                  , ph = (0,
-                                rZ.VB)(pZ.bbZ * r5.A.bIk + r5.A.bIk / 0x2, pZ.bbB * r5.A.bIk + r5.A.bIk / 0x2, pZ.bbd * r5.A.bIk + r5.A.bIk / 0x2);
+                                  , ph =
+                                rZ.VB(pZ.bbZ * r5.A.bIk + r5.A.bIk / 2, pZ.bbB * r5.A.bIk + r5.A.bIk / 2, pZ.bbd * r5.A.bIk + r5.A.bIk / 2);
                                 pC.object.position.set(ph.bbZ, ph.bbB, ph.bbd);
                             }
                         }
@@ -15351,7 +15640,7 @@
                         }
                     if (void 0 === pM.id && (pM.id = pQ._nextChunkAreaId++),
                     !this.bcP.has(pM.id)) {
-                        for (var pC = r5.A.bIk / r5.A.bba / 0x2, pN = [], pZ = -pC; pZ <= pC; pZ++)
+                        for (var pC = r5.A.bIk / r5.A.bba / 2, pN = [], pZ = -pC; pZ <= pC; pZ++)
                             for (var ph = -pC; ph <= pC; ph++)
                                 pZ !== -pC && pZ !== pC && ph !== -pC && ph !== pC || (pN.push(pZ * r5.A.bba, ph * r5.A.bba, pC * r5.A.bba),
                                 pN.push(pZ * r5.A.bba, ph * r5.A.bba, -pC * r5.A.bba));
@@ -15372,7 +15661,7 @@
                             'transparent': true
                         })
                           , pG = new Ei.X(pV,ps);
-                        void 0 !== pM.chunkPos && pG.position.set(pM.chunkPos.bbZ * r5.A.bIk + r5.A.bIk / 0x2, pM.chunkPos.bbB * r5.A.bIk + r5.A.bIk / 0x2, pM.chunkPos.bbd * r5.A.bIk + r5.A.bIk / 0x2);
+                        void 0 !== pM.chunkPos && pG.position.set(pM.chunkPos.bbZ * r5.A.bIk + r5.A.bIk / 2, pM.chunkPos.bbB * r5.A.bIk + r5.A.bIk / 2, pM.chunkPos.bbd * r5.A.bIk + r5.A.bIk / 2);
                         var pk = {
                             'material': ps,
                             'object': pG,
@@ -15438,15 +15727,15 @@
                     this.bYA = -0.2,
                     this.bYN = 0.2,
                     this.bYW = (function() {
-                        var ph = (0,
-                        rj.A)(rv().mark(function po(pU) {
+                        var ph =
+                        rj.A(rv().mark(function po(pU) {
                             return rv().wrap(function(pi) {
                                 for (; ; )
                                     switch (pi.prev = pi.next) {
                                     case 0:
-                                        return pi.next = 0x2,
+                                        return pi.next = 2,
                                         pl.bUz(pU);
-                                    case 0x2:
+                                    case 2:
                                     case 'end':
                                         return pi.stop();
                                     }
@@ -15507,7 +15796,7 @@
                         'depthTest': false
                     });
                     this.bYY = new r4.Sprite(pC),
-                    this.bYY.scale.set(0xa, 0xa, 0),
+                    this.bYY.scale.set(10, 10, 0),
                     this.bYY.position.set(0, 0, -1),
                     this.bYY.visible = false,
                     this.bux.bjo.add(this.bYY);
@@ -15518,7 +15807,7 @@
                         'depthTest': false
                     });
                     this.bYx = new r4.Sprite(pN),
-                    this.bYx.scale.set(0xa, 0xa, 0),
+                    this.bYx.scale.set(10, 10, 0),
                     this.bYx.position.set(0, 0, -1),
                     this.bYx.visible = false,
                     this.bux.bjo.add(this.bYx);
@@ -15528,7 +15817,7 @@
                         'depthTest': false
                     });
                     this.bYg = new r4.Sprite(pZ),
-                    this.bYg.scale.set(0xa, 0xa, 0),
+                    this.bYg.scale.set(10, 10, 0),
                     this.bYg.position.set(0, 0, -1),
                     this.bYg.visible = false,
                     this.bux.bjo.add(this.bYg),
@@ -15536,17 +15825,17 @@
                 }
                 var pB = pQ.prototype;
                 return pB.bNb = (function() {
-                    var pM = (0,
-                    rj.A)(rv().mark(function pX() {
+                    var pM =
+                    rj.A(rv().mark(function pX() {
                         return rv().wrap(function(pm) {
                             for (; ; )
                                 switch (pm.prev = pm.next) {
                                 case 0:
-                                    return pm.next = 0x2,
+                                    return pm.next = 2,
                                     this.bAl.await();
-                                case 0x2:
+                                case 2:
                                     return pm.abrupt('return', pm.sent);
-                                case 0x3:
+                                case 3:
                                 case 'end':
                                     return pm.stop();
                                 }
@@ -15558,16 +15847,16 @@
                     ;
                 }()),
                 pB.bAq = (function() {
-                    var pM = (0,
-                    rj.A)(rv().mark(function pX() {
+                    var pM =
+                    rj.A(rv().mark(function pX() {
                         var pm, pw;
                         return rv().wrap(function(pl) {
                             for (; ; )
                                 switch (pl.prev = pl.next) {
                                 case 0:
-                                    return pl.next = 0x2,
+                                    return pl.next = 2,
                                     rn.A.bNF('right_arm');
-                                case 0x2:
+                                case 2:
                                     return (pm = pl.sent) && (this.bNs = pm.bND,
                                     this.bNs.position.set(0.25, -0.4, -0.35),
                                     this.bNs.scale.set(0.5, 0.5, 0.5),
@@ -15577,9 +15866,9 @@
                                     this.bYJ = new r4.AnimationMixer(this.bNs),
                                     this.bYG = this.bYJ.clipAction(pm.bNy[EK]),
                                     this.bYG.setLoop(r4.LoopOnce, 1)),
-                                    pl.next = 0x6,
+                                    pl.next = 6,
                                     rn.A.bNF('right_arm_with_item');
-                                case 0x6:
+                                case 6:
                                     (pw = pl.sent) && (this.bYl = pw.bND,
                                     this.bYl.position.set(0.3, -0.35, -0.5),
                                     this.bYq = this.bYl.getObjectByName('Hand'),
@@ -15591,7 +15880,7 @@
                                     this.bYo.clampWhenFinished = true,
                                     this.bYP = this.bYi.clipAction(pw.bNy[EA])),
                                     this.bAl.release();
-                                case 0x9:
+                                case 9:
                                 case 'end':
                                     return pl.stop();
                                 }
@@ -15609,41 +15898,41 @@
                 }
                 ,
                 pB.bUz = (function() {
-                    var pM = (0,
-                    rj.A)(rv().mark(function pX(pm, pw) {
+                    var pM =
+                    rj.A(rv().mark(function pX(pm, pw) {
                         var pl, pC, pN, pZ, ph = this;
                         return rv().wrap(function(po) {
                             for (; ; )
                                 switch (po.prev = po.next) {
                                 case 0:
                                     if (this.bNs && this.bYl && this.bYq) {
-                                        po.next = 0x2;
+                                        po.next = 2;
                                         break;
                                     }
                                     return po.abrupt('return');
-                                case 0x2:
+                                case 2:
                                     if (pl = ++this.bAi,
                                     pC = new r4.Vector3(0,-0.4,0.2),
                                     null == pw) {
-                                        po.next = 0x8;
+                                        po.next = 8;
                                         break;
                                     }
                                     po.t0 = pw,
-                                    po.next = 0xb;
+                                    po.next = 11;
                                     break;
-                                case 0x8:
-                                    return po.next = 0xa,
+                                case 8:
+                                    return po.next = 10,
                                     pm.bfE.bUn();
-                                case 0xa:
+                                case 10:
                                     po.t0 = po.sent;
-                                case 0xb:
+                                case 11:
                                     if (pN = po.t0,
                                     this.bAi === pl) {
-                                        po.next = 0xe;
+                                        po.next = 14;
                                         break;
                                     }
                                     return po.abrupt('return');
-                                case 0xe:
+                                case 14:
                                     if (pZ = function() {}
                                     ,
                                     void 0 !== this.bYT) {
@@ -15732,8 +16021,8 @@
                 }
                 ,
                 pB.bxD = function(pM, pX) {
-                    var pm = (0,
-                    rC.n0)(this.bYz);
+                    var pm =
+                    rC.n0(this.bYz);
                     this.bYB ? pM >= pm && (this.bxh && this.bxk && (this.bxk.timeScale = this.bxh.getClip().duration / (0,
                     rC.Zm)(pX) * 1.1,
                     this.bxh.play()),
@@ -15741,8 +16030,8 @@
                     this.bxF(),
                     this.bYu.position.set(0, 0, 0),
                     this.bYH = this.bYz,
-                    this.bYR = (0,
-                    rC.Zm)(pX - pm) + 0.1),
+                    this.bYR =
+                    rC.Zm(pX - pm) + 0.1),
                     this.bxy && this.bYT && 1 === this.bYT.children.length && this.bYT.add(this.bYu);
                 }
                 ,
@@ -15766,21 +16055,21 @@
                 pB.bfc = function(pM, pX, pm, pw, pl, pC, pN, pZ, ph) {
                     void 0 === pw && (pw = 1),
                     void 0 === pC && (pC = 0),
-                    void 0 === pN && (pN = 0x20 * r5.A.bba),
-                    void 0 === pZ && (pZ = 0x4 * r5.A.bba),
-                    void 0 === ph && (ph = 0x2),
-                    this.bOC(pM, pX, Math.random() * pm - pm / 0x2, pw, pl, pC, pN, pZ, ph);
+                    void 0 === pN && (pN = 32 * r5.A.bba),
+                    void 0 === pZ && (pZ = 4 * r5.A.bba),
+                    void 0 === ph && (ph = 2),
+                    this.bOC(pM, pX, Math.random() * pm - pm / 2, pw, pl, pC, pN, pZ, ph);
                 }
                 ,
                 pB.bfK = function(pM, pX, pm, pw, pl) {
                     void 0 === pm && (pm = 1),
                     void 0 === pl && (pl = 0),
-                    this.bvu(pM, Math.random() * pX - pX / 0x2, pm, pw, pl);
+                    this.bvu(pM, Math.random() * pX - pX / 2, pm, pw, pl);
                 }
                 ,
                 pB.bvu = (function() {
-                    var pM = (0,
-                    rj.A)(rv().mark(function pX(pm, pw, pl, pC, pN) {
+                    var pM =
+                    rj.A(rv().mark(function pX(pm, pw, pl, pC, pN) {
                         var pZ, ph, po;
                         return rv().wrap(function(pU) {
                             for (; ; )
@@ -15790,32 +16079,32 @@
                                     void 0 === pl && (pl = 1),
                                     void 0 === pN && (pN = 0),
                                     !(pN > 0)) {
-                                        pU.next = 0x9;
+                                        pU.next = 9;
                                         break;
                                     }
                                     if (pC || (pC = pm.toString()),
                                     !(void 0 !== (pZ = this.bYm[pC]) && Date.now() - pZ < pN)) {
-                                        pU.next = 0x8;
+                                        pU.next = 8;
                                         break;
                                     }
                                     return pU.abrupt('return');
-                                case 0x8:
+                                case 8:
                                     this.bYm[pC] = Date.now();
-                                case 0x9:
-                                    return pU.next = 0xb,
+                                case 9:
+                                    return pU.next = 11,
                                     rn.A.bxB(pm);
-                                case 0xb:
+                                case 11:
                                     if (void 0 !== (ph = pU.sent)) {
-                                        pU.next = 0xe;
+                                        pU.next = 14;
                                         break;
                                     }
                                     return pU.abrupt('return');
-                                case 0xe:
+                                case 14:
                                     (po = new r4.Audio(this.bYU)).setBuffer(ph),
                                     po.detune = pw,
                                     po.gain.gain.value = pl * (this.bjX.bxZ * this.bjX.bxZ),
                                     po.play();
-                                case 0x13:
+                                case 19:
                                 case 'end':
                                     return pU.stop();
                                 }
@@ -15827,8 +16116,8 @@
                     ;
                 }()),
                 pB.bOC = (function() {
-                    var pM = (0,
-                    rj.A)(rv().mark(function pX(pm, pw, pl, pC, pN, pZ, ph, po, pU) {
+                    var pM =
+                    rj.A(rv().mark(function pX(pm, pw, pl, pC, pN, pZ, ph, po, pU) {
                         var pi, pT, pV, ps, pG = this;
                         return rv().wrap(function(pk) {
                             for (; ; )
@@ -15837,38 +16126,38 @@
                                     if (void 0 === pl && (pl = 0),
                                     void 0 === pC && (pC = 1),
                                     void 0 === pZ && (pZ = 0),
-                                    void 0 === ph && (ph = 0x20 * r5.A.bba),
-                                    void 0 === po && (po = 0x4 * r5.A.bba),
-                                    void 0 === pU && (pU = 0x2),
+                                    void 0 === ph && (ph = 32 * r5.A.bba),
+                                    void 0 === po && (po = 4 * r5.A.bba),
+                                    void 0 === pU && (pU = 2),
                                     !((0,
                                     rZ.x6)(pm, this.bmj.bcG) >= ph * ph)) {
-                                        pk.next = 0x8;
+                                        pk.next = 8;
                                         break;
                                     }
                                     return pk.abrupt('return');
-                                case 0x8:
+                                case 8:
                                     if (!(pZ > 0)) {
-                                        pk.next = 0xe;
+                                        pk.next = 14;
                                         break;
                                     }
                                     if (pN || (pN = pw.toString()),
                                     !(void 0 !== (pi = this.bYm[pN]) && Date.now() - pi < pZ)) {
-                                        pk.next = 0xd;
+                                        pk.next = 13;
                                         break;
                                     }
                                     return pk.abrupt('return');
-                                case 0xd:
+                                case 13:
                                     this.bYm[pN] = Date.now();
-                                case 0xe:
-                                    return pk.next = 0x10,
+                                case 14:
+                                    return pk.next = 16,
                                     rn.A.bxB(pw);
-                                case 0x10:
+                                case 16:
                                     if (void 0 !== (pT = pk.sent)) {
-                                        pk.next = 0x13;
+                                        pk.next = 19;
                                         break;
                                     }
                                     return pk.abrupt('return');
-                                case 0x13:
+                                case 19:
                                     (pV = new r4.PositionalAudio(this.bYU)).setBuffer(pT),
                                     pV.detune = pl,
                                     pV.gain.gain.value = pC * (this.bjX.bxZ * this.bjX.bxZ),
@@ -15910,10 +16199,10 @@
                     var pm = this.bQL.bbg(pX.bbZ, pX.bbB, pX.bbd)
                       , pw = this.bYc[pm] === Fw.B.bCg;
                     this.bYg.visible = pw && this.bQL.bXq.bXi.bWU !== Fc.f.bCV,
-                    this.bYY.visible = (0,
-                    rI.lk)(pm),
-                    this.bYx.visible = (0,
-                    rI.Qp)(pm);
+                    this.bYY.visible =
+                    rI.lk(pm),
+                    this.bYx.visible =
+                    rI.Qp(pm);
                 }
                 ,
                 pB.bNl = function(pM, pX) {
@@ -15937,12 +16226,12 @@
                 ,
                 pB.bxz = function(pM, pX) {
                     var pm = this.bjX.bjw
-                      , pw = 0xa;
+                      , pw = 10;
                     this.bQL.bXq.bXi.bWU === Fc.f.bWj ? (pm = this.bjX.bjw * (1 + 0.15 * this.bjX.bxA),
-                    pw = 0x5) : this.bQL.bXq.bXi.bWU === Fc.f.bCE && (pm = this.bjX.bjw * (1 + (this.bQL.bOT.bQa ? 0.3 : 0.15) * this.bjX.bxA),
-                    pw = 0x5),
+                    pw = 5) : this.bQL.bXq.bXi.bWU === Fc.f.bCE && (pm = this.bjX.bjw * (1 + (this.bQL.bOT.bQa ? 0.3 : 0.15) * this.bjX.bxA),
+                    pw = 5),
                     0 !== this.bYt && (pm = this.bjX.bjw * (1 + this.bYt),
-                    pw = 0x5);
+                    pw = 5);
                     var pl = Math.abs(pm - this.bux.bjP.fov)
                       , pC = pm - this.bux.bjP.fov < 0 ? -1 : 1;
                     this.bux.bjP.fov += Math.min(pl * pw * pM, pl) * pC,
@@ -16021,8 +16310,8 @@
                 }
                 ,
                 pB.bYV = (function() {
-                    var pM = (0,
-                    rj.A)(rv().mark(function pX(pm, pw, pl) {
+                    var pM =
+                    rj.A(rv().mark(function pX(pm, pw, pl) {
                         var pC, pN, pZ, ph;
                         return rv().wrap(function(po) {
                             for (; ; )
@@ -16030,43 +16319,43 @@
                                 case 0:
                                     if (!((0,
                                     EM.O)(pm) instanceof Fj.A)) {
-                                        po.next = 0x9;
+                                        po.next = 9;
                                         break;
                                     }
                                     return this.bxk = new r4.AnimationMixer(pw),
-                                    po.next = 0x5,
+                                    po.next = 5,
                                     (0,
                                     EM.O)(pm).bWK();
-                                case 0x5:
+                                case 5:
                                     if (pZ = po.sent,
                                     this.bAi === pl) {
-                                        po.next = 0x8;
+                                        po.next = 8;
                                         break;
                                     }
                                     return po.abrupt('return');
-                                case 0x8:
+                                case 8:
                                     pZ && (this.bxh = this.bxk.clipAction(pZ.bNy[Ej]),
                                     this.bxh.setLoop(r4.LoopOnce, 1),
                                     this.bxh.clampWhenFinished = true);
-                                case 0x9:
+                                case 9:
                                     this.bxy = void 0,
                                     po.t0 = pm,
-                                    po.next = po.t0 === EX.S.bHY || po.t0 === EX.S.bHr || po.t0 === EX.S.bdI || po.t0 === EX.S.bdy || po.t0 === EX.S.bdn || po.t0 === EX.S.bdm || po.t0 === EX.S.bdQ || po.t0 === EX.S.bdr ? 0xd : 0x18;
+                                    po.next = po.t0 === EX.S.bHY || po.t0 === EX.S.bHr || po.t0 === EX.S.bdI || po.t0 === EX.S.bdy || po.t0 === EX.S.bdn || po.t0 === EX.S.bdm || po.t0 === EX.S.bdQ || po.t0 === EX.S.bdr ? 13 : 0x18;
                                     break;
-                                case 0xd:
-                                    return po.next = 0xf,
+                                case 13:
+                                    return po.next = 15,
                                     rn.A.bNF('arrow');
-                                case 0xf:
+                                case 15:
                                     if (ph = po.sent,
                                     this.bAi === pl) {
-                                        po.next = 0x12;
+                                        po.next = 18;
                                         break;
                                     }
                                     return po.abrupt('return');
-                                case 0x12:
+                                case 18:
                                     return this.bxy = null == ph ? void 0 : ph.bND,
                                     null == (pC = this.bxy) || pC.position.set(0.125, 1.1, -1.85),
-                                    null == (pN = this.bxy) || pN.rotation.set(-Math.PI / 0x2, 0, 0),
+                                    null == (pN = this.bxy) || pN.rotation.set(-Math.PI / 2, 0, 0),
                                     this.bYu.clear(),
                                     this.bYu.add(this.bxy),
                                     po.abrupt('break', 0x18);
@@ -16155,7 +16444,7 @@
                         return;
                     if ('string' == typeof pm)
                         return ED(pm, pw);
-                    var pl = Object.prototype.toString.call(pm).slice(0x8, -1);
+                    var pl = Object.prototype.toString.call(pm).slice(8, -1);
                     'Object' === pl && pm.constructor && (pl = pm.constructor.name);
                     if ('Map' === pl || 'Set' === pl)
                         return Array.from(pm);
@@ -16174,7 +16463,7 @@
                     }
                     ;
                 }
-                throw new TypeError('Invalid\x20attempt\x20to\x20iterate\x20non-iterable\x20instance.\x0aIn\x20order\x20to\x20be\x20iterable,\x20non-array\x20objects\x20must\x20have\x20a\x20[Symbol.iterator]()\x20method.');
+                throw new TypeError('Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.');
             }
             function ED(pQ, pB) {
                 (null == pB || pB > pQ.length) && (pB = pQ.length);
@@ -16206,10 +16495,10 @@
                 pM.bNl = function(pX, pm) {
                     var pw;
                     if (!(this.bXg < 0)) {
-                        var pl, pC = true, pN = (0,
-                        rZ.VB)(0, 0, 0), pZ = null == (pw = this.bLs.bNx) ? void 0 : pw.bXG(this.bXg);
-                        if (this.bXg === (0,
-                        ro.A9)())
+                        var pl, pC = true, pN =
+                        rZ.VB(0, 0, 0), pZ = null == (pw = this.bLs.bNx) ? void 0 : pw.bXG(this.bXg);
+                        if (this.bXg ===
+                        ro.A9())
                             (pN = this.bLs.bNx ? (0,
                             rZ.N3)(this.bLs.bNx.bNg.bNG.bXl.bXq.bXi.bLe) : (0,
                             rZ.VB)(0, 0, 0)).bbB += r5.A.bba;
@@ -16218,36 +16507,36 @@
                                 null == (pl = this.bLs.bNx) || pl.bXI(this.bLs.bbb),
                                 pC = false;
                             else
-                                pN = (0,
-                                rZ.VB)(pZ.bAc.position.x, pZ.bAc.position.y, pZ.bAc.position.z),
+                                pN =
+                                rZ.VB(pZ.bAc.position.x, pZ.bAc.position.y, pZ.bAc.position.z),
                                 pZ instanceof EC.A && (pN.bbB += r5.A.bba);
                         }
                         if (pC) {
-                            var ph = (0,
-                            rZ.VB)(this.bLs.bAc.position.x, this.bLs.bAc.position.y, this.bLs.bAc.position.z);
+                            var ph =
+                            rZ.VB(this.bLs.bAc.position.x, this.bLs.bAc.position.y, this.bLs.bAc.position.z);
                             if ((0,
                             rZ.x6)(ph, pN) < 0.2 * 0.2 || (0,
                             rZ.x6)(ph, pN) > 0x19) {
                                 var po;
                                 null == (po = this.bLs.bNx) || po.bXI(this.bLs.bbb);
                             } else {
-                                var pU = (0,
-                                rZ.VB)(pN.bbZ - ph.bbZ, pN.bbB - ph.bbB, pN.bbd - ph.bbd);
+                                var pU =
+                                rZ.VB(pN.bbZ - ph.bbZ, pN.bbB - ph.bbB, pN.bbd - ph.bbd);
                                 (0,
                                 rZ.JA)(pU),
                                 (0,
-                                rZ._P)(pU, 0xa * pX);
-                                var pi = (0,
-                                rZ.VB)(this.bLs.bAc.rotation.x, this.bLs.bAc.rotation.y, this.bLs.bAc.rotation.z)
+                                rZ._P)(pU, 10 * pX);
+                                var pi =
+                                rZ.VB(this.bLs.bAc.rotation.x, this.bLs.bAc.rotation.y, this.bLs.bAc.rotation.z)
                                   , pT = pZ ? (0,
                                 rZ.VB)(pZ.bAc.rotation.x, pZ.bAc.rotation.y, pZ.bAc.rotation.z) : (0,
                                 rZ.VB)(0, 0, 0)
-                                  , pV = (0,
-                                rZ.VB)(pT.bbZ - pi.bbZ, pT.bbB - pi.bbB, pT.bbd - pi.bbd);
+                                  , pV =
+                                rZ.VB(pT.bbZ - pi.bbZ, pT.bbB - pi.bbB, pT.bbd - pi.bbd);
                                 (0,
                                 rZ.JA)(pV),
                                 (0,
-                                rZ._P)(pV, 0x2 * pX),
+                                rZ._P)(pV, 2 * pX),
                                 this.bLs.bAc.position.set(ph.bbZ + pU.bbZ, ph.bbB + pU.bbB, ph.bbd + pU.bbd),
                                 this.bLs.bAc.rotation.set(pi.bbZ + pV.bbZ, pi.bbB + pV.bbB, pi.bbd + pV.bbd),
                                 this.bLs.bAc.updateMatrix();
@@ -16266,31 +16555,31 @@
                     pw.bAE(new En(pw)),
                     pw._entityRendererComponentPickupable = new Eu(pw),
                     pw.bAE(pw._entityRendererComponentPickupable),
-                    pw.bAE(new Ep.A(pw,(0,
-                    Fl.VL)((0,
-                    rZ.VB)(-0.3, -0.3, -0.3), (0,
-                    rZ.VB)(0.3, 0.3, 0.3)))),
+                    pw.bAE(new Ep.A(pw,
+                    Fl.VL((0,
+                    rZ.VB)(-0.3, -0.3, -0.3),
+                    rZ.VB(0.3, 0.3, 0.3)))),
                     pw;
                 }
                 (0,
                 rO.A)(pB, pQ);
                 var pM = pB.prototype;
                 return pM.bAq = (function() {
-                    var pX = (0,
-                    rj.A)(rv().mark(function pm() {
+                    var pX =
+                    rj.A(rv().mark(function pm() {
                         var pw;
                         return rv().wrap(function(pl) {
                             for (; ; )
                                 switch (pl.prev = pl.next) {
                                 case 0:
-                                    return pl.next = 0x2,
+                                    return pl.next = 2,
                                     rn.A.bNF('arrow');
-                                case 0x2:
+                                case 2:
                                     (pw = pl.sent) && (this.bmF = pw.bND,
                                     this.bmF.scale.set(0.5, 0.5, 0.5),
-                                    this.bmF.rotation.set(-Math.PI / 0x2, 0, 0),
+                                    this.bmF.rotation.set(-Math.PI / 2, 0, 0),
                                     this.bAc.add(this.bmF));
-                                case 0x4:
+                                case 4:
                                 case 'end':
                                     return pl.stop();
                                 }
@@ -16324,20 +16613,20 @@
                 rO.A)(pB, pQ);
                 var pM = pB.prototype;
                 return pM.bAq = (function() {
-                    var pX = (0,
-                    rj.A)(rv().mark(function pm() {
+                    var pX =
+                    rj.A(rv().mark(function pm() {
                         var pw;
                         return rv().wrap(function(pl) {
                             for (; ; )
                                 switch (pl.prev = pl.next) {
                                 case 0:
-                                    return pl.next = 0x2,
+                                    return pl.next = 2,
                                     rn.A.bNF('entity/boat');
-                                case 0x2:
+                                case 2:
                                     (pw = pl.sent) && (this.bmf = pw.bND,
                                     this.bmf.scale.set(1, 1, 1),
                                     this.bAc.add(this.bmf));
-                                case 0x4:
+                                case 4:
                                 case 'end':
                                     return pl.stop();
                                 }
@@ -16371,7 +16660,7 @@
                         return;
                     if ('string' == typeof pm)
                         return p4(pm, pw);
-                    var pl = Object.prototype.toString.call(pm).slice(0x8, -1);
+                    var pl = Object.prototype.toString.call(pm).slice(8, -1);
                     'Object' === pl && pm.constructor && (pl = pm.constructor.name);
                     if ('Map' === pl || 'Set' === pl)
                         return Array.from(pm);
@@ -16390,7 +16679,7 @@
                     }
                     ;
                 }
-                throw new TypeError('Invalid\x20attempt\x20to\x20iterate\x20non-iterable\x20instance.\x0aIn\x20order\x20to\x20be\x20iterable,\x20non-array\x20objects\x20must\x20have\x20a\x20[Symbol.iterator]()\x20method.');
+                throw new TypeError('Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.');
             }
             function p4(pQ, pB) {
                 (null == pB || pB > pQ.length) && (pB = pQ.length);
@@ -16401,15 +16690,15 @@
             var p5 = function(pQ) {
                 function pB(pX, pm) {
                     var pw;
-                    return (pw = pQ.call(this, pX, EE.c.bLN, pm) || this).bXr = Math.random() * Math.PI * 0x2,
+                    return (pw = pQ.call(this, pX, EE.c.bLN, pm) || this).bXr = Math.random() * Math.PI * 2,
                     pw.bXo = 1,
                     pw.bAE(new En(pw)),
                     pw._entityRendererComponentPickupable = new Eu(pw),
                     pw.bAE(pw._entityRendererComponentPickupable),
-                    pw.bAE(new Ep.A(pw,(0,
-                    Fl.VL)((0,
-                    rZ.VB)(-0.175, -0.175, -0.175), (0,
-                    rZ.VB)(0.175, 0.175, 0.175)))),
+                    pw.bAE(new Ep.A(pw,
+                    Fl.VL((0,
+                    rZ.VB)(-0.175, -0.175, -0.175),
+                    rZ.VB(0.175, 0.175, 0.175)))),
                     pw;
                 }
                 (0,
@@ -16432,8 +16721,8 @@
                 pM.bNl = function(pX, pm) {
                     pQ.prototype.bNl.call(this, pX, pm),
                     void 0 !== this.bWI && (this.bXr += pX,
-                    this.bWI.position.set(0, Math.cos(0x2 * this.bXr) * (r5.A.bba / 0x10) + 0.1, 0),
-                    this.bAc.rotation.set(0, this.bXr / 0x2, 0),
+                    this.bWI.position.set(0, Math.cos(2 * this.bXr) * (r5.A.bba / 16) + 0.1, 0),
+                    this.bAc.rotation.set(0, this.bXr / 2, 0),
                     this.bWI.updateMatrix(),
                     this.bAc.updateMatrix());
                 }
@@ -16455,45 +16744,45 @@
                 pM.bWX = function(pX) {}
                 ,
                 pM.bXP = (function() {
-                    var pX = (0,
-                    rj.A)(rv().mark(function pm(pw, pl) {
+                    var pX =
+                    rj.A(rv().mark(function pm(pw, pl) {
                         var pC, pN, pZ, ph, po;
                         return rv().wrap(function(pU) {
                             for (; ; )
                                 switch (pU.prev = pU.next) {
                                 case 0:
-                                    if (pN = (0,
-                                    EM.O)(pw),
+                                    if (pN =
+                                    EM.O(pw),
                                     null == pl) {
-                                        pU.next = 0x5;
+                                        pU.next = 5;
                                         break;
                                     }
                                     pU.t0 = pl,
-                                    pU.next = 0x8;
+                                    pU.next = 8;
                                     break;
-                                case 0x5:
-                                    return pU.next = 0x7,
+                                case 5:
+                                    return pU.next = 7,
                                     pN.bXT();
-                                case 0x7:
+                                case 7:
                                     pU.t0 = pU.sent;
-                                case 0x8:
+                                case 8:
                                     return pZ = pU.t0,
                                     this.bNu(),
                                     this.bWI = new r4.Object3D().add(pZ),
                                     this.bAc.add(this.bWI),
                                     pU.t1 = r4.MeshBasicMaterial,
-                                    pU.next = 0xf,
+                                    pU.next = 15,
                                     rn.A.bXp(p2, false);
-                                case 0xf:
+                                case 15:
                                     if (pU.t2 = pC = pU.sent,
                                     null == pU.t2) {
-                                        pU.next = 0x14;
+                                        pU.next = 20;
                                         break;
                                     }
                                     pU.t3 = pC,
                                     pU.next = 0x15;
                                     break;
-                                case 0x14:
+                                case 20:
                                     pU.t3 = null;
                                 case 0x15:
                                     pU.t4 = pU.t3,
@@ -16508,7 +16797,7 @@
                                     this.bXa = new r4.Mesh(po,ph),
                                     this.bXa.position.set(0, -0.1, 0),
                                     this.bXa.scale.set(0.35, 0.35, 1),
-                                    this.bXa.rotation.set(-Math.PI / 0x2, 0, 0),
+                                    this.bXa.rotation.set(-Math.PI / 2, 0, 0),
                                     this.bAc.add(this.bXa);
                                 case 0x1e:
                                 case 'end':
@@ -16527,10 +16816,10 @@
                 function pB(pX, pm) {
                     var pw;
                     return (pw = pQ.call(this, pX, EE.c.bLX, pm) || this).bAq(),
-                    pw.bAE(new Ep.A(pw,(0,
-                    Fl.VL)((0,
-                    rZ.VB)(-0.5, 0, -0.5), (0,
-                    rZ.VB)(0.5, 1, 0.5)))),
+                    pw.bAE(new Ep.A(pw,
+                    Fl.VL((0,
+                    rZ.VB)(-0.5, 0, -0.5),
+                    rZ.VB(0.5, 1, 0.5)))),
                     pw.bAV = new ES.A(pw),
                     pw.bAE(pw.bAV),
                     pw;
@@ -16539,23 +16828,23 @@
                 rO.A)(pB, pQ);
                 var pM = pB.prototype;
                 return pM.bAq = (function() {
-                    var pX = (0,
-                    rj.A)(rv().mark(function pm() {
+                    var pX =
+                    rj.A(rv().mark(function pm() {
                         var pw, pl = this;
                         return rv().wrap(function(pC) {
                             for (; ; )
                                 switch (pC.prev = pC.next) {
                                 case 0:
-                                    return pC.next = 0x2,
+                                    return pC.next = 2,
                                     rn.A.bNF('entity/sheep');
-                                case 0x2:
+                                case 2:
                                     (pw = pC.sent) && (this.bmD = pw.bND,
                                     this.bmD.scale.set(1, 1, 1),
                                     this.bAc.add(this.bmD),
                                     this.bmD.traverse(function(pN) {
                                         pN instanceof r4.Mesh && pl.bAV.bNO(pN.material);
                                     }));
-                                case 0x4:
+                                case 4:
                                 case 'end':
                                     return pC.stop();
                                 }
@@ -16588,7 +16877,7 @@
                         return;
                     if ('string' == typeof pm)
                         return p8(pm, pw);
-                    var pl = Object.prototype.toString.call(pm).slice(0x8, -1);
+                    var pl = Object.prototype.toString.call(pm).slice(8, -1);
                     'Object' === pl && pm.constructor && (pl = pm.constructor.name);
                     if ('Map' === pl || 'Set' === pl)
                         return Array.from(pm);
@@ -16607,7 +16896,7 @@
                     }
                     ;
                 }
-                throw new TypeError('Invalid\x20attempt\x20to\x20iterate\x20non-iterable\x20instance.\x0aIn\x20order\x20to\x20be\x20iterable,\x20non-array\x20objects\x20must\x20have\x20a\x20[Symbol.iterator]()\x20method.');
+                throw new TypeError('Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.');
             }
             function p8(pQ, pB) {
                 (null == pB || pB > pQ.length) && (pB = pQ.length);
@@ -16622,10 +16911,10 @@
                     pw.bAx = false,
                     pw.bmh = 0,
                     pw.bmk = 0,
-                    pw.bAE(new Ep.A(pw,(0,
-                    Fl.VL)((0,
-                    rZ.VB)(-0.5, 0, -0.5), (0,
-                    rZ.VB)(0.5, 1, 0.5)))),
+                    pw.bAE(new Ep.A(pw,
+                    Fl.VL((0,
+                    rZ.VB)(-0.5, 0, -0.5),
+                    rZ.VB(0.5, 1, 0.5)))),
                     pw.bAV = new ES.A(pw),
                     pw.bAE(pw.bAV),
                     pw;
@@ -16634,23 +16923,23 @@
                 rO.A)(pB, pQ);
                 var pM = pB.prototype;
                 return pM.bAq = (function() {
-                    var pX = (0,
-                    rj.A)(rv().mark(function pm() {
+                    var pX =
+                    rj.A(rv().mark(function pm() {
                         var pw, pl = this;
                         return rv().wrap(function(pC) {
                             for (; ; )
                                 switch (pC.prev = pC.next) {
                                 case 0:
-                                    return pC.next = 0x2,
+                                    return pC.next = 2,
                                     rn.A.bNF('entity/slime');
-                                case 0x2:
+                                case 2:
                                     (pw = pC.sent) && (this.bmD = pw.bND,
                                     this.bmD.scale.set(1, 1, 1),
                                     this.bAc.add(this.bmD),
                                     this.bmD.traverse(function(pN) {
                                         pN instanceof r4.Mesh && pl.bAV.bNO(pN.material);
                                     }));
-                                case 0x4:
+                                case 4:
                                 case 'end':
                                     return pC.stop();
                                 }
@@ -16683,13 +16972,13 @@
                     if (!this.bAx) {
                         var pm = Date.now();
                         pm - this.bmh <= 0x64 ? (this.bAc.scale.set((0,
-                        Fm.Cc)(this.bAc.scale.x, 1.2, 0xa * pX), (0,
-                        Fm.Cc)(this.bAc.scale.y, 0.8, 0xa * pX), (0,
-                        Fm.Cc)(this.bAc.scale.z, 1.2, 0xa * pX)),
+                        Fm.Cc)(this.bAc.scale.x, 1.2, 10 * pX),
+                        Fm.Cc(this.bAc.scale.y, 0.8, 10 * pX),
+                        Fm.Cc(this.bAc.scale.z, 1.2, 10 * pX)),
                         this.bAc.updateMatrix()) : pm - this.bmh <= 0x190 && (this.bAc.scale.set((0,
-                        Fm.Cc)(this.bAc.scale.x, 0.85, 0xa * pX), (0,
-                        Fm.Cc)(this.bAc.scale.y, 1.15, 0xa * pX), (0,
-                        Fm.Cc)(this.bAc.scale.z, 0.85, 0xa * pX)),
+                        Fm.Cc)(this.bAc.scale.x, 0.85, 10 * pX),
+                        Fm.Cc(this.bAc.scale.y, 1.15, 10 * pX),
+                        Fm.Cc(this.bAc.scale.z, 0.85, 10 * pX)),
                         this.bAc.updateMatrix());
                     }
                 }
@@ -16698,13 +16987,13 @@
                     if (this.bAx) {
                         var pm = Date.now();
                         pm - this.bmk <= 0xc8 ? (this.bAc.scale.set((0,
-                        Fm.Cc)(this.bAc.scale.x, 1.2, 0xa * pX), (0,
-                        Fm.Cc)(this.bAc.scale.y, 0.8, 0xa * pX), (0,
-                        Fm.Cc)(this.bAc.scale.z, 1.2, 0xa * pX)),
+                        Fm.Cc)(this.bAc.scale.x, 1.2, 10 * pX),
+                        Fm.Cc(this.bAc.scale.y, 0.8, 10 * pX),
+                        Fm.Cc(this.bAc.scale.z, 1.2, 10 * pX)),
                         this.bAc.updateMatrix()) : pm - this.bmk <= 0x190 && (this.bAc.scale.set((0,
-                        Fm.Cc)(this.bAc.scale.x, 1, 0xa * pX), (0,
-                        Fm.Cc)(this.bAc.scale.y, 1, 0xa * pX), (0,
-                        Fm.Cc)(this.bAc.scale.z, 1, 0xa * pX)),
+                        Fm.Cc)(this.bAc.scale.x, 1, 10 * pX),
+                        Fm.Cc(this.bAc.scale.y, 1, 10 * pX),
+                        Fm.Cc(this.bAc.scale.z, 1, 10 * pX)),
                         this.bAc.updateMatrix());
                     }
                 }
@@ -16741,7 +17030,7 @@
                         return;
                     if ('string' == typeof pm)
                         return pF(pm, pw);
-                    var pl = Object.prototype.toString.call(pm).slice(0x8, -1);
+                    var pl = Object.prototype.toString.call(pm).slice(8, -1);
                     'Object' === pl && pm.constructor && (pl = pm.constructor.name);
                     if ('Map' === pl || 'Set' === pl)
                         return Array.from(pm);
@@ -16760,7 +17049,7 @@
                     }
                     ;
                 }
-                throw new TypeError('Invalid\x20attempt\x20to\x20iterate\x20non-iterable\x20instance.\x0aIn\x20order\x20to\x20be\x20iterable,\x20non-array\x20objects\x20must\x20have\x20a\x20[Symbol.iterator]()\x20method.');
+                throw new TypeError('Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.');
             }
             function pF(pQ, pB) {
                 (null == pB || pB > pQ.length) && (pB = pQ.length);
@@ -16829,7 +17118,7 @@
                 }
                 ,
                 pB.bNl = function(pM, pX) {
-                    for (var pm, pw, pl = Date.now() - 0x64; this.bmR.length >= 0x2 && pl >= this.bmR[0].bmu; ) {
+                    for (var pm, pw, pl = Date.now() - 0x64; this.bmR.length >= 2 && pl >= this.bmR[0].bmu; ) {
                         pm = this.bmR[0];
                         for (var pC = (pw = this.bmR[1]).bmu - pl, pN = pw.bmu - pm.bmu, pZ = pw.bmu <= pl ? 0 : pC / pN, ph = 0, po = Object.values(this.bmU); ph < po.length; ph++) {
                             var pU = po[ph]
@@ -16837,7 +17126,7 @@
                               , pT = pw.bmK.get(pU.bbb);
                             pU.bLB(pi, pT, pZ);
                         }
-                        if (!(this.bmR.length > 0x2 && pw.bmu <= pl))
+                        if (!(this.bmR.length > 2 && pw.bmu <= pl))
                             break;
                         this.bmR.shift();
                     }
@@ -16850,8 +17139,8 @@
                     for (var pm = Math.ceil(pX / r5.A.bba / r5.A.bIk), pw = rc.A.worldPosToChunkPos(pM), pl = new Set(), pC = pw.bbZ - pm; pC <= pw.bbZ + pm; pC++)
                         for (var pN = pw.bbB - pm; pN <= pw.bbB + pm; pN++)
                             for (var pZ = pw.bbd - pm; pZ <= pw.bbd + pm; pZ++) {
-                                var ph = (0,
-                                rZ.VB)(pC, pN, pZ);
+                                var ph =
+                                rZ.VB(pC, pN, pZ);
                                 if (!((0,
                                 rZ.x6)(pw, ph) > pm * (pm + 1)))
                                     for (var po, pU = pr(this.bmY(ph)); !(po = pU()).done; ) {
@@ -16867,7 +17156,7 @@
                     if (0 === this.bmR.length)
                         return -1;
                     for (var pM = Date.now() - 0x64, pX = 0, pm = this.bmR.length - 1, pw = -1; pX <= pm; ) {
-                        var pl = Math.floor((pX + pm) / 0x2);
+                        var pl = Math.floor((pX + pm) / 2);
                         this.bmR[pl].bmu > pM ? pm = pl - 1 : (pw = pl,
                         pX = pl + 1);
                     }
@@ -16882,7 +17171,7 @@
                 ,
                 pB.bmt = function(pM, pX) {
                     if (this.bmJ(pM))
-                        console.error('Duplicate\x20entity\x20spawn\x20command!', pM, pX);
+                        console.error('Duplicate entity spawn command!', pM, pX);
                     else
                         switch (pX) {
                         case EE.c.bAm:
@@ -16924,26 +17213,26 @@
                         pX.bNu(),
                         this.bmG(pM);
                     } else
-                        console.error('Invalid\x20entity\x20remove\x20command!', pM);
+                        console.error('Invalid entity remove command!', pM);
                 }
                 ,
                 pB.bLy = function(pM, pX) {
-                    var pm, pw = (0,
-                    rZ.$p)(pX);
+                    var pm, pw =
+                    rZ.$p(pX);
                     this.bmM.has(pw) || this.bmM.set(pw, new Set()),
                     null == (pm = this.bmM.get(pw)) || pm.add(pM);
                 }
                 ,
                 pB.bLh = function(pM, pX) {
-                    var pm, pw, pl = (0,
-                    rZ.$p)(pX);
+                    var pm, pw, pl =
+                    rZ.$p(pX);
                     null == (pm = this.bmM.get(pl)) || pm.delete(pM),
                     0 === (null == (pw = this.bmM.get(pl)) ? void 0 : pw.size) && this.bmM.delete(pl);
                 }
                 ,
                 pB.bmY = function(pM) {
-                    var pX, pm = (0,
-                    rZ.$p)(pM);
+                    var pX, pm =
+                    rZ.$p(pM);
                     return null != (pX = this.bmM.get(pm)) ? pX : new Set();
                 }
                 ,
@@ -16995,7 +17284,7 @@
                 pB.bNl = function(pM, pX) {
                     for (var pm = 0; pm < this.bxW.length; pm++) {
                         var pw = this.bxW[pm];
-                        pw.sprite.position.set(pw.sprite.position.x + 0x2 * pw.dir.bbZ * pM, pw.sprite.position.y + 0x3 * pw.dir.bbB * pM, pw.sprite.position.z + 0x2 * pw.dir.bbd * pM),
+                        pw.sprite.position.set(pw.sprite.position.x + 2 * pw.dir.bbZ * pM, pw.sprite.position.y + 3 * pw.dir.bbB * pM, pw.sprite.position.z + 2 * pw.dir.bbd * pM),
                         Date.now() - pw.spawnTime > 0x320 && (this.bxL(pm),
                         --pm);
                     }
@@ -17014,18 +17303,18 @@
                 }
                 ,
                 pB.bLa = function(pM, pX, pm, pw, pl) {
-                    void 0 === pl && (pl = (0,
-                    rZ.VB)(0xff, 0xff, 0xff));
-                    var pC = (0,
-                    Ex.q)(pM.toString(), 0x40, pw, pl);
+                    void 0 === pl && (pl =
+                    rZ.VB(0xff, 0xff, 0xff));
+                    var pC =
+                    Ex.q(pM.toString(), 64, pw, pl);
                     pC.material.depthTest = false,
                     pC.position.set(pm.bbZ, pm.bbB, pm.bbd),
-                    pC.position.x += 0.5 * (0x2 * Math.random() - 1),
-                    pC.position.y += 0.5 * (0x2 * Math.random() - 1),
-                    pC.position.z += 0.5 * (0x2 * Math.random() - 1),
+                    pC.position.x += 0.5 * (2 * Math.random() - 1),
+                    pC.position.y += 0.5 * (2 * Math.random() - 1),
+                    pC.position.z += 0.5 * (2 * Math.random() - 1),
                     pX.add(pC);
-                    var pN = (0,
-                    rZ.VB)(0x2 * Math.random() - 1, 0x2 * Math.random() + 1, 0x2 * Math.random() - 1);
+                    var pN =
+                    rZ.VB(2 * Math.random() - 1, 2 * Math.random() + 1, 2 * Math.random() - 1);
                     (0,
                     rZ.JA)(pN),
                     this.bxW.push({
@@ -17156,7 +17445,7 @@
             }())
               , pR = 0
               , pH = 1
-              , py = 0x2
+              , py = 2
               , pd = r2(0xbd95)
               , pP = (function() {
                 function pQ(pM) {
@@ -17177,7 +17466,7 @@
                     this.bxC = function(pm) {
                         pX.bxO = pX.bxu(pX.bxC);
                         var pw = pX.bxK()
-                          , pl = (pw - pX.bxc) / 0x3e8
+                          , pl = (pw - pX.bxc) / 1000
                           , pC = Math.max(0, Math.min(pl, 0.05));
                         pX.bxc = pw,
                         pX.bNl(pC, pl);
@@ -17185,7 +17474,7 @@
                     ,
                     this.bxY = function() {
                         var pm = pX.bxK()
-                          , pw = (pm - pX.bxc) / 0x3e8
+                          , pw = (pm - pX.bxc) / 1000
                           , pl = Math.max(0, Math.min(pw, 1));
                         pX.bxc = pm,
                         pX.bNl(pl, pw);
@@ -17193,12 +17482,12 @@
                     ,
                     this.bNl = function(pm, pw) {
                         pX.bxx += pw;
-                        var pl = pX.bjp - (pX.bMI + Math.round(pX.bvH.bMJ() / 0x3e8 / r5.A.bfi)) - Math.max(pX.bvH.bMl() / 0x2 / 0x3e8 / r5.A.bfi, 1)
+                        var pl = pX.bjp - (pX.bMI + Math.round(pX.bvH.bMJ() / 1000 / r5.A.bfi)) - Math.max(pX.bvH.bMl() / 2 / 1000 / r5.A.bfi, 1)
                           , pC = 0.01 * r5.A.bfi * pm
                           , pN = 0 !== pl ? Math.sign(pl) : Math.sign(r5.A.bfi - pX.bxg);
                         for (pX.bxg += pN * pC,
-                        pX.bxg = (0,
-                        pd.qE)(pX.bxg, r5.A.bfi, 1.05 * r5.A.bfi); pX.bxx >= pX.bxg; )
+                        pX.bxg =
+                        pd.qE(pX.bxg, r5.A.bfi, 1.05 * r5.A.bfi); pX.bxx >= pX.bxg; )
                             pX.bxx -= pX.bxg,
                             pX.bNY(r5.A.bfi);
                         pX.bux.bNl(pm, pX.bxx),
@@ -17236,8 +17525,8 @@
                     this.bxg = r5.A.bfi,
                     this.bMI = 0,
                     this.bjp = 0,
-                    this.bxP = (0,
-                    rZ.VB)(0, 0, 0),
+                    this.bxP =
+                    rZ.VB(0, 0, 0),
                     this.bmS();
                 }
                 var pB = pQ.prototype;
@@ -17253,7 +17542,7 @@
                 }
                 ,
                 pB.bxr = function() {
-                    this.bxi = 0x2,
+                    this.bxi = 2,
                     cancelAnimationFrame(this.bxO);
                 }
                 ,
@@ -17263,7 +17552,7 @@
                 }
                 ,
                 pB.bxo = function() {
-                    this.bxi = 0x2,
+                    this.bxi = 2,
                     this.bxG.postMessage(pH);
                 }
                 ,
@@ -17303,8 +17592,8 @@
               , Z = m(0x12de)
               , h = (function() {
                 function U(V, G, k, W, x, q, K, Y, z, j, J, b, D, r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, rr, rF, rE, rp, rS) {
-                    void 0 === V && (V = (0,
-                    w.LX)(0, 0)),
+                    void 0 === V && (V =
+                    w.LX(0, 0)),
                     void 0 === G && (G = false),
                     void 0 === k && (k = false),
                     void 0 === W && (W = false),
@@ -17312,8 +17601,8 @@
                     void 0 === q && (q = false),
                     void 0 === K && (K = false),
                     void 0 === Y && (Y = false),
-                    void 0 === z && (z = (0,
-                    w.LX)(0, 0)),
+                    void 0 === z && (z =
+                    w.LX(0, 0)),
                     void 0 === j && (j = []),
                     void 0 === J && (J = false),
                     void 0 === b && (b = 0),
@@ -17330,8 +17619,8 @@
                     void 0 === r9 && (r9 = false),
                     void 0 === rr && (rr = C.bR.bDW),
                     void 0 === rF && (rF = false),
-                    void 0 === rE && (rE = (0,
-                    l.VB)(0, 0, 0)),
+                    void 0 === rE && (rE =
+                    l.VB(0, 0, 0)),
                     void 0 === rp && (rp = -1),
                     void 0 === rS && (rS = 0),
                     this.bQq = V,
@@ -17399,9 +17688,9 @@
                 ,
                 T.bDe = function() {
                     return new U((0,
-                    w.ev)(this.bQq),this.bQi,this.bQr,this.bDD,this.bQo,this.bQP,this.bQa,this.bQT,(0,
-                    w.ev)(this.bLH),this.bQp.slice(),this.bQV,this.bQE,this.bsI,this.bsb,this.bsF,this.bsf,this.bsD,this.bsh,this.bsk,this.bsy,this.bfs,this.bsB,this.bsZ,this.bse,this.bsz,(0,
-                    l.N3)(this.bsH),this.bjV,this.bmg);
+                    w.ev)(this.bQq),this.bQi,this.bQr,this.bDD,this.bQo,this.bQP,this.bQa,this.bQT,
+                    w.ev(this.bLH),this.bQp.slice(),this.bQV,this.bQE,this.bsI,this.bsb,this.bsF,this.bsf,this.bsD,this.bsh,this.bsk,this.bsy,this.bfs,this.bsB,this.bsZ,this.bse,this.bsz,
+                    l.N3(this.bsH),this.bjV,this.bmg);
                 }
                 ,
                 U;
@@ -17420,12 +17709,12 @@
               , h = m(0xa9c3)
               , U = (function() {
                 function T(G, k, W, x, I, g, L, q, f) {
-                    void 0 === G && (G = (0,
-                    C.VB)(0, 0, 0)),
-                    void 0 === k && (k = (0,
-                    l.LX)(0, 0)),
-                    void 0 === W && (W = (0,
-                    C.VB)(0, 0, 0)),
+                    void 0 === G && (G =
+                    C.VB(0, 0, 0)),
+                    void 0 === k && (k =
+                    l.LX(0, 0)),
+                    void 0 === W && (W =
+                    C.VB(0, 0, 0)),
                     void 0 === x && (x = false),
                     void 0 === I && (I = false),
                     void 0 === g && (g = Z.f.bAO),
@@ -17459,19 +17748,18 @@
                         'forces': Array.from(this.bsW).map(function(G) {
                             var k = G[0]
                               , W = G[1];
-                            return [k, (0,
-                            C._W)(W)];
+                            return [k,
+                            C._W(W)];
                         })
                     };
-                }
-                ,
+                },
                 V.bsX = function(G) {
-                    this.bLe = (0,
-                    C.tg)(G.position),
-                    this.bLH = (0,
-                    l.QV)(G.pitchYaw),
-                    this.bsn = (0,
-                    C.tg)(G.velocity),
+                    this.bLe =
+                    C.tg(G.position),
+                    this.bLH =
+                    l.QV(G.pitchYaw),
+                    this.bsn =
+                    C.tg(G.velocity),
                     this.bst = G.onGround,
                     this.bsA = G.canJump,
                     this.bWU = G.controlState,
@@ -17480,16 +17768,23 @@
                     this.bsW = new Map(G.forces.map(function(k) {
                         var W = k[0]
                           , x = k[1];
-                        return [W, (0,
-                        C.tg)(x)];
+                        return [W,
+                        C.tg(x)];
                     }));
-                }
-                ,
+                },
                 V.bDe = function() {
-                    return new T(this.bLe,this.bLH,this.bsn,this.bst,this.bsA,this.bWU,this.bUK,this.bsN,(0,
-                    w.sd)(this.bsW));
-                }
-                ,
+                    return new T(
+                        this.bLe,
+                        this.bLH,
+                        this.bsn,
+                        this.bst,
+                        this.bsA,
+                        this.bWU,
+                        this.bUK,
+                        this.bsN,
+                        w.sd(this.bsW)
+                    );
+                },
                 T;
             }());
         }
@@ -17508,12 +17803,12 @@
               , h = {
                 'bfr': 0,
                 'bfo': 1,
-                'bfP': 0x2
+                'bfP': 2
             }
               , U = {
                 'bfy': 0,
                 'bfa': 1,
-                'bfT': 0x2
+                'bfT': 2
             }
               , T = (function() {
                 function V() {}
@@ -17577,7 +17872,7 @@
                         return;
                     if ('string' == typeof rB)
                         return W(rB, rM);
-                    var rX = Object.prototype.toString.call(rB).slice(0x8, -1);
+                    var rX = Object.prototype.toString.call(rB).slice(8, -1);
                     'Object' === rX && rB.constructor && (rX = rB.constructor.name);
                     if ('Map' === rX || 'Set' === rX)
                         return Array.from(rB);
@@ -17596,7 +17891,7 @@
                     }
                     ;
                 }
-                throw new TypeError('Invalid\x20attempt\x20to\x20iterate\x20non-iterable\x20instance.\x0aIn\x20order\x20to\x20be\x20iterable,\x20non-array\x20objects\x20must\x20have\x20a\x20[Symbol.iterator]()\x20method.');
+                throw new TypeError('Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.');
             }
             function W(ry, rd) {
                 (null == rd || rd > ry.length) && (rd = ry.length);
@@ -17876,7 +18171,7 @@
                         return;
                     if ('string' == typeof rB)
                         return rp(rB, rM);
-                    var rX = Object.prototype.toString.call(rB).slice(0x8, -1);
+                    var rX = Object.prototype.toString.call(rB).slice(8, -1);
                     'Object' === rX && rB.constructor && (rX = rB.constructor.name);
                     if ('Map' === rX || 'Set' === rX)
                         return Array.from(rB);
@@ -17895,7 +18190,7 @@
                     }
                     ;
                 }
-                throw new TypeError('Invalid\x20attempt\x20to\x20iterate\x20non-iterable\x20instance.\x0aIn\x20order\x20to\x20be\x20iterable,\x20non-array\x20objects\x20must\x20have\x20a\x20[Symbol.iterator]()\x20method.');
+                throw new TypeError('Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.');
             }
             function rp(ry, rd) {
                 (null == rd || rd > ry.length) && (rd = ry.length);
@@ -17912,7 +18207,7 @@
                         return;
                     if ('string' == typeof rB)
                         return re(rB, rM);
-                    var rX = Object.prototype.toString.call(rB).slice(0x8, -1);
+                    var rX = Object.prototype.toString.call(rB).slice(8, -1);
                     'Object' === rX && rB.constructor && (rX = rB.constructor.name);
                     if ('Map' === rX || 'Set' === rX)
                         return Array.from(rB);
@@ -17931,7 +18226,7 @@
                     }
                     ;
                 }
-                throw new TypeError('Invalid\x20attempt\x20to\x20iterate\x20non-iterable\x20instance.\x0aIn\x20order\x20to\x20be\x20iterable,\x20non-array\x20objects\x20must\x20have\x20a\x20[Symbol.iterator]()\x20method.');
+                throw new TypeError('Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.');
             }
             function re(ry, rd) {
                 (null == rd || rd > ry.length) && (rd = ry.length);
@@ -18099,11 +18394,11 @@
                 }
                 ,
                 rd.bCk = function(rP, rQ) {
-                    this.bCf(Y.A.bsg + Y.A.bsJ + 0x2, rP, rQ);
+                    this.bCf(Y.A.bsg + Y.A.bsJ + 2, rP, rQ);
                 }
                 ,
                 rd.bCy = function(rP, rQ) {
-                    this.bCf(Y.A.bsg + Y.A.bsJ + 0x3, rP, rQ);
+                    this.bCf(Y.A.bsg + Y.A.bsJ + 3, rP, rQ);
                 }
                 ,
                 rd.bCf = function(rP, rQ, rB) {
@@ -18132,13 +18427,13 @@
                 ,
                 rd.bCd = function(rP) {
                     if (rP < 0 || rP >= this.bsx.length)
-                        throw new Error('idx\x20out\x20of\x20bounds\x20(0-' + (this.bsx.length - 1) + ')');
+                        throw new Error('idx out of bounds (0-' + (this.bsx.length - 1) + ')');
                     return this.bsx[rP];
                 }
                 ,
                 rd.bCB = function(rP) {
                     if (rP < 0 || rP >= this.bsx.length)
-                        throw new Error('idx\x20out\x20of\x20bounds\x20(0-' + (this.bsx.length - 1) + ')');
+                        throw new Error('idx out of bounds (0-' + (this.bsx.length - 1) + ')');
                     return this.bsx[rP].bfV;
                 }
                 ,
@@ -18164,8 +18459,8 @@
                       , rt = rX.bIo
                       , rm = false;
                     return rP.bDb = rP.bDb - rM,
-                    0 === rP.bDb && (rP.bfE = (0,
-                    K.O)(q.S.bDI),
+                    0 === rP.bDb && (rP.bfE =
+                    K.O(q.S.bDI),
                     rP.bDb = 1,
                     rm = true),
                     rQ.bfE.bIo === q.S.bDI ? (rQ.bfE = rm ? rX : (0,
@@ -18178,8 +18473,8 @@
                     var rB = this;
                     if (!(rP < 0 || rP >= J.bR.bzA)) {
                         var rM = rQ === j.d.SHIFT_CLICK ? 0x1869f : 1
-                          , rX = (0,
-                        J.pg)(rP);
+                          , rX =
+                        J.pg(rP);
                         if (rX.inventoryStates.has(this.bsm.bfs)) {
                             for (var rt = 0; rt < rM; rt++)
                                 if (this.bsY.bfE.bIo === q.S.bDI || this.bsY.bfE.bIo == rX.result.type && this.bsY.bDb + rX.result.count <= this.bsY.bfE.btM) {
@@ -18197,8 +18492,8 @@
                 rd.bCn = function(rP) {
                     var rQ = this;
                     if (!(rP < 0 || rP >= J.bR.bzA)) {
-                        var rB = (0,
-                        J.pg)(rP);
+                        var rB =
+                        J.pg(rP);
                         if (rB.inventoryStates.has(this.bsm.bfs)) {
                             var rM = rB.ingredientSets.find(function(rX) {
                                 return rQ.bCt([rB.result], rX);
@@ -18250,8 +18545,8 @@
                             }
                         }
                     }
-                    0 === rB.bDb && (rB.bfE = (0,
-                    K.O)(q.S.bDI),
+                    0 === rB.bDb && (rB.bfE =
+                    K.O(q.S.bDI),
                     rB.bDb = 1);
                 }
                 ,
@@ -18339,7 +18634,7 @@
                     rB.bfE.bIo !== q.S.bDI && (rP.bDD(new z.A(rB.bfE.bDe(),1)),
                     rB.bDb > 1 ? rB.bDb = rB.bDb - 1 : this.bCb(rM, new z.A((0,
                     K.O)(q.S.bDI),1), rP, rQ),
-                    rQ && rP.bfK(rF.W.bCM, 0x3e8));
+                    rQ && rP.bfK(rF.W.bCM, 1000));
                 }
                 ,
                 rd.bsd = function() {
@@ -18388,12 +18683,12 @@
                 }, {
                     'key': 'bCQ',
                     'get': function() {
-                        return this.bsx[Y.A.bsg + Y.A.bsJ + 0x2];
+                        return this.bsx[Y.A.bsg + Y.A.bsJ + 2];
                     }
                 }, {
                     'key': 'bCs',
                     'get': function() {
-                        return this.bsx[Y.A.bsg + Y.A.bsJ + 0x3];
+                        return this.bsx[Y.A.bsg + Y.A.bsJ + 3];
                     }
                 }]);
             }())
@@ -18462,25 +18757,25 @@
             var w, l = m(0x10bc4), C = m(0x3ae6), N = m(0x15855), Z = {
                 'bDW': 0,
                 'bDL': 1,
-                'bDX': 0x2,
-                'bDm': 0x3,
-                'bDU': 0x4,
-                'bDj': 0x5,
-                'bDM': 0x6,
-                'bDS': 0x7,
-                'bDw': 0x8,
-                'bDv': 0x9,
-                'bDQ': 0xa,
-                'bDs': 0xb,
-                'bDC': 0xc,
-                'bDO': 0xd,
-                'bDu': 0xe,
-                'bDK': 0xf,
-                'bDc': 0x10,
-                'bDY': 0x11,
-                'bDx': 0x12,
-                'bDg': 0x13,
-                'bDJ': 0x14,
+                'bDX': 2,
+                'bDm': 3,
+                'bDU': 4,
+                'bDj': 5,
+                'bDM': 6,
+                'bDS': 7,
+                'bDw': 8,
+                'bDv': 9,
+                'bDQ': 10,
+                'bDs': 11,
+                'bDC': 12,
+                'bDO': 13,
+                'bDu': 14,
+                'bDK': 15,
+                'bDc': 16,
+                'bDY': 17,
+                'bDx': 18,
+                'bDg': 19,
+                'bDJ': 20,
                 'bDG': 0x15,
                 'bDl': 0x16,
                 'bDq': 0x17,
@@ -18492,7 +18787,7 @@
                 'bDT': 0x1d,
                 'bDp': 0x1e,
                 'bDV': 0x1f,
-                'bDE': 0x20,
+                'bDE': 32,
                 'bhI': 0x21,
                 'bhb': 0x22,
                 'bhF': 0x23,
@@ -18524,7 +18819,7 @@
                 'bhv': 0x3d,
                 'bhQ': 0x3e,
                 'bhs': 0x3f,
-                'bhC': 0x40,
+                'bhC': 64,
                 'bhO': 0x41,
                 'bhu': 0x42,
                 'bhK': 0x43,
@@ -18588,7 +18883,7 @@
                 'bkG': 0x7d,
                 'bkl': 0x7e,
                 'bkq': 0x7f,
-                'bki': 0x80,
+                'bki': 128,
                 'bkr': 0x81,
                 'bko': 0x82,
                 'bkP': 0x83,
@@ -18716,7 +19011,7 @@
                 'bZH': 0xfd,
                 'bZd': 0xfe,
                 'bZR': 0xff,
-                'bZn': 0x100,
+                'bZn': 256,
                 'bZt': 0x101,
                 'bZA': 0x102,
                 'bZN': 0x103,
@@ -18826,7 +19121,7 @@
             }, h = ((w = {})[Z.bDW] = {
                 'result': {
                     'type': C.S.bfa + l._.bzN,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bzW]),
@@ -18838,7 +19133,7 @@
             w[Z.bDL] = {
                 'result': {
                     'type': C.S.bfa + l._.bDL,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bzX]),
@@ -18850,7 +19145,7 @@
             w[Z.bDX] = {
                 'result': {
                     'type': C.S.bfa + l._.bDX,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bzm]),
@@ -18866,7 +19161,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x4
+                    'count': 4
                 }]],
                 'alwaysShow': true,
                 'inventoryStates': new Set([N.K.bzL, N.K.bDm])
@@ -18890,7 +19185,7 @@
                     'count': 1
                 }, {
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x4
+                    'count': 4
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -18902,7 +19197,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bzs, C.S.bfa + l._.bzC, C.S.bfa + l._.bzO]),
-                    'count': 0x8
+                    'count': 8
                 }]],
                 'alwaysShow': true,
                 'inventoryStates': new Set([N.K.bDm])
@@ -18914,7 +19209,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x8
+                    'count': 8
                 }]],
                 'alwaysShow': true,
                 'inventoryStates': new Set([N.K.bDm])
@@ -18926,7 +19221,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bzc]),
-                    'count': 0x8
+                    'count': 8
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -18941,7 +19236,7 @@
                     'count': 1
                 }, {
                     'type': new Set([C.S.bye]),
-                    'count': 0x8
+                    'count': 8
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -18953,13 +19248,13 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.byk]),
-                    'count': 0x8
+                    'count': 8
                 }, {
                     'type': new Set([C.S.bfa + l._.bzs, C.S.bfa + l._.bzO]),
-                    'count': 0x8
+                    'count': 8
                 }, {
                     'type': new Set([C.S.bfa + l._.bzC]),
-                    'count': 0x8
+                    'count': 8
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -18971,16 +19266,16 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bzc]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bzi]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bfa + l._.bzW, C.S.bfa + l._.bzr, C.S.bfa + l._.bzo, C.S.bfa + l._.bzP, C.S.bfa + l._.bza, C.S.bfa + l._.bzT, C.S.bfa + l._.bzX, C.S.bfa + l._.bzp, C.S.bfa + l._.bzV, C.S.bfa + l._.bzE, C.S.bfa + l._.bHI, C.S.bfa + l._.bHb, C.S.bfa + l._.bzm, C.S.bfa + l._.bHF, C.S.bfa + l._.bHf, C.S.bfa + l._.bHD, C.S.bfa + l._.bHh, C.S.bfa + l._.bHk]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bfa + l._.bzC]),
-                    'count': 0x8
+                    'count': 8
                 }]],
                 'alwaysShow': true,
                 'inventoryStates': new Set([N.K.bDm])
@@ -18992,7 +19287,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bzN]),
-                    'count': 0x6
+                    'count': 6
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19004,7 +19299,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bDL]),
-                    'count': 0x6
+                    'count': 6
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19016,7 +19311,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bDX]),
-                    'count': 0x6
+                    'count': 6
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19028,7 +19323,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bzc]),
-                    'count': 0x6
+                    'count': 6
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19040,7 +19335,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bzN]),
-                    'count': 0x3
+                    'count': 3
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19052,7 +19347,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bDL]),
-                    'count': 0x3
+                    'count': 3
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19064,7 +19359,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bDX]),
-                    'count': 0x3
+                    'count': 3
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19076,7 +19371,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bzc]),
-                    'count': 0x3
+                    'count': 3
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19088,7 +19383,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x3
+                    'count': 3
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19112,7 +19407,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bzN]),
-                    'count': 0x6
+                    'count': 6
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19124,7 +19419,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bDL]),
-                    'count': 0x6
+                    'count': 6
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19136,7 +19431,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bDX]),
-                    'count': 0x6
+                    'count': 6
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19148,10 +19443,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bZQ]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x4
+                    'count': 4
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19159,11 +19454,11 @@
             w[Z.bDr] = {
                 'result': {
                     'type': C.S.bfa + l._.bDr,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bHX]),
-                    'count': 0x4
+                    'count': 4
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19171,11 +19466,11 @@
             w[Z.bDo] = {
                 'result': {
                     'type': C.S.bfa + l._.bDo,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bHm]),
-                    'count': 0x4
+                    'count': 4
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19183,11 +19478,11 @@
             w[Z.bDP] = {
                 'result': {
                     'type': C.S.bfa + l._.bDP,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bHU]),
-                    'count': 0x4
+                    'count': 4
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19195,11 +19490,11 @@
             w[Z.bDa] = {
                 'result': {
                     'type': C.S.bfa + l._.bDa,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bHj]),
-                    'count': 0x4
+                    'count': 4
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19207,11 +19502,11 @@
             w[Z.bDT] = {
                 'result': {
                     'type': C.S.bfa + l._.bDT,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bHM]),
-                    'count': 0x4
+                    'count': 4
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19219,11 +19514,11 @@
             w[Z.bDp] = {
                 'result': {
                     'type': C.S.bfa + l._.bDp,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bHS, C.S.bfa + l._.bHw]),
-                    'count': 0x4
+                    'count': 4
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19235,7 +19530,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bHv]),
-                    'count': 0x4
+                    'count': 4
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19247,7 +19542,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bHQ]),
-                    'count': 0x4
+                    'count': 4
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19259,7 +19554,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x6
+                    'count': 6
                 }]],
                 'alwaysShow': true,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19271,7 +19566,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x6
+                    'count': 6
                 }]],
                 'alwaysShow': true,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19283,7 +19578,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x6
+                    'count': 6
                 }]],
                 'alwaysShow': true,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19295,7 +19590,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x6
+                    'count': 6
                 }]],
                 'alwaysShow': true,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19307,7 +19602,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x6
+                    'count': 6
                 }]],
                 'alwaysShow': true,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19319,7 +19614,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x6
+                    'count': 6
                 }]],
                 'alwaysShow': true,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19331,10 +19626,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x6
+                    'count': 6
                 }, {
                     'type': new Set([C.S.bHx]),
-                    'count': 0x4
+                    'count': 4
                 }]],
                 'alwaysShow': true,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19346,10 +19641,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bzs, C.S.bfa + l._.bzC, C.S.bfa + l._.bzO]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x2
+                    'count': 2
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19361,10 +19656,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bzs, C.S.bfa + l._.bzC, C.S.bfa + l._.bzO]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x2
+                    'count': 2
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19376,10 +19671,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bzs, C.S.bfa + l._.bzC, C.S.bfa + l._.bzO]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x2
+                    'count': 2
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19391,10 +19686,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bzs, C.S.bfa + l._.bzC, C.S.bfa + l._.bzO]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x2
+                    'count': 2
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19406,10 +19701,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bzs, C.S.bfa + l._.bzC, C.S.bfa + l._.bzO]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x2
+                    'count': 2
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19421,10 +19716,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bzs, C.S.bfa + l._.bzC, C.S.bfa + l._.bzO]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x2
+                    'count': 2
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19436,10 +19731,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bzs, C.S.bfa + l._.bzC, C.S.bfa + l._.bzO]),
-                    'count': 0x6
+                    'count': 6
                 }, {
                     'type': new Set([C.S.bHx]),
-                    'count': 0x4
+                    'count': 4
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19451,10 +19746,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bHP]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x2
+                    'count': 2
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19466,10 +19761,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bHP]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x2
+                    'count': 2
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19481,10 +19776,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bHP]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x2
+                    'count': 2
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19496,10 +19791,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bHP]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x2
+                    'count': 2
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19511,10 +19806,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bHP]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x2
+                    'count': 2
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19526,10 +19821,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bHP]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x2
+                    'count': 2
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19541,10 +19836,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bHP]),
-                    'count': 0x6
+                    'count': 6
                 }, {
                     'type': new Set([C.S.bHx]),
-                    'count': 0x4
+                    'count': 4
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19556,10 +19851,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bzc]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x2
+                    'count': 2
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19571,10 +19866,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bzc]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x2
+                    'count': 2
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19586,10 +19881,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bzc]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x2
+                    'count': 2
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19601,10 +19896,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bzc]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x2
+                    'count': 2
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19616,10 +19911,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bzc]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x2
+                    'count': 2
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19631,10 +19926,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bzc]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x2
+                    'count': 2
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19646,10 +19941,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bzc]),
-                    'count': 0x6
+                    'count': 6
                 }, {
                     'type': new Set([C.S.bHx]),
-                    'count': 0x4
+                    'count': 4
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19661,10 +19956,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bdZ]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x2
+                    'count': 2
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19676,10 +19971,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bdZ]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x2
+                    'count': 2
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19691,10 +19986,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bdZ]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x2
+                    'count': 2
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19706,10 +20001,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bdZ]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x2
+                    'count': 2
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19721,10 +20016,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bdZ]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x2
+                    'count': 2
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19736,10 +20031,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bdZ]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x2
+                    'count': 2
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19751,10 +20046,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bdZ]),
-                    'count': 0x6
+                    'count': 6
                 }, {
                     'type': new Set([C.S.bHx]),
-                    'count': 0x4
+                    'count': 4
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19766,10 +20061,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bzi]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x2
+                    'count': 2
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19781,10 +20076,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bzi]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x2
+                    'count': 2
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19796,10 +20091,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bzi]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x2
+                    'count': 2
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19811,10 +20106,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bzi]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x2
+                    'count': 2
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19826,10 +20121,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bzi]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x2
+                    'count': 2
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19841,10 +20136,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bzi]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x2
+                    'count': 2
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19856,10 +20151,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bzi]),
-                    'count': 0x6
+                    'count': 6
                 }, {
                     'type': new Set([C.S.bHx]),
-                    'count': 0x4
+                    'count': 4
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19871,10 +20166,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.byB]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x2
+                    'count': 2
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19886,10 +20181,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.byB]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x2
+                    'count': 2
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19901,10 +20196,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.byB]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x2
+                    'count': 2
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19916,10 +20211,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.byB]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x2
+                    'count': 2
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19931,10 +20226,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.byB]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x2
+                    'count': 2
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19946,10 +20241,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.byB]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x2
+                    'count': 2
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19961,10 +20256,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.byB]),
-                    'count': 0x6
+                    'count': 6
                 }, {
                     'type': new Set([C.S.bHx]),
-                    'count': 0x4
+                    'count': 4
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19972,14 +20267,14 @@
             w[Z.bkD] = {
                 'result': {
                     'type': C.S.bkD,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bzc]),
                     'count': 1
                 }, {
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x4
+                    'count': 4
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -19991,7 +20286,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x6
+                    'count': 6
                 }]],
                 'alwaysShow': true,
                 'inventoryStates': new Set([N.K.bDm])
@@ -20003,7 +20298,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x8
+                    'count': 8
                 }]],
                 'alwaysShow': true,
                 'inventoryStates': new Set([N.K.bDm])
@@ -20015,7 +20310,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x7
+                    'count': 7
                 }]],
                 'alwaysShow': true,
                 'inventoryStates': new Set([N.K.bDm])
@@ -20027,7 +20322,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x5
+                    'count': 5
                 }]],
                 'alwaysShow': true,
                 'inventoryStates': new Set([N.K.bDm])
@@ -20039,7 +20334,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bzs, C.S.bfa + l._.bzC, C.S.bfa + l._.bzO]),
-                    'count': 0x6
+                    'count': 6
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -20051,7 +20346,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bzs, C.S.bfa + l._.bzC, C.S.bfa + l._.bzO]),
-                    'count': 0x8
+                    'count': 8
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -20063,7 +20358,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bzs, C.S.bfa + l._.bzC, C.S.bfa + l._.bzO]),
-                    'count': 0x7
+                    'count': 7
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -20075,7 +20370,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bzs, C.S.bfa + l._.bzC, C.S.bfa + l._.bzO]),
-                    'count': 0x5
+                    'count': 5
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -20087,7 +20382,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bHP]),
-                    'count': 0x6
+                    'count': 6
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -20099,7 +20394,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bHP]),
-                    'count': 0x8
+                    'count': 8
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -20111,7 +20406,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bHP]),
-                    'count': 0x7
+                    'count': 7
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -20123,7 +20418,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bHP]),
-                    'count': 0x5
+                    'count': 5
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -20135,7 +20430,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bzc]),
-                    'count': 0x6
+                    'count': 6
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -20147,7 +20442,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bzc]),
-                    'count': 0x8
+                    'count': 8
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -20159,7 +20454,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bzc]),
-                    'count': 0x7
+                    'count': 7
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -20171,7 +20466,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bzc]),
-                    'count': 0x5
+                    'count': 5
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -20183,7 +20478,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bdZ]),
-                    'count': 0x6
+                    'count': 6
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -20195,7 +20490,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bdZ]),
-                    'count': 0x8
+                    'count': 8
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -20207,7 +20502,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bdZ]),
-                    'count': 0x7
+                    'count': 7
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -20219,7 +20514,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bdZ]),
-                    'count': 0x5
+                    'count': 5
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -20231,7 +20526,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bzi]),
-                    'count': 0x6
+                    'count': 6
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -20243,7 +20538,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bzi]),
-                    'count': 0x8
+                    'count': 8
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -20255,7 +20550,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bzi]),
-                    'count': 0x7
+                    'count': 7
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -20267,7 +20562,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bzi]),
-                    'count': 0x5
+                    'count': 5
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -20279,7 +20574,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.byB]),
-                    'count': 0x6
+                    'count': 6
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -20291,7 +20586,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.byB]),
-                    'count': 0x8
+                    'count': 8
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -20303,7 +20598,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.byB]),
-                    'count': 0x7
+                    'count': 7
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -20315,7 +20610,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.byB]),
-                    'count': 0x5
+                    'count': 5
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -20327,7 +20622,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bkE]),
-                    'count': 0x9
+                    'count': 9
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -20339,7 +20634,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bHP]),
-                    'count': 0x9
+                    'count': 9
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -20351,7 +20646,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bzc]),
-                    'count': 0x9
+                    'count': 9
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -20363,7 +20658,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bdZ]),
-                    'count': 0x9
+                    'count': 9
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -20375,7 +20670,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bzi]),
-                    'count': 0x9
+                    'count': 9
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -20387,7 +20682,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.byB]),
-                    'count': 0x9
+                    'count': 9
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -20395,7 +20690,7 @@
             w[Z.bkE] = {
                 'result': {
                     'type': C.S.bkE,
-                    'count': 0x9
+                    'count': 9
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bkx]),
@@ -20407,7 +20702,7 @@
             w[Z.byI] = {
                 'result': {
                     'type': C.S.bHP,
-                    'count': 0x9
+                    'count': 9
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bkg]),
@@ -20419,7 +20714,7 @@
             w[Z.byb] = {
                 'result': {
                     'type': C.S.bzc,
-                    'count': 0x9
+                    'count': 9
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bkJ]),
@@ -20431,7 +20726,7 @@
             w[Z.byF] = {
                 'result': {
                     'type': C.S.bdZ,
-                    'count': 0x9
+                    'count': 9
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bkG]),
@@ -20443,7 +20738,7 @@
             w[Z.byf] = {
                 'result': {
                     'type': C.S.bzi,
-                    'count': 0x9
+                    'count': 9
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bkl]),
@@ -20455,7 +20750,7 @@
             w[Z.byB] = {
                 'result': {
                     'type': C.S.byB,
-                    'count': 0x9
+                    'count': 9
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bkP]),
@@ -20471,7 +20766,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bdC]),
-                    'count': 0x9
+                    'count': 9
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -20483,7 +20778,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bdu]),
-                    'count': 0x9
+                    'count': 9
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -20495,7 +20790,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
-                    'count': 0x4
+                    'count': 4
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -20525,7 +20820,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bdY]),
-                    'count': 0x4
+                    'count': 4
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -20537,7 +20832,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bzc]),
-                    'count': 0x4
+                    'count': 4
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -20549,10 +20844,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bzc]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bHP]),
-                    'count': 0x4
+                    'count': 4
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -20564,10 +20859,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bdg]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bdZ]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bdU]),
                     'count': 1
@@ -20582,10 +20877,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bdg]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bdZ]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bdj]),
                     'count': 1
@@ -20600,10 +20895,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bdg]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bdZ]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bdM]),
                     'count': 1
@@ -20618,10 +20913,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bdg]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bdZ]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bdS]),
                     'count': 1
@@ -20636,10 +20931,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bdg]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bdZ]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bdw]),
                     'count': 1
@@ -20654,10 +20949,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bdg]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bdZ]),
-                    'count': 0x4
+                    'count': 4
                 }, {
                     'type': new Set([C.S.bdv]),
                     'count': 1
@@ -20672,10 +20967,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bdg]),
-                    'count': 0x6
+                    'count': 6
                 }, {
                     'type': new Set([C.S.bdZ]),
-                    'count': 0x6
+                    'count': 6
                 }, {
                     'type': new Set([C.S.bdQ]),
                     'count': 1
@@ -20690,10 +20985,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bdg]),
-                    'count': 0x6
+                    'count': 6
                 }, {
                     'type': new Set([C.S.bdZ]),
-                    'count': 0x6
+                    'count': 6
                 }, {
                     'type': new Set([C.S.bkQ]),
                     'count': 1
@@ -20708,10 +21003,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bdg]),
-                    'count': 0x8
+                    'count': 8
                 }, {
                     'type': new Set([C.S.bdZ]),
-                    'count': 0x8
+                    'count': 8
                 }, {
                     'type': new Set([C.S.bks]),
                     'count': 1
@@ -20726,10 +21021,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bdg]),
-                    'count': 0x7
+                    'count': 7
                 }, {
                     'type': new Set([C.S.bdZ]),
-                    'count': 0x7
+                    'count': 7
                 }, {
                     'type': new Set([C.S.bkC]),
                     'count': 1
@@ -20744,10 +21039,10 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bdg]),
-                    'count': 0x5
+                    'count': 5
                 }, {
                     'type': new Set([C.S.bdZ]),
-                    'count': 0x5
+                    'count': 5
                 }, {
                     'type': new Set([C.S.bkO]),
                     'count': 1
@@ -20762,7 +21057,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.byD]),
-                    'count': 0x9
+                    'count': 9
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -20774,7 +21069,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.byh]),
-                    'count': 0x9
+                    'count': 9
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -20786,7 +21081,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.byk]),
-                    'count': 0x9
+                    'count': 9
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -20798,7 +21093,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.byy]),
-                    'count': 0x9
+                    'count': 9
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -20810,7 +21105,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bye]),
-                    'count': 0x9
+                    'count': 9
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -20818,7 +21113,7 @@
             w[Z.byD] = {
                 'result': {
                     'type': C.S.byD,
-                    'count': 0x9
+                    'count': 9
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bkq]),
@@ -20830,7 +21125,7 @@
             w[Z.byh] = {
                 'result': {
                     'type': C.S.byh,
-                    'count': 0x9
+                    'count': 9
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bkr]),
@@ -20842,7 +21137,7 @@
             w[Z.byk] = {
                 'result': {
                     'type': C.S.byk,
-                    'count': 0x9
+                    'count': 9
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bki]),
@@ -20854,7 +21149,7 @@
             w[Z.byy] = {
                 'result': {
                     'type': C.S.byy,
-                    'count': 0x9
+                    'count': 9
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bko]),
@@ -20866,7 +21161,7 @@
             w[Z.bye] = {
                 'result': {
                     'type': C.S.bye,
-                    'count': 0x9
+                    'count': 9
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bkT]),
@@ -20878,7 +21173,7 @@
             w[Z.byZ] = {
                 'result': {
                     'type': C.S.bdg,
-                    'count': 0x9
+                    'count': 9
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bka]),
@@ -20894,7 +21189,7 @@
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bdg]),
-                    'count': 0x9
+                    'count': 9
                 }]],
                 'alwaysShow': false,
                 'inventoryStates': new Set([N.K.bDm])
@@ -21104,7 +21399,7 @@
                     'count': 1
                 }, {
                     'type': new Set([C.S.bfa + l._.bzw]),
-                    'count': 0x2
+                    'count': 2
                 }, {
                     'type': new Set([C.S.bkB]),
                     'count': 1
@@ -21452,7 +21747,7 @@
                     'count': 1
                 }, {
                     'type': new Set([C.S.bfa + l._.bzw]),
-                    'count': 0x2
+                    'count': 2
                 }, {
                     'type': new Set([C.S.bkk]),
                     'count': 1
@@ -21800,7 +22095,7 @@
                     'count': 1
                 }, {
                     'type': new Set([C.S.bfa + l._.bzw]),
-                    'count': 0x2
+                    'count': 2
                 }, {
                     'type': new Set([C.S.bkh]),
                     'count': 1
@@ -22148,7 +22443,7 @@
                     'count': 1
                 }, {
                     'type': new Set([C.S.bfa + l._.bzw]),
-                    'count': 0x2
+                    'count': 2
                 }, {
                     'type': new Set([C.S.bky]),
                     'count': 1
@@ -22496,7 +22791,7 @@
                     'count': 1
                 }, {
                     'type': new Set([C.S.bfa + l._.bzw]),
-                    'count': 0x2
+                    'count': 2
                 }, {
                     'type': new Set([C.S.bfa + l._.bzN, C.S.bfa + l._.bDL, C.S.bfa + l._.bDX]),
                     'count': 1
@@ -22844,7 +23139,7 @@
                     'count': 1
                 }, {
                     'type': new Set([C.S.bfa + l._.bzw]),
-                    'count': 0x2
+                    'count': 2
                 }, {
                     'type': new Set([C.S.bfa + l._.bZQ]),
                     'count': 1
@@ -22990,11 +23285,11 @@
             w[Z.beI] = {
                 'result': {
                     'type': C.S.bfa + l._.bdP,
-                    'count': 0x3
+                    'count': 3
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bzN]),
-                    'count': 0x4
+                    'count': 4
                 }]],
                 'alwaysShow': true,
                 'inventoryStates': new Set([N.K.bDQ])
@@ -23002,11 +23297,11 @@
             w[Z.beb] = {
                 'result': {
                     'type': C.S.bfa + l._.bda,
-                    'count': 0x3
+                    'count': 3
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bDL]),
-                    'count': 0x4
+                    'count': 4
                 }]],
                 'alwaysShow': true,
                 'inventoryStates': new Set([N.K.bDQ])
@@ -23014,11 +23309,11 @@
             w[Z.beF] = {
                 'result': {
                     'type': C.S.bfa + l._.bdT,
-                    'count': 0x3
+                    'count': 3
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bDX]),
-                    'count': 0x4
+                    'count': 4
                 }]],
                 'alwaysShow': true,
                 'inventoryStates': new Set([N.K.bDQ])
@@ -23026,11 +23321,11 @@
             w[Z.bef] = {
                 'result': {
                     'type': C.S.bfa + l._.bdp,
-                    'count': 0x3
+                    'count': 3
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bzs]),
-                    'count': 0x3
+                    'count': 3
                 }]],
                 'alwaysShow': true,
                 'inventoryStates': new Set([N.K.bDQ])
@@ -23038,11 +23333,11 @@
             w[Z.beD] = {
                 'result': {
                     'type': C.S.bfa + l._.bdV,
-                    'count': 0x3
+                    'count': 3
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bzO]),
-                    'count': 0x3
+                    'count': 3
                 }]],
                 'alwaysShow': true,
                 'inventoryStates': new Set([N.K.bDQ])
@@ -23050,11 +23345,11 @@
             w[Z.beh] = {
                 'result': {
                     'type': C.S.bfa + l._.bdE,
-                    'count': 0x3
+                    'count': 3
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bzC]),
-                    'count': 0x3
+                    'count': 3
                 }]],
                 'alwaysShow': true,
                 'inventoryStates': new Set([N.K.bDQ])
@@ -23062,11 +23357,11 @@
             w[Z.bek] = {
                 'result': {
                     'type': C.S.bfa + l._.bRI,
-                    'count': 0x3
+                    'count': 3
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bRb]),
-                    'count': 0x3
+                    'count': 3
                 }]],
                 'alwaysShow': true,
                 'inventoryStates': new Set([N.K.bDQ])
@@ -23074,7 +23369,7 @@
             w[Z.bew] = {
                 'result': {
                     'type': C.S.bfa + l._.bRF,
-                    'count': 0x2
+                    'count': 2
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bzN]),
@@ -23086,7 +23381,7 @@
             w[Z.bev] = {
                 'result': {
                     'type': C.S.bfa + l._.bRf,
-                    'count': 0x2
+                    'count': 2
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bDL]),
@@ -23098,7 +23393,7 @@
             w[Z.beQ] = {
                 'result': {
                     'type': C.S.bfa + l._.bRD,
-                    'count': 0x2
+                    'count': 2
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bDX]),
@@ -23110,7 +23405,7 @@
             w[Z.bes] = {
                 'result': {
                     'type': C.S.bfa + l._.bRh,
-                    'count': 0x2
+                    'count': 2
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bHX]),
@@ -23122,7 +23417,7 @@
             w[Z.beC] = {
                 'result': {
                     'type': C.S.bfa + l._.bRk,
-                    'count': 0x2
+                    'count': 2
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bDr]),
@@ -23134,7 +23429,7 @@
             w[Z.beO] = {
                 'result': {
                     'type': C.S.bfa + l._.bRy,
-                    'count': 0x2
+                    'count': 2
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bzs]),
@@ -23146,7 +23441,7 @@
             w[Z.beu] = {
                 'result': {
                     'type': C.S.bfa + l._.bRB,
-                    'count': 0x2
+                    'count': 2
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bHm]),
@@ -23158,7 +23453,7 @@
             w[Z.beK] = {
                 'result': {
                     'type': C.S.bfa + l._.bRZ,
-                    'count': 0x2
+                    'count': 2
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bDo]),
@@ -23170,7 +23465,7 @@
             w[Z.bec] = {
                 'result': {
                     'type': C.S.bfa + l._.bRe,
-                    'count': 0x2
+                    'count': 2
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bzO]),
@@ -23182,7 +23477,7 @@
             w[Z.beY] = {
                 'result': {
                     'type': C.S.bfa + l._.bRz,
-                    'count': 0x2
+                    'count': 2
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bHU]),
@@ -23194,7 +23489,7 @@
             w[Z.bex] = {
                 'result': {
                     'type': C.S.bfa + l._.bRH,
-                    'count': 0x2
+                    'count': 2
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bDP]),
@@ -23206,7 +23501,7 @@
             w[Z.beg] = {
                 'result': {
                     'type': C.S.bfa + l._.bRd,
-                    'count': 0x2
+                    'count': 2
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bzC]),
@@ -23218,7 +23513,7 @@
             w[Z.beJ] = {
                 'result': {
                     'type': C.S.bfa + l._.bRR,
-                    'count': 0x2
+                    'count': 2
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bHj]),
@@ -23230,7 +23525,7 @@
             w[Z.beG] = {
                 'result': {
                     'type': C.S.bfa + l._.bRn,
-                    'count': 0x2
+                    'count': 2
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bDa]),
@@ -23242,7 +23537,7 @@
             w[Z.bel] = {
                 'result': {
                     'type': C.S.bfa + l._.bRt,
-                    'count': 0x2
+                    'count': 2
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bRb]),
@@ -23254,7 +23549,7 @@
             w[Z.beq] = {
                 'result': {
                     'type': C.S.bfa + l._.bRA,
-                    'count': 0x2
+                    'count': 2
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bHM]),
@@ -23266,7 +23561,7 @@
             w[Z.bei] = {
                 'result': {
                     'type': C.S.bfa + l._.bRN,
-                    'count': 0x2
+                    'count': 2
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bDT]),
@@ -23278,7 +23573,7 @@
             w[Z.ber] = {
                 'result': {
                     'type': C.S.bfa + l._.bRW,
-                    'count': 0x2
+                    'count': 2
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bHS]),
@@ -23290,7 +23585,7 @@
             w[Z.beo] = {
                 'result': {
                     'type': C.S.bfa + l._.bRL,
-                    'count': 0x2
+                    'count': 2
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bDp]),
@@ -23302,7 +23597,7 @@
             w[Z.beP] = {
                 'result': {
                     'type': C.S.bfa + l._.bRX,
-                    'count': 0x2
+                    'count': 2
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bDV]),
@@ -23314,7 +23609,7 @@
             w[Z.bea] = {
                 'result': {
                     'type': C.S.bfa + l._.bRm,
-                    'count': 0x2
+                    'count': 2
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bDE]),
@@ -23326,11 +23621,11 @@
             w[Z.beT] = {
                 'result': {
                     'type': C.S.bfa + l._.bRU,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bzN]),
-                    'count': 0x3
+                    'count': 3
                 }]],
                 'alwaysShow': true,
                 'inventoryStates': new Set([N.K.bDQ])
@@ -23338,11 +23633,11 @@
             w[Z.bep] = {
                 'result': {
                     'type': C.S.bfa + l._.bRj,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bDL]),
-                    'count': 0x3
+                    'count': 3
                 }]],
                 'alwaysShow': true,
                 'inventoryStates': new Set([N.K.bDQ])
@@ -23350,11 +23645,11 @@
             w[Z.beV] = {
                 'result': {
                     'type': C.S.bfa + l._.bRM,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bDX]),
-                    'count': 0x3
+                    'count': 3
                 }]],
                 'alwaysShow': true,
                 'inventoryStates': new Set([N.K.bDQ])
@@ -23362,11 +23657,11 @@
             w[Z.beE] = {
                 'result': {
                     'type': C.S.bfa + l._.bRS,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bHX]),
-                    'count': 0x3
+                    'count': 3
                 }]],
                 'alwaysShow': true,
                 'inventoryStates': new Set([N.K.bDQ])
@@ -23374,11 +23669,11 @@
             w[Z.bzI] = {
                 'result': {
                     'type': C.S.bfa + l._.bRw,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bDr]),
-                    'count': 0x3
+                    'count': 3
                 }]],
                 'alwaysShow': true,
                 'inventoryStates': new Set([N.K.bDQ])
@@ -23386,11 +23681,11 @@
             w[Z.bzb] = {
                 'result': {
                     'type': C.S.bfa + l._.bRv,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bzs]),
-                    'count': 0x3
+                    'count': 3
                 }]],
                 'alwaysShow': true,
                 'inventoryStates': new Set([N.K.bDQ])
@@ -23398,11 +23693,11 @@
             w[Z.bzF] = {
                 'result': {
                     'type': C.S.bfa + l._.bRQ,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bHm]),
-                    'count': 0x3
+                    'count': 3
                 }]],
                 'alwaysShow': true,
                 'inventoryStates': new Set([N.K.bDQ])
@@ -23410,11 +23705,11 @@
             w[Z.bzf] = {
                 'result': {
                     'type': C.S.bfa + l._.bRs,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bDo]),
-                    'count': 0x3
+                    'count': 3
                 }]],
                 'alwaysShow': true,
                 'inventoryStates': new Set([N.K.bDQ])
@@ -23422,11 +23717,11 @@
             w[Z.bzD] = {
                 'result': {
                     'type': C.S.bfa + l._.bRC,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bzO]),
-                    'count': 0x3
+                    'count': 3
                 }]],
                 'alwaysShow': true,
                 'inventoryStates': new Set([N.K.bDQ])
@@ -23434,11 +23729,11 @@
             w[Z.bzh] = {
                 'result': {
                     'type': C.S.bfa + l._.bRO,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bHU]),
-                    'count': 0x3
+                    'count': 3
                 }]],
                 'alwaysShow': true,
                 'inventoryStates': new Set([N.K.bDQ])
@@ -23446,11 +23741,11 @@
             w[Z.bzk] = {
                 'result': {
                     'type': C.S.bfa + l._.bRu,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bDP]),
-                    'count': 0x3
+                    'count': 3
                 }]],
                 'alwaysShow': true,
                 'inventoryStates': new Set([N.K.bDQ])
@@ -23458,11 +23753,11 @@
             w[Z.bzy] = {
                 'result': {
                     'type': C.S.bfa + l._.bRK,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bzC]),
-                    'count': 0x3
+                    'count': 3
                 }]],
                 'alwaysShow': true,
                 'inventoryStates': new Set([N.K.bDQ])
@@ -23470,11 +23765,11 @@
             w[Z.bzB] = {
                 'result': {
                     'type': C.S.bfa + l._.bRc,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bHj]),
-                    'count': 0x3
+                    'count': 3
                 }]],
                 'alwaysShow': true,
                 'inventoryStates': new Set([N.K.bDQ])
@@ -23482,11 +23777,11 @@
             w[Z.bzZ] = {
                 'result': {
                     'type': C.S.bfa + l._.bRY,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bDa]),
-                    'count': 0x3
+                    'count': 3
                 }]],
                 'alwaysShow': true,
                 'inventoryStates': new Set([N.K.bDQ])
@@ -23494,11 +23789,11 @@
             w[Z.bze] = {
                 'result': {
                     'type': C.S.bfa + l._.bRx,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bRb]),
-                    'count': 0x3
+                    'count': 3
                 }]],
                 'alwaysShow': true,
                 'inventoryStates': new Set([N.K.bDQ])
@@ -23506,11 +23801,11 @@
             w[Z.bzz] = {
                 'result': {
                     'type': C.S.bfa + l._.bRg,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bHM]),
-                    'count': 0x3
+                    'count': 3
                 }]],
                 'alwaysShow': true,
                 'inventoryStates': new Set([N.K.bDQ])
@@ -23518,11 +23813,11 @@
             w[Z.bzH] = {
                 'result': {
                     'type': C.S.bfa + l._.bRJ,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bDT]),
-                    'count': 0x3
+                    'count': 3
                 }]],
                 'alwaysShow': true,
                 'inventoryStates': new Set([N.K.bDQ])
@@ -23530,11 +23825,11 @@
             w[Z.bzd] = {
                 'result': {
                     'type': C.S.bfa + l._.bRG,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bHS]),
-                    'count': 0x3
+                    'count': 3
                 }]],
                 'alwaysShow': true,
                 'inventoryStates': new Set([N.K.bDQ])
@@ -23542,11 +23837,11 @@
             w[Z.bzR] = {
                 'result': {
                     'type': C.S.bfa + l._.bRl,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bDp]),
-                    'count': 0x3
+                    'count': 3
                 }]],
                 'alwaysShow': true,
                 'inventoryStates': new Set([N.K.bDQ])
@@ -23554,11 +23849,11 @@
             w[Z.bzn] = {
                 'result': {
                     'type': C.S.bfa + l._.bRq,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bDV]),
-                    'count': 0x3
+                    'count': 3
                 }]],
                 'alwaysShow': true,
                 'inventoryStates': new Set([N.K.bDQ])
@@ -23566,11 +23861,11 @@
             w[Z.bzt] = {
                 'result': {
                     'type': C.S.bfa + l._.bRi,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bDE]),
-                    'count': 0x3
+                    'count': 3
                 }]],
                 'alwaysShow': true,
                 'inventoryStates': new Set([N.K.bDQ])
@@ -23810,7 +24105,7 @@
                     'count': 1
                 }, {
                     'type': new Set([C.S.bfa + l._.bzw]),
-                    'count': 0x2
+                    'count': 2
                 }, {
                     'type': new Set([C.S.bfa + l._.bRo, C.S.bfa + l._.bRP, C.S.bfa + l._.bHL, C.S.bfa + l._.bRa]),
                     'count': 1
@@ -23926,7 +24221,7 @@
             w[Z.bey] = {
                 'result': {
                     'type': C.S.bfa + l._.bey,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.byX]),
@@ -23938,7 +24233,7 @@
             w[Z.beB] = {
                 'result': {
                     'type': C.S.bfa + l._.beB,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.byv]),
@@ -23950,7 +24245,7 @@
             w[Z.beZ] = {
                 'result': {
                     'type': C.S.bfa + l._.beZ,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.byc]),
@@ -23962,7 +24257,7 @@
             w[Z.bee] = {
                 'result': {
                     'type': C.S.bfa + l._.bee,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.byq]),
@@ -23974,7 +24269,7 @@
             w[Z.bez] = {
                 'result': {
                     'type': C.S.bfa + l._.bez,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.byp]),
@@ -23986,7 +24281,7 @@
             w[Z.beH] = {
                 'result': {
                     'type': C.S.bfa + l._.beH,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bBD]),
@@ -23998,7 +24293,7 @@
             w[Z.bed] = {
                 'result': {
                     'type': C.S.bfa + l._.bed,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bBz]),
@@ -24010,7 +24305,7 @@
             w[Z.beR] = {
                 'result': {
                     'type': C.S.bfa + l._.beR,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bBN]),
@@ -24022,7 +24317,7 @@
             w[Z.ben] = {
                 'result': {
                     'type': C.S.bfa + l._.ben,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bBM]),
@@ -24034,7 +24329,7 @@
             w[Z.bet] = {
                 'result': {
                     'type': C.S.bfa + l._.bet,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bBO]),
@@ -24046,7 +24341,7 @@
             w[Z.beA] = {
                 'result': {
                     'type': C.S.bfa + l._.beA,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bBJ]),
@@ -24058,7 +24353,7 @@
             w[Z.beN] = {
                 'result': {
                     'type': C.S.bfa + l._.beN,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bBP]),
@@ -24070,7 +24365,7 @@
             w[Z.beW] = {
                 'result': {
                     'type': C.S.bfa + l._.beW,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bZb]),
@@ -24082,7 +24377,7 @@
             w[Z.beL] = {
                 'result': {
                     'type': C.S.bfa + l._.beL,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bZB]),
@@ -24094,7 +24389,7 @@
             w[Z.beX] = {
                 'result': {
                     'type': C.S.bfa + l._.beX,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bZn]),
@@ -24106,7 +24401,7 @@
             w[Z.bem] = {
                 'result': {
                     'type': C.S.bfa + l._.bem,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bZm]),
@@ -24118,7 +24413,7 @@
             w[Z.beU] = {
                 'result': {
                     'type': C.S.bfa + l._.beU,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bZQ]),
@@ -24130,7 +24425,7 @@
             w[Z.bej] = {
                 'result': {
                     'type': C.S.bfa + l._.bej,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bZY]),
@@ -24142,7 +24437,7 @@
             w[Z.beM] = {
                 'result': {
                     'type': C.S.bfa + l._.beM,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bZi]),
@@ -24154,7 +24449,7 @@
             w[Z.beS] = {
                 'result': {
                     'type': C.S.bfa + l._.beS,
-                    'count': 0x4
+                    'count': 4
                 },
                 'ingredientSets': [[{
                     'type': new Set([C.S.bfa + l._.bZV]),
@@ -24213,7 +24508,7 @@
                 }, {
                     'key': 'btj',
                     'get': function() {
-                        return 0x2;
+                        return 2;
                     }
                 }]);
             }(G.A)
@@ -24234,22 +24529,22 @@
                 }
                 ,
                 z.bDy = function(A, j, J) {
-                    j.bfV.bfE.bIo === w.S.bDI ? (j.bfV.bfE = (0,
-                    C.O)(this.bfV.bfE.bIo),
-                    j.bfV.bDb = Math.min(j.bfV.bfE.btM, J)) : j.bfV.bfE.bIo === this.bfV.bfE.bIo ? j.bfV.bDb = Math.min(j.bfV.bfE.btM, j.bfV.bDb + J) : this.bDk(j.bfV) && (j.bfV.bfE = (0,
-                    C.O)(this.bfV.bfE.bIo),
+                    j.bfV.bfE.bIo === w.S.bDI ? (j.bfV.bfE =
+                    C.O(this.bfV.bfE.bIo),
+                    j.bfV.bDb = Math.min(j.bfV.bfE.btM, J)) : j.bfV.bfE.bIo === this.bfV.bfE.bIo ? j.bfV.bDb = Math.min(j.bfV.bfE.btM, j.bfV.bDb + J) : this.bDk(j.bfV) && (j.bfV.bfE =
+                    C.O(this.bfV.bfE.bIo),
                     j.bfV.bDb = Math.min(j.bfV.bfE.btM, J));
                 }
                 ,
                 z.bDz = function(A, j, J) {
                     var v = A.bDF
                       , b = this.bfV;
-                    J === x.d.LEFT ? v.bDZ.bfE.bIo === w.S.bDI ? (v.bDZ.bfE = (0,
-                    C.O)(b.bfE.bIo),
-                    v.bDZ.bDb = 1) : v.bDZ.bfE.bIo === b.bfE.bIo ? v.bDZ.bDb = Math.min(b.bfE.btM, v.bDZ.bDb + 1) : (v.bDZ.bfE = (0,
-                    C.O)(w.S.bDI),
-                    v.bDZ.bDb = 1) : J === x.d.RIGHT ? v.bDZ.bfE.bIo === w.S.bDI ? (v.bDZ.bfE = (0,
-                    C.O)(b.bfE.bIo),
+                    J === x.d.LEFT ? v.bDZ.bfE.bIo === w.S.bDI ? (v.bDZ.bfE =
+                    C.O(b.bfE.bIo),
+                    v.bDZ.bDb = 1) : v.bDZ.bfE.bIo === b.bfE.bIo ? v.bDZ.bDb = Math.min(b.bfE.btM, v.bDZ.bDb + 1) : (v.bDZ.bfE =
+                    C.O(w.S.bDI),
+                    v.bDZ.bDb = 1) : J === x.d.RIGHT ? v.bDZ.bfE.bIo === w.S.bDI ? (v.bDZ.bfE =
+                    C.O(b.bfE.bIo),
                     v.bDZ.bDb = 1) : v.bDZ.bDh(1) : J === x.d.SHIFT_CLICK && (v.bDZ.bfE.bIo === w.S.bDI ? v.btS(j, new G.A(new U.A((0,
                     C.O)(b.bfE.bIo),b.bfE.btM))) : v.bDZ.bDh(v.bDZ.bDb));
                 }
@@ -24311,23 +24606,23 @@
               , q = {
                 'bfC': 0,
                 'bzL': 1,
-                'bDm': 0x2,
-                'bDj': 0x3,
-                'btQ': 0x4,
-                'bts': 0x5,
-                'btC': 0x6,
-                'bDS': 0x7,
-                'btO': 0x8,
-                'btu': 0x9,
-                'bDU': 0xa,
-                'btK': 0xb,
-                'btc': 0xc,
-                'btY': 0xd,
-                'bDw': 0xe,
-                'btx': 0xf,
-                'bDQ': 0x10,
-                'btg': 0x11,
-                'bzA': 0x12
+                'bDm': 2,
+                'bDj': 3,
+                'btQ': 4,
+                'bts': 5,
+                'btC': 6,
+                'bDS': 7,
+                'btO': 8,
+                'btu': 9,
+                'bDU': 10,
+                'btK': 11,
+                'btc': 12,
+                'btY': 13,
+                'bDw': 14,
+                'btx': 15,
+                'bDQ': 16,
+                'btg': 17,
+                'bzA': 18
             }
               , f = function(K, Y) {
                 return void 0 === Y && (Y = Z.b.btJ),
@@ -24389,7 +24684,7 @@
                 'SHIFT_CLICK': -1,
                 'LEFT': 0,
                 'WHEEL': 1,
-                'RIGHT': 0x2
+                'RIGHT': 2
             };
         }
         ,
@@ -24434,7 +24729,7 @@
                     else {
                         if (G === C.d.RIGHT) {
                             if (k.bDZ.bfE.bIo === l.S.bDI && W.bfE.bIo !== l.S.bDI) {
-                                var x = Math.ceil(W.bDb / 0x2);
+                                var x = Math.ceil(W.bDb / 2);
                                 k.btE(W, k.bDZ, x);
                             } else
                                 k.bDZ.bfE.bIo !== l.S.bDI && this.bDk(k.bDZ) && (W.bfE.bIo === l.S.bDI || W.bfE.bIo === k.bDZ.bfE.bIo && W.bDb < W.bfE.btM ? k.btE(k.bDZ, W, 1) : k.bAI(k.bDZ, W));
@@ -24473,16 +24768,16 @@
             var w = {
                 'bAb': 0,
                 'btX': 1,
-                'btm': 0x2,
-                'bAF': 0x3,
-                'bAf': 0x4,
-                'bAD': 0x5,
-                'bAh': 0x6,
-                'bAk': 0x7,
-                'btv': 0x8,
-                'btU': 0x9,
-                'btw': 0xa,
-                'bDf': 0xb
+                'btm': 2,
+                'bAF': 3,
+                'bAf': 4,
+                'bAD': 5,
+                'bAh': 6,
+                'bAk': 7,
+                'btv': 8,
+                'btU': 9,
+                'btw': 10,
+                'bDf': 11
             };
         }
         ,
@@ -24495,16 +24790,16 @@
               , l = {
                 'bAy': 0,
                 'bAB': 1,
-                'bAZ': 0x2,
-                'bAe': 0x3,
-                'bAz': 0x4,
-                'bAH': 0x5,
-                'bAd': 0x6,
-                'bAR': 0x7,
-                'bAn': 0x8,
-                'bAt': 0x9,
-                'bAA': 0xa,
-                'bzA': 0xb
+                'bAZ': 2,
+                'bAe': 3,
+                'bAz': 4,
+                'bAH': 5,
+                'bAd': 6,
+                'bAR': 7,
+                'bAn': 8,
+                'bAt': 9,
+                'bAA': 10,
+                'bzA': 11
             }
               , C = [w.p.bHx, w.p.bAN, w.p.bAN, w.p.bAW, w.p.bAL, w.p.bAL, w.p.bAL, w.p.bAL, w.p.bAL, w.p.bAX, w.p.bAW]
               , N = function(Z) {
@@ -24532,7 +24827,7 @@
               , re = r1(0x13ad5)
               , rR = 0
               , rH = 1
-              , ry = 0x2
+              , ry = 2
               , rd = r1(0x11563)
               , rP = r1(0x10c69)
               , rQ = r1(0x6e76)
@@ -24552,7 +24847,7 @@
                         return;
                     if ('string' == typeof rO)
                         return rN(rO, rJ);
-                    var rv = Object.prototype.toString.call(rO).slice(0x8, -1);
+                    var rv = Object.prototype.toString.call(rO).slice(8, -1);
                     'Object' === rv && rO.constructor && (rv = rO.constructor.name);
                     if ('Map' === rv || 'Set' === rv)
                         return Array.from(rO);
@@ -24571,7 +24866,7 @@
                     }
                     ;
                 }
-                throw new TypeError('Invalid\x20attempt\x20to\x20iterate\x20non-iterable\x20instance.\x0aIn\x20order\x20to\x20be\x20iterable,\x20non-array\x20objects\x20must\x20have\x20a\x20[Symbol.iterator]()\x20method.');
+                throw new TypeError('Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.');
             }
             function rN(rY, rz) {
                 (null == rz || rz > rY.length) && (rz = rY.length);
@@ -24606,7 +24901,7 @@
                     rJ.bAM = 0,
                     rJ.bAS = 0.1,
                     rJ.bAw = 0.2,
-                    rJ.bAv = Math.PI / 0x4,
+                    rJ.bAv = Math.PI / 4,
                     rJ.bAQ = false,
                     rJ.bAs = '',
                     rJ.bAC = re.f.bAO,
@@ -24616,8 +24911,8 @@
                     rJ.bAY = 0,
                     rJ.bAx = false,
                     rJ.bAg = new rM.KY(),
-                    rJ.bAJ = (0,
-                    rr.LX)(0, 0),
+                    rJ.bAJ =
+                    rr.LX(0, 0),
                     rJ.bAG = 0,
                     rJ.bAl = new rX.A(),
                     rJ.bAq(),
@@ -24631,27 +24926,27 @@
                     rJ.bAp.add(rJ.bAT),
                     rJ.bAV = new rt.A(rJ),
                     rJ.bAE(rJ.bAV),
-                    rJ.bAE(new rm.A(rJ,(0,
-                    rw.VL)((0,
-                    rF.VB)(-rS.A.bNI.bbZ / 0x2, 0, -rS.A.bNI.bbd / 0x2), (0,
-                    rF.VB)(rS.A.bNI.bbZ / 0x2, rS.A.bNI.bbB, rS.A.bNI.bbd / 0x2)))),
+                    rJ.bAE(new rm.A(rJ,
+                    rw.VL((0,
+                    rF.VB)(-rS.A.bNI.bbZ / 2, 0, -rS.A.bNI.bbd / 2),
+                    rF.VB(rS.A.bNI.bbZ / 2, rS.A.bNI.bbB, rS.A.bNI.bbd / 2)))),
                     rJ;
                 }
                 (0,
                 r4.A)(rz, rY);
                 var rA = rz.prototype;
                 return rA.bNb = (function() {
-                    var rj = (0,
-                    r2.A)(r6().mark(function rO() {
+                    var rj =
+                    r2.A(r6().mark(function rO() {
                         return r6().wrap(function(rJ) {
                             for (; ; )
                                 switch (rJ.prev = rJ.next) {
                                 case 0:
-                                    return rJ.next = 0x2,
+                                    return rJ.next = 2,
                                     this.bAl.await();
-                                case 0x2:
+                                case 2:
                                     return rJ.abrupt('return', rJ.sent);
-                                case 0x3:
+                                case 3:
                                 case 'end':
                                     return rJ.stop();
                                 }
@@ -24663,16 +24958,16 @@
                     ;
                 }()),
                 rA.bAq = (function() {
-                    var rj = (0,
-                    r2.A)(r6().mark(function rO() {
+                    var rj =
+                    r2.A(r6().mark(function rO() {
                         var rJ, rv = this;
                         return r6().wrap(function(rn) {
                             for (; ; )
                                 switch (rn.prev = rn.next) {
                                 case 0:
-                                    return rn.next = 0x2,
+                                    return rn.next = 2,
                                     rE.A.bNF('player');
-                                case 0x2:
+                                case 2:
                                     (rJ = rn.sent) && (this.bNf = rJ.bND,
                                     this.bNf.scale.set(0.9, 0.9, 0.9),
                                     this.bNh = new r9.AnimationMixer(this.bNf),
@@ -24723,7 +25018,7 @@
                                         rb instanceof r9.Mesh && rv.bAV.bNO(rb.material);
                                     })),
                                     this.bAl.release();
-                                case 0x5:
+                                case 5:
                                 case 'end':
                                     return rn.stop();
                                 }
@@ -24844,8 +25139,8 @@
                             break;
                         case rd.v.bAe:
                             var rn = rv.bWz;
-                            this.bAx = (0x8 & rn) > 0,
-                            this.bWd(0x7 & rn);
+                            this.bAx = (8 & rn) > 0,
+                            this.bWd(7 & rn);
                             break;
                         case rd.v.bAz:
                             this.bWR(rv.bWz);
@@ -24864,12 +25159,12 @@
                 ,
                 rA.bWN = function(rj) {
                     rY.prototype.bWN.call(this, rj);
-                    var rO = (0,
-                    rF.VB)(this.bAc.position.x, this.bAc.position.y, this.bAc.position.z)
-                      , rJ = (0,
-                    rr.LX)(rj.bbZ - rO.bbZ, rj.bbd - rO.bbd)
-                      , rv = (0,
-                    rr.D3)(rJ);
+                    var rO =
+                    rF.VB(this.bAc.position.x, this.bAc.position.y, this.bAc.position.z)
+                      , rJ =
+                    rr.LX(rj.bbZ - rO.bbZ, rj.bbd - rO.bbd)
+                      , rv =
+                    rr.D3(rJ);
                     this.bWW(rv),
                     this.bWL(rJ, rv),
                     this.bAc.position.set(rj.bbZ, rj.bbB, rj.bbd),
@@ -24880,8 +25175,8 @@
                     var rO, rJ = rB.yA(this.bAG, rj.bbB);
                     this.bAQ ? this.bAG = rj.bbB : Math.abs(rJ) > this.bAv && (this.bAG = rj.bbB - Math.sign(rJ) * this.bAv,
                     this.bAG = rB.n0(this.bAG)),
-                    this.bAJ = (0,
-                    rr.ev)(rj),
+                    this.bAJ =
+                    rr.ev(rj),
                     null == (rO = this.bNf) || rO.updateMatrix();
                 }
                 ,
@@ -24889,13 +25184,13 @@
                     if (rO > 0.0001) {
                         var rJ = rB.q9(rj)
                           , rv = rB.n0(rJ - this.bAJ.bbB);
-                        rv < -0x4 * Math.PI / 0x5 || rv >= 0x4 * Math.PI / 0x5 ? this.bAG = this.bAJ.bbB : rv < -0x3 * Math.PI / 0x5 && rv >= -0x4 * Math.PI / 0x5 ? this.bAG = this.bAJ.bbB + Math.PI / 0x4 : rv < -1 * Math.PI / 0x5 && rv >= -0x3 * Math.PI / 0x5 ? this.bAG = this.bAJ.bbB - Math.PI / 0x4 : rv < Math.PI / 0x5 && rv >= -1 * Math.PI / 0x5 ? this.bAG = this.bAJ.bbB : rv < 0x3 * Math.PI / 0x5 && rv >= Math.PI / 0x5 ? this.bAG = this.bAJ.bbB + Math.PI / 0x4 : rv < 0x4 * Math.PI / 0x5 && rv >= 0x3 * Math.PI / 0x5 && (this.bAG = this.bAJ.bbB - Math.PI / 0x4);
+                        rv < -4 * Math.PI / 5 || rv >= 4 * Math.PI / 5 ? this.bAG = this.bAJ.bbB : rv < -3 * Math.PI / 5 && rv >= -4 * Math.PI / 5 ? this.bAG = this.bAJ.bbB + Math.PI / 4 : rv < -1 * Math.PI / 5 && rv >= -3 * Math.PI / 5 ? this.bAG = this.bAJ.bbB - Math.PI / 4 : rv < Math.PI / 5 && rv >= -1 * Math.PI / 5 ? this.bAG = this.bAJ.bbB : rv < 3 * Math.PI / 5 && rv >= Math.PI / 5 ? this.bAG = this.bAJ.bbB + Math.PI / 4 : rv < 4 * Math.PI / 5 && rv >= 3 * Math.PI / 5 && (this.bAG = this.bAJ.bbB - Math.PI / 4);
                     }
                 }
                 ,
                 rA.bNi = function(rj) {
                     Date.now() <= this.bAY && (this.bAG = this.bAJ.bbB),
-                    this.bNf && (this.bNf.rotation.y = rB.n0(rB.xe(this.bNf.rotation.y, this.bAG, 0xa * rj)),
+                    this.bNf && (this.bNf.rotation.y = rB.n0(rB.xe(this.bNf.rotation.y, this.bAG, 10 * rj)),
                     this.bNf.updateMatrix());
                 }
                 ,
@@ -24912,7 +25207,7 @@
                 ,
                 rA.bNr = function() {
                     if (this.bAQ) {
-                        var rj, rO, rJ, rv, rn, rb = null == (rj = this.bNs) ? void 0 : rj.rotation, rD = null == (rO = this.bNC) ? void 0 : rO.rotation, ru = Math.max((null == (rJ = this.bNS) ? void 0 : rJ.rotation).x + Math.PI / 0x3, 0);
+                        var rj, rO, rJ, rv, rn, rb = null == (rj = this.bNs) ? void 0 : rj.rotation, rD = null == (rO = this.bNC) ? void 0 : rO.rotation, ru = Math.max((null == (rJ = this.bNS) ? void 0 : rJ.rotation).x + Math.PI / 3, 0);
                         null == (rv = this.bNs) || rv.setRotationFromEuler(new r9.Euler(ru,rb.y,rb.z)),
                         null == (rn = this.bNC) || rn.setRotationFromEuler(new r9.Euler(ru,rD.y,rD.z));
                     }
@@ -24941,8 +25236,8 @@
                 rA.bWe = function(rj) {
                     this.bAs = rj,
                     this.bNK(),
-                    this.bNc = (0,
-                    rl.q)(this.bAs, 0x40, 0.3),
+                    this.bNc =
+                    rl.q(this.bAs, 64, 0.3),
                     this.bNc.position.set(0, rS.A.bNI.bbB + 0.4, 0),
                     this.bAc.add(this.bNc);
                 }
@@ -25064,50 +25359,50 @@
                 }
                 ,
                 rA.bWH = (function() {
-                    var rj = (0,
-                    r2.A)(r6().mark(function rO(rJ, rv) {
+                    var rj =
+                    r2.A(r6().mark(function rO(rJ, rv) {
                         var rn, rb, rD;
                         return r6().wrap(function(ru) {
                             for (; ; )
                                 switch (ru.prev = ru.next) {
                                 case 0:
                                     return rn = ++this.bAi,
-                                    ru.next = 0x3,
+                                    ru.next = 3,
                                     this.bNb();
-                                case 0x3:
+                                case 3:
                                     if (rn === this.bAi) {
-                                        ru.next = 0x5;
+                                        ru.next = 5;
                                         break;
                                     }
                                     return ru.abrupt('return');
-                                case 0x5:
+                                case 5:
                                     if (null == rv) {
-                                        ru.next = 0x9;
+                                        ru.next = 9;
                                         break;
                                     }
                                     ru.t0 = rv,
-                                    ru.next = 0xc;
+                                    ru.next = 12;
                                     break;
-                                case 0x9:
-                                    return ru.next = 0xb,
+                                case 9:
+                                    return ru.next = 11,
                                     (0,
                                     r8.O)(rJ).bWs();
-                                case 0xb:
+                                case 11:
                                     ru.t0 = ru.sent;
-                                case 0xc:
+                                case 12:
                                     if (rb = ru.t0,
                                     void 0 !== this.bWI && (this.bAT.remove(this.bWI),
                                     this.bWI = void 0),
                                     rJ !== r7.S.bDI) {
-                                        ru.next = 0x10;
+                                        ru.next = 16;
                                         break;
                                     }
                                     return ru.abrupt('return');
-                                case 0x10:
+                                case 16:
                                     return this.bWI = rb,
                                     this.bAT.add(this.bWI),
-                                    rD = (0,
-                                    r8.O)(rJ),
+                                    rD =
+                                    r8.O(rJ),
                                     this.bAj.copy(rD.bWC()),
                                     this.bAU.copy(rD.bWO()),
                                     ru.next = 0x17,
@@ -25124,8 +25419,8 @@
                     ;
                 }()),
                 rA.bWu = (function() {
-                    var rj = (0,
-                    r2.A)(r6().mark(function rO(rJ) {
+                    var rj =
+                    r2.A(r6().mark(function rO(rJ) {
                         var rv;
                         return r6().wrap(function(rn) {
                             for (; ; )
@@ -25133,19 +25428,19 @@
                                 case 0:
                                     this.bWD = void 0,
                                     rn.t0 = rJ,
-                                    rn.next = rn.t0 === r7.S.bHY || rn.t0 === r7.S.bHr || rn.t0 === r7.S.bdI || rn.t0 === r7.S.bdy || rn.t0 === r7.S.bdn || rn.t0 === r7.S.bdm || rn.t0 === r7.S.bdQ || rn.t0 === r7.S.bdr ? 0x4 : 0xc;
+                                    rn.next = rn.t0 === r7.S.bHY || rn.t0 === r7.S.bHr || rn.t0 === r7.S.bdI || rn.t0 === r7.S.bdy || rn.t0 === r7.S.bdn || rn.t0 === r7.S.bdm || rn.t0 === r7.S.bdQ || rn.t0 === r7.S.bdr ? 4 : 12;
                                     break;
-                                case 0x4:
-                                    return rn.next = 0x6,
+                                case 4:
+                                    return rn.next = 6,
                                     rE.A.bNF('arrow');
-                                case 0x6:
+                                case 6:
                                     return rv = rn.sent,
                                     this.bWD = null == rv ? void 0 : rv.bND,
                                     this.bWD.scale.set(0.6, 0.6, 0.6),
-                                    this.bWD.rotation.set(-Math.PI / 0x2, 0, 0),
+                                    this.bWD.rotation.set(-Math.PI / 2, 0, 0),
                                     this.bWD.position.set(0, 1.1, -1),
-                                    rn.abrupt('break', 0xc);
-                                case 0xc:
+                                    rn.abrupt('break', 12);
+                                case 12:
                                 case 'end':
                                     return rn.stop();
                                 }
@@ -25157,49 +25452,49 @@
                     ;
                 }()),
                 rA.bWR = (function() {
-                    var rj = (0,
-                    r2.A)(r6().mark(function rO(rJ) {
+                    var rj =
+                    r2.A(r6().mark(function rO(rJ) {
                         var rv, rn, rb, rD, ru, F0;
                         return r6().wrap(function(F1) {
                             for (; ; )
                                 switch (F1.prev = F1.next) {
                                 case 0:
                                     return rD = ++this.bAr,
-                                    F1.next = 0x3,
+                                    F1.next = 3,
                                     this.bNb();
-                                case 0x3:
+                                case 3:
                                     if (rD === this.bAr) {
-                                        F1.next = 0x5;
+                                        F1.next = 5;
                                         break;
                                     }
                                     return F1.abrupt('return');
-                                case 0x5:
-                                    return F1.next = 0x7,
+                                case 5:
+                                    return F1.next = 7,
                                     (0,
                                     r8.O)(rJ).bWK();
-                                case 0x7:
+                                case 7:
                                     if (F1.t0 = rn = F1.sent,
                                     null != F1.t0) {
-                                        F1.next = 0xc;
+                                        F1.next = 12;
                                         break;
                                     }
                                     F1.t1 = void 0,
-                                    F1.next = 0xd;
+                                    F1.next = 13;
                                     break;
-                                case 0xc:
+                                case 12:
                                     F1.t1 = rn.bND;
-                                case 0xd:
+                                case 13:
                                     if (F1.t2 = rv = F1.t1,
                                     null == F1.t2) {
-                                        F1.next = 0x12;
+                                        F1.next = 18;
                                         break;
                                     }
                                     F1.t3 = rv,
-                                    F1.next = 0x13;
+                                    F1.next = 19;
                                     break;
-                                case 0x12:
+                                case 18:
                                     F1.t3 = new r9.Object3D();
-                                case 0x13:
+                                case 19:
                                     if (ru = F1.t3,
                                     void 0 !== this.bWc && (null == (F0 = this.bNS) || F0.remove(this.bWc),
                                     this.bWc = void 0),
@@ -25223,49 +25518,49 @@
                     ;
                 }()),
                 rA.bWn = (function() {
-                    var rj = (0,
-                    r2.A)(r6().mark(function rO(rJ) {
+                    var rj =
+                    r2.A(r6().mark(function rO(rJ) {
                         var rv, rn, rb, rD, ru, F0;
                         return r6().wrap(function(F1) {
                             for (; ; )
                                 switch (F1.prev = F1.next) {
                                 case 0:
                                     return rD = ++this.bAo,
-                                    F1.next = 0x3,
+                                    F1.next = 3,
                                     this.bNb();
-                                case 0x3:
+                                case 3:
                                     if (rD === this.bAo) {
-                                        F1.next = 0x5;
+                                        F1.next = 5;
                                         break;
                                     }
                                     return F1.abrupt('return');
-                                case 0x5:
-                                    return F1.next = 0x7,
+                                case 5:
+                                    return F1.next = 7,
                                     (0,
                                     r8.O)(rJ).bWK();
-                                case 0x7:
+                                case 7:
                                     if (F1.t0 = rn = F1.sent,
                                     null != F1.t0) {
-                                        F1.next = 0xc;
+                                        F1.next = 12;
                                         break;
                                     }
                                     F1.t1 = void 0,
-                                    F1.next = 0xd;
+                                    F1.next = 13;
                                     break;
-                                case 0xc:
+                                case 12:
                                     F1.t1 = rn.bND;
-                                case 0xd:
+                                case 13:
                                     if (F1.t2 = rv = F1.t1,
                                     null == F1.t2) {
-                                        F1.next = 0x12;
+                                        F1.next = 18;
                                         break;
                                     }
                                     F1.t3 = rv,
-                                    F1.next = 0x13;
+                                    F1.next = 19;
                                     break;
-                                case 0x12:
+                                case 18:
                                     F1.t3 = new r9.Object3D();
-                                case 0x13:
+                                case 19:
                                     if (ru = F1.t3,
                                     void 0 !== this.bWw && (null == (F0 = this.bNw) || F0.remove(this.bWw),
                                     this.bWw = void 0),
@@ -25289,49 +25584,49 @@
                     ;
                 }()),
                 rA.bWt = (function() {
-                    var rj = (0,
-                    r2.A)(r6().mark(function rO(rJ) {
+                    var rj =
+                    r2.A(r6().mark(function rO(rJ) {
                         var rv, rn, rb, rD, ru, F0;
                         return r6().wrap(function(F1) {
                             for (; ; )
                                 switch (F1.prev = F1.next) {
                                 case 0:
                                     return rD = ++this.bAP,
-                                    F1.next = 0x3,
+                                    F1.next = 3,
                                     this.bNb();
-                                case 0x3:
+                                case 3:
                                     if (rD === this.bAP) {
-                                        F1.next = 0x5;
+                                        F1.next = 5;
                                         break;
                                     }
                                     return F1.abrupt('return');
-                                case 0x5:
-                                    return F1.next = 0x7,
+                                case 5:
+                                    return F1.next = 7,
                                     (0,
                                     r8.O)(rJ).bWK();
-                                case 0x7:
+                                case 7:
                                     if (F1.t0 = rn = F1.sent,
                                     null != F1.t0) {
-                                        F1.next = 0xc;
+                                        F1.next = 12;
                                         break;
                                     }
                                     F1.t1 = void 0,
-                                    F1.next = 0xd;
+                                    F1.next = 13;
                                     break;
-                                case 0xc:
+                                case 12:
                                     F1.t1 = rn.bND;
-                                case 0xd:
+                                case 13:
                                     if (F1.t2 = rv = F1.t1,
                                     null == F1.t2) {
-                                        F1.next = 0x12;
+                                        F1.next = 18;
                                         break;
                                     }
                                     F1.t3 = rv,
-                                    F1.next = 0x13;
+                                    F1.next = 19;
                                     break;
-                                case 0x12:
+                                case 18:
                                     F1.t3 = new r9.Object3D();
-                                case 0x13:
+                                case 19:
                                     if (ru = F1.t3,
                                     void 0 !== this.bWv && (null == (F0 = this.bNv) || F0.remove(this.bWv),
                                     this.bWv = void 0),
@@ -25355,49 +25650,49 @@
                     ;
                 }()),
                 rA.bWA = (function() {
-                    var rj = (0,
-                    r2.A)(r6().mark(function rO(rJ) {
+                    var rj =
+                    r2.A(r6().mark(function rO(rJ) {
                         var rv, rn, rb, rD, ru, F0;
                         return r6().wrap(function(F1) {
                             for (; ; )
                                 switch (F1.prev = F1.next) {
                                 case 0:
                                     return rD = ++this.bAa,
-                                    F1.next = 0x3,
+                                    F1.next = 3,
                                     this.bNb();
-                                case 0x3:
+                                case 3:
                                     if (rD === this.bAa) {
-                                        F1.next = 0x5;
+                                        F1.next = 5;
                                         break;
                                     }
                                     return F1.abrupt('return');
-                                case 0x5:
-                                    return F1.next = 0x7,
+                                case 5:
+                                    return F1.next = 7,
                                     (0,
                                     r8.O)(rJ).bWK();
-                                case 0x7:
+                                case 7:
                                     if (F1.t0 = rn = F1.sent,
                                     null != F1.t0) {
-                                        F1.next = 0xc;
+                                        F1.next = 12;
                                         break;
                                     }
                                     F1.t1 = void 0,
-                                    F1.next = 0xd;
+                                    F1.next = 13;
                                     break;
-                                case 0xc:
+                                case 12:
                                     F1.t1 = rn.bND;
-                                case 0xd:
+                                case 13:
                                     if (F1.t2 = rv = F1.t1,
                                     null == F1.t2) {
-                                        F1.next = 0x12;
+                                        F1.next = 18;
                                         break;
                                     }
                                     F1.t3 = rv,
-                                    F1.next = 0x13;
+                                    F1.next = 19;
                                     break;
-                                case 0x12:
+                                case 18:
                                     F1.t3 = new r9.Object3D();
-                                case 0x13:
+                                case 19:
                                     if (ru = F1.t3,
                                     void 0 !== this.bWQ && (null == (F0 = this.bNv) || F0.remove(this.bWQ),
                                     this.bWQ = void 0),
@@ -25430,8 +25725,8 @@
                     this.bAG = rj.bbB,
                     this.bNf && (this.bNf.rotation.y = rj.bbB,
                     this.bNf.updateMatrix()),
-                    this.bAJ = (0,
-                    rr.ev)(rj);
+                    this.bAJ =
+                    rr.ev(rj);
                 }
                 ,
                 (0,
@@ -25478,7 +25773,7 @@
                         return;
                     if ('string' == typeof I)
                         return T(I, g);
-                    var L = Object.prototype.toString.call(I).slice(0x8, -1);
+                    var L = Object.prototype.toString.call(I).slice(8, -1);
                     'Object' === L && I.constructor && (L = I.constructor.name);
                     if ('Map' === L || 'Set' === L)
                         return Array.from(I);
@@ -25497,7 +25792,7 @@
                     }
                     ;
                 }
-                throw new TypeError('Invalid\x20attempt\x20to\x20iterate\x20non-iterable\x20instance.\x0aIn\x20order\x20to\x20be\x20iterable,\x20non-array\x20objects\x20must\x20have\x20a\x20[Symbol.iterator]()\x20method.');
+                throw new TypeError('Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.');
             }
             function T(G, k) {
                 (null == k || k > G.length) && (k = G.length);
@@ -25514,14 +25809,14 @@
                     this.bWr.position.set(0xf423f, 0xf423f, 0xf423f),
                     this.bWr.matrixAutoUpdate = false,
                     this.bWr.updateMatrix(),
-                    this.bWo = (0,
-                    Z.LX)(0, 0),
-                    this.bWP = (0,
-                    h.VB)(0xf423f, 0xf423f, 0xf423f),
-                    this.bWa = (0,
-                    h.VB)(0xf423f, 0xf423f, 0xf423f),
-                    this.bWT = (0,
-                    h.VB)(0xf423f, 0xf423f, 0xf423f),
+                    this.bWo =
+                    Z.LX(0, 0),
+                    this.bWP =
+                    h.VB(0xf423f, 0xf423f, 0xf423f),
+                    this.bWa =
+                    h.VB(0xf423f, 0xf423f, 0xf423f),
+                    this.bWT =
+                    h.VB(0xf423f, 0xf423f, 0xf423f),
                     this.bWp = false,
                     this.bWV = false,
                     this.bWE = new Map(),
@@ -25594,33 +25889,33 @@
                     this.bWp || (this.bWN((0,
                     h.N3)(W.bLe)),
                     this.bWp = true)),
-                    W.bLz && (this.bWo = (0,
-                    Z.ev)(W.bLH),
+                    W.bLz && (this.bWo =
+                    Z.ev(W.bLH),
                     this.bWV || (this.bWX((0,
                     Z.LX)(W.bLH.bbZ, W.bLH.bbB)),
                     this.bWV = true))),
                     void 0 !== x && this.bWp) {
                         if (x.bLZ) {
-                            var g = (0,
-                            h.VB)(0, 0, 0);
-                            g.bbZ = (0,
-                            N.Cc)(this.bWP.bbZ, x.bLe.bbZ, 1 - I),
-                            g.bbB = (0,
-                            N.Cc)(this.bWP.bbB, x.bLe.bbB, 1 - I),
-                            g.bbd = (0,
-                            N.Cc)(this.bWP.bbd, x.bLe.bbd, 1 - I),
+                            var g =
+                            h.VB(0, 0, 0);
+                            g.bbZ =
+                            N.Cc(this.bWP.bbZ, x.bLe.bbZ, 1 - I),
+                            g.bbB =
+                            N.Cc(this.bWP.bbB, x.bLe.bbB, 1 - I),
+                            g.bbd =
+                            N.Cc(this.bWP.bbd, x.bLe.bbd, 1 - I),
                             x.bLd && (g.bbZ = x.bLe.bbZ,
                             g.bbB = x.bLe.bbB,
                             g.bbd = x.bLe.bbd),
                             this.bWN(g);
                         }
                         if (x.bLz) {
-                            var L = (0,
-                            Z.LX)(0, 0);
-                            L.bbB = (0,
-                            N.xe)(this.bWo.bbB, x.bLH.bbB, 1 - I),
-                            L.bbZ = (0,
-                            N.Cc)(this.bWo.bbZ, x.bLH.bbZ, 1 - I),
+                            var L =
+                            Z.LX(0, 0);
+                            L.bbB =
+                            N.xe(this.bWo.bbB, x.bLH.bbB, 1 - I),
+                            L.bbZ =
+                            N.Cc(this.bWo.bbZ, x.bLH.bbZ, 1 - I),
                             x.bLd && (L.bbB = x.bLH.bbB,
                             L.bbZ = x.bLH.bbZ),
                             this.bWX(L);
@@ -25692,10 +25987,10 @@
             var w = {
                 'bAm': 0,
                 'bLN': 1,
-                'bLW': 0x2,
-                'bkD': 0x3,
-                'bLL': 0x4,
-                'bLX': 0x5
+                'bLW': 2,
+                'bkD': 3,
+                'bLL': 4,
+                'bLX': 5
             };
             w.bAm,
             w.bLN,
@@ -25819,7 +26114,7 @@
                         return;
                     if ('string' == typeof f)
                         return W(f, K);
-                    var Y = Object.prototype.toString.call(f).slice(0x8, -1);
+                    var Y = Object.prototype.toString.call(f).slice(8, -1);
                     'Object' === Y && f.constructor && (Y = f.constructor.name);
                     if ('Map' === Y || 'Set' === Y)
                         return Array.from(f);
@@ -25838,7 +26133,7 @@
                     }
                     ;
                 }
-                throw new TypeError('Invalid\x20attempt\x20to\x20iterate\x20non-iterable\x20instance.\x0aIn\x20order\x20to\x20be\x20iterable,\x20non-array\x20objects\x20must\x20have\x20a\x20[Symbol.iterator]()\x20method.');
+                throw new TypeError('Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.');
             }
             function W(I, g) {
                 (null == g || g > I.length) && (g = I.length);
@@ -25884,8 +26179,8 @@
                     var f;
                     (this.bLg = Date.now(),
                     this.bLo(1, 0.1, 0.1),
-                    q > 0) && (null == (f = this.bLs.bNx) || f.bNg.bLP.bLa(q, this.bLs.bAc, (0,
-                    U.VB)(0, 0.5, 0), 0.4));
+                    q > 0) && (null == (f = this.bLs.bNx) || f.bNg.bLP.bLa(q, this.bLs.bAc,
+                    U.VB(0, 0.5, 0), 0.4));
                 }
                 ,
                 L.bNl = function(q, f) {
@@ -25948,10 +26243,10 @@
                     this.bLK = Date.now(),
                     this.bLx = 0;
                     do {
-                        f = (0,
-                        Z.OP)(-1, 1),
-                        K = (0,
-                        Z.OP)(-1, 1);
+                        f =
+                        Z.OP(-1, 1),
+                        K =
+                        Z.OP(-1, 1);
                     } while (0 === f && 0 === K);
                     var Y = new N.Vector3(f,0,K).normalize();
                     this.bLc = new N.Quaternion().setFromUnitVectors(new N.Vector3(0,1,0), Y),
@@ -26016,9 +26311,9 @@
               , rS = r2(0x287d)
               , rR = r2(0x7c13)
               , rH = r2(0x12460)
-              , ry = (0,
-            r5.i7)(['0%,20%{content:\x22.\x22;}40%,60%{content:\x22..\x22;}80%,100%{content:\x22...\x22;}'])
-              , rd = r5.Ay.span(['&::after{content:\x22\x22;animation:', '\x201s\x20infinite;}'], ry);
+              , ry =
+            r5.i7(['0%,20%{content:\x22.\x22;}40%,60%{content:\x22..\x22;}80%,100%{content:\x22...\x22;}'])
+              , rd = r5.Ay.span(['&::after{content:\x22\x22;animation:', ' 1s infinite;}'], ry);
             const rP = function() {
                 return (0,
                 rH.jsx)(rd, {});
@@ -26031,43 +26326,43 @@
                 rH.jsx)(rM, {
                     'width': '100%',
                     'xmlns': 'http://www.w3.org/2000/svg',
-                    'viewBox': '0\x20-0.5\x2012\x2013',
+                    'viewBox': '0 -0.5 12 13',
                     'shapeRendering': 'crispEdges',
                     'children': (0,
                     rH.jsx)('path', {
-                        'd': 'M4\x200h4M3\x201h6M2\x202h8M2\x203h8M2\x204h8M2\x205h8M3\x206h6M4\x207h4M2\x208h8M1\x209h10M0\x2010h12M0\x2011h12M1\x2012h10'
+                        'd': 'M4 0h4M3 1h6M2 2h8M2 3h8M2 4h8M2 5h8M3 6h6M4 7h4M2 8h8M1 9h10M0 10h12M0 11h12M1 12h10'
                     })
                 });
             };
             var rm = r2(0x29ef)
               , rw = r2(0x8d4)
-              , rl = r5.Ay.div(['font-size:30px;text-shadow:2px\x202px\x200\x20black;'])
+              , rl = r5.Ay.div(['font-size:30px;text-shadow:2px 2px 0 black;'])
               , rC = r5.Ay.div(['color:white;width:100px;'])
               , rN = r5.Ay.div(['display:flex;align-items:center;'])
               , rZ = r5.Ay.div(['margin-left:10px;']);
             const rh = function() {
-                var EE = (0,
-                r6.x)(function(ES) {
+                var EE =
+                r6.x(function(ES) {
                     return ES.bFq;
                 })
-                  , Ep = (0,
-                r6.x)(function(ES) {
+                  , Ep =
+                r6.x(function(ES) {
                     return ES.bUA;
                 });
                 return (0,
                 rH.jsx)(rl, {
                     'children': void 0 === EE ? (0,
                     rH.jsxs)(rC, {
-                        'children': ['Loading', (0,
-                        rH.jsx)(rP, {})]
+                        'children': ['Loading',
+                        rH.jsx(rP, {})]
                     }) : null === EE ? (0,
                     rH.jsxs)(rm.yn, {
                         'children': [(0,
                         rH.jsx)('div', {
-                            'children': 'Error\x20getting\x20account'
-                        }), (0,
-                        rH.jsx)('div', {
-                            'children': 'Try\x20refreshing\x20the\x20page!'
+                            'children': 'Error getting account'
+                        }),
+                        rH.jsx('div', {
+                            'children': 'Try refreshing the page!'
                         })]
                     }) : (0,
                     rH.jsxs)(rQ.A, {
@@ -26076,11 +26371,11 @@
                         },
                         'children': [(0,
                         rH.jsx)(rB.A, {
-                            'width': 0x14,
-                            'marginRight': 0xa,
+                            'width': 20,
+                            'marginRight': 10,
                             'icon': rX
-                        }), (0,
-                        rH.jsxs)(rN, {
+                        }),
+                        rH.jsxs(rN, {
                             'children': [EE.DisplayName, rw.A.bFi && (0,
                             rH.jsx)(rZ, {
                                 'children': (0,
@@ -26105,11 +26400,11 @@
                 rH.jsx)(rk, {
                     'width': '100%',
                     'xmlns': 'http://www.w3.org/2000/svg',
-                    'viewBox': '0\x20-0.5\x2011\x2011',
+                    'viewBox': '0 -0.5 11 11',
                     'shapeRendering': 'crispEdges',
                     'children': (0,
                     rH.jsx)('path', {
-                        'd': 'M8\x200h1M7\x201h3M6\x202h1M8\x202h3M5\x203h3M9\x203h1M4\x204h5M3\x205h5M2\x206h5M1\x207h5M0\x208h1M2\x208h3M0\x209h2M3\x209h1M0\x2010h3'
+                        'd': 'M8 0h1M7 1h3M6 2h1M8 2h3M5 3h3M9 3h1M4 4h5M3 5h5M2 6h5M1 7h5M0 8h1M2 8h3M0 9h2M3 9h1M0 10h3'
                     })
                 });
             };
@@ -26119,11 +26414,11 @@
                 rH.jsx)(rx, {
                     'width': '100%',
                     'xmlns': 'http://www.w3.org/2000/svg',
-                    'viewBox': '0\x20-0.5\x2018\x2012',
+                    'viewBox': '0 -0.5 18 12',
                     'shapeRendering': 'crispEdges',
                     'children': (0,
                     rH.jsx)('path', {
-                        'd': 'M4\x200h3M11\x200h3M3\x201h12M2\x202h14M2\x203h14M1\x204h4M7\x204h4M13\x204h4M1\x205h3M8\x205h2M14\x205h3M0\x206h4M8\x206h2M14\x206h4M0\x207h5M7\x207h4M13\x207h5M0\x208h18M1\x209h3M5\x209h8M14\x209h3M2\x2010h3M13\x2010h3M3\x2011h3M12\x2011h3'
+                        'd': 'M4 0h3M11 0h3M3 1h12M2 2h14M2 3h14M1 4h4M7 4h4M13 4h4M1 5h3M8 5h2M14 5h3M0 6h4M8 6h2M14 6h4M0 7h5M7 7h4M13 7h5M0 8h18M1 9h3M5 9h8M14 9h3M2 10h3M13 10h3M3 11h3M12 11h3'
                     })
                 });
             };
@@ -26134,18 +26429,18 @@
                 rH.jsx)(rg, {
                     'width': '100%',
                     'xmlns': 'http://www.w3.org/2000/svg',
-                    'viewBox': '0\x20-0.5\x2020\x2020',
+                    'viewBox': '0 -0.5 20 20',
                     'shapeRendering': 'crispEdges',
                     'children': (0,
                     rH.jsx)('path', {
-                        'd': 'M7\x200h6M5\x201h10M3\x202h14M2\x203h16M2\x204h5M13\x204h4M1\x205h4M14\x205h2M1\x206h4M0\x207h4M0\x208h4M0\x209h4M10\x209h10M0\x2010h4M10\x2010h10M0\x2011h4M10\x2011h10M0\x2012h4M16\x2012h4M1\x2013h4M15\x2013h4M1\x2014h4M15\x2014h4M2\x2015h5M13\x2015h5M2\x2016h16M3\x2017h14M5\x2018h10M7\x2019h6'
+                        'd': 'M7 0h6M5 1h10M3 2h14M2 3h16M2 4h5M13 4h4M1 5h4M14 5h2M1 6h4M0 7h4M0 8h4M0 9h4M10 9h10M0 10h4M10 10h10M0 11h4M10 11h10M0 12h4M16 12h4M1 13h4M15 13h4M1 14h4M15 14h4M2 15h5M13 15h5M2 16h16M3 17h14M5 18h10M7 19h6'
                     })
                 });
             }
               , rc = function() {
                 return (0,
                 rH.jsxs)('svg', {
-                    'viewBox': '0\x200\x2062\x2070',
+                    'viewBox': '0 0 62 70',
                     'xmlns': 'http://www.w3.org/2000/svg',
                     'xmlnsXlink': 'http://www.w3.org/1999/xlink',
                     'children': [(0,
@@ -26155,45 +26450,45 @@
                             'id': 'ziggyPath',
                             'd': 'M.0048.1308h18.9714v15.7638H.0048z'
                         })
-                    }), (0,
-                    rH.jsxs)('g', {
+                    }),
+                    rH.jsxs('g', {
                         'fill': 'none',
                         'fillRule': 'evenodd',
                         'children': [(0,
                         rH.jsx)('path', {
-                            'd': 'M15.7344\x2015.0195C18.9941\x2012.3113\x2023.9963\x2011\x2031\x2011C38.0037\x2011\x2043.0059\x2012.3218\x2046.266\x2015.0195C50.1173\x2018.2116\x2052\x2023.7677\x2052\x2032.0002C52\x2049.4319\x2043.6085\x2053\x2031\x2053C18.3915\x2053\x2010\x2049.4319\x2010\x2032.0002C10\x2023.7785\x2011.8722\x2018.2116\x2015.7344\x2015.0195Z',
+                            'd': 'M15.7344 15.0195C18.9941 12.3113 23.9963 11 31 11C38.0037 11 43.0059 12.3218 46.266 15.0195C50.1173 18.2116 52 23.7677 52 32.0002C52 49.4319 43.6085 53 31 53C18.3915 53 10 49.4319 10 32.0002C10 23.7785 11.8722 18.2116 15.7344 15.0195Z',
                             'fill': 'white'
-                        }), (0,
-                        rH.jsx)('path', {
+                        }),
+                        rH.jsx('path', {
                             'fillRule': 'evenodd',
                             'clipRule': 'evenodd',
-                            'd': 'M44.627\x207.13337C44.627\x207.13337\x2052.9646\x20-2.4781\x2055.644\x200.612441C60.2225\x205.90326\x2058.813\x2021.8557\x2058.813\x2021.8557',
+                            'd': 'M44.627 7.13337C44.627 7.13337 52.9646 -2.4781 55.644 0.612441C60.2225 5.90326 58.813 21.8557 58.813 21.8557',
                             'fill': '#6842FF'
-                        }), (0,
-                        rH.jsx)('path', {
+                        }),
+                        rH.jsx('path', {
                             'fillRule': 'evenodd',
                             'clipRule': 'evenodd',
-                            'd': 'M16.5255\x207.13337C16.5255\x207.13337\x208.18781\x20-2.4781\x205.5085\x200.612441C0.929965\x205.90326\x202.33944\x2021.8557\x202.33944\x2021.8557',
+                            'd': 'M16.5255 7.13337C16.5255 7.13337 8.18781 -2.4781 5.5085 0.612441C0.929965 5.90326 2.33944 21.8557 2.33944 21.8557',
                             'fill': '#6842FF'
-                        }), (0,
-                        rH.jsx)('path', {
+                        }),
+                        rH.jsx('path', {
                             'fillRule': 'evenodd',
                             'clipRule': 'evenodd',
-                            'd': 'M25.9261\x2062.3626C18.976\x2061.7696\x2013.5263\x2059.7776\x209.34705\x2056.3311C3.14925\x2051.1998\x200\x2042.9987\x200\x2031.9271C0\x2020.9156\x203.13918\x2012.7341\x209.33731\x207.59338C14.4257\x203.37247\x2021.3741\x201.31256\x2030.5711\x201.31256C39.7684\x201.31256\x2046.7064\x203.36273\x2051.8052\x207.59338C58.0033\x2012.7341\x2061.1422\x2020.9254\x2061.1422\x2031.9271C61.1422\x2036.0107\x2060.7138\x2039.7038\x2059.862\x2042.9958C59.4452\x2045.0421\x2058.8574\x2047.0566\x2058.0753\x2048.9979C55.9358\x2054.3687\x2052.3367\x2059.1897\x2047.7585\x2062.7702C45.4491\x2064.5305\x2042.8997\x2065.9806\x2040.2305\x2067.0908C37.5515\x2068.201\x2034.7621\x2069.0009\x2031.923\x2069.4311C29.0839\x2069.8811\x2026.2146\x2070.0413\x2023.3654\x2069.9913L21.2359\x2069.871C20.8761\x2069.8512\x2020.5263\x2069.8214\x2020.1762\x2069.7814L19.1169\x2069.6612C18.1261\x2069.5775\x2017.1502\x2069.4159\x2016.1752\x2069.2544C15.753\x2069.1844\x2015.3309\x2069.1145\x2014.9079\x2069.051C14.628\x2069.011\x2014.438\x2068.741\x2014.488\x2068.4609C14.5078\x2068.3112\x2014.6078\x2068.1809\x2014.7179\x2068.101L15.0979\x2067.9008C16.1893\x2067.2272\x2017.2258\x2066.7044\x2018.2317\x2066.1969C18.6446\x2065.9887\x2019.0523\x2065.783\x2019.4566\x2065.5706L23.4054\x2063.6201C23.9635\x2063.3298\x2024.5136\x2063.0594\x2025.0522\x2062.7947C25.3471\x2062.6498\x2025.6386\x2062.5065\x2025.9261\x2062.3626ZM16.3854\x2016.1245C19.4144\x2013.6042\x2024.0628\x2012.3838\x2030.5711\x2012.3838C37.0794\x2012.3838\x2041.7277\x2013.6139\x2044.7572\x2016.1245C48.3361\x2019.0952\x2050.0856\x2024.2658\x2050.0856\x2031.9271C50.0856\x2048.1495\x2042.2876\x2051.4701\x2030.5711\x2051.4701C18.8545\x2051.4701\x2011.0566\x2048.1495\x2011.0566\x2031.9271C11.0566\x2024.2758\x2012.7964\x2019.0952\x2016.3854\x2016.1245Z',
+                            'd': 'M25.9261 62.3626C18.976 61.7696 13.5263 59.7776 9.34705 56.3311C3.14925 51.1998 0 42.9987 0 31.9271C0 20.9156 3.13918 12.7341 9.33731 7.59338C14.4257 3.37247 21.3741 1.31256 30.5711 1.31256C39.7684 1.31256 46.7064 3.36273 51.8052 7.59338C58.0033 12.7341 61.1422 20.9254 61.1422 31.9271C61.1422 36.0107 60.7138 39.7038 59.862 42.9958C59.4452 45.0421 58.8574 47.0566 58.0753 48.9979C55.9358 54.3687 52.3367 59.1897 47.7585 62.7702C45.4491 64.5305 42.8997 65.9806 40.2305 67.0908C37.5515 68.201 34.7621 69.0009 31.923 69.4311C29.0839 69.8811 26.2146 70.0413 23.3654 69.9913L21.2359 69.871C20.8761 69.8512 20.5263 69.8214 20.1762 69.7814L19.1169 69.6612C18.1261 69.5775 17.1502 69.4159 16.1752 69.2544C15.753 69.1844 15.3309 69.1145 14.9079 69.051C14.628 69.011 14.438 68.741 14.488 68.4609C14.5078 68.3112 14.6078 68.1809 14.7179 68.101L15.0979 67.9008C16.1893 67.2272 17.2258 66.7044 18.2317 66.1969C18.6446 65.9887 19.0523 65.783 19.4566 65.5706L23.4054 63.6201C23.9635 63.3298 24.5136 63.0594 25.0522 62.7947C25.3471 62.6498 25.6386 62.5065 25.9261 62.3626ZM16.3854 16.1245C19.4144 13.6042 24.0628 12.3838 30.5711 12.3838C37.0794 12.3838 41.7277 13.6139 44.7572 16.1245C48.3361 19.0952 50.0856 24.2658 50.0856 31.9271C50.0856 48.1495 42.2876 51.4701 30.5711 51.4701C18.8545 51.4701 11.0566 48.1495 11.0566 31.9271C11.0566 24.2758 12.7964 19.0952 16.3854 16.1245Z',
                             'fill': '#6842FF'
-                        }), (0,
-                        rH.jsx)('path', {
+                        }),
+                        rH.jsx('path', {
                             'fillRule': 'evenodd',
                             'clipRule': 'evenodd',
-                            'd': 'M42.7773\x2060.9916C39.2384\x2062.0319\x2035.1899\x2062.5518\x2030.561\x2062.5518C28.9414\x2062.5518\x2027.4121\x2062.4816\x2025.9425\x2062.3617C25.1225\x2062.7721\x2024.2729\x2063.172\x2023.4032\x2063.6422L20.8538\x2064.9025C22.1035\x2064.9824\x2023.3834\x2065.0321\x2024.7328\x2065.0321C32.1507\x2065.0321\x2038.0887\x2063.702\x2042.7773\x2060.9916Z',
+                            'd': 'M42.7773 60.9916C39.2384 62.0319 35.1899 62.5518 30.561 62.5518C28.9414 62.5518 27.4121 62.4816 25.9425 62.3617C25.1225 62.7721 24.2729 63.172 23.4032 63.6422L20.8538 64.9025C22.1035 64.9824 23.3834 65.0321 24.7328 65.0321C32.1507 65.0321 38.0887 63.702 42.7773 60.9916Z',
                             'fill': '#3E2899'
-                        }), (0,
-                        rH.jsx)('path', {
-                            'd': 'M19.4248\x2035.8107C19.4248\x2038.0537\x2021.2589\x2039.8882\x2023.5005\x2039.8882C25.7421\x2039.8882\x2027.5762\x2038.0537\x2027.5762\x2035.8107V31.0121C27.465\x2031.0236\x2027.3522\x2031.0295\x2027.238\x2031.0295C25.4401\x2031.0295\x2023.9827\x2029.5714\x2023.9827\x2027.7731C23.9827\x2026.3125\x2024.9437\x2025.0765\x2026.2677\x2024.6634C25.5396\x2023.9875\x2024.5661\x2023.5728\x2023.5005\x2023.5728C21.2589\x2023.5728\x2019.4248\x2025.4077\x2019.4248\x2027.6503V35.8107Z',
+                        }),
+                        rH.jsx('path', {
+                            'd': 'M19.4248 35.8107C19.4248 38.0537 21.2589 39.8882 23.5005 39.8882C25.7421 39.8882 27.5762 38.0537 27.5762 35.8107V31.0121C27.465 31.0236 27.3522 31.0295 27.238 31.0295C25.4401 31.0295 23.9827 29.5714 23.9827 27.7731C23.9827 26.3125 24.9437 25.0765 26.2677 24.6634C25.5396 23.9875 24.5661 23.5728 23.5005 23.5728C21.2589 23.5728 19.4248 25.4077 19.4248 27.6503V35.8107Z',
                             'fill': '#6842FF'
-                        }), (0,
-                        rH.jsx)('path', {
-                            'd': 'M32.8452\x2035.8107C32.8452\x2038.0537\x2034.6793\x2039.8882\x2036.9209\x2039.8882C39.1625\x2039.8882\x2040.9966\x2038.0537\x2040.9966\x2035.8107V30.7009C40.8384\x2030.7245\x2040.6765\x2030.7367\x2040.5118\x2030.7367C38.7136\x2030.7367\x2037.2561\x2029.2786\x2037.2561\x2027.4803C37.2561\x2026.0726\x2038.1489\x2024.8735\x2039.399\x2024.4187C38.7111\x2023.8888\x2037.8511\x2023.5728\x2036.9209\x2023.5728C34.6793\x2023.5728\x2032.8452\x2025.4077\x2032.8452\x2027.6503V35.8107Z',
+                        }),
+                        rH.jsx('path', {
+                            'd': 'M32.8452 35.8107C32.8452 38.0537 34.6793 39.8882 36.9209 39.8882C39.1625 39.8882 40.9966 38.0537 40.9966 35.8107V30.7009C40.8384 30.7245 40.6765 30.7367 40.5118 30.7367C38.7136 30.7367 37.2561 29.2786 37.2561 27.4803C37.2561 26.0726 38.1489 24.8735 39.399 24.4187C38.7111 23.8888 37.8511 23.5728 36.9209 23.5728C34.6793 23.5728 32.8452 25.4077 32.8452 27.6503V35.8107Z',
                             'fill': '#6842FF'
                         })]
                     })]
@@ -26207,8 +26502,8 @@
             })
               , rz = r5.Ay.div(['display:flex;align-items:center;'])
               , rA = r5.Ay.div(['font-size:30px;flex:1;text-align:center;'])
-              , rj = (0,
-            r5.Ay)(rm.X3)(['display:flex;align-items:center;'])
+              , rj =
+            r5.Ay(rm.X3)(['display:flex;align-items:center;'])
               , rO = r5.Ay.div(['display:flex;align-items:center;&:hover{color:', ';cursor:pointer;svg{stroke:', ';}}'], rG.A.YELLOW, rG.A.YELLOW)
               , rJ = r5.Ay.div(['margin-left:10px;font-size:24px;'])
               , rv = r5.Ay.div(['display:flex;justify-content:space-between;color:', ';'], rG.A.GRAY)
@@ -26216,16 +26511,16 @@
               , rb = r5.Ay.div([''])
               , rD = r5.Ay.div(['font-size:30px;color:', ';'], rG.A.GREEN)
               , ru = function(EE) {
-                var Ep = (0,
-                r6.x)(function(Ed) {
+                var Ep =
+                r6.x(function(Ed) {
                     return Ed.bFq;
                 })
-                  , ES = (0,
-                r6.x)(function(Ed) {
+                  , ES =
+                r6.x(function(Ed) {
                     return Ed.bUN;
                 })
-                  , ER = (0,
-                r4.useState)(false)
+                  , ER =
+                r4.useState(false)
                   , EH = ER[0]
                   , Ey = ER[1];
                 return Ep ? (0,
@@ -26240,8 +26535,8 @@
                             'marginRight': EE.iconMarginRight,
                             'icon': EE.icon,
                             'color': EE.color
-                        }), (0,
-                        rH.jsx)(rA, {
+                        }),
+                        rH.jsx(rA, {
                             'children': EE.name
                         })]
                     }), Ep.Connections[EE.connectionKey] ? (0,
@@ -26249,8 +26544,8 @@
                         'children': 'Connected'
                     }) : EH ? (0,
                     rH.jsxs)('span', {
-                        'children': ['Connecting', (0,
-                        rH.jsx)(rP, {})]
+                        'children': ['Connecting',
+                        rH.jsx(rP, {})]
                     }) : (0,
                     rH.jsx)('div', {
                         'children': (0,
@@ -26263,34 +26558,34 @@
                                         case 0:
                                             return Ey(true),
                                             EP.prev = 1,
-                                            EP.next = 0x4,
+                                            EP.next = 4,
                                             EE.link();
-                                        case 0x4:
-                                            EP.next = 0xa;
+                                        case 4:
+                                            EP.next = 10;
                                             break;
-                                        case 0x6:
-                                            EP.prev = 0x6,
+                                        case 6:
+                                            EP.prev = 6,
                                             EP.t0 = EP.catch(1),
                                             console.error(EP.t0),
                                             ES((0,
                                             rH.jsx)(rm.yn, {
                                                 'children': 'Error'
-                                            }), (0,
-                                            rH.jsxs)('span', {
-                                                'children': ['Failed\x20to\x20link\x20', EE.name, '\x20account.\x20If\x20the\x20', EE.name, '\x20account\x20is\x20already\x20linked\x20to\x20another\x20account,\x20try\x20logging\x20in\x20instead\x20with\x20the\x20\x22Change\x20Account\x22\x20button.']
-                                            }), (0,
-                                            rH.jsx)('span', {
+                                            }),
+                                            rH.jsxs('span', {
+                                                'children': ['Failed to link ', EE.name, ' account. If the ', EE.name, ' account is already linked to another account, try logging in instead with the \x22Change Account\x22 button.']
+                                            }),
+                                            rH.jsx('span', {
                                                 'children': 'OK'
                                             }));
-                                        case 0xa:
-                                            return EP.prev = 0xa,
+                                        case 10:
+                                            return EP.prev = 10,
                                             Ey(false),
-                                            EP.finish(0xa);
-                                        case 0xd:
+                                            EP.finish(10);
+                                        case 13:
                                         case 'end':
                                             return EP.stop();
                                         }
-                                }, Ed, null, [[1, 0x6, 0xa, 0xd]]);
+                                }, Ed, null, [[1, 6, 10, 13]]);
                             })),
                             'children': 'Connect'
                         })
@@ -26298,24 +26593,24 @@
                 }) : null;
             };
             const F0 = function() {
-                var EE = (0,
-                r6.x)(function(EP) {
+                var EE =
+                r6.x(function(EP) {
                     return EP.bFq;
                 })
-                  , Ep = (0,
-                r6.x)(function(EP) {
+                  , Ep =
+                r6.x(function(EP) {
                     return EP.bUW;
                 })
-                  , ES = (0,
-                r6.x)(function(EP) {
+                  , ES =
+                r6.x(function(EP) {
                     return EP.bUN;
                 })
-                  , ER = (0,
-                r6.x)(function(EP) {
+                  , ER =
+                r6.x(function(EP) {
                     return EP.bUL;
                 })
-                  , EH = (0,
-                r4.useState)(false)
+                  , EH =
+                r4.useState(false)
                   , Ey = EH[0]
                   , Ed = EH[1];
                 return EE ? (0,
@@ -26334,21 +26629,21 @@
                                         rw.A.bFl > 0 ? ES((0,
                                         rH.jsx)(rm.yn, {
                                             'children': 'Error'
-                                        }), (0,
-                                        rH.jsx)('span', {
-                                            'children': 'Sorry,\x20you\x20have\x20already\x20changed\x20your\x20name\x20once.\x20You\x20will\x20be\x20able\x20to\x20change\x20your\x20name\x20again\x20in\x20the\x20future\x20when\x20the\x20shop\x20opens.'
-                                        }), (0,
-                                        rH.jsx)('span', {
+                                        }),
+                                        rH.jsx('span', {
+                                            'children': 'Sorry, you have already changed your name once. You will be able to change your name again in the future when the shop opens.'
+                                        }),
+                                        rH.jsx('span', {
                                             'children': 'OK'
                                         })) : ER();
                                     },
                                     'children': [(0,
                                     rH.jsx)(rK, {
                                         'children': EE.DisplayName
-                                    }), (0,
-                                    rH.jsx)(rB.A, {
-                                        'width': 0x14,
-                                        'marginLeft': 0xa,
+                                    }),
+                                    rH.jsx(rB.A, {
+                                        'width': 20,
+                                        'marginLeft': 10,
                                         'icon': rW
                                     })]
                                 }), rw.A.bFi && (0,
@@ -26358,40 +26653,40 @@
                                         'children': '(Guest)'
                                     })
                                 })]
-                            }), (0,
-                            rH.jsxs)(rv, {
+                            }),
+                            rH.jsxs(rv, {
                                 'children': [(0,
                                 rH.jsx)(rn, {
-                                    'children': 'Player\x20ID'
-                                }), (0,
-                                rH.jsx)(rb, {
+                                    'children': 'Player ID'
+                                }),
+                                rH.jsx(rb, {
                                     'children': EE.UUID
                                 })]
-                            }), (0,
-                            rH.jsxs)(rv, {
+                            }),
+                            rH.jsxs(rv, {
                                 'children': [(0,
                                 rH.jsx)(rn, {
-                                    'children': 'Join\x20Date'
-                                }), (0,
-                                rH.jsx)(rb, {
+                                    'children': 'Join Date'
+                                }),
+                                rH.jsx(rb, {
                                     'children': EE.CreateTime.toLocaleDateString()
                                 })]
                             })]
-                        }), (0,
-                        rH.jsxs)(rm.wn, {
+                        }),
+                        rH.jsxs(rm.wn, {
                             'children': [(0,
                             rH.jsx)(rm.X3, {
-                                'children': 'Connect\x20Accounts'
+                                'children': 'Connect Accounts'
                             }), window.adSDKType === rq.a.bFr && window.CrazyGames.SDK.user.isUserAccountAvailable && (0,
                             rH.jsx)(ru, {
                                 'name': 'CrazyGames',
                                 'icon': rc,
                                 'color': '#663FFF',
                                 'connectionKey': 'CrazyGames',
-                                'marginBottom': 0x8,
+                                'marginBottom': 8,
                                 'iconWidth': 0x1e,
-                                'iconMarginLeft': 0x3,
-                                'iconMarginRight': 0x12,
+                                'iconMarginLeft': 3,
+                                'iconMarginRight': 18,
                                 'link': (0,
                                 r8.A)(rr().mark(function EP() {
                                     return rr().wrap(function(EQ) {
@@ -26399,20 +26694,20 @@
                                             switch (EQ.prev = EQ.next) {
                                             case 0:
                                                 return EQ.prev = 0,
-                                                EQ.next = 0x3,
+                                                EQ.next = 3,
                                                 window.CrazyGames.SDK.user.showAuthPrompt();
-                                            case 0x3:
-                                                EQ.next = 0x8;
+                                            case 3:
+                                                EQ.next = 8;
                                                 break;
-                                            case 0x5:
-                                                EQ.prev = 0x5,
+                                            case 5:
+                                                EQ.prev = 5,
                                                 EQ.t0 = EQ.catch(0),
                                                 console.log('Error:', EQ.t0);
-                                            case 0x8:
+                                            case 8:
                                             case 'end':
                                                 return EQ.stop();
                                             }
-                                    }, EP, null, [[0, 0x5]]);
+                                    }, EP, null, [[0, 5]]);
                                 }))
                             }), window.adSDKType !== rq.a.bFr && (0,
                             rH.jsxs)(rH.Fragment, {
@@ -26422,19 +26717,19 @@
                                     'icon': rL,
                                     'color': '#de5448',
                                     'connectionKey': 'Google-Web',
-                                    'marginBottom': 0x8,
+                                    'marginBottom': 8,
                                     'iconWidth': 0x1e,
-                                    'iconMarginLeft': 0x3,
-                                    'iconMarginRight': 0x12,
+                                    'iconMarginLeft': 3,
+                                    'iconMarginRight': 18,
                                     'link': rw.A.bFg.bind(rw.A)
-                                }), (0,
-                                rH.jsx)(ru, {
+                                }),
+                                rH.jsx(ru, {
                                     'name': 'Discord',
                                     'icon': ra,
                                     'color': '#7e88ff',
                                     'connectionKey': 'Discord',
                                     'iconWidth': 0x24,
-                                    'iconMarginRight': 0x10,
+                                    'iconMarginRight': 16,
                                     'link': rw.A.bFY.bind(rw.A)
                                 })]
                             })]
@@ -26442,16 +26737,16 @@
                         rH.jsxs)(rm.wn, {
                             'children': [(0,
                             rH.jsx)(rm.X3, {
-                                'children': 'More\x20Actions'
-                            }), (0,
-                            rH.jsx)(rI.A, {
+                                'children': 'More Actions'
+                            }),
+                            rH.jsx(rI.A, {
                                 'onClick': function() {
                                     Ep();
                                 },
-                                'children': 'Change\x20Account'
+                                'children': 'Change Account'
                             }), !rw.A.bFi && (0,
                             rH.jsx)(rI.A, {
-                                'marginTop': 0xf,
+                                'marginTop': 15,
                                 'onClick': (0,
                                 r8.A)(rr().mark(function EQ() {
                                     return rr().wrap(function(EB) {
@@ -26459,39 +26754,39 @@
                                             switch (EB.prev = EB.next) {
                                             case 0:
                                                 if (!Ey) {
-                                                    EB.next = 0x2;
+                                                    EB.next = 2;
                                                     break;
                                                 }
                                                 return EB.abrupt('return');
-                                            case 0x2:
+                                            case 2:
                                                 return Ed(true),
-                                                EB.prev = 0x3,
-                                                EB.next = 0x6,
+                                                EB.prev = 3,
+                                                EB.next = 6,
                                                 rw.A.bFC();
-                                            case 0x6:
-                                                return EB.next = 0x8,
+                                            case 6:
+                                                return EB.next = 8,
                                                 rw.A.bFw();
-                                            case 0x8:
-                                                EB.next = 0xd;
+                                            case 8:
+                                                EB.next = 13;
                                                 break;
-                                            case 0xa:
-                                                EB.prev = 0xa,
-                                                EB.t0 = EB.catch(0x3),
+                                            case 10:
+                                                EB.prev = 10,
+                                                EB.t0 = EB.catch(3),
                                                 console.error(EB.t0);
-                                            case 0xd:
-                                                return EB.prev = 0xd,
+                                            case 13:
+                                                return EB.prev = 13,
                                                 Ed(false),
-                                                EB.finish(0xd);
-                                            case 0x10:
+                                                EB.finish(13);
+                                            case 16:
                                             case 'end':
                                                 return EB.stop();
                                             }
-                                    }, EQ, null, [[0x3, 0xa, 0xd, 0x10]]);
+                                    }, EQ, null, [[3, 10, 13, 16]]);
                                 })),
                                 'children': Ey ? (0,
                                 rH.jsxs)(rH.Fragment, {
-                                    'children': ['Logging\x20out', (0,
-                                    rH.jsx)(rP, {})]
+                                    'children': ['Logging out',
+                                    rH.jsx(rP, {})]
                                 }) : 'Logout'
                             })]
                         })]
@@ -26499,7 +26794,7 @@
                 }) : null;
             };
             var F1 = r5.Ay.div(['width:400px;display:flex;flex-direction:column;'])
-              , F2 = r5.Ay.div(['display:flex;align-items:center;justify-content:space-between;align-self:stretch;background-color:', ';padding:6px\x2012px;box-shadow:3px\x203px\x200\x20rgba(0,0,0,0.6);margin-bottom:', 'px;&:hover{background-color:', ';cursor:pointer;}'], function(EE) {
+              , F2 = r5.Ay.div(['display:flex;align-items:center;justify-content:space-between;align-self:stretch;background-color:', ';padding:6px 12px;box-shadow:3px 3px 0 rgba(0,0,0,0.6);margin-bottom:', 'px;&:hover{background-color:', ';cursor:pointer;}'], function(EE) {
                 return EE.$backgroundColor;
             }, function(EE) {
                 return EE.$marginBottom || 0;
@@ -26508,16 +26803,16 @@
             })
               , F3 = r5.Ay.div(['flex:1;text-align:center;'])
               , F4 = function(EE) {
-                var Ep = (0,
-                r6.x)(function(Ed) {
+                var Ep =
+                r6.x(function(Ed) {
                     return Ed.bUX;
                 })
-                  , ES = (0,
-                r6.x)(function(Ed) {
+                  , ES =
+                r6.x(function(Ed) {
                     return Ed.bUN;
                 })
-                  , ER = (0,
-                r4.useState)(false)
+                  , ER =
+                r4.useState(false)
                   , EH = ER[0]
                   , Ey = ER[1];
                 return (0,
@@ -26532,56 +26827,56 @@
                                 switch (EP.prev = EP.next) {
                                 case 0:
                                     if (!EH) {
-                                        EP.next = 0x2;
+                                        EP.next = 2;
                                         break;
                                     }
                                     return EP.abrupt('return');
-                                case 0x2:
+                                case 2:
                                     return (0,
                                     rR.bK)(),
                                     Ey(true),
-                                    EP.prev = 0x4,
-                                    EP.next = 0x7,
+                                    EP.prev = 4,
+                                    EP.next = 7,
                                     EE.login();
-                                case 0x7:
+                                case 7:
                                     Ep(),
-                                    EP.next = 0xe;
+                                    EP.next = 14;
                                     break;
-                                case 0xa:
-                                    EP.prev = 0xa,
-                                    EP.t0 = EP.catch(0x4),
+                                case 10:
+                                    EP.prev = 10,
+                                    EP.t0 = EP.catch(4),
                                     console.error(EP.t0),
                                     ES((0,
                                     rH.jsx)(rm.yn, {
                                         'children': 'Error'
-                                    }), (0,
-                                    rH.jsxs)('span', {
-                                        'children': ['Failed\x20to\x20login\x20with\x20', EE.name, '.\x20Please\x20try\x20again.']
-                                    }), (0,
-                                    rH.jsx)('span', {
+                                    }),
+                                    rH.jsxs('span', {
+                                        'children': ['Failed to login with ', EE.name, '. Please try again.']
+                                    }),
+                                    rH.jsx('span', {
                                         'children': 'OK'
                                     }));
-                                case 0xe:
-                                    return EP.prev = 0xe,
+                                case 14:
+                                    return EP.prev = 14,
                                     Ey(false),
-                                    EP.finish(0xe);
-                                case 0x11:
+                                    EP.finish(14);
+                                case 17:
                                 case 'end':
                                     return EP.stop();
                                 }
-                        }, Ed, null, [[0x4, 0xa, 0xe, 0x11]]);
+                        }, Ed, null, [[4, 10, 14, 17]]);
                     })),
                     'children': [(0,
                     rH.jsx)(rB.A, {
                         'width': 0x1a,
-                        'marginLeft': 0xa,
+                        'marginLeft': 10,
                         'icon': EE.icon
-                    }), (0,
-                    rH.jsx)(F3, {
+                    }),
+                    rH.jsx(F3, {
                         'children': EH ? (0,
                         rH.jsxs)(rH.Fragment, {
-                            'children': ['Logging\x20in', (0,
-                            rH.jsx)(rP, {})]
+                            'children': ['Logging in',
+                            rH.jsx(rP, {})]
                         }) : EE.name
                     })]
                 });
@@ -26595,17 +26890,17 @@
                         rH.jsxs)(rm.wn, {
                             'children': [(0,
                             rH.jsx)(rm.X3, {
-                                'children': 'Login\x20with'
-                            }), (0,
-                            rH.jsx)(F4, {
+                                'children': 'Login with'
+                            }),
+                            rH.jsx(F4, {
                                 'name': 'Google',
                                 'icon': rL,
                                 'backgroundColor': '#de5448',
                                 'hoverBackgroundColor': '#e0635a',
                                 'login': rw.A.bFJ.bind(rw.A),
-                                'marginBottom': 0x8
-                            }), (0,
-                            rH.jsx)(F4, {
+                                'marginBottom': 8
+                            }),
+                            rH.jsx(F4, {
                                 'name': 'Discord',
                                 'icon': ra,
                                 'backgroundColor': '#7e88ff',
@@ -26618,8 +26913,8 @@
             };
             var F6 = r5.Ay.div(['width:600px;display:flex;flex-direction:column;']);
             const F7 = function(EE) {
-                var Ep = (0,
-                r6.x)(function(ES) {
+                var Ep =
+                r6.x(function(ES) {
                     return ES.bUX;
                 });
                 return (0,
@@ -26631,9 +26926,9 @@
                             'children': [(0,
                             rH.jsx)(rm.X3, {
                                 'children': EE.title
-                            }), EE.body, (0,
-                            rH.jsx)(rI.A, {
-                                'marginTop': 0xf,
+                            }), EE.body,
+                            rH.jsx(rI.A, {
+                                'marginTop': 15,
                                 'onClick': function() {
                                     Ep();
                                 },
@@ -26650,12 +26945,12 @@
               , FE = r5.Ay.div(['display:flex;align-items:center;justify-content:center;margin-bottom:10px;padding:6px;&:hover{background-color:gray;cursor:pointer;}'])
               , Fp = r5.Ay.div(['display:flex;align-items:center;justify-content:center;margin-top:16px;']);
             const FS = function(EE) {
-                var Ep = (0,
-                Fr.J)(function(ER) {
+                var Ep =
+                Fr.J(function(ER) {
                     return ER.lastPlayedRooms;
                 })
-                  , ES = (0,
-                r6.x)(function(ER) {
+                  , ES =
+                r6.x(function(ER) {
                     return ER.bUX;
                 });
                 return (0,
@@ -26667,11 +26962,11 @@
                             'children': [(0,
                             rH.jsx)(rm.X3, {
                                 'children': EE.name
-                            }), (0,
-                            rH.jsx)(rm.EE, {
+                            }),
+                            rH.jsx(rm.EE, {
                                 'children': EE.description
-                            }), (0,
-                            rH.jsxs)(Fp, {
+                            }),
+                            rH.jsxs(Fp, {
                                 'children': [(0,
                                 rH.jsxs)(rI.A, {
                                     '$bgColor': '#007dff',
@@ -26680,22 +26975,22 @@
                                         EE.joinByRoomId(Ep[EE.gameMode][0]),
                                         ES();
                                     },
-                                    'children': ['Rejoin\x20', Ep[EE.gameMode][0]]
-                                }), (0,
-                                rH.jsx)(rI.A, {
-                                    'marginLeft': 0xa,
+                                    'children': ['Rejoin ', Ep[EE.gameMode][0]]
+                                }),
+                                rH.jsx(rI.A, {
+                                    'marginLeft': 10,
                                     'onClick': function() {
                                         EE.quickPlay(),
                                         ES();
                                     },
-                                    'children': 'Quick\x20Play'
+                                    'children': 'Quick Play'
                                 })]
                             })]
                         }), Ep[EE.gameMode] && (0,
                         rH.jsxs)(rm.wn, {
                             'children': [(0,
                             rH.jsx)(rm.X3, {
-                                'children': 'Recent\x20Servers'
+                                'children': 'Recent Servers'
                             }), Ep[EE.gameMode].map(function(ER, EH) {
                                 return (0,
                                 rH.jsx)(FE, {
@@ -26712,22 +27007,22 @@
             };
             var Fe = r5.Ay.div(['position:absolute;top:0;left:0;width:100%;height:100%;display:flex;justify-content:center;align-items:center;z-index:101;background-color:rgba(0,0,0,0.6);pointer-events:auto;']);
             const FR = function() {
-                var EE = (0,
-                r6.x)(function(ER) {
+                var EE =
+                r6.x(function(ER) {
                     return ER.bUj;
                 })
                   , Ep = EE.length > 0 ? EE[EE.length - 1] : null
                   , ES = null;
-                return (null == Ep ? void 0 : Ep.bIo) === F8.q.bUM ? ES = (0,
-                rH.jsx)(F0, {}) : (null == Ep ? void 0 : Ep.bIo) === F8.q.bUS ? ES = (0,
-                rH.jsx)(F5, {}) : (null == Ep ? void 0 : Ep.bIo) === F8.q.bUw ? ES = (0,
-                rH.jsx)(F7, {
+                return (null == Ep ? void 0 : Ep.bIo) === F8.q.bUM ? ES =
+                rH.jsx(F0, {}) : (null == Ep ? void 0 : Ep.bIo) === F8.q.bUS ? ES =
+                rH.jsx(F5, {}) : (null == Ep ? void 0 : Ep.bIo) === F8.q.bUw ? ES =
+                rH.jsx(F7, {
                     'title': Ep.bUv,
                     'body': Ep.bUQ,
                     'actionButton': Ep.bUs
-                }) : (null == Ep ? void 0 : Ep.bIo) === F8.q.bUC ? ES = (0,
-                rH.jsx)(F9.A, {}) : (null == Ep ? void 0 : Ep.bIo) === F8.q.bUO && (ES = (0,
-                rH.jsx)(FS, {
+                }) : (null == Ep ? void 0 : Ep.bIo) === F8.q.bUC ? ES =
+                rH.jsx(F9.A, {}) : (null == Ep ? void 0 : Ep.bIo) === F8.q.bUO && (ES =
+                rH.jsx(FS, {
                     'name': Ep.bXc,
                     'description': Ep.bUu,
                     'gameMode': Ep.bUK,
@@ -26748,8 +27043,8 @@
                   , ER = void 0 === ES || ES
                   , EH = EE.isVisible
                   , Ey = void 0 === EH || EH
-                  , Ed = (0,
-                Fy.O)([{
+                  , Ed =
+                Fy.O([{
                     'id': Ep,
                     'width': 0,
                     'height': 0
@@ -26762,19 +27057,19 @@
             var FQ = r2(0x14338)
               , FB = r2(0xcfcc)
               , FM = r5.Ay.div(['width:100%;height:100%;top:0;left:0;position:absolute;z-index:100;display:flex;justify-content:center;align-items:center;flex-direction:column;pointer-events:auto;background-color:rgba(50,50,150,0.2);backdrop-filter:blur(1px);'])
-              , FX = r5.Ay.div(['color:white;font-size:160px;margin-bottom:50px;text-shadow:5px\x205px\x200\x20black;position:relative;'])
-              , Fm = (0,
-            r5.i7)(['0%{transform:scale(1);}50%{transform:scale(1.05);}100%{transform:scale(1);}'])
-              , Fw = r5.Ay.div(['font-size:35px;text-shadow:2px\x202px\x200\x20black;position:absolute;bottom:-20px;right:10px;color:yellow;transform:rotate(10deg);animation:', '\x201s\x20infinite\x20ease-in-out;'], Fm)
+              , FX = r5.Ay.div(['color:white;font-size:160px;margin-bottom:50px;text-shadow:5px 5px 0 black;position:relative;'])
+              , Fm =
+            r5.i7(['0%{transform:scale(1);}50%{transform:scale(1.05);}100%{transform:scale(1);}'])
+              , Fw = r5.Ay.div(['font-size:35px;text-shadow:2px 2px 0 black;position:absolute;bottom:-20px;right:10px;color:yellow;transform:rotate(10deg);animation:', ' 1s infinite ease-in-out;'], Fm)
               , Fl = r5.Ay.div(['display:flex;flex-direction:column;align-items:center;'])
               , FC = r5.Ay.div(['display:flex;'])
-              , FN = r5.Ay.div(['background:linear-gradient(to\x20top,rgba(0,0,0,0.5)\x200%,rgba(0,0,0,0)\x2050%);width:100%;height:100%;position:absolute;opacity:1;transition:opacity\x20.2s\x20ease-in-out;'])
-              , FZ = r5.Ay.div(['background:rgba(0,0,0,0.5);width:100%;height:100%;position:absolute;opacity:0;transition:opacity\x20.2s\x20ease-in-out;'])
-              , Fh = r5.Ay.div(['position:absolute;bottom:10px;text-shadow:2px\x202px\x200\x20black;font-size:30px;'])
-              , Fo = r5.Ay.div(['position:absolute;top:10px;text-shadow:2px\x202px\x200\x20black;font-size:30px;opacity:0;transition:opacity\x20.2s\x20ease-in-out;'])
-              , FU = r5.Ay.div(['text-shadow:2px\x202px\x200\x20black;font-size:20px;z-index:1;opacity:0;transition:opacity\x20.2s\x20ease-in-out;color:yellow;position:absolute;top:46px;text-align:center;margin:0\x2020px;'])
-              , Fi = r5.Ay.div(['z-index:2;position:absolute;bottom:10px;text-shadow:2px\x202px\x200\x20black;width:95%;display:none;flex-direction:column;'])
-              , FT = r5.Ay.div(['width:300px;height:220px;background-color:white;display:flex;align-items:flex-end;justify-content:center;margin:20px;box-shadow:6px\x206px\x200\x20rgba(0,0,0,0.6);transition:transform\x20.2s\x20ease-in-out;background-image:url(', ');background-size:100%;background-position:center;background-repeat:no-repeat;position:relative;pointer-events:', ';filter:', ';border:2px\x20solid\x20', ';&:hover{cursor:pointer;transform:scale(1.1);border:2px\x20solid\x20', ';', '{display:none;}', '{opacity:1;}', '{opacity:1;}', '{display:flex;}', '{opacity:0;}', '{opacity:1;}}'], function(EE) {
+              , FN = r5.Ay.div(['background:linear-gradient(to top,rgba(0,0,0,0.5) 0%,rgba(0,0,0,0) 50%);width:100%;height:100%;position:absolute;opacity:1;transition:opacity .2s ease-in-out;'])
+              , FZ = r5.Ay.div(['background:rgba(0,0,0,0.5);width:100%;height:100%;position:absolute;opacity:0;transition:opacity .2s ease-in-out;'])
+              , Fh = r5.Ay.div(['position:absolute;bottom:10px;text-shadow:2px 2px 0 black;font-size:30px;'])
+              , Fo = r5.Ay.div(['position:absolute;top:10px;text-shadow:2px 2px 0 black;font-size:30px;opacity:0;transition:opacity .2s ease-in-out;'])
+              , FU = r5.Ay.div(['text-shadow:2px 2px 0 black;font-size:20px;z-index:1;opacity:0;transition:opacity .2s ease-in-out;color:yellow;position:absolute;top:46px;text-align:center;margin:0 20px;'])
+              , Fi = r5.Ay.div(['z-index:2;position:absolute;bottom:10px;text-shadow:2px 2px 0 black;width:95%;display:none;flex-direction:column;'])
+              , FT = r5.Ay.div(['width:300px;height:220px;background-color:white;display:flex;align-items:flex-end;justify-content:center;margin:20px;box-shadow:6px 6px 0 rgba(0,0,0,0.6);transition:transform .2s ease-in-out;background-image:url(', ');background-size:100%;background-position:center;background-repeat:no-repeat;position:relative;pointer-events:', ';filter:', ';border:2px solid ', ';&:hover{cursor:pointer;transform:scale(1.1);border:2px solid ', ';', '{display:none;}', '{opacity:1;}', '{opacity:1;}', '{display:flex;}', '{opacity:0;}', '{opacity:1;}}'], function(EE) {
                 return EE.$backgroundImage;
             }, function(EE) {
                 return EE.$disabled ? 'none' : 'auto';
@@ -26790,47 +27085,47 @@
               , FG = r5.Ay.a(['display:block;position:absolute;top:20px;left:20px;z-index:101;pointer-events:auto;'])
               , Fk = r5.Ay.img(['display:block;width:200px;'])
               , FW = r5.Ay.div(['position:absolute;bottom:20px;left:20px;z-index:100;display:flex;pointer-events:auto;'])
-              , Fx = r5.Ay.a(['display:block;text-decoration:none;color:white;text-shadow:2px\x202px\x200\x20black;&:hover{color:yellow;}'])
-              , Fa = (0,
-            r5.Ay)(Fx)(['margin-right:10px;'])
-              , FI = (0,
-            r5.Ay)(Fx)(['margin-left:10px;'])
+              , Fx = r5.Ay.a(['display:block;text-decoration:none;color:white;text-shadow:2px 2px 0 black;&:hover{color:yellow;}'])
+              , Fa =
+            r5.Ay(Fx)(['margin-right:10px;'])
+              , FI =
+            r5.Ay(Fx)(['margin-left:10px;'])
               , Fg = r5.Ay.div(['position:absolute;bottom:20px;right:20px;z-index:100;display:flex;pointer-events:auto;'])
-              , FL = (0,
-            r5.Ay)(Fx)(['']);
+              , FL =
+            r5.Ay(Fx)(['']);
             const Fc = function() {
-                var EE = (0,
-                r6.x)(function(Ew) {
+                var EE =
+                r6.x(function(Ew) {
                     return Ew.bfM;
                 })
-                  , Ep = (0,
-                r6.x)(function(Ew) {
+                  , Ep =
+                r6.x(function(Ew) {
                     return Ew.bfS;
                 })
-                  , ES = (0,
-                r6.x)(function(Ew) {
+                  , ES =
+                r6.x(function(Ew) {
                     return Ew.bUx;
                 })
-                  , ER = (0,
-                Fr.J)(function(Ew) {
+                  , ER =
+                Fr.J(function(Ew) {
                     return Ew.lastPlayedRooms;
                 })
-                  , EH = (0,
-                r6.x)(function(Ew) {
+                  , EH =
+                r6.x(function(Ew) {
                     return Ew.bUg;
                 })
-                  , Ey = (0,
-                r6.x)(function(Ew) {
+                  , Ey =
+                r6.x(function(Ew) {
                     return Ew.bUJ;
                 })
-                  , Ed = (0,
-                r6.x)(function(Ew) {
+                  , Ed =
+                r6.x(function(Ew) {
                     return Ew.bUG;
                 })
                   , EP = [];
                 'dev' === r7.A.bUl ? (EP.push({
-                    'name': 'Localhost\x20Test',
-                    'description': 'Connect\x20to\x20localhost',
+                    'name': 'Localhost Test',
+                    'description': 'Connect to localhost',
                     'image': ri,
                     'connection': {
                         'type': 0,
@@ -26842,8 +27137,8 @@
                     }
                 }),
                 EP.push({
-                    'name': 'Authentication\x20Test',
-                    'description': 'Localhost\x20with\x20authentication',
+                    'name': 'Authentication Test',
+                    'description': 'Localhost with authentication',
                     'image': ri,
                     'connection': {
                         'type': 0,
@@ -26855,8 +27150,8 @@
                     }
                 }),
                 EP.push({
-                    'name': 'Matchmaker\x20Test',
-                    'description': 'Check\x20if\x20matchmaker\x20works',
+                    'name': 'Matchmaker Test',
+                    'description': 'Check if matchmaker works',
                     'image': ri,
                     'connection': {
                         'type': 1,
@@ -26866,8 +27161,8 @@
                     }
                 }),
                 EP.push({
-                    'name': 'Coming\x20soon',
-                    'description': 'More\x20gamemodes',
+                    'name': 'Coming soon',
+                    'description': 'More gamemodes',
                     'image': ri,
                     'connection': {
                         'type': 1,
@@ -26877,8 +27172,8 @@
                     },
                     'disabled': true
                 })) : 'test' === r7.A.bUl ? (EP.push({
-                    'name': 'Survival\x20Test',
-                    'description': 'Adventure\x20in\x20a\x20vast\x20open\x20world',
+                    'name': 'Survival Test',
+                    'description': 'Adventure in a vast open world',
                     'image': ri,
                     'connection': {
                         'type': 1,
@@ -26888,8 +27183,8 @@
                     }
                 }),
                 EP.push({
-                    'name': 'Creative\x20Test',
-                    'description': 'Use\x20your\x20imagination\x20to\x20build\x20anything',
+                    'name': 'Creative Test',
+                    'description': 'Use your imagination to build anything',
                     'image': rT,
                     'connection': {
                         'type': 1,
@@ -26899,8 +27194,8 @@
                     }
                 }),
                 EP.push({
-                    'name': 'Coming\x20soon',
-                    'description': 'More\x20gamemodes',
+                    'name': 'Coming soon',
+                    'description': 'More gamemodes',
                     'image': rV,
                     'connection': {
                         'type': 1,
@@ -26911,7 +27206,7 @@
                     'disabled': true
                 })) : 'prod' === r7.A.bUl && (EP.push({
                     'name': 'Peaceful',
-                    'description': 'Friendly\x20survival\x20with\x20health\x20regen\x20and\x20optional\x20PVP',
+                    'description': 'Friendly survival with health regen and optional PVP',
                     'image': rV,
                     'connection': {
                         'type': 1,
@@ -26922,7 +27217,7 @@
                 }),
                 EP.push({
                     'name': 'Survival',
-                    'description': 'Adventure\x20in\x20a\x20vast\x20open\x20world\x20with\x20PVP',
+                    'description': 'Adventure in a vast open world with PVP',
                     'image': ri,
                     'connection': {
                         'type': 1,
@@ -26933,7 +27228,7 @@
                 }),
                 EP.push({
                     'name': 'Creative',
-                    'description': 'Use\x20your\x20imagination\x20to\x20build\x20anything',
+                    'description': 'Use your imagination to build anything',
                     'image': rT,
                     'connection': {
                         'type': 1,
@@ -26943,8 +27238,8 @@
                     }
                 }),
                 EP.push({
-                    'name': 'Coming\x20soon',
-                    'description': 'More\x20gamemodes',
+                    'name': 'Coming soon',
+                    'description': 'More gamemodes',
                     'image': rs,
                     'connection': {
                         'type': 1,
@@ -26955,19 +27250,19 @@
                     'disabled': true
                 }));
                 var EQ = (function() {
-                    var Ew = (0,
-                    r8.A)(rr().mark(function El(EC) {
+                    var Ew =
+                    r8.A(rr().mark(function El(EC) {
                         var EN, EZ;
                         return rr().wrap(function(Eh) {
                             for (; ; )
                                 switch (Eh.prev = Eh.next) {
                                 case 0:
                                     return EN = 'unknown',
-                                    0x3 === (EZ = EC.split('-')).length && (EN = EZ[0]),
-                                    Eh.next = 0x5,
+                                    3 === (EZ = EC.split('-')).length && (EN = EZ[0]),
+                                    Eh.next = 5,
                                     EB({
-                                        'name': 'Direct\x20Connection',
-                                        'description': 'Connect\x20by\x20room\x20id',
+                                        'name': 'Direct Connection',
+                                        'description': 'Connect by room id',
                                         'image': ri,
                                         'connection': {
                                             'type': 1,
@@ -26977,7 +27272,7 @@
                                             'hasServerBrowser': false
                                         }
                                     });
-                                case 0x5:
+                                case 5:
                                 case 'end':
                                     return Eh.stop();
                                 }
@@ -26989,43 +27284,43 @@
                     ;
                 }())
                   , EB = (function() {
-                    var Ew = (0,
-                    r8.A)(rr().mark(function El(EC) {
+                    var Ew =
+                    r8.A(rr().mark(function El(EC) {
                         var EN;
                         return rr().wrap(function(EZ) {
                             for (; ; )
                                 switch (EZ.prev = EZ.next) {
                                 case 0:
                                     if (EE === rS.v.bUq) {
-                                        EZ.next = 0x2;
+                                        EZ.next = 2;
                                         break;
                                     }
                                     return EZ.abrupt('return');
-                                case 0x2:
+                                case 2:
                                     return (0,
                                     rR.bK)(),
                                     FB.GameAnalytics.addDesignEvent('GA:GameStart:' + (EC.connection.gameMode.charAt(0).toUpperCase() + EC.connection.gameMode.slice(1).toLowerCase()), 1),
-                                    EZ.prev = 0x4,
-                                    EZ.next = 0x7,
+                                    EZ.prev = 4,
+                                    EZ.next = 7,
                                     FQ.A.bFV();
-                                case 0x7:
-                                    EZ.next = 0xc;
+                                case 7:
+                                    EZ.next = 12;
                                     break;
-                                case 0x9:
-                                    EZ.prev = 0x9,
-                                    EZ.t0 = EZ.catch(0x4),
+                                case 9:
+                                    EZ.prev = 9,
+                                    EZ.t0 = EZ.catch(4),
                                     console.error(EZ.t0);
-                                case 0xc:
+                                case 12:
                                     if (0 !== EC.connection.type) {
-                                        EZ.next = 0x11;
+                                        EZ.next = 17;
                                         break;
                                     }
                                     Ep(rS.v.bUi),
                                     rE.A.emit(rp.r.bUr, EC.connection.hostname, EC.connection.port, EC.connection.isSecure, EC.connection.gameMode, EC.connection.room),
                                     EZ.next = 0x22;
                                     break;
-                                case 0x11:
-                                    return EZ.prev = 0x11,
+                                case 17:
+                                    return EZ.prev = 17,
                                     Ep(rS.v.bUi),
                                     EZ.next = 0x15,
                                     rF.A.post(EC.connection.url, {
@@ -27042,43 +27337,43 @@
                                     EZ.next = 0x1b;
                                     break;
                                 case 0x1a:
-                                    throw new Error('No\x20servers\x20found');
+                                    throw new Error('No servers found');
                                 case 0x1b:
                                     EZ.next = 0x22;
                                     break;
                                 case 0x1d:
                                     EZ.prev = 0x1d,
-                                    EZ.t1 = EZ.catch(0x11),
+                                    EZ.t1 = EZ.catch(17),
                                     console.error(EZ.t1),
                                     Ep(rS.v.bUP),
                                     ES({
-                                        'bUa': 'Failed\x20to\x20find\x20server',
-                                        'bUT': 'The\x20game\x20might\x20be\x20updating.\x20Please\x20try\x20again\x20later.'
+                                        'bUa': 'Failed to find server',
+                                        'bUT': 'The game might be updating. Please try again later.'
                                     });
                                 case 0x22:
                                 case 'end':
                                     return EZ.stop();
                                 }
-                        }, El, null, [[0x4, 0x9], [0x11, 0x1d]]);
+                        }, El, null, [[4, 9], [17, 0x1d]]);
                     }));
                     return function(EC) {
                         return Ew.apply(this, arguments);
                     }
                     ;
                 }())
-                  , EM = (0,
-                r4.useState)((0,
-                ro.IQ)(['Pre-pre-alpha!', 'v0.0.0.0.1', 'Bugs\x20are\x20features', 'Slimes!', 'The\x20sky\x27s\x20not\x20the\x20limit', 'Dig\x20down', 'Don\x27t\x20dig\x20down!', 'CubeRealm.io', 'Asteroids', 'Skylands', 'Dungeons']))[0]
+                  , EM =
+                r4.useState((0,
+                ro.IQ)(['Pre-pre-alpha!', 'v0.0.0.0.1', 'Bugs are features', 'Slimes!', 'The sky\x27s not the limit', 'Dig down', 'Don\x27t dig down!', 'CubeRealm.io', 'Asteroids', 'Skylands', 'Dungeons']))[0]
                   , EX = []
                   , Em = [];
                 return EP.forEach(function(Ew, El) {
                     var EC, EN = null;
                     if (0 === Ew.connection.type)
-                        EN = (0,
-                        rH.jsx)(rH.Fragment, {
+                        EN =
+                        rH.jsx(rH.Fragment, {
                             'children': (0,
                             rH.jsx)(rI.A, {
-                                'children': 'Direct\x20Connect'
+                                'children': 'Direct Connect'
                             })
                         });
                     else {
@@ -27088,35 +27383,35 @@
                                 var Eo = Ew.connection.gameMode
                                   , EU = Ew.name
                                   , Ei = Ew.description;
-                                EN = (0,
-                                rH.jsxs)(rH.Fragment, {
+                                EN =
+                                rH.jsxs(rH.Fragment, {
                                     'children': [(0,
                                     rH.jsxs)(rI.A, {
                                         'onClick': function(ET) {
                                             ET.stopPropagation(),
                                             EQ(Eh[0]);
                                         },
-                                        'children': ['Rejoin\x20', Eh[0]]
-                                    }), (0,
-                                    rH.jsx)(rI.A, {
-                                        'marginTop': 0x5,
+                                        'children': ['Rejoin ', Eh[0]]
+                                    }),
+                                    rH.jsx(rI.A, {
+                                        'marginTop': 5,
                                         'onClick': function(ET) {
                                             ET.stopPropagation(),
                                             EH(EU, Ei, Eo, EQ, function() {
                                                 return EB(Ew);
                                             });
                                         },
-                                        'children': 'Browse\x20Servers'
+                                        'children': 'Browse Servers'
                                     })]
                                 });
                             } else
-                                EN = (0,
-                                rH.jsx)(rI.A, {
+                                EN =
+                                rH.jsx(rI.A, {
                                     'onClick': function(ET) {
                                         ET.stopPropagation(),
                                         EB(Ew);
                                     },
-                                    'children': 'Quick\x20Play'
+                                    'children': 'Quick Play'
                                 });
                         }
                     }
@@ -27135,22 +27430,22 @@
                             }
                         },
                         'children': [(0,
-                        rH.jsx)(FN, {}), (0,
-                        rH.jsx)(FZ, {}), (0,
-                        rH.jsx)(Fh, {
+                        rH.jsx)(FN, {}),
+                        rH.jsx(FZ, {}),
+                        rH.jsx(Fh, {
                             'children': Ew.name
-                        }), (0,
-                        rH.jsx)(Fo, {
+                        }),
+                        rH.jsx(Fo, {
                             'children': Ew.name
-                        }), (0,
-                        rH.jsx)(FU, {
+                        }),
+                        rH.jsx(FU, {
                             'children': Ew.description
-                        }), (0,
-                        rH.jsx)(Fi, {
+                        }),
+                        rH.jsx(Fi, {
                             'children': EN
                         })]
                     }, El)),
-                    0x5 === EX.length && (Em.push((0,
+                    5 === EX.length && (Em.push((0,
                     rH.jsx)(FC, {
                         'children': EX
                     }, Em.length)),
@@ -27171,10 +27466,10 @@
                             'dev' === r7.A.bUl) {
                                 var El = 'unknown'
                                   , EC = Ew.split('-');
-                                0x3 === EC.length && (El = EC[0]),
+                                3 === EC.length && (El = EC[0]),
                                 EB({
-                                    'name': 'Direct\x20Connection',
-                                    'description': 'Connect\x20by\x20room\x20id',
+                                    'name': 'Direct Connection',
+                                    'description': 'Connect by room id',
                                     'image': ri,
                                     'connection': {
                                         'type': 0,
@@ -27200,53 +27495,53 @@
                             'children': [(0,
                             rH.jsx)(FV, {
                                 'src': rU
-                            }), (0,
-                            rH.jsx)(Fw, {
+                            }),
+                            rH.jsx(Fw, {
                                 'children': EM
                             })]
-                        }), (0,
-                        rH.jsx)(Fl, {
+                        }),
+                        rH.jsx(Fl, {
                             'children': Em
                         }), window.adSDKType !== rq.a.bfy && (0,
                         rH.jsx)('div', {
                             'style': {
-                                'height': 0x14
+                                'height': 20
                             }
-                        }), (0,
-                        rH.jsx)(FP, {
+                        }),
+                        rH.jsx(FP, {
                             'id': 'ad970x250'
                         })]
-                    }), (0,
-                    rH.jsx)(FG, {
+                    }),
+                    rH.jsx(FG, {
                         'href': 'https://discord.gg/nRTmueGaeB',
                         'target': '_blank',
                         'children': (0,
                         rH.jsx)(Fk, {
                             'src': FH
                         })
-                    }), (0,
-                    rH.jsx)(Fs, {
+                    }),
+                    rH.jsx(Fs, {
                         'children': (0,
                         rH.jsx)(rh, {})
-                    }), (0,
-                    rH.jsx)(FR, {}), (0,
-                    rH.jsxs)(FW, {
+                    }),
+                    rH.jsx(FR, {}),
+                    rH.jsxs(FW, {
                         'children': [(0,
                         rH.jsx)(Fa, {
                             'href': '/terms',
                             'target': '_blank',
-                            'children': 'Terms\x20of\x20Use'
-                        }), (0,
-                        rH.jsx)('span', {
+                            'children': 'Terms of Use'
+                        }),
+                        rH.jsx('span', {
                             'children': '|'
-                        }), (0,
-                        rH.jsx)(FI, {
+                        }),
+                        rH.jsx(FI, {
                             'href': '/privacy',
                             'target': '_blank',
-                            'children': 'Privacy\x20Policy'
+                            'children': 'Privacy Policy'
                         })]
-                    }), (0,
-                    rH.jsx)(Fg, {
+                    }),
+                    rH.jsx(Fg, {
                         'children': (0,
                         rH.jsx)(FL, {
                             'href': '/partners',
@@ -27257,9 +27552,9 @@
                 });
             };
             var Fq = r5.Ay.div(['position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;pointer-events:auto;z-index:100003;background-color:rgba(50,50,150,0.2);backdrop-filter:blur(1px);'])
-              , Ff = r5.Ay.div(['max-width:80%;background-color:rgba(0,0,0,0.7);border:2px\x20solid\x20white;padding:60px\x2090px;display:flex;flex-direction:column;justify-content:center;align-items:center;'])
-              , FK = r5.Ay.div(['font-size:75px;margin-bottom:0px;text-align:center;overflow-wrap:break-word;text-shadow:4px\x204px\x200\x20#3b3b3b;'])
-              , FY = r5.Ay.div(['font-size:35px;color:#AAAAAA;text-align:center;overflow-wrap:break-word;text-shadow:3px\x203px\x200\x20#3b3b3b;']);
+              , Ff = r5.Ay.div(['max-width:80%;background-color:rgba(0,0,0,0.7);border:2px solid white;padding:60px 90px;display:flex;flex-direction:column;justify-content:center;align-items:center;'])
+              , FK = r5.Ay.div(['font-size:75px;margin-bottom:0px;text-align:center;overflow-wrap:break-word;text-shadow:4px 4px 0 #3b3b3b;'])
+              , FY = r5.Ay.div(['font-size:35px;color:#AAAAAA;text-align:center;overflow-wrap:break-word;text-shadow:3px 3px 0 #3b3b3b;']);
             const Fz = function(EE) {
                 return (0,
                 rH.jsx)(Fq, {
@@ -27268,8 +27563,8 @@
                         'children': [(0,
                         rH.jsx)(FK, {
                             'children': EE.title
-                        }), (0,
-                        rH.jsx)(FY, {
+                        }),
+                        rH.jsx(FY, {
                             'children': EE.subtitle
                         }), EE.buttonText && EE.onButtonClick && (0,
                         rH.jsx)(rQ.A, {
@@ -27283,12 +27578,12 @@
             var FA = r2(0x13f8b)
               , Fj = r2(0xf6b7);
             const FO = function() {
-                var EE = (0,
-                r6.x)(function(ES) {
+                var EE =
+                r6.x(function(ES) {
                     return ES.bUp;
                 })
-                  , Ep = (0,
-                r6.x)(function(ES) {
+                  , Ep =
+                r6.x(function(ES) {
                     return ES.bfS;
                 });
                 return (0,
@@ -27296,9 +27591,9 @@
                     'title': (0,
                     FA.G)(EE.bUa),
                     'subtitle': (0,
-                    FA.G)(EE.bUT, (0,
-                    Fj.q)(rG.A.GRAY.substring(1))),
-                    'buttonText': 'Back\x20to\x20Menu',
+                    FA.G)(EE.bUT,
+                    Fj.q(rG.A.GRAY.substring(1))),
+                    'buttonText': 'Back to Menu',
                     'onButtonClick': function() {
                         Ep(rS.v.bUq),
                         rE.A.emit(rp.r.bUV);
@@ -27307,27 +27602,27 @@
             };
             var FJ = r5.Ay.div(['width:450px;']);
             const Fv = function() {
-                var EE = (0,
-                r6.x)(function(EH) {
+                var EE =
+                r6.x(function(EH) {
                     return EH.bFq;
                 })
-                  , Ep = (0,
-                r6.x)(function(EH) {
+                  , Ep =
+                r6.x(function(EH) {
                     return EH.bfM;
                 })
-                  , ES = (0,
-                r6.x)(function(EH) {
+                  , ES =
+                r6.x(function(EH) {
                     return EH.bfU;
                 });
                 if (ES >= 1)
                     return null;
-                var ER = Ep === rS.v.bUE && void 0 === EE ? 'Authenticating' : 0 === ES ? 'Connecting\x20to\x20Server' : 'Loading\x20terrain\x20(' + (0x64 * ES).toFixed(0x2) + '%)';
+                var ER = Ep === rS.v.bUE && void 0 === EE ? 'Authenticating' : 0 === ES ? 'Connecting to Server' : 'Loading terrain (' + (0x64 * ES).toFixed(2) + '%)';
                 return (0,
                 rH.jsx)(Fz, {
                     'title': (0,
                     rH.jsxs)(rH.Fragment, {
-                        'children': ['Loading', (0,
-                        rH.jsx)(rP, {})]
+                        'children': ['Loading',
+                        rH.jsx(rP, {})]
                     }),
                     'subtitle': (0,
                     rH.jsx)(FJ, {
@@ -27341,27 +27636,27 @@
                 rH.jsx)(Fz, {
                     'title': (0,
                     rH.jsxs)(rH.Fragment, {
-                        'children': ['Disconnecting', (0,
-                        rH.jsx)(rP, {})]
+                        'children': ['Disconnecting',
+                        rH.jsx(rP, {})]
                     }),
                     'subtitle': (0,
                     rH.jsx)(Fn, {
-                        'children': 'Returning\x20to\x20menu'
+                        'children': 'Returning to menu'
                     })
                 });
             }
               , FD = r2.p + './package/92d3dee72929ddee41a0.svg';
             var Fu = r5.Ay.div(['width:100vw;height:100vh;top:0;left:0;position:absolute;background-size:cover;z-index:999999999;background-color:rgba(0,0,0,0.7);pointer-events:auto;display:flex;align-items:center;justify-content:center;'])
               , E0 = r5.Ay.div(['width:70%;font-size:30px;text-align:center;display:flex;align-items:center;justify-content:center;flex-direction:column;'])
-              , E1 = r5.Ay.img(['width:150px;animation:rotate\x201.5s\x20infinite;margin-bottom:40px;color:white;@keyframes\x20rotate{0%{transform:rotate(0deg);}100%{transform:rotate(-360deg);}}'])
+              , E1 = r5.Ay.img(['width:150px;animation:rotate 1.5s infinite;margin-bottom:40px;color:white;@keyframes rotate{0%{transform:rotate(0deg);}100%{transform:rotate(-360deg);}}'])
               , E2 = r5.Ay.div(['margin-bottom:30px;']);
             const E3 = function() {
-                var EE = (0,
-                r6.x)(function(EH) {
+                var EE =
+                r6.x(function(EH) {
                     return EH.bjI;
                 })
-                  , Ep = (0,
-                r4.useState)(false)
+                  , Ep =
+                r4.useState(false)
                   , ES = Ep[0]
                   , ER = Ep[1];
                 return EE || ES ? null : (0,
@@ -27371,11 +27666,11 @@
                         'children': [(0,
                         rH.jsx)(E1, {
                             'src': FD
-                        }), (0,
-                        rH.jsx)(E2, {
-                            'children': 'Please\x20rotate\x20your\x20screen'
-                        }), (0,
-                        rH.jsx)(rQ.A, {
+                        }),
+                        rH.jsx(E2, {
+                            'children': 'Please rotate your screen'
+                        }),
+                        rH.jsx(rQ.A, {
                             'onClick': function() {
                                 ER(true);
                             },
@@ -27408,7 +27703,7 @@
                         'transform': 'scale(' + Ep + ')'
                     }
                 };
-            })(['transform-origin:0\x200;position:absolute;top:0;left:0;pointer-events:none;touch-action:none;'])
+            })(['transform-origin:0 0;position:absolute;top:0;left:0;pointer-events:none;touch-action:none;'])
               , E7 = r5.Ay.div(['visibility:', ';'], function(EE) {
                 return EE.$visible ? 'visible' : 'hidden';
             })
@@ -27416,47 +27711,47 @@
                 return Promise.all([r2.e(0x127), r2.e(0x5d)]).then(r2.bind(r2, 0xad59));
             })
               , E9 = r4.lazy(function() {
-                return Promise.all([r2.e(0x127), r2.e(0xb)]).then(r2.bind(r2, 0xea6b));
+                return Promise.all([r2.e(0x127), r2.e(11)]).then(r2.bind(r2, 0xea6b));
             });
             const Er = function() {
-                var EE = (0,
-                r6.x)(function(EM) {
+                var EE =
+                r6.x(function(EM) {
                     return EM.bfM;
                 })
-                  , Ep = (0,
-                r6.x)(function(EM) {
+                  , Ep =
+                r6.x(function(EM) {
                     return EM.bfu;
                 })
-                  , ES = (0,
-                r6.x)(function(EM) {
+                  , ES =
+                r6.x(function(EM) {
                     return EM.bfU;
                 })
-                  , ER = (0,
-                r6.x)(function(EM) {
+                  , ER =
+                r6.x(function(EM) {
                     return EM.bjb;
                 })
-                  , EH = (0,
-                r6.x)(function(EM) {
+                  , EH =
+                r6.x(function(EM) {
                     return EM.bjF;
                 })
-                  , Ey = (0,
-                r6.x)(function(EM) {
+                  , Ey =
+                r6.x(function(EM) {
                     return EM.bjf;
                 })
-                  , Ed = (0,
-                r6.x)(function(EM) {
+                  , Ed =
+                r6.x(function(EM) {
                     return EM.bjD;
                 })
-                  , EP = (0,
-                r6.x)(function(EM) {
+                  , EP =
+                r6.x(function(EM) {
                     return EM.bjh;
                 })
-                  , EQ = (0,
-                r6.x)(function(EM) {
+                  , EQ =
+                r6.x(function(EM) {
                     return EM.bjk;
                 })
-                  , EB = (0,
-                r6.x)(function(EM) {
+                  , EB =
+                r6.x(function(EM) {
                     return EM.bjy;
                 });
                 return (0,
@@ -27548,8 +27843,8 @@
             var w = m(0xaeab)
               , l = m(0x7c13)
               , C = m(0x12460)
-              , N = w.Ay.div(['flex:1;display:flex;align-items:center;justify-content:center;color:white;background-color:', ';border:2px\x20solid\x20white;font-size:', 'px;pointer-events:auto;margin-top:', 'px;margin-right:', 'px;margin-bottom:', 'px;margin-left:', 'px;padding-top:', 'px;padding-right:', 'px;padding-bottom:', 'px;padding-left:', 'px;&:hover{background-color:', ';cursor:pointer;}'], function(h) {
-                return h.$bgColor || 'rgba(0,\x200,\x200,\x200.5)';
+              , N = w.Ay.div(['flex:1;display:flex;align-items:center;justify-content:center;color:white;background-color:', ';border:2px solid white;font-size:', 'px;pointer-events:auto;margin-top:', 'px;margin-right:', 'px;margin-bottom:', 'px;margin-left:', 'px;padding-top:', 'px;padding-right:', 'px;padding-bottom:', 'px;padding-left:', 'px;&:hover{background-color:', ';cursor:pointer;}'], function(h) {
+                return h.$bgColor || 'rgba(0, 0, 0, 0.5)';
             }, function(h) {
                 return h.$fontSize || 0x1e;
             }, function(h) {
@@ -27561,15 +27856,15 @@
             }, function(h) {
                 return h.$marginLeft || 0;
             }, function(h) {
-                return h.$paddingTop || 0x8;
+                return h.$paddingTop || 8;
             }, function(h) {
-                return h.$paddingRight || 0xe;
+                return h.$paddingRight || 14;
             }, function(h) {
-                return h.$paddingBottom || 0x8;
+                return h.$paddingBottom || 8;
             }, function(h) {
-                return h.$paddingLeft || 0xe;
+                return h.$paddingLeft || 14;
             }, function(h) {
-                return h.$hoverBgColor || 'rgba(100,\x20100,\x20100,\x200.7)';
+                return h.$hoverBgColor || 'rgba(100, 100, 100, 0.7)';
             });
             const Z = function(h) {
                 return (0,
@@ -27608,10 +27903,10 @@
                     'marginRight': N.marginRight,
                     'marginBottom': N.marginBottom,
                     'marginLeft': N.marginLeft,
-                    'paddingTop': N.paddingTop || 0x6,
-                    'paddingRight': N.paddingRight || 0xc,
-                    'paddingBottom': N.paddingBottom || 0x6,
-                    'paddingLeft': N.paddingLeft || 0xc,
+                    'paddingTop': N.paddingTop || 6,
+                    'paddingRight': N.paddingRight || 12,
+                    'paddingBottom': N.paddingBottom || 6,
+                    'paddingLeft': N.paddingLeft || 12,
                     'fontSize': N.fontSize || 0x18,
                     '$bgColor': N.$bgColor,
                     '$hoverBgColor': N.$hoverBgColor,
@@ -27630,7 +27925,7 @@
             var w = {
                 'bfy': 0,
                 'bgO': 1,
-                'bGW': 0x2
+                'bGW': 2
             };
         }
         ,
@@ -27640,7 +27935,7 @@
             });
             var w = m(0xaeab)
               , l = m(0x12460)
-              , C = w.Ay.div(['filter:drop-shadow(2px\x202px\x200\x20black);margin-top:', 'px;margin-right:', 'px;margin-bottom:', 'px;margin-left:', 'px;width:', ';display:flex;align-items:center;justify-content:center;', ''], function(Z) {
+              , C = w.Ay.div(['filter:drop-shadow(2px 2px 0 black);margin-top:', 'px;margin-right:', 'px;margin-bottom:', 'px;margin-left:', 'px;width:', ';display:flex;align-items:center;justify-content:center;', ''], function(Z) {
                 return Z.$marginTop ? Z.$marginTop : 0;
             }, function(Z) {
                 return Z.$marginRight ? Z.$marginRight : 0;
@@ -27651,7 +27946,7 @@
             }, function(Z) {
                 return Z.$width ? Z.$width + 'px' : 'auto';
             }, function(Z) {
-                return Z.$color ? '\x0a\x20\x20\x20\x20\x20\x20\x20\x20svg\x20{\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20stroke:\x20' + Z.$color + ';\x0a\x20\x20\x20\x20\x20\x20\x20\x20}\x0a\x20\x20\x20\x20' : '';
+                return Z.$color ? '\n        svg {\n            stroke: ' + Z.$color + ';\n        }\n    ' : '';
             });
             const N = function(Z) {
                 return (0,
@@ -27688,11 +27983,11 @@
                 U.jsx)(T, {
                     'width': '100%',
                     'xmlns': 'http://www.w3.org/2000/svg',
-                    'viewBox': '0\x20-0.5\x2011\x2011',
+                    'viewBox': '0 -0.5 11 11',
                     'shapeRendering': 'crispEdges',
                     'children': (0,
                     U.jsx)('path', {
-                        'd': 'M0\x200h2M9\x200h2M0\x201h3M8\x201h3M1\x202h3M7\x202h3M2\x203h3M6\x203h3M3\x204h5M4\x205h3M3\x206h5M2\x207h3M6\x207h3M1\x208h3M7\x208h3M0\x209h3M8\x209h3M0\x2010h2M9\x2010h2'
+                        'd': 'M0 0h2M9 0h2M0 1h3M8 1h3M1 2h3M7 2h3M2 3h3M6 3h3M3 4h5M4 5h3M3 6h5M2 7h3M6 7h3M1 8h3M7 8h3M0 9h3M8 9h3M0 10h2M9 10h2'
                     })
                 });
             };
@@ -27704,17 +27999,17 @@
               , x = w.Ay.div(['color:', ';'], N.A.RED)
               , I = w.Ay.div(['color:', ';'], N.A.GREEN)
               , g = w.Ay.div(['color:', ';'], N.A.GRAY)
-              , L = w.Ay.div(['background-color:rgba(0,0,0,0.8);border:2px\x20solid\x20white;padding:20px;pointer-events:auto;text-shadow:2px\x202px\x200\x20black;position:relative;'])
-              , q = w.Ay.div(['position:absolute;top:-20px;right:-20px;background-color:#ff2020;padding:10px;border:2px\x20solid\x20white;&:hover{cursor:pointer;background-color:', ';}'], N.A.RED);
+              , L = w.Ay.div(['background-color:rgba(0,0,0,0.8);border:2px solid white;padding:20px;pointer-events:auto;text-shadow:2px 2px 0 black;position:relative;'])
+              , q = w.Ay.div(['position:absolute;top:-20px;right:-20px;background-color:#ff2020;padding:10px;border:2px solid white;&:hover{cursor:pointer;background-color:', ';}'], N.A.RED);
             const f = function(K) {
-                var Y = (0,
-                Z.x)(function(z) {
+                var Y =
+                Z.x(function(z) {
                     return z.bUX;
                 });
                 return (0,
                 U.jsxs)(L, {
-                    'children': [K.children, (0,
-                    U.jsx)(q, {
+                    'children': [K.children,
+                    U.jsx(q, {
                         'onClick': function() {
                             (0,
                             G.bK)(),
@@ -27723,7 +28018,7 @@
                         },
                         'children': (0,
                         U.jsx)(C.A, {
-                            'width': 0x14,
+                            'width': 20,
                             'icon': V
                         })
                     })]
@@ -27749,24 +28044,24 @@
               , x = m(0x7c13)
               , I = m(0x12460)
               , g = Z.Ay.div(['width:600px;display:flex;flex-direction:column;'])
-              , L = Z.Ay.input(['width:', ';height:46px;border:2px\x20solid\x20#999999;background-color:rgba(0,0,0,0.5);color:white;outline:none;padding:6px\x2012px;box-sizing:border-box;font-family:\x27LanaPixel\x27,\x27Unifont\x27,\x27Lato\x27,Helvetica,sans-serif;font-size:24px;margin-top:8px;margin-bottom:8px;'], function(f) {
+              , L = Z.Ay.input(['width:', ';height:46px;border:2px solid #999999;background-color:rgba(0,0,0,0.5);color:white;outline:none;padding:6px 12px;box-sizing:border-box;font-family:\x27LanaPixel\x27,\x27Unifont\x27,\x27Lato\x27,Helvetica,sans-serif;font-size:24px;margin-top:8px;margin-bottom:8px;'], function(f) {
                 return f.$width || '100%';
             });
             const q = function() {
-                var f = (0,
-                T.x)(function(D) {
+                var f =
+                T.x(function(D) {
                     return D.bUX;
                 })
-                  , K = (0,
-                T.x)(function(D) {
+                  , K =
+                T.x(function(D) {
                     return D.bUN;
                 })
-                  , Y = (0,
-                G.useState)(false)
+                  , Y =
+                G.useState(false)
                   , z = Y[0]
                   , j = Y[1]
-                  , J = (0,
-                G.useState)('')
+                  , J =
+                G.useState('')
                   , v = J[0]
                   , b = J[1];
                 return (0,
@@ -27777,28 +28072,28 @@
                         I.jsxs)(U.wn, {
                             'children': [(0,
                             I.jsx)(U.X3, {
-                                'children': 'Change\x20Name'
-                            }), (0,
-                            I.jsx)(U.Ps, {
-                                'children': 'Your\x20first\x20name\x20change\x20is\x20free.'
-                            }), (0,
-                            I.jsx)(L, {
+                                'children': 'Change Name'
+                            }),
+                            I.jsx(U.Ps, {
+                                'children': 'Your first name change is free.'
+                            }),
+                            I.jsx(L, {
                                 'type': 'text',
-                                'placeholder': 'Enter\x20your\x20new\x20name',
+                                'placeholder': 'Enter your new name',
                                 'autoFocus': true,
-                                'maxLength': 0x14,
+                                'maxLength': 20,
                                 'value': v,
                                 'onChange': function(D) {
                                     (0,
                                     x.bK)(),
                                     b(D.target.value);
                                 }
-                            }), (0,
-                            I.jsx)(U.EE, {
-                                'children': 'Must\x20be\x203-20\x20characters\x20long\x20and\x20include\x20only\x20letters,\x20numbers,\x20dashes,\x20and\x20underscores.'
-                            }), (0,
-                            I.jsx)(V.A, {
-                                'marginTop': 0xf,
+                            }),
+                            I.jsx(U.EE, {
+                                'children': 'Must be 3-20 characters long and include only letters, numbers, dashes, and underscores.'
+                            }),
+                            I.jsx(V.A, {
+                                'marginTop': 15,
                                 'onClick': (0,
                                 w.A)(N().mark(function D() {
                                     var r0, r1;
@@ -27807,73 +28102,73 @@
                                             switch (r2.prev = r2.next) {
                                             case 0:
                                                 if (!z) {
-                                                    r2.next = 0x2;
+                                                    r2.next = 2;
                                                     break;
                                                 }
                                                 return r2.abrupt('return');
-                                            case 0x2:
+                                            case 2:
                                                 return j(true),
-                                                r2.prev = 0x3,
-                                                r2.next = 0x6,
+                                                r2.prev = 3,
+                                                r2.next = 6,
                                                 k.A.bFG(v);
-                                            case 0x6:
-                                                return r2.next = 0x8,
+                                            case 6:
+                                                return r2.next = 8,
                                                 k.A.bFO();
-                                            case 0x8:
+                                            case 8:
                                                 f(),
                                                 K((0,
                                                 I.jsx)(U.Ps, {
                                                     'children': 'Success'
-                                                }), (0,
-                                                I.jsx)('span', {
-                                                    'children': 'You\x20changed\x20your\x20name\x20to\x20' + v
-                                                }), (0,
-                                                I.jsx)('span', {
+                                                }),
+                                                I.jsx('span', {
+                                                    'children': 'You changed your name to ' + v
+                                                }),
+                                                I.jsx('span', {
                                                     'children': 'OK'
                                                 })),
-                                                r2.next = 0x10;
+                                                r2.next = 16;
                                                 break;
-                                            case 0xc:
-                                                r2.prev = 0xc,
-                                                r2.t0 = r2.catch(0x3),
+                                            case 12:
+                                                r2.prev = 12,
+                                                r2.t0 = r2.catch(3),
                                                 console.error(r2.t0),
                                                 (null == (r0 = r2.t0.response) || null == (r0 = r0.data) ? void 0 : r0.ErrorCode) === W.A.EntityDisplayNameTaken ? K((0,
                                                 I.jsx)(U.yn, {
                                                     'children': 'Error'
-                                                }), (0,
-                                                I.jsx)('span', {
-                                                    'children': 'Sorry,\x20' + v + '\x20is\x20already\x20taken.'
-                                                }), (0,
-                                                I.jsx)('span', {
+                                                }),
+                                                I.jsx('span', {
+                                                    'children': 'Sorry, ' + v + ' is already taken.'
+                                                }),
+                                                I.jsx('span', {
                                                     'children': 'OK'
                                                 })) : (null == (r1 = r2.t0.response) || null == (r1 = r1.data) ? void 0 : r1.ErrorCode) === W.A.InvalidParameters ? K((0,
                                                 I.jsx)(U.yn, {
                                                     'children': 'Error'
-                                                }), (0,
-                                                I.jsx)('span', {
-                                                    'children': 'Your\x20new\x20name\x20must\x20be\x203-20\x20characters\x20long\x20and\x20include\x20only\x20letters,\x20numbers,\x20dashes,\x20and\x20underscores.'
-                                                }), (0,
-                                                I.jsx)('span', {
+                                                }),
+                                                I.jsx('span', {
+                                                    'children': 'Your new name must be 3-20 characters long and include only letters, numbers, dashes, and underscores.'
+                                                }),
+                                                I.jsx('span', {
                                                     'children': 'OK'
                                                 })) : K((0,
                                                 I.jsx)(U.yn, {
                                                     'children': 'Error'
-                                                }), (0,
-                                                I.jsx)('span', {
-                                                    'children': 'An\x20error\x20occurred\x20while\x20changing\x20your\x20name.\x20Please\x20try\x20again.'
-                                                }), (0,
-                                                I.jsx)('span', {
+                                                }),
+                                                I.jsx('span', {
+                                                    'children': 'An error occurred while changing your name. Please try again.'
+                                                }),
+                                                I.jsx('span', {
                                                     'children': 'OK'
                                                 }));
-                                            case 0x10:
-                                                return r2.prev = 0x10,
+                                            case 16:
+                                                return r2.prev = 16,
                                                 j(false),
-                                                r2.finish(0x10);
-                                            case 0x13:
+                                                r2.finish(16);
+                                            case 19:
                                             case 'end':
                                                 return r2.stop();
                                             }
-                                    }, D, null, [[0x3, 0xc, 0x10, 0x13]]);
+                                    }, D, null, [[3, 12, 16, 19]]);
                                 })),
                                 'children': 'Confirm'
                             })]
@@ -27900,7 +28195,7 @@
                         return;
                     if ('string' == typeof W)
                         return h(W, x);
-                    var I = Object.prototype.toString.call(W).slice(0x8, -1);
+                    var I = Object.prototype.toString.call(W).slice(8, -1);
                     'Object' === I && W.constructor && (I = W.constructor.name);
                     if ('Map' === I || 'Set' === I)
                         return Array.from(W);
@@ -27919,7 +28214,7 @@
                     }
                     ;
                 }
-                throw new TypeError('Invalid\x20attempt\x20to\x20iterate\x20non-iterable\x20instance.\x0aIn\x20order\x20to\x20be\x20iterable,\x20non-array\x20objects\x20must\x20have\x20a\x20[Symbol.iterator]()\x20method.');
+                throw new TypeError('Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.');
             }
             function h(T, V) {
                 (null == V || V > T.length) && (V = T.length);
@@ -27931,10 +28226,10 @@
                 void 0 === k && (k = true);
                 var W = true
                   , x = window.adSDKType
-                  , I = (0,
-                w.useRef)(true)
-                  , g = (0,
-                w.useRef)(0);
+                  , I =
+                w.useRef(true)
+                  , g =
+                w.useRef(0);
                 return (0,
                 w.useEffect)(function() {
                     if (x !== C.a.bfy && V && k) {
@@ -27952,7 +28247,7 @@
                             }
                         };
                         L();
-                        var q = window.setInterval(L, 0x3e8);
+                        var q = window.setInterval(L, 1000);
                         return function() {
                             window.clearInterval(q);
                         }
@@ -27972,8 +28267,8 @@
               , C = m(0xad85)
               , N = m(0x12181)
               , Z = m(0xaaa4)
-              , h = (0,
-            l.vt)(function() {
+              , h =
+            l.vt(function() {
                 return (0,
                 w.A)({}, C.t.apply(void 0, arguments), N.P.apply(void 0, arguments), Z.w.apply(void 0, arguments));
             });
@@ -27986,8 +28281,8 @@
             var w = m(0xe338)
               , l = m(0x13ed5)
               , C = m(0x1545e)
-              , N = (0,
-            l.vt)()((0,
+              , N =
+            l.vt()((0,
             C.Zr)(function(Z, h) {
                 return {
                     'lastPlayedRooms': {},
@@ -27999,13 +28294,13 @@
                             w.A)({}, h().lastPlayedRooms, (k = {},
                             k[U] = [T].concat(null != (V = null == (G = h().lastPlayedRooms[U]) ? void 0 : G.filter(function(W) {
                                 return W !== T;
-                            }).slice(0, 0x9)) ? V : []),
+                            }).slice(0, 9)) ? V : []),
                             k))
                         });
                     },
                     'bUU': function(U) {
                         Z({
-                            'lastUsedCommands': [U].concat(h().lastUsedCommands.slice(0, 0x9))
+                            'lastUsedCommands': [U].concat(h().lastUsedCommands.slice(0, 9))
                         });
                     }
                 };
@@ -28025,8 +28320,8 @@
             });
             var w = m(0x13ed5)
               , l = m(0x1545e)
-              , C = (0,
-            w.vt)()((0,
+              , C =
+            w.vt()((0,
             l.Zr)(function(N) {
                 return {
                     'bFj': function(Z) {
@@ -28202,9 +28497,9 @@
         m.exports;
     }
     Q.m = d,
-    F = 'function' == typeof Symbol ? Symbol('webpack\x20queues') : '__webpack_queues__',
-    E = 'function' == typeof Symbol ? Symbol('webpack\x20exports') : '__webpack_exports__',
-    p = 'function' == typeof Symbol ? Symbol('webpack\x20error') : '__webpack_error__',
+    F = 'function' == typeof Symbol ? Symbol('webpack queues') : '__webpack_queues__',
+    E = 'function' == typeof Symbol ? Symbol('webpack exports') : '__webpack_exports__',
+    p = 'function' == typeof Symbol ? Symbol('webpack error') : '__webpack_error__',
     S = M => {
         M && M.d < 1 && (M.d = 1,
         M.forEach(X => X.r--),
@@ -28293,7 +28588,7 @@
             return M;
         }
         w = w || 0;
-        for (var h = R.length; h > 0 && R[h - 1][0x2] > w; h--)
+        for (var h = R.length; h > 0 && R[h - 1][2] > w; h--)
             R[h] = R[h - 1];
         R[h] = [X, m, w];
     }
@@ -28318,7 +28613,7 @@
     Q.e = M => Promise.all(Object.keys(Q.f).reduce( (X, m) => (Q.f[m](M, X),
     X), [])),
     Q.u = M => './package/' + {
-        0xb: '036321f687060b162e6d',
+        11: '036321f687060b162e6d',
         0x32: 'fbbbb7dc6e910299bf7d',
         0x5d: '9bd1ffd9d641092822ed',
         0x127: '74f3b913e6504d2fac31',
@@ -28330,7 +28625,7 @@
         if ('object' == typeof globalThis)
             return globalThis;
         try {
-            return this || new Function('return\x20this')();
+            return this || new Function('return this')();
         } catch (M) {
             if ('object' == typeof window)
                 return window;
@@ -28399,10 +28694,10 @@
             var C = Q.o(M, w) ? M[w] : void 0;
             if (0 !== C) {
                 if (C)
-                    l.push(C[0x2]);
+                    l.push(C[2]);
                 else {
                     var N = new Promise( (U, T) => C = M[w] = [U, T]);
-                    l.push(C[0x2] = N);
+                    l.push(C[2] = N);
                     var Z = Q.p + Q.u(w)
                       , h = new Error();
                     Q.l(Z, U => {
@@ -28410,7 +28705,7 @@
                         C)) {
                             var T = U && ('load' === U.type ? 'missing' : U.type)
                               , V = U && U.target && U.target.src;
-                            h.message = 'Loading\x20chunk\x20' + w + '\x20failed.\x0a(' + T + ':\x20' + V + ')',
+                            h.message = 'Loading chunk ' + w + ' failed.\n(' + T + ': ' + V + ')',
                             h.name = 'ChunkLoadError',
                             h.type = T,
                             h.request = V,
