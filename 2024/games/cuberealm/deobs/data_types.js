@@ -365,14 +365,24 @@
                         for (var FC, FN = [], FZ = 0; FZ < arguments.length; FZ++)
                             FN[FZ] = arguments[FZ];
                         // this is the dumbest cost ive seen in a while
-                        // `Fl.bind.apply(Fl,` => `F1`
                         FC = Array.from(this.$items.values());
-                        r4(
+                        /*
+                        // so, you can't bind a class constructor
+                        // bc new automatically binds it to the new object
+                        const MTAA = r4(
                             [undefined],
                             FC.concat(...FN),
                             false
                         );
-                        return new Fl();
+                        const my_this = MTAA?.[0] ?? undefined;
+                        const my_args = MTAA?.slice(1) ?? [];
+                        */
+                        const my_args = r4(
+                            [undefined],
+                            FC.concat(...FN),
+                            false
+                        )?.slice(1) ?? [];
+                        return new Fl(...my_args);
                     }
                     join(FC) {
                         return Array.from(this.$items.values()).join(FC);
