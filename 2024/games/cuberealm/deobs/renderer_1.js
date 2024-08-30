@@ -1,4 +1,10 @@
 
+/*
+the 3rd parameter of all of the functions is probably an export function
+
+i think its defined in imports.js
+*/
+
 'use strict';
 (self.webpackChunkcuberealm_client = self.webpackChunkcuberealm_client || []).push([[0x12d], {
     0xbd44: (r, F, E) => {
@@ -246,60 +252,60 @@
             S.A)(y, H),
             y;
         }(p(0x152d9).u);
-    }
-    ,
+    },
     0xab79: (F, E, p) => {
+        /** @type {new () => camera_controller}; camera class? (see below) after it has been attached to whatever p(0x16f53).B is */
+        var y;
         p.d(E, {
-            'i': () => y
+            i: () => y
         });
-        var S = p(0x12e4b)
-          , R = p(0x172d2)
-          , H = p(0x11ded)
-          , y = function(d) {
-            function P() {
-                var B;
-                return (B = d.call(this) || this).isCamera = true,
-                B.type = 'Camera',
-                B.matrixWorldInverse = new H.k(),
-                B.projectionMatrix = new H.k(),
-                B.projectionMatrixInverse = new H.k(),
-                B.coordinateSystem = R.TdN,
-                B;
-            }
-            (0,
-            S.A)(P, d);
-            var Q = P.prototype;
-            return Q.copy = function(B, M) {
+        var S = p(0x12e4b);
+        var R = p(0x172d2);
+        var H = p(0x11ded);
+        // TODO
+        y =
+        /**
+          * camera constroller factory?
+          * @param {() => camera_controller_proxy?} d its the parent type of the camera controller; return value is treated as the camera controller for some reason???
+        **/
+        function(d) {
+            /** camera class? or something related to it; maybe it's a camera controller */
+            const P = function() {
+                var B = d.call(this) || this;
+                B.isCamera = true;
+                B.type = 'Camera';
+                B.matrixWorldInverse = new H.k();
+                B.projectionMatrix = new H.k();
+                B.projectionMatrixInverse = new H.k();
+                B.coordinateSystem = R.TdN;
+                return B;
+            };
+            P.prototype.copy = function(B, M) {
                 return d.prototype.copy.call(this, B, M),
-                this.matrixWorldInverse.copy(B.matrixWorldInverse),
-                this.projectionMatrix.copy(B.projectionMatrix),
-                this.projectionMatrixInverse.copy(B.projectionMatrixInverse),
-                this.coordinateSystem = B.coordinateSystem,
-                this;
-            }
-            ,
-            Q.getWorldDirection = function(B) {
+                    this.matrixWorldInverse.copy(B.matrixWorldInverse),
+                    this.projectionMatrix.copy(B.projectionMatrix),
+                    this.projectionMatrixInverse.copy(B.projectionMatrixInverse),
+                    this.coordinateSystem = B.coordinateSystem,
+                    this;
+            };
+            P.prototype.getWorldDirection = function(B) {
                 return d.prototype.getWorldDirection.call(this, B).negate();
-            }
-            ,
-            Q.updateMatrixWorld = function(B) {
+            };
+            P.prototype.updateMatrixWorld = function(B) {
                 d.prototype.updateMatrixWorld.call(this, B),
-                this.matrixWorldInverse.copy(this.matrixWorld).invert();
-            }
-            ,
-            Q.updateWorldMatrix = function(B, M) {
+                    this.matrixWorldInverse.copy(this.matrixWorld).invert();
+            };
+            P.prototype.updateWorldMatrix = function(B, M) {
                 d.prototype.updateWorldMatrix.call(this, B, M),
-                this.matrixWorldInverse.copy(this.matrixWorld).invert();
-            }
-            ,
-            Q.clone = function() {
+                    this.matrixWorldInverse.copy(this.matrixWorld).invert();
+            };
+            P.prototype.clone = function() {
                 return new this.constructor().copy(this);
-            }
-            ,
-            P;
+            };
+            S.A(P, d);
+            return P;
         }(p(0x16f53).B);
-    }
-    ,
+    },
     0x306c: (F, E, p) => {
         p.d(E, {
             'F': () => B
@@ -456,8 +462,7 @@
             ,
             X;
         }(H.B);
-    }
-    ,
+    },
     0x17743: (F, E, p) => {
         p.d(E, {
             'q': () => R
@@ -560,8 +565,7 @@
             ,
             y;
         }(p(0xab79).i);
-    }
-    ,
+    },
     0x152d9: (F, E, p) => {
         p.d(E, {
             'u': () => y
@@ -693,14 +697,12 @@
             ,
             P;
         }(R.i);
-    }
-    ,
+    },
     0x20d1: (r, F, E) => {
         E(0x11ded),
         E(0xbd95),
         E(0x152d9);
-    }
-    ,
+    },
     0x16835: (F, E, R) => {
         R.d(E, {
             'L': () => Y
@@ -1209,8 +1211,7 @@
             ,
             A;
         }(X.Q);
-    }
-    ,
+    },
     0x161ea: (r, F, E) => {
         E.d(F, {
             'Q': () => p
@@ -1256,8 +1257,7 @@
             ,
             S;
         }());
-    }
-    ,
+    },
     0xc7b1: (r, F, E) => {
         E.d(F, {
             'z': () => p
@@ -1301,8 +1301,7 @@
             ,
             S;
         }());
-    }
-    ,
+    },
     0x16f53: (F, R, H) => {
         H.d(R, {
             'B': () => J
@@ -1831,12 +1830,10 @@
         J.DEFAULT_UP = new B.P(0,1,0),
         J.DEFAULT_MATRIX_AUTO_UPDATE = true,
         J.DEFAULT_MATRIX_WORLD_AUTO_UPDATE = true;
-    }
-    ,
+    },
     0xd973: (r, F, E) => {
         E(0xbf9a);
-    }
-    ,
+    },
     0xfbe: (F, E, p) => {
         p.d(E, {
             'O': () => B
