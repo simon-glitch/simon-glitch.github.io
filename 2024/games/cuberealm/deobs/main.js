@@ -12,7 +12,7 @@ imports:        69cb7c029c2d7489712f
 blocks n items: c3e53f01e123ae74ed3b
 */
 
-const TWO_WAY_MAP = function(C, D){
+var TWO_WAY_MAP = function(C, D){
     for(let i in D){
         C[i] = D[i];
         C[D[i]] = i;
@@ -136,7 +136,7 @@ const TWO_WAY_MAP = function(C, D){
                         var rB =
                         r1.qE(rd.renderScale, r2.A.bgI.bxp, r2.A.bgI.bxV);
                         ry.bjX.bjK !== rB && (ry.bjX.bjK = rB,
-                        void 0 !== rP && rP.bLw.setPixelRatio(window.devicePixelRatio * ry.bjX.bjK));
+                        undefined !== rP && rP.bLw.setPixelRatio(window.devicePixelRatio * ry.bjX.bjK));
                         var rM = []
                           , rX = rd.viewDistanceX;
                         ry.bjX.bgb !== rX && ((0,
@@ -350,7 +350,7 @@ const TWO_WAY_MAP = function(C, D){
                         });
                     }),
                     G.A.on(k.r.bKT, function(rd) {
-                        ry.bgB.getState().bgP(void 0);
+                        ry.bgB.getState().bgP(undefined);
                     }),
                     G.A.on(k.r.bga, function(rd) {
                         if (rd.bgT === r4.W.FYs)
@@ -391,7 +391,7 @@ const TWO_WAY_MAP = function(C, D){
                     document.addEventListener('keydown', function(rd) {
                         (rd.stopPropagation(),
                         (0,
-                        W.HF)() === q.v.bje) && (void 0 === ry.bgB.getState().bJk && (rd.code === x.A.bJy ? (rd.preventDefault(),
+                        W.HF)() === q.v.bje) && (undefined === ry.bgB.getState().bJk && (rd.code === x.A.bJy ? (rd.preventDefault(),
                         !(0,
                         W.VB)() && (0,
                         W.z4)() && !(0,
@@ -403,7 +403,7 @@ const TWO_WAY_MAP = function(C, D){
                         (0,
                         W.HF)() === q.v.bje) {
                             if (rd.code === x.A.bJZ) {
-                                var rP = void 0 !== ry.bgB.getState().bfu;
+                                var rP = undefined !== ry.bgB.getState().bfu;
                                 if ((0,
                                 W.t0)() && !rP)
                                     return void G.A.emit(k.r.bvn);
@@ -445,11 +445,11 @@ const TWO_WAY_MAP = function(C, D){
                     }),
                     G.A.on(k.r.bcA, function(rd) {
                         ry.bgB.getState().bJt(rd),
-                        rd === K.K.bfC ? void 0 === ry.bgB.getState().bfu && G.A.emit(k.r.bvn) : G.A.emit(k.r.bKP);
+                        rd === K.K.bfC ? undefined === ry.bgB.getState().bfu && G.A.emit(k.r.bvn) : G.A.emit(k.r.bKP);
                     }),
                     G.A.on(k.r.bMQ, function(rd, rP, rQ) {
                         if ((0,
-                        W.HF)() === q.v.bje && void 0 === ry.bgB.getState().bJk) {
+                        W.HF)() === q.v.bje && undefined === ry.bgB.getState().bJk) {
                             var rB =
                             W.VB();
                             if (rB) {
@@ -460,7 +460,7 @@ const TWO_WAY_MAP = function(C, D){
                                 ry.bgB.getState().bgs(''),
                                 r9.GameAnalytics.addDesignEvent('GA:Chat:Send', 1)),
                                 ry.bgB.getState().bgC(false),
-                                void 0 !== ry.bgB.getState().bfu || (0,
+                                undefined !== ry.bgB.getState().bfu || (0,
                                 W.t0)() || G.A.emit(k.r.bvn);
                             } else {
                                 if (!rB && ry.bgZ.getState().chatVisible && rd === ry.bjX.bMs[r0.IS.CHAT])
@@ -660,10 +660,10 @@ const TWO_WAY_MAP = function(C, D){
             var rr = (function() {
                 function rt(rw, rl, rC, rN) {
                     var rZ = this;
-                    void 0 === rw && (rw = W.A.bIk),
-                    void 0 === rl && (rl = true),
-                    void 0 === rC && (rC = false),
-                    void 0 === rN && (rN = W.A.bIy),
+                    undefined === rw && (rw = W.A.bIk),
+                    undefined === rl && (rl = true),
+                    undefined === rC && (rC = false),
+                    undefined === rN && (rN = W.A.bIy),
                     this.bIB = function(rh, ro, rU) {
                         var ri = 9 * rZ.bIZ[rh + 1] + 3 * rZ.bIZ[ro + 1] + rZ.bIZ[rU + 1]
                           , rT = rZ.bIe[ri]
@@ -703,7 +703,7 @@ const TWO_WAY_MAP = function(C, D){
                 }
                 var rm = rt.prototype;
                 return rm.bIr = function(rw, rl, rC, rN, rZ, rh) {
-                    void 0 === rh && (rh = null);
+                    undefined === rh && (rh = null);
                     for (var ro = rl.shape[1], rU = this.bIj, ri = this.bIQ, rT = this.bIC, rV = this.bIK, rs = 2 * rw, rG = 0, rk = rl.index(rC, 0, 0), rW = rl.stride[1], rx = rl.stride[2], ra = rN.index(rZ, 0, 0), rI = rN.stride[1], rg = rN.stride[2], rL = 0, rc = 0, rq = [], rf = [], rK = 0; rK < ro; ++rK) {
                         var rY = rk
                           , rz = ra;
@@ -877,7 +877,7 @@ const TWO_WAY_MAP = function(C, D){
                                 rn.uvwids[rb] = rA.bbN.bbZ,
                                 rn.uvhts[rb] = rA.bbN.bbB;
                                 var ru;
-                                ru = null == rA.bbW ? void 0 : rA.bbW(function(F0, F1, F2) {
+                                ru = null == rA.bbW ? undefined : rA.bbW(function(F0, F1, F2) {
                                     var F3 = ri[rC] + F2
                                       , F4 = ri[rN] + F0
                                       , F5 = ri[rZ] + F1;
@@ -885,10 +885,10 @@ const TWO_WAY_MAP = function(C, D){
                                     ro.bIB(F3, F4, F5);
                                 }),
                                 rn.packedAO[rb] = -1,
-                                rn.AOAs[rb] = null != (rg = null == (rL = ru) ? void 0 : rL.bbL) ? rg : 0,
-                                rn.AOBs[rb] = null != (rc = null == (rq = ru) ? void 0 : rq.bbX) ? rc : 0,
-                                rn.AOCs[rb] = null != (rf = null == (rK = ru) ? void 0 : rK.bbm) ? rf : 0,
-                                rn.AODs[rb] = null != (rY = null == (rz = ru) ? void 0 : rz.bbU) ? rY : 0,
+                                rn.AOAs[rb] = null != (rg = null == (rL = ru) ? undefined : rL.bbL) ? rg : 0,
+                                rn.AOBs[rb] = null != (rc = null == (rq = ru) ? undefined : rq.bbX) ? rc : 0,
+                                rn.AOCs[rb] = null != (rf = null == (rK = ru) ? undefined : rK.bbm) ? rf : 0,
+                                rn.AODs[rb] = null != (rY = null == (rz = ru) ? undefined : rz.bbU) ? rY : 0,
                                 rn.dirs[rb] = rk;
                             }
                         }
@@ -928,7 +928,7 @@ const TWO_WAY_MAP = function(C, D){
                         var rV = 2 === rT ? 0 : 2
                           , rs = 1 === rT ? 0 : 1
                           , rG = rw.map(function(rb) {
-                            return rb ? G()(rb.bbw, [rC.bIn, rC.bIn, rC.bIn]).transpose(1, 0, 2).transpose(rT, rV, rs) : void 0;
+                            return rb ? G()(rb.bbw, [rC.bIn, rC.bIn, rC.bIn]).transpose(1, 0, 2).transpose(rT, rV, rs) : undefined;
                         })
                           , rk = G()(rG, [3, 3, 3]).lo(1, 1, 1).transpose(rT, rV, rs);
                         rC.bbj(rk);
@@ -996,11 +996,11 @@ const TWO_WAY_MAP = function(C, D){
                           , rV = rU.numFaces
                           , rs = new Uint32Array(6 * rV)
                           , rG = new Float32Array(12 * rV)
-                          , rk = this.bIA ? new Int8Array(12 * rV) : void 0
-                          , rW = void 0
-                          , rx = void 0
-                          , ra = void 0
-                          , rI = void 0;
+                          , rk = this.bIA ? new Int8Array(12 * rV) : undefined
+                          , rW = undefined
+                          , rx = undefined
+                          , ra = undefined
+                          , rI = undefined;
                         rT ? (rx = new Int16Array(8 * rV),
                         ra = new Uint16Array(2 * rV * 4),
                         this.bIt && (rI = new Uint8Array(4 * rV))) : rW = new Float32Array(12 * rV);
@@ -1325,7 +1325,7 @@ const TWO_WAY_MAP = function(C, D){
                                                             window.CrazyGames.SDK.user.getUserToken();
                                                         case 6:
                                                             if (rQ = rt.sent,
-                                                            void 0 !== (null == (rP = b.x.getState().bFq) || null == (rP = rP.Connections) ? void 0 : rP.CrazyGames)) {
+                                                            undefined !== (null == (rP = b.x.getState().bFq) || null == (rP = rP.Connections) ? undefined : rP.CrazyGames)) {
                                                                 rt.next = 17;
                                                                 break;
                                                             }
@@ -1338,7 +1338,7 @@ const TWO_WAY_MAP = function(C, D){
                                                         case 13:
                                                             if (rt.prev = 13,
                                                             rt.t0 = rt.catch(8),
-                                                            (null == (rB = rt.t0.response) || null == (rB = rB.data) ? void 0 : rB.ErrorCode) === r8.A.EntityThirdPartyConnectionExists || (null == (rM = rt.t0.response) || null == (rM = rM.data) ? void 0 : rM.ErrorCode) === r8.A.ProviderIDAlreadyLinked) {
+                                                            (null == (rB = rt.t0.response) || null == (rB = rB.data) ? undefined : rB.ErrorCode) === r8.A.EntityThirdPartyConnectionExists || (null == (rM = rt.t0.response) || null == (rM = rM.data) ? undefined : rM.ErrorCode) === r8.A.ProviderIDAlreadyLinked) {
                                                                 rt.next = 17;
                                                                 break;
                                                             }
@@ -1350,7 +1350,7 @@ const TWO_WAY_MAP = function(C, D){
                                                             rt.next = 0x1a;
                                                             break;
                                                         case 0x15:
-                                                            if (void 0 === (null == (rX = b.x.getState().bFq) || null == (rX = rX.Connections) ? void 0 : rX.CrazyGames)) {
+                                                            if (undefined === (null == (rX = b.x.getState().bFq) || null == (rX = rX.Connections) ? undefined : rX.CrazyGames)) {
                                                                 rt.next = 0x1a;
                                                                 break;
                                                             }
@@ -1512,8 +1512,8 @@ const TWO_WAY_MAP = function(C, D){
             var D = function(r2) {
                 function r3(r5, r6) {
                     var r7;
-                    return void 0 === r5 && (r5 = new T.n()),
-                    void 0 === r6 && (r6 = new V.G({
+                    return undefined === r5 && (r5 = new T.n()),
+                    undefined === r6 && (r6 = new V.G({
                         'color': 0xffffff * Math.random()
                     })),
                     (r7 = r2.call(this, r5, r6) || this).isLineSegments2 = true,
@@ -1540,7 +1540,7 @@ const TWO_WAY_MAP = function(C, D){
                     var r7 = this.material.worldUnits
                       , r8 = r5.camera;
                     null !== r8 || r7 || console.error('LineSegments2: \x22Raycaster.camera\x22 needs to be set in order to raycast against LineSegments2 while worldUnits is set to false.');
-                    var r9 = void 0 !== r5.params.Line2 && r5.params.Line2.threshold || 0;
+                    var r9 = undefined !== r5.params.Line2 && r5.params.Line2.threshold || 0;
                     C = r5.ray;
                     var rr, rF = this.matrixWorld, rE = this.geometry, rp = this.material;
                     if (
@@ -1675,8 +1675,8 @@ const TWO_WAY_MAP = function(C, D){
               , r1 = function(r2) {
                 function r3(r4, r5) {
                     var r6;
-                    return void 0 === r4 && (r4 = new r0.v()),
-                    void 0 === r5 && (r5 = new V.G({
+                    return undefined === r4 && (r4 = new r0.v()),
+                    undefined === r5 && (r5 = new V.G({
                         'color': 0xffffff * Math.random()
                     })),
                     (r6 = r2.call(this, r4, r5) || this).isLine2 = true,
@@ -2162,7 +2162,7 @@ const TWO_WAY_MAP = function(C, D){
                 return T.applyMatrix4 = function(V) {
                     var G = this.attributes.instanceStart
                       , k = this.attributes.instanceEnd;
-                    return void 0 !== G && (G.applyMatrix4(V),
+                    return undefined !== G && (G.applyMatrix4(V),
                     k.applyMatrix4(V),
                     G.needsUpdate = true),
                     null !== this.boundingBox && this.computeBoundingBox(),
@@ -2215,7 +2215,7 @@ const TWO_WAY_MAP = function(C, D){
                     null === this.boundingBox && (this.boundingBox = new l.Box3());
                     var V = this.attributes.instanceStart
                       , G = this.attributes.instanceEnd;
-                    void 0 !== V && void 0 !== G && (this.boundingBox.setFromBufferAttribute(V),
+                    undefined !== V && undefined !== G && (this.boundingBox.setFromBufferAttribute(V),
                     C.setFromBufferAttribute(G),
                     this.boundingBox.union(C));
                 }
@@ -2225,7 +2225,7 @@ const TWO_WAY_MAP = function(C, D){
                     null === this.boundingBox && this.computeBoundingBox();
                     var V = this.attributes.instanceStart
                       , G = this.attributes.instanceEnd;
-                    if (void 0 !== V && void 0 !== G) {
+                    if (undefined !== V && undefined !== G) {
                         var k = this.boundingSphere.center;
                         this.boundingBox.getCenter(k);
                         for (var W = 0, x = 0, I = V.count; x < I; x++)
@@ -2531,8 +2531,8 @@ const TWO_WAY_MAP = function(C, D){
             var w = m(0x172d2)
               , l = (function() {
                 function C(Z, h, U, T) {
-                    void 0 === U && (U = null),
-                    void 0 === T && (T = h.blendMode),
+                    undefined === U && (U = null),
+                    undefined === T && (T = h.blendMode),
                     this._mixer = Z,
                     this._clip = h,
                     this._localRoot = U,
@@ -2899,17 +2899,17 @@ const TWO_WAY_MAP = function(C, D){
                       , A = q.uuid
                       , j = this._bindingsByRootAndName
                       , O = j[A];
-                    void 0 === O && (O = {},
+                    undefined === O && (O = {},
                     j[A] = O);
                     for (var J = 0; J !== K; ++J) {
                         var v = f[J]
                           , b = v.name
                           , D = O[b];
-                        if (void 0 !== D)
+                        if (undefined !== D)
                             ++D.referenceCount,
                             Y[J] = D;
                         else {
-                            if (void 0 !== (D = Y[J])) {
+                            if (undefined !== (D = Y[J])) {
                                 null === D._cacheIndex && (++D.referenceCount,
                                 this._addInactiveBinding(D, A, b));
                                 continue;
@@ -2999,7 +2999,7 @@ const TWO_WAY_MAP = function(C, D){
                     var f = this._actions
                       , K = this._actionsByClip
                       , Y = K[L];
-                    if (void 0 === Y)
+                    if (undefined === Y)
                         Y = {
                             'knownActions': [g],
                             'actionByRoot': {}
@@ -3072,7 +3072,7 @@ const TWO_WAY_MAP = function(C, D){
                     var f = this._bindingsByRootAndName
                       , K = this._bindings
                       , Y = f[L];
-                    void 0 === Y && (Y = {},
+                    undefined === Y && (Y = {},
                     f[L] = Y),
                     Y[q] = g,
                     g._cacheIndex = K.length,
@@ -3121,7 +3121,7 @@ const TWO_WAY_MAP = function(C, D){
                     var g = this._controlInterpolants
                       , L = this._nActiveControlInterpolants++
                       , q = g[L];
-                    return void 0 === q && ((q = new N.e(new Float32Array(2),new Float32Array(2),1,G)).__cacheIndex = L,
+                    return undefined === q && ((q = new N.e(new Float32Array(2),new Float32Array(2),1,G)).__cacheIndex = L,
                     g[L] = q),
                     q;
                 }
@@ -3144,10 +3144,10 @@ const TWO_WAY_MAP = function(C, D){
                       , z = null !== Y ? Y.uuid : g
                       , A = this._actionsByClip[z]
                       , j = null;
-                    if (void 0 === q && (q = null !== Y ? Y.blendMode : V.Ke9),
-                    void 0 !== A) {
+                    if (undefined === q && (q = null !== Y ? Y.blendMode : V.Ke9),
+                    undefined !== A) {
                         var O = A.actionByRoot[K];
-                        if (void 0 !== O && O.blendMode === q)
+                        if (undefined !== O && O.blendMode === q)
                             return O;
                         j = A.knownActions[0],
                         null === Y && (Y = j._clip);
@@ -3166,7 +3166,7 @@ const TWO_WAY_MAP = function(C, D){
                       , K = 'string' == typeof g ? T.t.findByName(q, g) : g
                       , Y = K ? K.uuid : g
                       , z = this._actionsByClip[Y];
-                    return void 0 !== z && z.actionByRoot[f] || null;
+                    return undefined !== z && z.actionByRoot[f] || null;
                 }
                 ,
                 I.stopAllAction = function() {
@@ -3201,7 +3201,7 @@ const TWO_WAY_MAP = function(C, D){
                       , q = g.uuid
                       , f = this._actionsByClip
                       , K = f[q];
-                    if (void 0 !== K) {
+                    if (undefined !== K) {
                         for (var Y = K.knownActions, z = 0, A = Y.length; z !== A; ++z) {
                             var j = Y[z];
                             this._deactivateAction(j);
@@ -3223,11 +3223,11 @@ const TWO_WAY_MAP = function(C, D){
                       , q = this._actionsByClip;
                     for (var f in q) {
                         var K = q[f].actionByRoot[L];
-                        void 0 !== K && (this._deactivateAction(K),
+                        undefined !== K && (this._deactivateAction(K),
                         this._removeInactiveAction(K));
                     }
                     var Y = this._bindingsByRootAndName[L];
-                    if (void 0 !== Y)
+                    if (undefined !== Y)
                         for (var z in Y) {
                             var A = Y[z];
                             A.restoreOriginalState(),
@@ -3421,7 +3421,7 @@ const TWO_WAY_MAP = function(C, D){
                     U.loopStart = 0,
                     U.loopEnd = 0,
                     U.offset = 0,
-                    U.duration = void 0,
+                    U.duration = undefined,
                     U.playbackRate = 1,
                     U.isPlaying = false,
                     U.hasPlaybackControl = true,
@@ -3472,7 +3472,7 @@ const TWO_WAY_MAP = function(C, D){
                 }
                 ,
                 Z.play = function(h) {
-                    if (void 0 === h && (h = 0),
+                    if (undefined === h && (h = 0),
                     true !== this.isPlaying) {
                         if (false !== this.hasPlaybackControl) {
                             this._startedAt = this.context.currentTime + h;
@@ -3555,7 +3555,7 @@ const TWO_WAY_MAP = function(C, D){
                 ,
                 Z.setDetune = function(h) {
                     if (this.detune = h,
-                    void 0 !== this.source.detune)
+                    undefined !== this.source.detune)
                         return true === this.isPlaying && this.source.detune.setTargetAtTime(this.detune, this.context.currentTime, 0.01),
                         this;
                 }
@@ -4200,7 +4200,7 @@ const TWO_WAY_MAP = function(C, D){
               , l = function(C) {
                 function N(h, U, T) {
                     var V;
-                    return void 0 === T && (T = 1),
+                    return undefined === T && (T = 1),
                     (V = C.call(this, h, U) || this).isInstancedInterleavedBuffer = true,
                     V.meshPerAttribute = T,
                     V;
@@ -4243,14 +4243,14 @@ const TWO_WAY_MAP = function(C, D){
               , h = function(U) {
                 function T(V, G, k, W, x, I, g, L) {
                     var q;
-                    void 0 === V && (V = 1),
-                    void 0 === G && (G = 1),
-                    void 0 === k && (k = 1),
-                    void 0 === W && (W = 32),
-                    void 0 === x && (x = 1),
-                    void 0 === I && (I = false),
-                    void 0 === g && (g = 0),
-                    void 0 === L && (L = 2 * Math.PI),
+                    undefined === V && (V = 1),
+                    undefined === G && (G = 1),
+                    undefined === k && (k = 1),
+                    undefined === W && (W = 32),
+                    undefined === x && (x = 1),
+                    undefined === I && (I = false),
+                    undefined === g && (g = 0),
+                    undefined === L && (L = 2 * Math.PI),
                     (q = U.call(this) || this).type = 'CylinderGeometry',
                     q.parameters = {
                         'radiusTop': V,
@@ -4397,10 +4397,10 @@ const TWO_WAY_MAP = function(C, D){
               , N = function(Z) {
                 function h(U, V, G, k) {
                     var W;
-                    void 0 === U && (U = 1),
-                    void 0 === V && (V = 1),
-                    void 0 === G && (G = 1),
-                    void 0 === k && (k = 1),
+                    undefined === U && (U = 1),
+                    undefined === V && (V = 1),
+                    undefined === G && (G = 1),
+                    undefined === k && (k = 1),
                     (W = Z.call(this) || this).type = 'PlaneGeometry',
                     W.parameters = {
                         'width': U,
@@ -4458,13 +4458,13 @@ const TWO_WAY_MAP = function(C, D){
               , Z = function(h) {
                 function U(V, G, k, W, x, q, K) {
                     var Y;
-                    void 0 === V && (V = 1),
-                    void 0 === G && (G = 32),
-                    void 0 === k && (k = 16),
-                    void 0 === W && (W = 0),
-                    void 0 === x && (x = 2 * Math.PI),
-                    void 0 === q && (q = 0),
-                    void 0 === K && (K = Math.PI),
+                    undefined === V && (V = 1),
+                    undefined === G && (G = 32),
+                    undefined === k && (k = 16),
+                    undefined === W && (W = 0),
+                    undefined === x && (x = 2 * Math.PI),
+                    undefined === q && (q = 0),
+                    undefined === K && (K = Math.PI),
                     (Y = h.call(this) || this).type = 'SphereGeometry',
                     Y.parameters = {
                         'radius': V,
@@ -4537,7 +4537,7 @@ const TWO_WAY_MAP = function(C, D){
               , Z = function(U) {
                 function T(V) {
                     var G;
-                    if (void 0 === V && (V = null),
+                    if (undefined === V && (V = null),
                     (G = U.call(this) || this).type = 'WireframeGeometry',
                     G.parameters = {
                         'geometry': V
@@ -4607,14 +4607,14 @@ const TWO_WAY_MAP = function(C, D){
             var w, C, N = m(0x12e4b), Z = m(0x17dfd), U = m(0x16835), T = m(0x16f53), V = m(0xf824), G = m(0x14baa), k = m(0x617), W = m(0x1152b), x = m(0x7404), I = m(0x1008e), g = new I.P(), L = function(q) {
                 function f(Y, z, A, j, J, v) {
                     var b;
-                    return void 0 === Y && (Y = new I.P(0,0,1)),
-                    void 0 === z && (z = new I.P(0,0,0)),
-                    void 0 === A && (A = 1),
-                    void 0 === j && (j = 0xffff00),
-                    void 0 === J && (J = 0.2 * A),
-                    void 0 === v && (v = 0.2 * J),
+                    return undefined === Y && (Y = new I.P(0,0,1)),
+                    undefined === z && (z = new I.P(0,0,0)),
+                    undefined === A && (A = 1),
+                    undefined === j && (j = 0xffff00),
+                    undefined === J && (J = 0.2 * A),
+                    undefined === v && (v = 0.2 * J),
                     (b = q.call(this) || this).type = 'ArrowHelper',
-                    void 0 === w && ((w = new U.L()).setAttribute('position', new Z.qt([0, 0, 0, 0, 1, 0],3)),
+                    undefined === w && ((w = new U.L()).setAttribute('position', new Z.qt([0, 0, 0, 0, 1, 0],3)),
                     (C = new V.H(0,0.5,1,5,1)).translate(0, -0.5, 0)),
                     b.position.copy(z),
                     b.line = new x.N(w,new k.m({
@@ -4651,8 +4651,8 @@ const TWO_WAY_MAP = function(C, D){
                 }
                 ,
                 K.setLength = function(Y, z, A) {
-                    void 0 === z && (z = 0.2 * Y),
-                    void 0 === A && (A = 0.2 * z),
+                    undefined === z && (z = 0.2 * Y),
+                    undefined === A && (A = 0.2 * z),
                     this.line.scale.set(1, Math.max(0.0001, Y - z), 1),
                     this.line.updateMatrix(),
                     this.cone.scale.set(A, z, A),
@@ -4741,7 +4741,7 @@ const TWO_WAY_MAP = function(C, D){
                 return (0,
                 w.A)(g, I),
                 g.prototype.updateMatrices = function(L, q) {
-                    void 0 === q && (q = 0);
+                    undefined === q && (q = 0);
                     var f = this.camera
                       , K = this.matrix
                       , Y = L.distance || f.far;
@@ -4790,7 +4790,7 @@ const TWO_WAY_MAP = function(C, D){
                             x.images[f] = K,
                             6 === ++g && (x.needsUpdate = true,
                             G && G(x));
-                        }, void 0, W);
+                        }, undefined, W);
                     }
                     for (var q = 0; q < V.length; ++q)
                         L(q);
@@ -4882,8 +4882,8 @@ const TWO_WAY_MAP = function(C, D){
               , N = new w.P()
               , Z = (function() {
                 function h(T, V) {
-                    void 0 === T && (T = new w.P()),
-                    void 0 === V && (V = new w.P()),
+                    undefined === T && (T = new w.P()),
+                    undefined === V && (V = new w.P()),
                     this.start = T,
                     this.end = V;
                 }
@@ -4959,10 +4959,10 @@ const TWO_WAY_MAP = function(C, D){
             var Z, U = N(0x12e4b), V = N(0x1264d), G = N(0x1008e), k = N(0x11ded), W = N(0x37c8), x = N(0x16f53), I = N(0x16835), L = N(0x8222), q = N(0xd3e8), K = N(0xe9e8), Y = new G.P(), z = new G.P(), j = new G.P(), J = new V.I(), b = new V.I(), D = new k.k(), r0 = new G.P(), r1 = new G.P(), r2 = new G.P(), r3 = new V.I(), r4 = new V.I(), r5 = new V.I(), r6 = function(r8) {
                 function r9(rF) {
                     var rE;
-                    if (void 0 === rF && (rF = new K.R()),
+                    if (undefined === rF && (rF = new K.R()),
                     (rE = r8.call(this) || this).isSprite = true,
                     rE.type = 'Sprite',
-                    void 0 === Z) {
+                    undefined === Z) {
                         Z = new I.L();
                         var rp = new Float32Array([-0.5, -0.5, 0, 0, 0, 0.5, -0.5, 0, 1, 0, 0.5, 0.5, 0, 1, 1, -0.5, 0.5, 0, 0, 1])
                           , rS = new L.e(rp,5);
@@ -5012,7 +5012,7 @@ const TWO_WAY_MAP = function(C, D){
                 ,
                 rr.copy = function(rF, rE) {
                     return r8.prototype.copy.call(this, rF, rE),
-                    void 0 !== rF.center && this.center.copy(rF.center),
+                    undefined !== rF.center && this.center.copy(rF.center),
                     this.material = rF.material,
                     this;
                 }
@@ -5021,7 +5021,7 @@ const TWO_WAY_MAP = function(C, D){
             }(x.B);
             function r7(r8, r9, rr, rF, rE, rp) {
                 J.subVectors(r8, rr).addScalar(0.5).multiply(rF),
-                void 0 !== rE ? (b.x = rp * J.x - rE * J.y,
+                undefined !== rE ? (b.x = rp * J.x - rE * J.y,
                 b.y = rE * J.x + rp * J.y) : b.copy(J),
                 r8.copy(r9),
                 r8.x += b.x,
@@ -5468,7 +5468,7 @@ const TWO_WAY_MAP = function(C, D){
                                         'X-Authorization-Token': j
                                     }),
                                     r2.next = 4,
-                                    this.bFe.post('/entity/GetEntityInfoWithToken', void 0, J);
+                                    this.bFe.post('/entity/GetEntityInfoWithToken', undefined, J);
                                 case 4:
                                     for (v = r2.sent,
                                     b = v.data,
@@ -5502,7 +5502,7 @@ const TWO_WAY_MAP = function(C, D){
                                         'X-Authorization-Token': j
                                     }),
                                     v.next = 4,
-                                    this.bFe.post('/auth/LogoutWithToken', void 0, J);
+                                    this.bFe.post('/auth/LogoutWithToken', undefined, J);
                                 case 4:
                                 case 'end':
                                     return v.stop();
@@ -5818,7 +5818,7 @@ const TWO_WAY_MAP = function(C, D){
                                 case 5:
                                     if (r0.prev = 5,
                                     r0.t0 = r0.catch(0),
-                                    (null == (J = r0.t0.response) || null == (J = J.data) ? void 0 : J.ErrorCode) !== I.A.NotAuthenticated && (null == (v = r0.t0.response) || null == (v = v.data) ? void 0 : v.ErrorCode) !== I.A.EntityNotFound) {
+                                    (null == (J = r0.t0.response) || null == (J = J.data) ? undefined : J.ErrorCode) !== I.A.NotAuthenticated && (null == (v = r0.t0.response) || null == (v = v.data) ? undefined : v.ErrorCode) !== I.A.EntityNotFound) {
                                         r0.next = 16;
                                         break;
                                     }
@@ -5884,7 +5884,7 @@ const TWO_WAY_MAP = function(C, D){
                                     return j.next = 2,
                                     this.bFM.bFn(this.bFs);
                                 case 2:
-                                    this.bFs = void 0;
+                                    this.bFs = undefined;
                                 case 3:
                                 case 'end':
                                     return j.stop();
@@ -6133,19 +6133,19 @@ const TWO_WAY_MAP = function(C, D){
                 C.A)(K, [{
                     'key': 'bFu',
                     'get': function() {
-                        return void 0 !== this.bFs;
+                        return undefined !== this.bFs;
                     }
                 }, {
                     'key': 'bFl',
                     'get': function() {
                         var z;
-                        return (null == (z = L.x.getState().bFq) || null == (z = z.Data.entity_display_name_changer) || null == (z = z.owner_data) ? void 0 : z.num_name_changes) || 0;
+                        return (null == (z = L.x.getState().bFq) || null == (z = z.Data.entity_display_name_changer) || null == (z = z.owner_data) ? undefined : z.num_name_changes) || 0;
                     }
                 }, {
                     'key': 'bFi',
                     'get': function() {
                         var z;
-                        return void 0 === (null == (z = L.x.getState().bFq) || null == (z = z.Connections) ? void 0 : z.Discord);
+                        return undefined === (null == (z = L.x.getState().bFq) || null == (z = z.Connections) ? undefined : z.Discord);
                     }
                 }]);
             }())();
@@ -6202,7 +6202,7 @@ const TWO_WAY_MAP = function(C, D){
                             for (; ; )
                                 switch (G.prev = G.next) {
                                 case 0:
-                                    return void 0 === this.bFp && (this.bFp =
+                                    return undefined === this.bFp && (this.bFp =
                                     w.A(C().mark(function k() {
                                         return C().wrap(function(W) {
                                             for (; ; )
@@ -6213,7 +6213,7 @@ const TWO_WAY_MAP = function(C, D){
                                                         break;
                                                     }
                                                 case 1:
-                                                    if (void 0 !== window.CrazyGames) {
+                                                    if (undefined !== window.CrazyGames) {
                                                         W.next = 6;
                                                         break;
                                                     }
@@ -6294,7 +6294,7 @@ const TWO_WAY_MAP = function(C, D){
                 U.bfb = function() {
                     var T, V = window.location.hash.substring(1);
                     return window.adSDKType === N.a.bFr && (V = window.CrazyGames.SDK.game.getInviteParam('roomId')),
-                    null != (T = V) ? T : void 0;
+                    null != (T = V) ? T : undefined;
                 }
                 ,
                 U.bfF = function() {
@@ -6592,7 +6592,7 @@ const TWO_WAY_MAP = function(C, D){
               , l = m(0x608)
               , C = m(0x12460)
               , N = function(Z, h) {
-                void 0 === h && (h =
+                undefined === h && (h =
                 w.VB(0xff, 0xff, 0xff));
                 for (var U = [], T =
                 l.A(Z, h), V = 0; V < T.length; V++)
@@ -6647,7 +6647,7 @@ const TWO_WAY_MAP = function(C, D){
                 return N.x.getState().bfO;
             }
               , I = function() {
-                return void 0 !== N.x.getState().bfu;
+                return undefined !== N.x.getState().bfu;
             };
         }
         ,
@@ -6745,12 +6745,12 @@ const TWO_WAY_MAP = function(C, D){
                 return K > 0 && !(K & K - 1);
             }
               , q = function(K, Y, z) {
-                void 0 === z && (z = 0);
+                undefined === z && (z = 0);
                 var A = K.getFloat32(Y);
                 return isNaN(A) ? z : A;
             }
               , f = function(K, Y, z) {
-                void 0 === z && (z = 0);
+                undefined === z && (z = 0);
                 var A = K.getFloat64(Y);
                 return isNaN(A) ? z : A;
             };
@@ -6780,8 +6780,8 @@ const TWO_WAY_MAP = function(C, D){
                     Y.bfc(g, D, r0, r1);
                 }
                 ;
-                if (void 0 === f.prevOnGround && (f.prevOnGround = q),
-                void 0 === f.prevPos && (f.prevPos =
+                if (undefined === f.prevOnGround && (f.prevOnGround = q),
+                undefined === f.prevPos && (f.prevPos =
                 G.N3(g)),
                 L !== T.f.bfY) {
                     f.swamDistFromLastSoundPlayed = 0;
@@ -6790,7 +6790,7 @@ const TWO_WAY_MAP = function(C, D){
                       , J = O.bIo
                       , v = O.bfJ
                       , b = O.bfG;
-                    void 0 !== J && (!f.prevOnGround && q ? (A(J, v, b),
+                    undefined !== J && (!f.prevOnGround && q ? (A(J, v, b),
                     f.walkedDistFromLastSoundPlayed = 0) : q && f.prevOnGround && (f.walkedDistFromLastSoundPlayed +=
                     G.z5(g, f.prevPos),
                     f.walkedDistFromLastSoundPlayed >= 1.5 && (A(J, v, b),
@@ -6811,7 +6811,7 @@ const TWO_WAY_MAP = function(C, D){
                         G.x6(g, z);
                         if (A < q) {
                             var j = L.bbg(g.bbZ / V.A.bba + K, (g.bbB - V.A.bba / 2) / V.A.bba, g.bbd / V.A.bba + Y);
-                            void 0 !== N.A.bIM.bIS.bIw.bfx(j).bfg.bIo && (q = A,
+                            undefined !== N.A.bIM.bIS.bIw.bfx(j).bfg.bIo && (q = A,
                             f = j);
                         }
                     }
@@ -6864,9 +6864,9 @@ const TWO_WAY_MAP = function(C, D){
                 return k;
             }
             var h = function(T, V, G, k) {
-                void 0 === G && (G =
+                undefined === G && (G =
                 C.VB(0xff, 0xff, 0xff)),
-                void 0 === k && (k = 2);
+                undefined === k && (k = 2);
                 var W = T.split('\n')
                   , x = W.map(function(r5) {
                     return (0,
@@ -6914,9 +6914,9 @@ const TWO_WAY_MAP = function(C, D){
                 r4;
             }
               , U = function(T, V, G, k, W) {
-                void 0 === k && (k =
+                undefined === k && (k =
                 C.VB(0xff, 0xff, 0xff)),
-                void 0 === W && (W = 2);
+                undefined === W && (W = 2);
                 var x = h(T, V, k, W)
                   , I = new w.SpriteMaterial({
                     'map': x,
@@ -7313,11 +7313,11 @@ const TWO_WAY_MAP = function(C, D){
               , rx = function(FD) {
                 function Fu(E1, E2, E3, E4) {
                     var E5;
-                    return void 0 === E1 && (E1 = 0),
-                    void 0 === E2 && (E2 = ''),
-                    void 0 === E3 && (E3 =
+                    return undefined === E1 && (E1 = 0),
+                    undefined === E2 && (E2 = ''),
+                    undefined === E3 && (E3 =
                     rG.VB(0, 0, 0)),
-                    void 0 === E4 && (E4 =
+                    undefined === E4 && (E4 =
                     rk.LX(0, 0)),
                     (E5 = FD.call(this, r9) || this).FYx = E1,
                     E5.FYg = E2,
@@ -7393,10 +7393,10 @@ const TWO_WAY_MAP = function(C, D){
               , rc = function(FD) {
                 function Fu(E1, E2, E3) {
                     var E4;
-                    return void 0 === E1 && (E1 =
+                    return undefined === E1 && (E1 =
                     rG.VB(0, 0, 0)),
-                    void 0 === E2 && (E2 = new Uint16Array()),
-                    void 0 === E3 && (E3 = 0),
+                    undefined === E2 && (E2 = new Uint16Array()),
+                    undefined === E3 && (E3 = 0),
                     (E4 = FD.call(this, rr) || this).Fsz = E1,
                     E4.Fst = E2,
                     E4.FsH = E3,
@@ -7501,7 +7501,7 @@ const TWO_WAY_MAP = function(C, D){
               , rq = function(FD) {
                 function Fu(E1) {
                     var E2;
-                    return void 0 === E1 && (E1 =
+                    return undefined === E1 && (E1 =
                     rG.VB(0, 0, 0)),
                     (E2 = FD.call(this, rF) || this).Fsz = E1,
                     E2;
@@ -7580,7 +7580,7 @@ const TWO_WAY_MAP = function(C, D){
             var rj = function(FD) {
                 function Fu(E1) {
                     var E2;
-                    return void 0 === E1 && (E1 = new rf.A()),
+                    return undefined === E1 && (E1 = new rf.A()),
                     (E2 = FD.call(this, rE) || this).FYP = E1,
                     E2;
                 }
@@ -7782,9 +7782,9 @@ const TWO_WAY_MAP = function(C, D){
             var F3 = function(FD) {
                 function Fu(E1, E2, E3) {
                     var E4;
-                    return void 0 === E1 && (E1 = new rJ.A()),
-                    void 0 === E2 && (E2 = new rJ.A()),
-                    void 0 === E3 && (E3 = []),
+                    return undefined === E1 && (E1 = new rJ.A()),
+                    undefined === E2 && (E2 = new rJ.A()),
+                    undefined === E3 && (E3 = []),
                     (E4 = FD.call(this, rp) || this).bKL = E1,
                     E4.bsm = E2,
                     E4.FYT = E3,
@@ -7833,14 +7833,14 @@ const TWO_WAY_MAP = function(C, D){
                           , EP = Ed[0]
                           , EQ = Ed[1]
                           , EB = ER.get(EP);
-                        void 0 !== EB && (0,
+                        undefined !== EB && (0,
                         rG.b0)(EB, EQ) || this.Fxh.set(EP, EQ);
                     }
                     for (var EM, EX = F1(ER.entries()); !(EM = EX()).done; ) {
                         var Em = EM.value
                           , Ew = Em[0];
                         Em[1],
-                        void 0 === EH.get(Ew) && this.Fxh.set(Ew,
+                        undefined === EH.get(Ew) && this.Fxh.set(Ew,
                         rG.VB(0, 0, 0));
                     }
                     var El = this.Fxh.size > 0
@@ -7939,7 +7939,7 @@ const TWO_WAY_MAP = function(C, D){
                     this.FYo += 1),
                     this.Fxb && (EG.setUint8(this.FYo, this.bsm.bfs),
                     this.FYo += 1,
-                    void 0 === this.bsm.bCC ? (EG.setUint8(this.FYo, 0),
+                    undefined === this.bsm.bCC ? (EG.setUint8(this.FYo, 0),
                     this.FYo += 1,
                     EG.setInt32(this.FYo, 0),
                     this.FYo += 4,
@@ -8444,9 +8444,9 @@ const TWO_WAY_MAP = function(C, D){
             var F7 = function(FD) {
                 function Fu(E1, E2, E3, E4) {
                     var E5;
-                    return void 0 === E2 && (E2 = Date.now()),
-                    void 0 === E3 && (E3 = -1),
-                    void 0 === E4 && (E4 = new Map()),
+                    return undefined === E2 && (E2 = Date.now()),
+                    undefined === E3 && (E3 = -1),
+                    undefined === E4 && (E4 = new Map()),
                     (E5 = FD.call(this, rS) || this).Fxe = E1,
                     E5.Fxz = E2,
                     E5.FxH = E3,
@@ -8527,7 +8527,7 @@ const TWO_WAY_MAP = function(C, D){
                         this.FYo += 8),
                         this.Fxd.set(E3, E5);
                     }
-                    if (void 0 !== this.Fxe) {
+                    if (undefined !== this.Fxe) {
                         this.FxR = this.Fxe.bmu + (this.Fxz - this.Fxe.Fxn);
                         var E6 = Date.now() - this.FxR;
                         this.FxR += 0.05 * E6;
@@ -8568,8 +8568,8 @@ const TWO_WAY_MAP = function(C, D){
               , F9 = function(FD) {
                 function Fu(E1, E2) {
                     var E3;
-                    return void 0 === E1 && (E1 = -1),
-                    void 0 === E2 && (E2 = F8.c.bAm),
+                    return undefined === E1 && (E1 = -1),
+                    undefined === E2 && (E2 = F8.c.bAm),
                     (E3 = FD.call(this, rR) || this).Fxy = E1,
                     E3.Fxt = E2,
                     E3;
@@ -8612,7 +8612,7 @@ const TWO_WAY_MAP = function(C, D){
               , Fr = function(FD) {
                 function Fu(E1) {
                     var E2;
-                    return void 0 === E1 && (E1 = -1),
+                    return undefined === E1 && (E1 = -1),
                     (E2 = FD.call(this, rH) || this).Fxy = E1,
                     E2;
                 }
@@ -8647,8 +8647,8 @@ const TWO_WAY_MAP = function(C, D){
               , FE = function(FD) {
                 function Fu(E1, E2) {
                     var E3;
-                    return void 0 === E1 && (E1 = -1),
-                    void 0 === E2 && (E2 = []),
+                    return undefined === E1 && (E1 = -1),
+                    undefined === E2 && (E2 = []),
                     (E3 = FD.call(this, rd) || this).Fxy = E1,
                     E3.FxA = E2,
                     E3.FYo = 0,
@@ -8846,7 +8846,7 @@ const TWO_WAY_MAP = function(C, D){
               , Fp = function(FD) {
                 function Fu(E1) {
                     var E2;
-                    return void 0 === E1 && (E1 = 0),
+                    return undefined === E1 && (E1 = 0),
                     (E2 = FD.call(this, rQ) || this).FxN = E1,
                     E2;
                 }
@@ -8880,7 +8880,7 @@ const TWO_WAY_MAP = function(C, D){
               , FS = function(FD) {
                 function Fu(E1) {
                     var E2;
-                    return void 0 === E1 && (E1 = ''),
+                    return undefined === E1 && (E1 = ''),
                     (E2 = FD.call(this, rM) || this).FxL = E1,
                     E2.FYo = 0,
                     E2;
@@ -8918,8 +8918,8 @@ const TWO_WAY_MAP = function(C, D){
               , Fe = function(FD) {
                 function Fu(E1, E2) {
                     var E3;
-                    return void 0 === E1 && (E1 = -1),
-                    void 0 === E2 && (E2 = 0),
+                    return undefined === E1 && (E1 = -1),
+                    undefined === E2 && (E2 = 0),
                     (E3 = FD.call(this, rP) || this).Fxy = E1,
                     E3.Fxm = E2,
                     E3;
@@ -8963,7 +8963,7 @@ const TWO_WAY_MAP = function(C, D){
               , FH = function(FD) {
                 function Fu(E1) {
                     var E2;
-                    return void 0 === E1 && (E1 = []),
+                    return undefined === E1 && (E1 = []),
                     (E2 = FD.call(this, rX) || this).FxA = E1,
                     E2.FYo = 0,
                     E2;
@@ -9153,9 +9153,9 @@ const TWO_WAY_MAP = function(C, D){
               , Fd = function(FD) {
                 function Fu(E1, E2, E3) {
                     var E4;
-                    return void 0 === E1 && (E1 = rg.A.FYm),
-                    void 0 === E2 && (E2 = Fy.i.bgN),
-                    void 0 === E3 && (E3 = 'unknown causes'),
+                    return undefined === E1 && (E1 = rg.A.FYm),
+                    undefined === E2 && (E2 = Fy.i.bgN),
+                    undefined === E3 && (E3 = 'unknown causes'),
                     (E4 = FD.call(this, rm) || this).FxU = E1,
                     E4.Fxj = E2,
                     E4.FxM = E3,
@@ -9193,7 +9193,7 @@ const TWO_WAY_MAP = function(C, D){
                     'key': 'FYq',
                     'get': function() {
                         var E1, E2;
-                        return 3 + (null != (E1 = null == (E2 = this.FxS) ? void 0 : E2.byteLength) ? E1 : 0);
+                        return 3 + (null != (E1 = null == (E2 = this.FxS) ? undefined : E2.byteLength) ? E1 : 0);
                     }
                 }, {
                     'key': 'bJm',
@@ -9236,9 +9236,9 @@ const TWO_WAY_MAP = function(C, D){
               , FQ = function(FD) {
                 function Fu(E1, E2) {
                     var E3;
-                    return void 0 === E1 && (E1 =
+                    return undefined === E1 && (E1 =
                     rG.VB(0, 0, 0)),
-                    void 0 === E2 && (E2 =
+                    undefined === E2 && (E2 =
                     rk.LX(0, 0)),
                     (E3 = FD.call(this, rl) || this).FYJ = E1,
                     E3.FYG = E2,
@@ -9289,10 +9289,10 @@ const TWO_WAY_MAP = function(C, D){
               , FM = function(FD) {
                 function Fu(E1, E2, E3, E4) {
                     var E5;
-                    return void 0 === E1 && (E1 = 'Unknown'),
-                    void 0 === E2 && (E2 = 'Unknown'),
-                    void 0 === E3 && (E3 = Fy.i.bgN),
-                    void 0 === E4 && (E4 = FB.S.bDI),
+                    return undefined === E1 && (E1 = 'Unknown'),
+                    undefined === E2 && (E2 = 'Unknown'),
+                    undefined === E3 && (E3 = Fy.i.bgN),
+                    undefined === E4 && (E4 = FB.S.bDI),
                     (E5 = FD.call(this, rU) || this).Fxw = E1,
                     E5.Fxv = E2,
                     E5.Fxj = E3,
@@ -9349,7 +9349,7 @@ const TWO_WAY_MAP = function(C, D){
                     'key': 'FYq',
                     'get': function() {
                         var E1, E2, E3, E4;
-                        return 1 + (null != (E1 = null == (E2 = this.FxQ) ? void 0 : E2.byteLength) ? E1 : 0) + 1 + (null != (E3 = null == (E4 = this.Fxs) ? void 0 : E4.byteLength) ? E3 : 0) + 1 + 2;
+                        return 1 + (null != (E1 = null == (E2 = this.FxQ) ? undefined : E2.byteLength) ? E1 : 0) + 1 + (null != (E3 = null == (E4 = this.Fxs) ? undefined : E4.byteLength) ? E3 : 0) + 1 + 2;
                     }
                 }, {
                     'key': 'bgU',
@@ -9376,9 +9376,9 @@ const TWO_WAY_MAP = function(C, D){
               , FX = function(FD) {
                 function Fu(E1, E2) {
                     var E3;
-                    return void 0 === E1 && (E1 =
+                    return undefined === E1 && (E1 =
                     rG.VB(0, 0, 0)),
-                    void 0 === E2 && (E2 = 10),
+                    undefined === E2 && (E2 = 10),
                     (E3 = FD.call(this, rC) || this).FxC = E1,
                     E3.FxO = E2,
                     E3;
@@ -9426,8 +9426,8 @@ const TWO_WAY_MAP = function(C, D){
               , Fw = function(FD) {
                 function Fu(E1, E2) {
                     var E3;
-                    return void 0 === E1 && (E1 = -1),
-                    void 0 === E2 && (E2 = Fm.Q.bgN),
+                    return undefined === E1 && (E1 = -1),
+                    undefined === E2 && (E2 = Fm.Q.bgN),
                     (E3 = FD.call(this, ry) || this).Fxy = E1,
                     E3.Fxu = E2,
                     E3;
@@ -9471,7 +9471,7 @@ const TWO_WAY_MAP = function(C, D){
               , FC = function(FD) {
                 function Fu(E1) {
                     var E2;
-                    return void 0 === E1 && (E1 = Fl.L.bgN),
+                    return undefined === E1 && (E1 = Fl.L.bgN),
                     (E2 = FD.call(this, rN) || this).FxK = E1,
                     E2;
                 }
@@ -9507,9 +9507,9 @@ const TWO_WAY_MAP = function(C, D){
               , Fh = function(FD) {
                 function Fu(E1, E2) {
                     var E3;
-                    return void 0 === E1 && (E1 =
+                    return undefined === E1 && (E1 =
                     rG.VB(0, 0, 0)),
-                    void 0 === E2 && (E2 =
+                    undefined === E2 && (E2 =
                     rk.LX(0, 0)),
                     (E3 = FD.call(this, rZ) || this).bWa = E1,
                     E3.bAJ = E2,
@@ -9559,11 +9559,11 @@ const TWO_WAY_MAP = function(C, D){
               , Fo = function(FD) {
                 function Fu(E1, E2, E3, E4, E5) {
                     var E6;
-                    return void 0 === E1 && (E1 = ''),
-                    void 0 === E2 && (E2 = ''),
-                    void 0 === E3 && (E3 = 0x1f4),
-                    void 0 === E4 && (E4 = 0xbb8),
-                    void 0 === E5 && (E5 = 0x2ee),
+                    return undefined === E1 && (E1 = ''),
+                    undefined === E2 && (E2 = ''),
+                    undefined === E3 && (E3 = 0x1f4),
+                    undefined === E4 && (E4 = 0xbb8),
+                    undefined === E5 && (E5 = 0x2ee),
                     (E6 = FD.call(this, rh) || this).Fxc = E1,
                     E6.FxY = E2,
                     E6.Fxx = E3,
@@ -9646,9 +9646,9 @@ const TWO_WAY_MAP = function(C, D){
               , FT = function(FD) {
                 function Fu(E1, E2, E3) {
                     var E4;
-                    return void 0 === E1 && (E1 = 0),
-                    void 0 === E2 && (E2 = FU.W.FYC),
-                    void 0 === E3 && (E3 = []),
+                    return undefined === E1 && (E1 = 0),
+                    undefined === E2 && (E2 = FU.W.FYC),
+                    undefined === E3 && (E3 = []),
                     (E4 = FD.call(this, ro) || this).FYx = E1,
                     E4.FxG = E2,
                     E4.FxA = E3,
@@ -9857,7 +9857,7 @@ const TWO_WAY_MAP = function(C, D){
               , FV = function(FD) {
                 function Fu(E1) {
                     var E2;
-                    return void 0 === E1 && (E1 = 0),
+                    return undefined === E1 && (E1 = 0),
                     (E2 = FD.call(this, rB) || this).FxN = E1,
                     E2;
                 }
@@ -9891,9 +9891,9 @@ const TWO_WAY_MAP = function(C, D){
               , Fs = r2(0x1739c)
               , FG = (function() {
                 function FD(E0, E1) {
-                    void 0 === E0 && (E0 =
+                    undefined === E0 && (E0 =
                     rG.VB(0, 0, 0)),
-                    void 0 === E1 && (E1 =
+                    undefined === E1 && (E1 =
                     rG.VB(0, 0, 0)),
                     this.bLM = E0,
                     this.bLS = E1;
@@ -9926,9 +9926,9 @@ const TWO_WAY_MAP = function(C, D){
               , Fk = r2(0x8b48)
               , FW = (function() {
                 function FD(E0, E1) {
-                    void 0 === E0 && (E0 =
+                    undefined === E0 && (E0 =
                     rG.VB(0, 0, 0)),
-                    void 0 === E1 && (E1 =
+                    undefined === E1 && (E1 =
                     rk.LX(0, 0)),
                     this.bWa = E0,
                     this.bAJ = E1;
@@ -10014,8 +10014,8 @@ const TWO_WAY_MAP = function(C, D){
             var FI = function(FD) {
                 function Fu(E1, E2) {
                     var E3;
-                    return void 0 === E1 && (E1 = new Map()),
-                    void 0 === E2 && (E2 = new Map()),
+                    return undefined === E1 && (E1 = new Map()),
+                    undefined === E2 && (E2 = new Map()),
                     (E3 = FD.call(this, ri) || this).Fxl = E1,
                     E3.Fxq = E2,
                     E3.FYo = 0,
@@ -10172,10 +10172,10 @@ const TWO_WAY_MAP = function(C, D){
               , Fg = function(FD) {
                 function Fu(E1, E2, E3, E4) {
                     var E5;
-                    return void 0 === E1 && (E1 = ''),
-                    void 0 === E2 && (E2 = 0x1f4),
-                    void 0 === E3 && (E3 = 0xbb8),
-                    void 0 === E4 && (E4 = 0x2ee),
+                    return undefined === E1 && (E1 = ''),
+                    undefined === E2 && (E2 = 0x1f4),
+                    undefined === E3 && (E3 = 0xbb8),
+                    undefined === E4 && (E4 = 0x2ee),
                     (E5 = FD.call(this, rT) || this).Fxi = E1,
                     E5.Fxx = E2,
                     E5.Fxg = E3,
@@ -10379,7 +10379,7 @@ const TWO_WAY_MAP = function(C, D){
             var FJ = function(FD) {
                 function Fu(E1) {
                     var E2;
-                    return void 0 === E1 && (E1 = []),
+                    return undefined === E1 && (E1 = []),
                     (E2 = FD.call(this, rV) || this)._tabs = E1,
                     E2;
                 }
@@ -10528,7 +10528,7 @@ const TWO_WAY_MAP = function(C, D){
                         E3 += E8;
                         var Er = E2.getUint8(E3);
                         E3 += 1;
-                        var EF = void 0;
+                        var EF = undefined;
                         if (0 === Er) {
                             var EE = E2.getUint8(E3);
                             E3 += 1,
@@ -10565,7 +10565,7 @@ const TWO_WAY_MAP = function(C, D){
                             E3 += Ew;
                             var EC = E2.getUint8(E3);
                             E3 += 1;
-                            var EN = void 0;
+                            var EN = undefined;
                             if (0 === EC) {
                                 var EZ = E2.getUint8(E3);
                                 E3 += 1,
@@ -10579,7 +10579,7 @@ const TWO_WAY_MAP = function(C, D){
                             }
                             var EU = E2.getUint8(E3);
                             E3 += 1;
-                            var Ei = void 0;
+                            var Ei = undefined;
                             if (0 === EU) {
                                 var ET = E2.getUint8(E3);
                                 E3 += 1;
@@ -10671,9 +10671,9 @@ const TWO_WAY_MAP = function(C, D){
               , Fn = function(FD) {
                 function Fu(E1, E2) {
                     var E3;
-                    return void 0 === E1 && (E1 =
+                    return undefined === E1 && (E1 =
                     rG.VB(0, 0, 0)),
-                    void 0 === E2 && (E2 = []),
+                    undefined === E2 && (E2 = []),
                     (E3 = FD.call(this, rs) || this).FQp = E1,
                     E3.FxA = E2,
                     E3.FYo = 0,
@@ -11046,7 +11046,7 @@ const TWO_WAY_MAP = function(C, D){
                         var EN = new FV();
                         if (EN.FYi(EC.buffer),
                         El.bvH.bMg(EN.FYq),
-                        void 0 !== El.Fxp[EN.FxW]) {
+                        undefined !== El.Fxp[EN.FxW]) {
                             var EZ = Date.now() - El.Fxp[EN.FxW];
                             delete El.Fxp[EN.FxW],
                             El.bvH.bMq(EZ),
@@ -11231,7 +11231,7 @@ const TWO_WAY_MAP = function(C, D){
                                     }
                                     return E4 = Date.now(),
                                     E6.next = 5,
-                                    null == (E3 = this.FgD) ? void 0 : E3.leave();
+                                    null == (E3 = this.FgD) ? undefined : E3.leave();
                                 case 5:
                                     if (E5 = Date.now() - E4,
                                     0x1f4,
@@ -11246,13 +11246,13 @@ const TWO_WAY_MAP = function(C, D){
                                     );
                                 case 10:
                                     clearTimeout(this.Fgk),
-                                    this.Fgk = void 0,
-                                    this.FgD = void 0,
+                                    this.Fgk = undefined,
+                                    this.FgD = undefined,
                                     this.Fgy(),
-                                    this.Fgb = void 0,
-                                    this.FgF = void 0,
-                                    this.Fgf = void 0,
-                                    this.Fxe = void 0,
+                                    this.Fgb = undefined,
+                                    this.FgF = undefined,
+                                    this.Fgf = undefined,
+                                    this.Fxe = undefined,
                                     this.FxT = 0,
                                     this.Fxp = {};
                                 case 20:
@@ -11267,11 +11267,11 @@ const TWO_WAY_MAP = function(C, D){
                     ;
                 }()),
                 Fu.FgB = function() {
-                    return void 0 === this.Fgb ? 'unavailable' : this.Fgb;
+                    return undefined === this.Fgb ? 'unavailable' : this.Fgb;
                 }
                 ,
                 Fu.FgZ = function() {
-                    return void 0 === this.FgF ? -1 : this.FgF;
+                    return undefined === this.FgF ? -1 : this.FgF;
                 }
                 ,
                 Fu.Fge = function() {
@@ -11715,13 +11715,13 @@ const TWO_WAY_MAP = function(C, D){
                     this.bMP(),
                     this.bMa = setTimeout(function() {
                         pM(),
-                        pm.bMa = void 0;
+                        pm.bMa = undefined;
                     }, pX);
                 }
                 ,
                 pB.bMP = function() {
                     this.bMa && (clearTimeout(this.bMa),
-                    this.bMa = void 0);
+                    this.bMa = undefined);
                 }
                 ,
                 pB.terminate = function() {
@@ -11744,14 +11744,14 @@ const TWO_WAY_MAP = function(C, D){
                         var pl = false
                           , pC = pm.bMV.bME
                           , pN = pC.bSI();
-                        if (void 0 !== pN) {
+                        if (undefined !== pN) {
                             var pZ = pm.bMV.bSb.get(pN.bbE());
                             if (pZ) {
                                 for (var ph = pZ.bSF.bLk, po = [], pU = -1; pU <= 1; pU++)
                                     for (var pi = -1; pi <= 1; pi++)
                                         for (var pT = -1; pT <= 1; pT++) {
                                             var pV = pC.bbG(ph.bbZ + pU, ph.bbB + pi, ph.bbd + pT);
-                                            void 0 === pV ? po.push(void 0) : po.push({
+                                            undefined === pV ? po.push(undefined) : po.push({
                                                 'bbS': pV.bSf() || pV.bSD(),
                                                 'bbw': pV.bIw
                                             });
@@ -11939,7 +11939,7 @@ const TWO_WAY_MAP = function(C, D){
               , rb = (function() {
                 function pQ(pM, pX, pm) {
                     var pw = this;
-                    void 0 === pm && (pm = 0x64),
+                    undefined === pm && (pm = 0x64),
                     this.bmj = pM,
                     this.bSQ = pX,
                     this.bSs = pm,
@@ -11993,7 +11993,7 @@ const TWO_WAY_MAP = function(C, D){
                 ,
                 pB.bSi = function(pM) {
                     var pX = this.bSc.get(pM);
-                    void 0 !== pX && (pX !== this.bSC - 1 && this.bSr(this.bSC - 1, pX),
+                    undefined !== pX && (pX !== this.bSC - 1 && this.bSr(this.bSC - 1, pX),
                     --this.bSC,
                     this.bSY.pop(),
                     this.bSc.delete(pM),
@@ -12005,7 +12005,7 @@ const TWO_WAY_MAP = function(C, D){
                 ,
                 pB.updateInstanceTransform = function(pM, pX, pm, pw) {
                     var pl = this.bSc.get(pM);
-                    if (void 0 !== pl && this.bSG) {
+                    if (undefined !== pl && this.bSG) {
                         var pC = new r4.Matrix4();
                         pX.x += this.bmj.bSl.bSq.bbZ,
                         pX.y += this.bmj.bSl.bSq.bbB,
@@ -12032,7 +12032,7 @@ const TWO_WAY_MAP = function(C, D){
                     if (this.bSs = pM,
                     0 === this.bSs)
                         this.bSG && this.bWr.remove(this.bSG),
-                        this.bSG = void 0;
+                        this.bSG = undefined;
                     else {
                         var pX = this.bSG;
                         this.bSG = new r4.InstancedMesh(this.bSO,this.bSu,this.bSs),
@@ -12171,7 +12171,7 @@ const TWO_WAY_MAP = function(C, D){
                 var pM = pB.prototype;
                 return pM.bwF = function(pX, pm) {
                     var pw = this.bSc.get(pX);
-                    void 0 !== pw && (this.bwb.array[pw] = pm,
+                    undefined !== pw && (this.bwb.array[pw] = pm,
                     this.bwb.needsUpdate = true);
                 }
                 ,
@@ -12270,7 +12270,7 @@ const TWO_WAY_MAP = function(C, D){
                                     'bIo': pU.bIo
                                 });
                                 var px = rc.A.bbT(pM, pX, pm);
-                                if (void 0 !== pW) {
+                                if (undefined !== pW) {
                                     var pa = pk.bfJ;
                                     this.bMV.bNg.bNG.bfc(px, pW, pa, pk.bfG);
                                 }
@@ -12323,8 +12323,8 @@ const TWO_WAY_MAP = function(C, D){
               , F1 = (function() {
                 function pQ() {
                     this.bwU = new Set(),
-                    this.bNS = void 0,
-                    this.bwj = void 0;
+                    this.bNS = undefined,
+                    this.bwj = undefined;
                 }
                 var pB = pQ.prototype;
                 return pB.bwM = function(pM) {
@@ -12332,19 +12332,19 @@ const TWO_WAY_MAP = function(C, D){
                         this.bwU.add(pM);
                         var pX = {
                             'bwS': pM,
-                            'bww': void 0
+                            'bww': undefined
                         };
-                        void 0 === this.bNS ? this.bNS = this.bwj = pX : (this.bwj.bww = pX,
+                        undefined === this.bNS ? this.bNS = this.bwj = pX : (this.bwj.bww = pX,
                         this.bwj = pX);
                     }
                 }
                 ,
                 pB.bwv = function() {
-                    if (void 0 !== this.bNS) {
+                    if (undefined !== this.bNS) {
                         if (this.bNS === this.bwj) {
                             var pM = this.bNS.bwS;
                             return this.bwU.delete(pM),
-                            this.bNS = this.bwj = void 0,
+                            this.bNS = this.bwj = undefined,
                             pM;
                         }
                         var pX = this.bNS.bwS;
@@ -12359,9 +12359,9 @@ const TWO_WAY_MAP = function(C, D){
                         this.bwU.add(pM);
                         var pX = {
                             'bwS': pM,
-                            'bww': void 0
+                            'bww': undefined
                         };
-                        void 0 === this.bNS ? this.bNS = this.bwj = pX : (pX.bww = this.bNS,
+                        undefined === this.bNS ? this.bNS = this.bwj = pX : (pX.bww = this.bNS,
                         this.bNS = pX);
                     }
                 }
@@ -12455,9 +12455,9 @@ const TWO_WAY_MAP = function(C, D){
                 }
                 ,
                 pM.bSI = function() {
-                    for (var pX = this.bwc.bwv(); void 0 !== pX; ) {
+                    for (var pX = this.bwc.bwv(); undefined !== pX; ) {
                         var pm = this.bbr.get(pX);
-                        if (void 0 !== pm)
+                        if (undefined !== pm)
                             return pm;
                         pX = this.bwc.bwv();
                     }
@@ -12559,7 +12559,7 @@ const TWO_WAY_MAP = function(C, D){
                     rf.u(pM, pX, pm)
                       , pC = this.bwG.get(pl);
                     if (pC !== pw) {
-                        if (void 0 !== pC) {
+                        if (undefined !== pC) {
                             var pN = this.bwJ[pC];
                             if (pN.bIo === F6.R.bIP) {
                                 var pZ = this.bwl(pN.bwq);
@@ -12728,12 +12728,12 @@ const TWO_WAY_MAP = function(C, D){
                 pB.bwP = function(pM) {
                     var pX, pm =
                     rf.u(pM.bbZ, pM.bbB, pM.bbd), pw = rc.A.bbJ(pM.bbZ, pM.bbB, pM.bbd), pl =
-                    rf.u(pw.bbZ, pw.bbB, pw.bbd), pC = null == (pX = this.bvF.get(pl)) ? void 0 : pX.get(pm);
-                    if (void 0 === pC) {
+                    rf.u(pw.bbZ, pw.bbB, pw.bbd), pC = null == (pX = this.bvF.get(pl)) ? undefined : pX.get(pm);
+                    if (undefined === pC) {
                         var pN, pZ = rA.A.bIM.bIS.bIw.bfx(this.bMV.bbg(pM.bbZ, pM.bbB, pM.bbd));
-                        if (void 0 === pZ)
+                        if (undefined === pZ)
                             return;
-                        if (void 0 === (pC = pZ.bvy(pM, this)))
+                        if (undefined === (pC = pZ.bvy(pM, this)))
                             return;
                         this.bWr.add(pC.bAc),
                         this.bvF.has(pl) || this.bvF.set(pl, new Map()),
@@ -12746,7 +12746,7 @@ const TWO_WAY_MAP = function(C, D){
                     var pw =
                     rf.u(pM, pX, pm)
                       , pl = this.bvF.get(pw);
-                    if (void 0 !== pl) {
+                    if (undefined !== pl) {
                         for (var pC, pN = Fr(pl.values()); !(pC = pN()).done; ) {
                             var pZ = pC.value;
                             this.bWr.remove(pZ.bAc),
@@ -12759,11 +12759,11 @@ const TWO_WAY_MAP = function(C, D){
                 pB.bvB = function(pM) {
                     var pX, pm, pw, pl =
                     rf.u(pM.bbZ, pM.bbB, pM.bbd), pC = rc.A.bbJ(pM.bbZ, pM.bbB, pM.bbd), pN =
-                    rf.u(pC.bbZ, pC.bbB, pC.bbd), pZ = null == (pX = this.bvF.get(pN)) ? void 0 : pX.get(pl);
-                    void 0 !== pZ && (this.bWr.remove(pZ.bAc),
+                    rf.u(pC.bbZ, pC.bbB, pC.bbd), pZ = null == (pX = this.bvF.get(pN)) ? undefined : pX.get(pl);
+                    undefined !== pZ && (this.bWr.remove(pZ.bAc),
                     pZ.bFy(),
                     null == (pm = this.bvF.get(pN)) || pm.delete(pl),
-                    0 === (null == (pw = this.bvF.get(pN)) ? void 0 : pw.size) && this.bvF.delete(pN));
+                    0 === (null == (pw = this.bvF.get(pN)) ? undefined : pw.size) && this.bvF.delete(pN));
                 }
                 ,
                 pB.bFy = function() {
@@ -12968,7 +12968,7 @@ const TWO_WAY_MAP = function(C, D){
                                 ph = rA.A.bIM.bIS.bIw.bfx(pN).bvM,
                                 this.bvR.bvB((0,
                                 rZ.VB)(pM, pX, pm));
-                            void 0 !== ph.bIo && this.bmj.bNG.bfc(pZ, ph.bIo, ph.bfJ, ph.bfG);
+                            undefined !== ph.bIo && this.bmj.bNG.bfc(pZ, ph.bIo, ph.bfJ, ph.bfG);
                         }
                     }
                 }
@@ -13428,7 +13428,7 @@ const TWO_WAY_MAP = function(C, D){
                     pa[2] = ps + pc * pW),
                     pI && (pI[0] = pI[1] = pI[2] = 0),
                     0;
-                }(pQ, pl, pC, pN, pZ /= pU, ph /= pU, po /= pU, pX = void 0 === pX ? 64 : +pX, pm, pw);
+                }(pQ, pl, pC, pN, pZ /= pU, ph /= pU, po /= pU, pX = undefined === pX ? 64 : +pX, pm, pw);
             };
             function Fh(pQ, pB) {
                 var pM = 'undefined' != typeof Symbol && pQ[Symbol.iterator] || pQ['@@iterator'];
@@ -13507,7 +13507,7 @@ const TWO_WAY_MAP = function(C, D){
                         var pJ = pb();
                         if (pJ && pD(pJ))
                             return pY;
-                        pj = void 0 !== pJ && pJ.collidedCustom ? -1 : pu();
+                        pj = undefined !== pJ && pJ.collidedCustom ? -1 : pu();
                     }
                     for (pY += pA,
                     pO = 0; pO < 3; pO++)
@@ -13765,7 +13765,7 @@ const TWO_WAY_MAP = function(C, D){
                   , pZ = (pM.bLS.bbd - pQ.bbd) / pB.bbd
                   , ph = Math.max(Math.max(Math.min(pm, pw), Math.min(pl, pC)), Math.min(pN, pZ))
                   , po = Math.min(Math.min(Math.max(pm, pw), Math.max(pl, pC)), Math.max(pN, pZ));
-                return po < 0 || ph > po ? -1 : (void 0 !== pX && (ph === pm || ph === pw ? (pX.bbZ = pB.bbZ < 0 ? 1 : -1,
+                return po < 0 || ph > po ? -1 : (undefined !== pX && (ph === pm || ph === pw ? (pX.bbZ = pB.bbZ < 0 ? 1 : -1,
                 pX.bbB = 0,
                 pX.bbd = 0) : ph === pl || ph === pC ? (pX.bbZ = 0,
                 pX.bbB = pB.bbB < 0 ? 1 : -1,
@@ -13777,7 +13777,7 @@ const TWO_WAY_MAP = function(C, D){
               , Fu = function(pQ, pB, pM, pX, pm, pw, pl) {
                 pM.bXi = E0(pB, pm, pw, pQ, pM, pl),
                 pm.bQV && pM.bDF.bCH(pm.bQE, pB, pl),
-                pm.bsy && (pm.bfs !== FY.K.bfC && pm.bfs !== FY.K.bzL && pm.bfs !== FY.K.btx || pB.bCq(pM, pm.bfs, void 0)),
+                pm.bsy && (pm.bfs !== FY.K.bfC && pm.bfs !== FY.K.bzL && pm.bfs !== FY.K.btx || pB.bCq(pM, pm.bfs, undefined)),
                 pm.bsI ? pB.bCi(pM, pm.bsb, pm.bsF, pl) : pm.bsf ? pB.bCr(pM, pm.bsD, pm.bsh, pm.bsk, pl) : pm.bsB ? pM.bDF.bCR(pm.bse, pm.bsF) : pm.bsZ && pM.bDF.bCn(pm.bse),
                 pM.bDF.bsT.bfE.bCo(pM) && (pM.bDF.bsT.bfE.bCP(pB, pM, pX, pm, pl),
                 pM.bDF.bCF(pB, pl)),
@@ -13921,7 +13921,7 @@ const TWO_WAY_MAP = function(C, D){
                 FK.sd(pm.bXi.bsW), S6 = FJ(pB.bQp); !(S4 = S6()).done; ) {
                     var S7 = S4.value
                       , S8 = S5.get(S7);
-                    void 0 !== S8 && ((0,
+                    undefined !== S8 && ((0,
                     rZ.j9)(pf, S8),
                     S5.delete(S7));
                 }
@@ -14017,7 +14017,7 @@ const TWO_WAY_MAP = function(C, D){
                                 }
                             }
                     Sm || pQ.bOW(Math.round(3 * (-Sr.bbB / r5.A.bfi - 19)),
-                    rZ.VB(0, 0, 0), Fz.i.bOL, pm.bXi.bLe, void 0, void 0);
+                    rZ.VB(0, 0, 0), Fz.i.bOL, pm.bXi.bLe, undefined, undefined);
                 }
                 for (var SZ = Math.floor((SX.bbB + 0.1) / r5.A.bba), Sh = Math.floor((SX.bbZ - r5.A.bNI.bbZ / 2) / r5.A.bba), So = Math.floor((SX.bbd - r5.A.bNI.bbd / 2) / r5.A.bba), SU = Math.floor((SX.bbZ + r5.A.bNI.bbZ / 2) / r5.A.bba), Si = Math.floor((SX.bbd + r5.A.bNI.bbd / 2) / r5.A.bba), ST = false, SV = -1 / 0, Ss = Sh; Ss <= SU; Ss++)
                     for (var SG = So; SG <= Si; SG++)
@@ -14065,7 +14065,7 @@ const TWO_WAY_MAP = function(C, D){
                 return new Fq.A(SX,pB.bLH,pf,Sy,pv,pV,pm.bXi.bUK,ps,S5);
             }
               , E7 = function(pQ, pB, pM, pX, pm, pw, pl, pC) {
-                void 0 === pC && (pC = 1.6);
+                undefined === pC && (pC = 1.6);
                 var pN =
                 rZ.VB(pB.bQq.bbZ, 0, pB.bQq.bbB);
                 (0,
@@ -14223,9 +14223,9 @@ const TWO_WAY_MAP = function(C, D){
                         } else {
                             if (ph.bIo !== EE.c.bLN) {
                                 var pi = ph.bLF(Ep.A);
-                                if (void 0 !== pi) {
+                                if (undefined !== pi) {
                                     var pT = ph.bLF(ES.A);
-                                    if (void 0 !== pT && !pT.bXf)
+                                    if (undefined !== pT && !pT.bXf)
                                         continue;
                                     pl.push(Fb((0,
                                     rZ.K$)(ph.bAc.position), pi.bLC));
@@ -14313,10 +14313,10 @@ const TWO_WAY_MAP = function(C, D){
                 }
                 ,
                 pM.bwX = function(pX, pm, pw, pl, pC, pN, pZ, ph, po, pU) {
-                    void 0 === pZ && (pZ = true),
-                    void 0 === ph && (ph = true),
-                    void 0 === po && (po = true),
-                    void 0 === pU && (pU = ER.z$.bfr);
+                    undefined === pZ && (pZ = true),
+                    undefined === ph && (ph = true),
+                    undefined === po && (po = true),
+                    undefined === pU && (pU = ER.z$.bfr);
                     var pi = this.bbg(pX, pm, pw);
                     return this._control.bOv(pX, pm, pw, pl, pC, pN),
                     pU !== ER.z$.bfr && pU !== ER.z$.bfP || (pi !== rq._.bbl && pl === rq._.bbl && rA.A.bIM.bIS.bIw.bfx(pi).bOQ(this, this._control.bXq,
@@ -14331,34 +14331,34 @@ const TWO_WAY_MAP = function(C, D){
                 pM.bOW = function(pX, pm, pw, pl, pC) {}
                 ,
                 pM.bvu = function(pX, pm, pw, pl, pC) {
-                    void 0 === pm && (pm = 0),
-                    void 0 === pw && (pw = 1),
-                    void 0 === pC && (pC = 0),
+                    undefined === pm && (pm = 0),
+                    undefined === pw && (pw = 1),
+                    undefined === pC && (pC = 0),
                     this._control.bNG.bvu(pX, pm, pw, pl, pC);
                 }
                 ,
                 pM.bfK = function(pX, pm, pw, pl, pC) {
-                    void 0 === pw && (pw = 1),
-                    void 0 === pC && (pC = 0),
+                    undefined === pw && (pw = 1),
+                    undefined === pC && (pC = 0),
                     this._control.bNG.bfK(pX, pm, pw, pl, pC);
                 }
                 ,
                 pM.bOC = function(pX, pm, pw, pl, pC, pN, pZ, ph, po) {
-                    void 0 === pw && (pw = 0),
-                    void 0 === pl && (pl = 1),
-                    void 0 === pN && (pN = 0),
-                    void 0 === pZ && (pZ = 0x50 * r5.A.bba),
-                    void 0 === ph && (ph = 10 * r5.A.bba),
-                    void 0 === po && (po = 2),
+                    undefined === pw && (pw = 0),
+                    undefined === pl && (pl = 1),
+                    undefined === pN && (pN = 0),
+                    undefined === pZ && (pZ = 0x50 * r5.A.bba),
+                    undefined === ph && (ph = 10 * r5.A.bba),
+                    undefined === po && (po = 2),
                     this._control.bNG.bOC(pX, pm, pw, pl, pC, pN, pZ, ph, po);
                 }
                 ,
                 pM.bfc = function(pX, pm, pw, pl, pC, pN, pZ, ph, po) {
-                    void 0 === pl && (pl = 1),
-                    void 0 === pN && (pN = 0),
-                    void 0 === pZ && (pZ = 0x50 * r5.A.bba),
-                    void 0 === ph && (ph = 10 * r5.A.bba),
-                    void 0 === po && (po = 2),
+                    undefined === pl && (pl = 1),
+                    undefined === pN && (pN = 0),
+                    undefined === pZ && (pZ = 0x50 * r5.A.bba),
+                    undefined === ph && (ph = 10 * r5.A.bba),
+                    undefined === po && (po = 2),
                     this._control.bNG.bfc(pX, pm, pw, pl, pC, pN, pZ, ph, po);
                 }
                 ,
@@ -14369,16 +14369,16 @@ const TWO_WAY_MAP = function(C, D){
                     for (var pC, pN, pZ = pm.bsz ? pm.bsH : (0,
                     Fm.ik)(pm.bLH), ph = 0x5f5e0ff, po = Ed(this._control.bNG.bNg.bNx.bmc(pl, pw)); !(pN = po()).done; ) {
                         var pU = pN.value
-                          , pi = void 0;
+                          , pi = undefined;
                         if (pU.bIo === EE.c.bAm) {
                             var pT = pU;
                             pT.bWG.bXf && (pi = E2((0,
                             rZ.K$)(pT.bAc.position), pT.bWU === Fc.f.bfY ? r5.A.bOD : r5.A.bsR));
                         } else {
                             var pV = pU.bLF(Ep.A);
-                            if (void 0 !== pV) {
+                            if (undefined !== pV) {
                                 var ps = pU.bLF(ES.A);
-                                if (void 0 !== ps && !ps.bXf)
+                                if (undefined !== ps && !ps.bXf)
                                     continue;
                                 pi = Fb((0,
                                 rZ.K$)(pU.bAc.position), pV.bLC);
@@ -14390,7 +14390,7 @@ const TWO_WAY_MAP = function(C, D){
                             pC = pU.bbb);
                         }
                     }
-                    return void 0 === pC ? {
+                    return undefined === pC ? {
                         'bDt': false
                     } : {
                         'bDt': true,
@@ -14400,7 +14400,7 @@ const TWO_WAY_MAP = function(C, D){
                 }
                 ,
                 pM.bOO = function(pX, pm, pw, pl, pC) {
-                    return void 0 !== this._control.bNG.bNg.bNx.bXG(pm) ? pX.bCK.bsM(new EH.A(Ey.u.bOu,pC)) ? Er.K.bOK : Er.K.bOc : Er.K.bOY;
+                    return undefined !== this._control.bNG.bNg.bNx.bXG(pm) ? pX.bCK.bsM(new EH.A(Ey.u.bOu,pC)) ? Er.K.bOK : Er.K.bOc : Er.K.bOY;
                 }
                 ,
                 pM.bCq = function(pX, pm, pw) {
@@ -14411,14 +14411,14 @@ const TWO_WAY_MAP = function(C, D){
                 ,
                 pM.bCi = function(pX, pm, pw, pl) {
                     var pC = pX.bDF.bCS
-                      , pN = pm < -1 || pm >= pC.length ? void 0 : pC[pm];
+                      , pN = pm < -1 || pm >= pC.length ? undefined : pC[pm];
                     this.bDB(pX, pC, pN, pw, pl);
                 }
                 ,
                 pM.bCr = function(pX, pm, pw, pl, pC) {
                     var pN = pX.bDF.bCS
-                      , pZ = pm < -1 || pm >= pN.length ? void 0 : pN[pm]
-                      , ph = pw < -1 || pw >= pN.length ? void 0 : pN[pw];
+                      , pZ = pm < -1 || pm >= pN.length ? undefined : pN[pm]
+                      , ph = pw < -1 || pw >= pN.length ? undefined : pN[pw];
                     this.bfp(pX, pN, pZ, ph, pl, pC);
                 }
                 ,
@@ -14628,7 +14628,7 @@ const TWO_WAY_MAP = function(C, D){
                             (0,
                             rZ.JA)(pC.buJ);
                         } else
-                            pC.buJ = void 0;
+                            pC.buJ = undefined;
                     }
                     ,
                     this.buG = function(pN, pZ) {
@@ -14793,7 +14793,7 @@ const TWO_WAY_MAP = function(C, D){
                         Fm.Cc(pC.bul.bIE.bbd, pC.buq.bIE.bbd, ph));
                         if (pC.bKm(po),
                         pC.bui && (pC.buX.bWX(pC.bui),
-                        pC.bui = void 0),
+                        pC.bui = undefined),
                         pC.buc !== pC.buK) {
                             var pU = pC.buK;
                             if (pC.buK = pC.buc,
@@ -14824,7 +14824,7 @@ const TWO_WAY_MAP = function(C, D){
                     ,
                     this.bKW = function(pN, pZ, ph) {
                         var po = rc.A.bbJ(pN, pZ, ph);
-                        if (void 0 === pC.bmj.bNJ.bME.bbG(po.bbZ, po.bbB, po.bbd))
+                        if (undefined === pC.bmj.bNJ.bME.bbG(po.bbZ, po.bbB, po.bbd))
                             return rq._.bOy;
                         var pU = 0x989680;
                         return pN <= -0x989680 || pN >= pU || pZ <= -0x989680 || pZ >= pU || ph <= -0x989680 || ph >= pU ? rq._.bHX : pC.bmj.bNJ.bbg(pN, pZ, ph);
@@ -14864,7 +14864,7 @@ const TWO_WAY_MAP = function(C, D){
                         rZ.VB)(0, 0, 0),
                         'bsN': this.bsm.bXi.bsN
                     },
-                    this.buJ = void 0,
+                    this.buJ = undefined,
                     this.bAg = new El.KY(),
                     this.buK = FQ.b.bus,
                     this.buc = FQ.b.bus,
@@ -14888,7 +14888,7 @@ const TWO_WAY_MAP = function(C, D){
                     this.bKD = [],
                     this.buu(FQ.b.bus),
                     this.buw.bWG.bXb(),
-                    this.bui = void 0;
+                    this.bui = undefined;
                 }
                 ,
                 pB.bmS = function() {
@@ -15155,7 +15155,7 @@ const TWO_WAY_MAP = function(C, D){
                     (this.bKu || pM.bDF.bCj !== pX.bDF.bCj || pM.bDF.bsT.bfE.bIo !== pX.bDF.bsT.bfE.bIo) && rw.A.emit(rl.r.bct, pX.bDF.bsT),
                     pw.size > 0 && rw.A.emit(rl.r.bUH, pw),
                     pM.bfs !== pX.bfs && (rw.A.emit(rl.r.bcA, pX.bfs),
-                    void 0 !== pX.bCC && this.buC.bNg.bNJ.bvv.bwT(pX.bCC)),
+                    undefined !== pX.bCC && this.buC.bNg.bNJ.bvv.bwT(pX.bCC)),
                     (this.bKu || pM.bCO !== pX.bCO || pM.bCu !== pX.bCu || pM.bCc !== pX.bCc) && rw.A.emit(rl.r.bcN, pX.bCO, pX.bCu, pX.bCc),
                     (this.bKu || pM.bXi.bUK !== pX.bXi.bUK) && rw.A.emit(rl.r.bcW, pX.bXi.bUK),
                     this.bKu = false;
@@ -15296,7 +15296,7 @@ const TWO_WAY_MAP = function(C, D){
                 return pB.bNY = function(pM) {}
                 ,
                 pB.bFy = function() {
-                    this.bcv(void 0);
+                    this.bcv(undefined);
                 }
                 ,
                 pB.bNl = function(pM, pX) {
@@ -15304,14 +15304,14 @@ const TWO_WAY_MAP = function(C, D){
                       , pw = this.bcM.bXl.bXq
                       , pl = this.bcM.bXl.bOT
                       , pC = pw.bDF.bsT.bfE;
-                    Ew.A && !pl.bsz ? this.bcv(void 0) : this.bcM.bXl.bwL.bDH(pw, pl, pC.bcQ, false, EU.zac, pC.bcs, function(pN) {
+                    Ew.A && !pl.bsz ? this.bcv(undefined) : this.bcM.bXl.bwL.bDH(pw, pl, pC.bcQ, false, EU.zac, pC.bcs, function(pN) {
                         return pm.bcv(pN.bOU),
                         true;
                     }, function(pN) {
-                        return pm.bcv(void 0),
+                        return pm.bcv(undefined),
                         true;
                     }, function() {
-                        return pm.bcv(void 0),
+                        return pm.bcv(undefined),
                         true;
                     });
                 }
@@ -15614,10 +15614,10 @@ const TWO_WAY_MAP = function(C, D){
                         var pw = pX.value
                           , pl = pw[0]
                           , pC = pw[1];
-                        if (void 0 !== pC.visibleUntil && pC.visibleUntil < Date.now())
+                        if (undefined !== pC.visibleUntil && pC.visibleUntil < Date.now())
                             this.bLR(pl);
                         else {
-                            if (void 0 === pC.chunkPos) {
+                            if (undefined === pC.chunkPos) {
                                 var pN = this.buC.bXl.bXq.bXi
                                   , pZ = rc.A.bbJ(pN.bLe.bbZ, pN.bLe.bbB, pN.bLe.bbd)
                                   , ph =
@@ -15629,16 +15629,16 @@ const TWO_WAY_MAP = function(C, D){
                 }
                 ,
                 pB.bLn = function(pM) {
-                    if (void 0 !== pM.chunkPos)
+                    if (undefined !== pM.chunkPos)
                         for (var pX, pm = Ec(this.bcP.entries()); !(pX = pm()).done; ) {
                             var pw = pX.value
                               , pl = (pw[0],
                             pw[1]);
-                            if (void 0 !== pl.chunkPos && (0,
+                            if (undefined !== pl.chunkPos && (0,
                             rZ.b0)(pl.chunkPos, pM.chunkPos))
                                 return;
                         }
-                    if (void 0 === pM.id && (pM.id = pQ._nextChunkAreaId++),
+                    if (undefined === pM.id && (pM.id = pQ._nextChunkAreaId++),
                     !this.bcP.has(pM.id)) {
                         for (var pC = r5.A.bIk / r5.A.bba / 2, pN = [], pZ = -pC; pZ <= pC; pZ++)
                             for (var ph = -pC; ph <= pC; ph++)
@@ -15661,7 +15661,7 @@ const TWO_WAY_MAP = function(C, D){
                             'transparent': true
                         })
                           , pG = new Ei.X(pV,ps);
-                        void 0 !== pM.chunkPos && pG.position.set(pM.chunkPos.bbZ * r5.A.bIk + r5.A.bIk / 2, pM.chunkPos.bbB * r5.A.bIk + r5.A.bIk / 2, pM.chunkPos.bbd * r5.A.bIk + r5.A.bIk / 2);
+                        undefined !== pM.chunkPos && pG.position.set(pM.chunkPos.bbZ * r5.A.bIk + r5.A.bIk / 2, pM.chunkPos.bbB * r5.A.bIk + r5.A.bIk / 2, pM.chunkPos.bbd * r5.A.bIk + r5.A.bIk / 2);
                         var pk = {
                             'material': ps,
                             'object': pG,
@@ -15935,7 +15935,7 @@ const TWO_WAY_MAP = function(C, D){
                                 case 14:
                                     if (pZ = function() {}
                                     ,
-                                    void 0 !== this.bYT) {
+                                    undefined !== this.bYT) {
                                         po.next = 0x19;
                                         break;
                                     }
@@ -15965,7 +15965,7 @@ const TWO_WAY_MAP = function(C, D){
                                         var pU;
                                         ph.bAi === pl && (null == (pU = ph.bYq) || pU.clear(),
                                         ph.bYK.clear(),
-                                        ph.bYT = void 0,
+                                        ph.bYT = undefined,
                                         ph.bYK.add(ph.bNs),
                                         ph.bYp(new r4.Vector3(0,0,0), function() {}));
                                     }
@@ -16039,7 +16039,7 @@ const TWO_WAY_MAP = function(C, D){
                     var pM;
                     this.bYK.clear(),
                     null == (pM = this.bYq) || pM.clear(),
-                    this.bYT = void 0,
+                    this.bYT = undefined,
                     this.bYj.bLR(),
                     this.bQL.bFy(),
                     this.bYM.bFy(),
@@ -16053,17 +16053,17 @@ const TWO_WAY_MAP = function(C, D){
                 }
                 ,
                 pB.bfc = function(pM, pX, pm, pw, pl, pC, pN, pZ, ph) {
-                    void 0 === pw && (pw = 1),
-                    void 0 === pC && (pC = 0),
-                    void 0 === pN && (pN = 32 * r5.A.bba),
-                    void 0 === pZ && (pZ = 4 * r5.A.bba),
-                    void 0 === ph && (ph = 2),
+                    undefined === pw && (pw = 1),
+                    undefined === pC && (pC = 0),
+                    undefined === pN && (pN = 32 * r5.A.bba),
+                    undefined === pZ && (pZ = 4 * r5.A.bba),
+                    undefined === ph && (ph = 2),
                     this.bOC(pM, pX, Math.random() * pm - pm / 2, pw, pl, pC, pN, pZ, ph);
                 }
                 ,
                 pB.bfK = function(pM, pX, pm, pw, pl) {
-                    void 0 === pm && (pm = 1),
-                    void 0 === pl && (pl = 0),
+                    undefined === pm && (pm = 1),
+                    undefined === pl && (pl = 0),
                     this.bvu(pM, Math.random() * pX - pX / 2, pm, pw, pl);
                 }
                 ,
@@ -16075,15 +16075,15 @@ const TWO_WAY_MAP = function(C, D){
                             for (; ; )
                                 switch (pU.prev = pU.next) {
                                 case 0:
-                                    if (void 0 === pw && (pw = 0),
-                                    void 0 === pl && (pl = 1),
-                                    void 0 === pN && (pN = 0),
+                                    if (undefined === pw && (pw = 0),
+                                    undefined === pl && (pl = 1),
+                                    undefined === pN && (pN = 0),
                                     !(pN > 0)) {
                                         pU.next = 9;
                                         break;
                                     }
                                     if (pC || (pC = pm.toString()),
-                                    !(void 0 !== (pZ = this.bYm[pC]) && Date.now() - pZ < pN)) {
+                                    !(undefined !== (pZ = this.bYm[pC]) && Date.now() - pZ < pN)) {
                                         pU.next = 8;
                                         break;
                                     }
@@ -16094,7 +16094,7 @@ const TWO_WAY_MAP = function(C, D){
                                     return pU.next = 11,
                                     rn.A.bxB(pm);
                                 case 11:
-                                    if (void 0 !== (ph = pU.sent)) {
+                                    if (undefined !== (ph = pU.sent)) {
                                         pU.next = 14;
                                         break;
                                     }
@@ -16123,12 +16123,12 @@ const TWO_WAY_MAP = function(C, D){
                             for (; ; )
                                 switch (pk.prev = pk.next) {
                                 case 0:
-                                    if (void 0 === pl && (pl = 0),
-                                    void 0 === pC && (pC = 1),
-                                    void 0 === pZ && (pZ = 0),
-                                    void 0 === ph && (ph = 32 * r5.A.bba),
-                                    void 0 === po && (po = 4 * r5.A.bba),
-                                    void 0 === pU && (pU = 2),
+                                    if (undefined === pl && (pl = 0),
+                                    undefined === pC && (pC = 1),
+                                    undefined === pZ && (pZ = 0),
+                                    undefined === ph && (ph = 32 * r5.A.bba),
+                                    undefined === po && (po = 4 * r5.A.bba),
+                                    undefined === pU && (pU = 2),
                                     !((0,
                                     rZ.x6)(pm, this.bmj.bcG) >= ph * ph)) {
                                         pk.next = 8;
@@ -16141,7 +16141,7 @@ const TWO_WAY_MAP = function(C, D){
                                         break;
                                     }
                                     if (pN || (pN = pw.toString()),
-                                    !(void 0 !== (pi = this.bYm[pN]) && Date.now() - pi < pZ)) {
+                                    !(undefined !== (pi = this.bYm[pN]) && Date.now() - pi < pZ)) {
                                         pk.next = 13;
                                         break;
                                     }
@@ -16152,7 +16152,7 @@ const TWO_WAY_MAP = function(C, D){
                                     return pk.next = 16,
                                     rn.A.bxB(pw);
                                 case 16:
-                                    if (void 0 !== (pT = pk.sent)) {
+                                    if (undefined !== (pT = pk.sent)) {
                                         pk.next = 19;
                                         break;
                                     }
@@ -16338,7 +16338,7 @@ const TWO_WAY_MAP = function(C, D){
                                     this.bxh.setLoop(r4.LoopOnce, 1),
                                     this.bxh.clampWhenFinished = true);
                                 case 9:
-                                    this.bxy = void 0,
+                                    this.bxy = undefined,
                                     po.t0 = pm,
                                     po.next = po.t0 === EX.S.bHY || po.t0 === EX.S.bHr || po.t0 === EX.S.bdI || po.t0 === EX.S.bdy || po.t0 === EX.S.bdn || po.t0 === EX.S.bdm || po.t0 === EX.S.bdQ || po.t0 === EX.S.bdr ? 13 : 0x18;
                                     break;
@@ -16353,7 +16353,7 @@ const TWO_WAY_MAP = function(C, D){
                                     }
                                     return po.abrupt('return');
                                 case 18:
-                                    return this.bxy = null == ph ? void 0 : ph.bND,
+                                    return this.bxy = null == ph ? undefined : ph.bND,
                                     null == (pC = this.bxy) || pC.position.set(0.125, 1.1, -1.85),
                                     null == (pN = this.bxy) || pN.rotation.set(-Math.PI / 2, 0, 0),
                                     this.bYu.clear(),
@@ -16496,14 +16496,14 @@ const TWO_WAY_MAP = function(C, D){
                     var pw;
                     if (!(this.bXg < 0)) {
                         var pl, pC = true, pN =
-                        rZ.VB(0, 0, 0), pZ = null == (pw = this.bLs.bNx) ? void 0 : pw.bXG(this.bXg);
+                        rZ.VB(0, 0, 0), pZ = null == (pw = this.bLs.bNx) ? undefined : pw.bXG(this.bXg);
                         if (this.bXg ===
                         ro.A9())
                             (pN = this.bLs.bNx ? (0,
                             rZ.N3)(this.bLs.bNx.bNg.bNG.bXl.bXq.bXi.bLe) : (0,
                             rZ.VB)(0, 0, 0)).bbB += r5.A.bba;
                         else {
-                            if (void 0 === pZ)
+                            if (undefined === pZ)
                                 null == (pl = this.bLs.bNx) || pl.bXI(this.bLs.bbb),
                                 pC = false;
                             else
@@ -16720,7 +16720,7 @@ const TWO_WAY_MAP = function(C, D){
                 ,
                 pM.bNl = function(pX, pm) {
                     pQ.prototype.bNl.call(this, pX, pm),
-                    void 0 !== this.bWI && (this.bXr += pX,
+                    undefined !== this.bWI && (this.bXr += pX,
                     this.bWI.position.set(0, Math.cos(2 * this.bXr) * (r5.A.bba / 16) + 0.1, 0),
                     this.bAc.rotation.set(0, this.bXr / 2, 0),
                     this.bWI.updateMatrix(),
@@ -16729,10 +16729,10 @@ const TWO_WAY_MAP = function(C, D){
                 ,
                 pM.bNu = function() {
                     pQ.prototype.bNu.call(this),
-                    void 0 !== this.bWI && (this.bAc.remove(this.bWI),
-                    this.bWI = void 0),
-                    void 0 !== this.bXa && (this.bAc.remove(this.bXa),
-                    this.bXa = void 0);
+                    undefined !== this.bWI && (this.bAc.remove(this.bWI),
+                    this.bWI = undefined),
+                    undefined !== this.bXa && (this.bAc.remove(this.bXa),
+                    this.bXa = undefined);
                 }
                 ,
                 pM.bWN = function(pX) {
@@ -17062,7 +17062,7 @@ const TWO_WAY_MAP = function(C, D){
                     var pX = this;
                     this.bLf = function(pm) {
                         var pw = pX.bXG(pm.bmz);
-                        void 0 !== pw && pw.bLf(pm.bmH);
+                        undefined !== pw && pw.bLf(pm.bmH);
                     }
                     ,
                     this.bmd = function(pm) {
@@ -17079,12 +17079,12 @@ const TWO_WAY_MAP = function(C, D){
                     ,
                     this.bmW = function(pm) {
                         var pw = pX.bXG(pm.bmz);
-                        void 0 !== pw && pw.bNp(pm.bmL);
+                        undefined !== pw && pw.bNp(pm.bmL);
                     }
                     ,
                     this.bmX = function(pm) {
                         var pw = pX.bXG(pm.bmz);
-                        void 0 !== pw && pw.bWZ(pm.bmm);
+                        undefined !== pw && pw.bWZ(pm.bmm);
                     }
                     ,
                     this.bNY = function(pm) {
@@ -17227,7 +17227,7 @@ const TWO_WAY_MAP = function(C, D){
                     var pm, pw, pl =
                     rZ.$p(pX);
                     null == (pm = this.bmM.get(pl)) || pm.delete(pM),
-                    0 === (null == (pw = this.bmM.get(pl)) ? void 0 : pw.size) && this.bmM.delete(pl);
+                    0 === (null == (pw = this.bmM.get(pl)) ? undefined : pw.size) && this.bmM.delete(pl);
                 }
                 ,
                 pB.bmY = function(pM) {
@@ -17245,7 +17245,7 @@ const TWO_WAY_MAP = function(C, D){
                 }
                 ,
                 pB.bmJ = function(pM) {
-                    return void 0 !== this.bmU[pM];
+                    return undefined !== this.bmU[pM];
                 }
                 ,
                 pB.bml = function() {
@@ -17303,7 +17303,7 @@ const TWO_WAY_MAP = function(C, D){
                 }
                 ,
                 pB.bLa = function(pM, pX, pm, pw, pl) {
-                    void 0 === pl && (pl =
+                    undefined === pl && (pl =
                     rZ.VB(0xff, 0xff, 0xff));
                     var pC =
                     Ex.q(pM.toString(), 64, pw, pl);
@@ -17592,37 +17592,37 @@ const TWO_WAY_MAP = function(C, D){
               , Z = m(0x12de)
               , h = (function() {
                 function U(V, G, k, W, x, q, K, Y, z, j, J, b, D, r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, rr, rF, rE, rp, rS) {
-                    void 0 === V && (V =
+                    undefined === V && (V =
                     w.LX(0, 0)),
-                    void 0 === G && (G = false),
-                    void 0 === k && (k = false),
-                    void 0 === W && (W = false),
-                    void 0 === x && (x = false),
-                    void 0 === q && (q = false),
-                    void 0 === K && (K = false),
-                    void 0 === Y && (Y = false),
-                    void 0 === z && (z =
+                    undefined === G && (G = false),
+                    undefined === k && (k = false),
+                    undefined === W && (W = false),
+                    undefined === x && (x = false),
+                    undefined === q && (q = false),
+                    undefined === K && (K = false),
+                    undefined === Y && (Y = false),
+                    undefined === z && (z =
                     w.LX(0, 0)),
-                    void 0 === j && (j = []),
-                    void 0 === J && (J = false),
-                    void 0 === b && (b = 0),
-                    void 0 === D && (D = false),
-                    void 0 === r0 && (r0 = 0),
-                    void 0 === r1 && (r1 = Z.d.LEFT),
-                    void 0 === r2 && (r2 = false),
-                    void 0 === r3 && (r3 = 0),
-                    void 0 === r4 && (r4 = 0),
-                    void 0 === r5 && (r5 = 0),
-                    void 0 === r6 && (r6 = false),
-                    void 0 === r7 && (r7 = N.K.bfC),
-                    void 0 === r8 && (r8 = false),
-                    void 0 === r9 && (r9 = false),
-                    void 0 === rr && (rr = C.bR.bDW),
-                    void 0 === rF && (rF = false),
-                    void 0 === rE && (rE =
+                    undefined === j && (j = []),
+                    undefined === J && (J = false),
+                    undefined === b && (b = 0),
+                    undefined === D && (D = false),
+                    undefined === r0 && (r0 = 0),
+                    undefined === r1 && (r1 = Z.d.LEFT),
+                    undefined === r2 && (r2 = false),
+                    undefined === r3 && (r3 = 0),
+                    undefined === r4 && (r4 = 0),
+                    undefined === r5 && (r5 = 0),
+                    undefined === r6 && (r6 = false),
+                    undefined === r7 && (r7 = N.K.bfC),
+                    undefined === r8 && (r8 = false),
+                    undefined === r9 && (r9 = false),
+                    undefined === rr && (rr = C.bR.bDW),
+                    undefined === rF && (rF = false),
+                    undefined === rE && (rE =
                     l.VB(0, 0, 0)),
-                    void 0 === rp && (rp = -1),
-                    void 0 === rS && (rS = 0),
+                    undefined === rp && (rp = -1),
+                    undefined === rS && (rS = 0),
                     this.bQq = V,
                     this.bQi = G,
                     this.bQr = k,
@@ -17709,18 +17709,18 @@ const TWO_WAY_MAP = function(C, D){
               , h = m(0xa9c3)
               , U = (function() {
                 function T(G, k, W, x, I, g, L, q, f) {
-                    void 0 === G && (G =
+                    undefined === G && (G =
                     C.VB(0, 0, 0)),
-                    void 0 === k && (k =
+                    undefined === k && (k =
                     l.LX(0, 0)),
-                    void 0 === W && (W =
+                    undefined === W && (W =
                     C.VB(0, 0, 0)),
-                    void 0 === x && (x = false),
-                    void 0 === I && (I = false),
-                    void 0 === g && (g = Z.f.bAO),
-                    void 0 === L && (L = h.b.btJ),
-                    void 0 === q && (q = N.A.bsR),
-                    void 0 === f && (f = new Map()),
+                    undefined === x && (x = false),
+                    undefined === I && (I = false),
+                    undefined === g && (g = Z.f.bAO),
+                    undefined === L && (L = h.b.btJ),
+                    undefined === q && (q = N.A.bsR),
+                    undefined === f && (f = new Map()),
                     this.bLe = G,
                     this.bLH = k,
                     this.bsn = W,
@@ -17814,10 +17814,10 @@ const TWO_WAY_MAP = function(C, D){
                 function V() {}
                 var G = V.prototype;
                 return G.bfp = function(k, W, x, I, g, L) {
-                    if (!(void 0 === x || x.bfV.bfE.bIo === w.S.bDI || g <= 0 || g > x.bfV.bDb)) {
+                    if (!(undefined === x || x.bfV.bfE.bIo === w.S.bDI || g <= 0 || g > x.bfV.bDb)) {
                         var q = k.bDF;
                         q.__beginSelectedItemChangeCheck(),
-                        void 0 === I ? x.bIo !== Z.R.bDf && (this.bDD(new C.A(x.bfV.bfE,g)),
+                        undefined === I ? x.bIo !== Z.R.bDf && (this.bDD(new C.A(x.bfV.bfE,g)),
                         x.bfV.bDh(g)) : I.bDk(x.bfV) && x.bDy(k, I, g),
                         q.__endSelecedItemChangeCheck(this, k, L);
                     }
@@ -17826,7 +17826,7 @@ const TWO_WAY_MAP = function(C, D){
                 G.bDB = function(k, W, x, I, g) {
                     var L = k.bDF;
                     L.__beginSelectedItemChangeCheck(),
-                    void 0 === x ? I === N.d.LEFT ? L.bDZ.bfE.bIo !== w.S.bDI && (this.bDD(L.bDZ),
+                    undefined === x ? I === N.d.LEFT ? L.bDZ.bfE.bIo !== w.S.bDI && (this.bDD(L.bDZ),
                     L.bDZ = new C.A((0,
                     l.O)(w.S.bDI),1)) : I === N.d.RIGHT && L.bDZ.bfE.bIo !== w.S.bDI && (this.bDD(new C.A(L.bDZ.bfE.bDe(),1)),
                     L.bDZ.bDb > 1 ? L.bDZ.bDb = L.bDZ.bDb - 1 : L.bDZ = new C.A((0,
@@ -17842,13 +17842,13 @@ const TWO_WAY_MAP = function(C, D){
                     return Y.bDt && z.bDt ? Y.bDA < z.bDA ? j = true : A = true : Y.bDt ? j = true : z.bDt && (A = true),
                     A && z.bDt ? {
                         'bIo': U.bfa,
-                        'bDN': (null == q ? void 0 : q(z)) || false
+                        'bDN': (null == q ? undefined : q(z)) || false
                     } : j && Y.bDt ? {
                         'bIo': U.bfT,
-                        'bDN': (null == f ? void 0 : f(Y)) || false
+                        'bDN': (null == f ? undefined : f(Y)) || false
                     } : {
                         'bIo': U.bfy,
-                        'bDN': (null == K ? void 0 : K()) || false
+                        'bDN': (null == K ? undefined : K()) || false
                     };
                 }
                 ,
@@ -18236,9 +18236,9 @@ const TWO_WAY_MAP = function(C, D){
             }
             var rR = (function() {
                 function ry(rP, rQ, rB, rM) {
-                    if (void 0 === rQ && (rQ = 0),
-                    void 0 === rB && (rB = []),
-                    void 0 === rM && (rM = new z.A((0,
+                    if (undefined === rQ && (rQ = 0),
+                    undefined === rB && (rB = []),
+                    undefined === rM && (rM = new z.A((0,
                     K.O)(q.S.bDI),1)),
                     this.bsm = rP,
                     this.bsc = rQ,
@@ -18281,18 +18281,18 @@ const TWO_WAY_MAP = function(C, D){
                             rm.bfV.bfE.bIo !== q.S.bDI && (rX[rt] = rm.bfV.bsL(),
                             rM = true);
                         }
-                        return rM ? rX : void 0;
+                        return rM ? rX : undefined;
                     }(this.bsx);
-                    return void 0 !== rQ && (rP.items = rQ),
+                    return undefined !== rQ && (rP.items = rQ),
                     rP;
                 }
                 ,
                 rd.bsX = function(rP) {
-                    if (void 0 !== rP.itemStacks) {
+                    if (undefined !== rP.itemStacks) {
                         for (var rQ = 0; rQ < rP.itemStacks.length; rQ++)
                             this.bsx[rQ].bfV.bsX(rP.itemStacks[rQ]);
                     } else
-                        void 0 !== rP.items && function(rB, rM) {
+                        undefined !== rP.items && function(rB, rM) {
                             for (var rX, rt = rE(Object.keys(rB).map(Number)); !(rX = rt()).done; ) {
                                 var rm = rX.value;
                                 if (!(rm < 0 || rm >= rM.length)) {
@@ -18324,7 +18324,7 @@ const TWO_WAY_MAP = function(C, D){
                     for (var rQ = 0; rQ < rP.length; rQ++) {
                         for (var rB, rM = 0, rX = rS(rP[rQ].type); !(rB = rX()).done; ) {
                             var rt, rm, rw = rB.value;
-                            if ((rM += null != (rt = null == (rm = this.bsl[rw]) ? void 0 : rm.bDb) ? rt : 0) >= rP[rQ].count)
+                            if ((rM += null != (rt = null == (rm = this.bsl[rw]) ? undefined : rm.bDb) ? rt : 0) >= rP[rQ].count)
                                 break;
                         }
                         if (rM < rP[rQ].count)
@@ -18337,7 +18337,7 @@ const TWO_WAY_MAP = function(C, D){
                     for (var rQ = 0; rQ < rP.length; rQ++)
                         for (var rB, rM = rS(rP[rQ].type); !(rB = rM()).done; ) {
                             var rX, rt = rB.value;
-                            if ((null == (rX = this.bsl[rt]) ? void 0 : rX.bDb) > 0)
+                            if ((null == (rX = this.bsl[rt]) ? undefined : rX.bDb) > 0)
                                 return true;
                         }
                     return false;
@@ -18498,14 +18498,14 @@ const TWO_WAY_MAP = function(C, D){
                             var rM = rB.ingredientSets.find(function(rX) {
                                 return rQ.bCt([rB.result], rX);
                             });
-                            void 0 !== rM && this.bCz(rM) && this.bCA(new z.A((0,
+                            undefined !== rM && this.bCz(rM) && this.bCA(new z.A((0,
                             K.O)(rB.result.type),rB.result.count));
                         }
                     }
                 }
                 ,
                 rd.bCt = function(rP, rQ) {
-                    void 0 === rQ && (rQ = []);
+                    undefined === rQ && (rQ = []);
                     var rB = this.bDe(this.bsm);
                     rQ.length > 0 && rB.bCz(rQ);
                     for (var rM, rX = rS(rP); !(rM = rX()).done; ) {
@@ -18694,21 +18694,21 @@ const TWO_WAY_MAP = function(C, D){
             }())
               , rH = (function() {
                 function ry(rP, rQ, rB, rM, rX, rt, rm, rw) {
-                    void 0 === rQ && (rQ = r0.K.bfC),
-                    void 0 === rB && (rB = void 0),
-                    void 0 === rM && (rM = new G.A()),
-                    void 0 === rt && (rt = 0x64),
-                    void 0 === rm && (rm = 0x64),
-                    void 0 === rw && (rw = 0),
+                    undefined === rQ && (rQ = r0.K.bfC),
+                    undefined === rB && (rB = undefined),
+                    undefined === rM && (rM = new G.A()),
+                    undefined === rt && (rt = 0x64),
+                    undefined === rm && (rm = 0x64),
+                    undefined === rw && (rw = 0),
                     this.bfs = rQ,
                     this.bCC = rB,
                     this.bXi = rM,
                     this.bCO = rt,
                     this.bCu = rm,
                     this.bjV = rw,
-                    void 0 === rP && (rP = new rR(this)),
+                    undefined === rP && (rP = new rR(this)),
                     this.bDF = rP,
-                    void 0 === rX && (rX = new x(this)),
+                    undefined === rX && (rX = new x(this)),
                     this.bCK = rX;
                 }
                 var rd = ry.prototype;
@@ -18732,7 +18732,7 @@ const TWO_WAY_MAP = function(C, D){
                 ,
                 rd.bDe = function() {
                     var rP = new ry(this.bDF,this.bfs,this.bCC ? (0,
-                    V.N3)(this.bCC) : void 0,this.bXi.bDe(),this.bCK,this.bCO,this.bCu,this.bjV);
+                    V.N3)(this.bCC) : undefined,this.bXi.bDe(),this.bCK,this.bCO,this.bCu,this.bjV);
                     return rP.bDF = rP.bDF.bDe(rP),
                     rP.bCK = rP.bCK.bDe(rP),
                     rP;
@@ -24625,7 +24625,7 @@ const TWO_WAY_MAP = function(C, D){
                 'bzA': 18
             }
               , f = function(K, Y) {
-                return void 0 === Y && (Y = Z.b.btJ),
+                return undefined === Y && (Y = Z.b.btJ),
                 K === q.bDj || K === q.btK || K === q.btc ? [new W(new U.A((0,
                 C.O)(w.S.bDI),1)), new L(new U.A((0,
                 C.O)(w.S.bDI),1)), new g(new U.A((0,
@@ -25035,11 +25035,11 @@ const TWO_WAY_MAP = function(C, D){
                 }
                 ,
                 rA.bNK = function() {
-                    void 0 !== this.bNc && (this.bAc.remove(this.bNc),
+                    undefined !== this.bNc && (this.bAc.remove(this.bNc),
                     this.bNc.geometry.dispose(),
                     this.bNc.material.map.dispose(),
                     this.bNc.material.dispose(),
-                    this.bNc = void 0);
+                    this.bNc = undefined);
                 }
                 ,
                 rA.bNY = function(rj) {
@@ -25076,11 +25076,11 @@ const TWO_WAY_MAP = function(C, D){
                         if (this.bAQ || (this.bAQ = true,
                         this.bAY = Date.now() + 0x1f4,
                         this.bAM = this.bAS),
-                        0 === (null == (rJ = this.bNj) ? void 0 : rJ.time))
+                        0 === (null == (rJ = this.bNj) ? undefined : rJ.time))
                             this.bWF(),
                             null == (rb = this.bNj) || rb.play(),
                             null == (rD = this.bNj) || rD.fadeIn(this.bAw);
-                        if (0 === (null == (rv = this.bNM) ? void 0 : rv.time))
+                        if (0 === (null == (rv = this.bNM) ? undefined : rv.time))
                             this.bWf(),
                             null == (ru = this.bNM) || ru.play(),
                             null == (F0 = this.bNM) || F0.fadeIn(this.bAw);
@@ -25207,7 +25207,7 @@ const TWO_WAY_MAP = function(C, D){
                 ,
                 rA.bNr = function() {
                     if (this.bAQ) {
-                        var rj, rO, rJ, rv, rn, rb = null == (rj = this.bNs) ? void 0 : rj.rotation, rD = null == (rO = this.bNC) ? void 0 : rO.rotation, ru = Math.max((null == (rJ = this.bNS) ? void 0 : rJ.rotation).x + Math.PI / 3, 0);
+                        var rj, rO, rJ, rv, rn, rb = null == (rj = this.bNs) ? undefined : rj.rotation, rD = null == (rO = this.bNC) ? undefined : rO.rotation, ru = Math.max((null == (rJ = this.bNS) ? undefined : rJ.rotation).x + Math.PI / 3, 0);
                         null == (rv = this.bNs) || rv.setRotationFromEuler(new r9.Euler(ru,rb.y,rb.z)),
                         null == (rn = this.bNC) || rn.setRotationFromEuler(new r9.Euler(ru,rD.y,rD.z));
                     }
@@ -25336,9 +25336,9 @@ const TWO_WAY_MAP = function(C, D){
                 }
                 ,
                 rA.bWS = function(rj, rO) {
-                    if (void 0 !== rj)
+                    if (undefined !== rj)
                         for (var rJ, rv = rC(rO); !(rJ = rv()).done; ) {
-                            var rn, rb = rJ.value, rD = rj.getObjectByName(rb), ru = null == (rn = this.bNf) ? void 0 : rn.getObjectByName(rb);
+                            var rn, rb = rJ.value, rD = rj.getObjectByName(rb), ru = null == (rn = this.bNf) ? undefined : rn.getObjectByName(rb);
                             rD && ru && (rD.rotation.copy(ru.rotation),
                             rD.position.copy(ru.position),
                             rD.updateMatrix());
@@ -25347,13 +25347,13 @@ const TWO_WAY_MAP = function(C, D){
                 ,
                 rA.bWk = function() {
                     var rj, rO, rJ, rv, rn, rb, rD, ru, F0, F1, F2;
-                    return null != (rj = (null == (rO = this.bNd) ? void 0 : rO.isRunning()) || (null == (rJ = this.bNR) ? void 0 : rJ.isRunning()) || (null == (rv = this.bNn) ? void 0 : rv.isRunning()) || (null == (rn = this.bNt) ? void 0 : rn.isRunning()) || (null == (rb = this.bNA) ? void 0 : rb.isRunning()) || (null == (rD = this.bNN) ? void 0 : rD.isRunning()) || (null == (ru = this.bNW) ? void 0 : ru.isRunning()) || (null == (F0 = this.bNL) ? void 0 : F0.isRunning()) || (null == (F1 = this.bNX) ? void 0 : F1.isRunning()) || (null == (F2 = this.bNm) ? void 0 : F2.isRunning())) && rj;
+                    return null != (rj = (null == (rO = this.bNd) ? undefined : rO.isRunning()) || (null == (rJ = this.bNR) ? undefined : rJ.isRunning()) || (null == (rv = this.bNn) ? undefined : rv.isRunning()) || (null == (rn = this.bNt) ? undefined : rn.isRunning()) || (null == (rb = this.bNA) ? undefined : rb.isRunning()) || (null == (rD = this.bNN) ? undefined : rD.isRunning()) || (null == (ru = this.bNW) ? undefined : ru.isRunning()) || (null == (F0 = this.bNL) ? undefined : F0.isRunning()) || (null == (F1 = this.bNX) ? undefined : F1.isRunning()) || (null == (F2 = this.bNm) ? undefined : F2.isRunning())) && rj;
                 }
                 ,
                 rA.bWy = function() {
                     if (this.bNS) {
                         var rj = this.bNS.rotation.x * (0xb4 / Math.PI) + 0x5a
-                          , rO = void 0 !== this.bWI;
+                          , rO = undefined !== this.bWI;
                         return rj < 0x24 ? rO ? this.bNN : this.bNd : rj < 0x48 ? rO ? this.bNW : this.bNR : rj < 0x6c ? rO ? this.bNL : this.bNn : rj < 0x90 ? rO ? this.bNX : this.bNt : rO ? this.bNm : this.bNA;
                     }
                 }
@@ -25391,8 +25391,8 @@ const TWO_WAY_MAP = function(C, D){
                                     ru.t0 = ru.sent;
                                 case 12:
                                     if (rb = ru.t0,
-                                    void 0 !== this.bWI && (this.bAT.remove(this.bWI),
-                                    this.bWI = void 0),
+                                    undefined !== this.bWI && (this.bAT.remove(this.bWI),
+                                    this.bWI = undefined),
                                     rJ !== r7.S.bDI) {
                                         ru.next = 16;
                                         break;
@@ -25426,7 +25426,7 @@ const TWO_WAY_MAP = function(C, D){
                             for (; ; )
                                 switch (rn.prev = rn.next) {
                                 case 0:
-                                    this.bWD = void 0,
+                                    this.bWD = undefined,
                                     rn.t0 = rJ,
                                     rn.next = rn.t0 === r7.S.bHY || rn.t0 === r7.S.bHr || rn.t0 === r7.S.bdI || rn.t0 === r7.S.bdy || rn.t0 === r7.S.bdn || rn.t0 === r7.S.bdm || rn.t0 === r7.S.bdQ || rn.t0 === r7.S.bdr ? 4 : 12;
                                     break;
@@ -25435,7 +25435,7 @@ const TWO_WAY_MAP = function(C, D){
                                     rE.A.bNF('arrow');
                                 case 6:
                                     return rv = rn.sent,
-                                    this.bWD = null == rv ? void 0 : rv.bND,
+                                    this.bWD = null == rv ? undefined : rv.bND,
                                     this.bWD.scale.set(0.6, 0.6, 0.6),
                                     this.bWD.rotation.set(-Math.PI / 2, 0, 0),
                                     this.bWD.position.set(0, 1.1, -1),
@@ -25478,7 +25478,7 @@ const TWO_WAY_MAP = function(C, D){
                                         F1.next = 12;
                                         break;
                                     }
-                                    F1.t1 = void 0,
+                                    F1.t1 = undefined,
                                     F1.next = 13;
                                     break;
                                 case 12:
@@ -25496,8 +25496,8 @@ const TWO_WAY_MAP = function(C, D){
                                     F1.t3 = new r9.Object3D();
                                 case 19:
                                     if (ru = F1.t3,
-                                    void 0 !== this.bWc && (null == (F0 = this.bNS) || F0.remove(this.bWc),
-                                    this.bWc = void 0),
+                                    undefined !== this.bWc && (null == (F0 = this.bNS) || F0.remove(this.bWc),
+                                    this.bWc = undefined),
                                     rJ !== r7.S.bDI) {
                                         F1.next = 0x17;
                                         break;
@@ -25544,7 +25544,7 @@ const TWO_WAY_MAP = function(C, D){
                                         F1.next = 12;
                                         break;
                                     }
-                                    F1.t1 = void 0,
+                                    F1.t1 = undefined,
                                     F1.next = 13;
                                     break;
                                 case 12:
@@ -25562,8 +25562,8 @@ const TWO_WAY_MAP = function(C, D){
                                     F1.t3 = new r9.Object3D();
                                 case 19:
                                     if (ru = F1.t3,
-                                    void 0 !== this.bWw && (null == (F0 = this.bNw) || F0.remove(this.bWw),
-                                    this.bWw = void 0),
+                                    undefined !== this.bWw && (null == (F0 = this.bNw) || F0.remove(this.bWw),
+                                    this.bWw = undefined),
                                     rJ !== r7.S.bDI) {
                                         F1.next = 0x17;
                                         break;
@@ -25610,7 +25610,7 @@ const TWO_WAY_MAP = function(C, D){
                                         F1.next = 12;
                                         break;
                                     }
-                                    F1.t1 = void 0,
+                                    F1.t1 = undefined,
                                     F1.next = 13;
                                     break;
                                 case 12:
@@ -25628,8 +25628,8 @@ const TWO_WAY_MAP = function(C, D){
                                     F1.t3 = new r9.Object3D();
                                 case 19:
                                     if (ru = F1.t3,
-                                    void 0 !== this.bWv && (null == (F0 = this.bNv) || F0.remove(this.bWv),
-                                    this.bWv = void 0),
+                                    undefined !== this.bWv && (null == (F0 = this.bNv) || F0.remove(this.bWv),
+                                    this.bWv = undefined),
                                     rJ !== r7.S.bDI) {
                                         F1.next = 0x17;
                                         break;
@@ -25676,7 +25676,7 @@ const TWO_WAY_MAP = function(C, D){
                                         F1.next = 12;
                                         break;
                                     }
-                                    F1.t1 = void 0,
+                                    F1.t1 = undefined,
                                     F1.next = 13;
                                     break;
                                 case 12:
@@ -25694,8 +25694,8 @@ const TWO_WAY_MAP = function(C, D){
                                     F1.t3 = new r9.Object3D();
                                 case 19:
                                     if (ru = F1.t3,
-                                    void 0 !== this.bWQ && (null == (F0 = this.bNv) || F0.remove(this.bWQ),
-                                    this.bWQ = void 0),
+                                    undefined !== this.bWQ && (null == (F0 = this.bNv) || F0.remove(this.bWQ),
+                                    this.bWQ = undefined),
                                     rJ !== r7.S.bDI) {
                                         F1.next = 0x17;
                                         break;
@@ -25885,7 +25885,7 @@ const TWO_WAY_MAP = function(C, D){
                 }
                 ,
                 k.bLB = function(W, x, I) {
-                    if (void 0 !== W && (W.bLZ && (this.bWP = W.bLe,
+                    if (undefined !== W && (W.bLZ && (this.bWP = W.bLe,
                     this.bWp || (this.bWN((0,
                     h.N3)(W.bLe)),
                     this.bWp = true)),
@@ -25894,7 +25894,7 @@ const TWO_WAY_MAP = function(C, D){
                     this.bWV || (this.bWX((0,
                     Z.LX)(W.bLH.bbZ, W.bLH.bbB)),
                     this.bWV = true))),
-                    void 0 !== x && this.bWp) {
+                    undefined !== x && this.bWp) {
                         if (x.bLZ) {
                             var g =
                             h.VB(0, 0, 0);
@@ -26351,7 +26351,7 @@ const TWO_WAY_MAP = function(C, D){
                 });
                 return (0,
                 rH.jsx)(rl, {
-                    'children': void 0 === EE ? (0,
+                    'children': undefined === EE ? (0,
                     rH.jsxs)(rC, {
                         'children': ['Loading',
                         rH.jsx(rP, {})]
@@ -27013,15 +27013,15 @@ const TWO_WAY_MAP = function(C, D){
                 })
                   , Ep = EE.length > 0 ? EE[EE.length - 1] : null
                   , ES = null;
-                return (null == Ep ? void 0 : Ep.bIo) === F8.q.bUM ? ES =
-                rH.jsx(F0, {}) : (null == Ep ? void 0 : Ep.bIo) === F8.q.bUS ? ES =
-                rH.jsx(F5, {}) : (null == Ep ? void 0 : Ep.bIo) === F8.q.bUw ? ES =
+                return (null == Ep ? undefined : Ep.bIo) === F8.q.bUM ? ES =
+                rH.jsx(F0, {}) : (null == Ep ? undefined : Ep.bIo) === F8.q.bUS ? ES =
+                rH.jsx(F5, {}) : (null == Ep ? undefined : Ep.bIo) === F8.q.bUw ? ES =
                 rH.jsx(F7, {
                     'title': Ep.bUv,
                     'body': Ep.bUQ,
                     'actionButton': Ep.bUs
-                }) : (null == Ep ? void 0 : Ep.bIo) === F8.q.bUC ? ES =
-                rH.jsx(F9.A, {}) : (null == Ep ? void 0 : Ep.bIo) === F8.q.bUO && (ES =
+                }) : (null == Ep ? undefined : Ep.bIo) === F8.q.bUC ? ES =
+                rH.jsx(F9.A, {}) : (null == Ep ? undefined : Ep.bIo) === F8.q.bUO && (ES =
                 rH.jsx(FS, {
                     'name': Ep.bXc,
                     'description': Ep.bUu,
@@ -27040,9 +27040,9 @@ const TWO_WAY_MAP = function(C, D){
             const FP = function(EE) {
                 var Ep = EE.id
                   , ES = EE.triggerAds
-                  , ER = void 0 === ES || ES
+                  , ER = undefined === ES || ES
                   , EH = EE.isVisible
-                  , Ey = void 0 === EH || EH
+                  , Ey = undefined === EH || EH
                   , Ed =
                 Fy.O([{
                     'id': Ep,
@@ -27616,7 +27616,7 @@ const TWO_WAY_MAP = function(C, D){
                 });
                 if (ES >= 1)
                     return null;
-                var ER = Ep === rS.v.bUE && void 0 === EE ? 'Authenticating' : 0 === ES ? 'Connecting to Server' : 'Loading terrain (' + (0x64 * ES).toFixed(2) + '%)';
+                var ER = Ep === rS.v.bUE && undefined === EE ? 'Authenticating' : 0 === ES ? 'Connecting to Server' : 'Loading terrain (' + (0x64 * ES).toFixed(2) + '%)';
                 return (0,
                 rH.jsx)(Fz, {
                     'title': (0,
@@ -27798,7 +27798,7 @@ const TWO_WAY_MAP = function(C, D){
                             rH.jsxs)(r4.Suspense, {
                                 'fallback': null,
                                 'children': [EE === rS.v.bje && ES >= 1 && (0,
-                                rH.jsx)(E8, {}), void 0 === Ep && EE === rS.v.bje && ES >= 1 && (0,
+                                rH.jsx)(E8, {}), undefined === Ep && EE === rS.v.bje && ES >= 1 && (0,
                                 rH.jsx)(E9, {})]
                             })
                         }), EE === rS.v.bUq && (0,
@@ -28132,7 +28132,7 @@ const TWO_WAY_MAP = function(C, D){
                                                 r2.prev = 12,
                                                 r2.t0 = r2.catch(3),
                                                 console.error(r2.t0),
-                                                (null == (r0 = r2.t0.response) || null == (r0 = r0.data) ? void 0 : r0.ErrorCode) === W.A.EntityDisplayNameTaken ? K((0,
+                                                (null == (r0 = r2.t0.response) || null == (r0 = r0.data) ? undefined : r0.ErrorCode) === W.A.EntityDisplayNameTaken ? K((0,
                                                 I.jsx)(U.yn, {
                                                     'children': 'Error'
                                                 }),
@@ -28141,7 +28141,7 @@ const TWO_WAY_MAP = function(C, D){
                                                 }),
                                                 I.jsx('span', {
                                                     'children': 'OK'
-                                                })) : (null == (r1 = r2.t0.response) || null == (r1 = r1.data) ? void 0 : r1.ErrorCode) === W.A.InvalidParameters ? K((0,
+                                                })) : (null == (r1 = r2.t0.response) || null == (r1 = r1.data) ? undefined : r1.ErrorCode) === W.A.InvalidParameters ? K((0,
                                                 I.jsx)(U.yn, {
                                                     'children': 'Error'
                                                 }),
@@ -28223,7 +28223,7 @@ const TWO_WAY_MAP = function(C, D){
                 return k;
             }
             var U = function(T, V, G, k) {
-                void 0 === k && (k = true);
+                undefined === k && (k = true);
                 var W = true
                   , x = window.adSDKType
                   , I =
@@ -28270,7 +28270,7 @@ const TWO_WAY_MAP = function(C, D){
               , h =
             l.vt(function() {
                 return (0,
-                w.A)({}, C.t.apply(void 0, arguments), N.P.apply(void 0, arguments), Z.w.apply(void 0, arguments));
+                w.A)({}, C.t.apply(undefined, arguments), N.P.apply(undefined, arguments), Z.w.apply(undefined, arguments));
             });
         }
         ,
@@ -28292,7 +28292,7 @@ const TWO_WAY_MAP = function(C, D){
                         Z({
                             'lastPlayedRooms': (0,
                             w.A)({}, h().lastPlayedRooms, (k = {},
-                            k[U] = [T].concat(null != (V = null == (G = h().lastPlayedRooms[U]) ? void 0 : G.filter(function(W) {
+                            k[U] = [T].concat(null != (V = null == (G = h().lastPlayedRooms[U]) ? undefined : G.filter(function(W) {
                                 return W !== T;
                             }).slice(0, 9)) ? V : []),
                             k))
@@ -28488,7 +28488,7 @@ const TWO_WAY_MAP = function(C, D){
     }, P = {};
     function Q(M) {
         var X = P[M];
-        if (void 0 !== X)
+        if (undefined !== X)
             return X.exports;
         var m = P[M] = {
             'exports': {}
@@ -28571,18 +28571,30 @@ const TWO_WAY_MAP = function(C, D){
         w && w.d < 0 && (w.d = 0);
     }
     ,
-    R = [],
-    Q.O = (M, X, m, w) => {
+    R = [];
+    Q.O = 
+    /**
+      * initializes this script by running its methods
+      * @param {any} M (bypasser) this variable is the return value of this function if no X is given AND the C condition is not met
+      * @param {number[]} X (data)
+      * @param {() => any} m (get main return value) the return value of `m` is returned by this function if X is not specified BUT the C condition is met
+      * @param {number} w (minimum value of something) some kind of optional number
+      * @returns either `M`, `m()`, or `undefined` (if `X` is a truthy value)
+    **/
+    function Q_O(M, X, m, w){
         if (!X) {
+            X = R[0][0];
+            m = R[0][1];
+            w = R[0][2];
             var l = 1 / 0;
             for (h = 0; h < R.length; h++) {
-                for (var [X,m,w] = R[h], C = true, N = 0; N < X.length; N++)
+                for (var C = true, N = 0; N < X.length; N++)
                     (false & w || l >= w) && Object.keys(Q.O).every(U => Q.O[U](X[N])) ? X.splice(N--, 1) : (C = false,
                     w < l && (l = w));
                 if (C) {
                     R.splice(h--, 1);
                     var Z = m();
-                    void 0 !== Z && (M = Z);
+                    undefined !== Z && (M = Z);
                 }
             }
             return M;
@@ -28591,34 +28603,52 @@ const TWO_WAY_MAP = function(C, D){
         for (var h = R.length; h > 0 && R[h - 1][2] > w; h--)
             R[h] = R[h - 1];
         R[h] = [X, m, w];
-    }
-    ,
-    Q.n = M => {
-        var X = M && M.__esModule ? () => M.default : () => M;
-        return Q.d(X, {
-            'a': X
-        }),
-        X;
+    },
+    Q.n =
+    /**
+      * does something with a module
+      * @param {any} M (module) or any falsey value
+      * @returns M is M is a falsey value; returns `() => M.default | M` if M is truthy
+    **/
+    function(M){
+        var X = M;
+        if(M){
+            if(M.__esModule)
+                X = () => M.default;
+            else
+                X = () => M;
+        }
+        Q.d(X, {
+            a: X,
+        });
+        return X;
     }
     ,
     Q.d = (M, X) => {
         for (var m in X)
             Q.o(X, m) && !Q.o(M, m) && Object.defineProperty(M, m, {
-                'enumerable': true,
-                'get': X[m]
+                enumerable: true,
+                get: X[m],
             });
     }
     ,
     Q.f = {},
-    Q.e = M => Promise.all(Object.keys(Q.f).reduce( (X, m) => (Q.f[m](M, X),
-    X), [])),
-    Q.u = M => './package/' + {
+    Q.e = M => Promise.all(
+        Object.keys(Q.f).reduce(
+            function(X, m){
+                Q.f[m](M, X);
+                return X;
+            },
+            []
+        )
+    ),
+    Q.u = (M => ('./package/' + {
         11: '036321f687060b162e6d',
         0x32: 'fbbbb7dc6e910299bf7d',
         0x5d: '9bd1ffd9d641092822ed',
         0x127: '74f3b913e6504d2fac31',
         0x1ca: '1a36725d1496635207c2'
-    }[M] + '.js',
+    }[M] + '.js')),
     Q.miniCssF = M => {}
     ,
     Q.g = (function() {
@@ -28639,7 +28669,7 @@ const TWO_WAY_MAP = function(C, D){
             H[M].push(X);
         else {
             var C, N;
-            if (void 0 !== m)
+            if (undefined !== m)
                 for (var Z = document.getElementsByTagName('script'), U = 0; U < Z.length; U++) {
                     var T = Z[U];
                     if (T.getAttribute('src') == M || T.getAttribute('data-webpack') == y + m) {
@@ -28664,7 +28694,7 @@ const TWO_WAY_MAP = function(C, D){
                 k)
                     return k(W);
             }
-              , G = setTimeout(V.bind(null, void 0, {
+              , G = setTimeout(V.bind(null, undefined, {
                 'type': 'timeout',
                 'target': C
             }), 0x1d4c0);
@@ -28691,7 +28721,7 @@ const TWO_WAY_MAP = function(C, D){
             0xf4: 0
         };
         Q.f.j = (w, l) => {
-            var C = Q.o(M, w) ? M[w] : void 0;
+            var C = Q.o(M, w) ? M[w] : undefined;
             if (0 !== C) {
                 if (C)
                     l.push(C[2]);
@@ -28701,7 +28731,7 @@ const TWO_WAY_MAP = function(C, D){
                     var Z = Q.p + Q.u(w)
                       , h = new Error();
                     Q.l(Z, U => {
-                        if (Q.o(M, w) && (0 !== (C = M[w]) && (M[w] = void 0),
+                        if (Q.o(M, w) && (0 !== (C = M[w]) && (M[w] = undefined),
                         C)) {
                             var T = U && ('load' === U.type ? 'missing' : U.type)
                               , V = U && U.target && U.target.src;
@@ -28737,8 +28767,8 @@ const TWO_WAY_MAP = function(C, D){
         m.push = X.bind(null, m.push.bind(m));
     }
     )()),
-    Q.nc = void 0;
-    var B = Q.O(void 0, [0x229, 0x350, 0x12d, 0x198], () => Q(0x8afa));
+    Q.nc = undefined;
+    var B = Q.O(undefined, [0x229, 0x350, 0x12d, 0x198], () => Q(0x8afa));
     B = Q.O(B);
 }
 )());
