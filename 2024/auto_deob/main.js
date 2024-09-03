@@ -206,5 +206,153 @@ let code = `
 
 traverse(parse(code), {
 ArrowFunctionExpression: my_fn});
+
 // */
 
+/* // WHY MUST THIS BE SO COMPLICATED?!
+
+let code = `
+(self['webpackChunkcuberealm_client'] = self['webpackChunkcuberealm_client'] || [])['push']([[0x94], {
+    0x4721: (T, l, y) => {
+    }
+}]);
+
+
+traverse(parse(code), {
+ArrowFunctionExpression: my_fn});
+
+// */
+
+my_head_fn = function(path){
+    // expects to run on Program
+    console.log("0th pass!", path);
+    
+    const b = path.node.body[0];
+    console.log("1st pass!", path);
+    
+    if(!(start.type === "ExpressionStatement")) return;
+    console.log("2nd pass!", path);
+    
+    const e = b.expression;
+    console.log("3rd pass!", path);
+    
+    if(!(e.type === "CallExpression")) return;
+    console.log("4th pass!", path);
+    
+    if(!(e.arguments.length === 1)) return;
+    console.log("5th pass!", path);
+    
+    const m = e.callee;
+    console.log("6th pass!", path);
+    
+    if(!(m.type === "MemberExpression")) return;
+    console.log("7th pass!", path);
+    
+    const a = m.object;
+    console.log("8th pass!", path);
+    
+    if(!(a.type === "AssignmentExpression")) return;
+    console.log("9th pass!", path);
+    
+    if(!(m.property.type === "StringLiteral")) return;
+    console.log("10th pass!", path);
+    
+    if(!(m.property.value === "push")) return;
+    
+    console.log("11th pass!", path);
+    
+    const al = a.left;
+    console.log("12th pass!", path);
+    
+    const ar = a.right;
+    
+    console.log("13th pass!", path);
+    
+    if(!(al.type === "MemberExpression")) return;
+    console.log("14th pass!", path);
+    
+    if(!(al.object.type === "Identifier")) return;
+    console.log("15th pass!", path);
+    
+    if(!(al.object.value === "self")) return;
+    console.log("16th pass!", path);
+    
+    if(!(al.property.type === "StringLiteral")) return;
+    console.log("17th pass!", path);
+    
+    if(!(al.property.value === "webpackChunkcuberealm_client")) return;
+    
+    console.log("18th pass!", path);
+    
+    if(!(ar.type === "LogicalExpression")) return;
+    console.log("19th pass!", path);
+    
+    const arl = ar.left;
+    console.log("20th pass!", path);
+    
+    const arr = ar.right;
+    console.log("21st pass!", path);
+    
+    if(!(arl.object.type === "Identifier")) return;
+    console.log("22nd pass!", path);
+    
+    if(!(arl.object.value === "self")) return;
+    console.log("23rd pass!", path);
+    
+    if(!(arl.property.type === "StringLiteral")) return;
+    console.log("24th pass!", path);
+    
+    if(!(arl.property.value === "webpackChunkcuberealm_client")) return;
+    console.log("25th pass!", path);
+    
+    if(!(arr.elements === 0)) return;
+    console.log("26th pass!", path);
+    
+    if(!(arr.elements === 0)) return;
+    
+    console.log("27th pass!", path);
+    
+    if(!(e.arguments[0].type === "ArrayExpression")) return;
+    console.log("28th pass!", path);
+    
+    const ee = e.arguments[0].elements;
+    console.log("29th pass!", path);
+    
+    if(!(ee.length === 2)) return;
+    console.log("30th pass!", path);
+    
+    if(!(ee[0].type === "ArrayExpression")) return;
+    console.log("31st pass!", path);
+    
+    if(!(ee[1].type === "ObjectExpression")) return;
+    console.log("32nd pass!", path);
+    
+    if(!(ee[0].elements.length === 1)) return;
+    console.log("33rd pass!", path);
+    
+    const n = ee[0].elements[0];
+    console.log("34th pass!", path);
+    
+    if(!(n.type === "NumericLiteral")) return;
+    // n might be useful for something, but I doubt so
+    console.log("35th pass!", path);
+    
+    ee[1].properties.forEach(m => {
+        script.modules.push({
+            index: m.key.value,
+            loc: [
+                m.start, m.end
+            ],
+            code: script.body.slice(
+                m.start, m.end
+            ),
+        });
+    });
+};
+
+script = scripts[0];
+script.modules = [];
+traverse(asts[0], {
+    Program: my_fn,
+});
+    
