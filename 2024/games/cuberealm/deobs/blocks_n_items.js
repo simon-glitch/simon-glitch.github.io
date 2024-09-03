@@ -5571,9 +5571,13 @@
                 Rd.bvM.bfJ = 0,
                 Rd.bvj.bfG = 0.5,
                 Rd.bvM.bfG = 0.5,
-                Rd.bNl = rN.A.blB(new r8(r7.A.bxs.bSE,
-                rp.LX(rC.A.bwI, rC.A.bwI),
-                rp.LX(0, 1), 0, false)),
+                Rd.bNl = rN.A.blB(new r8(
+                    r7.A.bxs.bSE,
+                    rp.LX(rC.A.bwI, rC.A.bwI),
+                    rp.LX(0, 1),
+                    0,
+                    false
+                )),
                 Rd;
             }
             (0,
