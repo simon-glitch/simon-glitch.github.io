@@ -54,6 +54,8 @@ const main_page = "https://cuberealm.io/";
 
 const asts = [];
 const scripts = [];
+// a catalog just sounds like the kind of thing a set of names would be
+const catalog = {};
 var script = {
     children: [],
 };
@@ -136,13 +138,18 @@ const my_fn = function(path){
 const get_scripts = async function(){
     const text = await a_fetch(main_page);
     let ss = text.match(/\/.\/package\/[^\.]+\.js/g) ?? [];
+    let next_ss = [];
     while(ss.length){console.log("ss", ss); for(let s of ss){
         await delay(200);
+        
+        if(catalog[s]) continue;
         script = {
             name: s,
             body: (await a_fetch(s)),
             children: [],
         }
+        catalog[s] = script;
+        
         scripts.push(script);
         const ast = parse(script.body);
         asts.push(ast);
@@ -158,7 +165,11 @@ const get_scripts = async function(){
         
         traverse(ast, {
         ArrowFunctionExpression: my_fn});
-    } ss = [];}
+        
+        for(let next_s of script.children){
+            next_ss.push(next_s);
+        }
+    } ss = next_ss; next_ss = [];}
     console.log({scripts, asts});
     
     // this code is evil
