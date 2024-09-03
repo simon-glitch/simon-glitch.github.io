@@ -225,12 +225,15 @@ ArrowFunctionExpression: my_fn});
 
 my_head_fn = function(path){
     // expects to run on Program
+    // console.log("-1th pass!", path);
+    
+    if(!(path.parent.type === "Program")) return;
     console.log("0th pass!", path);
     
-    const b = path.node.body[0];
+    const b = path.node;
     console.log("1st pass!", path);
     
-    if(!(start.type === "ExpressionStatement")) return;
+    if(!(b.type === "ExpressionStatement")) return;
     console.log("2nd pass!", path);
     
     const e = b.expression;
@@ -274,7 +277,7 @@ my_head_fn = function(path){
     if(!(al.object.type === "Identifier")) return;
     console.log("15th pass!", path);
     
-    if(!(al.object.value === "self")) return;
+    if(!(al.object.name === "self")) return;
     console.log("16th pass!", path);
     
     if(!(al.property.type === "StringLiteral")) return;
@@ -296,7 +299,7 @@ my_head_fn = function(path){
     if(!(arl.object.type === "Identifier")) return;
     console.log("22nd pass!", path);
     
-    if(!(arl.object.value === "self")) return;
+    if(!(arl.object.name === "self")) return;
     console.log("23rd pass!", path);
     
     if(!(arl.property.type === "StringLiteral")) return;
@@ -305,10 +308,8 @@ my_head_fn = function(path){
     if(!(arl.property.value === "webpackChunkcuberealm_client")) return;
     console.log("25th pass!", path);
     
-    if(!(arr.elements === 0)) return;
+    if(!(arr.elements.length === 0)) return;
     console.log("26th pass!", path);
-    
-    if(!(arr.elements === 0)) return;
     
     console.log("27th pass!", path);
     
@@ -353,6 +354,6 @@ my_head_fn = function(path){
 script = scripts[0];
 script.modules = [];
 traverse(asts[0], {
-    Program: my_fn,
+    ExpressionStatement: my_head_fn,
 });
     
