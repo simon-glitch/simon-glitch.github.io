@@ -8,13 +8,13 @@ Here are the null values for all of the built-in types:
 | Type | Null value | 0-like value (if any) |
 |------------|---------------|----------|
 | `Object`   | `nil`         | `{}`     |
-| `Array`    | `Array.null`  | `[]`     |
-| `Number`   | `NaN`         | `0`      |
-| `Int`      | `Int.null`    | `0 i`    |
-| `String`   | `String.null` | `""`     |
-| `Boolean`  | `maybe`       | `false`  |
 | `Function` | `noop`        | `fn(){}` |
-| `RegExp`   | `/?/`         | `/()/`   |
+| `array`    | `array.null`  | `[]`     |
+| `number`   | `NaN`         | `0`      |
+| `int`      | `int.null`    | `0 i`    |
+| `string`   | `string.null` | `""`     |
+| `boolean`  | `maybe`       | `false`  |
+| `regexp`   | `/?/`         | `/()/`   |
 
 # Accessing
 The null value of some time, `T`, can simply be accessed as `T.null`. `new T(nil)` also returns `T.null`, regardless of what the constructor's code does.
@@ -65,4 +65,17 @@ class My_Type{
 ```
 
 The `@null` special property defines what the null value is. `My_Type.a` will be `NaN` in the previous example, since `NaN` was passed to the conversion constructor on line 6 (`@null = NaN`).
+
+# Null
+`null` is a simple built-in function:
+* `null(x) = x.null`
+* it only accepts types
+    * `null(0)` throws a type error because `0` is not a type (instead, it is a value)
+
+# Isnull
+`isnull` is a simple built-in function that checks if an object is the null value of its type:
+* `isnull(x) = x == type(x).null`
+
+
+
 
