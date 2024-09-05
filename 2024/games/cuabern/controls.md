@@ -56,6 +56,15 @@ Switch joy-cons have extra motion controls, and the pro controller has some moti
 Most controllers have a similar button layout, so I will just use this button layout as my standard reference.
 
 # Base controls
+x - jump
+y - push
+* or use tool (aggressively) if one is equipped
+a - pull
+* talk to NPC
+* interact with in-world structure
+* or use tool (passively) if one is equipped
+b - toggle crouch
+
 
 
 
