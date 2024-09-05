@@ -13,9 +13,40 @@ Here are the null values for all of the built-in types:
 | `Int`      | `Int.null`    | `0 i`    |
 | `String`   | `String.null` | `""`     |
 | `Boolean`  | `maybe`       | `false`  |
-| `RegExp`   | `/?/`         | `/()/`   |
 | `Function` | `noop`        | `fn(){}` |
+| `RegExp`   | `/?/`         | `/()/`   |
 
 # Accessing
 The null value of some time, `T`, can simply be accessed as `T.null`. `new T(nil)` also returns `T.null`, regardless of what the constructor's code does.
+
+# Type conversion
+Unlike other type conversions, which construct a new object when the result type is not primitive, converting a null value to another type just gives the null value of that type. The constructor is still called when making a null value, but any assignments to the constructor's prototype don't do anything (when constructing new instances of the null value). So, `x: My_Type = NaN;` will simply set `x` to `My_Type.null`.
+
+Here is an example:
+```ts
+class My_Type{
+    constructor(){
+        this.a = 0;
+        this.b = 0;
+    }
+}
+```
+
+Now,  `x: My_Type = NaN;` gives a type error, because `My_Type` does not have a constructor to convert from `Number`, and `NaN` is an instance of `Number`.
+
+However, `x: My_Type = nil;` **does** work, since **all** types can be constructed from `Object` by default.
+
+## Construction of the null value
+Every type has a constant null value assosciated with it. This null value is set (i.e. defined) when the class is declared. Therefore, declaring a class automatically calls its conversion constructor in order to make the null value.
+
+Therefore, this code prints "Hello, wonderful world!":
+```ts
+class My_Type{
+    constructor(y: Object){
+        console.log("Hello, wonderful world!");
+    }
+}
+```
+
+If you were wondering why your code was doing this, that's why.
 
