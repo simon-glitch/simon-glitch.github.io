@@ -50,3 +50,19 @@ class My_Type{
 
 If you were wondering why your code was doing this, that's why.
 
+If you don't define a conversion constructor, then `My_Type.null` will be an empty object of very little use.
+
+If you define a different conversion constructor, you need to define the null value in order for that conversion constructor to affect it.
+
+```ts
+class My_Type{
+    constructor(y: Number){
+        this.a = y;
+        console.log("Hello, numberless world!");
+    }
+    @null = NaN
+}
+```
+
+The `@null` special property defines what the null value is. `My_Type.a` will be `NaN` in the previous example, since `NaN` was passed to the conversion constructor on line 6 (`@null = NaN`).
+
