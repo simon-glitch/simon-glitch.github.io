@@ -5,6 +5,7 @@ I spent my time reading my peers' posts on Piazza today, for fun!
 Key:
 * id = Post index / id
 * updated = The time the post was published, or last time the post was updated (I couldn't get the publish time for all posts)
+
 |Name             |id|      updated|
 |-----------------|--|-------------|
 |Moses Kuria      |52| 9:01 pm, 9/7|
@@ -54,6 +55,7 @@ Key:
 ## Bonus
 Students with the longest names:
 * l = length of student's name (uncluding spaces and other symbols)
+
 |Name                      | l|id|      updated|
 |--------------------------|--|--|-------------|
 |Arthur Bellucio Marcondes |26|11|10:44 am, 9/4|
