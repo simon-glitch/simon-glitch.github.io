@@ -1,0 +1,5 @@
+       " *\\}\\)\\)\\),\\n"
+       " *\\w+\\['\\w+'\\]\\['getState'\\]\\(\\)\\['\\w+'\\]\\(\\w+\\['\\w+'\\]\\['\\w+'\\]\\),\\n"
+       " *\\w+\\['GameAnalytics'\\]\\['initialize'\\]\\('(\\w+)', '(\\w+)'\\),\\n"
+       " *setTimeout\\(function\\(\\) *\\{\\n"
+       " *console\\['log'\\]\\('%cSTOP RIGHT THERE!',"
