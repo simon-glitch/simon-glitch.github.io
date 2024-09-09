@@ -56,8 +56,9 @@ function parse(js){
     console.log("keys", m);
     if(!m) return;
     
-    const session_num_key = "GA::" + m[1] + "::session_num";
-    console.log("session num", localStorage.getItem(session_num_key));
+    console.log("session num", localStorage.getItem(
+        "GA::" + m[1] + "::ga_session"
+    ));
 };
 
 function main(){
