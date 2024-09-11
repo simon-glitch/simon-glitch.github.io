@@ -186,7 +186,6 @@ filter_comments_and_quotes = function(texts){
         const psr = ps.right_index;
         // check for the start and end of each s_data
         if(dsi !== psi){
-            const last_ti = texts[psi].value.length - 1;
             // ... start
             if(dsl > 0){
                 out_s.push(new s_data(
@@ -195,11 +194,14 @@ filter_comments_and_quotes = function(texts){
                 ));
             }
             // ... end
-            if(psr < last_ti){
-                out_s.push(new s_data(
-                    texts[psi].value.slice(psr, last_ti),
-                    texts[psi].type
-                ));
+            if(psi > -1){
+                const last_ti = texts[psi].value.length - 1;
+                if(psr < last_ti){
+                    out_s.push(new s_data(
+                        texts[psi].value.slice(psr, last_ti),
+                        texts[psi].type
+                    ));
+                }
             }
         }
         // now get the stuff between quotes / comments in each s_data
@@ -248,7 +250,10 @@ there should be nothing between those
 
 my_data = new s_data(test_me, "");
 
-
+console.log(
+    "final res",
+    filter_comments_and_quotes([my_data])
+);
 
 
 
