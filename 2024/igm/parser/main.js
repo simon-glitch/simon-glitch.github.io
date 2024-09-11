@@ -227,6 +227,34 @@ filter_comments_and_quotes = function(texts){
 };
 
 
+test_me = `
+/* this commented text */
+do some stuff, I guess???
 
+hahaha
+
+"i am double quote string"
+
+'this is single quote'
+
+"A"'B'"C"
+
+there should be nothing between those
+
+"A""A" should also work
+
+"isn't it nice out today?" should just be a double quote string
+`
+
+/*
+How should I encode escaped characters though?
+
+JavaScript only parses them in strings, but that would mean
+adding checks for backslashes to the `filter_comments_and_quotes`
+
+It only requires adding a new regular expression for the ends of strings,
+which would have it's string part be:
+    (?!)
+*/
 
 
