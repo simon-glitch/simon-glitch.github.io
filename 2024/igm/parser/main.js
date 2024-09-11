@@ -62,7 +62,7 @@ class data_slice{
 
 const comment_or_quote = new RegExp(...[
     "\\/\\*" + "|" +
-    "\\/\\*" + "|" +
+    "\\*\\/" + "|" +
     "\"" + "|" +
     "'" + "|" +
     "`",
@@ -105,6 +105,8 @@ filter_comments_and_quotes = function(texts){
         const m = Array.from(
             t.matchAll(comment_or_quote)
         );
+        console.log("match", m);
+        
         for(let ii = 0; ii < m.length; ii++){
             /** @type RegExpMatchArray */
             const mi = m[ii];
@@ -112,6 +114,7 @@ filter_comments_and_quotes = function(texts){
             // close comments
             if(in_comment){
                 if(mit === "*/"){
+                    console.log("closing comment", mi);
                     in_comment = false;
                     out_i.push(new data_slice(
                         i,
@@ -126,6 +129,7 @@ filter_comments_and_quotes = function(texts){
             // close quotes
             else if(in_quote){
                 if(mit === quote_type){
+                    console.log("closing quote", mi);
                     quote_type = "";
                     in_quote = false;
                     out_i.push(new data_slice(
@@ -140,16 +144,21 @@ filter_comments_and_quotes = function(texts){
             }
             // open comments
             else if(mit === "/*"){
+                console.log("opening comment", mi);
                 previous = mi.index;
                 in_comment = true;
                 auto = false;
             }
             // open quotes
             else if(mit !== "*/"){
+                console.log("opening quote", mi);
                 previous = mi.index;
                 quote_type = mit;
                 in_quote = true;
                 auto = false;
+            }
+            else{
+                console.log("unknown case", mi);
             }
         }
         
@@ -160,6 +169,12 @@ filter_comments_and_quotes = function(texts){
             const mi = m[m.length - 1];
             const mit = mi[0];
             const last_i = t.length - 1;
+            console.log(
+                "automatically cloing the" +
+                "last item in s_data # " +
+                i,
+                mi
+            );
             out_i.push(new data_slice(
                 i,
                 previous,
@@ -171,6 +186,8 @@ filter_comments_and_quotes = function(texts){
         // then, prepare the next item in the next s_data
         previous = 0;
     }
+    
+    console.log("out_i", out_i);
     
     /** @type s_data[] */
     const out_s = [];
