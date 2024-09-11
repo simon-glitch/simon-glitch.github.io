@@ -254,7 +254,19 @@ adding checks for backslashes to the `filter_comments_and_quotes`
 
 It only requires adding a new regular expression for the ends of strings,
 which would have it's string part be:
-    (?!)
+    (?<!(?<!\\)(\\\\)+\\)"
+    with everything escaped once more:
+    (?<!(?<!\\\\)(\\\\\\\\)+\\\\)\"
+
+And as a reminder, this is the RegExp for the comments:
+    \/\/.*\n
+    the \n could potentially be removed
+    and with everything escaped once more:
+    \\/\\/.*\\n
+
+I guess I have some work cut out for me.
+
+====
 */
 
 
