@@ -204,7 +204,7 @@ filter_comments_and_quotes = function(texts){
                 }
             }
         }
-        // now get the stuff between quotes / comments in each s_data
+        // now get the stuff between comments / quotes in each s_data
         else if(psi > -1){
             out_s.push(new s_data(
                 texts[dsi].value.slice(
@@ -215,7 +215,7 @@ filter_comments_and_quotes = function(texts){
             ));
         }
         
-        // finally, get the quote / comment itself
+        // finally, get the comment / quote itself
         out_s.push(new s_data(
             texts[dsi].value.slice(
                 dsl,
