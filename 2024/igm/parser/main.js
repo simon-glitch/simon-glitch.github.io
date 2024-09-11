@@ -244,7 +244,14 @@ there should be nothing between those
 "A""A" should also work
 
 "isn't it nice out today?" should just be a double quote string
-`
+`;
+
+my_data = new s_data(test_me, "");
+
+
+
+
+
 
 /*
 How should I encode escaped characters though?
