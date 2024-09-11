@@ -223,9 +223,11 @@ filter_comments_and_quotes = function(texts){
         }
         // now get the stuff between comments / quotes in each s_data
         else if(psi > -1){
+            // but make sure to not include empty strings because they are redundant
+            if(dsl - psr > 0)
             out_s.push(new s_data(
                 texts[dsi].value.slice(
-                    psr, 
+                    psr,
                     dsl
                 ),
                 texts[dsi].type
@@ -261,6 +263,23 @@ hahaha
 there should be nothing between those
 
 "A""A" should also work
+
+multiline:
+"
+x
+y
+z
+"
+
+\`backticks\`
+
+\`'"all the quotes'" :D ''""'"''"""'''""""'"'"'""\`
+
+\`'"comments in quotes"': /*hiya there!*//*"yo" 'yo'*/\`
+
+/* any quotes in a comment should not do anything '"\`*/
+
+CHECKED?
 
 "isn't it nice out today?" should just be a double quote string
 `;
