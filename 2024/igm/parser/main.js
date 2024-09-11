@@ -13,6 +13,48 @@ class s_data{
     }
 }
 
+class data_slice{
+    /**
+      * constructs a data slice, for the `filter_comments_and_quotes` function
+      * 
+      * terminology:
+      * - `texts` is some list of `s_data`s
+      * - the source of a data slice is original piece of data in `texts` that the data slice refers to
+      * @param {number} data_index of the source (within `texts`)
+      * @param {number} left_index of the left side of this data slice (within its source)
+      * @param {number} right_index of the right side of this data slice (within its source)
+      * @param {boolean} auto this data slice automatically opens / closes, due to it reaching the edge of its source
+      * @param {string} type the character sequence that closes this data slice;
+      * if this data automatically closes,
+      * then the type is the character sequence that opens it instead
+    **/
+    constructor(data_index, left_index, right_index, auto, type){
+            /** @type {number}
+              * @field index of the source (within `texts`)
+            **/
+            this.data_index = data_index;
+            /** @type {number}
+              * @field index of the left side of this data slice (within its source)
+            **/
+            this.left_index = left_index;
+            /** @type {number}
+              * @field index of the right side of this data slice (within its source)
+            **/
+            this.right_index = right_index;
+            /** @type {boolean}
+              * @field whether this data slice automatically opens / closes, due to it reaching the edge of its source
+            **/
+            this.auto = auto;
+            /**
+              * @type {string}
+              * @field the character sequence that closes this data slice;
+              * if this data automatically closes,
+              * then the type is the character sequence that opens it instead
+            **/
+            this.type = type;
+    }
+}
+
 const comment_or_quote = new RegExp(
     "\\/\\*" + "|" +
     "\\/\\*" + "|" +
@@ -30,17 +72,7 @@ const comment_or_quote = new RegExp(
 **/
 filter_comments_and_quotes = function(texts){
     /**
-      * @type number[][]
-      * `out_` is a list of "data slices"
-      * the source of a data slice is original piece of data in `texts` that the data slice refers to
-      * data slice format: `[`
-      * - `0: data_index (number)` index of the source (within `texts`)
-      * - `1: left_index (number)` index of the left side of this data slice (within its source)
-      * - `2: right_index (number)` index of the right side of this data slice (within its source)
-      * - `3: auto (boolean)` whether this data slice automatically opens / closes, due to it reaching the edge of its source
-      * - `4: type (string)` the character sequence that closes this data slice; if this data automatically closes, then the type is the character sequence that opens it instead
-      * 
-      * `]`
+      * @type data_slice[]
     **/
     const out_i = [];
     let in_comment = false;
@@ -61,14 +93,14 @@ filter_comments_and_quotes = function(texts){
             if(in_comment){
                 if(mit === "*/"){
                     in_comment = false;
-                    out_i.push([
+                    out_i.push(new data_slice(
                         i,
                         previous,
                         mi.index +
                         mit.length,
                         +(auto),
                         mit
-                    ]);
+                    ));
                 }
             }
             // close quotes
@@ -76,14 +108,14 @@ filter_comments_and_quotes = function(texts){
                 if(mit === quote_type){
                     quote_type = "";
                     in_quote = false;
-                    out_i.push([
+                    out_i.push(new data_slice(
                         i,
                         previous,
                         mi.index +
                         mit.length,
                         auto,
                         mit
-                    ]);
+                    ));
                 }
             }
             // open comments
@@ -108,13 +140,13 @@ filter_comments_and_quotes = function(texts){
             const mi = m[m.length - 1];
             const mit = mi[0];
             const last_i = t.length - 1;
-            out_i.push([
+            out_i.push(new data_slice(
                 i,
                 previous,
                 last_i,
                 auto,
                 mit
-            ]);
+            ));
         }
         // then, prepare the next item in the next string
         previous = 0;
@@ -125,23 +157,24 @@ filter_comments_and_quotes = function(texts){
     
     let prev_i = -1;
     for(let i = 0; i < out_i.length; i++){
+        const ds = out_i[i];
         // check for the start and end of each string
-        const j = out_i[i][0];
+        const dsi = ds.data_index;
         if(j !== prev_i){
-            const jl = out_i[i][1];
-            const jr = out_i[i][2];
+            const dsl = ds.left_index;
+            const dsr = ds.right_index;
             // ... start
             if(jl > 0){
                 out_s.push(new s_data(
-                    texts[j].value.slice(jl, jr),
-                    texts[j].type
+                    texts[dsi].value.slice(dsl, dsr),
+                    texts[dsi].type
                 ));
             }
             // ... end
             if(jr < texts[j].value.length - 1){
                 out_s.push(new s_data(
-                    texts[j].value.slice(jl, jr),
-                    texts[j].type
+                    texts[dsi].value.slice(dsl, dsr),
+                    texts[dsi].type
                 ));
             }
         }
@@ -154,7 +187,7 @@ filter_comments_and_quotes = function(texts){
             
         ));
         
-        prev_i = out_i[i][0];
+        prev_i = dsi;
     }
 };
 
