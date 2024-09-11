@@ -282,6 +282,8 @@ z
 CHECKED?
 
 "isn't it nice out today?" should just be a double quote string
+
+my computer is not getting wifi, so i need to restart it LOL
 `;
 
 my_data = new s_data(test_me, "");
