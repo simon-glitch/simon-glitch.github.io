@@ -1,9 +1,11 @@
 
 
-
+/**
+  * **very simple:** stores a string as data, with a label
+**/
 class s_data{
     /**
-      * Stores a string as data, with a label
+      * **very simple:** stores a string as data, with a label
       * @param {String} value what is the data to store
       * @param {String} type what type of data is this
     **/
@@ -13,6 +15,9 @@ class s_data{
     }
 }
 
+/**
+  * constructs a data slice, for the `filter_comments_and_quotes` function
+**/
 class data_slice{
     /**
       * constructs a data slice, for the `filter_comments_and_quotes` function
@@ -55,20 +60,35 @@ class data_slice{
     }
 }
 
-const comment_or_quote = new RegExp(
+const comment_or_quote = new RegExp(...[
     "\\/\\*" + "|" +
     "\\/\\*" + "|" +
     "\"" + "|" +
     "'" + "|" +
     "`",
     "g"
-);
+]);
+
+/**
+  * encodes the start / end of of a comment or quote into the word "comment" or "quote"
+  * @param {string} type the start / end to encode
+  * @returns {string}
+**/
+const type_of = function(type){
+    return ({
+        "/*": "comment",
+        "*/": "comment",
+        "\"": "quote",
+        "'": "quote",
+        "`": "quote",
+    }[type]);
+};
 
 /**
   * separate the comments and quotes in a text, by splitting the data into data slices, and then replacing those data slices with new data that has the proper types
   * - all comments and strings will have their type overwritten
-  * @param {s_data[]} texts
-  * @returns {s_data[]}
+  * @param {s_data[]} texts the `s_data`s to split
+  * @returns {s_data[]} the split `s_data`s
 **/
 filter_comments_and_quotes = function(texts){
     /**
@@ -134,7 +154,7 @@ filter_comments_and_quotes = function(texts){
         }
         
         auto = (in_comment || in_quote);
-        // first, close the item from the current string
+        // first, close the item from the current s_data
         if(auto){
             /** @type RegExpMatchArray */
             const mi = m[m.length - 1];
@@ -148,46 +168,61 @@ filter_comments_and_quotes = function(texts){
                 mit
             ));
         }
-        // then, prepare the next item in the next string
+        // then, prepare the next item in the next s_data
         previous = 0;
     }
     
     /** @type s_data[] */
     const out_s = [];
     
-    let prev_i = -1;
     for(let i = 0; i < out_i.length; i++){
         const ds = out_i[i];
-        // check for the start and end of each string
         const dsi = ds.data_index;
-        if(j !== prev_i){
-            const dsl = ds.left_index;
-            const dsr = ds.right_index;
+        const dsl = ds.left_index;
+        const dsr = ds.right_index;
+        const ps = out_i[i - 1] ??
+            new data_slice(-1, NaN, NaN, false, "");
+        const psi = ps.data_index;
+        const psr = ps.right_index;
+        // check for the start and end of each s_data
+        if(dsi !== psi){
+            const last_ti = texts[psi].value.length - 1;
             // ... start
-            if(jl > 0){
+            if(dsl > 0){
                 out_s.push(new s_data(
-                    texts[dsi].value.slice(dsl, dsr),
+                    texts[dsi].value.slice(0, dsl),
                     texts[dsi].type
                 ));
             }
             // ... end
-            if(jr < texts[j].value.length - 1){
+            if(psr < last_ti){
                 out_s.push(new s_data(
-                    texts[dsi].value.slice(dsl, dsr),
-                    texts[dsi].type
+                    texts[psi].value.slice(psr, last_ti),
+                    texts[psi].type
                 ));
             }
         }
-        // now get the stuff between quotes / comments in each string
-        else{
-            
+        // now get the stuff between quotes / comments in each s_data
+        else if(psi > -1){
+            out_s.push(new s_data(
+                texts[dsi].value.slice(
+                    psr, 
+                    dsl
+                ),
+                texts[dsi].type
+            ));
         }
         
+        // finally, get the quote / comment itself
         out_s.push(new s_data(
-            
+            texts[dsi].value.slice(
+                dsl,
+                dsr
+            ),
+            type_of(ds.type)
         ));
-        
-        prev_i = dsi;
     }
+    
+    return out_s;
 };
 
