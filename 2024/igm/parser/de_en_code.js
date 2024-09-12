@@ -2,7 +2,7 @@
 // yeah, that's a little bit long
 const html_entities = {
     9: {
-        shorthand: "&Tab",
+        shorthand: "&Tab;",
         name: "Tab",
     },
     10: {
@@ -1907,4 +1907,112 @@ const html_entities = {
     },
 }
 
+const html_entity_shorthands = (() => {
+    const o = {};
+    for(let i in html_entities){
+        const s = html_entities[i].shorthand;
+        if(s){
+            o[s] = i;
+        }
+    }
+    return o;
+})();
+
+/*
+special (in RegExp)
+    regex:
+        [!$\^&()*+\-\.\/:<=?\[\\\]_{|}\t\n\v\f\r]
+    list:
+        [ !$^&()*+-./:<=?[\]_{|} ]
+        \t, \n, \v, \f, \r
+*/
+
+/*
+special (in HTML)
+    list:
+        [ !#&=\;'/"<> ]
+    regex:
+        [!#&=\\;'\/"<>]
+*/
+
+/*
+ASCII characters
+    char codes:
+        9 - 13
+        32 - 126
+    regex:
+        [\011-\015\040-\176]
+    list:
+        \t, \n, \v, \f, \r
+        \s (space)
+        [ !"#$%&'()*+,-./ ]
+        [ 0123456789 ]
+        [ :;<=>?@ ]
+        [ ABCDEFGHIJKLMNOPQRSTUVWXYZ ]
+        [ [\]^_` ]
+        [ abcdefghijklmnopqrstuvwxyz ]
+        [ {|}~ ]
+*/
+
+/*
+special (generally)
+    in order:
+        [9 ----------- 13]
+        \t, \n, \v, \f, \r
+        
+        [33 ----------- 47][58 --- 64][91 - 96][123--126]
+        [ !"#$%&'()*+,-./ ][ :;<=>?@ ][ [\]^_`][  {|}~  ]
+    escaped in order:
+        [9 ----------- 13]
+        \t, \n, \v, \f, \r
+        
+        [33 ------------------- 47][58 ------ 64][91 ----- 96][123 - 126]
+        [ \!"#\$%&'\(\)\*\+,\-\.\/ ][ \:;\<=>\?@ ][ \[\\\]\^_`][ \{\|\}~ ]
+    list:
+        [ !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~ ]
+        \t, \n, \v, \f, \r
+    regex:
+        [\041-\057\072-\100\133-\140\173-\176]
+*/
+
+const special_chars = {
+    general:
+        /[\041-\057\072-\100\133-\140\173-\176]/g,
+    regex:
+        /[!$\^&()*+\-\.\/:<=?\[\\\]_{|}\t\n\v\f\r]/g,
+    html:
+        /[!#&=\\;'\/"<>]/g,
+    ascii:
+        /[\011-\015\040-\176]/g,
+    non_ascii:
+        /[^\011-\015\040-\176]/g,
+    /** general + non_ascii */
+    general_plus:
+        /[^\011-\015\040-\176]|[\041-\057\072-\100\133-\140\173-\176]/g,
+    /** regex + non_ascii */
+    regex_plus:
+        /[^\011-\015\040-\176]|[!$\^&()*+\-\.\/:<=?\[\\\]_{|}\t\n\v\f\r]/g,
+    /** html + non_ascii */
+    html_plus:
+        /[^\011-\015\040-\176]|[!#&=\\;'\/"<>]/g,
+};
+
+const HTML = {
+    encode: function(decoded){
+        return decoded.replace(
+            special_chars.html_plus,
+            /** @param {string} sub */
+            (sub) => {
+                const i = sub.charCodeAt(0);
+                return (
+                    (html_entities[i]?.shorthand) ??
+                    ("&#" + i + ";")
+                );
+            }
+        );
+    },
+    decode: function(encoded){
+        
+    },
+};
 
