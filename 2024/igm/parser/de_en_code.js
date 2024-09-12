@@ -2006,7 +2006,7 @@ const HTML = {
     encode: function(decoded){
         return decoded.replace(
             special_chars.html_plus,
-            /** @param {string} sub */
+            /** @param {string} sub @returns {string} */
             (sub) => {
                 const i = sub.charCodeAt(0);
                 return (
@@ -2022,7 +2022,28 @@ const HTML = {
       * @returns {string}
     **/
     decode: function(encoded){
-        
+        return encoded.replace(
+            /&(?:#(\d+)|\w+);/g,
+            /**
+              * @param {string} sub
+              * @param {string} d the digits of the HTML escape sequence, if it is numerical
+              * @returns {string}
+            **/
+            (sub, d) => {
+                // check if `sub` is a numerical entity
+                if(sub[1] === "#"){
+                    return String.fromCharCode(Number(d));
+                }
+                // get the entity with that name
+                const i = html_entity_shorthands[sub];
+                // check if the entity actually exists
+                if(typeof i === "number"){
+                    return String.fromCharCode(i);
+                }
+                // if the entity with that name does not exist, then just leave it unmodified
+                return sub;
+            }
+        );
     },
 };
 
