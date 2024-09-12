@@ -1998,6 +1998,11 @@ const special_chars = {
 };
 
 const HTML = {
+    /**
+      * encodes text for usage in HTML
+      * @param {string} decoded plain text string to encode to HTML-safe text
+      * @returns {string}
+    **/
     encode: function(decoded){
         return decoded.replace(
             special_chars.html_plus,
@@ -2011,6 +2016,11 @@ const HTML = {
             }
         );
     },
+    /**
+      * decodes that has HTML escape sequences (i.e. HTML entities), giving a plain text version of the HTML-safe text
+      * @param {string} encoded HTML-safe text that needs to be decoded
+      * @returns {string}
+    **/
     decode: function(encoded){
         
     },
