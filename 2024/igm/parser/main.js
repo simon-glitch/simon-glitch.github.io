@@ -1,14 +1,14 @@
 
-
+// typedef is so useful
+/** @typedef {settings} Settings */
 const settings = {
     /**
       * whether each string type can be multiline
       * 
-      * use `"*": b` to set all 3 properties to `b`; non-`*` properties override the `*` property
-      * 
       * i wonder if i will end up setting a custom property for this
     **/
     multiline_strings: {
+        /** default value for the other properties */
         "*": false,
         "\"": true,
         "'": false,
@@ -30,18 +30,81 @@ const settings = {
     multi_line_comment_indicators: ["/*", "*/"],
     escape_character: "\\",
     /**
-      * whether the escape character is supported in each string type
+      * whether the escape character is supported in various contexts
     **/
-    string_escape_character_support: {
-        "*": false,
-        "\"": false,
-        "'": true,
-        "`": true,
+    escape_character_support: {
+        /** @typedef {string_escape} StringEscape */
+        strings: {
+            /** default value for the other properties */
+            "*": false,
+            "\"": false,
+            "'": true,
+            "`": true,
+        },
+        /**
+          * whether literals, such as variable names, can be composed of escaped characters
+          * - this causes the escaped character to become a part of the literal's actual name
+          * - so `x\+y` would be a literal, named "x+y"
+          * - `x\+y = 5;` sets the variable named "x+y" to the value `5`
+          * - use with caution
+        **/
+        literals: true,
     },
+    /**
+      * specifies unique escape characters for each string
+      * 
+      * each property specifices additional escape characters for its respective string type:
+      * - an empty string (`""`) specifies that the string type has no unique escape characters
+      * - a list of strings means each string in the list is a valid escape character
+      * - a single non-empty string means that string is a valid escape character
+      * - if `string_escape_character_support` says the string type supports the default escape character, than the string type will support the default escape character as well as any escape characters listed here
+      * - setting the property to a falsy value, or not setting the property at all, will cause it to be treated as if it was set to an empty string (`""`)
+    **/
     string_specific_escape_characters: {
-        
+        /** default value for the other properties */
+        "*": "",
+        "\"": "",
+        "'": "",
+        "`": "",
+    },
+    /**
+      * whether HTML escape sequences (aka HTML entities) can be used in various contexts
+    **/
+    html_escapes: {
+        /**
+          * whether each string type can use HTML escape sequences
+          * @type {StringEscape}
+        **/
+        strings: {
+            "*": false,
+            "\"": true,
+            "'": true,
+            "`": true,
+        },
+        /**
+          * wether the code can use HTML escape entities as a whole (excludes strings and comments)
+          * - this does **not** do what `escape_character_support.literals` does
+          * - that allows literals to contain escaped characters
+          * - this simply cuases all HTML escape sequences to be converted into their proper character before being parsed
+          * - `x&#43;y` is interpreted as `x+y`:
+          *     - `x` and `y` are treated as a separate literals
+          *     - `+` is interpreted as the addition operation
+          * #### TL;DR
+          * this means you can safely use HTML escape sequences in your code
+          * @default true
+        **/
+        code: true,
     },
 };
+
+/**
+  * automatically formats the `settings` object; formatting is applied to a clone
+  * @returns {settings} a formatted clone of the settings object
+**/
+const format_settings = function(){
+    
+};
+
 
 /**
   * **very simple:** stores a string as data, with a label
