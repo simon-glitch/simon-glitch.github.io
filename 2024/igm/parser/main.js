@@ -1,5 +1,48 @@
 
 
+const settings = {
+    /**
+      * whether each string type can be multiline
+      * 
+      * use `"*": b` to set all 3 properties to `b`; non-`*` properties override the `*` property
+      * 
+      * i wonder if i will end up setting a custom property for this
+    **/
+    multiline_strings: {
+        "*": false,
+        "\"": true,
+        "'": false,
+        "`": true,
+    },
+    /**
+      * whether the string format from the Lua language is supported
+    **/
+    lua_strings: false,
+    /**
+      * whether single line comments are supported
+    **/
+    single_line_comments: true,
+    /**
+      * whether multi line comments are supported
+    **/
+    multi_line_comments: false,
+    single_line_comment_indicator: "//",
+    multi_line_comment_indicators: ["/*", "*/"],
+    escape_character: "\\",
+    /**
+      * whether the escape character is supported in each string type
+    **/
+    string_escape_character_support: {
+        "*": false,
+        "\"": false,
+        "'": true,
+        "`": true,
+    },
+    string_specific_escape_characters: {
+        
+    },
+};
+
 /**
   * **very simple:** stores a string as data, with a label
 **/
