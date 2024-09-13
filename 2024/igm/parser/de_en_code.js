@@ -2010,7 +2010,7 @@ const HTML = {
             (sub) => {
                 const i = sub.charCodeAt(0);
                 return (
-                    (html_entities[i]?.shorthand) ??
+                    (html_entities[i]?.shorthand) ||
                     ("&#" + i + ";")
                 );
             }
@@ -2046,4 +2046,7 @@ const HTML = {
         );
     },
 };
+
+const m = "<div>Let's see!</div>";
+HTML.encode(HTML.decode());
 
