@@ -2025,7 +2025,7 @@ const HTML = {
       * @returns {string}
     **/
     decode: function(encoded){
-        if(typeof decoded !== "string"){
+        if(typeof encoded !== "string"){
             throw new TypeError("decode only accepts a string as its input");
         }
         return encoded.replace(
