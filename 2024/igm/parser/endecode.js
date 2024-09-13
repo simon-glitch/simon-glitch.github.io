@@ -1912,7 +1912,7 @@ const html_entity_shorthands = (() => {
     for(let i in html_entities){
         const s = html_entities[i].shorthand;
         if(s){
-            o[s] = i;
+            o[s] = Number(i);
         }
     }
     return o;
