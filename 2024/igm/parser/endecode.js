@@ -2054,7 +2054,7 @@ const HTML = {
 };
 
 const m = "<div>Let's see!</div>";
-const r = HTML.encode(HTML.decode(m));
+const r = HTML.decode(HTML.encode(m));
 
-console.log(m, r, (m == r ?"not " :"") + "equal");
+console.log(m, r, (m === r ?"" :"not ") + "equal");
 
