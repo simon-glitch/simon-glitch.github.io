@@ -2004,6 +2004,9 @@ const HTML = {
       * @returns {string}
     **/
     encode: function(decoded){
+        if(typeof decoded !== "string"){
+            throw new TypeError("encode only accepts a string as its input");
+        }
         return decoded.replace(
             special_chars.html_plus,
             /** @param {string} sub @returns {string} */
@@ -2022,6 +2025,9 @@ const HTML = {
       * @returns {string}
     **/
     decode: function(encoded){
+        if(typeof decoded !== "string"){
+            throw new TypeError("decode only accepts a string as its input");
+        }
         return encoded.replace(
             /&(?:#(\d+)|\w+);/g,
             /**
@@ -2048,5 +2054,7 @@ const HTML = {
 };
 
 const m = "<div>Let's see!</div>";
-HTML.encode(HTML.decode());
+const r = HTML.encode(HTML.decode(m));
+
+console.log(m, r, (m == r ?"not " :"") + "equal");
 
