@@ -242,10 +242,8 @@ void sieve_primes_3(const uint max_prime_c){
             // and make sure that the largest numbers we will be checking can't have smallest prime factors that are any of the primes we find along the way; i.e. make sure the square of the largest current prime is greater than or equal to all of the values we well be checking
             curr_comp + cs * 2 <= square_l(curr_comp) &&
             // and ofc that we don't check too high
-            curr_comp + 16 < comp_limit
+            curr_comp + cs * 2 < comp_limit
         ){
-            curr_comp += 2;
-            
             vector<uint> new_primes;
             // just add a 2 whenever a number is not prime
             for(uint ci = 0; ci < cs; ci++){
