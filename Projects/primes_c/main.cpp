@@ -224,9 +224,9 @@ string vec_to_str(vector<uint> v, const string &sep = ", "){
 
 int main(const int argc, char *argv[]){
     const uint max_batch_size = 1000*1000;
-    const uint max_max_c = 100*1000*1000;
+    const uint max_max_c = 1*1000*1000;
     uint max_c = 0;
-    double speed = 10000000000000;
+    double speed = 10*1000*1000;
     const double wave_length = 1;
     uint batch_size = max_batch_size;
     
@@ -255,20 +255,22 @@ int main(const int argc, char *argv[]){
         max_c += batch_size;
         if(max_c > max_max_c) max_c = max_max_c;
         
+        std::cout << "f" << (i + 1) << ":\n";
+        
         time_1 = time_2;
         sieve_primes_f[i](max_c);
         time_2 = chrono::system_clock::now();
         
-        std::cout << "Run time: ";
+        std::cout << "  Run time: ";
         std::cout << (double) ((time_2 - time_0) / my_unit) / my_scale;
         std::cout << "s \n";
         
         speed = my_scale * ((double) batch_size) / ((time_2 - time_1) / my_unit);
-        std::cout << "Speed: ";
+        std::cout << "  Speed: ";
         std::cout << speed;
         std::cout << " per second\n";
         
-        std::cout << "Prime # " << max_c;
+        std::cout << "  Prime # " << max_c;
         std::cout << " = " << primes[max_c - 1];
         std::cout << "\n";
         
