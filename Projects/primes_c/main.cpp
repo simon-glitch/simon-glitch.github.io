@@ -185,22 +185,22 @@ void sieve_primes_2(const uint max_prime_c){
             curr_comp + 16 < comp_limit
         ){
             // these checks can be done in parallel
-            was_prime[0] = is_prime(curr_comp);
-            was_prime[1] = is_prime(curr_comp + 2);
-            was_prime[2] = is_prime(curr_comp + 4);
-            was_prime[3] = is_prime(curr_comp + 6);
-            was_prime[4] = is_prime(curr_comp + 8);
-            was_prime[5] = is_prime(curr_comp + 10);
-            was_prime[6] = is_prime(curr_comp + 12);
-            was_prime[7] = is_prime(curr_comp + 14);
+            was_prime[0] = is_prime(curr_comp + 2);
+            was_prime[1] = is_prime(curr_comp + 4);
+            was_prime[2] = is_prime(curr_comp + 6);
+            was_prime[3] = is_prime(curr_comp + 8);
+            was_prime[4] = is_prime(curr_comp + 10);
+            was_prime[5] = is_prime(curr_comp + 12);
+            was_prime[6] = is_prime(curr_comp + 14);
+            was_prime[7] = is_prime(curr_comp + 16);
             // and then we can push the vectors back like this
-            if(was_prime[0]) primes.push_back(curr_comp);
-            if(was_prime[1]) primes.push_back(curr_comp + 2);
-            if(was_prime[2]) primes.push_back(curr_comp + 4);
-            if(was_prime[3]) primes.push_back(curr_comp + 6);
-            if(was_prime[4]) primes.push_back(curr_comp + 8);
-            if(was_prime[5]) primes.push_back(curr_comp + 10);
-            if(was_prime[6]) primes.push_back(curr_comp + 12);
+            if(was_prime[0]) primes.push_back(curr_comp + 2);
+            if(was_prime[1]) primes.push_back(curr_comp + 4);
+            if(was_prime[2]) primes.push_back(curr_comp + 6);
+            if(was_prime[3]) primes.push_back(curr_comp + 8);
+            if(was_prime[4]) primes.push_back(curr_comp + 10);
+            if(was_prime[5]) primes.push_back(curr_comp + 12);
+            if(was_prime[6]) primes.push_back(curr_comp + 14);
             if(was_prime[7]) primes.push_back(curr_comp + 14);
             curr_comp += 16;
         }
@@ -288,8 +288,8 @@ string vec_to_str(vector<uint> v, const string &sep = ", "){
 }
 
 int main(const int argc, char *argv[]){
-    const uint max_batch_size = 1*10*1;
-    const uint max_max_c = 1*10*1;
+    const uint max_batch_size = 1*100*1;
+    const uint max_max_c = 1*100*1;
     uint max_c = 0;
     double speed = 10*1000*1000;
     const double wave_length = 1;
