@@ -179,8 +179,10 @@ void sieve_primes_2(const uint max_prime_c){
         // test 8 primes at once if we can
         bool was_prime[8] = {false};
         if(
-            // make sure we have room for all of the primes we might add
+            // make sure we have room
             primes.size() + 8 < max_prime_c &&
+            // and make sure that the largest numbers we will be checking can't have smallest prime factors that are any of the primes we find along the way; i.e. make sure the square of the largest current prime is greater than or equal to all of the values we well be checking
+            curr_comp + 16 <= square_l(curr_comp) &&
             // and ofc that we don't check too high
             curr_comp + 16 < comp_limit
         ){
@@ -201,7 +203,7 @@ void sieve_primes_2(const uint max_prime_c){
             if(was_prime[4]) primes.push_back(curr_comp + 10);
             if(was_prime[5]) primes.push_back(curr_comp + 12);
             if(was_prime[6]) primes.push_back(curr_comp + 14);
-            if(was_prime[7]) primes.push_back(curr_comp + 14);
+            if(was_prime[7]) primes.push_back(curr_comp + 16);
             curr_comp += 16;
         }
         
@@ -238,7 +240,9 @@ void sieve_primes_3(const uint max_prime_c){
             // make sure we have room
             primes.size() + cs < max_prime_c &&
             // and make sure that the largest numbers we will be checking can't have smallest prime factors that are any of the primes we find along the way; i.e. make sure the square of the largest current prime is greater than or equal to all of the values we well be checking
-            curr_comp + cs * 2 <= square_l(curr_comp)
+            curr_comp + cs * 2 <= square_l(curr_comp) &&
+            // and ofc that we don't check too high
+            curr_comp + 16 < comp_limit
         ){
             curr_comp += 2;
             
@@ -290,8 +294,8 @@ string vec_to_str(vector<uint> v, const string &sep = ", "){
 }
 
 int main(const int argc, char *argv[]){
-    const uint max_batch_size = 1*100*1;
-    const uint max_max_c = 1*100*1;
+    const uint max_batch_size = 1*11*1;
+    const uint max_max_c = 1*11*1;
     uint max_c = 0;
     double speed = 10*1000*1000;
     const double wave_length = 1;
