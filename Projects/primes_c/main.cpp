@@ -175,15 +175,48 @@ void sieve_primes_2(const uint max_prime_c){
     
     // then just start from curr_comp
     while(true){
-        if(curr_comp >= comp_limit) break;
+        // run a cool optimization
+        // test 8 primes at once if we can
+        bool was_prime[8] = {false};
+        if(
+            // make sure we have room for all of the primes we might add
+            primes.size() + 8 < max_prime_c &&
+            // and ofc that we don't check too high
+            curr_comp + 16 < comp_limit
+        ){
+            // these checks can be done in parallel
+            was_prime[0] = is_prime(curr_comp);
+            was_prime[1] = is_prime(curr_comp + 2);
+            was_prime[2] = is_prime(curr_comp + 4);
+            was_prime[3] = is_prime(curr_comp + 6);
+            was_prime[4] = is_prime(curr_comp + 8);
+            was_prime[5] = is_prime(curr_comp + 10);
+            was_prime[6] = is_prime(curr_comp + 12);
+            was_prime[7] = is_prime(curr_comp + 14);
+            // and then we can push the vectors back like this
+            if(was_prime[0]) primes.push_back(curr_comp);
+            if(was_prime[1]) primes.push_back(curr_comp + 2);
+            if(was_prime[2]) primes.push_back(curr_comp + 4);
+            if(was_prime[3]) primes.push_back(curr_comp + 6);
+            if(was_prime[4]) primes.push_back(curr_comp + 8);
+            if(was_prime[5]) primes.push_back(curr_comp + 10);
+            if(was_prime[6]) primes.push_back(curr_comp + 12);
+            if(was_prime[7]) primes.push_back(curr_comp + 14);
+            curr_comp += 16;
+        }
         
-        curr_comp += 2;
-        // as long as `might_be` is false, we know that `is_prime`'s value can be fully trusted
-        if(is_prime(curr_comp)){
-            primes.push_back(curr_comp);
-            // ...
-            if(primes.size() >= max_prime_c) return;
-        };
+        // run the rest as normal
+        else{
+            if(curr_comp >= comp_limit) break;
+            
+            curr_comp += 2;
+            // as long as `might_be` is false, we know that `is_prime`'s value can be fully trusted
+            if(is_prime(curr_comp)){
+                primes.push_back(curr_comp);
+                // ...
+                if(primes.size() >= max_prime_c) return;
+            };
+        }
     }
     curr_comp -= 2;
 }
@@ -194,17 +227,49 @@ void sieve_primes_3(const uint max_prime_c){
     // ...
     if(primes.size() >= max_prime_c) return;
     
+    // cleaup optimation method TM
+    
+    // "cleanup size"
+    uint cs = 256;
+    
     // then just start from curr_comp
     while(true){
-        if(curr_comp >= comp_limit) break;
+        if(
+            // make sure we have room
+            primes.size() + cs < max_prime_c &&
+            // and make sure that the largest numbers we will be checking can't have smallest prime factors that are any of the primes we find along the way; i.e. make sure the square of the largest current prime is greater than or equal to all of the values we well be checking
+            curr_comp + cs * 2 <= square_l(curr_comp)
+        ){
+            vector<uint> new_primes;
+            // just add a 2 whenever a number is not prime
+            for(uint ci = 0; ci < cs; ci++){
+                new_primes.push_back(
+                    is_prime(curr_comp + ci * 2) ?
+                    curr_comp :
+                    2
+                );
+            }
+            // clean up the 2s
+            for(uint ci = 0; ci < cs; ci++){
+                if(new_primes[ci] != 2){
+                    primes.push_back(new_primes[ci]);
+                }
+            }
+            curr_comp += cs * 2;
+        }
         
-        curr_comp += 2;
-        // as long as `might_be` is false, we know that `is_prime`'s value can be fully trusted
-        if(is_prime(curr_comp)){
-            primes.push_back(curr_comp);
-            // ...
-            if(primes.size() >= max_prime_c) return;
-        };
+        // run the rest as normal
+        else{
+            if(curr_comp >= comp_limit) break;
+            
+            curr_comp += 2;
+            // as long as `might_be` is false, we know that `is_prime`'s value can be fully trusted
+            if(is_prime(curr_comp)){
+                primes.push_back(curr_comp);
+                // ...
+                if(primes.size() >= max_prime_c) return;
+            };
+        }
     }
     curr_comp -= 2;
 }
@@ -223,8 +288,8 @@ string vec_to_str(vector<uint> v, const string &sep = ", "){
 }
 
 int main(const int argc, char *argv[]){
-    const uint max_batch_size = 1000*1000;
-    const uint max_max_c = 1*1000*1000;
+    const uint max_batch_size = 1*10*1;
+    const uint max_max_c = 1*10*1;
     uint max_c = 0;
     double speed = 10*1000*1000;
     const double wave_length = 1;
@@ -238,6 +303,8 @@ int main(const int argc, char *argv[]){
     auto time_1 = chrono::system_clock::now();
     auto time_2 = chrono::system_clock::now();
     
+    
+    
     // an array of functions
     void (*sieve_primes_f[3])(const uint) = {
         &sieve_primes_1,
@@ -246,6 +313,10 @@ int main(const int argc, char *argv[]){
     };
     
     for(uint i = 0; i < 3; i++){
+    max_c = 0;
+    speed = 10*1000*1000;
+    std::cout << "f" << (i + 1) << ":\n";
+    time_0 = chrono::system_clock::now();
     for(; true;){
         // make sure we don't have an issue
         if(curr_comp >= comp_limit) break;
@@ -255,28 +326,32 @@ int main(const int argc, char *argv[]){
         max_c += batch_size;
         if(max_c > max_max_c) max_c = max_max_c;
         
-        std::cout << "f" << (i + 1) << ":\n";
+        // whether this is the final batch
+        bool is_final = (max_c == max_max_c);
         
         time_1 = time_2;
         sieve_primes_f[i](max_c);
         time_2 = chrono::system_clock::now();
         
-        std::cout << "  Run time: ";
-        std::cout << (double) ((time_2 - time_0) / my_unit) / my_scale;
-        std::cout << "s \n";
-        
-        speed = my_scale * ((double) batch_size) / ((time_2 - time_1) / my_unit);
-        std::cout << "  Speed: ";
-        std::cout << speed;
-        std::cout << " per second\n";
-        
-        std::cout << "  Prime # " << max_c;
-        std::cout << " = " << primes[max_c - 1];
-        std::cout << "\n";
+        if(is_final){
+            std::cout << "  Run time: ";
+            std::cout << (double) ((time_2 - time_0) / my_unit) / my_scale;
+            std::cout << "s \n";
+            
+            speed = my_scale * ((double) batch_size) / ((time_2 - time_1) / my_unit);
+            std::cout << "  Speed: ";
+            std::cout << speed;
+            std::cout << " per second\n";
+            
+            std::cout << "  Prime # " << max_c;
+            std::cout << " = " << primes[max_c - 1];
+            std::cout << "\n";
+        }
         
         // ain't got RAM for EVERY prime
         if(max_c == max_max_c) break;
     }
+    clear_sieve();
     }
     // I don't know what any of these numbers are for
     const ulint limits[] = {
