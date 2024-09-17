@@ -292,8 +292,8 @@ string vec_to_str(vector<uint> v, const string &sep = ", "){
 }
 
 int main(const int argc, char *argv[]){
-    const uint max_batch_size = 1*1000*1;
-    const uint max_max_c = 1*1000*1;
+    const uint max_batch_size = 1*1000*1000;
+    const uint max_max_c = 3*1000*1000;
     uint max_c = 0;
     double speed = 10*1000*1000;
     const double wave_length = 1;
