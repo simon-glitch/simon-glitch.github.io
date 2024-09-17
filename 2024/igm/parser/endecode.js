@@ -2020,7 +2020,7 @@ const HTML = {
         );
     },
     /**
-      * decodes that has HTML escape sequences (i.e. HTML entities), giving a plain text version of the HTML-safe text
+      * decodes text that has HTML escape sequences (i.e. HTML entities), giving a plain text version of the HTML-safe text
       * @param {string} encoded HTML-safe text that needs to be decoded
       * @returns {string}
     **/
@@ -2053,9 +2053,154 @@ const HTML = {
     },
 };
 
-const m = "<div>Let's see!</div>";
-const r = HTML.decode(HTML.encode(m));
+const regex_maps = {
+    encode: {
+        "\t": "t",
+        "\n": "n",
+        "\v": "v",
+        "\f": "f",
+        "\r": "r",
+    },
+    decode: {
+        "t": "\t",
+        "n": "\n",
+        "v": "\v",
+        "f": "\f",
+        "r": "\r",
+    },
+};
+
+const hex = {
+    decode: {
+        "0":  0, "1":  1, "2":  2, "3": 3,
+        "4":  4, "5":  5, "6":  6,
+        "7":  7, "8":  8, "9":  9,
+        "a": 10, "b": 11, "c": 12,
+        "d": 13, "e": 14, "f": 15,
+        "A": 10, "B": 11, "C": 12,
+        "D": 13, "E": 14, "F": 15,
+    },
+    encode: "0123456789abcdef".split(""),
+    /**
+      * find the hexadecimal representation of a number and return it as a proper number
+      * - only works on integers; returns `NaN` if the representation has any invalid characters
+      * @param {string} rep the hexadecimal representation of the number
+      * @returns {number}
+    **/
+    parse: function(rep){
+        let v = 0;
+        for(let i = 0; i < rep.length; i++){
+            v *= 16;
+            v += hex.decode[rep[i]];
+        }
+        return v;
+    },
+};
+
+
+
+const regex = {
+    /**
+      * encodes plain text so it matches itself exactly in RegExp
+      * @param {string} decoded plain text string to encode to RegExp-safe text
+      * @returns {string}
+    **/
+    encode: function(decoded){
+        let encoded = decoded;
+        // handle RegExp chars
+        encoded = encoded.replace(
+            /[!$\^&()*+\-\.\/:<=?\[\\\]_{|}]/g,
+            "\\$&"
+        );
+        // handle tabs and newlines
+        encoded = encoded.replace(
+            /[\t\n\v\f\r]/g,
+            (sub) => {
+                return "\\" + regex_maps.encode[sub];
+            }
+        );
+        // handle non-ascii characters
+        encoded = encoded.replace(
+            non_ascii,
+            (sub) => {
+                let i = sub.charCodeAt(0);
+                // if sub can be represented with a utf-8 hex escape x{2 digits}
+                if(i < 0x100){
+                    return "\\x" + (i + 0x100).toString(16).slice(1);
+                }
+                // if sub must be represented with generic unicode u{5 or more digits}
+                if(i > 0x10000){
+                    return "\\u{" + i.toString(16) + "}";
+                }
+                // sub can be represented with a utf-16 unicode escape x{2 digits}
+                return "\\u" + (i + 0x10000).toString(16).slice(1);
+            }
+        );
+        return encoded;
+    },
+    /**
+      * decodes a regular expression, by replacing all escaped characters with their literal forms; this is only useful if the regular expression is written in a way that obviously matches exactly one string
+      * - because regular expressions simply use backslashes, this function also decodes other backslash escaped text, such as the representation of strings in JavaScript code and many similar languages
+      * @param {string} encoded simple regular expression that needs to be decoded
+      * @returns {string}
+    **/
+    decode: function(encoded){
+        let decoded = encoded;
+        // handle utf-8 hex escapes
+        decoded = decoded.replace(
+            /\\x([0-9a-fA-F]{2})/g,
+            (sub, c) => {
+                return String.fromCharCode(hex.parse(c));
+            }
+        );
+        // handle general unicode escapes
+        decoded = decoded.replace(
+            /\\u\{([0-9a-fA-F]+)\}/g,
+            (sub, c) => {
+                return String.fromCharCode(hex.parse(c));
+            }
+        );
+        // handle utf-16 unicode escapes
+        decoded = decoded.replace(
+            /\\u([0-9a-fA-F]{4})/g,
+            (sub, c) => {
+                return String.fromCharCode(hex.parse(c));
+            }
+        );
+        // handle newline / tab escapes AND backslash escapes
+        decoded = decoded.replace(
+            /\\([^u]))/g,
+            (sub, c) => {
+                return (
+                    regex_maps.decode[c] ||
+                    c
+                );
+            }
+        );
+    },
+};
+
+
+const m = (`
+$ 0 % 0 ^ 0 & 0 * 0 & 0 ^ 0 % 0 $
+)( ~.^^.^^.~ ][ ~.**.**.~ }{
+
+One regular expression to rule them all!
+
+Just kidding! XD
+[!$\\^&()*+\\-\\.\\/:<=?\\[\\\\\\]_{|}\\t\\n\\v\\f\\r]
+
+console.log(m, r, (m === r ?"" :"not ") + "equal");
+
+a +* b; **==**
+
+This string should match itself exactly.
+`);
+const r = regex.decode(regex.encode(m));
 
 console.log(m, r, (m === r ?"" :"not ") + "equal");
 
 // alr yay it works
+
+
+
