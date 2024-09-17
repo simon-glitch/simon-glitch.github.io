@@ -6,9 +6,9 @@
 using namespace std;
 
 // I don't need primes larger than 4 billion
-typedef unsigned uint;
-typedef long long lint;
-typedef unsigned long long ulint;
+typedef uint32_t  uint;
+typedef  int32_t  lint;
+typedef uint64_t ulint;
 vector<uint> primes;
 
 inline uint my_modr(uint p, uint n){
@@ -140,7 +140,13 @@ inline bool is_prime_64(const ulint p){
 // Largest odd composite found so far
 uint curr_comp = 3;
 uint comp_limit = 0xFFFFFFFD;
-void sieve_primes(const uint max_prime_c){
+
+void clear_sieve(){
+    curr_comp = 3;
+    primes.clear();
+}
+
+void sieve_primes_1(const uint max_prime_c){
     // start with 2 and 3
     if(primes.size() == 0) primes.push_back(2), primes.push_back(3);
     // ...
@@ -160,6 +166,50 @@ void sieve_primes(const uint max_prime_c){
     }
     curr_comp -= 2;
 }
+
+void sieve_primes_2(const uint max_prime_c){
+    // start with 2 and 3
+    if(primes.size() == 0) primes.push_back(2), primes.push_back(3);
+    // ...
+    if(primes.size() >= max_prime_c) return;
+    
+    // then just start from curr_comp
+    while(true){
+        if(curr_comp >= comp_limit) break;
+        
+        curr_comp += 2;
+        // as long as `might_be` is false, we know that `is_prime`'s value can be fully trusted
+        if(is_prime(curr_comp)){
+            primes.push_back(curr_comp);
+            // ...
+            if(primes.size() >= max_prime_c) return;
+        };
+    }
+    curr_comp -= 2;
+}
+
+void sieve_primes_3(const uint max_prime_c){
+    // start with 2 and 3
+    if(primes.size() == 0) primes.push_back(2), primes.push_back(3);
+    // ...
+    if(primes.size() >= max_prime_c) return;
+    
+    // then just start from curr_comp
+    while(true){
+        if(curr_comp >= comp_limit) break;
+        
+        curr_comp += 2;
+        // as long as `might_be` is false, we know that `is_prime`'s value can be fully trusted
+        if(is_prime(curr_comp)){
+            primes.push_back(curr_comp);
+            // ...
+            if(primes.size() >= max_prime_c) return;
+        };
+    }
+    curr_comp -= 2;
+}
+
+
 
 string vec_to_str(vector<uint> v, const string &sep = ", "){
     string res = "";
@@ -188,6 +238,14 @@ int main(const int argc, char *argv[]){
     auto time_1 = chrono::system_clock::now();
     auto time_2 = chrono::system_clock::now();
     
+    // an array of functions
+    void (*sieve_primes_f[3])(const uint) = {
+        &sieve_primes_1,
+        &sieve_primes_2,
+        &sieve_primes_3
+    };
+    
+    for(uint i = 0; i < 3; i++){
     for(; true;){
         // make sure we don't have an issue
         if(curr_comp >= comp_limit) break;
@@ -198,26 +256,27 @@ int main(const int argc, char *argv[]){
         if(max_c > max_max_c) max_c = max_max_c;
         
         time_1 = time_2;
-        sieve_primes(max_c);
+        sieve_primes_f[i](max_c);
         time_2 = chrono::system_clock::now();
         
-        cout << "Run time: ";
-        cout << (double) ((time_2 - time_0) / my_unit) / my_scale;
-        cout << "s \n";
+        std::cout << "Run time: ";
+        std::cout << (double) ((time_2 - time_0) / my_unit) / my_scale;
+        std::cout << "s \n";
         
         speed = my_scale * ((double) batch_size) / ((time_2 - time_1) / my_unit);
-        cout << "Speed: ";
-        cout << speed;
-        cout << " per second\n";
+        std::cout << "Speed: ";
+        std::cout << speed;
+        std::cout << " per second\n";
         
-        cout << "Prime # " << max_c;
-        cout << " = " << primes[max_c - 1];
-        cout << "\n";
+        std::cout << "Prime # " << max_c;
+        std::cout << " = " << primes[max_c - 1];
+        std::cout << "\n";
         
         // ain't got RAM for EVERY prime
         if(max_c == max_max_c) break;
     }
-    
+    }
+    // I don't know what any of these numbers are for
     const ulint limits[] = {
         (0xFFFFFFFF / 0x101),           // 32 bit uint w utf-8
         (0xFFFFFFFF / 0x10001),         // 32 bit uint w utf-16
@@ -232,7 +291,7 @@ int main(const int argc, char *argv[]){
         (0x20FFFFFFFFFFFF / 0x101),     // safe int within (64-bit) double w utf-8
         (0x20FFFFFFFFFFFF / 0x10001),   // safe int within (64-bit) double w utf-16
     };
-    for(uint i = 0; i < 12; i++){
+    for(uint i = 1000; i < 12; i++){
         ulint n, p;
         n = limits[i];
         
