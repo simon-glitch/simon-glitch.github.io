@@ -122,6 +122,36 @@ var N: {[key: string]: number} = {
     /* for example: `205: 0, 456: 0` would exclude groups 205 and 456 */
 };
 
+/** ? */
+var w = (L => L['map'](Q => {
+    if (null !== Q && 'object' == typeof Q) {
+        if (Q[v])
+            return Q;
+        if (Q['then']) {
+            var q = [];
+            q['d'] = 0x0,
+            Q['then'](R => {
+                j[I] = R,
+                y(q);
+            }
+            , R => {
+                j[X] = R,
+                y(q);
+            }
+            );
+            var j = {};
+            return j[v] = R => R(q),
+            j;
+        }
+    }
+    var b = {};
+    return b[v] = R => {}
+    ,
+    b[I] = Q,
+    b;
+}
+))(Z);
+
 /**
  * currently unknown vars:
  * - `h.o`, `h.m`, `h.O`
