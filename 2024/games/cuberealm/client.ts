@@ -66,7 +66,7 @@ var V: [data: object[], my_f: Function, idk: number][] = [];
  * @type Importer
  * @param {number} module_id the ID of the module to import
 */
-h.O = (stuff: object, data: object[], my_f: Function, idk: number) => {
+h.O = (stuff: object, data?: object[], my_f?: Function, idk?: number) => {
     if(!data){
         var O = 0;
         var w = Infinity;
@@ -93,7 +93,7 @@ h.O = (stuff: object, data: object[], my_f: Function, idk: number) => {
                     }
                 }
             }
-            if(D){
+            if(D && my_f){
                 V.splice(O--, 1);
                 var T = my_f();
                 if(T !== undefined) stuff = T;
@@ -101,6 +101,10 @@ h.O = (stuff: object, data: object[], my_f: Function, idk: number) => {
         }
         return stuff;
     }
+    // I don't think the game's scripts set this to undefined, bc that sounds dumb
+    // but I could be very wrong; in which case `V`'s type would need to allow for undefined functions
+    my_f = my_f || function(){console.log("uh oh");};
+    
     idk = idk || 0;
     for(O = V.length; O > 0 && V[O - 1][2] > idk; O--){
         V[O] = V[O - 1];
