@@ -80,13 +80,16 @@ class Client extends Array<ModuleGroup>{
     }
     /** a custom push method, designed for properly setting up module groups in the client */
     push(mg: ModuleGroup){
-        var D, M;
-        /** @type number[] id - an array with one number; the number is the ID of the module group */
-        var T = mg[0];
-        /** @type _modules[] modules - an array of the modules that need to be run or set up here */
-        var O = mg[1];
-        /** i don't know; maybe it's a callback for the importer??? */
-        var C = mg[2];
+        /** (iteration variable) just the ID of the current module, as a string; tbe string can be parsed into an integer though, since all module IDs are integers */
+        var D: string;
+        /** `id` - the ID of the module group */
+        var M: number;
+        /** `id_wrapper` - the array containing `M` as its only item */
+        var T: number[] = mg[0];
+        /** `modules` - an array of the modules that need to be run or set up here */
+        var O: _module[] = mg[1];
+        /** i don't know; some kind of a callback for the importer */
+        var C: Function = mg[2];
         var Z = 0;
         /** this if statement blacklists module groups with certain IDs from having the next 4 lines of code run on them; in the current code, only 2 IDs are excluded, and I don't know why */
         if (T.some(W => (N[W] !== 0))) {
