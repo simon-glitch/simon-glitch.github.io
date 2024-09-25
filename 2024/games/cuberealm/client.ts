@@ -23,21 +23,15 @@ class _exports_wrapper{
  * @typedef (exports: _exports, exports_wrapper: _exports_wrapper, importer) => void
 */
 class _module extends Function{}
-class ModuleGroup extends Array{
-    constructor(id: number, modules: _module[]){
-        super(2);
-        this[0] = [id];
-        this[1] = [modules];
-    }
-}
+type ModuleGroup = [id: number[], modules: {[key: number]: _module}, my_fn?: Function];
 
 
 
 /** global list of all exports; these are cached whenever a module is imported, that way the import function does not need to be called again */
-var all_exports: _exports[] = {};
+var all_exports: {[key: number]: _exports_wrapper} = {};
 
 /** global list of all modules */
-var all_modules: _module[] = {};
+var all_modules: {[key: number]: _module} = {};
 
 /**
  * the global importer
@@ -46,7 +40,7 @@ var all_modules: _module[] = {};
  * @type Importer
  * @param {number} module_id the ID of the module to import
 */
-function h(module_id){
+function h(module_id: number){
     var expw: _exports_wrapper = all_exports[module_id];
     if(expw !== undefined)
         return expw.exports;
@@ -58,12 +52,71 @@ function h(module_id){
 }
 
 /**
+ * strange helper function
+ * - literally just `N.hasOwnProperty(G)`
+*/
+h.o = (N: object, G: (string | number)) => N.hasOwnProperty(G);
+
+var V: [data: object[], my_f: Function, idk: number][] = [];
+
+/**
+ * the global importer
+ * - this function also has additional methods, like `h.o` and `h.O`
+ * - i don't know what those do
+ * @type Importer
+ * @param {number} module_id the ID of the module to import
+*/
+h.O = (stuff: object, data: object[], my_f: Function, idk: number) => {
+    if(!data){
+        var O = 0;
+        var w = Infinity;
+        for(; O < V.length; O++){
+            for(var
+                i_data = V[O][0],
+                i_idk = V[O][2],
+                D = true,
+                M = 0;
+                M < i_data.length;
+                M++
+            ){
+                // im not sure if this does anything; it would need to have a weird valueOf method
+                +i_idk;
+                if(w >= i_idk){
+                    if(Object.keys(h.O).every(
+                        C => h.O[C](i_data[M]))
+                    ){
+                        i_data.splice(M--, 1);
+                    }
+                    else{
+                        D = false;
+                        if(i_idk < w) w = i_idk;
+                    }
+                }
+            }
+            if(D){
+                V.splice(O--, 1);
+                var T = my_f();
+                if(T !== undefined) stuff = T;
+            }
+        }
+        return stuff;
+    }
+    idk = idk || 0;
+    for(O = V.length; O > 0 && V[O - 1][2] > idk; O--){
+        V[O] = V[O - 1];
+    }
+    V[O] = [data, my_f, idk];
+};
+
+/**
  * a set of the IDs of the module groups to exclude from running on the first `if`-statement in `Client.push`
  * - the group ID is fed in as a key; i.e. group 177 is checked with `N[177]`;
  * - a value of `0` (not to be confused with the key) means the group will be excluded
  * - a value of `undefined` means the group will be included
 */
-var N = {/* for example: `205: 0, 456: 0` would exclude groups 205 and 456 */};
+var N: {[key: string]: number} = {
+    /* for example: `205: 0, 456: 0` would exclude groups 205 and 456 */
+};
 
 /**
  * currently unknown vars:
@@ -75,11 +128,11 @@ class Client extends Array<ModuleGroup>{
         super(...arguments);
     }
     /** just the normal `array.push` method */
-    _push(){
+    __push(){
         Array.prototype.push.apply(this, arguments);
     }
     /** a custom push method, designed for properly setting up module groups in the client */
-    push(mg: ModuleGroup){
+    _push(mg: ModuleGroup){
         /** (iteration variable) just the ID of the current module, as a string; tbe string can be parsed into an integer though, since all module IDs are integers */
         var D: string;
         /** `id` - the ID of the module group */
@@ -87,21 +140,27 @@ class Client extends Array<ModuleGroup>{
         /** `id_wrapper` - the array containing `M` as its only item */
         var T: number[] = mg[0];
         /** `modules` - an array of the modules that need to be run or set up here */
-        var O: _module[] = mg[1];
+        var O: {[key: number]: _module} = mg[1];
         /** i don't know; some kind of a callback for the importer */
-        var C: Function = mg[2];
+        var C: Function | undefined = mg[2];
         var Z = 0;
         /** this if statement blacklists module groups with certain IDs from having the next 4 lines of code run on them; in the current code, only 2 IDs are excluded, and I don't know why */
-        if (T.some(W => (N[W] !== 0))) {
-            for (D in O)
+        if(T.some(W => (N[W] !== 0))){
+            for(D in O){
                 h.o(O, D) && (h.m[D] = O[D]);
-            if (C)
+            }
+            if(C){
                 var u = C(h);
+            }
         }
-        for (this._push && this._push(w); Z < T.length; Z++)
-            M = T[Z],
-            h.o(N, M) && N[M] && N[M][0](),
+        if(this.__push) this.__push(w);
+        for(; Z < T.length; Z++){
+            M = T[Z];
+            if(h.o(N, M) && N[M]){
+                N[M][0]();
+            }
             N[M] = 0;
+        }
         return h.O(u);
     }
 }
