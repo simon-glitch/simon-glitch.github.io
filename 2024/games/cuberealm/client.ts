@@ -131,7 +131,11 @@ class Client extends Array<ModuleGroup>{
     __push(){
         Array.prototype.push.apply(this, arguments);
     }
-    /** a custom push method, designed for properly setting up module groups in the client */
+    /**
+     * a custom push method, designed for properly setting up module groups in the client
+     * - this is referred to as `.push` in the files, but TypeScript doesn't let me override the return value of `array.push`, so this will have to have a different name
+     * - that means the `__push` function is kind of dumb, since removing the 2 `_`s doesn't change the code's functionality at all
+    */
     _push(mg: ModuleGroup){
         /** (iteration variable) just the ID of the current module, as a string; tbe string can be parsed into an integer though, since all module IDs are integers */
         var D: string;
