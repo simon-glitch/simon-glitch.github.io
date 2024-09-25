@@ -2141,6 +2141,7 @@ const regex = {
     /**
       * decodes a regular expression, by replacing all escaped characters with their literal forms; this is only useful if the regular expression is written in a way that obviously matches exactly one string
       * - because regular expressions simply use backslashes, this function also decodes other backslash escaped text, such as the representation of strings in JavaScript code and many similar languages
+      * - this does NOT support octal escapes, because they can be confused with group references; for example, `\1` could be the SOH character or it could match the result of group 1; `\0` will actually match NUL though, so it is supported
       * @param {string} encoded simple regular expression that needs to be decoded
       * @returns {string}
     **/
@@ -2167,6 +2168,13 @@ const regex = {
                 return String.fromCharCode(hex.parse(c));
             }
         );
+        // handle octal escape for NUL since it is not ambiguous
+        decoded = decoded.replace(
+            /\\0(00?)?/g,
+            (sub, c) => {
+                return String.fromCharCode(0);
+            }
+        );
         // handle newline / tab escapes AND backslash escapes
         decoded = decoded.replace(
             /\\([^u]))/g,
@@ -2177,6 +2185,7 @@ const regex = {
                 );
             }
         );
+        return decoded;
     },
 };
 
