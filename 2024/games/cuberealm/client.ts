@@ -122,35 +122,6 @@ var N: {[key: string]: number} = {
     /* for example: `205: 0, 456: 0` would exclude groups 205 and 456 */
 };
 
-/** ? */
-var w = (L => L['map'](Q => {
-    if (null !== Q && 'object' == typeof Q) {
-        if (Q[v])
-            return Q;
-        if (Q['then']) {
-            var q = [];
-            q['d'] = 0x0,
-            Q['then'](R => {
-                j[I] = R,
-                y(q);
-            }
-            , R => {
-                j[X] = R,
-                y(q);
-            }
-            );
-            var j = {};
-            return j[v] = R => R(q),
-            j;
-        }
-    }
-    var b = {};
-    return b[v] = R => {}
-    ,
-    b[I] = Q,
-    b;
-}
-))(Z);
 
 /**
  * currently unknown vars:
@@ -160,10 +131,6 @@ var w = (L => L['map'](Q => {
 class Client extends Array<ModuleGroup>{
     constructor(){
         super(...arguments);
-    }
-    /** just the normal `array.push` method */
-    __push(){
-        Array.prototype.push.apply(this, arguments);
     }
     /**
      * a custom push method, designed for properly setting up module groups in the client
@@ -185,13 +152,21 @@ class Client extends Array<ModuleGroup>{
         /** this if statement blacklists module groups with certain IDs from having the next 4 lines of code run on them; in the current code, only 2 IDs are excluded, and I don't know why */
         if(T.some(W => (N[W] !== 0))){
             for(D in O){
-                h.o(O, D) && (h.m[D] = O[D]);
+                h.o(O, D) && (all_modules[D] = O[D]);
             }
             if(C){
                 var u = C(h);
             }
         }
-        if(this.__push) this.__push(w);
+        
+        /*
+        the old code for this overrides the array push method and then checks if push exists
+        i.e:
+            if(this is an Array and Array.prototype has a push method? that's so dumb)
+                Array.prototype.push.call(this, mg)
+        */
+        if(this instanceof Array) this.push(mg);
+        
         for(; Z < T.length; Z++){
             M = T[Z];
             if(h.o(N, M) && N[M]){
