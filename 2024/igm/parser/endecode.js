@@ -2070,8 +2070,16 @@ const regex_maps = {
     },
 };
 
+// this is the largest positive finite float value
+// also equal to `2**1023*(((2**53)-1)/(2**52))`
+// i wrote it this way so that it will always have the correct value; if written the other way, a compiler might try to optimize the algebra and end up getting the incorrect value; you can also pad this right operand with zeroes and replace the `1` with an `f` in order to get the correct value
+const f64_MAX = 2**971 * 0x1fffffffffffff;
+const P_2_52 = 2**52;
+const P_2_52_m1_2 = 2**52 - 0.5;
+const P_2_52_m1 = 2**52 - 1;
+
 const hex = {
-    decode: {
+    decoder_map: {
         "0":  0, "1":  1, "2":  2, "3": 3,
         "4":  4, "5":  5, "6":  6,
         "7":  7, "8":  8, "9":  9,
@@ -2080,20 +2088,73 @@ const hex = {
         "A": 10, "B": 11, "C": 12,
         "D": 13, "E": 14, "F": 15,
     },
-    encode: "0123456789abcdef".split(""),
+    encoder_map: {
+        0x0: "0",
+        0x1: "1",
+        0x2: "2",
+        0x3: "3",
+        0x4: "4",
+        0x5: "5",
+        0x6: "6",
+        0x7: "7",
+        0x8: "8",
+        0x9: "9",
+        0xa: "a",
+        0xb: "b",
+        0xc: "c",
+        0xd: "d",
+        0xe: "e",
+        0xf: "f",
+    },
+    
+    /**
+      * convert the whole part of to a hexadecimal integer
+      * - this method is called `encode` because it encodes a `Number` (a 64-bit float) to a string, written in hexadecimal format; the string will not be written with a decimal point, an "e+", or an "e-", so it will be quite long if the input value is large
+      * - only works on integers
+      * - returns the normal string form of the number if it is not finite;
+      * - i.e. `NaN`, `Infinity`, and `-Infinity` just return `"NaN"`, `"Infinity"`, and `"-Infinity"`
+      * - `"1.8e+10"` in hexadecimal has the value of `1.5 * 16**10`, not `1.5 * 16**16`, because the number after the `e+` is interpreted in base 10, not base 16
+      * @param {string} value the number to convert
+      * @returns {number} `encoded` --- the hexadecimal encoded string that represents the number
+    **/
+    encode_int: function(value){
+        return Math.floor(value).toString(16);
+    },
+    /**
+      * convert a number to hexadecimal
+      * - this method is called `encode` because it encodes a `Number` (a 64-bit float) to a string, written in hexadecimal format, with a decimal point and an "e+" or "e-" if necessary
+      * - `"1.8e+10"` in hexadecimal has the value of `1.5 * 16**10`, not `1.5 * 16**16`, because the number after the `e+` is interpreted in base 10, not base 16
+      * - words on all numbers, and actually prints a more accurate result than `Number.toString` does
+      * - returns `NaN` if the representation has any invalid characters
+      * - i.e. `NaN`, `Infinity`, and `-Infinity` just return `"NaN"`, `"Infinity"`, and `"-Infinity"`
+      * @param {string} value the number to convert
+      * @param {string} sig_figs the number of significant figures to use in the return value; this includes values to the left and to the right of the decimal point, but does *not* include the digits after an `e+`
+      * @returns {number} `encoded` --- the hexadecimal encoded string that represents the number
+    **/
+    encode: function(value, sig_figs){
+        sig_figs = Number(sig_figs);
+        if(!isFinite(sig_figs))
+        // `2**52` is the first integer than cannot have a fractional part
+        // for example `P_2_52_m1_2.toString(16) == "10000000000000.8"`, which has a decimal point
+        if(value >= P_2_52){
+            // having no decimal point simplifies the work for me significantly
+        }
+        return value;
+    },
     /**
       * find the hexadecimal representation of a number and return it as a proper number
+      * - this method is called `decode` because it decodes a string in hexadecimal format to a `Number` (a 64-bit float) in the IEEE-754 format for "double precision" floats
       * - only works on integers; returns `NaN` if the representation has any invalid characters
-      * @param {string} rep the hexadecimal representation of the number
-      * @returns {number}
+      * @param {string} encoded the hexadecimal representation of the number
+      * @returns {number} `value` --- the decoded value of the number; i.e. a `Number`, which (in JavaScript) is always a 64-bit float
     **/
-    parse: function(rep){
-        let v = 0;
-        for(let i = 0; i < rep.length; i++){
-            v *= 16;
-            v += hex.decode[rep[i]];
+    decode_int: function(encoded){
+        let value = 0;
+        for(let i = 0; i < encoded.length; i++){
+            value *= 16;
+            value += hex.decoder_map[encoded[i]];
         }
-        return v;
+        return value;
     },
 };
 
@@ -2126,14 +2187,14 @@ const regex = {
                 let i = sub.charCodeAt(0);
                 // if sub can be represented with a utf-8 hex escape x{2 digits}
                 if(i < 0x100){
-                    return "\\x" + (i + 0x100).toString(16).slice(1);
+                    return "\\x" + hex.encode(i + 0x100).slice(1);
                 }
                 // if sub must be represented with generic unicode u{5 or more digits}
                 if(i > 0x10000){
-                    return "\\u{" + i.toString(16) + "}";
+                    return "\\u{" + hex.encode(i) + "}";
                 }
                 // sub can be represented with a utf-16 unicode escape x{2 digits}
-                return "\\u" + (i + 0x10000).toString(16).slice(1);
+                return "\\u" + hex.encode(i + 0x10000).slice(1);
             }
         );
         return encoded;
@@ -2151,21 +2212,21 @@ const regex = {
         decoded = decoded.replace(
             /\\x([0-9a-fA-F]{2})/g,
             (sub, c) => {
-                return String.fromCharCode(hex.parse(c));
+                return String.fromCharCode(hex.decode(c));
             }
         );
         // handle general unicode escapes
         decoded = decoded.replace(
             /\\u\{([0-9a-fA-F]+)\}/g,
             (sub, c) => {
-                return String.fromCharCode(hex.parse(c));
+                return String.fromCharCode(hex.decode(c));
             }
         );
         // handle utf-16 unicode escapes
         decoded = decoded.replace(
             /\\u([0-9a-fA-F]{4})/g,
             (sub, c) => {
-                return String.fromCharCode(hex.parse(c));
+                return String.fromCharCode(hex.decode(c));
             }
         );
         // handle octal escape for NUL since it is not ambiguous
