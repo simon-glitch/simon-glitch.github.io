@@ -2078,6 +2078,19 @@ const P_2_52 = 2**52;
 const P_2_52_m1_2 = 2**52 - 0.5;
 const P_2_52_m1 = 2**52 - 1;
 
+/**
+  * returns `true` is `x` is a "nullish" value, according to the "nullish coalescing operator", which is `??`
+  * - returns `false` for a non-nullish `x`, such as `[]`, `""`, `0`, `1`, or `false`
+  * - `null` and `undefined` are the only values considered to be null, at least as of ECMAScript 2023
+  * @param {any} x
+  * @returns {boolean}
+**/
+const is_nullish = function(x){
+    let a = false;
+    x ?? (a = true);
+    return a;
+};
+
 const hex = {
     decoder_map: {
         "0":  0, "1":  1, "2":  2, "3": 3,
@@ -2129,9 +2142,10 @@ const hex = {
       * - i.e. `NaN`, `Infinity`, and `-Infinity` just return `"NaN"`, `"Infinity"`, and `"-Infinity"`
       * @param {number} value the number to convert
       * @param {number} sig_figs the number of significant figures to use in the return value; this includes values to the left and to the right of the decimal point, but does *not* include the digits after an `e+`
+      * @param {number} padding_0s the maximum number of padding 0s that can be used to print a number with an abolute value less than 1, in order to avoid putting an `"e+"` in the number; the `0.` at the start of the number counts as 1 `0`; so `0.05` is considered to have 2 padding zeroes; `0.5` will be printed as `8.0e-1`
       * @returns {string} `encoded` --- the hexadecimal encoded string that represents the number
     **/
-    encode: function(value, sig_figs){
+    encode: function(value, sig_figs, padding_0s){
         // standard argument formatting
         value = Number(value);
         // edge case for non-finite values, as explained in the JS Doc
@@ -2139,23 +2153,32 @@ const hex = {
         
         // special handling for negatives, since skipping the `-` sign makes the code simpler imo
         const is_negative = value < 0;
+        // world's worst obfuscation tip: you can use `value *= ((value < 0) * 2) - 1` instead
         value = Math.abs(value);
         
+        const auto_sigfigs = is_nullish(sig_figs);
         // more standard argument formatting
         sig_figs = Math.floor(Number(sig_figs));
         if(!isFinite(sig_figs)) sig_figs = f64_MAX;
         if(sig_figs < 1) sig_figs = 1;
+        // more standard argument formatting
+        padding_0s = Math.floor(Number(padding_0s));
+        if(!isFinite(padding_0s)) padding_0s = 0;
+        if(padding_0s < 0) padding_0s = 0;
         
         // `2**52` is the first integer than cannot have a fractional part
         // for example `P_2_52_m1_2.toString(16) == "10000000000000.8"`, which has a decimal point
         if(value >= P_2_52){
-            // having no decimal point simplifies the work for me significantly
-            // please note that sig_figs literally tells us how "precise" the output string is supposed to be
-            // we do NOT care if the actual float is less or more accurate than that
-            // this is just a conversion function, and its already specified in the JS Doc that this function only works for 64-bit floats under the IEEE-754 specification
+            /*
+            - having no decimal point simplifies the work for me significantly
+            - please note that sig_figs literally tells us how "precise" the output string is supposed to be
+            - we do NOT care if the actual float is less or more accurate than that
+            - this is just a conversion function, and its already specified in the JS Doc that this function only works for 64-bit floats under the IEEE-754 specification
+            */
             let encoded = value.toString(16);
             const l = encoded.length;
             let d = l - sig_figs;
+            if(auto_sigfigs) d = 0;
             if(d > 0){
                 if(sig_figs == 1) encoded = encoded[1];
                 // by the way: guy who dislikes wide lines of code,
@@ -2169,12 +2192,14 @@ const hex = {
                 // guy who uses ternary statements, go have a chit-chat with Mr. loooong variable names and mister repetitively non-repetitive atomic code guy, because why not?
                 encoded += "e+" + l;
             }
-            // by the way: guy who dislikes `else`, no one likes your code
-            // it's too hard to read
-            // using else like this makes the code easier to read
-            // i could agree with adding a clairifcation tho, like this:
-            // add zeroes after the decimal point if the number is not long enough
-            else{
+            /*
+            - by the way: guy who dislikes `else`, no one likes your code
+            - it's too hard to read
+            - using else like this makes the code easier to read
+            - i could agree with adding a clairifcation tho, like this:
+            - add zeroes after the decimal point if the number is not long enough
+            */
+            if(d < 0){
                 encoded += ".";
                 // add `l` number of `"0"`s
                 for(; d > 0; d--) encoded += "0";
@@ -2183,13 +2208,90 @@ const hex = {
             return encoded;
         }
         let encoded = "";
-        // CURRENTLY: returns "" for small valued numbers, like 6.5; better represent that number in planck lengths, son
-        // TODO: remove that comment
-        // TODO: add handling for your 6.5, obviously
-        // what's 6.5? oh, it's how much you can lift with your index finger, obviously
-        if(is_negative) return "-" + encoded;
+        /*
+        now, let's convert the value into a string, and offset it by a few bits, based on where the "decimal point" would go in hexadecimal
+        
+        if `l` was a multiple of 4, you could place the decimal point in the string representation of value as it currently is, and the string would be correct;
+        
+        however, if `l` was not a multiple of 4, then you would essentially have to place the decimal point in the middle of one of the hex digits of the string, forcing all of the values to the left and right to be multipled or divided by 2, 4, or 8; this means we have to carefully multiply split value, then convert it to 2 strings, and then combine them surgically
+        */
+        
+        const e_plus = (value < 16**(-padding_0s));
+        // normalize the value if it less than 0, so we can use scientific notation
+        const l = Math.floor(Math.log2(value));
+        const hexl = Math.floor(l / 4);
+        if(e_plus) value *= 2**(-l);
+        
+        // this is the tricky part
+        if(value < 1){
+            // we know that we need to print a string matching the regular expression `/0\.0*/` on the left side of encoded, and then put the correct number of sig figs on the right of that
+            // okay, actually, that's not super hard
+            // step 1, get the first non-zero digit
+            const f = Math.floor(value * 16**(-hexl));
+            // step 2, get the rest of the 0 to 12 digits
+            const r = Math.floor(value * 16**(12 - hexl));
+            encoded = "0.";
+            for(let i = -1; i > hexl; i--){
+                encoded += "0";
+            }
+            encoded += f.toString(16);
+            encoded += r.toString(16);
+            if(auto_sigfigs){
+                encoded = encoded.replace(/0+$/, "");
+            }
+            else{
+                encoded = encoded.slice(
+                    0,
+                    sig_figs + 1
+                );
+            }
+        }
+        // if value >= 0, then it's fixed point representation does not start with `0.`, therefore we can just print the stuff on either side of the decimal point
+        else{
+            // whole is the part of value that must be printed on the left of the decimal point
+            const whole = Math.floor(value);
+            // and partial is the part to the right
+            const partial = value - whole;
+            const lp = Math.floor(Math.log2(partial));
+            const bonus = Math.ceil((sig_figs - lp) / 4);
+            
+            encoded = whole.toString(16);
+            let has_point = false;
+            
+            // add a "." if the whole and partial parts need separated
+            if(
+                // case 1: we need sig_figs after the decimal point
+                (!auto_sigfigs && sig_figs > hexl) ||
+                // case 2: we are automatically printing as many sig_figs as possible, and it happens to be the case that the partial part is not 0
+                (auto_sigfigs && bonus > 0)
+            ){
+                has_point = true;
+                encoded += "." + Math.floor(
+                    partial * 16**bonus
+                ).toString(16);
+                if(auto_sigfigs){
+                    encoded = encoded.replace(/0+$/, "");
+                }
+            }
+            if(!auto_sigfigs){
+                if(has_point) for(
+                    let i = l + lp + hexl;
+                    i < sig_figs;
+                    i++
+                ){
+                    encoded += "0";
+                }
+                if(!has_point){
+                    
+                }
+            }
+        }
+        
+        // using `l.toString(16)` here would
+        if(e_plus) encoded += ("e" + ("+-")[l < 0] + Math.abs(l));
+        if(is_negative) return ("-" + encoded);
         return encoded;
-},
+    },
     /**
       * find the hexadecimal representation of a number and return it as a proper number
       * - this method is called `decode` because it decodes a string in hexadecimal format to a `Number` (a 64-bit float) in the IEEE-754 format for "double precision" floats
