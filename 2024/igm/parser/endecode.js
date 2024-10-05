@@ -2109,13 +2109,13 @@ const hex = {
     
     /**
       * convert the whole part of to a hexadecimal integer
-      * - this method is called `encode` because it encodes a `Number` (a 64-bit float) to a string, written in hexadecimal format; the string will not be written with a decimal point, an "e+", or an "e-", so it will be quite long if the input value is large
+      * - this method is called `encode` because it encodes a `Number` (a 64-bit float under the IEEE-754 specification) to a string, written in hexadecimal format; the string will not be written with a decimal point, an "e+", or an "e-", so it will be quite long if the input value is large
       * - only works on integers
       * - returns the normal string form of the number if it is not finite;
       * - i.e. `NaN`, `Infinity`, and `-Infinity` just return `"NaN"`, `"Infinity"`, and `"-Infinity"`
       * - `"1.8e+10"` in hexadecimal has the value of `1.5 * 16**10`, not `1.5 * 16**16`, because the number after the `e+` is interpreted in base 10, not base 16
-      * @param {string} value the number to convert
-      * @returns {number} `encoded` --- the hexadecimal encoded string that represents the number
+      * @param {number} value the number to convert
+      * @returns {string} `encoded` --- the hexadecimal encoded string that represents the number
     **/
     encode_int: function(value){
         return Math.floor(value).toString(16);
@@ -2127,19 +2127,63 @@ const hex = {
       * - words on all numbers, and actually prints a more accurate result than `Number.toString` does
       * - returns `NaN` if the representation has any invalid characters
       * - i.e. `NaN`, `Infinity`, and `-Infinity` just return `"NaN"`, `"Infinity"`, and `"-Infinity"`
-      * @param {string} value the number to convert
-      * @param {string} sig_figs the number of significant figures to use in the return value; this includes values to the left and to the right of the decimal point, but does *not* include the digits after an `e+`
-      * @returns {number} `encoded` --- the hexadecimal encoded string that represents the number
+      * @param {number} value the number to convert
+      * @param {number} sig_figs the number of significant figures to use in the return value; this includes values to the left and to the right of the decimal point, but does *not* include the digits after an `e+`
+      * @returns {string} `encoded` --- the hexadecimal encoded string that represents the number
     **/
     encode: function(value, sig_figs){
-        sig_figs = Number(sig_figs);
-        if(!isFinite(sig_figs))
+        // standard argument formatting
+        value = Number(value);
+        // edge case for non-finite values, as explained in the JS Doc
+        if(!isFinite(value)) return ("" + value);
+        
+        // more standard argument formatting
+        sig_figs = Math.floor(Number(sig_figs));
+        if(!isFinite(sig_figs)) sig_figs = f64_MAX;
+        if(sig_figs < 1) sig_figs = 1;
+        
         // `2**52` is the first integer than cannot have a fractional part
         // for example `P_2_52_m1_2.toString(16) == "10000000000000.8"`, which has a decimal point
-        if(value >= P_2_52){
+        if(Math.abs(value) >= P_2_52){
             // having no decimal point simplifies the work for me significantly
+            // please note that sig_figs literally tells us how "precise" the output string is supposed to be
+            // we do NOT care if the actual float is less or more accurate than that
+            // this is just a conversion function, and its already specified in the JS Doc that this function only works for 64-bit floats under the IEEE-754 specification
+            let encoded = value.toString(16);
+            const l = encoded.length;
+            let d = l - sig_figs;
+            if(d > 0){
+                if(sig_figs == 1) encoded = encoded[1];
+                // by the way: guy who dislikes wide lines of code,
+                // write a compiler for esolang in Java
+                // and then write a Java interpreter in that esolang
+                // and when youre done, ill congratulate you,
+                // but i will still write wide lines of code like this;
+                // because we all have the freedom to do as we please :D
+                // enjoy please, and have a nice day
+                else encoded = encoded[1] + "." + encoded.slice(1, sig_figs);
+                // guy who uses ternary statements, go have a chit-chat with Mr. loooong variable names and mister repetitively non-repetitive atomic code guy, because why not?
+                encoded += "e+" + l;
+            }
+            // by the way: guy who dislikes `else`, no one likes your code
+            // it's too hard to read
+            // using else like this makes the code easier to read
+            // i could agree with adding a clairifcation tho, like this:
+            // add zeroes after the decimal point if the number is not long enough
+            else{
+                encoded += ".";
+                // add `l` number of `"0"`s
+                for(; d > 0; d--) encoded += "0";
+            }
+            // TODO make `encode`, `encode_int`, and `decode_int` handler negative numbers properly
+            return encoded;
         }
-        return value;
+        let encoded = "";
+        // CURRENTLY: returns "" for small valued numbers, like 6.5; better represent that number in planck lengths, son
+        // TODO: remove that comment
+        // TODO: add handling for your 6.5, obviously
+        // what's 6.5? oh, it's how much you can lift with your index finger, obviously
+        return encoded;
     },
     /**
       * find the hexadecimal representation of a number and return it as a proper number
