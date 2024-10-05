@@ -2137,6 +2137,10 @@ const hex = {
         // edge case for non-finite values, as explained in the JS Doc
         if(!isFinite(value)) return ("" + value);
         
+        // special handling for negatives, since skipping the `-` sign makes the code simpler imo
+        const is_negative = value < 0;
+        value = Math.abs(value);
+        
         // more standard argument formatting
         sig_figs = Math.floor(Number(sig_figs));
         if(!isFinite(sig_figs)) sig_figs = f64_MAX;
@@ -2144,7 +2148,7 @@ const hex = {
         
         // `2**52` is the first integer than cannot have a fractional part
         // for example `P_2_52_m1_2.toString(16) == "10000000000000.8"`, which has a decimal point
-        if(Math.abs(value) >= P_2_52){
+        if(value >= P_2_52){
             // having no decimal point simplifies the work for me significantly
             // please note that sig_figs literally tells us how "precise" the output string is supposed to be
             // we do NOT care if the actual float is less or more accurate than that
@@ -2175,7 +2179,7 @@ const hex = {
                 // add `l` number of `"0"`s
                 for(; d > 0; d--) encoded += "0";
             }
-            // TODO make `encode`, `encode_int`, and `decode_int` handler negative numbers properly
+            if(is_negative) return "-" + encoded;
             return encoded;
         }
         let encoded = "";
@@ -2183,8 +2187,9 @@ const hex = {
         // TODO: remove that comment
         // TODO: add handling for your 6.5, obviously
         // what's 6.5? oh, it's how much you can lift with your index finger, obviously
+        if(is_negative) return "-" + encoded;
         return encoded;
-    },
+},
     /**
       * find the hexadecimal representation of a number and return it as a proper number
       * - this method is called `decode` because it decodes a string in hexadecimal format to a `Number` (a 64-bit float) in the IEEE-754 format for "double precision" floats
@@ -2193,11 +2198,16 @@ const hex = {
       * @returns {number} `value` --- the decoded value of the number; i.e. a `Number`, which (in JavaScript) is always a 64-bit float
     **/
     decode_int: function(encoded){
+        const is_negative = encoded[0] == "-";
         let value = 0;
-        for(let i = 0; i < encoded.length; i++){
+        for(
+            let i = (+is_negative);
+            i < encoded.length; i++
+        ){
             value *= 16;
             value += hex.decoder_map[encoded[i]];
         }
+        if(is_negative) return -value;
         return value;
     },
 };
