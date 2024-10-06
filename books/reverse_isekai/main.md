@@ -1,0 +1,17 @@
+### The Ultimate Reverse Isekai
+
+First off, names of anything related to isekai are all badly warped versions of Japanese words and names.
+
+Kanon, the main character, is your typical Japanese wanabe Otaku salary man. He was really pathetic in his last list, and got killed by Truck-kun. Many others like him were also killed by Truck-kun, and they were sent to a place known as the Jinsel Koshiran. It's a strange dungeon in the world of Yaniboku.
+
+Jinsel Koshiran dungeon has 100 floors, and the iskeai'd persons all spawned in on the 100-th floor, the Jinsela Plateau. A jinsela is a flower with blue heart pedals on one side and pink hearts on its other side. These flowers represent the 2-life nature of isekai stories, and how isekai protagonists are usually either 2-faced or extremely dense. Jinselas can be found all throughout Jinsel Koshiran, but they are sparse and infrequent on all of the floors except for the 100-th floor, where they fill the whole field.
+
+In total, 777 isekais (Japanese losers), aged 16 to 32, spawned in the Jinsela Plateau. 85 of them managed to escape the dungeon, but the remaining 652 of them weren't so lucky.
+
+Burel and Calen make their way through the dungeon, and used their impressive magical abilities to capture 651 of the isekais. As they reached the end of the Jinsela Plateau, where a giant bridge stood over a chasm of lava, they met Kanon. Kanon was the strongest of all of the isekais, due to having the most over powered cheat ability: Skill Architect. Unfortunately, he was no match for Burel and Calen, but he did force them to revert to a different trick. They had to rip Kanon's personhood (i.e. his mind, heart, and soul) out of his body, in order to take away his chear ability. After taking his personhood out of his body, they moved it into a new human body, which they constructed on the spot. The new body was intentionally constructed as the body of a 2-year old child, since that would make it easier for Burel and Calen to handle. Also, Calen was very slightly motivated to make the body smaller because smaller bodies simply take less resources to make.
+
+This all really bewildered Kanon, who was expecting to die. After putting him in a toddler's body, Calen picked him up, and she and Burel walked across the giant bridge. Kanon constantly complained about being treated like a child, and asked why he was turned into a child. Calen said it was so she and Burel could cure him of his evil and wickedness. They wanted to make him become a better person.
+
+In the middle of the bridge, they saw a sign labelling it as the "Jinmama Bridge". At the end of the bridge, they found a small door to the final reward room of the dungeon. They walked inside and were rewarded with *drum roll...* a cookie. Burel thought it smelled bad, so he asked Kanon to eat it. Kanon ate it and said it tasted like a normal chocalate chip cookie, and that he didn't know why it smelled like a skunk.
+
+After leaving the dungeon, Burel and Calen kept adventuring as usual. They drug Kanon along with them everywhere, and constantly mentored him and taught him important life lessons, like how to respect other people. Kanon being mentored is the core element of the story. Burel and Calen are not only perfect parents, but they are also way more powerful than your typical anime protagonist. And Kanon, who has the personality of your typical anime protagonist, has no special abilities or powers at all, and is being forced to live the life of a normal person.
