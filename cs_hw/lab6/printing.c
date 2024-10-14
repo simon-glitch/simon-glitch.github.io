@@ -54,6 +54,7 @@ int nth_fib(uint64_t n){
     // a = Fib[i-1] = Fib[n+1-1] = Fib[n],
     // so return b
     return a;
+// end function
 }
 
 int main()
