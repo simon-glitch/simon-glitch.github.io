@@ -101,6 +101,7 @@ c {d}
 
 Examples 3 and 5 both take advantage of implied parenthesis. These can only be used if `c` is actually assigned to some value before the example code. If `c` was replaced with some longer expression, it might require parenthesis in order to clarify the order of operations.
 
+# Functions
 Function declaration. f(x) = 2x + 1
 ```
 var f = [x]: [
@@ -108,5 +109,14 @@ var f = [x]: [
 ]
 ```
 
+A function is defined with `:` and square brackets, and called with `.` and parenthesis. So, `f.(x)` will actually pass `x` in as an argument to `f`, and then call `f`. Thus, `f.(0)` would give `1`, `f.(1)` would give `3`, and `f.(22)` would give `45`. Parenthesis are optional for single parameter functions, and even the dot can be removed, for functions.
+
+## Operators and operating functions
+When the dot is removed, [the function] is referred to as a "operating functions", [the calling of the function] is referred to as "operator syntax", and we say that "the function is being used as an operator". When defined, functions can be defined as different types of operators for different purposes. All operations are left to right, prefix, and have a precedence of 1 by default.
+
+Operators can be specified as right to left, postfix, infix, and as having different precedences. Higher precedence operators are evaluated first, recursively.
+
+### Side note
+Putting a function within an operating function causes the inner function to be called first, rather than passing the function object as an argument to outer function. If you want to pass the function object, you will need to wrap it in square brackets.
 
 
