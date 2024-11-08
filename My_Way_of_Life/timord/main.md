@@ -5,7 +5,8 @@ I'll call it timord for now.
 
 # Overview of fancy features
 * psuedo-code support
-* built-in lexers and linters for custom languages
+* built-in parsers, lexers, and linters for custom languages
+    * built-in parsing expression grammar
 * dynamic types
 * dynamic type checking
     * with good syntax for handling edge cases and exceptions
@@ -17,6 +18,7 @@ I'll call it timord for now.
     * auxilary dependencies for auxilary features
 * first-class functions
 * first-class types
+* NOTE: this language is a context-free grammar
 
 # Basic features:
 * `()` - denote nesting
