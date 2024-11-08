@@ -3,6 +3,21 @@ I've come up with a new idea for a very useful programming language.
 
 I'll call it timord for now.
 
+# Overview of fancy features
+* psuedo-code support
+* built-in lexers and linters for custom languages
+* dynamic types
+* dynamic type checking
+    * with good syntax for handling edge cases and exceptions
+* a large buil-tin library
+* dynamic dependency checks
+    * backup-dependencies
+    * system-specific dependencies
+    * user-selectable dependencies
+    * auxilary dependencies for auxilary features
+* first-class functions
+* first-class types
+
 # Basic features:
 * `()` - denote nesting
 * `(a,b)` - makes a sequence object
@@ -118,5 +133,9 @@ Operators can be specified as right to left, postfix, infix, and as having diffe
 
 ### Side note
 Putting a function within an operating function causes the inner function to be called first, rather than passing the function object as an argument to outer function. If you want to pass the function object, you will need to wrap it in square brackets.
+
+# Types
+TODO
+
 
 
