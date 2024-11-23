@@ -234,7 +234,7 @@ const SRS = function(data_size, sample_size){
     // halve this, to help reduce the bias against the last item
     rt += Math.random() / 2;
     
-    const ri = AutoArray(
+    const ri = IndexArray(
         sample_size,
         2**2**Math.max(Math.floor(Math.log2(
             Math.floor(Math.log2(
@@ -275,7 +275,29 @@ const SRS = function(data_size, sample_size){
 // cleanup the output from the SRS function above specifically to give a sorted list of indices with no duplicates
 // why a sorted list of indices? it is to make it easier to make `gigachad_sort` stable
 const SRS_cleanup = function(ri){
+    const l = ri.length;
+    // check if the last item is greater than the first
+    if(ri[l - 1] > ri[0]) return ri;
     
+    // if it is less than or equal to the first, we need to rebuild ri accordingly
+    // all we actually have to do is rotate the entire list some number of places
+    // first, we need to figure out where the new list will be starting from
+    let i = l - 1;
+    while(ri[i] <= ri[i - 1]) i--;
+    // now, just move all of the items over by that much
+    // ill just make a new array
+    const ro = IndexArray(
+        l,
+        2**2**Math.max(Math.floor(Math.log2(
+            Math.floor(Math.log2(
+                ri[i - 1]
+            ) || 1)
+        )), 3)
+    );
+    for(let j = i, k = 0; j != i; j++, j %= l, k++){
+        ro[k] = ri[j];
+    }
+    return ro;
 };
 
 
