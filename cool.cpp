@@ -20,7 +20,7 @@ int k_dist(int ki, int kj, int n){
         for(int j = 0; j < n; j++){
             d[i].push_back(vector<vector<int>>());
             for(int k = 0; k < n; k++){
-                d[i][j].push_back(vector<int>());
+                d[i][j].push_back(vector<int>(n));
                 for(int l = 0; l < n; l++){
                     d[i][j][k][l] = 0x7fffffff;
                 }
@@ -30,6 +30,11 @@ int k_dist(int ki, int kj, int n){
     
     for(int i = 0; i < n; i++){
         for(int j = 0; j < n; j++){
+            cout << "checking ";
+            cout << i;
+            cout << " ";
+            cout << j;
+            cout << "\n";
             // set all 8 valid knight moves to 1
             // up ki, left kj
             if(i > ki && j > kj){
@@ -99,14 +104,14 @@ int k_dist(int ki, int kj, int n){
 // O(n^10) - now that's efficient!
 vector<vector<int>> knightlOnAChessboard(int n) {
     vector<vector<int>> res;
-    for(int i = 0; i < n; i++){
-        res.push_back(vector<int>());
-        for(int j = 0; j < n; j++){
+    for(int i = 1; i < n; i++){
+        res.push_back(vector<int>(n));
+        for(int j = 1; j < n; j++){
             if(i > j){
-                res[i][j] = res[j][i];
+                res[i - 1][j - 1] = res[j - 1][i - 1];
             }
             else{
-                res[i][j] = k_dist(i, j, n);
+                res[i - 1][j - 1] = k_dist(i, j, n);
             }
         }
     }
