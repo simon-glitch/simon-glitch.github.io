@@ -9,3 +9,5 @@ I live with this dude, and he's the worst. He thinks everything is stupid, and t
 Does anyone have an explanation for why my dad is wrong for expecting me to have common sense?
 I've explained to him that the fundamental parts of the way I think are so vastly different from an average person that I can't make normal conclusions from the information presented to me, even when I try me very best to be perfectly logical and avoid weird ideas, my thinking style makes it mathematically impossible for me to come to a normal conclusion. By mathematically impossible , I mean that there are no mathematical operators to trasnform the format my brain uses to the format required to come to a normal conclusion. Mathematical impossibility is an ultimate-level problem that transcends other problems, meaning no matter how hard I try and no matter how smart I am, I can't break it. Just like how you can't write the number sqrt(2) as the ratio of 2 integers. It's just NOT possible.
 
+He seems to not be aware of the concept of multiple valid yet conflicting definitions for a word, but that's not a big deal.
+
