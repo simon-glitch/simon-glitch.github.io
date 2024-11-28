@@ -1,3 +1,5 @@
+November 12, 2024
+
 Make sure to tell daniel "Fuck you", because he deserves it.
 How the fuck am I supposed to respond to "I hope you aren't around me in 2 sips when I figure out how fast I can throw this coffee cup at your head."?
 What the fuck.
