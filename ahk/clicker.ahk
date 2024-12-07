@@ -2,7 +2,9 @@
 
 class globals {
     static i := 0
-    static n := 2000
+    static n := 1000000
+    static d := 10
+    static p := 0
 }
 
 
@@ -17,11 +19,13 @@ click_f(){
 PgUp::
 {
     globals.i := 0
-    SetTimer(click_f, 1)
+    SetTimer(click_f, globals.d * 2**globals.p)
 }
 
 !Esc::
 {
+    Suspend
+    Persistent 0
     Exit(0)
 }
 
@@ -30,3 +34,15 @@ PgDn::
 {
     globals.i := globals.n
 }
+
+#HotIf
+!Left::
+{
+    globals.p := globals.p + 1
+}
+
+!Right::
+{
+    globals.p := globals.p - 1
+}
+
