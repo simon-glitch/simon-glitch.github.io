@@ -17,7 +17,7 @@ player = [0 for i in range(spaces)]
 # let's start at the first tile
 player[0] = 1
 # number of turns to make
-turn_count = 10
+turn_count = 100
 
 # the chutes and ladder on the board
 # each is represented as a tuple: (int start, int end)
