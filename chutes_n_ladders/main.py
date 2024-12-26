@@ -1,5 +1,7 @@
 
 import numpy as np
+import scipy as sp
+
 
 # chutes and ladders is a game of pure chance,
 # so this program creates a probability matrix to advance the game 1 turn
@@ -79,16 +81,18 @@ for i in range(spaces - die, spaces):
 # np.savetxt("turn.txt", turn, fmt='%1.2f')
 
 print(np.array(player))
+print(turn_count, "turns")
+
 # print((np.linalg.matrix_power(turn, turn_count) @ np.array(player)) * 100)
 mt = np.array(turn)
 mp = np.array(player)
-for i in range(turn_count):
-    mp = mt @ mp
-    total = np.sum(mp)
-    mp /= total
+# for i in range(turn_count):
+#     mp = mt @ mp
+#     total = np.sum(mp)
+#     mp /= total
 
 def f(m):
-    return str(round(m * 100, 2)) + "%"
+    return str(round(m * 100, 6)) + "%"
 
 def join(mp, j = ", "):
     s = ""
@@ -97,5 +101,9 @@ def join(mp, j = ", "):
     for m in mp[1:]: s += j + m
     return s
 
-print(join([f(m) for m in mp]))
+print(join([f(m) for m in (
+    sp.linalg.fractional_matrix_power(
+        mt, turn_count
+    ) @ mp
+)]))
 
