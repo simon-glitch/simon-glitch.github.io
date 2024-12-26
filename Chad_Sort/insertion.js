@@ -18,3 +18,6 @@ let insertion_sort = function(items, n){
     }
 }
 
+let linked_insertion_sort_i = function(){};
+
+
