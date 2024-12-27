@@ -244,6 +244,10 @@ const timeit = async function(size, sort_fn){
 };
 
 const print_i = function(i){
+    if(!isFinite(i)){
+        return i + "";
+    }
+    
     let text = "";
     let log = Math.floor(Math.log10(i));
     log -= log % 3;
@@ -263,6 +267,10 @@ const print_i = function(i){
 };
 
 const print_t = function(t){
+    if(!isFinite(t)){
+        return t + " seconds";
+    }
+    
     let sign = "";
     if(t < 0) sign = "-", t = -t;
     let ms = t % 1000;
@@ -279,7 +287,7 @@ const print_t = function(t){
 };
 
 const print_test = async function(size, sort_fn){
-    const times = timeit(size, sort_fn);
+    const times = await timeit(size, sort_fn);
     console.log(
         "took " +
         print_t(times[0]) +

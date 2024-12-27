@@ -29,6 +29,8 @@ let linked_insertion_sort_i = async function(data){
     const links = AutoIndexArray(L, L);
     
     const find = function(ii){
+        console.log("finding from " + ii);
+        
         let j_set = false;
         let j = 0;
         for(let i = 0; i < L; i++){
@@ -96,9 +98,10 @@ let linked_insertion_sort_i = async function(data){
     // im so smart
     const done = Array(threads).fill(false);
     for(let i = 0; i < L; i += threads){
+        let j;
         for(
-            let j = i;
-            j < threads && j < L;
+            j = i;
+            j < i + threads && j < L;
             j++
         ){
             const ii = j;
@@ -107,17 +110,26 @@ let linked_insertion_sort_i = async function(data){
                 done[ii] = true;
             })();
         }
+        // default excess threads to being done
+        for(j; j < i + threads; j++){
+            done[j] = true;
+        }
     }
     // simply wait for all threads to be done
     // check every 64 ms
-    await wait_until(t => done.indexOf(false) == -1, 64);
+    await wait_until(
+        t => {
+            console.log("done:", done);
+            return done.indexOf(false) == -1;
+        }, 64);
     
-    
+    // :)))
+    return links;
 };
 
 /** Sort `data`, in-place, with linked insertion sort. */
 let linked_insertion_sort = async function(data){
-    linked_sort(
+    return linked_sort(
         data,
         await linked_insertion_sort_i(data)
     );
