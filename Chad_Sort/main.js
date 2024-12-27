@@ -198,9 +198,6 @@ const print_items = function(items){
   * @returns {Vitem} exact same `data` object, for chaining
 **/
 let linked_sort = function(data, links, start = 0){
-    console.log("data:", data[GET](VALUES));
-    console.log("links:", links);
-    console.log("start:", start);
     const L = data.length;
     const map = AutoIndexArray(L, L - 1);
     const done = AutoIndexArray(L, 1);
@@ -230,8 +227,8 @@ let linked_sort = function(data, links, start = 0){
 
 
 
-const max = 2**6;
-const timeit = async function(size, sort_fn){
+const max = 2**12;
+const timeit = async function(sort_fn, size, do_print){
     const times = [];
     const t0 = new Date;
     
@@ -240,12 +237,12 @@ const timeit = async function(size, sort_fn){
     ), max);
     const t1 = new Date;
     
-    console.log("unsorted items:", print_items(my_data));
+    if(do_print) console.log("unsorted items:", print_items(my_data));
     
     await sort_fn(my_data);
     const t2 = new Date;
     
-    console.log("sorted items:", print_items(my_data));
+    if(do_print) console.log("sorted items:", print_items(my_data));
     
     times[0] = t1 - t0;
     times[1] = t2 - t1;
@@ -295,8 +292,8 @@ const print_t = function(t){
     );
 };
 
-const print_test = async function(size, sort_fn){
-    const times = await timeit(size, sort_fn);
+const print_test = async function(sort_fn, size, do_print){
+    const times = await timeit(sort_fn, size, do_print);
     console.log(
         "took " +
         print_t(times[0]) +
@@ -365,9 +362,32 @@ const wait_until = function(condition, mspf){
     return p[0];
 };
 
-async function main(sort_fn){
-    await wait(160);
-    print_test(4, sort_fn);
+// TODO: add a way to test if `sort_fn` is stable;
+
+/**
+  * Test a sort function with multiple different sizes.
+  * @param {Function} sort_fn the sort function; it must have the simple form `(data: Vitem) => Vitem`
+  * @param {number[]} waits the time to wait before each individual test
+  * @param {number[]} sizes the size of the data for each individual test
+  * @param {boolean[]} do_prints whether to print the lists for each individual test
+**/
+async function main(sort_fn, waits, sizes, do_prints){
+    const L_W = waits.length;
+    const L_S = sizes.length;
+    const L_P = do_prints.length;
+    const L = Math.max(
+        L_W,
+        L_S,
+        L_P,
+    );
+    for(let i = 0; i < L; i++){
+        await wait(waits[i % L_W]);
+        await print_test(
+            sort_fn,
+            sizes[i % L_S],
+            do_prints[i % L_P]
+        );
+    }
 };
 
 

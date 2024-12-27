@@ -18,7 +18,7 @@ let insertion_sort = function(items, n){
     }
 }
 
-let threads = 8;
+let threads = 10_000;
 
 /**
   * Generate the indices for `linked_insertion_sort`.
@@ -32,22 +32,9 @@ let linked_insertion_sort_i = async function(data){
     const links_set = AutoIndexArray(L, 2);
     
     const find = function(ii){
-        /*
-        console.log("LHS: " + ii);
-        
-        console.log("comparisons:", ([0,1,2,3].map(
-            v => data.compare(v, ii) * 2 + data.compare(ii, v)
-        ).map(
-            v => ("=<>?")[v]
-        )).join(" "));
-        */
-        
         let j_set = false;
         let j = L;
         for(let i = 0; i < L; i++){
-            console.log("i:", i);
-            console.log("j:", j);
-            
             // the code is simpler when j has not been set yet
             if(!j_set){
                 // first off, I want to find an item greater than d[ii]
@@ -77,12 +64,10 @@ let linked_insertion_sort_i = async function(data){
             }
             
             // gt = d[i] > d[j]
-            // or gt = d[j] < d[i]
             const gt = data.compare(j, i);
             if(gt) continue;
             
             // lt = d[i] < d[j]
-            // or lt = d[j] > d[i]
             const lt = data.compare(i, j);
             // gt == false and lt == false
             // so d[i] == d[j]
@@ -95,12 +80,10 @@ let linked_insertion_sort_i = async function(data){
             }
             // lt == true
             // so d[i] < d[j]
-            // and d[j] > d[i]
             // find the smallest item greater than d[ii]
             else{
                 // make sure d[i] >= d[ii];
                 // i.e. !(d[i] < d[ii]);
-                // i.e. !(d[ii] > d[i]);
                 // this was ALSO backwards
                 if(data.compare(i, ii)) continue;
                 
@@ -120,7 +103,6 @@ let linked_insertion_sort_i = async function(data){
         }
     };
     
-    // im so smart
     const done = Array(threads).fill(false);
     for(let i = 0; i < L; i += threads){
         let j;
@@ -143,11 +125,8 @@ let linked_insertion_sort_i = async function(data){
         // simply wait for all threads to be done
         // check every 16 ms
         await wait_until(
-            t => {
-                console.log("done:", done);
-                return done.indexOf(false) == -1;
-            },
-            16
+            t => (done.indexOf(false) == -1),
+            16,
         );
     }
     
@@ -175,6 +154,22 @@ let linked_insertion_sort = async function(data){
 };
 
 
-main(linked_insertion_sort);
+main(
+    linked_insertion_sort,
+    [
+        100
+    ],
+    [
+        10,
+        100,
+        1_000,
+        10_000, // 1.5 s
+        20_000, // 3.7 s
+        30_000, // 6.6 s
+    ],
+    [
+        false,
+    ],
+);
 
 
