@@ -23,23 +23,37 @@ let threads = 8;
 /**
   * Generate the indices for `linked_insertion_sort`.
   * Does not modify `data`.
+  * @param {Vitem} data
+  * @return {Promise<[number, TypedArray]>}
 **/
 let linked_insertion_sort_i = async function(data){
     const L = data.length;
     const links = AutoIndexArray(L, L);
+    const links_set = AutoIndexArray(L, 2);
     
     const find = function(ii){
-        console.log("finding from " + ii);
+        /*
+        console.log("LHS: " + ii);
+        
+        console.log("comparisons:", ([0,1,2,3].map(
+            v => data.compare(v, ii) * 2 + data.compare(ii, v)
+        ).map(
+            v => ("=<>?")[v]
+        )).join(" "));
+        */
         
         let j_set = false;
-        let j = 0;
+        let j = L;
         for(let i = 0; i < L; i++){
+            console.log("i:", i);
+            console.log("j:", j);
+            
             // the code is simpler when j has not been set yet
             if(!j_set){
                 // first off, I want to find an item greater than d[ii]
                 // or equal to d[ii], but only when i > ii
                 
-                const gt = data.compare(i, ii);
+                const gt = data.compare(ii, i);
                 if(gt){
                     // nice! we don't need to overcomplicate this;
                     j = i;
@@ -47,6 +61,7 @@ let linked_insertion_sort_i = async function(data){
                 }
                 else{
                     // check if they are equal
+                    // this was backwards before
                     const lt = data.compare(i, ii);
                     if(!lt){
                         // if they are, check if i > ii
@@ -63,16 +78,17 @@ let linked_insertion_sort_i = async function(data){
             
             // gt = d[i] > d[j]
             // or gt = d[j] < d[i]
-            const gt = data.compare(i, j);
-            if(gt) return;
+            const gt = data.compare(j, i);
+            if(gt) continue;
             
             // lt = d[i] < d[j]
             // or lt = d[j] > d[i]
-            const lt = data.compare(j, i);
+            const lt = data.compare(i, j);
             // gt == false and lt == false
             // so d[i] == d[j]
             // find the closest equal item to the right of d[ii]
             if(!lt){
+                // we can REMOVE this case bc it reads LTR so i < j is always false
                 if(i > ii && i < j){
                     j = i;
                 }
@@ -85,14 +101,23 @@ let linked_insertion_sort_i = async function(data){
                 // make sure d[i] >= d[ii];
                 // i.e. !(d[i] < d[ii]);
                 // i.e. !(d[ii] > d[i]);
-                if(data.compare(ii, i)) continue;
+                // this was ALSO backwards
+                if(data.compare(i, ii)) continue;
                 
-                // now, just override directly
-                j = i;
+                if(
+                    // check if d[ii] < d[i]
+                    data.compare(ii, i) ||
+                    // if it's not, then d[ii] == d[i]
+                    // so, i need to make sure i > ii
+                    i > ii
+                ) j = i;
             }
         }
-        j %= L;
-        links[ii] = j;
+        
+        if(j != L){
+            links[ii] = j;
+            links_set[ii] = 1;
+        }
     };
     
     // im so smart
@@ -114,24 +139,38 @@ let linked_insertion_sort_i = async function(data){
         for(j; j < i + threads; j++){
             done[j] = true;
         }
+        
+        // simply wait for all threads to be done
+        // check every 16 ms
+        await wait_until(
+            t => {
+                console.log("done:", done);
+                return done.indexOf(false) == -1;
+            },
+            16
+        );
     }
-    // simply wait for all threads to be done
-    // check every 64 ms
-    await wait_until(
-        t => {
-            console.log("done:", done);
-            return done.indexOf(false) == -1;
-        }, 64);
     
-    // :)))
-    return links;
+    // find the left-most minimum item
+    let min = 0;
+    for(let i = 0; i < L; i++) if(data.compare(i, min)) min = i;
+    
+    // make links_set[ii] == false map to 0
+    // this is inefficient on multiple levels, but what do you expect from insertion sort?
+    for(let i = 0; i < L; i++) if(!links_set[i]) links[i] = min;
+    
+    return [min, links];
 };
 
 /** Sort `data`, in-place, with linked insertion sort. */
 let linked_insertion_sort = async function(data){
+    const [min, links] = await (
+        linked_insertion_sort_i(data)
+    );
     return linked_sort(
         data,
-        await linked_insertion_sort_i(data)
+        links,
+        min,
     );
 };
 

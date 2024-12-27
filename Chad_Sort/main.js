@@ -34,10 +34,10 @@ class Vitem{};
 /** calculate the number of bits needed for an unsigned integer */
 const get_bit_count = function(max_value){
     return 2**Math.max(Math.floor(Math.log2(
-        Math.floor(Math.log2(
+        Math.max(Math.floor(Math.log2(
             max_value
-        ) || 1)
-    )), 3)
+        )), 1)
+    ) + 1), 3)
 };
 
 /**
@@ -62,7 +62,7 @@ const Items = (function(){
         }
         /** compare by indices; return `true` if `d[i2] > d[i1]` */
         compare(i1, i2){
-            return (i2 > i1);
+            return (this.#values[i2] > this.#values[i1]);
         }
         /** move by indices; i.e. `d[i2] = d[i1];` */
         move(i1, i2){
@@ -78,9 +78,7 @@ const Items = (function(){
         }
         /** works just like `Array.slice` */
         slice(i1 = 0, i2 = this.#values.length){
-            i2 %= this.#values.length;
-            i2 += this.#values.length;
-            i2 %= this.#values.length;
+            if(i2 < 0) i2 += this.#values.length;
             return new _Vitem(this.#values, this.#Type, i1, i2);
         }
         /** gets an item directly; `i == VALUES` gives the private `this.#values` object directly */
@@ -196,20 +194,24 @@ const print_items = function(items){
   * The final step of any linked sorting algorithm. Use the links to rearrange the entire list, so some slice of the list.
   * @param {Vitem} data the data; i.e. the list of items; this data will be rearranged in-place;
   * @param {TypedArray} links the index of the next item for each item in `data`;
+  * @param {number} start where the data starts; i.e. the index of the minimum value, for an ascending sort;
   * @returns {Vitem} exact same `data` object, for chaining
 **/
-let linked_sort = function(data, links){
+let linked_sort = function(data, links, start = 0){
+    console.log("data:", data[GET](VALUES));
+    console.log("links:", links);
+    console.log("start:", start);
     const L = data.length;
     const map = AutoIndexArray(L, L - 1);
     const done = AutoIndexArray(L, 1);
     
-    let j = 0;
+    let j = start;
     for(let i = 0; i < L; i++){
         if(done[j]){
             break;
         }
         done[j] = true;
-        map[i] = links[j];
+        map[i] = j;
         j = links[j];
     }
     const data_c = data.slice();
@@ -218,7 +220,7 @@ let linked_sort = function(data, links){
     const d_c = data_c[GET](VALUES);
     // directly map from data to data_c
     for(let i = 0; i < L; i++){
-        d_a[i] = d_c[i];
+        d_a[i] = d_c[map[i]];
     }
     // for convenience and chaining
     return data;
@@ -228,7 +230,7 @@ let linked_sort = function(data, links){
 
 
 
-const max = 2**20;
+const max = 2**6;
 const timeit = async function(size, sort_fn){
     const times = [];
     const t0 = new Date;
