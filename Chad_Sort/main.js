@@ -33,7 +33,7 @@ class Vitem{};
 
 /**
   * Create a space-efficient list of items (a `Vitem`).
-  * @param {Number[]} values `(Integer[])` the values to store in the list of items
+  * @param {Number[]} values `(Integer[])` the values to store in the list of items; `values` can be any indexable list of values
   * @param {Number} item_size `(Integer: 8, 16, 32, or 64)` the number of bits the integer value of each item will have
   * @returns {Vitem}
 **/
@@ -212,11 +212,9 @@ const timeit = function(size, sort_fn){
     const times = [];
     const t0 = new Date;
     
-    const my_data = Array(size).fill(0).map(
+    const my_data = Items(Array(size).fill(0).map(
         v => Math.floor(Math.random() * max)
-    ).map(
-        v => new Item(v)
-    );
+    ), size);
     const t1 = new Date;
     
     sort_fn(my_data);
