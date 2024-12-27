@@ -18,7 +18,7 @@ let insertion_sort = function(items, n){
     }
 }
 
-let threads = 10_000;
+let threads = 1_000;
 
 /**
   * Generate the indices for `linked_insertion_sort`.
@@ -192,26 +192,29 @@ let linked_insertion_sort = async function(data){
 
 /*
 linked insertion test 1:
-
-10_000 ->  1.4 s
-20_000 ->  3.7 s
-30_000 ->  6.3 s
-40_000 -> 11.4 s
-50_000 -> 17.7 s
+* 10_000 ->  1.4 s
+* 20_000 ->  3.7 s
+* 30_000 ->  6.3 s
+* 40_000 -> 11.4 s
+* 50_000 -> 17.7 s
 
 
 linked insertion test 2:
+* 10_000 ->  1.2 s
+* 20_000 ->  3.6 s
+* 30_000 ->  6.9 s
+* 40_000 -> 11.3 s
+* 50_000 -> 18.0 s
+* 60_000 -> 24.9 s
+* 70_000 -> 34.1 s
+* 80_000 -> 46.5 s
 
-10_000 ->  1.2 s
-20_000 ->  3.6 s
-30_000 ->  6.9 s
-40_000 -> 11.3 s
-50_000 -> 18.0 s
-60_000 -> 24.9 s
-70_000 -> 34.1 s
-80_000 -> 46.5 s
 
-insertion test 1:
+plain insertion test 1:
+*     10,000 -> 0     s
+*    100,000 -> 0.006 s
+*  1,000,000 -> 0.036 s
+* 10,000,000 -> 0.440 s
 
 */
 
