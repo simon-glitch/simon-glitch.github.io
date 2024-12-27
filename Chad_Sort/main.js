@@ -230,9 +230,9 @@ const timeit = function(size, sort_fn){
     const times = [];
     const t0 = new Date;
     
-    const my_data = Items(Array(size).fill(0).map(
+    const my_data = AutoItems(Array(size).fill(0).map(
         v => Math.floor(Math.random() * max)
-    ), size);
+    ), max);
     const t1 = new Date;
     
     sort_fn(my_data);
