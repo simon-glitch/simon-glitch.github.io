@@ -3,17 +3,17 @@
 let insertion_sort = function(items, n){
     n ??= items.length;
     for(let i = 1; i < items.length; i++){
-        const swap = items[i]
+        const swap = items[GET](i);
         let j = i;
         // shift the items
-        while(j > 0 && swap.compare(items[j - 1])){
-            items[j] = items[j - 1];
+        while(j > 0 && items.compare(i, j - 1)){
+            items.move(j - 1, j);
             j--;
         }
         // did we shift anythigng?
         if(j != i){
             // insert swap if we did
-            items[j] = swap;
+            items[SET](j, swap);
         }
     }
 }
@@ -153,23 +153,66 @@ let linked_insertion_sort = async function(data){
     );
 };
 
+(async function(){
+    if(0) await main(
+        linked_insertion_sort,
+        [
+            100
+        ],
+        [
+            10,
+            100,
+            1_000,
+            10_000,
+        ],
+        [
+            false,
+        ],
+    );
 
-main(
-    linked_insertion_sort,
-    [
-        100
-    ],
-    [
-        10,
-        100,
-        1_000,
-        10_000, // 1.5 s
-        20_000, // 3.7 s
-        30_000, // 6.6 s
-    ],
-    [
-        false,
-    ],
-);
+    await main(
+        insertion_sort,
+        [
+            100
+        ],
+        [
+            10,
+            100,
+            1_000,
+            10_000,
+            100_000,
+            1_000_000,
+            10_000_000,
+        ],
+        [
+            false,
+        ],
+    );
+})();
+
+/*
+linked insertion test 1:
+
+10_000 ->  1.4 s
+20_000 ->  3.7 s
+30_000 ->  6.3 s
+40_000 -> 11.4 s
+50_000 -> 17.7 s
+
+
+linked insertion test 2:
+
+10_000 ->  1.2 s
+20_000 ->  3.6 s
+30_000 ->  6.9 s
+40_000 -> 11.3 s
+50_000 -> 18.0 s
+60_000 -> 24.9 s
+70_000 -> 34.1 s
+80_000 -> 46.5 s
+
+insertion test 1:
+
+*/
 
 

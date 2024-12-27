@@ -1,10 +1,94 @@
 
+/* ===
+Helper functions
+=== */
+
+/**
+  * Use the nullish coalescing operator to check is a value is nullish.
+  * @param {any} value the value of object to check;
+  * @returns whether the value is nullish (i.e. `null` or `undefined`);
+**/
+const is_nullish = function(value){
+    let b = true;
+    value ?? (b = false);
+    return b;
+};
+
+/** Calculate the number of bits needed for an unsigned integer. */
+const get_bit_count = function(max_value){
+    return 2**Math.max(Math.floor(Math.log2(
+        Math.max(Math.floor(Math.log2(
+            max_value
+        )), 1)
+    ) + 1), 3)
+};
+
+/**
+  * Format an integer into a string, with neat thousands separators.
+  * @param {number} i the integer to format
+  * @returns the formatted string
+**/
+const print_i = function(i){
+    if(!isFinite(i)){
+        return i + "";
+    }
+    i = Math.floor(i);
+    
+    let text = "";
+    let log = Math.floor(Math.log10(i));
+    log -= log % 3;
+    i /= 10**log;
+    text += Math.floor(i);
+    i %= 1;
+    while(log > 0){
+        text += ",";
+        i *= 1000;
+        text += (
+            (1000 + Math.floor(i)) + ""
+        ).slice(1);
+        i %= 1;
+        log -= 3;
+    }
+    return text;
+};
+
+/**
+  * Format a length of time, converting the number of milliseconds to a neat string.
+  * @param {number} t the length of the time interval, in milliseconds
+  * @returns the length of the time interval, in seconds, formatted to a string
+**/
+const print_t = function(t){
+    if(!isFinite(t)){
+        return t + " seconds";
+    }
+    
+    let sign = "";
+    if(t < 0) sign = "-", t = -t;
+    let ms = t % 1000;
+    let whole = (t - ms) / 1000;
+    return (
+        sign +
+        whole +
+        "." +
+        (
+            (1000 + ms) + ""
+        ).slice(1) +
+        " seconds"
+    );
+};
+
+
+/* ===
+Data abstraction layer
+=== */
+
 /**
   * These private symbols are needed for certain operations.
   * They are used to help maintain abstraction of the `Item` and `Vitem` types.
 **/
 const VALUES = Symbol("VALUES");
 const GET = Symbol("GET");
+const SET = Symbol("SET");
 
 const Item = (function(){
     let Item;
@@ -30,15 +114,6 @@ const Item = (function(){
   * Use `print_items` to print the list of items.
 **/
 class Vitem{};
-
-/** calculate the number of bits needed for an unsigned integer */
-const get_bit_count = function(max_value){
-    return 2**Math.max(Math.floor(Math.log2(
-        Math.max(Math.floor(Math.log2(
-            max_value
-        )), 1)
-    ) + 1), 3)
-};
 
 /**
   * Create a space-efficient list of items (a `Vitem`).
@@ -83,8 +158,17 @@ const Items = (function(){
         }
         /** gets an item directly; `i == VALUES` gives the private `this.#values` object directly */
         [GET](i){
-            if(i == VALUES) return this.#values;
+            if(i === VALUES) return this.#values;
             return this.#values[i];
+        }
+        /** sets an item directly; `i == VALUES` fills the private `this.#values` object directly */
+        [SET](i, value){
+            if(i === VALUES){
+                for(let i = 0; i < value.length; i++){
+                    this.#values[i] = value[i];
+                }
+            }
+            return (this.#values[i] = value);
         }
         get length(){
             return this.#values.length;
@@ -190,6 +274,10 @@ const print_items = function(items){
     return items.map(v => v[GET]()).join(", ");
 };
 
+/* ===
+General sorting functions
+=== */
+
 /**
   * The final step of any linked sorting algorithm. Use the links to rearrange the entire list, so some slice of the list.
   * @param {Vitem} data the data; i.e. the list of items; this data will be rearranged in-place;
@@ -223,9 +311,17 @@ let linked_sort = function(data, links, start = 0){
     return data;
 };
 
+let builtin_sort = function(data){
+    const d = [...data[GET](VALUES)];
+    d.sort((a, b) => a - b);
+    data[SET](VALUES, d);
+    return data;
+};
 
 
-
+/* ===
+Testing
+=== */
 
 const max = 2**12;
 const timeit = async function(sort_fn, size, do_print){
@@ -247,49 +343,6 @@ const timeit = async function(sort_fn, size, do_print){
     times[0] = t1 - t0;
     times[1] = t2 - t1;
     return times;
-};
-
-const print_i = function(i){
-    if(!isFinite(i)){
-        return i + "";
-    }
-    
-    let text = "";
-    let log = Math.floor(Math.log10(i));
-    log -= log % 3;
-    i /= 10**log;
-    text += Math.floor(i);
-    i %= 1;
-    while(log > 0){
-        text += ",";
-        i *= 1000;
-        text += (
-            (1000 + Math.floor(i)) + ""
-        ).slice(1);
-        i %= 1;
-        log -= 3;
-    }
-    return text;
-};
-
-const print_t = function(t){
-    if(!isFinite(t)){
-        return t + " seconds";
-    }
-    
-    let sign = "";
-    if(t < 0) sign = "-", t = -t;
-    let ms = t % 1000;
-    let whole = (t - ms) / 1000;
-    return (
-        sign +
-        whole +
-        "." +
-        (
-            (1000 + ms) + ""
-        ).slice(1) +
-        " seconds"
-    );
 };
 
 const print_test = async function(sort_fn, size, do_print){
@@ -390,6 +443,9 @@ async function main(sort_fn, waits, sizes, do_prints){
     }
 };
 
+/* ===
+Section
+=== */
 
 /**
   * Description
