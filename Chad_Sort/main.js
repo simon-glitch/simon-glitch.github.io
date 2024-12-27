@@ -33,7 +33,7 @@ class Vitem{};
 
 /** calculate the number of bits needed for an unsigned integer */
 const get_bit_count = function(max_value){
-    2**2**Math.max(Math.floor(Math.log2(
+    return 2**2**Math.max(Math.floor(Math.log2(
         Math.floor(Math.log2(
             max_value
         ) || 1)
