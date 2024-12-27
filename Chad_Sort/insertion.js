@@ -37,7 +37,7 @@ let linked_insertion_sort_i = async function(data){
                 // first off, I want to find an item greater than d[ii]
                 // or equal to d[ii], but only when i > ii
                 
-                const gt = compare(i, ii);
+                const gt = data.compare(i, ii);
                 if(gt){
                     // nice! we don't need to overcomplicate this;
                     j = i;
@@ -45,7 +45,7 @@ let linked_insertion_sort_i = async function(data){
                 }
                 else{
                     // check if they are equal
-                    const lt = compare(i, ii);
+                    const lt = data.compare(i, ii);
                     if(!lt){
                         // if they are, check if i > ii
                         if(i > ii){
