@@ -186,7 +186,10 @@ const AutoIndexArray = function(size, max_value){
   * Convert a `Vitem` object into a human-readable string, for debugging purposes.
 **/
 const print_items = function(items){
-    return items.map(v => v[g_val]()).join(", ");
+    if(items instanceof Vitem){
+        return [...items[GET](VALUES)].join(", ");
+    }
+    return items.map(v => v[GET]()).join(", ");
 };
 
 /**
@@ -235,8 +238,12 @@ const timeit = async function(size, sort_fn){
     ), max);
     const t1 = new Date;
     
+    console.log("unsorted items:", print_items(my_data));
+    
     await sort_fn(my_data);
     const t2 = new Date;
+    
+    console.log("sorted items:", print_items(my_data));
     
     times[0] = t1 - t0;
     times[1] = t2 - t1;
