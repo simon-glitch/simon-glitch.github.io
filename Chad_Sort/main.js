@@ -31,6 +31,15 @@ const Item = (function(){
 **/
 class Vitem{};
 
+/** calculate the number of bits needed for an unsigned integer */
+const get_bit_count = function(max_value){
+    2**2**Math.max(Math.floor(Math.log2(
+        Math.floor(Math.log2(
+            max_value
+        ) || 1)
+    )), 3)
+};
+
 /**
   * Create a space-efficient list of items (a `Vitem`).
   * @param {Number[]} values `(Integer[])` the values to store in the list of items; `values` can be any indexable list of values
@@ -130,6 +139,19 @@ const Items = (function(){
 })();
 
 /**
+  * Create a space-efficient list of items (a `Vitem`).
+  * @param {Number[]} values `(Integer[])` the values to store in the list of items; `values` can be any indexable list of values
+  * @param {Number} max_value the largest value that can be in `values`;
+  * @returns {Vitem}
+**/
+const AutoItems = function(values, max_value){
+    return Items(
+        values,
+        get_bit_count(max_value)
+    );
+};
+
+/**
   * Automatically generate a `TypedArray` to store indices for another array whose length is `i_size`;
   * @param {Number} size the size of the largest index
 **/
@@ -156,11 +178,7 @@ const IndexArray = (function(size, i_size){
 const AutoIndexArray = function(size, max_value){
     return IndexArray(
         size,
-        2**2**Math.max(Math.floor(Math.log2(
-            Math.floor(Math.log2(
-                max_value
-            ) || 1)
-        )), 3)
+        get_bit_count(max_value)
     );
 };
 
