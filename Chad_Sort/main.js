@@ -135,33 +135,49 @@ const Items = (function(){
                 this.#values[i] = a_values[i];
             }
         }
-        /** compare by indices; return `true` if `d[i2] > d[i1]` */
+        /** Compare by indices. return `true` if `d[i2] > d[i1]` */
         compare(i1, i2){
             return (this.#values[i2] > this.#values[i1]);
         }
-        /** move by indices; i.e. `d[i2] = d[i1];` */
+        /** Compare left by value to right by index. return `true` if `d[i2] > i1` */
+        compare_l(i1, i2){
+            return (this.#values[i2] > i1);
+        }
+        /** Compare left by index to right by value. return `true` if `i2 > d[i1]` */
+        compare_r(i1, i2){
+            return (i2 > this.#values[i1]);
+        }
+        /** Move by indices. i.e. `d[i2] = d[i1];` */
         move(i1, i2){
-            return (i2 > i1);
+            return (this.#values[i2] = this.#values[i1]);
         }
-        /** move by indices, between lists of data; i.e. `d[i2] = s[i1];` */
-        import(i1, i2, s){
-            return (i2 > i1);
+        /**
+          * Move by indices, between lists of data. i.e. `d[i2] = s[i1];`
+          * @param {Vitem} s the list to import from
+          * @param {number} i1 the index within `s` to import from
+          * @param {number} i2 the index within `d` to import to
+        **/
+        import(s, i1, i2){
+            return (this.#values[i2] = s.#values[i1]);
         }
-        /** swap by indices; i.e. `t = d[i2]; d[i2] = d[i1]; d[i1] = t;` */
+        /** Swap by indices. i.e. `t = d[i2]; d[i2] = d[i1]; d[i1] = t;` */
         swap(i1, i2){
-            return (i2 > i1);
+            let t = this.#values[i2];
+            this.#values[i2] = this.#values[i1];
+            this.#values[i1] = t;
+            return t;
         }
-        /** works just like `Array.slice` */
+        /** Works just like `Array.slice`. */
         slice(i1 = 0, i2 = this.#values.length){
             if(i2 < 0) i2 += this.#values.length;
             return new _Vitem(this.#values, this.#Type, i1, i2);
         }
-        /** gets an item directly; `i == VALUES` gives the private `this.#values` object directly */
+        /** Gets an item directly. `i == VALUES` gives the private `this.#values` object directly; */
         [GET](i){
             if(i === VALUES) return this.#values;
             return this.#values[i];
         }
-        /** sets an item directly; `i == VALUES` fills the private `this.#values` object directly */
+        /** Sets an item directly. `i == VALUES` fills the private `this.#values` object directly; */
         [SET](i, value){
             if(i === VALUES){
                 for(let i = 0; i < value.length; i++){
@@ -170,6 +186,7 @@ const Items = (function(){
             }
             return (this.#values[i] = value);
         }
+        /** The length of the internal `TypedArray`. @returns {number} */
         get length(){
             return this.#values.length;
         }

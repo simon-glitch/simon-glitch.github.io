@@ -6,7 +6,7 @@ let insertion_sort = function(items, n){
         const swap = items[GET](i);
         let j = i;
         // shift the items
-        while(j > 0 && items.compare(i, j - 1)){
+        while(j > 0 && items.compare_l(swap, j - 1)){
             items.move(j - 1, j);
             j--;
         }
@@ -16,6 +16,7 @@ let insertion_sort = function(items, n){
             items[SET](j, swap);
         }
     }
+    return items;
 }
 
 let threads = 1_000;
@@ -176,16 +177,10 @@ let linked_insertion_sort = async function(data){
             100
         ],
         [
-            10,
-            100,
-            1_000,
-            10_000,
-            100_000,
-            1_000_000,
-            10_000_000,
+            6,
         ],
         [
-            false,
+            true,
         ],
     );
 })();
