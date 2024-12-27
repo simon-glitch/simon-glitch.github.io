@@ -226,7 +226,7 @@ let linked_sort = function(data, links){
 
 
 const max = 2**20;
-const timeit = function(size, sort_fn){
+const timeit = async function(size, sort_fn){
     const times = [];
     const t0 = new Date;
     
@@ -235,7 +235,7 @@ const timeit = function(size, sort_fn){
     ), max);
     const t1 = new Date;
     
-    sort_fn(my_data);
+    await sort_fn(my_data);
     const t2 = new Date;
     
     times[0] = t1 - t0;
@@ -278,20 +278,20 @@ const print_t = function(t){
     );
 };
 
-const print_test = function(n){
-    const times = timeit(n);
+const print_test = async function(size, sort_fn){
+    const times = timeit(size, sort_fn);
     console.log(
         "took " +
         print_t(times[0]) +
         " to construct " +
-        print_i(n) +
+        print_i(size) +
         " items"
     );
     console.log(
         "took " +
         print_t(times[1]) +
         " to sort " +
-        print_i(n) +
+        print_i(size) +
         " items"
     );
 };
@@ -348,78 +348,10 @@ const wait_until = function(condition, mspf){
     return p[0];
 };
 
-async function main(){
-    /*
-    await wait(60);
-    print_test(10);
-    
-    await wait(60);
-    print_test(100);
-    
-    await wait(60);
-    print_test(1_000);
-    
-    await wait(60);
-    print_test(10_000);
-    
-    await wait(110);
-    print_test(100_000);
-    
+async function main(sort_fn){
     await wait(160);
-    print_test(1_000_000);
-    */
-    
-    await wait(160);
-    print_test(3_000_000);
-    
-    /*
-    await wait(160);
-    print_test(4_000_000);
-    
-    await wait(160);
-    print_test(5_000_000);
-    
-    await wait(160);
-    print_test(6_000_000);
-    
-    await wait(160);
-    print_test(7_000_000);
-    
-    await wait(160);
-    print_test(8_000_000);
-    
-    await wait(160);
-    print_test(9_000_000);
-    
-    // should use around 100 MB of RAM
-    await wait(160);
-    print_test(10_000_000);
-    
-    await wait(160);
-    print_test(11_000_000);
-    
-    await wait(160);
-    print_test(12_000_000);
-    
-    await wait(160);
-    print_test(13_000_000);
-    
-    await wait(160);
-    print_test(14_000_000);
-    
-    await wait(160);
-    print_test(15_000_000);
-    */
-}
-
-main();
-
-
-
-
-
-
-
+    print_test(4, sort_fn);
+};
 
 
 /**

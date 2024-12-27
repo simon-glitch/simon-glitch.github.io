@@ -124,3 +124,6 @@ let linked_insertion_sort = async function(data){
 };
 
 
+main(linked_insertion_sort);
+
+
