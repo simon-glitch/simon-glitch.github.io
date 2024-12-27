@@ -203,6 +203,209 @@ let linked_sort = function(data, links){
     return data;
 };
 
+
+
+
+
+const max = 2**20;
+const timeit = function(size, sort_fn){
+    const times = [];
+    const t0 = new Date;
+    
+    const my_data = Array(size).fill(0).map(
+        v => Math.floor(Math.random() * max)
+    ).map(
+        v => new Item(v)
+    );
+    const t1 = new Date;
+    
+    sort_fn(my_data);
+    const t2 = new Date;
+    
+    times[0] = t1 - t0;
+    times[1] = t2 - t1;
+    return times;
+};
+
+const print_i = function(i){
+    let text = "";
+    let log = Math.floor(Math.log10(i));
+    log -= log % 3;
+    i /= 10**log;
+    text += Math.floor(i);
+    i %= 1;
+    while(log > 0){
+        text += ",";
+        i *= 1000;
+        text += (
+            (1000 + Math.floor(i)) + ""
+        ).slice(1);
+        i %= 1;
+        log -= 3;
+    }
+    return text;
+};
+
+const print_t = function(t){
+    let sign = "";
+    if(t < 0) sign = "-", t = -t;
+    let ms = t % 1000;
+    let whole = (t - ms) / 1000;
+    return (
+        sign +
+        whole +
+        "." +
+        (
+            (1000 + ms) + ""
+        ).slice(1) +
+        " seconds"
+    );
+};
+
+const print_test = function(n){
+    const times = timeit(n);
+    console.log(
+        "took " +
+        print_t(times[0]) +
+        " to construct " +
+        print_i(n) +
+        " items"
+    );
+    console.log(
+        "took " +
+        print_t(times[1]) +
+        " to sort " +
+        print_i(n) +
+        " items"
+    );
+};
+
+const q_promise = function(){
+    const p = [];
+    p[0] = new Promise((a_res, a_rej) => {
+        p[1] = a_res;
+        p[2] = a_rej;
+    });
+    return p;
+};
+
+/**
+  * Wait a fixed amount of time.
+  * Promise will resolve with the value `setTimeout` passes into its handler.
+  * @param {number} t the number of milliseconds to wait.
+**/
+const wait = function(t){
+    const p = q_promise();
+    setTimeout(p[1], t);
+    return p[0];
+};
+
+/**
+  * Wait until a condition is true, checking every `mspf` ms.
+  * Promise will resolve with the total amount of time it took in ms.
+  * @param {Function} condition the condition to check; called as `condition(t: number)`, where `t` is the number of milliseconds that have passed so far; this function resolves when `condition(t)` is `true` or truthy;
+  * @returns {Promise<number>}
+**/
+const wait_until = function(condition, mspf){
+    const p = q_promise();
+    let f;
+    let fid = -1;
+    let ready = true;
+    const t0 = new Date;
+    
+    f = function(){
+        if(!ready) return;
+        ready = false;
+        
+        const t1 = new Date;
+        if(condition(t1 - t0)){
+            clearInterval(fid);
+            p[1](t1 - t0);
+            return;
+        }
+        
+        ready = true;
+    };
+    
+    fid = setInterval(f, mspf);
+    
+    return p[0];
+};
+
+async function main(){
+    /*
+    await wait(60);
+    print_test(10);
+    
+    await wait(60);
+    print_test(100);
+    
+    await wait(60);
+    print_test(1_000);
+    
+    await wait(60);
+    print_test(10_000);
+    
+    await wait(110);
+    print_test(100_000);
+    
+    await wait(160);
+    print_test(1_000_000);
+    */
+    
+    await wait(160);
+    print_test(3_000_000);
+    
+    /*
+    await wait(160);
+    print_test(4_000_000);
+    
+    await wait(160);
+    print_test(5_000_000);
+    
+    await wait(160);
+    print_test(6_000_000);
+    
+    await wait(160);
+    print_test(7_000_000);
+    
+    await wait(160);
+    print_test(8_000_000);
+    
+    await wait(160);
+    print_test(9_000_000);
+    
+    // should use around 100 MB of RAM
+    await wait(160);
+    print_test(10_000_000);
+    
+    await wait(160);
+    print_test(11_000_000);
+    
+    await wait(160);
+    print_test(12_000_000);
+    
+    await wait(160);
+    print_test(13_000_000);
+    
+    await wait(160);
+    print_test(14_000_000);
+    
+    await wait(160);
+    print_test(15_000_000);
+    */
+}
+
+main();
+
+
+
+
+
+
+
+
+
 /**
   * Description
   * @param {t_0} p_0 description;
