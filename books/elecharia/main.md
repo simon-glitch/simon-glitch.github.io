@@ -42,3 +42,45 @@ The main features of the magic system are:
 * **just assume that whatever elementary or quantum physics would be required to make the things that happen in my story possible are already there;** I'm not a genius, but I do want my magic system to be very different from the science of our world;
 * every field of science in our world is replaced by various interactions between various objects and magic energies in my magic system; this includes, for example, biology, geology, and meterology;
 * finally, a lot of people do study magic in my world; so, for example, geologists in my world exist, and they study magic related to the formation of rocks and minerals;
+
+# Characters
+Boron
+* element: shield
+* male
+* lizard beast person
+    * kinda like the *Argonians* from the *Elder Scrolls*
+Rosa
+* element: darkness
+* female
+* high troll
+    * a nearly extinct race of intelligent trolls
+
+Henry
+* element: color
+* male
+* dark elf
+Kabuno
+* element: destruction
+* male
+* otherworlder
+    * i.e. isekaid
+Sora
+* element: rotation
+* male
+* otherworlder
+
+
+Candor
+* element: fire
+* human
+* male
+Dollina
+* element: space
+* human
+* female
+
+
+
+
+
+
