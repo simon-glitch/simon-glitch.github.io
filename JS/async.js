@@ -10,8 +10,8 @@ Math and data types
   * @returns whether the value is nullish (i.e. `null` or `undefined`);
 **/
 const is_nullish = function(value){
-    let b = true;
-    value ?? (b = false);
+    let b = false;
+    value ?? (b = true);
     return b;
 };
 
@@ -142,11 +142,32 @@ const wait_until = function(condition, mspf){
   * Wait for an event to trigger on an element.
   * @param {EventTarget} element the element of DOM node to listen to an event on
   * @param {string} event what type of event to listen for; i.e. `"click"`, `"keydown"`, etc.;
-  * @returns {Promise<Event>} the `Event` object given when the event triggered on the element
+  * @param {(Event: e, p: [Promise, (value: any) => void, (reason?: any) => void]) => void} callback (optional) callback to handle the event and the promise; the promise passed to `callback` is the same promise that is returned by `wait_for`;
+  * @returns {Promise<Event>} promise reolving to the `Event` object given when the event triggered on the element
 **/
-const wait_for = function(element, event){
+const wait_for = function(element, event, callback){
     const p = q_promise();
-    element.addEventListener(event, p[1]);
+    
+    const ready = true;
+    const f = function(e){
+        console.log("??", callback);
+        
+        if(!ready == false) return;
+        ready = false;
+        
+        if(is_nullish(callback))
+            p[1](e);
+        else
+            callback(e, p);
+        
+        ready = true;
+    };
+    
+    p[0].finally(function(){
+        element.removeEventListener(event, f)
+    });
+    element.addEventListener(event, f);
+    
     return p[0];
 };
 
@@ -155,6 +176,30 @@ HTMLInputElement.prototype.disable = function(){
 };
 HTMLInputElement.prototype.enable = function(){
     this.disabled = false;
+};
+
+/*
+useful snippet:
+    addEventListener("keydown", (e)=>console.log(e.key))
+*/
+
+/**
+  * Pass a promise only when the event key is triggered.
+  * @param {KeyboardEvent} e event describing the way the keyboard was used
+  * @param {[Promise, (value: any) => void, (reason?: any) => void]} p promise data
+ */
+const enter_key = function(e, p){
+    console.log("?", e);
+    if(e.key === "Enter")
+        p[1](e);
+};
+
+/**
+  * Set of keyboard-based input types.
+**/
+const KBIT = {
+    "text": true,
+    "number": true,
 };
 
 /**
@@ -166,11 +211,22 @@ const wait_for_input = async function(input){
     if(!input.disabled) throw new Error("input was not disabled");
     
     input.enable();
-    wait_for(input, "input");
+    await wait_for(
+        input,
+        KBIT[input.type] ?"keydown" :"input",
+        KBIT[input.type] ?enter_key :undefined
+    );
     input.disable();
     
     return input.value;
 };
+
+const print = function(text = ""){
+    const p = document.createElement("p");
+    document.body.appendChild(p);
+    p.innerHTML = text;
+};
+
 
 
 /* ===
@@ -180,10 +236,11 @@ Demo
 const main = async function(){
     my_text.disable();
     
-    document.write("please input a number");
+    print("please input a number");
     const n = Number(
         await wait_for_input(my_text)
     );
+    print("2 * that = " + (2 * n));
 };
 
 main();
