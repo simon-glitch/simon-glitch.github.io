@@ -148,11 +148,9 @@ const wait_until = function(condition, mspf){
 const wait_for = function(element, event, callback){
     const p = q_promise();
     
-    const ready = true;
+    let ready = true;
     const f = function(e){
-        console.log("??", callback);
-        
-        if(!ready == false) return;
+        if(ready == false) return;
         ready = false;
         
         if(is_nullish(callback))
@@ -189,7 +187,6 @@ useful snippet:
   * @param {[Promise, (value: any) => void, (reason?: any) => void]} p promise data
  */
 const enter_key = function(e, p){
-    console.log("?", e);
     if(e.key === "Enter")
         p[1](e);
 };
