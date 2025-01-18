@@ -1,7 +1,7 @@
 
 I've come up with a new idea for a very useful programming language.
 
-I'll call it timord for now.
+I'll call it fefi for now.
 
 # Overview of fancy features
 * psuedo-code support
@@ -34,7 +34,7 @@ I'll call it timord for now.
 * `{}` - transforms an operator by giving it additional parameters; can be used to add any number of parameters to any operator
     * `[op].(a,b,c)` does the same thing as `a op{c} b`, where `op` could be `+` or something else
 
-# Escapign characters
+# Escaping characters
 `\` can be used to escape any operator in any context; an escaped operator will be treated just like a letter
 * `\x[a, b]`, `\u[a, b, c, d]`, and `\u{[a, b, c, ...]}` can be used to escape unicode characters
 * `\h[a]` will parse an HTML entity into an escaped character; for example:
