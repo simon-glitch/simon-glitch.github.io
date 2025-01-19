@@ -224,7 +224,33 @@ const print = function(text = ""){
     p.innerHTML = text;
 };
 
-
+class Signal{
+    _value = undefined;
+    /** @type Signal[] */
+    children = [];
+    /** @type Signal[] */
+    parents = [];
+    get value(){
+        return this._value;
+    }
+    #updating = false;
+    set value(arg){
+        if(this.#updating){
+            throw new Error(
+                "Signal Error: tried to update signal"+
+                "while already updating (causing an update loop);"
+            );
+        }
+        if(this._value !== arg){
+            this._value = arg;
+            for(let i = 0; i < this.children.length; i++){
+                this.children.ontick();
+            }
+        }
+        return this._value;
+    }
+    ontick(){}
+}
 
 /* ===
 Demo
@@ -238,6 +264,18 @@ const main = async function(){
         await wait_for_input(my_text)
     );
     print("2 * that = " + (2 * n));
+    
+    const x = new Signal();
+    x.value = 2;
+    const y = new Signal(x);
+    y.ontick = function(){
+        this.value = this.parents[0].value * 2;
+    };
+    x.value = 3;
+    
+    console.log("signal: y = 2 x;");
+    console.log("x = " + x.value);
+    console.log("y = " + y.value);
 };
 
 main();
