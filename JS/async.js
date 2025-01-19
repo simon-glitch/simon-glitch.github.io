@@ -244,12 +244,113 @@ class Signal{
         if(this._value !== arg){
             this._value = arg;
             for(let i = 0; i < this.children.length; i++){
-                this.children.ontick();
+                this.children[i].ontick();
             }
         }
         return this._value;
     }
     ontick(){}
+    /**
+      * Check if this signal has the given child.
+      * @param {Signal} child child to check for;
+      * @returns {bool} whether this signal has the child;
+    **/
+    hasChild(child){
+        for(let i = 0; i < this.children.length; i++){
+            if(child === this.children[i]) return true;
+        }
+        return false;
+    }
+    /**
+      * Check if this signal has the given parent.
+      * @param {Signal} parent parent to check for;
+      * @returns {bool} whether this signal has the parent;
+    **/
+    hasParent(parent){
+        for(let i = 0; i < this.parents.length; i++){
+            if(parent === this.parents[i]) return true;
+        }
+        return false;
+    }
+    /**
+      * Add another signal as a child of this signal.
+      * - This does not update the child or automatically make the relationship symmetric.
+      * @param {Signal} child child to add;
+      * @returns {bool} whether this signal already had the child;
+    **/
+    addChild(child){
+        for(let i = 0; i < this.children.length; i++){
+            if(child === this.children[i]) return true;
+        }
+        this.children.push(child);
+        return false;
+    }
+    /**
+      * Add another signal as a parent of this signal.
+      * - This does not update the parent or automatically make the relationship symmetric.
+      * @param {Signal} parent parent to add;
+      * @returns {bool} whether this signal already had the parent;
+    **/
+    addParent(parent){
+        for(let i = 0; i < this.parents.length; i++){
+            if(parent === this.parents[i]) return true;
+        }
+        this.parents.push(parent);
+        return false;
+    }
+    /**
+      * Remove another signal as a child of this signal.
+      * - This does not update the child or automatically make the relationship symmetric.
+      * @param {Signal} child child to remove;
+      * @returns {bool} whether this signal already had the child;
+    **/
+    removeChild(child){
+        for(let i = 0; i < this.children.length; i++){
+            if(child === this.children[i]){
+                this.children.splice(i, 1);
+                return true;
+            }
+        }
+        return false;
+    }
+    /**
+      * Remove another signal as a parent of this signal.
+      * - This does not update the parent or automatically make the relationship symmetric.
+      * @param {Signal} parent parent to remove;
+      * @returns {bool} whether this signal already had the parent;
+    **/
+    removeParent(parent){
+        for(let i = 0; i < this.parents.length; i++){
+            if(parent === this.parents[i]){
+                this.parents.splice(i, 1);
+                return true;
+            }
+        }
+        return false;
+    }
+    /** 
+      * Remove both sides of each relationship between this object and its parents and children.
+      * - i.e. call `removeChild` on each parent and call `removeParent` on each child;
+      * - useful for deleting a signal;
+      * - is not recursive, since signals don't have a strict hierarchy;
+    **/
+    remove(){
+        for(let i = 0; i < this.parents.length; i++)
+            this.parents[i].removeChild(this);
+        for(let i = 0; i < this.children.length; i++)
+            this.children[i].removeParent(this);
+    }
+    /**
+      * A signal. It works just like the "signals" in other libraries. You can add children, which depend on the signal, and parents, which the signal depends on.
+      * @param  {...Signal} parents a list of signals that this signal depends on; you can also configure parents and children by using `addChild`, `addParent`, and the other methods; make sure to call both the parent and child methods in order to ensure symmetric relationships, unless you don't care;
+    **/
+    constructor(...parents){
+        this.parents = parents ?? [];
+        this.children = [];
+        for(let i = 0; i < this.parents.length; i++){
+            parents[i].addChild(this);
+        }
+    }
 }
 
 /* ===
