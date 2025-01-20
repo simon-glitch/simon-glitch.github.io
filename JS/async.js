@@ -374,9 +374,9 @@ const main = async function(){
     };
     x.value = 3;
     
-    console.log("signal: y = 2 x;");
-    console.log("x = " + x.value);
-    console.log("y = " + y.value);
+    print("signal: y = 2 x;");
+    print("x = " + x.value);
+    print("y = " + y.value);
 };
 
 main();
