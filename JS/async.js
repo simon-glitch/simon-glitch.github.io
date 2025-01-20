@@ -15,6 +15,20 @@ const is_nullish = function(value){
     return b;
 };
 
+/** 1.798e+308, the largest finite number in the IEEE-754 64-bit float standard. **/
+const INFINTY = (2**53 - 1) * (2 ** (1023 - 52));
+
+/**
+  * Ensure a number is finite.
+  * @param {number} x number to convert
+**/
+const toFinite = function(x){
+    x = +x;
+    if(isFinite(x)) return x;
+    if(isNaN(x)) return 0;
+    return Math.sign(x) * INFINTY;
+}
+
 /** Calculate the number of bits needed for an unsigned integer. */
 const get_bit_count = function(max_value){
     return 2**Math.max(Math.floor(Math.log2(
@@ -89,6 +103,22 @@ const const_property = function(obj, prop, value){
         });
     }
 }
+
+/**
+  * Infuse the properties of the 2nd object onto the 1st object.
+  * - assumes `obj1` has a copy constructor and calls it;
+  * @template T
+  * @param {T} obj1 1st object
+  * @param {object} obj2 2nd object
+  * @returns {T} object created with `obj1`'s copy constructor
+**/
+const infuse = function(obj1, obj2){
+    const o = new obj1.constructor(obj1);
+    for(let i in obj2){
+        o[i] = obj2[i];
+    }
+    return o;
+};
 
 /* ===
 Promises
@@ -365,70 +395,21 @@ Printing
 === */
 
 /**
-  * Format an integer into a string, with neat thousands separators.
-  * @param {number} i the integer to format
-  * @returns the formatted string
-**/
-const print_i = function(i){
-    if(!isFinite(i)){
-        return i + "";
-    }
-    i = Math.floor(i);
-    
-    let text = "";
-    let log = Math.floor(Math.log10(i));
-    log -= log % 3;
-    i /= 10**log;
-    text += Math.floor(i);
-    i %= 1;
-    while(log > 0){
-        text += ",";
-        i *= 1000;
-        text += (
-            (1000 + Math.floor(i)) + ""
-        ).slice(1);
-        i %= 1;
-        log -= 3;
-    }
-    return text;
-};
-
-/**
-  * Format a length of time, converting the number of milliseconds to a neat string.
-  * @param {number} t the length of the time interval, in milliseconds
-  * @returns the length of the time interval, in seconds, formatted to a string
-**/
-const print_t = function(t){
-    if(!isFinite(t)){
-        return t + " seconds";
-    }
-    
-    let sign = "";
-    if(t < 0) sign = "-", t = -t;
-    let ms = t % 1000;
-    let whole = (t - ms) / 1000;
-    return (
-        sign +
-        whole +
-        "." +
-        (
-            (1000 + ms) + ""
-        ).slice(1) +
-        " seconds"
-    );
-};
-
-/**
   * Generate a function to display a sequence of objects, by printing them.
   * @param {string} sep string to separate print's arguments with;
   * - this is inserted between each consecutive argument;
   * @param {string} end string to insert at the end of print's arguments;
   * @param {string} width the maximum width of lines
 **/
-const print_gen = function(sep, end, width){
-    const args = arguments;
-    sep = "" + sep;
-    end = "" + end;
+const print_gen = function(opt){
+    const sep = "" + opt.sep;
+    const end = "" + opt.end;
+    const width = +opt.width;
+    const time_units = (
+        is_array_like(opt.time_units) ?
+        [...opt.time_units] :
+        ["unit"]
+    );
     /**
       * Display a sequence of objects, by printing them.
       * @param {...any} items the objects to be printed;
@@ -439,12 +420,27 @@ const print_gen = function(sep, end, width){
             let item = items[i];
             
             // fancy type-printing
-            if(item instanceof Number) item = print_i(item);
+            if(item instanceof Number) item = print.int(item);
             if(
-                item?.length > 1 &&
-                item?.[0] instanceof Date &&
-                item?.[1] instanceof Date
-            ) item = print_t(item[1] - item[0]);
+                is_array_like(item) == 1 &&
+                ((
+                    item.length == 2 &&
+                    item[0] instanceof Date &&
+                    item[1] instanceof Date
+                ) ||
+                (
+                    item.length == 3 &&
+                    item[0] instanceof Date &&
+                    item[1] instanceof Date &&
+                    item[2] instanceof Symbol &&
+                    print.TIME_UNIT_SYMBOLS[item[2]]
+                ))
+            ) item = print.timespan(
+                item[1] - item[0],
+                item.length == 2 ?
+                print.SHORT :
+                item[2]
+            );
             if(item instanceof BigInt) item += "n";
             if(item instanceof Array){
                 item = item.map(t => "" + t);
@@ -474,15 +470,16 @@ const print_gen = function(sep, end, width){
             p.innerHTML = line;
         });
     };
+    
     /**
       * Generate a new instance of `print` (this method can be chained).
       * @param {string} a_sep new value for `sep`;
     **/
     print.sep = function(a_sep){
         a_sep ??= sep;
-        const a_args = args.slice();
-        args[0] = a_sep;
-        return print_gen(...a_args);
+        return print_gen(infuse(
+            opt, {sep: a_sep}
+        ));
     }
     /**
       * Generate a new instance of `print` (this method can be chained).
@@ -490,9 +487,9 @@ const print_gen = function(sep, end, width){
     **/
     print.end = function(a_end){
         a_end ??= end;
-        const a_args = args.slice();
-        args[1] = a_end;
-        return print_gen(...a_args);
+        return print_gen(infuse(
+            opt, {end: a_end}
+        ));
     }
     /**
       * Generate a new instance of `print` (this method can be chained).
@@ -500,16 +497,108 @@ const print_gen = function(sep, end, width){
     **/
     print.width = function(a_width){
         a_width ??= width;
-        const a_args = args.slice();
-        args[2] = a_width;
-        return print_gen(...a_args);
+        return print_gen(infuse(
+            opt, {width: a_width}
+        ));
     }
+    /**
+      * Generate a new instance of `print` (this method can be chained).
+      * @param {string} a_time_units new value for `time_units`;
+    **/
+    print.time_units = function(a_time_units){
+        a_time_units ??= {};
+        a_time_units = infuse(time_units, a_time_units);
+        return print_gen(infuse(
+            opt, {time_units: a_time_units}
+        ));
+    }
+    
+    /**
+      * Format an integer into a string, with neat thousands separators.
+      * @param {number} i the integer to format
+      * @returns the formatted string
+    **/
+    print.int = function(i){
+        if(!isFinite(i)){
+            return i + "";
+        }
+        i = Math.floor(i);
+        
+        let text = "";
+        let log = Math.floor(Math.log10(i));
+        log -= log % 3;
+        i /= 10**log;
+        text += Math.floor(i);
+        i %= 1;
+        while(log > 0){
+            text += ",";
+            i *= 1000;
+            text += (
+                (1000 + Math.floor(i)) + ""
+            ).slice(1);
+            i %= 1;
+            log -= 3;
+        }
+        return text;
+    };
+    
+    /**
+      * Format a length of time, converting the number of milliseconds to a neat string.
+      * @param {number} t the length of the time interval, in milliseconds
+      * @returns the length of the time interval, in seconds, formatted to a string
+    **/
+    print.timespan = function(t){
+        if(!isFinite(t)){
+            return t + " seconds";
+        }
+        
+        let sign = "";
+        if(t < 0) sign = "-", t = -t;
+        let ms = t % 1000;
+        let whole = (t - ms) / 1000;
+        return (
+            sign +
+            whole +
+            "." +
+            (
+                (1000 + ms) + ""
+            ).slice(1) +
+            " seconds"
+        );
+    };
+    
+    /* ===
+    Printing symbols
+    === */
     print.USE_WIDTH = Symbol("print.USE_WIDTH");
+    print.LETTER = Symbol("print.LETTER");
+    print.SHORT = Symbol("print.SHORT");
+    print.LONG = Symbol("print.LONG");
+    print.TIME_UNIT_SYMBOLS = {
+        [print.LETTER]: true,
+        [print.SHORT]: true,
+        [print.LONG]: true,
+    }
     const_property(print, "USE_WIDTH", print.USE_WIDTH);
+    const_property(print, "LETTER", print.LETTER);
+    const_property(print, "SHORT", print.SHORT);
+    const_property(print, "LONG", print.LONG);
+    const_property(print, "TIME_UNIT_SYMBOLS", print.TIME_UNIT_SYMBOLS);
     
     return print;
 }
-const print = print_gen();
+const print = print_gen({
+    sep: " ",
+    end: "\n",
+    width: 40,
+    time_units: [
+        ["s", "sec", "second"],
+        ["m", "min", "minute"],
+        ["h", "hr", "hour"],
+        ["d", "day", "day"],
+        ["y", "yr", "year"],
+    ]
+});
 
 /* ===
 Demo
