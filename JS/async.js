@@ -24,59 +24,71 @@ const get_bit_count = function(max_value){
     ) + 1), 3)
 };
 
-/**
-  * Format an integer into a string, with neat thousands separators.
-  * @param {number} i the integer to format
-  * @returns the formatted string
-**/
-const print_i = function(i){
-    if(!isFinite(i)){
-        return i + "";
-    }
-    i = Math.floor(i);
-    
-    let text = "";
-    let log = Math.floor(Math.log10(i));
-    log -= log % 3;
-    i /= 10**log;
-    text += Math.floor(i);
-    i %= 1;
-    while(log > 0){
-        text += ",";
-        i *= 1000;
-        text += (
-            (1000 + Math.floor(i)) + ""
-        ).slice(1);
-        i %= 1;
-        log -= 3;
-    }
-    return text;
-};
+/* ===
+Misc
+=== */
 
 /**
-  * Format a length of time, converting the number of milliseconds to a neat string.
-  * @param {number} t the length of the time interval, in milliseconds
-  * @returns the length of the time interval, in seconds, formatted to a string
+  * Check if an object is "array-like".
+  * - i.e. does it have a `length` property, and is not a string;
+  * - or does it have an `in` iterator?
+  * @param {*} obj 
+  * @returns {number}
+  * - `0` if the object is not array-like;
+  * - `1` if it can be indexed into;
+  * - `2` if it can be iterated on with `for v of`;
 **/
-const print_t = function(t){
-    if(!isFinite(t)){
-        return t + " seconds";
+const is_array_like = function(obj){
+    if(typeof object !== "object" || object === null)
+        return 0;
+    if(obj.length instanceof Number)
+        return 1;
+    // check for `in`
+    if(Symbol.iterator(obj)) return 2;
+}
+
+/**
+  * Make a property of an object have a constant value.
+  * - make `prop` and `value` arrays to define multiple properties;
+  * - make `prop` an array of key-value-pairs and those will be used;
+  * @param {object} obj object to add property on;
+  * @param {string} prop the name of the property;
+  * @param {any} value the value to assign to the property;
+**/
+const const_property = function(obj, prop, value){
+    if(is_array_like(prop) == 2) prop = [...prop];
+    if(is_array_like(value) == 2) value = [...value];
+    if(
+        is_array_like(prop) &&
+        is_nullish(value) &&
+        is_array_like(prop[0])
+    ){
+        value = [];
+        for(let i = 0; i < prop.length; i++){
+            // take 2 items if it's an iterator
+            if(is_array_like(prop[i]) == 2){
+                // i don't want all 37000 items from your iterator
+                prop = [...prop[i][Symbol.iterator].take(2)];
+            };
+            value[i] = prop[i][1];
+            prop[i] = prop[i][0];
+        }
     }
-    
-    let sign = "";
-    if(t < 0) sign = "-", t = -t;
-    let ms = t % 1000;
-    let whole = (t - ms) / 1000;
-    return (
-        sign +
-        whole +
-        "." +
-        (
-            (1000 + ms) + ""
-        ).slice(1) +
-        " seconds"
-    );
-};
+    if(is_array_like(prop) == 0){
+        prop = [prop];
+    }
+    if(is_array_like(value) == 0){
+        value = [value];
+    }
+    const L = Math.min(prop.length, value.length);
+    for(let i = 0; i < L; i++){
+        Object.defineProperty(obj, i_prop, {
+            value: i_value,
+            configurable: false,
+            writable: false,
+        });
+    }
+}
 
 /* ===
 Promises
@@ -218,12 +230,6 @@ const wait_for_input = async function(input){
     return input.value;
 };
 
-const print = function(text = ""){
-    const p = document.createElement("p");
-    document.body.appendChild(p);
-    p.innerHTML = text;
-};
-
 class Signal{
     _value = undefined;
     /** @type Signal[] */
@@ -352,6 +358,158 @@ class Signal{
         }
     }
 }
+
+
+/* ===
+Printing
+=== */
+
+/**
+  * Format an integer into a string, with neat thousands separators.
+  * @param {number} i the integer to format
+  * @returns the formatted string
+**/
+const print_i = function(i){
+    if(!isFinite(i)){
+        return i + "";
+    }
+    i = Math.floor(i);
+    
+    let text = "";
+    let log = Math.floor(Math.log10(i));
+    log -= log % 3;
+    i /= 10**log;
+    text += Math.floor(i);
+    i %= 1;
+    while(log > 0){
+        text += ",";
+        i *= 1000;
+        text += (
+            (1000 + Math.floor(i)) + ""
+        ).slice(1);
+        i %= 1;
+        log -= 3;
+    }
+    return text;
+};
+
+/**
+  * Format a length of time, converting the number of milliseconds to a neat string.
+  * @param {number} t the length of the time interval, in milliseconds
+  * @returns the length of the time interval, in seconds, formatted to a string
+**/
+const print_t = function(t){
+    if(!isFinite(t)){
+        return t + " seconds";
+    }
+    
+    let sign = "";
+    if(t < 0) sign = "-", t = -t;
+    let ms = t % 1000;
+    let whole = (t - ms) / 1000;
+    return (
+        sign +
+        whole +
+        "." +
+        (
+            (1000 + ms) + ""
+        ).slice(1) +
+        " seconds"
+    );
+};
+
+/**
+  * Generate a function to display a sequence of objects, by printing them.
+  * @param {string} sep string to separate print's arguments with;
+  * - this is inserted between each consecutive argument;
+  * @param {string} end string to insert at the end of print's arguments;
+  * @param {string} width the maximum width of lines
+**/
+const print_gen = function(sep, end, width){
+    const args = arguments;
+    sep = "" + sep;
+    end = "" + end;
+    /**
+      * Display a sequence of objects, by printing them.
+      * @param {...any} items the objects to be printed;
+    **/
+    const print = function(...items){
+        let text = "";
+        for(let i = 0; i < items.length; i++){
+            let item = items[i];
+            
+            // fancy type-printing
+            if(item instanceof Number) item = print_i(item);
+            if(
+                item?.length > 1 &&
+                item?.[0] instanceof Date &&
+                item?.[1] instanceof Date
+            ) item = print_t(item[1] - item[0]);
+            if(item instanceof BigInt) item += "n";
+            if(item instanceof Array){
+                item = item.map(t => "" + t);
+                const L = 0;
+                for(let i = 0; i < item.length; i++){
+                    L += item[i].length;
+                    if(L > width) break;
+                }
+                item = item.join(
+                    L > width ?
+                    ",\n" :
+                    ", "
+                );
+            }
+            if(item[print.USE_WIDTH]){
+                item = item.toString(width);
+            }
+            
+            if(i > 0) text += sep;
+            text += item;
+        }
+        const s = document.createElement("section");
+        document.body.appendChild(s);
+        text.split("\n").foreach(line => {
+            const p = document.createElement("p");
+            s.appendChild(p);
+            p.innerHTML = line;
+        });
+    };
+    /**
+      * Generate a new instance of `print` (this method can be chained).
+      * @param {string} a_sep new value for `sep`;
+    **/
+    print.sep = function(a_sep){
+        a_sep ??= sep;
+        const a_args = args.slice();
+        args[0] = a_sep;
+        return print_gen(...a_args);
+    }
+    /**
+      * Generate a new instance of `print` (this method can be chained).
+      * @param {string} a_end new value for `end`;
+    **/
+    print.end = function(a_end){
+        a_end ??= end;
+        const a_args = args.slice();
+        args[1] = a_end;
+        return print_gen(...a_args);
+    }
+    /**
+      * Generate a new instance of `print` (this method can be chained).
+      * @param {string} a_width new value for `width`;
+    **/
+    print.width = function(a_width){
+        a_width ??= width;
+        const a_args = args.slice();
+        args[2] = a_width;
+        return print_gen(...a_args);
+    }
+    print.USE_WIDTH = Symbol("print.USE_WIDTH");
+    const_property(print, "USE_WIDTH", print.USE_WIDTH);
+    
+    return print;
+}
+const print = print_gen();
 
 /* ===
 Demo
