@@ -24,7 +24,7 @@ Explanation:
 * `;` makes a comment.
 * `,` separates the arguments used by keywords.
 * `(` and `)` grouping / operator precedence.
-* `=` define a shorthand.
+* `=` define a BNF-rule.
 
 Identifiers need to be escaped in order to be used as literls, like so: `\for`.
 * `\n`, `\t`, etc. match their respective characters.
@@ -33,6 +33,8 @@ There are also some keywords:
 * `stage`
 * `to`
 * `or`
+* `optional`
+* `multiple`
 * `before`
 * `any`
 * `extract`
@@ -136,17 +138,17 @@ stage 4 ; operators
 stage 5 ; statements and expressions
 
 ; automatically makes anything inside parenthesis have to be an expression
-expression.brackets.parens =
-    extract brackets.parens
+expression =
+    brackets.parens
 
 ; if - else statements
     ; look at how easy it is
     statement.if =
-        if expression.brackets.parens statement
+        if brackets.parens statement
         optional(else statement)
 ; for loops
     statement.for =
-        for expression.brackets.parens statement
+        for brackets.parens statement
     ; the parens after `for` are called a "for statement"
     expression.for_statements =
         extract statement.for 1
@@ -155,18 +157,28 @@ expression.brackets.parens =
         statement.plain statement.plain statement.plain
 
 ; while loops
-statement.while =
-    while expression.brackets.parens statement
+    statement.while =
+        while brackets.parens statement
 
-; types of statements
-statement.plain.declaration =
-    declarator statement.plain.assignment
-    declarator =
-        var or let or const
-statement.plain.assignment =
-    variables op.assignment expression
-statement.plain.expression =
-    expression
+; do while loops
+    statement.do_while =
+        do statement while brackets.parens
+
+; types of plain statements
+    statement.plain.declaration =
+        declarator statement.plain.assignment
+        declarator =
+            var or let or const
+    statement.plain.assignment =
+        variables op.assignment expression
+    statement.plain.expression =
+        expression
+
+; switch statements
+    statement.switch =
+        switch brackets.parens statement
+
+
 
 ```
 
