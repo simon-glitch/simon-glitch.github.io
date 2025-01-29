@@ -10,6 +10,7 @@ The following characters are special.
 !
 .
 ;
+,
 (
 )
 ```
@@ -21,6 +22,7 @@ Explanation:
 * `!` negates a property or defines a rule that prevents a `>` or `<` rule.
 * `.` gets a property.
 * `;` makes a comment.
+* `,` separates the arguments used by keywords.
 * `(` and `)` grouping / operator precedence.
 * `=` define a shorthand.
 
@@ -121,7 +123,7 @@ stage 4 ; operators
         \<     or \>   or
         math \= or \= or
         math or
-        ,
+        \,
 ; unaries
     unary =
         ++ or -- or
