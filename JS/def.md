@@ -172,21 +172,4 @@ statement.plain.expression =
 
 
 
-roulette:
-* on red or black:
-    * 18/38 for +1
-    * 20/38 for -1
-* on green:
-    * 2/38 for +4
-    * 36/38 for -4
-* on double black:
-    * 18/38 * 18/38 for +3
-    * 18/38 * 20/38 for -1
-    * 20/38 for -1
-* on tripple black:
-    * 18/38 * 18/38 * 18/38 for +7
-    * 18/38 * 18/38 * 20/38 for -1
-    * 18/38 * 20/38 for -1
-    * 20/38 for -1
-
 
