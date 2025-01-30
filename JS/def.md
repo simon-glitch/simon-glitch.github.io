@@ -196,7 +196,7 @@ expression =
         brackets.squares or
         brackets.curlies
     ; make it so a destructuring can only contain other destructurings, and not just any gosh darn expression
-    extract expression.destructuring (1, 1) =
+    extract expression.destructuring (or.any, 1) =
         expression.destructuring or
         identifier multiple (\, (expression.destructuring or
         identifier))
