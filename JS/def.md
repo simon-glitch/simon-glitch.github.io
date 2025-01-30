@@ -137,18 +137,19 @@ stage 4 ; operators
 
 stage 5 ; statements and expressions
 
-; automatically makes anything inside parenthesis have to be an expression
+; automatically makes anything inside parenthesis or square brackets have to be an expression
 expression =
-    brackets.parens
+    extract brackets.parens 1 or
+    extract brackets.squares 1
 
 ; if - else statements
     ; look at how easy it is
     statement.if =
-        if brackets.parens statement
-        optional(else statement)
+        \if brackets.parens statement
+        optional (\else statement)
 ; for loops
     statement.for =
-        for brackets.parens statement
+        \for brackets.parens statement
     ; the parens after `for` are called a "for statement"
     expression.for_statements =
         extract statement.for 1
@@ -158,27 +159,47 @@ expression =
 
 ; while loops
     statement.while =
-        while brackets.parens statement
+        \while brackets.parens statement
 
 ; do while loops
     statement.do_while =
-        do statement while brackets.parens
-
-; types of plain statements
-    statement.plain.declaration =
-        declarator statement.plain.assignment
-        declarator =
-            var or let or const
-    statement.plain.assignment =
-        variables op.assignment expression
-    statement.plain.expression =
-        expression
+        \do statement while brackets.parens
 
 ; switch statements
     statement.switch =
-        switch brackets.parens statement
+        \switch brackets.parens statement
 
+; with statements
+    statement.with =
+        \with brackets.parens statement
 
+; types of plain statements
+    statement.plain.declaration =
+        declarator multiple(identifier) or
+        declarator expression.destructuring_declaration or
+        declarator statement.plain.assignment
+        declarator =
+            \var or \let or \const
+    statement.plain.assignment =
+        identifier op.assignment expression
+    ; functions and classes can be used as expressions
+    ; the interpreter automatically adds them to a scope if the scope is direct parent of the expression
+    statement.plain.expression =
+        expression
+
+; destructuring declarations
+    ; fun fact: you can use these as function parameters!
+    expression.destructuring_declaration =
+        expression.destructuring \= expression
+    ; fun fact: you can use these as function parameters too!
+    expression.destructuring =
+        brackets.squares or
+        brackets.curlies
+    ; make it so a destructuring can only contain other destructurings, and not just any gosh darn expression
+    extract expression.destructuring (1, 1) =
+        expression.destructuring or
+        identifier multiple (\, (expression.destructuring or
+        identifier))
 
 ```
 
