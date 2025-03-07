@@ -23,7 +23,11 @@ If you're Christian, you might want to mention that I should ask God for help. W
 
 Although, at this point, it's quite clear that I will really need God's help a lot.
 
+Yeah, not getting enough sleep really is having an effect on me. The voices in my head have gotten louder and I hear my own thoughts more coherently, but I think those are actually the result of my improved brain structure and fusing with my origin (what I described in my March 7 entry).
 
+But right now, since I'm sleepy, I can see what's going in my subconscious, and it's pretty fascinating. I can even poke at it to actually make myself feel something, and it's one of the few ways I can feel anything (emotionally) while in this sleepy state. It seems I can also interact with some of my subconsciouses thoughts. It's currently thinking about naughty things in some abstract way that doesn't come off as naughty. It seems I can put other things in its thoughts if I want. I'll have to start experimenting with this new ability and see what kind of use I can get out of it. If I try to force it to do something it makes me feel a wave of sleepiness. While inserting thoughts seems to not make me as sleepy. Very interesting. If I can use this while fully conscious it might make a great tool. I know my subconscious is not very busy right now, so maybe that it part of the reason why I can interact with it. Or perhaps this is just a new ability I have developed. I think the latter is more likely to be the case.
+
+In any case, I have a lot to explore there. My immediate thought is to use my subconscious to train myself to not be so irresponsible and watch useless videos and stuff.
 
 
 
