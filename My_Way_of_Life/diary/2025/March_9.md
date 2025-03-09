@@ -1,0 +1,13 @@
+
+Yesterday was not a productive day. I will make up for that today though.
+
+Last night, at about 4 AM when I finally went to sleep, I realized what's causing me to be so unproductive. It's some sort of impulse loop in my brain. 2 weeks ago (as I described in the March 1 entry), I started seeing the structure of my mind with more clarity. Well, honestly, I've always been able to see my own mind with good clarity. In fact, I've always known about this impulse loop, and I've always strongly wanted to leave it alone. Well, no more of that! I won't be leaving it alone. Clearly, it just wants me to leave it alone, and I have no reason to listen to it. It keeps causing problem after problem after problem, so I'm going to have to shut it down. It keeps ticking at me constantly. The impulse loop is in the decision making area of my mind, obviously.
+
+Now that I think about it, I can see a lot of my own thought process pretty clearly. I can even see how I handle words and ideas in my heads. First ideas start out in a raw format, which oddly enough my main thought process does not understand. These raw ideas are then fed through some kind of language decryption, which organizes them into parts and attaches English words to those parts to make them easier to understand. So, what is sent to my main throught process is a bunch of words with raw ideas attached to them, essentially as connotations (or tones) of those words. I can also learn words in other languages and they just get encrypted and decrypted the same way, since my brain doesn't care what language it is. I'm not saying "porque" becomes "why" in my head. It stubbornly stays as "porque", so I don't immediately know what it means "why". I have to recall that from my memory. The raw thoughts attached to "porque" are a bit similar to the noes attached to "why" though.
+
+I also found some kind of emotional processor that has a few strong lines for the emotions I feel the most. However, my impulse loop also has a line going through it, which is weird, since impulsiveness isn't an emotion. Also, the processor has **A LOT** of unused lines, which implies that there are a lot of types of feelings that I've just never felt before. I'll have to look into that on a later day.
+
+Anyways, I don't know how to touch my impulse loop. I can see it, but it's not in the working area of my brain. Maybe I'll just have to train myself to go around it? I'll continue looking for ways to potentially touch my impulse loop though. Even an indirect touch would be very satisfactory.
+
+I woke up at about 11:40 AM today, and I'm not very tired, which is surprising.
+
