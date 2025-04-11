@@ -6,7 +6,7 @@ console.log("awake");
 
 
 
-let src = "https://simon-glitch.github.io/Projects/freq.js";
+let src = "https://simon-glitch.github.io/projects/webapps/word_analyze/freq.js";
 let s = document.createElement("script");
 s.src = src;
 document.body.appendChild(s);
