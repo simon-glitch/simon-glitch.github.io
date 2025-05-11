@@ -26,6 +26,7 @@ const fast_const_prop = function(obj, prop){
     }
     catch(e){return e;}
 };
+
 /*
 # Function factory Busy
 Make a function that is resistant to asnychronous execution. Busy works by making a wrapper around f, named busy_f. Only one instance of the function can be called at a time. This means the function can safely modify variables without having to worry about memory collisions from separate threads. This is very similar to a mutex lock and is much simpler than event throttling.
@@ -39,7 +40,8 @@ Make a function that is resistant to asnychronous execution. Busy works by makin
     - property {bool} busy_f.busy - whether busy_f is busy;
 - usage: Busy(f)
 - parameters:
-    - {function} f: the function that busy_f will call
+    - {function} f: the function that busy_f will call;
+    - {boolean} is_async: whether busy_f should be async; f will be awaited if it is;
 - members:
     - {boolean} busy [readonly]: whether busy_f is busy;
     - {boolean} Busy.m_busy [private]: internal variable for busy_f.busy;
@@ -47,31 +49,54 @@ Make a function that is resistant to asnychronous execution. Busy works by makin
 */
 const Busy = (function _s_Busy(){
     const m_busy = Symbol("Busy.m_busy");
-    return function Busy(f){
+    return function Busy(f, is_async = false){
         if(!(f instanceof Function)){
             throw TypeError("parameter f in Busy(f) must be a function;");
         }
         
-        const busy_f = function busy_f(){
-            if(busy_f[m_busy]) return Busy.busy;
-            busy_f[m_busy] = true;
+        // the primary function
+        const busy_f_b = function busy_f(){
+            if(busy_f[m_busy].length > 0){
+                return Busy.busy;
+            }
+            const o = {};
+            busy_f[m_busy].push(o);
+            if(busy_f[m_busy][0] !== o){
+                return Busy.busy;
+            }
+            
             let res;
             try{
                 res = f.apply(this, arguments);
             }
             // catch any errors f throws, since otherwise we would be perpetually busy doing nothing as soon as f throws an error;
             catch(e){
-                busy_f[m_busy] = false;
+                busy_f[m_busy] = [];
                 // make sure to rethrow since this wrapper is supposed to be non-invasive
                 throw e;
             }
-            busy_f[m_busy] = false;
+            busy_f[m_busy] = [];
             return res;
         };
-        busy_f[m_busy] = false;
+        // apply async wrapper if necessary
+        const busy_f = (
+            is_async ?
+            async function(){
+                res = busy_f();
+                if(res !== Busy.busy){
+                    res = await res;
+                }
+                return res;
+            } :
+            busy_f_b
+        );
+        
+        /** @type {object[]} */
+        busy_f[m_busy] = [];
+        /** @type {string} */
         busy_f.name = f.name;
         Object.defineProperty(busy_f, "busy", {
-            get: (() => busy_f[m_busy]),
+            get: (() => busy_f[m_busy].length > 0),
             enumerable: true,
             configurable: false,
         });

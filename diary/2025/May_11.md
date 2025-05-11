@@ -51,6 +51,6 @@ I was thinking about my dad during the church service today, and completely igno
 # Aside
 I found a fun new webnovel 3 days ago while waiting for the bus after my final exam.
 
-
+Wow. That is 1770 words.
 
 
