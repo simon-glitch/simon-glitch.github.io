@@ -1,4 +1,5 @@
 
+# The importance of emotions
 Maybe I should write these diary entries more often.
 
 I realized that people feel more compelled to write when they're emotional. Therefore, a lot of the world's writing, including a lot of the influential writing, is emotionally motivated. Also, most diary entries should therefore be emotionally motivated, right? Yes, of course. This truth seems to be ignored / not realized enough. Well, whatever. Well actually I think I could probably write many essays on how emotions influenced various writings.
@@ -6,6 +7,7 @@ I realized that people feel more compelled to write when they're emotional. Ther
 Of course, I'd like you to know that I think emotions are very important and that emotional thinking is very important.
 
 I had lots of fun explaining to Elly at church today (Country Gospel in Dowling) that there are 4 types of thinking and they're all perfectly valid in their own rights. Those types are logical, emotional, social, and subconscious. Letting your emotions influence your writing is perfectly fine. But you should probably state and explain where and how they are being used, since there is a good chance it is not so clear to other people.
+> My explanation to Elly consisted primarily of me explaining how valid emotional thinking is and how it is genuinely a type of thinking. Like, seriously. Feeling IS thinking. Your emotions ARE thoughts, on their own, inherently. They work and function like thoughts. You have emotional thought processes. One of those is not necessarily a normal thought process tinted with emotion. It can be a process of one fleeting emotion being processed into another one and so on, and you can come to a conclusion. The implications of this are pretty huge. I'm not sure how much Elly thought about that, but she understood what I was saying, which is great.
 
 Also, it is apparently Mother's day today. Apparently other people care about that a lot. Well, being a mother is obviously very important, but it's not so relevant to my personal life at the moment.
 
@@ -27,10 +29,27 @@ Anyways, I sure do love talking about these really general facts and how they pl
 
 Ah, another goal of these diary entries is to write down my thoughts. It's a lot better than trying to offer it to a specific person in the context of like a direct message or an essay or something. Yes. It really is better to put these things in **their own** place. For a general audience.
 
+# My writing style
 Ooh, by the way. This isn't my first time noting this. I'm not sure how often I note though. Anyways. A lot of my writing style is based on Hidamarisou Translations (https://hidamarisoutranslations.com/author/hidamarisou/). Hidamarisou translates various Japanese webnovels, and he is super good at it. He might also have some amazing art skills, but I'm not sure. One of the novels he translates has an accompanying manga with Hidamarisou listed as the artist, I think. It is "My Twin Sister Was Taken as a Miko and I Was Thrown Away but I'm Probably the Miko". Them Japanese webnovels have the best titles, right? At least it explains what the Miko is. Well that's like one of the main focuses of the plot.
 
 You know what's funny? I'm using some of the techniques I learned from my English class to make the diary entry a little easier to read. Okay, I'm a bit skeptical of that. I kind of already knew this technique of splitting my paragraphs up to be a little more coherent. And of using short sentences sometimes. But I think having it emphasized in class is making me realize to a far great degree how important (or useful) it is. Also, aftering writing some essays and hearing so much writing advice and reading some particularly **bad** writing in class, I've really realized how important it is to explain things. And I've refined my understanding and technique on how things need to be explained in order to make sense. And of course, right now, I'm doing what I can to make all of this understandable by explaining things. Explanation is so important! Arguing with my dad so much has also actually helped me realize the importance. Yeah. Finally of course, we can thank Hidamarisou Translations as well as the other web novels I've read for teaching me quite a few things.
 
+I just learend an obscure use for the word "egress" while writing the last commit message. Writing commit messages is so much fun man! Too bad Google Docs doesn't have commit messages.
+
+# Nice break
+Anyways, I'm glad to be at my grandpa's house today.
+> Yesterday, my grandpa picked me up from my house at about 3:00 PM, and we went and got dog food, since I was out of it at my house. Then he brought me right back to my house and I put the dog food in its tub on our table, so my cripped dad can feed the dog. Then we went to Maria's bible study (next to the Godwin Heights Highschool). She had rubarb pie and pizza. 2 pepperoni pizza, 1 sausage, and 1 cheese. Well her daughter bought the pizza. And felt the need to state how much of each kind. I found that amusing.
+> Right after that we went to Jim and Sandy's. And there was other old guy and his wife there. They were a VERY colorful pair of old people. The dude told me to read Codinger? Grodinger? I dunno the name. It's a philosopher interested in subjectivity who doesn't like Hegel. And apparently he has serious writing, unlike Nietzche. I love Nietzche's sarcastic and emotional writing style.
+> My grandpa also went on a hike before he came to my place.
+
+My grandpa says he is pretty tired after all that work yesterday. That's amusing.
+
+Maybe I feel amused today. Well, there is a lot of frustrating stuff to think about. And frustration amuses me. That's a pretty big difference between me and my dad. I should avoid thinking about him to much, since it will just stress me out.
+
+I was thinking about my dad during the church service today, and completely ignored the message. That's pretty normal though. Why pay attention to something I won't understand well anyways?
+
+# Aside
+I found a fun new webnovel 3 days ago while waiting for the bus after my final exam.
 
 
 
