@@ -361,5 +361,5 @@ reset.addEventListener("click", function my_reset_clicks(){
     reset_clicks = true;
 });
 
-// f.start();
+f.start();
 
