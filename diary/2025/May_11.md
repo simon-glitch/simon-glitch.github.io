@@ -29,6 +29,9 @@ Ah, another goal of these diary entries is to write down my thoughts. It's a lot
 
 Ooh, by the way. This isn't my first time noting this. I'm not sure how often I note though. Anyways. A lot of my writing style is based on Hidamarisou Translations (https://hidamarisoutranslations.com/author/hidamarisou/). Hidamarisou translates various Japanese webnovels, and he is super good at it. He might also have some amazing art skills, but I'm not sure. One of the novels he translates has an accompanying manga with Hidamarisou listed as the artist, I think. It is "My Twin Sister Was Taken as a Miko and I Was Thrown Away but I'm Probably the Miko". Them Japanese webnovels have the best titles, right? At least it explains what the Miko is. Well that's like one of the main focuses of the plot.
 
+You know what's funny? I'm using some of the techniques I learned from my English class to make the diary entry a little easier to read. Okay, I'm a bit skeptical of that. I kind of already knew this technique of splitting my paragraphs up to be a little more coherent. And of using short sentences sometimes. But I think having it emphasized in class is making me realize to a far great degree how important (or useful) it is. Also, aftering writing some essays and hearing so much writing advice and reading some particularly **bad** writing in class, I've really realized how important it is to explain things. And I've refined my understanding and technique on how things need to be explained in order to make sense. And of course, right now, I'm doing what I can to make all of this understandable by explaining things. Explanation is so important! Arguing with my dad so much has also actually helped me realize the importance. Yeah. Finally of course, we can thank Hidamarisou Translations as well as the other web novels I've read for teaching me quite a few things.
+
+
 
 
 
