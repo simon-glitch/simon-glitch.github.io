@@ -51,6 +51,33 @@ I was thinking about my dad during the church service today, and completely igno
 # Aside
 I found a fun new webnovel 3 days ago while waiting for the bus after my final exam.
 
-Wow. That is 1770 words.
+Wow. That is 1770 words. That's like 6 pages. Since a page is 250 to 300 words. I use a lot of short words so 300 or maybe even 350 words per page is more appropriate.
+
+And we're not quite done!
+
+# Personal activity
+I haven't came since Wednesday. I am pretty sure last time was like 2:30 AM on Thursday. So that was basically Wednesday since I was staying up late at night. It's been 4 days now, since today is Sunday. Taking such a long break actually feels nice because my brain is refilling on those exciting male hormones. Yeah. Playing too much really leaves me feeling drained. I feel all full and strong now. Like I could do kick some butt or fly or something! Also, my usual energy and anger are really going. Typically I have to struggle and survive off just adrenaline, but right now I feel like I can relax.
+
+Well, there are other factors to blame and talk about here. I actually went to bed at a reasonable time last night. That definitely helps a lot.
+
+But yeah, it's definitely possible to play around a little bit too much.
+
+# Emotions
+As I've been telling a lot of people, I think there are 64 emotions. There's a lot more feelings than that though. For example, guilt and shame are 2 distinct feelngs with the same underlying emotion, which is self-contradiction. This seemed really relevant in my philosophy class where we learned about Kant and Hegel. Kant thought all actions carried guilt, and Hegel thought that every shape of spirit has its own self-contradictions (or negations) that need to be resolved. Yeah, this underlying feeling seems quite philosophically relevant. It is kind of funny how I have unified their ideas with my own ideas so easily just by defining a common underlying feeling.
+
+Anyways, as I said, there are 64 emotions. I haven't really discovered most of them. I think I might write a loosely-structured list of the emotions as I discover them personally, rather than try to immediately fit all of them into my 6-dimensional chart. Yes, 6 dimensions. Because 2^6 = 64. Don't stress it. *Smile smile*;
+
+Additionally, I hope to be familiar with euphoria of all 64 emotion. And I want to be able to forcefully trigger euphoria for all 64 emotions. Rage and sadness are fun to forcefully trigger. I'm feeling a bit tired after being so sad today though. Hmbb.
+
+Finally, I want to experience all 64 emotions euphorically in combination or synchronization with coming. It is so great to experince an emotional rush that is amplified by the rush of coming. One problem with doing it with arousal though is I can end up being too excited afterwards.
+
+I should try the self-contradiction feeling! I might find it motivating. I prefer chaos though. Hrmmmmggg. Well, let's see if I can muster up the patience.
+
+Blue lemons, Simon! Are you really that impatient?
+> Yeah, bro. We know I'm the ultimate plasma-mind!
+Simon...
+
+Alright. Well I need to go to bed and there ain't much else to say. XD.
+
 
 
