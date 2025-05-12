@@ -113,6 +113,28 @@ const Semaphore = class Semaphore{
         this.#queue.shift();
         this.#queue[0]?.();
     }
+    /**
+     * Automatically call a **synchronous** function that can use the sempahore's resources. It automatically frees the resources when it is done. See also: `semaphore.then`.
+     * @param {(res) => any} f call-back function to run when the semaphore is available; `res` is `semaphore.res`;
+     * @return {any} whatever f returned;
+     */
+    async auto(f){
+        await this.use();
+        const res = f(this.res);
+        this.free();
+        return res;
+    }
+    /**
+     * Automatically call a **synchronous** function that can use the sempahore's resources. It automatically frees the resources when it is done. This method can also be **chained.** See also: `semaphore.auto`.
+     * @param {(res) => void} f call-back function to run when the semaphore is available; `res` is `semaphore.res`;
+     * @return {this} this semaphore;
+     */
+    async then(f){
+        await this.use();
+        f(this.res);
+        this.free();
+        return this;
+    }
 }
 
 
