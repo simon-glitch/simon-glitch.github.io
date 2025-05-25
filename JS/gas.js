@@ -1,0 +1,107 @@
+
+/*
+You want to buy gas, but the gas station always rounds the numbers in their favor.
+
+In theory, you can buy gas either by the dollar or by the gallon. The last time I bought gas though, I was given gas by the dollar. But I asked for a specific number of gallons. It seems they calculate by the dollar if you are pre-paying.
+
+The gas price is almost always slightly higher than what is advertised:
+* When buying by the gallon, the price is rounded up.
+* When buying by the dollar, the gallons given are rounded down.
+
+The only way to buy gas at the advertised gas price is buy gas by the dollar and pay an integer multiple of the gas price. This means you would have to buy an amount of gas equal to a clean integer multiple of 10 gallons. So always buy 10, 20, or similar number of gallons if you can.
+*/
+
+/** The price of gas, per whole gallon, in hundredths of dollars,
+  * since price signs display 4 digits like that. */
+const price = 2899;
+
+/** The number of "thousandths" in a whole. */
+const thousand = 1000;
+
+/** The number of "hundredths" in a whole. */
+const hundred = 100;
+
+/**
+ * Buy gas by the gallon. (gallons => dollars)
+ * @param {Number} gallons The number of gallons you are buying (in thousandths of gallons).
+ * @returns {Number} The price of the gas (in hundredths of dollars).
+ */
+function gas_gallon(gallons){
+    return Math.ceil(
+        Math.ceil(gallons * price / thousand) *
+        hundred / thousand
+    );
+}
+
+/**
+ * Buy gas by the dollar. (dollars => gallons)
+ * @param {Number} dollars The number of dollars you are paying (in hundredths of dollars).
+ * @returns {Number} The number of gallons you will get (in thousandths of gallons).
+ */
+function gas_dollar(dollars){
+    return Math.floor(
+        dollars * thousand / hundred *
+        thousand / price
+    );
+}
+
+/*
+As a consumer, you will need to use a certain amount of gas.
+You want to stock extra gas in your car, for convenience,
+    but it's okay if you don't fill up the tank all the way.
+    Especially if you think the gas price is higher than usual and will be lower next time.
+This means the best strategy is to simply buy as much gas as you can
+    when you think the price is down, and as little gas as you need to,
+    when you think the price is up. So, buy low, and avoid buying high.
+However, let's say that for some odd reason, the gas price is the same everywhere,
+    all the time. Well, in this case, the optimal strategy is to buy multiples of 10 gallons,
+    as I explained earlier. But maybe that's not enough or it's too much.
+In which case, it would be nice to have a formula
+    to see which amount of dollars is relatively optimal.
+*/
+
+/**
+ * Calculate the optimal number of dollars to pre-pay for the lowest effective gas price.
+ * - `effective_gas_price = dollars / gas_dollar(dollars)`
+ * @param {Number} min_gallons The minimum number of gallons you need to purchase
+ * (in thousandths of gallons).
+ * @param {Number} max_gallons The maximum number of gallons you can purchase
+ * (in thousandths of gallons).
+ * @returns {Number} `dollars`: the optimal number of dollars to pre-pay
+ * (in hundredths of dollars).
+ */
+function optimal_dollars(min_gallons, max_gallons){
+    let dollars = gas_gallon(min_gallons);
+    /** `effective_gas_price` */
+    let egp = dollars * thousand / hundred * thousand / min_gallons;
+    // set dollars to a reasonable starting value
+    while(gas_dollar(dollars) > min_gallons) dollars--;
+    while(gas_dollar(dollars) < min_gallons) dollars++;
+    // What's funny is you might be getting more than min_gallons
+    // but that's okay, bc it IS a minimum, and I **tried**
+    // to start dollars at the minimum, but it's just not possible
+    // to buy that exact number of gallons.
+    
+    // now, see if any value upto the max is any good
+    for(
+        let t_dollars = dollars + 1,
+        t_gallons = gas_dollar(t_dollars),
+        t_egp = 0;
+        t_gallons < max_gallons;
+        t_dollars++
+    ){
+        t_gallons = gas_dollar(t_dollars);
+        t_egp = t_dollars * thousand / hundred * thousand / t_gallons;
+        // check for improvement and use the best number
+        if(t_egp < egp){
+            egp = t_egp;
+            dollars = t_dollars;
+        }
+    }
+    
+    // just return the best number found
+    return dollars;
+}
+
+
+
