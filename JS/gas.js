@@ -243,4 +243,18 @@ You "saved" ${to_money(
 }
 
 
+/*
+Now, you really won't save anything significant from doing this. But hey, I'm curious. Just how much could you save in theory if you used this method every time.
+
+Let's look at some different gas-buying strategies, just so we can see who saves the most. This is such a waste of time! 
+*/
+
+
+
+
+
+
+
+
+
 
