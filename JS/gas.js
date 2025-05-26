@@ -103,5 +103,86 @@ function optimal_dollars(min_gallons, max_gallons){
     return dollars;
 }
 
+/**
+ * Calculate the optimal number of gallons to purchase for the lowest effective gas price.
+ * - `effective_gas_price = gas_gallon(gallons) / gallons
+ * @param {Number} min_gallons The minimum number of gallons you need to purchase
+ * (in thousandths of gallons).
+ * @param {Number} max_gallons The maximum number of gallons you can purchase
+ * (in thousandths of gallons).
+ * @returns {Number} `gallons`: the optimal number of gallons to purchase
+ * (in hundredths of gallons).
+ */
+function optimal_gallons(min_gallons, max_gallons){
+    let gallons = min_gallons;
+    /** `effective_gas_price` */
+    let egp = gas_gallon(gallons) * thousand / hundred * thousand / min_gallons;
+    
+    // now, see if any value upto the max is any good
+    for(
+        let t_gallons = gallons + 1,
+        t_dollars = gas_gallon(t_gallons),
+        t_egp = 0;
+        t_gallons < max_gallons;
+        t_gallons++
+    ){
+        t_dollars = gas_gallon(t_gallons);
+        t_egp = t_dollars * thousand / hundred * thousand / t_gallons;
+        // check for improvement and use the best number
+        if(t_egp < egp){
+            egp = t_egp;
+            gallons = t_gallons;
+        }
+    }
+    
+    // just return the best number found
+    return gallons;
+}
+
+/**
+ * Calculate the optimal way to buy gas and how much to pay or buy.
+ * - `effective_gas_price = dollars / gallons
+ * @param {Number} min_gallons The minimum number of gallons you need to purchase
+ * (in thousandths of gallons).
+ * @param {Number} max_gallons The maximum number of gallons you can purchase
+ * (in thousandths of gallons).
+ * @returns {String} explanation of the optimal way to buy the gas, how many dollars it will cost, and how many gallons will be bought.
+ */
+function optimal(min_gallons, max_gallons){
+    // d_: buying by the dollar
+    const d_dollars = optimal_dollars(min_gallons, max_gallons);
+    const d_gallons = gas_dollar(d_dollars);
+    const d_egp = d_dollars * thousand / hundred * thousand / d_gallons;
+    // g_: buying by the gallon
+    const g_gallons = optimal_gallons(min_gallons, max_gallons);
+    const g_dollars = gas_gallon(g_gallons);
+    const g_egp = g_dollars * thousand / hundred * thousand / g_gallons;
+    
+    let gallons = 0, dollars = 0, egp = 0;
+    let pay_by = "";
+    // if dollars are better
+    // (default to dollars if dollars and gallons tie)
+    const d_better = d_egp <= g_egp;
+    if(d_better){
+        dollars = d_dollars;
+        gallons = d_gallons;
+        egp = d_egp;
+        pay_by = "dollar";
+    }
+    // if gallons are strictly better
+    else{
+        dollars = g_dollars;
+        gallons = g_gallons;
+        egp = g_egp;
+        pay_by = "gallon";
+    }
+    
+    return (`Pay by the ${pay_by}.
+It will cost $${(dollars / hundred)}.
+You will get ${(gallons / thousand)} gallons.
+The effective gas price will be $${(egp / thousand).toFixed(5)} / gallon`
+    );
+}
+
 
 
