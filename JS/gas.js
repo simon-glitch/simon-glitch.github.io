@@ -235,8 +235,8 @@ You "saved" ${to_money(
     // This is the most ridiculous thing ever.
     // Such a scam.
     // Essentially compare the best and worst deals.
-    (egp - r_egp) *
-    (gallons + r_gallons) / 2 /
+    (r_egp - egp) *
+    (r_gallons + gallons) / 2 /
     thousand
 )}`
     );
