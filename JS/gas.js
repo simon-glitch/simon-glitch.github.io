@@ -45,6 +45,33 @@ function gas_dollar(dollars){
     );
 }
 
+/** The number of cents in a dollar. */
+const cents = hundred;
+/**
+ * Format money to cents if it's less than a dollar.
+ * @param {Number} dollars The number of dollars (in thousandths of dollars).
+ * @param {Number} fixed_digits The number of fixed digits
+ * to display after the decimal point. Defaults to `2`.
+ * @returns {String} The formatted string representing the amount of money.
+ */
+function to_money(dollars, fixed_digits = 2){
+    /** char code 36; */
+    const dollar_symbol = "$";
+    /** char code 162; */
+    const cent_symbol = "¢";
+    let use_symbol = "";
+    dollars = Number(dollars);
+    if(!isFinite(dollars)) return NaN.toString();
+    if(dollars < thousand){
+        dollars = dollars * cents / thousand;
+        use_symbol = cent_symbol;
+    }
+    else{
+        use_symbol = dollar_symbol;
+    }
+    return use_symbol + dollars.toFixed(fixed_digits);
+}
+
 /*
 As a consumer, you will need to use a certain amount of gas.
 You want to stock extra gas in your car, for convenience,
@@ -201,17 +228,17 @@ function optimal(min_gallons, max_gallons){
     }
     
     return (`Pay by the ${pay_by}.
-It will cost $${(dollars / hundred)}.
+It will cost ${to_money(dollars / hundred)}.
 You will get ${(gallons / thousand)} gallons.
-The effective gas price will be $${(egp / thousand).toFixed(5)} / gallon.
-You "saved" $${(
+The effective gas price will be ${to_money(egp / thousand, 5)} / gallon.
+You "saved" ${to_money(
     // This is the most ridiculous thing ever.
     // Such a scam.
     // Essentially compare the best and worst deals.
     (egp - r_egp) *
     (gallons + r_gallons) / 2 /
-    thousand / thousand
-).toFixed(3)}`
+    thousand
+)}`
     );
 }
 
