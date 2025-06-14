@@ -58,6 +58,30 @@ const get_bit_count = function(max_value){
 };
 
 /* ===
+Objects, Part One
+=== */
+
+const symbol_prop = function(obj, prop, map, name = "Obj"){
+    // make sure string form of the symbols map too
+    // this means any symbol with the same name also works, but that's not a big deal
+    // since you can just use the string anyways
+    for(let i in map) map[map[i]] = map[i];
+    const s = Symbol(name + "." + prop);
+    Object.defineProperty(obj, prop, {
+        get(){
+            return this[s];
+        },
+        set(v){
+            const s_v = map[v];
+            if(v) this[s] = s_v;
+        },
+        configurable: false,
+        enumerable: true,
+    });
+}
+
+
+/* ===
 Arrays
 === */
 
@@ -134,6 +158,11 @@ const auto_array = function(obj, max_1D = MAX_SAFE, max_2D = MAX_SAFE){
     }
 }
 
+
+/* ===
+Table
+=== */
+
 /** A simple 2D array. */
 class Table{
     /** The contents of the table. An array of columns. */
@@ -151,6 +180,7 @@ class Table{
         return this.cols[Symbol.iterator];
     }
 }
+
 /** @static Specifies table filling mode as "CYCLE". */
 Table.CYCLE = Symbol("Table.CYCLE");
 /** @static Specifies table filling mode as "REPEAT_LAST". */
@@ -159,6 +189,11 @@ Table.REPEAT_LAST = Symbol("Table.REPEAT_LAST");
 Table.REPEAT_FIRST = Symbol("Table.REPEAT_FIRST");
 /** @static Specifies table filling mode as "EMPTY". */
 Table.EMPTY = Symbol("Table.EMPTY");
+/** @static Specifies table reading mode as "YX". */
+Table.YX = Symbol("Table.YX");
+/** @static Specifies table reading mode as "XY". */
+Table.XY = Symbol("Table.XY");
+
 /** @static Used to maps strings to symbols for `table.fill`; */
 Table.MAP_FILL = {
     CYCLE: Table.CYCLE,
@@ -166,17 +201,16 @@ Table.MAP_FILL = {
     REPEAT_FIRST: Table.REPEAT_FIRST,
     EMPTY: Table.EMPTY,
 }
-/** @static The default table filling mode. */
-Table.FILL = Table.CYCLE;
-/** @static Specifies table reading mode as "YX". */
-Table.YX = Symbol("Table.YX");
-/** @static Specifies table reading mode as "XY". */
-Table.XY = Symbol("Table.XY");
 /** @static Used to maps strings to symbols for `table.read`; */
 Table.MAP_READ = {
     YX: Table.YX,
     XY: Table.XY,
 }
+symbol_prop(Table, "FILL", Table.MAP_FILL, "Table");
+symbol_prop(Table, "READ", Table.MAP_READ, "Table");
+
+/** @static The default table filling mode. */
+Table.FILL = Table.CYCLE;
 /** @static The default table reading mode. */
 Table.READ = Table.YX;
 
@@ -198,6 +232,7 @@ Table.READ = Table.YX;
  * - defaults to `Table.READ`;
  */
 const TableBase = function(...data){
+    const taken = [];
     const cols = [];
     const extras = [];
     const is_2D = [];
@@ -215,21 +250,28 @@ const TableBase = function(...data){
     // Normalization
     for(let i = 0; i < data.length && taken_cols < max_cols; i++){
         let d = data[i];
+        // non-arrays
         if(!is_array_like(d)){
             extras.push(d);
             continue;
         }
-        d = auto_array(d, max_rows, max_cols);
+        // auto array does smart trick if the array is 2D
+        d = auto_array(d, max_rows, max_read);
         is_2D[i] = is_array_like(d[0]);
         if(is_2D[i]){
             for(let j = 0; j < data.length; j++){
                 d[j] = auto_array(d[j], max_read);
             }
         }
-        data[i] = d;
+        taken[i] = d;
     }
     
-};
+    // Build the table
+    for(let i = 0; i < taken.length; i++){
+        let d = taken[i];
+        
+        taken[i] = d;
+    };
 
 /**
  * Creates an instance of `table`;
