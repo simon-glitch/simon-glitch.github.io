@@ -29,7 +29,10 @@ const toFinite = function(x){
     return Math.sign(x) * INFINTY;
 }
 
-/** Calculate the number of bits needed for an unsigned integer. */
+/**
+ * Calculate the number of bits needed for an unsigned integer.
+ * @param {Number} max_value maximum value you want to be able to store;
+*/
 const get_bit_count = function(max_value){
     return 2**Math.max(Math.floor(Math.log2(
         Math.max(Math.floor(Math.log2(
