@@ -70,13 +70,16 @@ Arrays
   * - `0` if the object is not array-like;
   * - `1` if it can be indexed into;
   * - `2` if it can be iterated on with `for v of`;
-  * - `3` if it is an actual array;
+  * - `3` if it can be converted to an array using `obj.toArray`;
+  * - `4` if it is an actual array;
 **/
 const is_array_like = function(obj){
     // check for non-objects
     if(typeof object !== "object" || object === null)
         return 0;
     if(obj instanceof Array)
+        return 4;
+    if(obj.toArray instanceof Function)
         return 3;
     // check for `in`
     if(Symbol.iterator(obj)) return 2;
@@ -90,59 +93,189 @@ const is_array_like = function(obj){
   * - wraps the object in an array if it not array-like;
   * - makes a copy of the object without mutating it;
   * @param {*} obj object to convert;
+  * @param {Number} max_1D maximum length if the object is a 1D array;
+  * @param {Number} max_2D maximum length if the object is a 2D array;
   * @returns {Array}
 **/
-const auto_array = function(obj){
+const auto_array = function(obj, max_1D = MAX_SAFE, max_2D = MAX_SAFE){
     const is_array = is_array_like(obj);
     if(is_array === 0) return [obj];
     // good ol fashioned for loop
     if(is_array === 1){
-        const res = [], L = obj.length;
+        const res = [];
+        const is_2D = is_array_like(obj[0]);
+        const max_L = is_2D ? max_2D : max_1D;
+        const L = Math.min(obj.length, max_L);
         for(let i = 0; i < L; i++) res[i] = obj[i];
         return res;
     };
-    // 
-    if(is_array === 2) return [...obj];
-    if(is_array === 3) return obj.slice();
+    // for of, with complications
+    if(is_array === 2){
+        const res = [];
+        let i = 0, is_2D, max_L;
+        for(let v of obj){
+            if(i === 0){
+                is_2D = is_array_like(v);
+                max_L = is_2D ? max_2D : max_1D;
+            }
+            if(i > max_L) break;
+            res[i] = v;
+            i++;
+        }
+    };
+    // cannot limit length
+    if(is_array === 3){
+        return obj.toArray();
+    }
+    if(is_array === 4){
+        const is_2D = is_array_like(obj[0]);
+        const max_L = is_2D ? max_2D : max_1D;
+        return obj.slice(0, max_L);
+    }
 }
 
 /** A simple 2D array. */
 class Table{
+    /** The contents of the table. An array of columns. */
     cols = [];
+    /** Extra items that could not fit or be placed in the table. */
+    extras = [];
     constructor(){
         this.cols = [];
     }
+    toArray(){
+        return this.cols.slice();
+    }
+    // proxy to cols for simplicity
+    get [Symbol.iterator](){
+        return this.cols[Symbol.iterator];
+    }
 }
-/** Specifies table filling mode. */
+/** @static Specifies table filling mode as "CYCLE". */
 Table.CYCLE = Symbol("Table.CYCLE");
-/** Specifies table filling mode. */
+/** @static Specifies table filling mode as "REPEAT_LAST". */
 Table.REPEAT_LAST = Symbol("Table.REPEAT_LAST");
-/** Specifies table filling mode. */
+/** @static Specifies table filling mode as "REPEAT_FIRST". */
 Table.REPEAT_FIRST = Symbol("Table.REPEAT_FIRST");
-/** Specifies table filling mode. */
+/** @static Specifies table filling mode as "EMPTY". */
 Table.EMPTY = Symbol("Table.EMPTY");
+/** @static Used to maps strings to symbols for `table.fill`; */
+Table.MAP_FILL = {
+    CYCLE: Table.CYCLE,
+    REPEAT_LAST: Table.REPEAT_LAST,
+    REPEAT_FIRST: Table.REPEAT_FIRST,
+    EMPTY: Table.EMPTY,
+}
+/** @static The default table filling mode. */
+Table.FILL = Table.CYCLE;
+/** @static Specifies table reading mode as "YX". */
+Table.YX = Symbol("Table.YX");
+/** @static Specifies table reading mode as "XY". */
+Table.XY = Symbol("Table.XY");
+/** @static Used to maps strings to symbols for `table.read`; */
+Table.MAP_READ = {
+    YX: Table.YX,
+    XY: Table.XY,
+}
+/** @static The default table reading mode. */
+Table.READ = Table.YX;
 
-const TableBase = function(){
+/**
+ * Combine any number of columns or tables into a single table.
+ * @param {...any[]} data any number of array-like columns; any 2D array will be spread apart into multiple columns;
+ * @returns {Table} the output table;
+ * @property {Number} _cols the maximum number of columns that the output table can have;
+ * @property {Number} _rows the maximum number of rows that the output table can have;
+ * @property {Symbol} _fill how to fill empty cells of the table; filling logic is applied on a per-column basis
+ * - `CYCLE`: repeat all items in the column, from the first to the last;
+ * - `REPEAT_FIRST`: repeat the first item in the column;
+ * - `REPEAT_LAST`: repeat the last item in the column;
+ * - `EMPTY`: don't fill empty cells;
+ * - defaults to `Table.FILL`;
+ * @property {Symbol} _read how to read 2D arrays in `data`;
+ * - `YX`: interpret each 2D array as an array of rows; i.e. index by Y and then by X;
+ * - `XY`: interpret each 2D array as an array of columns; i.e. index by X and then by Y;
+ * - defaults to `Table.READ`;
+ */
+const TableBase = function(...data){
+    const cols = [];
+    const extras = [];
+    const is_2D = [];
+    const max_cols = this._cols;
+    const max_rows = this._rows;
+    const fill = this._fill;
+    const read = this._read;
+    const max_read = (
+        read === Table.YX ?
+        max_cols : max_rows
+    );
+    let taken_cols = 0;
+    let taken_rows = 0;
+    
+    // Normalization
+    for(let i = 0; i < data.length && taken_cols < max_cols; i++){
+        let d = data[i];
+        if(!is_array_like(d)){
+            extras.push(d);
+            continue;
+        }
+        d = auto_array(d, max_rows, max_cols);
+        is_2D[i] = is_array_like(d[0]);
+        if(is_2D[i]){
+            for(let j = 0; j < data.length; j++){
+                d[j] = auto_array(d[j], max_read);
+            }
+        }
+        data[i] = d;
+    }
     
 };
 
 /**
- * @
+ * Creates an instance of `table`;
  */
 class TableFactory extends Function{
-    cols = MAX_SAFE;
-    rows = MAX_SAFE;
-    fill = Table.CYCLE;
+    _cols = MAX_SAFE;
+    _rows = MAX_SAFE;
+    _fill = Table.CYCLE;
+    _read = Table.YX;
     constructor(){
         super(TableBase);
+        reset();
     }
-    /** Chainable method that sets `table.rows` to the specified value. */
-    rows(rows){this.rows = rows; return this}
-    /** Chainable method that sets `table.cols` to the specified value. */
-    cols(cols){this.cols = cols; return this}
-    /** Chainable method that sets `table.fill` to the specified value. */
-    fill(fill){this.fill = fill; return this}
+    /**
+     * Sets all properties of `table` back to their default values.
+     * @param {Number} rows the specified value;
+     */
+    reset(){
+        delete this._rows;
+        delete this._cols;
+        delete this._fill;
+        delete this._read;
+    }
+    /**
+     * Chainable method that sets `table._rows` to the specified value.
+     * @param {Number} rows the specified value;
+     */
+    rows(rows){this._rows = rows; return this}
+    /**
+     * Chainable method that sets `table._cols` to the specified value.
+     * @param {Number} cols the specified value;
+     */
+    cols(cols){this._cols = cols; return this}
+    /**
+     * Chainable method that sets `table._fill` to the specified value.
+     * @param {Symbol | String} fill the specified value; if `fill` is a string, it will be mapped to a symbol; invalid values of `fill` default to `Table.FILL`;
+     */
+    fill(fill){this._fill = fill; return this}
+    /**
+     * Chainable method that sets `table._read` to the specified value.
+     * @param {Symbol | String} read the specified value; if `read` is a string, it will be mapped to a symbol; invalid values of `read` default to `Table.READ`;
+     */
+    read(read){this._read = read; return this}
 };
+
+const table = new TableFactory();
 
 /* ===
 Objects
