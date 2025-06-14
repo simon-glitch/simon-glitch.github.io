@@ -245,10 +245,13 @@ const TableBase = function(...data){
         max_cols : max_rows
     );
     let taken_cols = 0;
-    let taken_rows = 0;
     
     // Normalization
-    for(let i = 0; i < data.length && taken_cols < max_cols; i++){
+    for(let i = 0; (
+        // taken_cols is here because i dont want
+        // to take 1000 columns if i dont need to
+        i < data.length && taken_cols < max_cols
+    ); i++){
         let d = data[i];
         // non-arrays
         if(!is_array_like(d)){
@@ -262,6 +265,22 @@ const TableBase = function(...data){
             for(let j = 0; j < data.length; j++){
                 d[j] = auto_array(d[j], max_read);
             }
+            // increment taken_cols by the width of the 2D range,
+            // which depends on the reading direction
+            if(read === Table.YX){
+                let max_length = 0;
+                d.forEach(v => max_length = (
+                    Math.max(v.length, max_length)
+                ));
+                taken_cols += max_length;
+            }
+            else{
+                taken_cols += d.length;
+            }
+        }
+        // increment taken_cols by 1 since we took 1 column
+        if(!is_2D[i]){
+            taken_cols += 1;
         }
         taken[i] = d;
     }
@@ -269,7 +288,14 @@ const TableBase = function(...data){
     // Build the table
     for(let i = 0; i < taken.length; i++){
         let d = taken[i];
-        
+        if(is_2D[i]){
+            if(read === Table.YX){
+                // transpose
+            }
+            else{
+                cols.push(...d);
+            }
+        }
         taken[i] = d;
     };
 
