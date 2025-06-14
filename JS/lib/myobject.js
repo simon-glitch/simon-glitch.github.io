@@ -14,8 +14,25 @@ const is_nullish = function(value){
     return b;
 };
 
-/** 1.798e+308, the largest finite number in the IEEE-754 64-bit float standard. **/
-const INFINTY = (2**53 - 1) * (2 ** (1023 - 52));
+/** Size of the IEEE-754 float used in this file */
+const IEEE_SIZE = 64;
+/** Sign bits in float */
+const IEEE_SGN = 1;
+/** Exponent bits in float */
+const IEEE_EXP = 11;
+/** Mantissa bits in float */
+const IEEE_MAN = IEEE_SIZE - IEEE_SGN - IEEE_EXP;
+
+/** Maximum exponent a float can have */
+const MAX_EXP = 2**IEEE_EXP - 1;
+/** 1.798e+308, the largest positive number that you can add or subtract 1 to or from. */
+const MAX_SAFE = 2**(IEEE_MAN + 1) - 1;
+/** The smallest number that you can add or subtract to or from any finite number.
+    Essentially, this number always makes a difference with addition and subtraction. */
+const MAX_DIFF = 2 ** (MAX_EXP - IEEE_MAN);
+/** 1.798e+308, the largest finite number in the IEEE-754 64-bit float standard.
+    INFINTY + MAX_DIFF = actual Infinity */
+const INFINTY = MAX_SAFE * MAX_DIFF;
 
 /**
   * Ensure a number is finite.
@@ -88,6 +105,44 @@ const auto_array = function(obj){
     if(is_array === 2) return [...obj];
     if(is_array === 3) return obj.slice();
 }
+
+/** A simple 2D array. */
+class Table{
+    cols = [];
+    constructor(){
+        this.cols = [];
+    }
+}
+/** Specifies table filling mode. */
+Table.CYCLE = Symbol("Table.CYCLE");
+/** Specifies table filling mode. */
+Table.REPEAT_LAST = Symbol("Table.REPEAT_LAST");
+/** Specifies table filling mode. */
+Table.REPEAT_FIRST = Symbol("Table.REPEAT_FIRST");
+/** Specifies table filling mode. */
+Table.EMPTY = Symbol("Table.EMPTY");
+
+const TableBase = function(){
+    
+};
+
+/**
+ * @
+ */
+class TableFactory extends Function{
+    cols = MAX_SAFE;
+    rows = MAX_SAFE;
+    fill = Table.CYCLE;
+    constructor(){
+        super(TableBase);
+    }
+    /** Chainable method that sets `table.rows` to the specified value. */
+    rows(rows){this.rows = rows; return this}
+    /** Chainable method that sets `table.cols` to the specified value. */
+    cols(cols){this.cols = cols; return this}
+    /** Chainable method that sets `table.fill` to the specified value. */
+    fill(fill){this.fill = fill; return this}
+};
 
 /* ===
 Objects
