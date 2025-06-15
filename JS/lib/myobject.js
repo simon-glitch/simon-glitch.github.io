@@ -241,8 +241,9 @@ const TableBase = function(...data){
     const max_rows = this._rows;
     const fill = this._fill;
     const read = this._read;
+    const read_YX = read === Table.YX;
     const max_read = (
-        read === Table.YX ?
+        read_YX ?
         max_cols : max_rows
     );
     let taken_cols = 0;
@@ -260,15 +261,23 @@ const TableBase = function(...data){
             continue;
         }
         // auto array does smart trick if the array is 2D
-        d = auto_array(d, max_rows, max_read);
+        d = auto_array(d, max_rows, (
+            read_YX ?
+            max_rows :
+            max_cols - taken_cols
+        ));
         is_2D[i] = is_array_like(d[0]);
         if(is_2D[i]){
             for(let j = 0; j < data.length; j++){
-                d[j] = auto_array(d[j], max_read);
+                d[j] = auto_array(d[j], (
+                    read_YX ?
+                    max_cols - taken_cols :
+                    max_rows
+                ));
             }
             // increment taken_cols by the width of the 2D range,
             // which depends on the reading direction
-            if(read === Table.YX){
+            if(read_YX){
                 let max_length = 0;
                 d.forEach(v => max_length = (
                     Math.max(v.length, max_length)
@@ -290,7 +299,7 @@ const TableBase = function(...data){
     for(let i = 0; i < taken.length; i++){
         let d = taken[i];
         if(is_2D[i]){
-            if(read === Table.YX){
+            if(read_YX){
                 // transpose
             }
             else{
