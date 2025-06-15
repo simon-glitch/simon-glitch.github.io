@@ -92,9 +92,9 @@ Arrays
   * @param {*} obj 
   * @returns {number}
   * - `0` if the object is not array-like;
-  * - `1` if it can be indexed into;
-  * - `2` if it can be iterated on with `for v of`;
-  * - `3` if it can be converted to an array using `obj.toArray`;
+  * - `1` if it can be converted to an array using `obj.toArray`;
+  * - `2` if it can be indexed into;
+  * - `3` if it can be iterated on with `for v of`;
   * - `4` if it is an actual array;
 **/
 const is_array_like = function(obj){
@@ -103,12 +103,12 @@ const is_array_like = function(obj){
         return 0;
     if(obj instanceof Array)
         return 4;
-    if(obj.toArray instanceof Function)
-        return 3;
     // check for `in`
-    if(Symbol.iterator(obj)) return 2;
-    // check for `length`
+    if(Symbol.iterator(obj))
+        return 3;
     if(obj.length instanceof Number)
+        return 2;
+    if(obj.toArray instanceof Function)
         return 1;
 }
 
@@ -124,8 +124,12 @@ const is_array_like = function(obj){
 const auto_array = function(obj, max_1D = MAX_SAFE, max_2D = MAX_SAFE){
     const is_array = is_array_like(obj);
     if(is_array === 0) return [obj];
-    // good ol fashioned for loop
+    // cannot limit length of custom toArray method
     if(is_array === 1){
+        return obj.toArray();
+    }
+    // good ol fashioned for loop
+    if(is_array === 2){
         const res = [];
         const is_2D = is_array_like(obj[0]);
         const max_L = is_2D ? max_2D : max_1D;
@@ -134,7 +138,7 @@ const auto_array = function(obj, max_1D = MAX_SAFE, max_2D = MAX_SAFE){
         return res;
     };
     // for of, with complications
-    if(is_array === 2){
+    if(is_array === 3){
         const res = [];
         let i = 0, is_2D, max_L;
         for(let v of obj){
@@ -147,10 +151,7 @@ const auto_array = function(obj, max_1D = MAX_SAFE, max_2D = MAX_SAFE){
             i++;
         }
     };
-    // cannot limit length
-    if(is_array === 3){
-        return obj.toArray();
-    }
+    // just slice an array
     if(is_array === 4){
         const is_2D = is_array_like(obj[0]);
         const max_L = is_2D ? max_2D : max_1D;
@@ -297,7 +298,8 @@ const TableBase = function(...data){
             }
         }
         taken[i] = d;
-    };
+    }
+};
 
 /**
  * Creates an instance of `table`;
