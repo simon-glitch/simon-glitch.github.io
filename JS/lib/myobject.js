@@ -85,19 +85,42 @@ const a_symbol_prop = function(obj, prop, map, name = "Obj"){
  * @param {object} obj object to add property on;
  * @param {string} prop the name of the property;
  * @param {any} value the value to assign to the property;
+ * @param {bool} enumerable whether the property should be enumerable;
+ * - i.e. does it show up in `Object.getOwnPropertyNames` or a `for of` loop;
+ * - enumerable symbols can be found via `Object.getOwnPropertySymbols`, so you might `enumerable = false` for any private symbol constants;
  */
 const a_const_prop = function(obj, prop, value, enumerable = true){
-    // errors might occur inside is_array_like or inside the ellipsis;
-    try{
-        Object.defineProperty(obj, prop, {
-            value,
-            configurable: false,
-            writable: false,
-            enumerable,
-        });
-    }
-    catch(e){return e;}
+    Object.defineProperty(obj, prop, {
+        value,
+        configurable: false,
+        writable: false,
+        enumerable,
+    });
 };
+
+/**
+ * Lock a property of an object, making the current value a constant value.
+ * - essentially finalizes the value;
+ * @param {object} obj object to lock the property on;
+ * @param {string} prop the name of the property;
+ * @param {bool} enumerable whether the property should be enumerable;
+ * - i.e. does it show up in `Object.getOwnPropertyNames` or a `for of` loop;
+ * - enumerable symbols can be found via `Object.getOwnPropertySymbols`, so you might `enumerable = false` for any private symbol constants;
+ */
+const a_fast_const_prop = function(obj, prop, enumerable = true){
+    const value = (
+        is_array_like(prop) ?
+        auto_array(prop).map(prop => obj[prop]) :
+        obj[prop]
+    );
+    a_const_prop(
+        obj, prop, value,
+        Object.getOwnPropertyDescriptor(
+            obj, prop[0],
+        ).enumerable,
+    );
+};
+
 
 
 /* ===
@@ -427,7 +450,18 @@ const table = new TableFactory();
 Vectorization
 === */
 
-class VectorizedFunction extends Function{}
+class VectorizedFunction extends Function{
+    /** The function `f` from `vectorize`'s parameters. @type {Function} */
+    f = Array;
+    /** The value of `skip` from `vectorize`'s parameters. @type {boolean[]} */
+    skip = [];
+    /** The value of `is_void` from `vectorize`'s parameters. @type {boolean} */
+    is_void = false;
+    /** The `table_settings` from `vectorize`'s parameters. @type {TableController} */
+    table_settings;
+    /** The `table` instance used by this `vf` @type {TableFactory} */
+    table;
+}
 
 /**
  * Vectorize a function. This means that any input vector will be split up into single items, and the function will be called repeatedly, once on each input.
@@ -465,14 +499,16 @@ class VectorizedFunction extends Function{}
  * `x` and `z` will be vectorized, but `y` will not;
  * `y` has index 1, and `skip[1] === true`;
  * `f([1,2,3,4], 5, [6,8,7,9])` returns `[11,18,22,29]`;
- * @returns {Function} the vectorized function;
- * - all parameters of `vectorize` (`f`, `skip`, etc.) are stored in the closure created by calling `vectorize`;
- * - `f` and `skip` are stored as references, so modifications made to them outside `vectorize` can change the behavior of the `vectorized` function;
+ * @returns {VectorizedFunction} `vf`: the vectorized function;
+ * - all parameters of `vectorize` (`f`, `skip`, etc.) are stored on `vf`;
+ * - `f` and `skip` are stored as references, so modifications made to them outside `vectorize` can change the behavior of `vf`;
  * - if a 2D array is input, it will be split up; see example 2;
- * - if a `Table` (named `my_table`) is input, all parameters of `vectorize` will be ignored; each row of the table will be input into `f`; the values in `my_table.extras` will be passed in as well, on every call of `f`; so each call of `f` looks like `f(row, ...extras);`
+ * - if a `Table` (named `my_table`) is input, all properties of `vf` will be ignored (except for `f` of course); each row of the table will be input into `f`; the values in `my_table.extras` will be passed in as well, on every call of `f`; so each call of `f` looks like `f(row, ...extras);`
  */
 const vectorize = function(f = Array, skip, is_void, table_settings){
+    const vf = new VectorizedFunction();
     
+    return vf;
 };
 
 /* ===
@@ -500,28 +536,17 @@ const const_prop = vectorize(a_const_prop, [true], true, {cols: 2});
  * Lock a property of an object, making the current value a constant value.
  * - essentially finalizes the value;
  * - use a list of `prop` to lock multiple properties;
+ * @overload
  * @param {object} obj object to lock the property on;
  * @param {string} prop the name of the property;
+ * @param {bool} enumerable whether the property should be enumerable;
+ * - i.e. does it show up in `Object.getOwnPropertyNames` or a `for of` loop;
+ * - enumerable symbols can be found via `Object.getOwnPropertySymbols`, so you might `enumerable = false` for any private symbol constants;
  * @returns {void | Error}
  * returns an error if one happens (rather than throwing it);
  */
-const fast_const_prop = function(obj, prop){
-    if(!obj) return obj;
-    try{
-        const value = (
-            is_array_like(prop) ?
-            auto_array(prop).map(prop => obj[prop]) :
-            obj[prop]
-        );
-        return const_prop(
-            obj, prop, value,
-            Object.getOwnPropertyDescriptor(
-                obj, prop[0],
-            ).enumerable,
-        );
-    }
-    catch(e){return e;}
-};
+function fast_const_prop(){};
+const fast_const_prop = vectorize(a_fast_const_prop, [true], true, {cols: 1});
 
 /**
  * Infuse the properties of the 2nd object onto the 1st object.
