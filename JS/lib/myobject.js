@@ -521,10 +521,10 @@ class TableFactory extends Function{
      * @param {Map} map the specified value;
      */
     load(map){
-        delete this._rows;
-        delete this._cols;
-        delete this._fill;
-        delete this._read;
+        a_set_map_prop(map, this, "_rows");
+        a_set_map_prop(map, this, "_cols");
+        a_set_map_prop(map, this, "_fill");
+        a_set_map_prop(map, this, "_read");
     }
     /**
      * Chainable method that sets `table._rows` to the specified value.
