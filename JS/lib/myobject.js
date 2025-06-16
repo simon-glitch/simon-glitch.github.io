@@ -465,12 +465,8 @@ const table = new TableFactory();
  * - if a 2D array is input, it will be split up; see example 2;
  * - if a `Table` (named `my_table`) is input, all parameters of `vectorize` will be ignored; each row of the table will be input into `f`; the values in `my_table.extras` will be passed in as well, on every call of `f`; so each call of `f` looks like `f(row, ...extras);`
  */
-const vectorize = function(f = Array, skip, is_void){
-    // errors might occur inside is_array_like or inside the ellipsis;
-    try{
-        
-    }
-    catch(e){return e;}
+const vectorize = function(f = Array, skip, is_void, table_settings){
+    
 };
 
 /* ===
@@ -478,31 +474,27 @@ Objects
 === */
 
 /**
-  * Make a property of an object have a constant value.
-  * - make `prop` and `value` arrays to define multiple properties;
-  * - make `prop` an array of key-value-pairs and those will be used;
-  * @param {object} obj object to add property on;
-  * @param {string} prop the name of the property;
-  * @param {any} value the value to assign to the property;
-**/
-const const_prop = function(obj, prop, value, enumerable = true){
-    // errors might occur inside is_array_like or inside the ellipsis;
-    try{
-        const kvs = table.cols(2)(prop, value);
-        enumerable ??= kvs.extras[0];
-        
-        const L = Math.min(prop.length, value.length);
-        for(let i = 0; i < L; i++){
-            Object.defineProperty(obj, i_prop, {
-                value: i_value,
-                configurable: false,
-                writable: false,
-                enumerable,
-            });
-        }
-    }
-    catch(e){return e;}
-};
+ * Make a property of an object have a constant value.
+ * - make `prop` and `value` arrays to define multiple properties;
+ * - make `prop` an array of key-value-pairs and those will be used;
+ * @param {object} obj object to add property on;
+ * @param {string} prop the name of the property;
+ * @param {any} value the value to assign to the property;
+ * @returns {void | Error}
+ */
+const const_prop = (function(){
+    // i'm only doing this to make VS Code display everything correctly
+    // i really wish there was a simpler and easier way to setups docs...
+    const g = vectorize(a_const_prop, [true], true, {cols: 2});
+    /**
+    @overload @param {object} obj @param {string} prop
+    @param {any} value @returns {void | Error} */
+    const h = function(){
+        try{g(...arguments);}
+        catch(e){return e;}
+    };
+    return h;
+})();
 
 /**
   * Lock a property of an object, making the current value a constant value.
