@@ -477,24 +477,17 @@ Objects
  * Make a property of an object have a constant value.
  * - make `prop` and `value` arrays to define multiple properties;
  * - make `prop` an array of key-value-pairs and those will be used;
+ * @overload
  * @param {object} obj object to add property on;
  * @param {string} prop the name of the property;
  * @param {any} value the value to assign to the property;
+ * @param {bool} enumerable whether the property should be enumerable;
+ * - i.e. does it show up in `Object.getOwnPropertyNames` or a `for of` loop;
+ * - enumerable symbols can be found via `Object.getOwnPropertySymbols`, so you might `enumerable = false` for any private symbol constants;
  * @returns {void | Error}
  */
-const const_prop = (function(){
-    // i'm only doing this to make VS Code display everything correctly
-    // i really wish there was a simpler and easier way to setups docs...
-    const g = vectorize(a_const_prop, [true], true, {cols: 2});
-    /**
-    @overload @param {object} obj @param {string} prop
-    @param {any} value @returns {void | Error} */
-    const h = function(){
-        try{g(...arguments);}
-        catch(e){return e;}
-    };
-    return h;
-})();
+function const_prop(){};
+const const_prop = vectorize(a_const_prop, [true], true, {cols: 2});
 
 /**
   * Lock a property of an object, making the current value a constant value.
