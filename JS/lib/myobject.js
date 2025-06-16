@@ -164,7 +164,9 @@ const a_symbol_prop = function(obj, prop, map, name = "Obj"){
     // copy an actual Map
     if(map instanceof Map){
         s_map = new Map(map);
-        for(const v of map) s_map.set(v, v);
+        for(const v of map){
+            s_map.set(v, v);
+        }
     }
     // or convert an object
     if(map instanceof Object){
@@ -186,7 +188,7 @@ const a_symbol_prop = function(obj, prop, map, name = "Obj"){
         configurable: false,
         enumerable: true,
     });
-}
+};
 
 /**
  * Make a property of an object have a constant value.
@@ -584,6 +586,10 @@ const table = new TableFactory();
 Vectorization
 === */
 
+const VectorizedBase = function(){
+    
+};
+
 /**
  * The class for the return result for `vectorize`.
  * @instance `vf`:
@@ -601,6 +607,9 @@ class VectorizedFunction extends Function{
     is_void = false;
     /** @readonly The `table` instance used by this `vf` @type {TableFactory} */
     table;
+    constructor(){
+        super(VectorizedBase);
+    }
 }
 
 /**
