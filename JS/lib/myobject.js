@@ -61,19 +61,49 @@ const get_bit_count = function(max_value){
 Objects, Part One
 === */
 
+/**
+ * Make a property of an object that can only have a symbol value.
+ * - getters and setters are used to ensure it always has a valid symbol;
+ * @param {ObjectConstructor} obj object to add property on;
+ * @param {string} prop the name of the property;
+ * @param {Map | ObjectConstructor} map a map describing which symbol names map to which symbols;
+ * @param {bool} name the name of the object; this is used to name the internal symbol used by the getter and setter;
+ */
 const a_symbol_prop = function(obj, prop, map, name = "Obj"){
+    // the internal symbol
+    const s = Symbol(name + "." + prop);
+    // HIDE the internal symbol
+    Object.defineProperty(obj, s, {
+        configurable: false,
+        enumerable: false,
+    });
+    
     // make sure string form of the symbols map too
     // this means any symbol with the same name also works, but that's not a big deal
     // since you can just use the string anyways
-    for(let i in map) map[map[i]] = map[i];
-    const s = Symbol(name + "." + prop);
+    let s_map;
+    
+    // copy an actual Map
+    if(map instanceof Map){
+        s_map = new Map(map);
+        for(const v of map) s_map.set(v, v);
+    }
+    // or convert an object
+    if(map instanceof Object){
+        for(let i in map){
+            s_map.set(i, map[i]);
+            s_map.set(map[i], map[i]);
+        }
+    }
+    
+    // define the property
     Object.defineProperty(obj, prop, {
         get(){
             return this[s];
         },
         set(v){
-            const s_v = map[v];
-            if(v) this[s] = s_v;
+            const s_v = map.get(v);
+            if(s_v) this[s] = s_v;
         },
         configurable: false,
         enumerable: true,
@@ -82,7 +112,7 @@ const a_symbol_prop = function(obj, prop, map, name = "Obj"){
 
 /**
  * Make a property of an object have a constant value.
- * @param {object} obj object to add property on;
+ * @param {ObjectConstructor} obj object to add property on;
  * @param {string} prop the name of the property;
  * @param {any} value the value to assign to the property;
  * @param {bool} enumerable whether the property should be enumerable;
@@ -101,7 +131,7 @@ const a_const_prop = function(obj, prop, value, enumerable = true){
 /**
  * Lock a property of an object, making the current value a constant value.
  * - essentially finalizes the value;
- * @param {object} obj object to lock the property on;
+ * @param {ObjectConstructor} obj object to lock the property on;
  * @param {string} prop the name of the property;
  * @param {bool} enumerable whether the property should be enumerable;
  * - i.e. does it show up in `Object.getOwnPropertyNames` or a `for of` loop;
@@ -121,7 +151,71 @@ const a_fast_const_prop = function(obj, prop, enumerable = true){
     );
 };
 
-
+/**
+ * Reads a property from one object and writes it to another. Also works with maps. Does nothing if the property is missing on the input object.
+ * - prototype properties are ignored;
+ * @param {Map | ObjectConstructor} i_obj input object;
+ * the specified property is read from this object;
+ * @param {Map | ObjectConstructor} o_obj output object;
+ * the specified property is written to this object;
+ * @param {string} prop the property to read and write;
+ * @param {boolean} copy_dsc whether to copy the entire [descriptor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty) for the property; this only works is neither object is a map;
+ * @param {boolean} do_del whether to delete the property on the output object if it does not exist on the input object;
+ * @default
+ * a_set_map_prop({}, {}, "", true, false)
+ */
+const a_set_map_prop = function(
+    i_obj = {}, o_obj = {}, prop = "",
+    copy_dsc = true, do_del = false
+){
+    // make sure objects were input
+    if(!(
+        i_obj instanceof Object &&
+        o_obj instanceof Object
+    )) return;
+    
+    const i_map = i_obj instanceof Map;
+    const o_map = o_obj instanceof Map;
+    const i_has = (
+        i_map
+        ? i_obj.has(prop)
+        : i_obj.hasOwnProperty(prop)
+    );
+    const o_has = (
+        o_map
+        ? o_obj.has(prop)
+        : o_obj.hasOwnProperty(prop)
+    );
+    
+    // deletion
+    if(do_del && !i_has && o_has){
+        if(o_map) delete o_obj[prop];
+        else o.delete(prop);
+        return a_set_map_prop.DELETED;
+    }
+    
+    // do nothing if the property does not exist
+    if(!i_has){
+        return a_set_map_prop.MISSING;
+    }
+    
+    // copy description only works if neither of them is a map;
+    if(copy_dsc && !i_map && !o_map){
+        // this copies the value too, unless it has a getter/setter
+        const d = Object.getOwnPropertyDescriptor(i_obj, prop);
+        Object.defineProperty(o_obj, prop, d);
+        // this DOES cause an extra assignement, which could cause problems,
+        // depending on what the getter and setter are
+        if(!d.hasOwnProperty("value")) o_obj[prop] = i_obj[prop];
+        return a_set_map_prop.COPIED_DESCRIPTOR;
+    }
+    
+    // the standard case
+    const value = i_map ? i_obj.get(prop) : i_obj[prop];
+    if(o_map) o_obj.set(prop, value);
+    else o_obj[prop] = value;
+    return a_set_map_prop.COPIED_DESCRIPTOR;
+};
 
 /* ===
 Arrays
@@ -423,6 +517,16 @@ class TableFactory extends Function{
         delete this._read;
     }
     /**
+     * Sets all properties of `table` to the values in the map.
+     * @param {Map} map the specified value;
+     */
+    load(map){
+        delete this._rows;
+        delete this._cols;
+        delete this._fill;
+        delete this._read;
+    }
+    /**
      * Chainable method that sets `table._rows` to the specified value.
      * @param {Number} rows the specified value;
      */
@@ -444,27 +548,20 @@ class TableFactory extends Function{
     read(read){this._read = read; return this}
 };
 
-// this is pointless!
-class TableController{
-    /** The same as table._rows @type {number} */
-    rows;
-    /**
-     * Allows you to change a table's properties through assignments instead of methods. These assignments just call setters that do the same thing the methods do. This class exists solely for semantics, allowing you to write code that is potentially more inuitive.
-     * @param {TableFactory} table the table function whose settings you want to modify;
-     */
-    constructor(table){
-        
-    }
-}
-
-
-
 const table = new TableFactory();
 
 /* ===
 Vectorization
 === */
 
+/**
+ * The class for the return result for `vectorize`.
+ * @instance `vf`:
+ * - all parameters of `vectorize` (`f`, `skip`, etc.) are stored on `vf`;
+ * - `f` and `skip` are stored as references, so modifications made to them outside `vectorize` can change the behavior of `vf`;
+ * - if a 2D array is input, it will be split up; see example 2;
+ * - if a `Table` (named `my_table`) is input, all properties of `vf` will be ignored (except for `f` of course); each row of the table will be input into `f`; the values in `my_table.extras` will be passed in as well, on every call of `f`; so each call of `f` looks like `f(row, ...extras);`
+ */
 class VectorizedFunction extends Function{
     /** @readonly The function `f` from `vectorize`'s parameters. @type {Function} */
     f = Array;
@@ -472,14 +569,14 @@ class VectorizedFunction extends Function{
     skip = [];
     /** @readonly The value of `is_void` from `vectorize`'s parameters. @type {boolean} */
     is_void = false;
-    /** @readonly The `table_settings` from `vectorize`'s parameters. @type {TableController} */
-    table_settings;
     /** @readonly The `table` instance used by this `vf` @type {TableFactory} */
     table;
 }
 
 /**
  * Vectorize a function. This means that any input vector will be split up into single items, and the function will be called repeatedly, once on each input.
+ * - this is a pure function;
+ * - the vectorized function will only be pure if `f` is;
  * @param {*} f the function to vectorize;
  * @param {boolean[]} skip which parameters to skip; a `true` value at a given index means that the parameter with that respective index should not be vectorized;
  * - non-vector inputs are already moved to the end of the input list; so you don't need to use skip; just make it so all of the inputs you want vectorized are on the left, and all of the ones you don't want vectorized are on the right; if you need the un-vectorized inputs on the left or in the middle, then use `skip`;
@@ -514,20 +611,16 @@ class VectorizedFunction extends Function{
  * `x` and `z` will be vectorized, but `y` will not;
  * `y` has index 1, and `skip[1] === true`;
  * `f([1,2,3,4], 5, [6,8,7,9])` returns `[11,18,22,29]`;
- * @returns {VectorizedFunction} `vf`: the vectorized function;
- * - all parameters of `vectorize` (`f`, `skip`, etc.) are stored on `vf`;
- * - `f` and `skip` are stored as references, so modifications made to them outside `vectorize` can change the behavior of `vf`;
- * - if a 2D array is input, it will be split up; see example 2;
- * - if a `Table` (named `my_table`) is input, all properties of `vf` will be ignored (except for `f` of course); each row of the table will be input into `f`; the values in `my_table.extras` will be passed in as well, on every call of `f`; so each call of `f` looks like `f(row, ...extras);`
+ * @returns {VectorizedFunction} the vectorized function;
  */
 const vectorize = function(f = Array, skip, is_void, table_settings){
     const vf = new VectorizedFunction();
     a_const_prop(vf, "f", f);
-    a_const_prop(vf, "skip", skip);
+    a_const_prop(vf, "skip", auto_array(skip).forEach(
+        (v,i,a) => a[i] = Boolean(v)
+    ));
     a_const_prop(vf, "is_void", is_void);
-    const table = new TableFactory();
-    a_const_prop(vf, "table_settings", new TableController(table));
-    a_const_prop(vf, "table", table);
+    a_const_prop(vf, "table", new TableFactory());
     vf.table.load(table_settings);
     return vf;
 };
