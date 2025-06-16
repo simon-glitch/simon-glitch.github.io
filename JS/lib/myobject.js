@@ -217,7 +217,8 @@ Table.READ = Table.YX;
 
 /**
  * Combine any number of columns or tables into a single table.
- * @param {...any[]} data any number of array-like columns; any 2D array will be spread apart into multiple columns;
+ * @param {...any[]} data any number of array-like columns; any 2D array will be spread apart into multiple columns; all of these are combined into a `Table` object;
+ * - empty arrays in `data` will actually create empty columns in the output table;
  * @returns {Table} the output table;
  * @property {Number} _cols the maximum number of columns that the output table can have;
  * @property {Number} _rows the maximum number of rows that the output table can have;
@@ -234,6 +235,7 @@ Table.READ = Table.YX;
  */
 const TableBase = function(...data){
     const taken = [];
+    /** @type {any[][]} */
     const cols = [];
     const extras = [];
     const is_2D = [];
@@ -300,7 +302,11 @@ const TableBase = function(...data){
         let d = taken[i];
         if(is_2D[i]){
             if(read_YX){
-                // transpose
+                const dt = [];
+                d.forEach((d, i) => d.forEach((d, j) => (
+                    (dt[j] ??= [])[i] = d
+                )));
+                cols.push(...dt);
             }
             else{
                 cols.push(...d);
@@ -308,6 +314,48 @@ const TableBase = function(...data){
         }
         taken[i] = d;
     }
+    
+    const height = cols.reduce(
+        (a, b) => Math.max(
+            a.length, b.length
+        ),
+        0
+    )
+    
+    // fill empty items in columns
+    // these are all quite similar
+    // but there is no need to make the code dry
+    if(fill === Table.CYCLE){
+        cols.forEach(c => {
+            const l = c.length;
+            if(l === 0) return;
+            c.forEach((v, i) => {
+                c[i] = c[i % l];
+            });
+        });
+    }
+    if(fill === Table.REPEAT_LAST){
+        cols.forEach(c => {
+            const l = c.length;
+            if(l === 0) return;
+            c.fill(c[0], l);
+        });
+    }
+    if(fill === Table.REPEAT_FIRST){
+        cols.forEach(c => {
+            const l = c.length;
+            if(l === 0) return;
+            c.fill(c[l - 1], l);
+        });
+    }
+    // pass; just leave them empty
+    if(fill === Table.EMPTY);
+    
+    // wrap up with Table
+    const t = new Table();
+    t.cols = cols;
+    t.extras = extras;
+    return t;
 };
 
 /**
