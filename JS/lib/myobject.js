@@ -58,6 +58,84 @@ const get_bit_count = function(max_value){
 };
 
 /* ===
+Arrays
+=== */
+
+/**
+ * Check if an object is "array-like".
+ * - i.e. does it have a `length` property, and is not a string;
+ * - or does it have an `in` iterator?
+ * @param {*} obj 
+ * @returns {number}
+ * - `0` if the object is not array-like;
+ * - `1` if it can be converted to an array using `obj.toArray`;
+ * - `2` if it can be indexed into;
+ * - `3` if it can be iterated on with `for v of`;
+ * - `4` if it is an actual array;
+ */
+const is_array_like = function(obj){
+    // check for non-objects
+    if(typeof object !== "object" || object === null)
+        return 0;
+    if(obj instanceof Array)
+        return 4;
+    // check for `in`
+    if(Symbol.iterator(obj))
+        return 3;
+    if(obj.length instanceof Number)
+        return 2;
+    if(obj.toArray instanceof Function)
+        return 1;
+}
+
+/**
+ * Convert an array-like object into a proper array.
+ * - wraps the object in an array if it not array-like;
+ * - makes a copy of the object without mutating it;
+ * @param {*} obj object to convert;
+ * @param {Number} max_1D maximum length if the object is a 1D array;
+ * @param {Number} max_2D maximum length if the object is a 2D array;
+ * @returns {Array}
+ */
+const auto_array = function(obj, max_1D = MAX_SAFE, max_2D = MAX_SAFE){
+    const is_array = is_array_like(obj);
+    if(is_array === 0) return [obj];
+    // cannot limit length of custom toArray method
+    if(is_array === 1){
+        return obj.toArray();
+    }
+    // good ol fashioned for loop
+    if(is_array === 2){
+        const res = [];
+        const is_2D = is_array_like(obj[0]);
+        const max_L = is_2D ? max_2D : max_1D;
+        const L = Math.min(obj.length, max_L);
+        for(let i = 0; i < L; i++) res[i] = obj[i];
+        return res;
+    };
+    // for of, with complications
+    if(is_array === 3){
+        const res = [];
+        let i = 0, is_2D, max_L;
+        for(let v of obj){
+            if(i === 0){
+                is_2D = is_array_like(v);
+                max_L = is_2D ? max_2D : max_1D;
+            }
+            if(i > max_L) break;
+            res[i] = v;
+            i++;
+        }
+    };
+    // just slice an array
+    if(is_array === 4){
+        const is_2D = is_array_like(obj[0]);
+        const max_L = is_2D ? max_2D : max_1D;
+        return obj.slice(0, max_L);
+    }
+}
+
+/* ===
 Objects, Part One
 === */
 
@@ -151,6 +229,7 @@ const a_fast_const_prop = function(obj, prop, enumerable = true){
     );
 };
 
+
 /**
  * Reads a property from one object and writes it to another. Also works with maps. Does nothing if the property is missing on the input object.
  * - prototype properties are ignored;
@@ -159,6 +238,7 @@ const a_fast_const_prop = function(obj, prop, enumerable = true){
  * @param {Map | ObjectConstructor} o_obj output object;
  * the specified property is written to this object;
  * @param {string} prop the property to read and write;
+ * - if `prop` is an array of two strings, the first string is used as the `prop` for `i_obj`, and the second string is used as the `prop` for `o_obj`;
  * @param {boolean} copy_dsc whether to copy the entire [descriptor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty) for the property; this only works is neither object is a map;
  * @param {boolean} do_del whether to delete the property on the output object if it does not exist on the input object;
  * @default
@@ -174,23 +254,29 @@ const a_set_map_prop = function(
         o_obj instanceof Object
     )) return;
     
+    prop = auto_array(prop, 2, 2);
+    const i_prop = prop[0];
+    const o_prop = (
+        prop.length === 2
+        ? prop[1] : prop[0]
+    );
     const i_map = i_obj instanceof Map;
     const o_map = o_obj instanceof Map;
     const i_has = (
         i_map
-        ? i_obj.has(prop)
-        : i_obj.hasOwnProperty(prop)
+        ? i_obj.has(i_prop)
+        : i_obj.hasOwnProperty(i_prop)
     );
     const o_has = (
         o_map
-        ? o_obj.has(prop)
-        : o_obj.hasOwnProperty(prop)
+        ? o_obj.has(o_prop)
+        : o_obj.hasOwnProperty(o_prop)
     );
     
     // deletion
     if(do_del && !i_has && o_has){
-        if(o_map) delete o_obj[prop];
-        else o.delete(prop);
+        if(o_map) delete o_obj[o_prop];
+        else o.delete(o_prop);
         return a_set_map_prop.DELETED;
     }
     
@@ -202,99 +288,20 @@ const a_set_map_prop = function(
     // copy description only works if neither of them is a map;
     if(copy_dsc && !i_map && !o_map){
         // this copies the value too, unless it has a getter/setter
-        const d = Object.getOwnPropertyDescriptor(i_obj, prop);
-        Object.defineProperty(o_obj, prop, d);
+        const d = Object.getOwnPropertyDescriptor(i_obj, i_prop);
+        Object.defineProperty(o_obj, o_prop, d);
         // this DOES cause an extra assignement, which could cause problems,
         // depending on what the getter and setter are
-        if(!d.hasOwnProperty("value")) o_obj[prop] = i_obj[prop];
+        if(!d.hasOwnProperty("value")) o_obj[o_prop] = i_obj[i_prop];
         return a_set_map_prop.COPIED_DESCRIPTOR;
     }
     
     // the standard case
-    const value = i_map ? i_obj.get(prop) : i_obj[prop];
-    if(o_map) o_obj.set(prop, value);
-    else o_obj[prop] = value;
+    const value = i_map ? i_obj.get(i_prop) : i_obj[i_prop];
+    if(o_map) o_obj.set(o_prop, value);
+    else o_obj[o_prop] = value;
     return a_set_map_prop.COPIED_DESCRIPTOR;
 };
-
-/* ===
-Arrays
-=== */
-
-/**
- * Check if an object is "array-like".
- * - i.e. does it have a `length` property, and is not a string;
- * - or does it have an `in` iterator?
- * @param {*} obj 
- * @returns {number}
- * - `0` if the object is not array-like;
- * - `1` if it can be converted to an array using `obj.toArray`;
- * - `2` if it can be indexed into;
- * - `3` if it can be iterated on with `for v of`;
- * - `4` if it is an actual array;
- */
-const is_array_like = function(obj){
-    // check for non-objects
-    if(typeof object !== "object" || object === null)
-        return 0;
-    if(obj instanceof Array)
-        return 4;
-    // check for `in`
-    if(Symbol.iterator(obj))
-        return 3;
-    if(obj.length instanceof Number)
-        return 2;
-    if(obj.toArray instanceof Function)
-        return 1;
-}
-
-/**
- * Convert an array-like object into a proper array.
- * - wraps the object in an array if it not array-like;
- * - makes a copy of the object without mutating it;
- * @param {*} obj object to convert;
- * @param {Number} max_1D maximum length if the object is a 1D array;
- * @param {Number} max_2D maximum length if the object is a 2D array;
- * @returns {Array}
- */
-const auto_array = function(obj, max_1D = MAX_SAFE, max_2D = MAX_SAFE){
-    const is_array = is_array_like(obj);
-    if(is_array === 0) return [obj];
-    // cannot limit length of custom toArray method
-    if(is_array === 1){
-        return obj.toArray();
-    }
-    // good ol fashioned for loop
-    if(is_array === 2){
-        const res = [];
-        const is_2D = is_array_like(obj[0]);
-        const max_L = is_2D ? max_2D : max_1D;
-        const L = Math.min(obj.length, max_L);
-        for(let i = 0; i < L; i++) res[i] = obj[i];
-        return res;
-    };
-    // for of, with complications
-    if(is_array === 3){
-        const res = [];
-        let i = 0, is_2D, max_L;
-        for(let v of obj){
-            if(i === 0){
-                is_2D = is_array_like(v);
-                max_L = is_2D ? max_2D : max_1D;
-            }
-            if(i > max_L) break;
-            res[i] = v;
-            i++;
-        }
-    };
-    // just slice an array
-    if(is_array === 4){
-        const is_2D = is_array_like(obj[0]);
-        const max_L = is_2D ? max_2D : max_1D;
-        return obj.slice(0, max_L);
-    }
-}
-
 
 /* ===
 Table
@@ -525,6 +532,11 @@ class TableFactory extends Function{
         a_set_map_prop(map, this, "_cols");
         a_set_map_prop(map, this, "_fill");
         a_set_map_prop(map, this, "_read");
+        // optional underscores!
+        a_set_map_prop(map, this, ["rows", "_rows"]);
+        a_set_map_prop(map, this, ["cols", "_cols"]);
+        a_set_map_prop(map, this, ["fill", "_fill"]);
+        a_set_map_prop(map, this, ["read", "_read"]);
     }
     /**
      * Chainable method that sets `table._rows` to the specified value.
