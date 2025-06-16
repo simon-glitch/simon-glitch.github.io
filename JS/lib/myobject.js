@@ -378,35 +378,24 @@ Table.FILL = Table.CYCLE;
 /** @static The default table reading mode. */
 Table.READ = Table.YX;
 
-/**
- * @class
- * Creates an instance of `table`;
- */
-const TableFactory = function TableFactory(){
-    this.reset();
-};
-TableFactory_prototype:{
-    const P = new TableFactory();
-    P._cols = MAX_SAFE;
-    P._rows = MAX_SAFE;
-    P._fill = Table.CYCLE;
-    P._read = Table.YX;
-    /**
-     * Sets all properties of `table` back to their default values.
-     * @param {Number} rows the specified value;
-     */
-    P.reset = function reset(){
+class TableVars{
+    _cols = MAX_SAFE;
+    _rows = MAX_SAFE;
+    _fill = Table.CYCLE;
+    _read = Table.YX;
+    /** The `table`. @type Function */
+    table = null;
+    constructor(){
+        this.reset();
+    }
+    reset(){
         delete this._rows;
         delete this._cols;
         delete this._fill;
         delete this._read;
-        return this;
-    };
-    /**
-     * Sets all properties of `table` to the values in the map.
-     * @param {Map} map the specified value;
-     */
-    P.load = function load(map){
+        return this.table;
+    }
+    load(map){
         a_set_map_prop(map, this, "_rows");
         a_set_map_prop(map, this, "_cols");
         a_set_map_prop(map, this, "_fill");
@@ -416,30 +405,234 @@ TableFactory_prototype:{
         a_set_map_prop(map, this, ["cols", "_cols"]);
         a_set_map_prop(map, this, ["fill", "_fill"]);
         a_set_map_prop(map, this, ["read", "_read"]);
-        return this;
-    };
+        return this.table;
+    }
+    rows(rows){
+        this._rows = rows;
+        return this.table;
+    }
+    cols(cols){
+        this._cols = cols;
+        return this.table;
+    }
+    fill(fill){
+        this._fill = fill;
+        return this.table;
+    }
+    read(read){
+        this._read = read;
+        return this.table;
+    }
+}
+
+/**
+ * Create a `table` function.
+ */
+const TableFactory = function(){
+    if(this instanceof TableFactory){
+        throw new TypeError("TableFactory does not require new.")
+    }
+    
+    const tv = new TableVars();
+    
     /**
+     * Combine any number of columns or tables into a single table.
+     * @param {...any[]} data any number of array-like columns; any 2D array will be spread apart into multiple columns; all of these are combined into a `Table` object;
+     * - empty arrays in `data` will actually create empty columns in the output table;
+     * @returns {Table} the output table;
+     * @property {Number} _cols the maximum number of columns that the output table can have;
+     * @property {Number} _rows the maximum number of rows that the output table can have;
+     * @property {Symbol} _fill how to fill empty cells of the table; filling logic is applied on a per-column basis
+     * - `CYCLE`: repeat all items in the column, from the first to the last;
+     * - `REPEAT_FIRST`: repeat the first item in the column;
+     * - `REPEAT_LAST`: repeat the last item in the column;
+     * - `EMPTY`: don't fill empty cells;
+     * - defaults to `Table.FILL`;
+     * @property {Symbol} _read how to read 2D arrays in `data`;
+     * - `YX`: interpret each 2D array as an array of rows; i.e. index by Y and then by X;
+     * - `XY`: interpret each 2D array as an array of columns; i.e. index by X and then by Y;
+     * - defaults to `Table.READ`;
+     */
+    const TableBase = function(...data){
+        const taken = [];
+        /** @type {any[][]} */
+        const cols = [];
+        const extras = [];
+        const is_2D = [];
+        const max_cols = tv._cols;
+        const max_rows = tv._rows;
+        const fill = tv._fill;
+        const read = tv._read;
+        const read_YX = read === Table.YX;
+        const max_read = (
+            read_YX ?
+            max_cols : max_rows
+        );
+        let taken_cols = 0;
+        
+        // Normalization
+        for(let i = 0; (
+            // taken_cols is here because i dont want
+            // to take 1000 columns if i dont need to
+            i < data.length && taken_cols < max_cols
+        ); i++){
+            let d = data[i];
+            // non-arrays
+            if(!is_array_like(d)){
+                extras.push(d);
+                continue;
+            }
+            // auto array does smart trick if the array is 2D
+            d = auto_array(d, max_rows, (
+                read_YX ?
+                max_rows :
+                max_cols - taken_cols
+            ));
+            is_2D[i] = is_array_like(d[0]);
+            if(is_2D[i]){
+                for(let j = 0; j < data.length; j++){
+                    d[j] = auto_array(d[j], (
+                        read_YX ?
+                        max_cols - taken_cols :
+                        max_rows
+                    ));
+                }
+                // increment taken_cols by the width of the 2D range,
+                // which depends on the reading direction
+                if(read_YX){
+                    let max_length = 0;
+                    d.forEach(v => max_length = (
+                        Math.max(v.length, max_length)
+                    ));
+                    taken_cols += max_length;
+                }
+                else{
+                    taken_cols += d.length;
+                }
+            }
+            // increment taken_cols by 1 since we took 1 column
+            if(!is_2D[i]){
+                taken_cols += 1;
+            }
+            taken[i] = d;
+        }
+        
+        // Build the table
+        for(let i = 0; i < taken.length; i++){
+            let d = taken[i];
+            if(is_2D[i]){
+                if(read_YX){
+                    const dt = [];
+                    d.forEach((d, i) => d.forEach((d, j) => (
+                        (dt[j] ??= [])[i] = d
+                    )));
+                    cols.push(...dt);
+                }
+                else{
+                    cols.push(...d);
+                }
+            }
+            taken[i] = d;
+        }
+        
+        const height = cols.reduce(
+            (a, b) => Math.max(
+                a.length, b.length
+            ),
+            0
+        )
+        
+        // fill empty items in columns
+        // these are all quite similar
+        // but there is no need to make the code dry
+        if(fill === Table.CYCLE){
+            cols.forEach(c => {
+                const l = c.length;
+                if(l === 0) return;
+                c.forEach((v, i) => {
+                    c[i] = c[i % l];
+                });
+            });
+        }
+        if(fill === Table.REPEAT_LAST){
+            cols.forEach(c => {
+                const l = c.length;
+                if(l === 0) return;
+                c.fill(c[0], l);
+            });
+        }
+        if(fill === Table.REPEAT_FIRST){
+            cols.forEach(c => {
+                const l = c.length;
+                if(l === 0) return;
+                c.fill(c[l - 1], l);
+            });
+        }
+        // pass; just leave them empty
+        if(fill === Table.EMPTY);
+        
+        // wrap up with Table
+        const t = new Table();
+        t.cols = cols;
+        t.extras = extras;
+        return t;
+    };
+    
+    tv.table = TableBase;
+    /**
+     * @overload
+     * Sets all properties of `table` back to their default values.
+     * @param {Number} rows the specified value;
+     * @returns {TableBase}
+     */
+    TableBase.reset = function(){};
+    /**
+     * @overload
+     * Sets all properties of `table` to the values in the map.
+     * @param {Map} map the specified value;
+     * @returns {TableBase}
+     */
+    TableBase.load = function(){};
+    /**
+     * @overload
      * Chainable method that sets `table._rows` to the specified value.
      * @param {Number} rows the specified value;
+     * @returns {TableBase}
      */
-    P.rows = function rows(rows){this._rows = rows; return this};
+    TableBase.rows = function(){};
     /**
+     * @overload
      * Chainable method that sets `table._cols` to the specified value.
      * @param {Number} cols the specified value;
+     * @returns {TableBase}
      */
-    P.cols = function cols(cols){this._cols = cols; return this};
+    TableBase.cols = function(){};
     /**
+     * @overload
      * Chainable method that sets `table._fill` to the specified value.
      * @param {Symbol | String} fill the specified value; if `fill` is a string, it will be mapped to a symbol; invalid values of `fill` default to `Table.FILL`;
+     * @returns {TableBase}
      */
-    P.fill = function fill(fill){this._fill = fill; return this};
+    TableBase.fill = function(){};
     /**
+     * @overload
      * Chainable method that sets `table._read` to the specified value.
      * @param {Symbol | String} read the specified value; if `read` is a string, it will be mapped to a symbol; invalid values of `read` default to `Table.READ`;
+     * @returns {TableBase}
      */
-    P.read = function read(read){this._read = read; return this};
-    TableFactory.prototype = P;
+    TableBase.read = function(){};
+    
+    // VS Code makes it hard to add docs!
+    tv.reset.bind(tv);
+    tv.load.bind(tv);
+    tv.rows.bind(tv);
+    tv.cols.bind(tv);
+    tv.fill.bind(tv);
+    tv.read.bind(tv);
+    
+    return TableBase;
 }
+
 
 const table = new TableFactory();
 
