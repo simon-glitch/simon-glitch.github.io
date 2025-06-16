@@ -4,10 +4,10 @@ Numbers and primitive types
 === */
 
 /**
-  * Use the nullish coalescing operator to check is a value is nullish.
-  * @param {any} value the value of object to check;
-  * @returns whether the value is nullish (i.e. `null` or `undefined`);
-**/
+ * Use the nullish coalescing operator to check is a value is nullish.
+ * @param {any} value the value of object to check;
+ * @returns whether the value is nullish (i.e. `null` or `undefined`);
+ */
 const is_nullish = function(value){
     let b = false;
     value ?? (b = true);
@@ -35,9 +35,9 @@ const MAX_DIFF = 2 ** (MAX_EXP - IEEE_MAN);
 const INFINTY = MAX_SAFE * MAX_DIFF;
 
 /**
-  * Ensure a number is finite.
-  * @param {number} x number to convert
-**/
+ * Ensure a number is finite.
+ * @param {number} x number to convert
+ */
 const toFinite = function(x){
     x = +x;
     if(isFinite(x)) return x;
@@ -48,7 +48,7 @@ const toFinite = function(x){
 /**
  * Calculate the number of bits needed for an unsigned integer.
  * @param {Number} max_value maximum value you want to be able to store;
-*/
+ */
 const get_bit_count = function(max_value){
     return 2**Math.max(Math.floor(Math.log2(
         Math.max(Math.floor(Math.log2(
@@ -81,11 +81,11 @@ const a_symbol_prop = function(obj, prop, map, name = "Obj"){
 }
 
 /**
-  * Make a property of an object have a constant value.
-  * @param {object} obj object to add property on;
-  * @param {string} prop the name of the property;
-  * @param {any} value the value to assign to the property;
-**/
+ * Make a property of an object have a constant value.
+ * @param {object} obj object to add property on;
+ * @param {string} prop the name of the property;
+ * @param {any} value the value to assign to the property;
+ */
 const a_const_prop = function(obj, prop, value, enumerable = true){
     // errors might occur inside is_array_like or inside the ellipsis;
     try{
@@ -105,17 +105,17 @@ Arrays
 === */
 
 /**
-  * Check if an object is "array-like".
-  * - i.e. does it have a `length` property, and is not a string;
-  * - or does it have an `in` iterator?
-  * @param {*} obj 
-  * @returns {number}
-  * - `0` if the object is not array-like;
-  * - `1` if it can be converted to an array using `obj.toArray`;
-  * - `2` if it can be indexed into;
-  * - `3` if it can be iterated on with `for v of`;
-  * - `4` if it is an actual array;
-**/
+ * Check if an object is "array-like".
+ * - i.e. does it have a `length` property, and is not a string;
+ * - or does it have an `in` iterator?
+ * @param {*} obj 
+ * @returns {number}
+ * - `0` if the object is not array-like;
+ * - `1` if it can be converted to an array using `obj.toArray`;
+ * - `2` if it can be indexed into;
+ * - `3` if it can be iterated on with `for v of`;
+ * - `4` if it is an actual array;
+ */
 const is_array_like = function(obj){
     // check for non-objects
     if(typeof object !== "object" || object === null)
@@ -132,14 +132,14 @@ const is_array_like = function(obj){
 }
 
 /**
-  * Convert an array-like object into a proper array.
-  * - wraps the object in an array if it not array-like;
-  * - makes a copy of the object without mutating it;
-  * @param {*} obj object to convert;
-  * @param {Number} max_1D maximum length if the object is a 1D array;
-  * @param {Number} max_2D maximum length if the object is a 2D array;
-  * @returns {Array}
-**/
+ * Convert an array-like object into a proper array.
+ * - wraps the object in an array if it not array-like;
+ * - makes a copy of the object without mutating it;
+ * @param {*} obj object to convert;
+ * @param {Number} max_1D maximum length if the object is a 1D array;
+ * @param {Number} max_2D maximum length if the object is a 2D array;
+ * @returns {Array}
+ */
 const auto_array = function(obj, max_1D = MAX_SAFE, max_2D = MAX_SAFE){
     const is_array = is_array_like(obj);
     if(is_array === 0) return [obj];
@@ -423,6 +423,12 @@ class TableFactory extends Function{
 
 const table = new TableFactory();
 
+/* ===
+Vectorization
+=== */
+
+class VectorizedFunction extends Function{}
+
 /**
  * Vectorize a function. This means that any input vector will be split up into single items, and the function will be called repeatedly, once on each input.
  * @param {*} f the function to vectorize;
@@ -432,8 +438,8 @@ const table = new TableFactory();
  * @param {boolean} table_settings settings for `table`; `table` is used to vectorize the function, by building a table from the input vectors; like this: `table(...inputs)`; `inputs` excludes anything listed in `is_void`;
  * @example 1
  * ```
- * g = vectorize(f);
- * g([1,2,3], [4,5,6])
+ * vf = vectorize(f);
+ * vf([1,2,3], [4,5,6])
  * ```
  * is the same as:
  * ```
@@ -443,8 +449,8 @@ const table = new TableFactory();
  * ```
  * @example 2
  * ```
- * g = vectorize(f);
- * g([[1,2,3], [4,5,6])
+ * vf = vectorize(f);
+ * vf([[1,2,3], [4,5,6])
  * ```
  * is the same as:
  * ```
@@ -485,19 +491,20 @@ Objects
  * - i.e. does it show up in `Object.getOwnPropertyNames` or a `for of` loop;
  * - enumerable symbols can be found via `Object.getOwnPropertySymbols`, so you might `enumerable = false` for any private symbol constants;
  * @returns {void | Error}
+ * returns an error if one happens (rather than throwing it);
  */
 function const_prop(){};
 const const_prop = vectorize(a_const_prop, [true], true, {cols: 2});
 
 /**
-  * Lock a property of an object, making the current value a constant value.
-  * - essentially finalizes the value;
-  * - use a list `prop` and `value` arrays to define multiple properties;
-  * - make `prop` an array of key-value-pairs and those will be used;
-  * @param {object} obj object to add property on;
-  * @param {string} prop the name of the property;
-  * @param {any} value the value to assign to the property;
-**/
+ * Lock a property of an object, making the current value a constant value.
+ * - essentially finalizes the value;
+ * - use a list of `prop` to lock multiple properties;
+ * @param {object} obj object to lock the property on;
+ * @param {string} prop the name of the property;
+ * @returns {void | Error}
+ * returns an error if one happens (rather than throwing it);
+ */
 const fast_const_prop = function(obj, prop){
     if(!obj) return obj;
     try{
@@ -517,13 +524,13 @@ const fast_const_prop = function(obj, prop){
 };
 
 /**
-  * Infuse the properties of the 2nd object onto the 1st object.
-  * - assumes `obj1` has a copy constructor and calls it;
-  * @template T
-  * @param {T} obj1 1st object
-  * @param {object} obj2 2nd object
-  * @returns {T} object created with `obj1`'s copy constructor
-**/
+ * Infuse the properties of the 2nd object onto the 1st object.
+ * - assumes `obj1` has a copy constructor and calls it;
+ * @template T
+ * @param {T} obj1 1st object
+ * @param {object} obj2 2nd object
+ * @returns {T} object created with `obj1`'s copy constructor
+ */
 const infuse = function(obj1, obj2){
     const o = new obj1.constructor(obj1);
     for(let i in obj2){
