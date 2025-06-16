@@ -444,6 +444,21 @@ class TableFactory extends Function{
     read(read){this._read = read; return this}
 };
 
+// this is pointless!
+class TableController{
+    /** The same as table._rows @type {number} */
+    rows;
+    /**
+     * Allows you to change a table's properties through assignments instead of methods. These assignments just call setters that do the same thing the methods do. This class exists solely for semantics, allowing you to write code that is potentially more inuitive.
+     * @param {TableFactory} table the table function whose settings you want to modify;
+     */
+    constructor(table){
+        
+    }
+}
+
+
+
 const table = new TableFactory();
 
 /* ===
@@ -451,15 +466,15 @@ Vectorization
 === */
 
 class VectorizedFunction extends Function{
-    /** The function `f` from `vectorize`'s parameters. @type {Function} */
+    /** @readonly The function `f` from `vectorize`'s parameters. @type {Function} */
     f = Array;
-    /** The value of `skip` from `vectorize`'s parameters. @type {boolean[]} */
+    /** @readonly The value of `skip` from `vectorize`'s parameters. @type {boolean[]} */
     skip = [];
-    /** The value of `is_void` from `vectorize`'s parameters. @type {boolean} */
+    /** @readonly The value of `is_void` from `vectorize`'s parameters. @type {boolean} */
     is_void = false;
-    /** The `table_settings` from `vectorize`'s parameters. @type {TableController} */
+    /** @readonly The `table_settings` from `vectorize`'s parameters. @type {TableController} */
     table_settings;
-    /** The `table` instance used by this `vf` @type {TableFactory} */
+    /** @readonly The `table` instance used by this `vf` @type {TableFactory} */
     table;
 }
 
@@ -507,7 +522,13 @@ class VectorizedFunction extends Function{
  */
 const vectorize = function(f = Array, skip, is_void, table_settings){
     const vf = new VectorizedFunction();
-    
+    a_const_prop(vf, "f", f);
+    a_const_prop(vf, "skip", skip);
+    a_const_prop(vf, "is_void", is_void);
+    const table = new TableFactory();
+    a_const_prop(vf, "table_settings", new TableController(table));
+    a_const_prop(vf, "table", table);
+    vf.table.load(table_settings);
     return vf;
 };
 
