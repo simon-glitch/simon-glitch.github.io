@@ -61,7 +61,7 @@ const get_bit_count = function(max_value){
 Objects, Part One
 === */
 
-const symbol_prop = function(obj, prop, map, name = "Obj"){
+const a_symbol_prop = function(obj, prop, map, name = "Obj"){
     // make sure string form of the symbols map too
     // this means any symbol with the same name also works, but that's not a big deal
     // since you can just use the string anyways
@@ -226,8 +226,8 @@ Table.MAP_READ = {
     YX: Table.YX,
     XY: Table.XY,
 }
-symbol_prop(Table, "FILL", Table.MAP_FILL, "Table");
-symbol_prop(Table, "READ", Table.MAP_READ, "Table");
+a_symbol_prop(Table, "FILL", Table.MAP_FILL, "Table");
+a_symbol_prop(Table, "READ", Table.MAP_READ, "Table");
 
 /** @static The default table filling mode. */
 Table.FILL = Table.CYCLE;
@@ -424,28 +424,51 @@ class TableFactory extends Function{
 const table = new TableFactory();
 
 /**
-  * Make a property of an object have a constant value.
-  * - make `prop` and `value` arrays to define multiple properties;
-  * - make `prop` an array of key-value-pairs and those will be used;
-  * @param {object} obj object to add property on;
-  * @param {string} prop the name of the property;
-  * @param {any} value the value to assign to the property;
-**/
-const vectorize = function(obj, prop, value, enumerable = true){
+ * Vectorize a function. This means that any input vector will be split up into single items, and the function will be called repeatedly, once on each input.
+ * @param {*} f the function to vectorize;
+ * @param {boolean[]} skip which parameters to skip; a `true` value at a given index means that the parameter with that respective index should not be vectorized;
+ * - non-vector inputs are already moved to the end of the input list; so you don't need to use skip; just make it so all of the inputs you want vectorized are on the left, and all of the ones you don't want vectorized are on the right; if you need the un-vectorized inputs on the left or in the middle, then use `skip`;
+ * @param {boolean} is_void whether of not to return `void`; if `is_void` is `true`, the vectorized function will not return anything; if `is_void` is `false` (the default value), every returned value from each call of `f` will be put together into an output vector;
+ * @param {boolean} table_settings settings for `table`; `table` is used to vectorize the function, by building a table from the input vectors; like this: `table(...inputs)`; `inputs` excludes anything listed in `is_void`;
+ * @example 1
+ * ```
+ * g = vectorize(f);
+ * g([1,2,3], [4,5,6])
+ * ```
+ * is the same as:
+ * ```
+ * f(1, 4);
+ * f(2, 5);
+ * f(3, 6);
+ * ```
+ * @example 2
+ * ```
+ * g = vectorize(f);
+ * g([[1,2,3], [4,5,6])
+ * ```
+ * is the same as:
+ * ```
+ * f(1, 2, 3);
+ * f(4, 5, 6);
+ * ```
+ * @example 3
+ * ```
+ * skip = [false, true, false];
+ * f = function(x, y, z){return x*y + z;};
+ * ```
+ * `x` and `z` will be vectorized, but `y` will not;
+ * `y` has index 1, and `skip[1] === true`;
+ * `f([1,2,3,4], 5, [6,8,7,9])` returns `[11,18,22,29]`;
+ * @returns {Function} the vectorized function;
+ * - all parameters of `vectorize` (`f`, `skip`, etc.) are stored in the closure created by calling `vectorize`;
+ * - `f` and `skip` are stored as references, so modifications made to them outside `vectorize` can change the behavior of the `vectorized` function;
+ * - if a 2D array is input, it will be split up; see example 2;
+ * - if a `Table` (named `my_table`) is input, all parameters of `vectorize` will be ignored; each row of the table will be input into `f`; the values in `my_table.extras` will be passed in as well, on every call of `f`; so each call of `f` looks like `f(row, ...extras);`
+ */
+const vectorize = function(f = Array, skip, is_void){
     // errors might occur inside is_array_like or inside the ellipsis;
     try{
-        const kvs = table.cols(2)(prop, value);
-        enumerable ??= kvs.extras[0];
         
-        const L = Math.min(prop.length, value.length);
-        for(let i = 0; i < L; i++){
-            Object.defineProperty(obj, i_prop, {
-                value: i_value,
-                configurable: false,
-                writable: false,
-                enumerable,
-            });
-        }
     }
     catch(e){return e;}
 };
