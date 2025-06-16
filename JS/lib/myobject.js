@@ -241,6 +241,7 @@ const a_fast_const_prop = function(obj, prop, enumerable = true){
  * - if `prop` is an array of two strings, the first string is used as the `prop` for `i_obj`, and the second string is used as the `prop` for `o_obj`;
  * @param {boolean} copy_dsc whether to copy the entire [descriptor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty) for the property; this only works is neither object is a map;
  * @param {boolean} do_del whether to delete the property on the output object if it does not exist on the input object;
+ * @returns {symbol} a symbol to indicate what the outcome of the function call was;
  * @default
  * a_set_map_prop({}, {}, "", true, false)
  */
@@ -300,8 +301,25 @@ const a_set_map_prop = function(
     const value = i_map ? i_obj.get(i_prop) : i_obj[i_prop];
     if(o_map) o_obj.set(o_prop, value);
     else o_obj[o_prop] = value;
-    return a_set_map_prop.COPIED_DESCRIPTOR;
+    return a_set_map_prop.COPIED;
 };
+
+/** Indicates that the property was missing on the input object. */
+a_set_map_prop.MISSING = (
+    Symbol("a_set_map_prop.MISSING")
+);
+/** Indicates that the property was deleted on the output object. */
+a_set_map_prop.DELETED = (
+    Symbol("a_set_map_prop.DELETED")
+);
+/** Indicates that the property and its [descriptor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty) were copied from the input object to the output object. */
+a_set_map_prop.COPIED_DESCRIPTOR = (
+    Symbol("a_set_map_prop.COPIED_DESCRIPTOR")
+);
+/** Indicates that the property was copies from the input object to the output object. */
+a_set_map_prop.COPIED = (
+    Symbol("a_set_map_prop.COPIED")
+);
 
 /* ===
 Table
@@ -638,7 +656,7 @@ const vectorize = function(f = Array, skip, is_void, table_settings){
 };
 
 /* ===
-Objects
+Objects, Part Two: Vectorized 
 === */
 
 /**
@@ -674,19 +692,9 @@ const const_prop = vectorize(a_const_prop, [true], true, {cols: 2});
 function fast_const_prop(){};
 const fast_const_prop = vectorize(a_fast_const_prop, [true], true, {cols: 1});
 
-/**
- * Infuse the properties of the 2nd object onto the 1st object.
- * - assumes `obj1` has a copy constructor and calls it;
- * @template T
- * @param {T} obj1 1st object
- * @param {object} obj2 2nd object
- * @returns {T} object created with `obj1`'s copy constructor
- */
-const infuse = function(obj1, obj2){
-    const o = new obj1.constructor(obj1);
-    for(let i in obj2){
-        o[i] = obj2[i];
-    }
-    return o;
-};
+fast_const_prop(a_set_map_prop,
+    ["MISSING", "COPIED_DESCRIPTOR",
+     "COPIED", "DELETED"]
+);
+
 
