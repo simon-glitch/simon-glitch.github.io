@@ -80,6 +80,25 @@ const symbol_prop = function(obj, prop, map, name = "Obj"){
     });
 }
 
+/**
+  * Make a property of an object have a constant value.
+  * @param {object} obj object to add property on;
+  * @param {string} prop the name of the property;
+  * @param {any} value the value to assign to the property;
+**/
+const a_const_prop = function(obj, prop, value, enumerable = true){
+    // errors might occur inside is_array_like or inside the ellipsis;
+    try{
+        Object.defineProperty(obj, prop, {
+            value,
+            configurable: false,
+            writable: false,
+            enumerable,
+        });
+    }
+    catch(e){return e;}
+};
+
 
 /* ===
 Arrays
@@ -404,6 +423,33 @@ class TableFactory extends Function{
 
 const table = new TableFactory();
 
+/**
+  * Make a property of an object have a constant value.
+  * - make `prop` and `value` arrays to define multiple properties;
+  * - make `prop` an array of key-value-pairs and those will be used;
+  * @param {object} obj object to add property on;
+  * @param {string} prop the name of the property;
+  * @param {any} value the value to assign to the property;
+**/
+const vectorize = function(obj, prop, value, enumerable = true){
+    // errors might occur inside is_array_like or inside the ellipsis;
+    try{
+        const kvs = table.cols(2)(prop, value);
+        enumerable ??= kvs.extras[0];
+        
+        const L = Math.min(prop.length, value.length);
+        for(let i = 0; i < L; i++){
+            Object.defineProperty(obj, i_prop, {
+                value: i_value,
+                configurable: false,
+                writable: false,
+                enumerable,
+            });
+        }
+    }
+    catch(e){return e;}
+};
+
 /* ===
 Objects
 === */
@@ -433,7 +479,7 @@ const const_prop = function(obj, prop, value, enumerable = true){
         }
     }
     catch(e){return e;}
-}
+};
 
 /**
   * Lock a property of an object, making the current value a constant value.
