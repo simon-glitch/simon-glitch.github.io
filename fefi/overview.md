@@ -59,7 +59,7 @@ Symbolic operators:
 * all other symbols can be used as parts of names so `a~b`, `a>b`, `a_b`, and `ab` are all equally valid
 
 # Grand vs plain operators
-`(`, `)`, `[`, `]`, `:`, `.`, and `,` are all grand operators and cannot be overriden. You can still run them as functions though, because all operators are secretely functions.
+`(`, `)`, `[`, `]`, `:`, `.`, and `,` are all grand operators and cannot be overridden. You can still run them as functions though, because all operators are secretly functions.
 
 To run an operator as a function, escape it and wrap it in square brackets, creating a namespace with the name set to that operator:
 * `[\(]` is the left-parenthesis function
@@ -82,7 +82,7 @@ To run an operator as a function, escape it and wrap it in square brackets, crea
 * `[\,]` is the dot function
     * it takes 2 arguments: the left-hand side and the right-hand side
 
-Escaping the operators and then calling them as functions is not super useful, but you can do it you want to. The remember their syntax rules after being escaped. So the following 5 pieces of code are actually the same
+Escaping the operators and then calling them as functions is not super useful, but you can do it you want to. The remember their syntax rules after being escaped. So the following 5 pieces of code are actually the same.
 
 (assume `c` and `d` are external variables with types that make sense)
 Example 1:
