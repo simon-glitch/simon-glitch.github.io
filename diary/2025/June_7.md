@@ -12,6 +12,15 @@ Well, after I stood up for myself, he tried to kick me out of the house. I made 
 
 My dad also didn't like when he charged at me and I pushed him away. And he complained that I was assaulting him. Yeah right! He's always the aggressive one. He's the one who gets up out of his seat, chases me into my room, gets in my face, and threatens me. And he's the one who says he wants to control me by threatening me, and that his hands will supposedly speak better than him. I have all the reason in the world to shove him away and try to defend myself. Heck, there probably isn't enough reasno in this world to match the sheer justification I have to shove him away from me.
 
+## Today
+Today, I'm hanging out with my grandpa, and telling him how much my dad sucks! Agh. I feel so angry, and afraid and anxious too. At least I can handle it just fine. I'm pretty sure my feelings have absolutely nothing to do with my dad though. The only thing I feel about him is that his behavior is ridiculous. For a lot of reasons, but it's not important enough to write many of those down here.
+
+One big down side of having no internet, is I can't contribute to the Minecraft wiki. Errr. Maybe I should have copy-pasted the source code from Potion and a bunch of related pages so I could work on it here. So many of the wiki's pages are kind of messy, especially intro paragraphs. The tables on the wiki are the most used and appreciated features, at least by YouTubers and people who are familiar with the game.
+
+Also, also, I really love Media Wiki formatting. Like [[links]], ''italics'', and '''bold''' text. Templates are really fun too.
+
+
+
 
 
 
