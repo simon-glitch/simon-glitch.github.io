@@ -19,6 +19,14 @@
     },],
 }
 
+a[]
+^
+that's a letter, so I guess we just assume it's a variable
+how are we going to know what a variable is?
+who tells us this? how many steps of processing does it take?
+let's hard code it with no flexibility for starters
+
+i really should just start with brackets for simplicity
 
 
 
