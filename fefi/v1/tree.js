@@ -14,11 +14,21 @@ class AST{
  */
 class ASN{
     type = "";
+    text = "";
     /** @param {string} type */
     constructor(type){
         this.type ??= type;
+        this.text = "";
         /** @type {ASN[]} */
         this.children = [];
+        /** @type {ASN} */
+        this.parent = undefined;
+    }
+    /** @param {ASN} child @returns {ASN} this */
+    add(child){
+        this.children.push(child);
+        child.parent = this;
+        return this;
     }
 };
 
@@ -29,14 +39,16 @@ class Syntax_Rule{
     type = "";
     start = "";
     end = "";
+    list = [];
+    mode = "disallow";
     /**
      * @param {string} type what structure the syntax rule represents.
      * @param {string} start what that structure starts with
      * @param {string} end what that structure ends with
      */
     constructor(type, start, end){
-        this.type ??= type
-        this.start ??= start
-        this.end ??= end
+        this.type ??= type;
+        this.start ??= start;
+        this.end ??= end;
     }
 };
