@@ -28,19 +28,12 @@ class ASN{
     }
 };
 
-/**
- * 
- * @param {string} text text to parse
- * @param {json} syntax parsing rules, formatted as json
- */
-function parse(text, syntax){
-    
+// tests
+brackets: {
+    const a = new AST("a, d(4, c) + fun(can(er.ty).qu, ((28 - x) / 10) ** 3)", {
+        
+    });
+    console.log(a);
 }
-
-
-const example = ``;
-
-parse(example, js_syntax);
-
 
 
