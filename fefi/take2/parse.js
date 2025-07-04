@@ -3,9 +3,22 @@
  * An abstract syntax tree. Its nodes are `ASN`s.
  */
 class AST{
-    constructor(){
+    /**
+     * Parse text into an AST.
+     * @param {string} text the text to parse
+     * @param {json} syntax the syntax rules to build the AST;
+     */
+    constructor(text, syntax){
         /** @type {ASN} */
         this.root = new ASN();
+        this.text = text;
+        for(let i in syntax){
+            this[i] = syntax[i];
+        }
+        this.parse();
+    }
+    parse(){
+        
     }
 };
 
