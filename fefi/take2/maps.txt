@@ -5,6 +5,19 @@
     content: '',
 }
 
+'a[]' => {
+    pattern: any0,
+    type: code,
+    content: [{
+        pattern: whatever,
+        type: variable,
+        content: 'a',
+    }, {
+        pattern: bracket,
+        type: square,
+        content: '',
+    },],
+}
 
 
 
