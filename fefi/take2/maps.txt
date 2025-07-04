@@ -1,9 +1,8 @@
 
 '[]' => {
     pattern: bracket,
-    start: '[',
+    type: square,
     content: '',
-    end: ']',
 }
 
 
