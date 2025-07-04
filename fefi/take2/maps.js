@@ -5,35 +5,62 @@ const text = "vkjh([vr i(uvb[t((ilvb)g jjih[ hjn]j ev))nghp g([[(pvn5 4iu[[pbh t
 const stuff = [];
 const stack = [stuff];
 
-const b_l = "[";
-const b_r = "]";
+function _default(d){
+    d.i++;
+    return true;
+};
 
-for(let i = 0, l_i = 0; i <= text.length; i++){
+function _end(d){
+    if(d.i === text.length){
+        top.push(text.slice(d.l_i, d.i));
+        stack.pop();
+        d.i++;
+        return true;
+    }
+    return false;
+};
+
+function bracket(b_l, b_r){
+    return function _bracket(d){
+        if(text.slice(d.i, d.i+b_l.length) === b_l){
+            top.push(text.slice(d.l_i, d.i));
+            const s = [];
+            top.push(s)
+            stack.push(s);
+            d.i += b_l.length;
+            d.l_i = d.i;
+            return true;
+        }
+        if(text.slice(i, i+b_r.length) === b_r){
+            top.push(text.slice(d.l_i, d.i));
+            stack.pop();
+            d.i += b_r.length;
+            d.l_i = d.i;
+            return true;
+        }
+        return false;
+    };
+};
+
+let f_s = [
+    _end,
+    bracket("/*", "*/"),
+    bracket("\"", "\""),
+    bracket("{", "}"),
+    bracket("(", ")"),
+    bracket("[", "]"),
+    _default
+];
+
+for(let d = {i: 0, l_i: 0}; d.i <= text.length; d.i++){
     const top = stack.at(-1);
     
-    if(i === text.length){
-        top.push(text.slice(l_i, i));
-        stack.pop();
-        break;
+    for(let i = 0; i < f_s.length; i++){
+        const done = f_s[i](d);
+        if(done) break;
     }
-    
-    if(text.slice(i, i+b_l.length) === b_l){
-        top.push(text.slice(l_i, i));
-        const s = [];
-        top.push(s)
-        stack.push(s);
-        i += b_l.length;
-        l_i = i;
-        i--;
-    }
-    if(text.slice(i, i+b_r.length) === b_r){
-        top.push(text.slice(l_i, i));
-        stack.pop();
-        i += b_r.length;
-        l_i = i;
-        i--;
-    }
-}
+};
+
 
 const stuff_j = JSON.stringify(stuff);
 const stuff_r = stuff_j.replace(/[,"]+/g, "").slice(1,-1);
