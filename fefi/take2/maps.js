@@ -11,35 +11,38 @@ function _default(d){
 };
 
 function _end(d){
-    if(d.i === text.length){
-        d.top.push(text.slice(d.l_i, d.i));
-        stack.pop();
-        d.i++;
-        return true;
-    }
-    return false;
+    if(d.i === text.length) return false;
+    
+    d.top.push(text.slice(d.l_i, d.i));
+    stack.pop();
+    d.i++;
+    return true;
 };
 
 function bracket(b_l, b_r){
-    return function _bracket(d){
-        if(text.slice(d.i, d.i+b_l.length) === b_l){
-            d.top.push(text.slice(d.l_i, d.i));
-            const s = [];
-            d.top.push(s)
-            stack.push(s);
-            d.i += b_l.length;
-            d.l_i = d.i;
-            return true;
-        }
-        if(text.slice(d.i, d.i+b_r.length) === b_r){
-            d.top.push(text.slice(d.l_i, d.i));
-            stack.pop();
-            d.i += b_r.length;
-            d.l_i = d.i;
-            return true;
-        }
-        return false;
+    const b = function _open(d){
+        if(text.slice(d.i, d.i+b_l.length) === b_l) return false;
+        
+        d.top.push(text.slice(d.l_i, d.i));
+        const s = [];
+        d.top.push(s)
+        stack.push(s);
+        s.type = b;
+        d.i += b_l.length;
+        d.l_i = d.i;
+        return true;
     };
+    b.close = function _close(d){
+        if(d.top.type !== b) return false;
+        if(text.slice(d.i, d.i+b_r.length) !== b_r) return false;
+        
+        d.top.push(text.slice(d.l_i, d.i));
+        stack.pop();
+        d.i += b_r.length;
+        d.l_i = d.i;
+        return true;
+    };
+    return b;
 };
 
 let f_s = [
@@ -52,14 +55,15 @@ let f_s = [
     _default
 ];
 
-for(let d = {i: 0, l_i: 0}; d.i <= text.length; d.i++){
-    for(let i = 0; i < f_s.length; i++){
-        d.top = stack.at(-1);
-        const done = f_s[i](d);
-        if(done) break;
-    }
-};
-
+function parse(text){
+    for(let d = {i: 0, l_i: 0}; d.i <= text.length; d.i++){
+        for(let i = 0; i < f_s.length; i++){
+            d.top = stack.at(-1);
+            const done = f_s[i](d);
+            if(done) break;
+        }
+    };
+}
 
 const stuff_j = JSON.stringify(stuff);
 const stuff_r = stuff_j.replace(/[,"]+/g, "").slice(1,-1);
