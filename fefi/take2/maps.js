@@ -6,7 +6,7 @@ function _default(d){
 };
 
 function _end(d){
-    if(d.i === d.text.length) return false;
+    if(d.i !== d.text.length) return false;
     
     d.top.push(d.text.slice(d.l_i, d.i));
     d.stack.pop();
@@ -61,7 +61,7 @@ function parse(text){
     const stuff = [];
     const stack = [stuff];
     
-    for(let d = {i: 0, l_i: 0}; d.i <= text.length; d.i++){
+    for(let d = {i: 0, l_i: 0}; d.i <= text.length; ){
         for(let i = 0; i < f_s.length; i++){
             d.text = text;
             d.stuff = stuff;
@@ -69,6 +69,7 @@ function parse(text){
             d.top = stack.at(-1);
             console.log(d);
             const done = f_s[i](d);
+            console.log(done);
             if(done) break;
         }
     };
