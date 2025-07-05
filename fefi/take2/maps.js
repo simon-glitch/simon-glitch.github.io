@@ -12,7 +12,7 @@ function _default(d){
 
 function _end(d){
     if(d.i === text.length){
-        top.push(text.slice(d.l_i, d.i));
+        d.top.push(text.slice(d.l_i, d.i));
         stack.pop();
         d.i++;
         return true;
@@ -23,16 +23,16 @@ function _end(d){
 function bracket(b_l, b_r){
     return function _bracket(d){
         if(text.slice(d.i, d.i+b_l.length) === b_l){
-            top.push(text.slice(d.l_i, d.i));
+            d.top.push(text.slice(d.l_i, d.i));
             const s = [];
-            top.push(s)
+            d.top.push(s)
             stack.push(s);
             d.i += b_l.length;
             d.l_i = d.i;
             return true;
         }
-        if(text.slice(i, i+b_r.length) === b_r){
-            top.push(text.slice(d.l_i, d.i));
+        if(text.slice(d.i, d.i+b_r.length) === b_r){
+            d.top.push(text.slice(d.l_i, d.i));
             stack.pop();
             d.i += b_r.length;
             d.l_i = d.i;
@@ -53,9 +53,8 @@ let f_s = [
 ];
 
 for(let d = {i: 0, l_i: 0}; d.i <= text.length; d.i++){
-    const top = stack.at(-1);
-    
     for(let i = 0; i < f_s.length; i++){
+        d.top = stack.at(-1);
         const done = f_s[i](d);
         if(done) break;
     }
