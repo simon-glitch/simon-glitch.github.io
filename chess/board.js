@@ -403,8 +403,63 @@ class Board{
      * Setup a full game.
      * @param {{pieces: Piece[][], colors: Owner[][]}} data the board setup to use;
      * @returns the board, so the method can be chained;
+     * @throws an aggregate error of any issues found;
      */
     setup(data){
+        const dp = (
+            data.pieces ?? data.piece ??
+            data.p
+        );
+        const dc = (
+            data.colors ?? data.color ??
+            data.owners ?? data.owner ??
+            data.c
+        );
+        
+        const de = [];
+        
+        this.rows.forEach((r, y) => {
+            r.forEach((t, x) => {
+                let p, c;
+                try{
+                    p = dp[y][x];
+                }
+                catch(e){
+                    e.message = `(piece ${x}, ${y}) ` + e.message;
+                    de.push(e);
+                }
+                try{
+                    c = dc[y][x];
+                }
+                catch(e){
+                    e.message = `(color ${x}, ${y}) ` + e.message;
+                    de.push(e);
+                }
+                if(p instanceof Piece){
+                    t.piece = p;
+                }
+                else{
+                    de.push(new TypeError(
+                        `(piece ${x}, ${y}) ` +
+                        "TypeError: value is not a piece."
+                    ));
+                }
+                if(c instanceof Owner){
+                    t.owner = c;
+                }
+                else{
+                    de.push(new TypeError(
+                        `(color ${x}, ${y}) ` +
+                        "TypeError: value is not a color (type Owner)."
+                    ));
+                }
+            });
+        });
+        
+        if(de.length > 0){
+            throw new AggregateError(de);
+        }
+        
         return this;
     }
 };

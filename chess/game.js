@@ -1,22 +1,22 @@
 
 const _ = undefined;
 
-const PAWN = new Piece("Empty", " ", new Move_Set(
+const PAWN   = new Piece("Pawn",   "P", new Move_Set(
     [], [],
 ));
-const KNIGHT = new Piece("Empty", " ", new Move_Set(
+const KNIGHT = new Piece("Knight", "N", new Move_Set(
     _, _, [],
 ));
-const BISHOP = new Piece("Empty", " ", new Move_Set(
+const BISHOP = new Piece("Bishop", "B", new Move_Set(
     _, _, [],
 ));
-const ROOK = new Piece("Empty", " ", new Move_Set(
+const ROOK   = new Piece("Rook",   "R", new Move_Set(
     _, _, [],
 ));
-const QUEEN = new Piece("Empty", " ", new Move_Set(
+const QUEEN  = new Piece("Queen",  "Q", new Move_Set(
     _, _, [],
 ));
-const KING = new Piece("Empty", " ", new Move_Set(
+const KING   = new Piece("King",   "K", new Move_Set(
     _, _, [],
 ));
 
