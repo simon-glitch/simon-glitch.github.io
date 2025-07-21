@@ -285,7 +285,7 @@ class Row extends Array{
     number = 0;
     constructor(width){
         super(...arguments);
-        for(let x = 0; x < height; x++){
+        for(let x = 0; x < width; x++){
             this[x] = new Tile();
         }
     }
