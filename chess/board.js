@@ -12,7 +12,7 @@ class Owner{
     toString(){
         return this.color;
     }
-}
+};
 
 /**
  * A coordinate with an `x` value and a `y` value.
@@ -30,7 +30,7 @@ class Point{
         this.x = Number(x);
         this.y = Number(y);
     }
-}
+};
 
 /**
  * The first element indicates whether the condition has been met. If the condition is not met, the move will not be possible to make.
@@ -148,7 +148,7 @@ class Move{
             children[i].parent = this;
         }
     }
-}
+};
 
 class Move_Set{
     /**
@@ -210,7 +210,7 @@ class Move_Set{
             list.push(...m);
         }
     }
-}
+};
 
 /**
  * The definition of a chess piece.
@@ -235,7 +235,7 @@ class Piece{
     toString(){
         return this.letter;
     }
-}
+};
 
 /** The "owner" for an empty tile. */
 const NOONE = new Owner("Noone", " ");
@@ -275,7 +275,7 @@ class Tile{
         moves.initialize(board, this);
         this.move_map[piece.name] = moves;
     }
-}
+};
 
 /**
  * A row of the chess board.
@@ -299,7 +299,7 @@ class Row extends Array{
             t.coords.y = this.number;
         });
     }
-}
+};
 
 /**
  * The chess board.
@@ -407,7 +407,7 @@ class Board{
     setup(data){
         return this;
     }
-}
+};
 
 
 
