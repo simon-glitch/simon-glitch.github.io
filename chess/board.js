@@ -330,7 +330,7 @@ class Board{
      */
     update(){
         this.rows.forEach((r, i) => {
-            r.number = i;
+            r.number = i + 1;
             r.update();
         });
         
