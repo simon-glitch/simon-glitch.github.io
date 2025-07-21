@@ -2,7 +2,12 @@
 const _ = undefined;
 
 const PAWN   = new Piece("Pawn",   "P", new Move_Set(
-    [], [],
+    [
+        new Move(
+            new Point(0, 1),
+            _, _, _, "forward_1",
+        ),
+    ], [], _
 ));
 const KNIGHT = new Piece("Knight", "N", new Move_Set(
     _, _, [],
@@ -16,6 +21,7 @@ const ROOK   = new Piece("Rook",   "R", new Move_Set(
 const QUEEN  = new Piece("Queen",  "Q", new Move_Set(
     _, _, [],
 ));
+// castling is a king move;
 const KING   = new Piece("King",   "K", new Move_Set(
     _, _, [],
 ));

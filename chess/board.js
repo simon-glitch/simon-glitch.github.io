@@ -76,7 +76,17 @@ class Move{
      * @type {Cond_F[]}
      */
     dynamic_conditions = [];
+    /** Side-effects of the move. Currently not implemented. */
     effects = [];
+    /** Nickname for the move. */
+    name = "";
+    /** The parameters are the same as their members. */
+    constructor(p, static_conditions, dynamic_conditions, effects, name){
+        this.p ??= p;
+        this.static_conditions ??= static_conditions;
+        this.dynamic_conditions ??= dynamic_conditions;
+        this.effects ??= effects;
+    }
     /**
      * Initialize the chess move.
      * @param {Board} board the chess board
