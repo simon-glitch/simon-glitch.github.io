@@ -51,6 +51,15 @@ const standard_board = {
 };
 
 const b = new Board(8, 8);
-b.setup(standard_board);
+b.setup(standard_board).update();
+b.initialize([
+    PAWN,
+    KNIGHT,
+    BISHOP,
+    ROOK,
+    QUEEN,
+    KING,
+]).check();
 console.log(""+b);
-
+b.rows[1][1].move_map.Pawn.move[0].execute();
+console.log(""+b);

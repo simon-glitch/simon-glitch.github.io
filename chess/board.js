@@ -76,16 +76,22 @@ class Move{
      * @type {Cond_F[]}
      */
     dynamic_conditions = [];
-    /** Side-effects of the move. Currently not implemented. */
+    /**
+     * Side-effects of the move. Currently not implemented.
+     */
     effects = [];
-    /** Nickname for the move. */
+    /**
+     * Nickname for the move.
+     */
     name = "";
-    /** The parameters are the same as their members. */
+    /**
+     * The parameters are the same as their members.
+     */
     constructor(p, static_conditions, dynamic_conditions, effects, name){
-        this.p ??= p;
-        this.static_conditions ??= static_conditions;
-        this.dynamic_conditions ??= dynamic_conditions;
-        this.effects ??= effects;
+        this.p = p ?? this.p;
+        this.static_conditions = static_conditions ?? this.static_conditions;
+        this.dynamic_conditions = dynamic_conditions ?? this.dynamic_conditions;
+        this.effects = effects ?? this.effects;
     }
     /**
      * Initialize the chess move.
@@ -112,9 +118,16 @@ class Move{
             B.shift();
             A.push(...B);
         }
-        if(this.dynamic_conditions.length === 0){
-            this.execute = this.move;
-        }
+        this.execute = (
+            (this.dynamic_conditions.length === 0)
+            ? function(){
+                this.move(board, tile);
+            }
+            : function(){
+                const C = this.check();
+                if(C[0]) this.move(board, tile);
+            }
+        );
         return A;
     }
     /**
@@ -133,7 +146,6 @@ class Move{
             B.shift();
             A.push(...B);
         }
-        this.move(board, tile);
         return A;
     }
     /**
@@ -143,11 +155,14 @@ class Move{
      */
     move(board, tile){
         board.move(
-            tile.x,
-            tile.y,
-            tile.x + this.p.x,
-            tile.y + this.p.y,
+            tile.coords.x - 1,
+            tile.coords.y - 1,
+            tile.coords.x - 1 + this.p.x,
+            tile.coords.y - 1 + this.p.y,
         );
+        for(let e of this.effects){
+            this.effects(board, tile, this);
+        }
     }
     /**
      * Tell the children of this move who their parent is.
@@ -201,9 +216,9 @@ class Move_Set{
      * @param {Tile} tile the tile this move is being made from;
      */
     initialize(board, tile){
-        this.sub(this.move);
-        this.sub(this.capture);
-        this.sub(this.move_cap);
+        this.sub(board, tile, this.move);
+        this.sub(board, tile, this.capture);
+        this.sub(board, tile, this.move_cap);
     }
     /** Used to keep the code of `initialize` shorter. */
     sub(board, tile, list){
@@ -267,7 +282,10 @@ class Tile{
      * The coordinates of this tile.
      */
     coords = new Point(0, 0);
-    /** Map of each piece to the moves it can make on this tile. */
+    /**
+     * Map of each piece to the moves it can make on this tile.
+     * @type {Object<string, Move_Set>}
+     */
     move_map = {};
     constructor(){
         this.move_map = {};
@@ -281,6 +299,7 @@ class Tile{
      * @param {Board} board the board this tile is on;
      */
     initialize(piece, board){
+        console.log("? 4");
         const moves = piece.moves.copy();
         moves.initialize(board, this);
         this.move_map[piece.name] = moves;
@@ -391,11 +410,14 @@ class Board{
      * @returns the board, so the method can be chained;
      */
     initialize(pieces){
+        console.log("? 1");
         for(let y = 0; y < this.height; y++){
             const row = this.rows[y];
             for(let x = 0; x < this.width; x++){
+                console.log("? 2");
                 const tile = row[x];
                 for(let i = 0; i < pieces.length; i++){
+                    console.log("? 3");
                     tile.initialize(pieces[i], this);
                 }
             }
