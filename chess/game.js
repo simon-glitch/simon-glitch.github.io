@@ -46,4 +46,5 @@ const standard_board = {
 
 const b = new Board(8, 8);
 b.setup(standard_board);
+console.log(""+b);
 

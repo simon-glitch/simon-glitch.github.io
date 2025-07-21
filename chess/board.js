@@ -240,7 +240,7 @@ class Piece{
 /** The "owner" for an empty tile. */
 const NOONE = new Owner("Noone", " ");
 /** The "piece" for an empty tile. */
-const EMPTY = new Piece("Empty", " ");
+const EMPTY = new Piece("Empty", "-");
 
 const BLACK = new Owner("Black", ".");
 const WHITE = new Owner("White", " ");
@@ -461,6 +461,12 @@ class Board{
         }
         
         return this;
+    }
+    /**
+     * Print the board.
+     */
+    toString(){
+        return this.rows.join("\n");
     }
 };
 
