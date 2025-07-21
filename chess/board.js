@@ -324,11 +324,17 @@ class Board{
         }
         this.update();
     }
+    /**
+     * Update dynamic conditions of all moves.
+     * @returns the board, so the method can be chained;
+     */
     update(){
         this.rows.forEach((r, i) => {
             r.number = i;
             r.update();
         });
+        
+        return this;
     }
     /**
      * Place a piece.
@@ -339,11 +345,14 @@ class Board{
      * @param {int} y y coordinate of the tile to place the piece on;
      * @param {Piece} piece 
      * @param {Owner} owner 
+     * @returns the board, so the method can be chained;
      */
     place(x, y, piece, owner){
         const t = this.rows[y][x];
         t.piece = piece;
         t.owner = owner;
+        
+        return this;
     }
     /**
      * Move a piece.
@@ -351,6 +360,7 @@ class Board{
      * @param {int} y1 y coordinate of the starting tile;
      * @param {int} x2 x coordinate of the ending tile;
      * @param {int} y2 y coordinate of the ending tile;
+     * @returns the board, so the method can be chained;
      */
     move(x1, y1, x2, y2){
         const t1 = this.rows[y1][x1];
@@ -361,11 +371,14 @@ class Board{
         t1.piece = EMPTY;
         t1.owner = NOONE;
         t1.movec = 0;
+        
+        return this;
     }
     /**
      * Figure out how all of the pieces move based on their move sets.
      * - `board -> tile -> move_set -> move`
      * @param {Piece[]} pieces all possible pieces that can play on this board;
+     * @returns the board, so the method can be chained;
      */
     initialize(pieces){
         for(let y = 0; y < this.height; y++){
@@ -381,6 +394,7 @@ class Board{
     }
     /**
      * Check the dynamic conditions of the moves of all of the pieces on the board.
+     * @returns the board, so the method can be chained;
      */
     check(){
         return this;
@@ -388,6 +402,7 @@ class Board{
     /**
      * Setup a full game.
      * @param {{pieces: Piece[][], colors: Owner[][]}} data the board setup to use;
+     * @returns the board, so the method can be chained;
      */
     setup(data){
         return this;
