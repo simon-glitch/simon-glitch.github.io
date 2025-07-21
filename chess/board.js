@@ -295,8 +295,8 @@ class Row extends Array{
     update(){
         this.forEach((t, i) => {
             t.name = column(i) + this.number;
-            t.coords.x = i;
-            t.coords.y = this.number;
+            t.coords.x = i + 1;
+            t.coords.y = this.number - 1;
         });
     }
 };
@@ -325,7 +325,7 @@ class Board{
         this.update();
     }
     /**
-     * Update the numbers and names of all rows and tiles.
+     * Update the numbers, names, and coordinates of all rows and tiles.
      * @returns the board, so the method can be chained;
      */
     update(){
