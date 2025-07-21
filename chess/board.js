@@ -293,7 +293,7 @@ class Row extends Array{
         return this.join(" ");
     }
     update(){
-        this.forEach((i, t) => {
+        this.forEach((t, i) => {
             t.name = column(i) + this.number;
             t.coords.x = i;
             t.coords.y = this.number;
@@ -325,7 +325,7 @@ class Board{
         this.update();
     }
     update(){
-        this.rows.forEach((i, r) => {
+        this.rows.forEach((r, i) => {
             r.number = i;
             r.update();
         });
