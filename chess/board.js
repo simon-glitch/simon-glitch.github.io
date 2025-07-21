@@ -293,12 +293,11 @@ class Row extends Array{
         return this.join(" ");
     }
     update(){
-        for(let i in this){
-            const t = this[i];
+        this.forEach((i, t) => {
             t.name = column(i) + this.number;
             t.coords.x = i;
             t.coords.y = this.number;
-        }
+        });
     }
 }
 
@@ -326,11 +325,10 @@ class Board{
         this.update();
     }
     update(){
-        for(let i in this.rows){
-            const r = this.rows[i];
+        this.rows.forEach((i, r) => {
             r.number = i;
             r.update();
-        }
+        });
     }
     /**
      * Place a piece.
