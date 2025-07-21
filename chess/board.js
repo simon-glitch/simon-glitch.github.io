@@ -325,7 +325,7 @@ class Board{
         this.update();
     }
     /**
-     * Update dynamic conditions of all moves.
+     * Update the numbers and names of all rows and tiles.
      * @returns the board, so the method can be chained;
      */
     update(){
