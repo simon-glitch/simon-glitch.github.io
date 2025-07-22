@@ -63,6 +63,16 @@ class Move{
      */
     parent = null;
     /**
+     * The static children of this move.
+     * @type {Move[]}
+     */
+    static_children = [];
+    /**
+     * The dyanmic children of this move.
+     * @type {Move[]}
+     */
+    dynamic_children = [];
+    /**
      * The conditions required for a piece to make this move.
      * - The static conditions can only use the coordinates of the tile that the piece is moving from.
      * - Children moves (returned from the static conditions) are added and initialized.
@@ -99,6 +109,7 @@ class Move{
         this.dynamic_conditions = dynamic_conditions ?? this.dynamic_conditions;
         this.effects = effects ?? this.effects;
         this.name = name ?? this.name;
+        this.children = [];
     }
     /**
      * Initialize the chess move.
@@ -127,6 +138,7 @@ class Move{
             B.shift();
             A.push(...B);
         }
+        this.s_claim(A);
         this.execute = (
             (this.dynamic_conditions.length === 0)
             ? function(){
@@ -155,6 +167,7 @@ class Move{
             B.shift();
             A.push(...B);
         }
+        this.d_claim(A);
         return A;
     }
     /**
@@ -178,6 +191,7 @@ class Move{
      * @param {Move_C} children the children of this move;
      */
     claim(children){
+        this.children.push(...children);
         for(let i = 1; i < children.length; i++){
             children[i].parent = this;
         }
