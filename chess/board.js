@@ -100,6 +100,14 @@ class Move{
      * @returns {[Boolean, Move]}
      */
     initialize(board, tile){
+        // -- is JavaScript using actual references as the parameters?
+        // -- since when does it do that?
+        // -- this seems like a bug to me!
+        // -- only execute needs these;
+        // -- like i understand that my code is literally using the same vars over and over, but come on JavaScript! you're supposed to check if the variable needs to be copied;
+        // nevermind
+        const c_board = board;
+        const c_tile = tile;
         // bounds check
         if(
             tile.y + this.p.y < 0 ||
@@ -288,6 +296,7 @@ class Tile{
      */
     move_map = {};
     constructor(){
+        this.coords = new Point(0, 0);
         this.move_map = {};
     }
     toString(){
