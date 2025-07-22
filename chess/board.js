@@ -78,6 +78,7 @@ class Move{
     dynamic_conditions = [];
     /**
      * Side-effects of the move. Currently not implemented.
+     * @type {Cond_F[]}
      */
     effects = [];
     /**
@@ -86,6 +87,11 @@ class Move{
     name = "";
     /**
      * The parameters are the same as their members.
+     * @param {Point} p ;
+     * @param {Cond_F[]} static_conditions ;
+     * @param {Cond_F[]} dynamic_conditions ;
+     * @param {Cond_F[]} effects ;
+     * @param {string} name ;
      */
     constructor(p, static_conditions, dynamic_conditions, effects, name){
         this.p = p ?? this.p;

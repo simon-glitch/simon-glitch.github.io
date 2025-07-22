@@ -1,11 +1,19 @@
 
 const _ = undefined;
 
+// this is good code!
 const PAWN   = new Piece("Pawn",   "P", new Move_Set(
     [
         new Move(
             new Point(0, 1),
-            _, _, _, "forward_1",
+            [(b,t,m) => [true, new Move(
+                new Point(m.p.x + 1, m.p.y),
+                _, [
+                    (b,t,m) => [
+                        t.movec === 0,
+                    ]
+                ], _, "forward_2"
+            )]], _, _, "forward_1",
         ),
     ], [], _
 ));
