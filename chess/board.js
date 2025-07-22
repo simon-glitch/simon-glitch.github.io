@@ -325,7 +325,7 @@ class Row extends Array{
         this.forEach((t, i) => {
             t.name = column(i) + this.number;
             t.coords.x = i + 1;
-            t.coords.y = this.number - 1;
+            t.coords.y = this.number;
         });
     }
 };
