@@ -92,6 +92,7 @@ class Move{
         this.static_conditions = static_conditions ?? this.static_conditions;
         this.dynamic_conditions = dynamic_conditions ?? this.dynamic_conditions;
         this.effects = effects ?? this.effects;
+        this.name = name ?? this.name;
     }
     /**
      * Initialize the chess move.
@@ -100,12 +101,6 @@ class Move{
      * @returns {[Boolean, Move]}
      */
     initialize(board, tile){
-        // -- is JavaScript using actual references as the parameters?
-        // -- since when does it do that?
-        // -- this seems like a bug to me!
-        // -- only execute needs these;
-        // -- like i understand that my code is literally using the same vars over and over, but come on JavaScript! you're supposed to check if the variable needs to be copied;
-        // nevermind
         const c_board = board;
         const c_tile = tile;
         // bounds check
@@ -181,6 +176,19 @@ class Move{
             children[i].parent = this;
         }
     }
+    /**
+     * Copy constructor.
+     * @returns {Move} a new move;
+     */
+    copy(){
+        return new Move(
+            this.p,
+            this.static_conditions,
+            this.dynamic_conditions,
+            this.effects,
+            this.name,
+        );
+    }
 };
 
 class Move_Set{
@@ -212,9 +220,15 @@ class Move_Set{
     /** Make a copy of this move set. */
     copy(){
         const that = new Move_Set();
-        that.move = this.move.slice();
-        that.capture = this.capture.slice();
-        that.move_cap = this.move_cap.slice();
+        that.move = this.move.map(
+            m => m.copy()
+        );
+        that.capture = this.capture.map(
+            m => m.copy()
+        );
+        that.move_cap = this.move_cap.map(
+            m => m.copy()
+        );
         return that;
     }
     /**
