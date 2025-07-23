@@ -38,6 +38,7 @@ const PAWN   = new Piece("Pawn",   "P", new Move_Set(
         p: new Point(s, 1),
         t: tm,
         d: [(b,t,m) => [
+            b.history.at(-1) instanceof Move &&
             b.history.at(-1).name === "forward_2" &&
             b.history.at(-1).dest === b.tile(
                 t.x + s,
