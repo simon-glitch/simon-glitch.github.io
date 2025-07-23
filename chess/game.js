@@ -54,7 +54,22 @@ const PAWN   = new Piece("Pawn",   "P", new Move_Set(
     })),
 ));
 const KNIGHT = new Piece("Knight", "N", new Move_Set(
-    // moves
+    // the knight is actually one of the easiest pieces to code
+    ...[
+        [ 2,  1],
+        [ 1,  2],
+        [-1,  2],
+        [-2,  1],
+        [-2, -1],
+        [-1, -2],
+        [ 1, -2],
+        [ 2, -1],
+    ] // don't mind the functional stuff
+    .map(v => (f => f(...v))((x, y) => new Move({
+        n: "capture",
+        p: new Point(x, y),
+        t: ta,
+    }))),
 ));
 const BISHOP = new Piece("Bishop", "B", new Move_Set(
     // moves
