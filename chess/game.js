@@ -9,6 +9,10 @@ const ta = new Move_Type();
 ta.move = true;
 ta.capture = true;
 
+//const s = (...m) => new Move_Set(...m);
+//const o = (o) => new Move(o);
+//const p = (x, y) => new Point(x, y);
+
 // this is good code!
 const PAWN   = new Piece("Pawn",   "P", new Move_Set(
     new Move({
@@ -17,7 +21,7 @@ const PAWN   = new Piece("Pawn",   "P", new Move_Set(
         t: tm,
         s: [(b,t,m) => [true, new Move({
             n: "forward_2",
-            p: new Point(m.p.x + 1, m.p.y),
+            p: new Point(1, 0),
             t: tm,
             d: [(b,t,m) => [
                 t.movec === 0,
@@ -31,20 +35,20 @@ const PAWN   = new Piece("Pawn",   "P", new Move_Set(
     }),
 ));
 const KNIGHT = new Piece("Knight", "N", new Move_Set(
-    _, _, [],
+    // moves
 ));
 const BISHOP = new Piece("Bishop", "B", new Move_Set(
-    _, _, [],
+    // moves
 ));
 const ROOK   = new Piece("Rook",   "R", new Move_Set(
-    _, _, [],
+    // moves
 ));
 const QUEEN  = new Piece("Queen",  "Q", new Move_Set(
-    _, _, [],
+    // moves
 ));
 // castling is a king move;
 const KING   = new Piece("King",   "K", new Move_Set(
-    _, _, [],
+    // moves
 ));
 
 

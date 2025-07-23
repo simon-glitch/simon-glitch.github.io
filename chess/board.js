@@ -26,9 +26,16 @@ class Owner{
 class Point{
     x = 0;
     y = 0;
+    relative = true;
     constructor(x, y){
         this.x = Number(x);
         this.y = Number(y);
+    }
+    rel(){
+        this.relative = true;
+    }
+    abs(){
+        this.relative = false;
     }
 };
 
