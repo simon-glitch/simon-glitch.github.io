@@ -51,6 +51,15 @@ const KING   = new Piece("King",   "K", new Move_Set(
     // moves
 ));
 
+/*
+Some goals:
+* Checkers.
+* Chess vs Checkers.
+* Atomic Chess.
+* Horde Chess.
+* Connect 4.
+* Other games?
+*/
 
 const standard_board = {
     pieces: [
