@@ -26,14 +26,23 @@ class Owner{
 class Point{
     x = 0;
     y = 0;
+    /**
+     * Whether the point is relative.
+     */
     relative = true;
     constructor(x, y){
         this.x = Number(x);
         this.y = Number(y);
     }
+    /**
+     * Make the point be relative.
+     */
     rel(){
         this.relative = true;
     }
+    /**
+     * Make the point be absolute (not relative).
+     */
     abs(){
         this.relative = false;
     }
@@ -63,6 +72,7 @@ class Point{
 class Conditions{
     /**
      * The move these conditions are for.
+     * @type {Move}
      */
     move = null;
     /**
@@ -86,8 +96,14 @@ class Conditions{
      */
     claim(children){
         for(let i = 1; i < children.length; i++){
-            children[i].parent = this.move;
-            this.children.push(children[i]);
+            /** @type {Move} */
+            const c = children[i];
+            c.parent = this.move;
+            this.children.push(c);
+            if(c.p.relative){
+                c.p.x += this.move.p.x;
+                c.p.y += this.move.p.y;
+            }
         }
     }
 
