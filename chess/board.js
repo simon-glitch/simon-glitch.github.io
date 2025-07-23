@@ -62,6 +62,10 @@ class Point{
  */
 class Conditions{
     /**
+     * The move these conditions are for.
+     */
+    move = null;
+    /**
      * The conditions of the move.
      * @type {Cond_F[]}
      */
@@ -71,10 +75,22 @@ class Conditions{
      * @type {Move[]}
      */
     children = [];
-    constructor(){
+    constructor(move){
+        this.move = move;
         this.conditions = [];
         this.children = [];
     }
+    /**
+     * Tell the children of the move who their parent is.
+     * @param {Move_C} children the children of this move;
+     */
+    claim(children){
+        for(let i = 1; i < children.length; i++){
+            children[i].parent = this.move;
+            this.children.push(children[i]);
+        }
+    }
+
 }
 
 /**
@@ -146,8 +162,8 @@ class Move{
      * - `name` or `n`: `this.n`;
      */
     constructor(options){
-        this.static = new Conditions();
-        this.dynamic = new Conditions();
+        this.static = new Conditions(this);
+        this.dynamic = new Conditions(this);
         const p = options.point   ?? options.p ?? this.p;
         const s = options.static  ?? options.s ?? this.static .conditions;
         const d = options.dynamic ?? options.d ?? this.dynamic.conditions;
@@ -188,7 +204,7 @@ class Move{
             B.shift();
             A.push(...B);
         }
-        this.s_claim(A);
+        this.static.claim(A);
         this.execute = (
             (this.dynamic_conditions.length === 0)
             ? function(){
@@ -217,7 +233,7 @@ class Move{
             B.shift();
             A.push(...B);
         }
-        this.d_claim(A);
+        this.dynamic.claim(A);
         return A;
     }
     /**
@@ -234,16 +250,6 @@ class Move{
         );
         for(let e of this.effects){
             this.effects(board, tile, this);
-        }
-    }
-    /**
-     * Tell the children of this move who their parent is.
-     * @param {Move_C} children the children of this move;
-     */
-    claim(children){
-        this.children.push(...children);
-        for(let i = 1; i < children.length; i++){
-            children[i].parent = this;
         }
     }
     /**
