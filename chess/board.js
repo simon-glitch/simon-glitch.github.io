@@ -49,6 +49,44 @@ class Point{
  */
 
 /**
+ * A set of move conditions and the corresponding children.
+ * - `Move.static` and `Move.dynamic` explain this in detail.
+ * - Each type of condition generates its own specific type of children.
+ */
+class Conditions{
+    /**
+     * The conditions of the move.
+     * @type {Cond_F[]}
+     */
+    conditions = [];
+    /**
+     * The children moves.
+     * @type {Move[]}
+     */
+    children = [];
+    constructor(){
+        this.conditions = [];
+        this.children = [];
+    }
+}
+
+/**
+ * The type of a move.
+ * - The move type acts like a dynamic condition of the move.
+ * - There are only 2 types currently, but you could add more. What's fun is you can code checkers with these rules.
+ */
+class Move_Type{
+    /**
+     * Whether this move can be done as a capture.
+     */
+    capture = false;
+    /**
+     * Whether this move can be done as a move to an empty tile (a non-capture).
+     */
+    move = false;
+}
+
+/**
  * A chess move. These can have a lot of complex conditions and rules.
  * - I thought I would just write a simple class. Now I have this absolutely insane mess. You would need a whole chart to understand what's going on here. I think you can ignore `claim` and `parent`.
  */
@@ -63,53 +101,58 @@ class Move{
      */
     parent = null;
     /**
-     * The static children of this move.
-     * @type {Move[]}
-     */
-    static_children = [];
-    /**
-     * The dyanmic children of this move.
-     * @type {Move[]}
-     */
-    dynamic_children = [];
-    /**
-     * The conditions required for a piece to make this move.
+     * The static conditions required for a piece to make this move.
      * - The static conditions can only use the coordinates of the tile that the piece is moving from.
      * - Children moves (returned from the static conditions) are added and initialized.
-     * @type {Cond_F[]}
      */
-    static_conditions = [];
+    static = new Conditions();
     /**
-     * The conditions required for a piece to make this move.
+     * The dynamic conditions required for a piece to make this move.
      * - The dynamic conditions can use any and all information about the board, allowing the availability of the move to change throughout the corse of the game.
      * - Children moves (returned from the dynamic conditions) are dynamically added for only this turn. They will be removed when the turn is over.
-     * @type {Cond_F[]}
      */
-    dynamic_conditions = [];
+    dynamic = new Conditions();
     /**
      * Side-effects of the move. Currently not implemented.
      * @type {Cond_F[]}
      */
     effects = [];
     /**
+     * What type of move this is.
+     * - See `Move_Type`.
+     */
+    type = new Move_Type();
+    /**
      * Nickname for the move.
      */
     name = "";
     /**
-     * The parameters are the same as their members.
-     * @param {Point} p ;
-     * @param {Cond_F[]} static_conditions ;
-     * @param {Cond_F[]} dynamic_conditions ;
-     * @param {Cond_F[]} effects ;
-     * @param {string} name ;
+     * The properties of options define the properties of this move.
+     * @param {{p: Point, s:
+     * Cond_F[], d: Cond_F[], e: Cond_F[],
+     * t: Move_Type, n: string}} options
+     * - `point` or `p`: `this.p`;
+     * - `static` or `s`: the static conditions;
+     * - `dynamic` or `d`: the dynamic conditions;
+     * - `effects` or `e`: `this.effects`;
+     * - `type` or `t`: `this.type`;
+     * - `name` or `n`: `this.n`;
      */
-    constructor(p, static_conditions, dynamic_conditions, effects, name){
-        this.p = p ?? this.p;
-        this.static_conditions = static_conditions ?? this.static_conditions;
-        this.dynamic_conditions = dynamic_conditions ?? this.dynamic_conditions;
-        this.effects = effects ?? this.effects;
-        this.name = name ?? this.name;
-        this.children = [];
+    constructor(options){
+        this.static = new Conditions();
+        this.dynamic = new Conditions();
+        const p = options.point   ?? options.p ?? this.p;
+        const s = options.static  ?? options.s ?? this.static .conditions;
+        const d = options.dynamic ?? options.d ?? this.dynamic.conditions;
+        const e = options.effects ?? options.e ?? this.effects;
+        const t = options.type    ?? options.t ?? this.type;
+        const n = options.name    ?? options.n ?? this.name;
+        this.p                  = p;
+        this.static .conditions = s;
+        this.dynamic.conditions = d;
+        this.effects            = e;
+        this.type               = t;
+        this.name               = n;
     }
     /**
      * Initialize the chess move.
@@ -211,45 +254,20 @@ class Move{
     }
 };
 
-class Move_Set{
-    /**
-     * Move (requires the tile to be empty).
-     * @type Move[]
-     */
-    move = [];
-    /**
-     * Capture (requires the tile to have an enemy piece).
-     * @type Move[]
-     */
-    capture = [];
-    /**
-     * Move and capture.
-     * @type Move[]
-     */
-    move_cap = [];
-    /**
-     * @param {Move[]} move see the property;
-     * @param {Move[]} capture see the property;
-     * @param {Move[]} move_cap see the property;
-     */
-    constructor(move, capture, move_cap){
-        this.move = move ?? [];
-        this.capture = capture ?? [];
-        this.move_cap = move_cap ?? [];
+/**
+ * @extends Array<Move>
+ */
+class Move_Set extends Array{
+    constructor(){
+        super(...arguments);
     }
-    /** Make a copy of this move set. */
+    /**
+     * Make a copy of this move set.
+     */
     copy(){
-        const that = new Move_Set();
-        that.move = this.move.map(
+        return new Move_Set(...this.map(
             m => m.copy()
-        );
-        that.capture = this.capture.map(
-            m => m.copy()
-        );
-        that.move_cap = this.move_cap.map(
-            m => m.copy()
-        );
-        return that;
+        ));
     }
     /**
      * Initialize each move in this move set.
@@ -258,23 +276,21 @@ class Move_Set{
      * @param {Tile} tile the tile this move is being made from;
      */
     initialize(board, tile){
-        this.sub(board, tile, this.move);
-        this.sub(board, tile, this.capture);
-        this.sub(board, tile, this.move_cap);
-    }
-    /** Used to keep the code of `initialize` shorter. */
-    sub(board, tile, list){
         const LIMIT = 100;
-        for(let i = 0; i < list.length; i++){
+        for(let i = 0; i < this.length; i++){
             if(i >= LIMIT){
-                console.log("that's bad!");
+                console.log(
+                    "RangeError: Piece has more than" +
+                    "the maximum number of moves (" +
+                    LIMIT + ")."
+                );
                 return;
             }
-            const m = list[i];
+            const m = this[i];
             m.initialize(board, tile);
             if(!m[0] || m.length === 1) continue;
             m.shift();
-            list.push(...m);
+            this.push(...m);
         }
     }
 };

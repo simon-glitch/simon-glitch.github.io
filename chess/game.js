@@ -1,19 +1,34 @@
 
 const _ = undefined;
 
+const tm = new Move_Type();
+tm.move = true;
+const tc = new Move_Type();
+tc.capture = true;
+const ta = new Move_Type();
+ta.move = true;
+ta.capture = true;
+
 // this is good code!
 const PAWN   = new Piece("Pawn",   "P", new Move_Set(
-    [
-        new Move(
-            new Point(0, 1),
-            [(b,t,m) => [true, new Move(
-                new Point(m.p.x + 1, m.p.y),
-                _, [(b,t,m) => [
-                    t.movec === 0,
-                ]], _, "forward_2",
-            )]], _, _, "forward_1",
-        ),
-    ], [], _
+    new Move({
+        n: "forward_1",
+        p: new Point(0, 1),
+        t: tm,
+        s: [(b,t,m) => [true, new Move({
+            n: "forward_2",
+            p: new Point(m.p.x + 1, m.p.y),
+            t: tm,
+            d: [(b,t,m) => [
+                t.movec === 0,
+            ]],
+        })]],
+    }),
+    new Move({
+        n: "capture",
+        p: new Point(1, 1),
+        t: tc,
+    }),
 ));
 const KNIGHT = new Piece("Knight", "N", new Move_Set(
     _, _, [],
