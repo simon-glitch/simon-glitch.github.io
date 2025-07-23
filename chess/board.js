@@ -264,9 +264,13 @@ class Move{
             tile.coords.x - 1 + this.p.x,
             tile.coords.y - 1 + this.p.y,
         );
-        for(let e of this.effects){
-            this.effects(board, tile, this);
+        for(let effect of this.effects){
+            effect(board, tile, this);
         }
+        this.dest = board.tile(
+            tile.coords.x - 1 + this.p.x,
+            tile.coords.y - 1 + this.p.y,
+        );
     }
     /**
      * Copy constructor.
@@ -422,12 +426,17 @@ class Row extends Array{
  * The chess board.
  */
 class Board{
+    width = 0;
+    height = 0;
     /**
      * @type {Row[]} The rows of the board.
      */
     rows = [];
-    width = 0;
-    height = 0;
+    /**
+     * The history of moves made this game.
+     * @type {Move[]}
+     */
+    history = [];
     /**
      * @param {int} width the number of files the board has;
      * @param {int} height the number of ranks the board has;
@@ -439,6 +448,7 @@ class Board{
         for(let y = 0; y < height; y++){
             this.rows[y] = new Row(width);
         }
+        this.history = [];
         this.update();
     }
     /**
@@ -454,6 +464,14 @@ class Board{
         return this;
     }
     /**
+     * Get a tile of the board.
+     * @param {int} x x coordinate of the tile;
+     * @param {int} y y coordinate of the tile;
+     */
+    tile(x, y){
+        return this.rows[y][x];
+    }
+    /**
      * Place a piece.
      * - A1 is treated as x=1, y=1.
      * - A8 is treated as x=8, y=1.
@@ -465,7 +483,7 @@ class Board{
      * @returns the board, so the method can be chained;
      */
     place(x, y, piece, owner){
-        const t = this.rows[y][x];
+        const t = this.tile(x, y);
         t.piece = piece;
         t.owner = owner;
         
@@ -480,8 +498,8 @@ class Board{
      * @returns the board, so the method can be chained;
      */
     move(x1, y1, x2, y2){
-        const t1 = this.rows[y1][x1];
-        const t2 = this.rows[y2][x2];
+        const t1 = this.tile(x1, y1);
+        const t2 = this.tile(x2, y2);
         t2.piece = t1.piece;
         t2.owner = t1.owner;
         t2.movec = t1.movec + 1;

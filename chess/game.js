@@ -33,6 +33,24 @@ const PAWN   = new Piece("Pawn",   "P", new Move_Set(
         p: new Point(1, 1),
         t: tc,
     }),
+    ...[-1,1].map(s => new Move({
+        n: "en_passant",
+        p: new Point(s, 1),
+        t: tm,
+        d: [(b,t,m) => [
+            b.history.at(-1).name === "forward_2" &&
+            b.history.at(-1).dest === b.tile(
+                t.x + s,
+                t.y + 2,
+            )
+        ]],
+        e: [(b,t,m) => b.move(
+            t.x,
+            t.y,
+            t.x + s,
+            t.y,
+        )]
+    })),
 ));
 const KNIGHT = new Piece("Knight", "N", new Move_Set(
     // moves
