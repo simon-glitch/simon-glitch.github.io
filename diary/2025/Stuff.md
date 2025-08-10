@@ -60,6 +60,66 @@ It was its worst early this morning. It's been getting better throughout the day
 
 What's really good news is my skin has calmed down significantly, overall. So I'll be able to actually get some sleep tonight. Considering I got like 5 hours last night, I'm feeling like I wanna go to bed now. And it's only 4:32!
 
+# Back to my dad being a fibber
+So, I think my dad fibs about the following things:
+* That every conversation is a manipulation
+    * I just don't think that idea is properly reflected by his actual behaviors.
+    * Actually, he defines a manipulation as "an action causing change". All actions cause change, therefore all conceivable actions, just by the nature of our universe, cause change. This definition is a **useless definition**, since the word redundantly has the exact same meaning as action. It also makes the saying useless, since obviously, having a conversation is a type of action. Also, no one else defines manipulation this way.
+* That he plans out his conversations
+    * He does plan them, but his planning is not thorough nor comprehensive, and his execution is sloppy. I can easily throw him curve balls, or distract him (those are two separate things I can do, which correspond with the two critiques about his planning that I listed).
+* He doesn't lie
+    * Translation: I'm saying that my dad does lie. The following bullet points elaborate on how he does.
+    * In his defense, he is forgetful. And he does also try to manipulate, and beat around the bush a lot. I would consider these to be other forms of deception, and thus different than lying.
+    * He also likes saying "true" statements that are misleading or give an incompletely picture of the truth. He actually says that when other people use "true" statements like that, that action is a form of lying. However, my dad does not apply this logic to his own statements. This is because he is a hypocrite, and because his perspective makes it very hard for him to see this. If I bring this up with him, I'm pretty sure he'll use his perspective to prove to himself that he's not a hypocrite.
+
+My dad's perspective is wrong on these matters:
+* That he doesn't see why other people aren't good at things.
+    * Also, he doesn't want to know why, since knowing why would actually oppose his perspective.
+* That I'm a quitter.
+    * It's just blatantly wrong and he has no reason to believe so.
+* That I'm not normal. Or that I'm worse at things that other people.
+    * I am neurodivergent, but my dad's perspective does not accont for this.
+        * What's funny, is my dad is neurodivergent too.
+
+My dad's bad definitions for things:
+* Lying: Saying a statement that happens to be false. By this logic, saying "there are 100,000 miles of blood vessels in the human body" would count as lying.
+    * A better definiton would be: Saying a statement you believe to be false, and saying it in a way that implies that you believe it is true, in order to persuade the listener that it is true. This definition excludes multiple types of statements:
+        * Statement you believe are true, but are actually false.
+        * Sarcastic statements.
+        * Example statements or statements that are not genuinely being asserted.
+        * Statements made while not sober or mentally competent.
+        * Saying statements without really understanding their consequences.
+* Manipulation: Perfect synonym for action.
+    * A better definiton would be: Some form of deception. Not all actions are deceptive.
+* Stupid: Anything that makes my dad, specifically, angry.
+    * He has never actually said this. This is just the effective definition he uses.
+* Angry: Perfect synonym for engraged.
+* Frustrated: Some variant of angry. "Angry" here refers to the normal definition of angry, which is the one I use.
+* Irritated, or any other synonym for angry: I have no clue. He has his own weird definitions and none of them make any sense to me. He also gets really mad if you try to ask him, so I'll never have any clue what the exact definitions are. Also also, I don't know where he got his definitions from. I'm guessing from his rough childhood. I don't see the logic for having such specific words for anger though. I guess my dad has been struggling with it all his life and therefore made terminology for it. I avoid anger at all costs, so I don't get it.
+
+# The betrayal
+You know, a while back, my dad told me he wants me to feel insulted by his insults. And I just feel so betrayed over that. His insults are so mean, and if I took them seriously, I would be in really bad state emotionally. I would be so stressed out, and would hate myself, and feel absolutely worthless. And the fact he's been insulting me all my life would just leave me feeling like I'm hated and like I never deserved to live to begin with. And um, welp. You see, I know all of that is total nonsense. I ain't gonna let his insults drag me down like that. And with the sheer number of them that he's dishes out, and with how **unjustified** I now realize they are, there is no way I'm gonna ever take them seriously. No way.
+
+Besides, I can't let him drag me down. I can't let anyone make me feel worthless. Because I know how valuable and precious and beautiful and amazing I am. If you don't see it, that's fine. But I know that I shine brighter than all the stars in the sky. Except the sun. It's pretty bright. But on a good day, I can even outshine the sun!~ And I don't want anyone to hurt me emotionally. And if that's all they're trying to do with their words, then why should I listen to them? Well obviously, I shouldn't, and thus the answer is NOPE. I don't like pain nor sadness. I like joy. It's my duty to stay positive. Genuinely positive. It's my duty to try to wear a smile, for my own good. Just to keep my heart feeling good. Just to keep my soul at ease.
+
+And don't you go and say that I force myself not to feel certain emotions. Frankly, which emotions I let myself feel and then I feel them is my business and my responsibility. Also, I explore my emotions all the time. Of course, as an engineer, I see my emotions as tools. But as an artist, I also see the depth of their beauty. Really, I think all tools should be created in order to further the goal of beautifying the world and realizing the beauty of life. *Sigh.*
+
+Gosh, Simon. You really feel like writing right now, don't you?
+* Well, I have literally nothing else to do. Or little else. I read through a lot of the chapters of webnovels I downloaded on my phone, and we have no wifi here.
+Us having no wifi here is a **really** good thing. You really waste too much time on YouTube and other places.
+* I know, I know.
+We really need to clean our act up though, dude. *Exasperated and disappointed sigh.* We both know many problems our bad habits are causing us.
+* Dude, that's such a good song.
+Yeah, it is. Maybe we shouldn't be talking to ourself?
+* Bro, what do you mean? Come on. You know how introverted we are. *Smiles proudly.*
+Well, whatever. It's not a bad thing. At least I keep my sanity this way. Yes, yes, I know. You're thinking "this guy is clearly crazy". Trust me, if I lost my sanity, it would be much worse than this.
+* They don't need to trust you. Or at least in my opinion, they shouldn't need to. Like, it's kinda obvious what it would be like if you lost your sanity. Like, you know, that would mean you wouldn't be able to think straight, you wouldn't think about normal things, like how to design good video games.
+Yes, exactly. Video game design is a very normal thing to think about. Normal as in, not insane. No further explanation of the obvious should be needed.
+* Hold up. We're not explaining the obvious. We're using clarifications to select a distinction on which definition of "insane" we're referring to here. And as we both know, we are crazy. But we're not insane.
+Did you get that, chat? I hope you did. 🙃💙
+
+
+
 
 
 
