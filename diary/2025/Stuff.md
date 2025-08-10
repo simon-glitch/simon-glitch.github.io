@@ -52,6 +52,15 @@ I should clarify that ulcers are these minor pains that I feel when I'm stressed
 Now my dad says he plans every conversation, but I know he doesn't do all of the ones he has with me, and he doesn't do them sorry well. It's super easy for me to get him sidetracked.
 
 4:23 PM
+# FYI
+I got sunburn on Friday (August 8).
+
+# Improving condition
+It was its worst early this morning. It's been getting better throughout the day. I've had more blisters forming (on my shoulders, especially the sides of my shoulders) throughout the day, and in the last few hours, they've been oozing. They're like zits that pop themselves! Also, all of the ones on the left are gone. I peeled some of the skin though, so now there is this raw spot that keeps leaking. It's literally leaking as I write this. It might we sweat. I hope it's whatever toxins that are left from the sunburn. Probably the latter. It's probably coming out of the one opening it has. My right shoulder though... I think I might need to give it some manual attention. But that would hurt a lot. Also, on second though, the raw spot could be leaking a mix of sweat and pus. I think it's mostly pus though, since I'm sitting in front of the fan and I'm all cooled down now. Maybe the pus is coming out through a sweat glands to begin though... in that case I should try to be in the warmest place possible. At least (hypothetically) if I want to make the blisters well more and release more pus. Though (in actuality) I don't want to do that.
+
+What's really good news is my skin has calmed down significantly, overall. So I'll be able to actually get some sleep tonight. Considering I got like 5 hours last night, I'm feeling like I wanna go to bed now. And it's only 4:32!
+
+
 
 
 
