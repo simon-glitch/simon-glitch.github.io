@@ -23,7 +23,7 @@ For reference, here is how much sleep I've been getting in last few days:
 
 Why no sleep Wednesday and Thursday? Well, I get distracted on websites easily, duh.
 
-# Misc
+# Misc 1
 You know, every time I get a "chill" on my back, it feels extra chilly, due to my sunburn. And I actually get a lot of chills. And the sunburn makes me feel vulnerable, which makes me get even more chills.
 
 4:24 PM
@@ -97,6 +97,10 @@ Oh, earlier, at like 3:~~ PM (three something PM), my grandpa's friend Ed called
 # School
 5:31 PM
 People keep asking me about school because my grandpa tells them all I'm in college. I'm 
+
+# Misc 2
+6:09 PM
+Alright, my grandpa says he's gonna take me to his choir practice. At least, I think that's what it is.
 
 # EOT
 
