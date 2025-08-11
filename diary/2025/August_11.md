@@ -86,6 +86,17 @@ My sunburn pain is mostly gone now. I think I still won't be able to sleep on my
 But at least I'll be able to sleep on my back and probably not have to switch sides. It should be much easier tonight. Heck, maybe I could take a snooze right now. But it's not really necessary. I've gotten like 7 hours of sleep on average the last 6 days though, so I'm feeling okay right now. I know my brain is not the same as a battery, but hey, I'm mostly functional. Definitely ready to tap out though 😆😳
 
 # Self-deprecating
+I really like to make a lot of self-deprecating jokes and statements. Whenever I talk to AI, it points them out, and calls me confident and humble. Geez, AI, no one asked. I know how amazing I am. I don't need reminded. Well, it usually assumes I'm not confident. So it usually gets it the wrong way around. Dumb AI. Clearly a sign that it lacks basic emotional intelligence.
+
+Self-deprecating jokes are a sign of self-understanding by the way. And making them easily without thinking about it and using positive wording like I do is a sign of confidence.
+
+# Phone calls
+5:24 PM
+Oh, earlier, at like 3:~~ PM (three something PM), my grandpa's friend Ed called while my grandpa was mowing the lawn. That's like the second time someone has happened to call my grandpa while he's mowing the lawn, and I'm chilling here on the carpet 😄 (yes I find that funny). Also, Ed was kind of lucky, since I decided to go to the other room a few minutes later. The other room is a separate building where there is a bedroom, bathroom, and the garage. It's actually not a valid bedroom because it's not suspended above the garage. If it was suspended, my grandpa's place would be 2 bed, 2 bath.
+
+# School
+5:31 PM
+People keep asking me about school because my grandpa tells them all I'm in college. I'm 
 
 # EOT
 
