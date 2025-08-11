@@ -1,9 +1,11 @@
 
+# Book puzzle
 4:12 PM
 So, on Saturday, Jim's friend, Steve, told me to read this book called Cain's Jawbone. Well, he left me his copy of it at Jim's place today at 10:00 AM. He also gave us some bacon, egg, and cheese biscuit sandwiches from McDonald's. Though he didn't actually stay to chat.
 
 Anyways, he says this book, Cain's Jawdone is supposed to be a super hard puzzle. I forgot to take it with me when I left Jim's place. But look at a few pages, and honestly, it looks like an easy task to me. Many of the sentences start with "I" or refer to the 1st person near the beginning, which definitely helps make the puzzle harder. But it looked like mostly normal English. For some reason, the book itself says its a hard puzzle right on the front. Yeah right. I'll show the publishers how wrong they are.
 
+# Sleep
 4:16
 Anyways, I just feel like writing because I'm bored.
 
@@ -19,6 +21,7 @@ For reference, here is how much sleep I've been getting in last few days:
 
 Why no sleep Wednesday and Thursday? Well, I get distracted on websites easily, duh.
 
+# Misc
 You know, every time I get a "chill" on my back, it feels extra chilly, due to my sunburn. And I actually get a lot of chills. And the sunburn makes me feel vulnerable, which makes me get even more chills.
 
 4:24 PM
@@ -74,7 +77,7 @@ So in conclusion, it's trauma. Just like what I've suffered with before.
 
 I should see if I can actually get my dad some help. Maybe I can try to force it on him.
 
-.
+# EOT
 
 
 
