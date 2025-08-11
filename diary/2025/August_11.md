@@ -27,11 +27,54 @@ Wow, it really is windy right now.
 4:25 PM
 Anyways, I think many people write when they are either bored or emotional.
 
+4:39 PM
+# Evidence
+Suspicious things about my dad:
+* He calls me a quitter -> He's a quitter.
+    * He tries very hard to hide this.
+* He's always trying to imidate me -> He feels intimiated.
+    * Potentially by me? My perspective intimidates him, because it contrasts with his.
+    * He tries very hard to hide this.
+* He doesn't want to be a liar.
+    * And doesn't want me to lie to him.
+    * -> Trust issues?
+* He doesn't want to get married, because he can't dedicate himself to a woman.
+    * -> He has a free spirit.
+    * Probably also trust issues.
+* He brags about himself a lot -> He's not confident in himself.
+    * I'm confident in myself, and I only brag when prompted. Or when I need to amp myself up.
+* He doesn't want therapist or anything similar, because he already knows about psychology and understands himself.
+    * He is wrong there, but that's beside the point.
+    * -> His given reason is a sign that he is sick and needs healed.
+    * If he didn't need healed, he would say that directly or something similar.
+    * Or he would describe the alternative method of healing. i.e. "prayer", "meditation", "companionship", etc.
+* He doesn't want to talk about feelings. In fact, he's repulsed by the idea of anyone talking about their feelings. He thinks people should just deal with them.
+    * -> Lack of emotional understanding.
+    * It's fun to talk about emotions in an abstract or hypothetical context, just like it is with any other topic. And talking about your emotions helps you get a second perspective and more ideas on how to deal with them. Dealing with them is still your responsibility, but other people can be helpful and provide ideas and emotional support.
+    * This trait could potentially be related to the other conclusions, but I won't include it, since "Lack of emotional understanding" is a very different problem.
 
+And my dad has always exhibited these suspicious traits.
 
+# Conclusion
+So, he doesn't have the courage or tenacity he wishes he has, and he feels like he can't trust anyone. But why? Why doesn't he believe in himself? And why doesn't he believe anyone can help him? And he knows he's sick. But he believes it can't be cured. But why?
 
+Clearly, he has let doubt get to his head. Clearly he is in dispair and has been for a while now. And he really doesn't want anyone to know. Maybe that's part of the reason why he doesn't like how I always try to get to the bottom of things. Well, I do also get annoying.
 
+But why does my dad doubt himself? I know for a fact that he has the same natural tenacity and positive energy I do it. But there is doubt holding him back. And for some reason, he's learned to shut down any attempt at talking about the subject or helping him. How annying. I could probably help him if he let me. I don't know how to give therapy, but I do understand my own feelings at least.
 
+And my dad ought to know that him not wanting help is an objectively bad thing. The harder one part of his mind tells him to avoid getting help, the harder the smart part of his mind should urge himself to get it. That's the strategy. Is to see the desire to solve the problem on your own as a bad thing. To see getting help as objectively good, and avoiding help as objectively bad. "Objectively" meaning "without room for argument". Of course, objectivity contrasts with doubt, and objective good contrasts with doubt greatly.
+
+# Cause
+5:10 PM
+So why? How did it get like this?
+
+Well, my theory is that he literally got it beaten out of him when he was young. He went through some tough shit as a kid. And I guess he never thought to heal from that. Though I doubt the old memories are causing a problem now. The problem now is that he's simply learned to doubt himself and learned to not ask for help. There could also be some more recent memories that have replace the effective occupations of the old memories. Not actually replaced, since the old memories are still there, but the new memories are probably causing most of the negative effects on his spirit.
+
+So in conclusion, it's trauma. Just like what I've suffered with before.
+
+I should see if I can actually get my dad some help. Maybe I can try to force it on him.
+
+.
 
 
 
