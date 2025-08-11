@@ -13,11 +13,13 @@ Last night I actually got plenty of sleep. I went to bed at 8:00 PM, and then di
 
 For reference, here is how much sleep I've been getting in last few days:
 * Format: Day it was when I started sleeping for the night: Hours of sleep.
+* Tuesday: 9
 * Wednesday: 5
 * Thursday: 5
 * Friday: 8
 * Saturday: 5
 * Sunday: 10.5
+* Average: 7.08
 
 Why no sleep Wednesday and Thursday? Well, I get distracted on websites easily, duh.
 
@@ -76,6 +78,14 @@ Well, my theory is that he literally got it beaten out of him when he was young.
 So in conclusion, it's trauma. Just like what I've suffered with before.
 
 I should see if I can actually get my dad some help. Maybe I can try to force it on him.
+
+# Sunburn
+5:18 PM
+My sunburn pain is mostly gone now. I think I still won't be able to sleep on my side 😭
+
+But at least I'll be able to sleep on my back and probably not have to switch sides. It should be much easier tonight. Heck, maybe I could take a snooze right now. But it's not really necessary. I've gotten like 7 hours of sleep on average the last 6 days though, so I'm feeling okay right now. I know my brain is not the same as a battery, but hey, I'm mostly functional. Definitely ready to tap out though 😆😳
+
+# Self-deprecating
 
 # EOT
 
