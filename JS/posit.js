@@ -1802,7 +1802,7 @@ function do_16(){
     format = [16n, 5n];
     move(scale / 2n, scale / 2n);
     bright_base = 2;
-    bright_mul = 400;
+    bright_mul = 40;
 }
 function do_32(){
     scale = 2n**32n;
@@ -1862,9 +1862,14 @@ paint.stop = function(){
     paint.id = -1;
 }
 
-key_fs.s = (()=>(
+key_fs.s = (()=>{
     paint.id === -1 ?
-    paint.start() : paint.stop()
-));
+    paint.start() : paint.stop();
+});
+
+key_fs.r = (()=>{
+    off_x = ((BigInt(Math.floor(Math.random() * 2**32)) << 32n) | (BigInt(Math.floor(Math.random() * 2**32)))) & ((1n << format[0]) - 1n);
+    off_y = ((BigInt(Math.floor(Math.random() * 2**32)) << 32n) | (BigInt(Math.floor(Math.random() * 2**32)))) & ((1n << format[0]) - 1n);
+});
 
 
