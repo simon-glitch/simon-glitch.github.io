@@ -1144,12 +1144,13 @@
   });
 
   // ../../../node_modules/double-double/node/str-to-dd/str-to-dd.js
-  function strToDd(str) {
-    const { str: s, exp, negative } = normalizeStr(str);
+  function strToDd(a_str) {
+    a_str = ""+a_str;
+    const { str, exp, negative } = normalizeStr(a_str);
     if (negative) {
-      str = str.slice(1);
+      a_str = a_str.slice(1);
     }
-    let { Z, seH: eH, seL: eL, seC: eC } = getParts(s);
+    let { Z, seH: eH, seL: eL, seC: eC } = getParts(str);
     const H = add1Ulp(Number(eH));
     const _sHC = H.toFixed(3 * d);
     const sHC = set0FromTo(_sHC, 0, d + Z);
@@ -1507,4 +1508,5 @@
 
   // main.js
   var dd = (init_node(), __toCommonJS(node_exports));
+  window.dd = dd;
 })();
