@@ -1,6 +1,5 @@
 
 
-
 (() => {
   var __defProp = Object.defineProperty;
   var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -1554,7 +1553,7 @@ function update_2(){
     ctx.putImageData(D, 0, 0);
 }
 
-resize(300, 300);
+resize(9, 9);
 
 const ZERO = nd(0);
 const ONE  = nd(1);
@@ -1777,10 +1776,11 @@ async function paint(decimal, converter){
             
             const x = [0, g_flt(BigInt(ix) + off_x)];
             const y = [0, g_flt(BigInt(iy) + off_y)];
-            
-            const cd = color(test(
+            const t = test(
                 x, y, decimal, converter,
-            ));
+            );
+            const cd = color(t);
+            console.log({x,y,t});
             d[ii * 4 + 0] = cd[0];
             d[ii * 4 + 1] = cd[1];
             d[ii * 4 + 2] = cd[2];
@@ -1855,14 +1855,26 @@ function do_p64(){
 
 do_p16();
 
-setInterval(function(){
-    if(paint.busy) return;
-    paint.busy = true;
-    paint(
-        add, converter_chosen,
-    ).finally(() => paint.busy = false);
-}, 100);
+paint.id = -1;
+paint.start = function(){
+    if(paint.id > -1) return;
+    paint.id = setInterval(function(){
+        if(paint.busy) return;
+        paint.busy = true;
+        paint(
+            add, converter_chosen,
+        ).finally(() => paint.busy = false);
+    }, 100);
+}
+paint.stop = function(){
+    if(paint.id === -1) return;
+    clearInterval(id);
+    paint.id = -1;
+}
 
-
+key_fs.s = (()=>(
+    paint.id === -1 ?
+    paint.start() : paint.stop()
+));
 
 
