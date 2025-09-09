@@ -1570,9 +1570,9 @@ const NINF = [0, -Infinity];
 */
 function test(x, y, decimal, converter){
     let z = decimal(x, y);
-    x = converter(x);
-    y = converter(y);
-    let c = converter(decimal(x, y));
+    let nx = converter(x);
+    let ny = converter(y);
+    let c = converter(decimal(nx, ny));
     if(!eq(z, ZERO) && eq(c, ZERO)) return "underflow";
     if(!isFinite(z[1]) && z[1] === c[1]) return "overflow";
     let d = abs(sub(z, c));
@@ -1583,22 +1583,19 @@ function test(x, y, decimal, converter){
 // float converters;
 function converter_f16(x){
     // if(x[1] > 1e300 || x[1] < 1e-296) return x;
-    // console.log("s0", {x});
-    const ex = Math.floor(log2(x));
-    // console.log("s1", {x, ex});
+    const ex = Math.floor(log2(abs(x)));
     x = floor(mulf(x, [0, 2 ** (10 - ex)]));
-    // console.log("s2", {x, ex});
     return mulf(x, [0, 2 ** (ex - 10)]);
 };
 function converter_f32(x){
     // if(x[1] > 1e300 || x[1] < 1e-296) return x;
-    const ex = Math.floor(log2(x));
+    const ex = Math.floor(log2(abs(x)));
     x = floor(mulf(x, [0, 2 ** (23 - ex)]));
     return mulf(x, [0, 2 ** (ex - 23)]);
 };
 function converter_f64(x){
     // if(x[1] > 1e300 || x[1] < 1e-296) return x;
-    const ex = Math.floor(log2(x));
+    const ex = Math.floor(log2(abs(x)));
     x = floor(mulf(x, [0, 2 ** (52 - ex)]));
     return mulf(x, [0, 2 ** (ex - 52)]);
 };
@@ -1636,7 +1633,7 @@ function converter_p16(x){
     // if(x[1] > 1e300 || x[1] < 1e-296) return x;
     // es = 2;
     // 2^es = 4;
-    const ex = Math.floor(log2(x));
+    const ex = Math.floor(log2(abs(x)));
     /*
     e = ex % 4;
     k = (ex - e) / 4;
@@ -1653,7 +1650,7 @@ function converter_p32(x){
     // if(x[1] > 1e300 || x[1] < 1e-296) return x;
     // es = 3;
     // 2^es = 8;
-    const ex = Math.floor(log2(x));
+    const ex = Math.floor(log2(abs(x)));
     const k = (ex - (ex % 8)) / 8;
     const l = k < 0 ? -k : k + 1;
     // numbers of bits for m;
@@ -1666,7 +1663,7 @@ function converter_p64(x){
     // if(x[1] > 1e300 || x[1] < 1e-296) return x;
     // es = 4;
     // 2^es = 16;
-    const ex = Math.floor(log2(x));
+    const ex = Math.floor(log2(abs(x)));
     const k = (ex - (ex % 16)) / 16;
     const l = k < 0 ? -k : k + 1;
     // numbers of bits for m;
@@ -1757,18 +1754,14 @@ function color(x){
 
 /* bounds is Decimal[4]; */
 async function paint(decimal, converter){
-    // console.log("0");
     update_1();
     let ii = 0;
     let last = new Date;
     window.CP.PenTimer.MAX_TIME_IN_LOOP_WO_EXIT = 1_000_000;
     for(let iy = 0; iy < c.height; iy++){
-        // console.log("1");
         for(let ix = 0; ix < c.width; ix++){
-            // console.log("2");
             const curr = new Date;
             if(curr - last > 100){
-                // console.log(`${ii} done!`);
                 last = curr;
                 update_2();
                 await wait(50);
@@ -1780,14 +1773,11 @@ async function paint(decimal, converter){
                 x, y, decimal, converter,
             );
             const cd = color(t);
-            console.log({x,y,t});
             d[ii * 4 + 0] = cd[0];
             d[ii * 4 + 1] = cd[1];
             d[ii * 4 + 2] = cd[2];
             d[ii * 4 + 3] = 255;
             ii++;
-            
-            // console.log("3");
         }
     }
     update_2();
@@ -1868,7 +1858,7 @@ paint.start = function(){
 }
 paint.stop = function(){
     if(paint.id === -1) return;
-    clearInterval(id);
+    clearInterval(paint.id);
     paint.id = -1;
 }
 
