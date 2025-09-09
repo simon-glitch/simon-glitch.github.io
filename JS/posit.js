@@ -1553,7 +1553,7 @@ function update_2(){
     ctx.putImageData(D, 0, 0);
 }
 
-resize(9, 9);
+resize(300, 300);
 
 const ZERO = nd(0);
 const ONE  = nd(1);
@@ -1576,7 +1576,7 @@ function test(x, y, decimal, converter){
     if(!eq(z, ZERO) && eq(c, ZERO)) return "underflow";
     if(!isFinite(z[1]) && z[1] === c[1]) return "overflow";
     let d = abs(sub(z, c));
-    if(eq(d, ZERO)) return "equal";
+    if(d[1] < 1e-200) return "equal";
     return ln(d);
 }
 
@@ -1630,7 +1630,7 @@ l 1s and a 0 -> k = l - 1
 */
 // posit converters;
 function converter_p16(x){
-    // if(x[1] > 1e300 || x[1] < 1e-296) return x;
+    if(x[1] > 1e300 || x[1] < 1e-296) return x;
     // es = 2;
     // 2^es = 4;
     const ex = Math.floor(log2(abs(x)));
@@ -1745,10 +1745,10 @@ function g_flt(x){
 }
 
 function color(x){
-    if(isNaN(x)) return [222, 0, 200];
+    if(typeof x === "number" && isNaN(x)) return [222, 0, 200];
     if(x === Infinity || x === "overflow") return [233, 0, 0];
     if(x === "underflow") return [0, 180, 230];
-    if(x === -Infinity || x === "equal") return [200, 0, 0];
+    if(x === -Infinity || x === "equal") return [0, 0, 0];
     return [0, (x + bright_base) * bright_mul, 0];
 }
 
@@ -1801,8 +1801,8 @@ function do_16(){
     scale = 2n**16n;
     format = [16n, 5n];
     move(scale / 2n, scale / 2n);
-    bright_base = 20000;
-    bright_mul = 400000;
+    bright_base = 2;
+    bright_mul = 400;
 }
 function do_32(){
     scale = 2n**32n;
