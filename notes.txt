@@ -12,4 +12,5 @@ Borrowing app:
 ** Furniture
 ** Containers (like bags)
 ** Miscellaneous
+* Make/join community feature
 
