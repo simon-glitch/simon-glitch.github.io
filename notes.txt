@@ -1,0 +1,15 @@
+
+Borrowing app:
+* Borrow items
+** Late fee -> We profit!
+** Timeline feature (see past borrows)
+* Transfer ownership (keep items)
+* Item categories:
+** Textbooks
+** School supplies
+** Tools
+** Vacuums
+** Furniture
+** Containers (like bags)
+** Miscellaneous
+
