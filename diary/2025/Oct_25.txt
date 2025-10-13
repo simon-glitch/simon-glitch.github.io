@@ -1,0 +1,46 @@
+
+
+; do lists not exist in relational databases because...
+; the database searches for you? why?
+Supplier (Site_rel[], Part[])
+Job_site (Site_rel[], Job[])
+Part     (Job[], Supplier)
+Site_rel (Supplier, Job_site)
+Job      (Job_site (optional), Part[])
+Use      (Job, Part)
+
+; prof removes Job_site from the database.
+Supplier (Part[])
+Part     (Job[], Supplier)
+Job      (Part[])
+Use      (Job, Part)
+; lame!
+
+
+Supplier
+  | 1 | Acme      |
+  | 2 | Ronco     |
+Part
+  | 1 | Birdseed  | 1         |
+  | 2 | TNT       | 1         |
+Job
+  | 1 | Student U | Calvin
+Use
+  | 1 | Birdseed  | Student U | 10 | Oct 20 |
+  | 2 | TN        | Student U |  2 | Oct 21 |
+  | 3 | Birdseed  | Student U |  3 | Oct 21 |
+
+One table
+  | 1 | Supplier | Acme      |           |    |        |
+  | 2 | Supplier | Ronco     |           |    |        |
+  | 3 | Part     | Birdseed  | 1         |    |        |
+  | 4 | Part     | TNT       | 1         |    |        |
+  | 5 | Job      | Student U | Calvin    |    |        |
+  | 6 | Use      | Birdseed  | Student U | 10 | Oct 20 |
+  | 7 | Use      | TN        | Student U |  2 | Oct 21 |
+  | 8 | Use      | Birdseed  | Student U |  3 | Oct 21 |
+
+
+
+
+
