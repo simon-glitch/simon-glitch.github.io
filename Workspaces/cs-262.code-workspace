@@ -1,0 +1,21 @@
+{
+	"folders": [
+        {
+            "path": "C:\\Users\\simon\\simon-glitch.github.io\\other_repos\\cs262\\Project",
+        },
+        {
+            "path": "C:\\Users\\simon\\simon-glitch.github.io\\other_repos\\cs262\\Client",
+        },
+        {
+            "path": "C:\\Users\\simon\\simon-glitch.github.io\\other_repos\\cs262\\Service",
+        },
+    ],
+    "settings": {
+        "files.exclude": {
+            "**/.git": true,
+        },
+    },
+}
+
+
+

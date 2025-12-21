@@ -1,0 +1,15 @@
+{
+    "folders": [
+        {
+            "path": "C:\\Users\\simon\\AppData\\Roaming\\Minecraft Bedrock\\Users\\Shared\\games\\com.mojang",
+        },
+    ],
+    "settings": {
+        "files.exclude": {
+            "**/.git": true,
+        },
+        "editor.tabSize": 2,
+    },
+    "extensions": {
+    },
+}
