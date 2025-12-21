@@ -75,7 +75,7 @@ Now our minefield is pretty heavily obfuscated. But I think a smart attacker cou
 This is multiplying the final size of our data significantly, so it's a bit data heavy. But even just 5 steps should be sufficient to prevent anyone from ever figuring out, well, anything about any of the intermediate steps. We now have data we can easily and quickly decrypt by just cycling some bits and doing some minesweeper, and the attacker has no idea which bits to cycle where, and no idea which tiles each number looks at or what multiplier each mine has. We could also maybe reuse the offsets to reduce the final size of our data, or make the offsets and multipliers smaller (i.e. offset of 0 or 1 and multiplier of 1 to 2) after the first step. But do we need to? With 5 steps, the final output data is only 16 times the input data. Plus the salt, which is just an encrypted string we slap on the end.
 
 # Conclusion
-The time to encrypt and decrypt is simply O(n), while the time to decrypt is some power of n, due to all the different things you'd have to brute force. I think even for a quantum computer in the future, this ecryption method would be impossible to crack, and it's far, far simpler than anything else out there. In fact, you can literally run this on the CPU, in JavaScript.
+The time to encrypt and decrypt is simply `O(n)`, while the time to decrypt is some power of `n`, due to all the different things you'd have to brute force. I think even for a quantum computer in the future, this ecryption method would be impossible to crack, and it's far, far simpler than anything else out there. In fact, you can literally run this on the CPU, in JavaScript.
 
 I think I might have come up with something truly revolutionary today.
 
