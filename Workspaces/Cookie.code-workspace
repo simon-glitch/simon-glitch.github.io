@@ -1,0 +1,13 @@
+{
+	"folders": [
+        {
+            "path": "C:\\Users\\simon\\repos\\simon-glitch.github.io\\diary\\2026\\CCTAS",
+        },
+    ],
+    "settings": {
+        "files.exclude": {
+            "**/.git": true,
+        },
+        "editor.tabSize": 4,
+    },
+}
