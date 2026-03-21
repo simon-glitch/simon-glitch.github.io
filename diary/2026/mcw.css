@@ -1,0 +1,19 @@
+
+:root{
+    --comment-background-color-0: hsl(10, 70%, 66%);
+    --comment-background-color-1: hsl(47, 70%, 65%);
+    --comment-background-color-2: hsl(87, 70%, 46%);
+    --comment-background-color-3: hsl(156, 70%, 43%);
+    --comment-background-color-4: hsl(185, 70%, 46%);
+    --comment-background-color-5: hsl(230, 70%, 74%);
+    --comment-background-color-6: hsl(275, 70%, 69%);
+    --comment-background-color-7: hsl(315, 70%, 57%);
+    --comment-border-color-0: hsl(10, 100%, 64%);
+    --comment-border-color-1: hsl(47, 100%, 62%);
+    --comment-border-color-2: hsl(87, 100%, 44%);
+    --comment-border-color-3: hsl(156, 100%, 41%);
+    --comment-border-color-4: hsl(185, 100%, 44%);
+    --comment-border-color-5: hsl(230, 100%, 71%);
+    --comment-border-color-6: hsl(275, 100%, 67%);
+    --comment-border-color-7: hsl(315, 100%, 49%);
+}
