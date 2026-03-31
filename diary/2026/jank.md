@@ -122,3 +122,4 @@ All in all, this system involves 6 different programs and 5 different languages:
 * Jank script: Written in the language that the Jank language JSON defines. i.e. Jank, JavaScript, Python, etc. Has to be fed through the tech stack to run.
 * Jank runtime: Written in Jank bytecode, compiles a Jank AST to bytecode. Can also use the Jank parser for various JIT compiling and optimization.
 
+For simplification, the Jank language builder has a feature where you can build and bundle the Janktron, Jank parser, and Jank runtime into one simple executable. And then just use on the terminal just like `python` / `py`.
