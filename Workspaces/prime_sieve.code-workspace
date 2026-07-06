@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "../../prime_sieve"
+		},
+		{
+			"path": "../../emsdk"
+		}
+	],
+    "settings": {
+        "liveServer.settings.multiRootWorkspaceName": "prime_sieve"
+    }
+}
