@@ -291,7 +291,6 @@ function save_t(){
         [...node.links_i].map(to_base_64).join(",") + ";" +
         [...node.links_o].map(to_base_64).join(",");
     }
-    console.log("raw save:", text);
     text = LZString.compressToBase64(text);
     return text;
 }
@@ -316,7 +315,8 @@ function load_t(text){
     // setup map.ids;
     map.ids = new Map();
     map.forEach((node, id) => {
-        map.ids.set(node.page, id);
+        if(id === 0) return;
+        map.ids.set(node.page, id - 1);
     });
     return map;
 }
