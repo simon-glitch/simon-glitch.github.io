@@ -664,7 +664,7 @@ function frame(){
 	t += `<button onclick="refresh=true;scanner_paused=false">Play</button>`;
 	t += `<button onclick="refresh=true">Refresh</button>`;
 	t += `</p>`;
-	t += `<p>pages found: ${map.length}; scanned: ${scanner.scan_c}/${scan_limit}; ${scanner_paused ? "paused" : "running"}</p>`;
+	t += `<p>pages found: ${map.length}; scanned: ${scanner?.scan_c}/${scan_limit}; ${scanner_paused ? "paused" : "running"}</p>`;
 	t += `<p><b>Links out (children):</b></p>`;
 	t += `<ul>`;
 	for(const link of nav.links_o){
