@@ -628,7 +628,7 @@ async function my_load(){
 let viewer;
 let previous_title;
 let current_title;
-let refresh = false;
+let refresh = true;
 let scanner_paused = true;
 
 function frame(){
