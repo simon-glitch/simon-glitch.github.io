@@ -1,3 +1,13 @@
+// setup
+// == async.js ==
+// == wiki.js ==
+// == scan.js ==
+// == frame.js ==
+// == saver.js ==
+// == scan_ui.js ==
+
+
+// == async.js ==
 /**
   * Simply make a promise, and extract its resolve and reject functions.
   * @returns {[Promise, (value: any) => void, (reason?: any) => void]}
@@ -25,6 +35,7 @@ const wait = function(t){
 wait.query = 500;
 wait.contrib = 2000;
 
+// == wiki.js ==
 const js_msg = " (when in doubt, JavaScript it out!)";
 
 async function send_post(data, url){
@@ -211,16 +222,7 @@ async function create(title, nt, summary){
         createonly: 1,
     }));
 }
-
-// used for compression
-// source: https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.5.0/lz-string.min.js
-// one of my favorite webpages
-var LZString=function(){
-    var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",n="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+-$",e={};function t(r,o){if(!e[r]){e[r]={};for(var n=0;n<r.length;n++)e[r][r.charAt(n)]=n}return e[r][o]}var i={compressToBase64:function(r){if(null==r)return"";var n=i._compress(r,6,function(r){return o.charAt(r)});switch(n.length%4){default:case 0:return n;case 1:return n+"===";case 2:return n+"==";case 3:return n+"="}},decompressFromBase64:function(r){return null==r?"":""==r?null:i._decompress(r.length,32,function(n){return t(o,r.charAt(n))})},compressToUTF16:function(o){return null==o?"":i._compress(o,15,function(o){return r(o+32)})+" "},decompressFromUTF16:function(r){return null==r?"":""==r?null:i._decompress(r.length,16384,function(o){return r.charCodeAt(o)-32})},compressToUint8Array:function(r){for(var o=i.compress(r),n=new Uint8Array(2*o.length),e=0,t=o.length;e<t;e++){var s=o.charCodeAt(e);n[2*e]=s>>>8,n[2*e+1]=s%256}return n},decompressFromUint8Array:function(o){if(null==o)return i.decompress(o);for(var n=new Array(o.length/2),e=0,t=n.length;e<t;e++)n[e]=256*o[2*e]+o[2*e+1];var s=[];return n.forEach(function(o){s.push(r(o))}),i.decompress(s.join(""))},compressToEncodedURIComponent:function(r){return null==r?"":i._compress(r,6,function(r){return n.charAt(r)})},decompressFromEncodedURIComponent:function(r){return null==r?"":""==r?null:(r=r.replace(/ /g,"+"),i._decompress(r.length,32,function(o){return t(n,r.charAt(o))}))},compress:function(o){return i._compress(o,16,function(o){return r(o)})},_compress:function(r,o,n){if(null==r)return"";var e,t,i,s={},u={},a="",p="",c="",l=2,f=3,h=2,d=[],m=0,v=0;for(i=0;i<r.length;i+=1)if(a=r.charAt(i),Object.prototype.hasOwnProperty.call(s,a)||(s[a]=f++,u[a]=!0),p=c+a,Object.prototype.hasOwnProperty.call(s,p))c=p;else{if(Object.prototype.hasOwnProperty.call(u,c)){if(c.charCodeAt(0)<256){for(e=0;e<h;e++)m<<=1,v==o-1?(v=0,d.push(n(m)),m=0):v++;for(t=c.charCodeAt(0),e=0;e<8;e++)m=m<<1|1&t,v==o-1?(v=0,d.push(n(m)),m=0):v++,t>>=1}else{for(t=1,e=0;e<h;e++)m=m<<1|t,v==o-1?(v=0,d.push(n(m)),m=0):v++,t=0;for(t=c.charCodeAt(0),e=0;e<16;e++)m=m<<1|1&t,v==o-1?(v=0,d.push(n(m)),m=0):v++,t>>=1}0==--l&&(l=Math.pow(2,h),h++),delete u[c]}else for(t=s[c],e=0;e<h;e++)m=m<<1|1&t,v==o-1?(v=0,d.push(n(m)),m=0):v++,t>>=1;0==--l&&(l=Math.pow(2,h),h++),s[p]=f++,c=String(a)}if(""!==c){if(Object.prototype.hasOwnProperty.call(u,c)){if(c.charCodeAt(0)<256){for(e=0;e<h;e++)m<<=1,v==o-1?(v=0,d.push(n(m)),m=0):v++;for(t=c.charCodeAt(0),e=0;e<8;e++)m=m<<1|1&t,v==o-1?(v=0,d.push(n(m)),m=0):v++,t>>=1}else{for(t=1,e=0;e<h;e++)m=m<<1|t,v==o-1?(v=0,d.push(n(m)),m=0):v++,t=0;for(t=c.charCodeAt(0),e=0;e<16;e++)m=m<<1|1&t,v==o-1?(v=0,d.push(n(m)),m=0):v++,t>>=1}0==--l&&(l=Math.pow(2,h),h++),delete u[c]}else for(t=s[c],e=0;e<h;e++)m=m<<1|1&t,v==o-1?(v=0,d.push(n(m)),m=0):v++,t>>=1;0==--l&&(l=Math.pow(2,h),h++)}for(t=2,e=0;e<h;e++)m=m<<1|1&t,v==o-1?(v=0,d.push(n(m)),m=0):v++,t>>=1;for(;;){if(m<<=1,v==o-1){d.push(n(m));break}v++}return d.join("")},decompress:function(r){return null==r?"":""==r?null:i._decompress(r.length,32768,function(o){return r.charCodeAt(o)})},_decompress:function(o,n,e){var t,i,s,u,a,p,c,l=[],f=4,h=4,d=3,m="",v=[],g={val:e(0),position:n,index:1};for(t=0;t<3;t+=1)l[t]=t;for(s=0,a=Math.pow(2,2),p=1;p!=a;)u=g.val&g.position,g.position>>=1,0==g.position&&(g.position=n,g.val=e(g.index++)),s|=(u>0?1:0)*p,p<<=1;switch(s){case 0:for(s=0,a=Math.pow(2,8),p=1;p!=a;)u=g.val&g.position,g.position>>=1,0==g.position&&(g.position=n,g.val=e(g.index++)),s|=(u>0?1:0)*p,p<<=1;c=r(s);break;case 1:for(s=0,a=Math.pow(2,16),p=1;p!=a;)u=g.val&g.position,g.position>>=1,0==g.position&&(g.position=n,g.val=e(g.index++)),s|=(u>0?1:0)*p,p<<=1;c=r(s);break;case 2:return""}for(l[3]=c,i=c,v.push(c);;){if(g.index>o)return"";for(s=0,a=Math.pow(2,d),p=1;p!=a;)u=g.val&g.position,g.position>>=1,0==g.position&&(g.position=n,g.val=e(g.index++)),s|=(u>0?1:0)*p,p<<=1;switch(c=s){case 0:for(s=0,a=Math.pow(2,8),p=1;p!=a;)u=g.val&g.position,g.position>>=1,0==g.position&&(g.position=n,g.val=e(g.index++)),s|=(u>0?1:0)*p,p<<=1;l[h++]=r(s),c=h-1,f--;break;case 1:for(s=0,a=Math.pow(2,16),p=1;p!=a;)u=g.val&g.position,g.position>>=1,0==g.position&&(g.position=n,g.val=e(g.index++)),s|=(u>0?1:0)*p,p<<=1;l[h++]=r(s),c=h-1,f--;break;case 2:return v.join("")}if(0==f&&(f=Math.pow(2,d),d++),l[c])m=l[c];else{if(c!==h)return null;m=i+i.charAt(0)}v.push(m),l[h++]=i+m.charAt(0),i=m,0==--f&&(f=Math.pow(2,d),d++)}}};return i
-}();(
-    "function"==typeof define&&define.amd?define(function(){return LZString}):"undefined"!=typeof module&&null!=module?module.exports=LZString:"undefined"!=typeof angular&&null!=angular&&angular.module("LZString",[]).factory("LZString",function(){return LZString})
-);
-
+// == scan.js ==
 // used later for BFS;
 class Queue{
 	constructor(){
@@ -465,6 +467,481 @@ function from_base_64(s){
     return n;
 }
 
+
+
+// == frame.js ==
+const builtinify = function(fs){
+    fs.forEach((f) => {
+        f.name = "function " + f.name + "() { [native code] }";
+    });
+};
+
+const const_prop = function(obj, prop, value, enumerable = true){
+    if(!obj) return obj;
+    try{
+        Object.defineProperty(obj, prop, {
+            value,
+            writable: false,
+            enumerable,
+            configurable: false,
+        });
+        return obj;
+    }
+    catch(e){return e;}
+};
+const fast_const_prop = function(obj, prop){
+    if(!obj) return obj;
+    try{
+        return const_prop(
+            obj, prop, obj[prop],
+            Object.getOwnPropertyDescriptor(
+                obj, prop,
+            ).enumerable,
+        );
+    }
+    catch(e){return e;}
+};
+
+/*
+# Function factory Busy
+Make a function that is resistant to asnychronous execution. Busy works by making a wrapper around f, named busy_f. Only one instance of the function can be called at a time. This means the function can safely modify variables without having to worry about memory collisions from separate threads. This is very similar to a mutex lock and is much simpler than event throttling.
+- "busy_f" is an instance of Busy;
+- returns {function} busy_f
+    - calling busy_f will return immediately return Busy.busy if busy_f is being run on a separate thread;
+    - otherwise, busy_f will call f on this thread;
+    - this means that, assuming f is privately stored in the scope of busy_f, there can only ever be 1 instance of f running at a given time;
+    - essentially, busy_f "protects" f from parallel execution;
+    - busy_f will return whatever f returns if it actually runs f;
+    - property {bool} busy_f.busy - whether busy_f is busy;
+- usage: Busy(f)
+- parameters:
+    - {function} f: the function that busy_f will call;
+    - {boolean} is_async: whether busy_f should be async; f will be awaited if it is;
+- members:
+    - {boolean} busy [readonly]: whether busy_f is busy;
+    - {boolean} Busy.m_busy [private]: internal variable for busy_f.busy;
+    - {string} name: the name of busy_f; defaults to f.name;
+*/
+const Busy = (function _s_Busy(){
+    const m_busy = Symbol("Busy.m_busy");
+    return function Busy(f, is_async = false){
+        if(!(f instanceof Function)){
+            throw TypeError("parameter f in Busy(f) must be a function;");
+        }
+        
+        // the primary function
+        const busy_f_b = function busy_f(){
+            if(busy_f[m_busy]){
+                return Busy.busy;
+            }
+            busy_f[m_busy] = true;
+            
+            let res;
+            try{
+                res = f.apply(this, arguments);
+            }
+            // catch any errors f throws, since otherwise we would be perpetually busy doing nothing as soon as f throws an error;
+            catch(e){
+                busy_f[m_busy] = false;
+                // make sure to rethrow since this wrapper is supposed to be non-invasive
+                throw e;
+            }
+            busy_f[m_busy] = false;
+            return res;
+        };
+        // the async version
+        const busy_f_a = async function busy_f(){
+            if(busy_f[m_busy]){
+                return Busy.busy;
+            }
+            busy_f[m_busy] = true;
+            
+            let res;
+            try{
+                res = await f.apply(this, arguments);
+            }
+            // catch any errors f throws, since otherwise we would be perpetually busy doing nothing as soon as f throws an error;
+            catch(e){
+                busy_f[m_busy] = false;
+                // make sure to rethrow since this wrapper is supposed to be non-invasive
+                throw e;
+            }
+            busy_f[m_busy] = false;
+            return res;
+        };
+        // select async or normal
+        const busy_f = (
+            is_async ?
+            busy_f_a :
+            busy_f_b
+        );
+        
+        /** @type {number} */
+        busy_f[m_busy] = false;
+        /** @type {string} */
+        busy_f.name = f.name;
+        Object.defineProperty(busy_f, "busy", {
+            get: (() => busy_f[m_busy]),
+            enumerable: true,
+            configurable: false,
+        });
+        return busy_f;
+    };
+})();
+Busy.busy = Symbol("Busy.m_busy");
+fast_const_prop(Busy, "busy");
+
+/**
+  * Simply make a promise, and extract its resolve and reject functions.
+  * @returns {[Promise, (value: any) => void, (reason?: any) => void]}
+**/
+const q_promise = function(){
+    const p = [];
+    p[0] = new Promise((a_res, a_rej) => {
+        p[1] = a_res;
+        p[2] = a_rej;
+    });
+    return p;
+};
+
+/* ===
+Frame handler
+=== */
+
+/*
+# Class Frame
+A frame handler. This can be used to handle animations, or to gradually do computations that take a long time. frame.start starts the frame handler, causing it to tick every frame. frame.stop stops it.
+- "frame" is an instance of Frame;
+- parameters:
+    - {object} options: overrides the default values for each of the public member variables of frame that are specified in option;
+    - {number} options: if a number for options is passed in, it overrides the default value for mspf;
+- members:
+    - {number} mspf: the number of milliseconds to wait between frames; this number is used to set the tick speed in window.setInterval; defaults to 16;
+    - {number} on_tick: list of functions to run when frame.tick is called; i.e. these functions are run every tick or frame; defaults to [];
+    - {Frame.stop | Frame.break | Frame.continue} on_error: what frame.tick should do when an error occurs in one of the on_tick functions; defaults to Frame.stop;
+    - {Error} error: the last error returned by any call to frame.tick;
+
+# Methods
+- {async () => Symbol | Error} tick:
+    Ticks the function, and runs every function in frame.on_tick, in order.
+    If an error occurs in one of the functions, it will be saved in frame.error, and handled differently depending on the value of frame.on_error:
+    - case Frame.stop: the frame handler stops ticking, the error is saved in tick.error, then the error is returned, and then the rest of the functions in frame.on_tick are skipped;
+    - case Frame.break: the frame handler continues ticking, the error is saved in tick.error, then the error is returned, and then the rest of the functions in frame.on_tick are skipped (for this tick);
+    - case Frame.continue: the frame handler continues ticking, the error is saved in tick.error, and frame.tick continues to the next function in frame.on_tick; since multiple errors can occur, all errors thrown by all functions frame.on_tick will be aggegated together into an AggregateError which will then be saved in frame.error;
+    If any one of the functions returns Busy.busy, execution might stop depending on the value of frame.on_busy:
+    - case Frame.stop: the frame handler stops ticking, Busy.busy is returned, and then the rest of the functions in frame.on_tick are skipped;
+    - case Frame.break: the frame handler continues ticking, Busy.busy is returned, and then the rest of the functions in frame.on_tick are skipped (for this tick);
+    - case Frame.continue: the frame handler continues ticking; so no special treatement is given to the return values; on_tick will return Frame.success no matter how many or how few of the functions return Busy.busy;
+- {() => bool} start:
+    Makes the frame handler start ticking, by running window.setInterval on frame.tick.
+    returns:
+    - {bool} succeeded: whether start successfully started ticking or not;
+- {() => bool} stop:
+    Makes the frame handler stop ticking, by running window.clearInterval on the approriate interval ID.
+    returns:
+    - {bool} succeeded: whether stop successfully stopped ticking or not;
+*/
+const Frame = (function _s_Frame(){
+    const m_id = Symbol("Frame.m_id");
+    const m_running = Symbol("Frame.m_running");
+    const m_on_error = Symbol("Frame.m_on_error");
+    
+    // all valid options;
+    const options_v = [
+        "mspf",
+        "on_tick",
+        "on_error",
+    ];
+    // map of all valid options;
+    const options_m = {};
+    
+    for(let i of options_v){
+        options_m[options_v] = true;
+    }
+    const Frame = function Frame(options){
+        // members need to be explicitly constructed
+        this.on_tick = [];
+        
+        // # Options
+        // mspf short-hand
+        if(options instanceof Number && isFinite(options)){
+            this.mspf = options;
+            return;
+        }
+        // ignore null
+        if(!options) return;
+        // ignore non-objects
+        if(typeof options != "object") return;
+        // the rest
+        for(let i in options){
+            if(options_m[i]){
+                this[i] = options[i];
+            }
+        }
+    };
+    
+    // all symbol values for on_error;
+    const on_error_v = [
+        Symbol("Frame.stop"),
+        Symbol("Frame.break"),
+        Symbol("Frame.continue"),
+    ];
+    // this map is used to check for valid values;
+    const on_error_m = {};
+    const on_error_d = on_error_v[0];
+    // generate the map and also make sure the symbols are accessible as static constant public members of the class;
+    for(let i of on_error_v){
+        const_prop(
+            Frame,
+            i.toString().replace(
+                /^Symbol\(Frame\.|\)$/g,
+                ""
+            ),
+            i,
+        );
+        on_error_m[i] = i;
+    }
+    
+    
+    
+    Frame.success = Symbol("Frame.success");
+    fast_const_prop(Frame, "success");
+    
+    // set up Frame.prototype;
+    // public members
+    const _ = Frame.prototype;
+    _.mspf = 16;
+    _.on_tick = [];
+    // sanitize on_error
+    Object.defineProperty(_, "on_error", {
+        get: function(){
+            return this[m_on_error];
+        },
+        set: function(oe){
+            this[m_on_error] = on_error_m[oe] ?? on_error_d;
+        },
+        enumerable: true,
+        configurable: false,
+    });
+    _.on_error = on_error_d;
+    _.error = new Error("No errors have occured.");
+    
+    // private members
+    _[m_id] = -1;
+    _[m_running] = false;
+    
+    // public methods
+    _.tick = Busy(async function tick(){
+        switch(this[m_on_error]){
+            case Frame.stop: try{
+                if(this.on_tick[Symbol.iterator]){
+                    for(let f of this.on_tick){
+                        await f?.();
+                    }
+                }
+            }
+            catch(e){
+                frame.stop();
+                this.error = e;
+                return e;
+            }
+            break;
+            case Frame.break: try{
+                if(this.on_tick[Symbol.iterator]){
+                    for(let f of this.on_tick){
+                        await f?.();
+                    }
+                }
+            }
+            catch(e){
+                this.error = e;
+                return e;
+            }
+            break;
+            case Frame.continue: {
+                const errors = [];
+                // the outer try-catch handles any errors with the iterator for on_tick array;
+                try{
+                    if(this.on_tick[Symbol.iterator]){
+                        for(let f of this.on_tick){
+                            try{
+                                await f?.();
+                            }
+                            catch(e){
+                                errors.push(e);
+                            }
+                        }
+                    }
+                }
+                catch(e){
+                    errors.push(e);
+                }
+                if(errors.length > 0){
+                    const e = new AggregateError(e, "Tick Errors");
+                    this.error = e;
+                    return e;
+                }
+                break;
+           }
+        }
+        return Frame.success;
+	// this line is important; the ", true" tells Busy that it's an async function;
+    }, true);
+    _.start = function(){
+        if(this[m_running]) return false;
+        this[m_id] = window.setInterval(this.tick.bind(this), this.mspf);
+        this[m_running] = true;
+        return true;
+    };
+    _.stop = function(){
+        if(!this[m_running]) return false;
+        window.clearInterval(this[m_id]);
+        this[m_id] = -1;
+        this[m_running] = false;
+        return true;
+    };
+    
+    // prevent methods from being modified, since that would be silly;
+    fast_const_prop(_, "tick");
+    fast_const_prop(_, "start");
+    fast_const_prop(_, "stop");
+    
+    return Frame;
+})();
+
+// == saver.js ==
+/** @import scan.js */
+
+/**
+ * Class to compress and save text to a file.
+ * It can also load a save from a file. 
+ */
+class Saver{
+    constructor(save_to, load_from){
+        /** The file to save to. @type {FileSystemFileHandle} */
+        this.save_to = save_to;
+        /** The file to load from. @type {FileSystemFileHandle} */
+        this.load_from = load_from;
+    }
+    /** Returns an iterator, which gives you the uncompressed text in chunks. */
+    async save(){
+        const file_writable = await this.save_to.createWritable();
+        
+        const compression_stream = new CompressionStream('gzip');
+        const upload_pipe = compression_stream.readable.pipeTo(file_writable);
+        const writer = compression_stream.writable.getWriter();
+        const encoder = new TextEncoder();
+        
+        for(let i = 0; i < 50_000_000; i++){
+            const chunk_text = `Line ${i}: This is some repetitive text that compresses incredibly well.\n`;
+            await writer.write(encoder.encode(chunk_text));
+        }
+        
+        await writer.close();
+        await upload_pipe;
+        console.log("finished saving");
+    }
+    /** Add a string of text to the uncompressed data which will be saved. CompressionStream will automatically compress it. */
+    async load(){
+        const file = await this.load_from.getFile();
+        
+        const decompression_stream = new DecompressionStream('gzip');
+        const text_decoder_stream = new TextDecoderStream();
+        const readable_text_stream = file.stream()
+        .pipeThrough(decompression_stream)
+        .pipeThrough(text_decoder_stream);
+        const reader = readable_text_stream.getReader();
+        
+        while(true){
+            const {value, done} = await reader.read();
+            if(done)break;
+            this.process(value);
+        }
+        
+        console.log("finished loading");
+    }
+    process(){
+        // does nothing because you are supposed to override this with your script;
+    }
+}
+
+// escape "\" -> "\\", "," -> "\c", ";" -> "\s"; newlines are not needed since MediaWiki does not allow them;
+function c_escape(/** @type {string}*/ text){
+    return text.replace(/\\/g, "\\\\").replace(/,/g, "\\c").replace(/;/g, "\\s");
+}
+function c_unescape(/** @type {string}*/ text){
+    return text.replace(/\\s/g, ";").replace(/\\c/g, ",").replace(/\\\\/g, "\\");
+}
+
+/** @type {string[]} */
+let grabbed = [];
+let prev = "";
+/** set to either get_c or get_n, used in load_chunk to process chunks of data from the save file; @type {(curr: string) => void} */
+let get_f;
+
+// grab save data, split by comma, until we hit a newline
+function get_c(/** @type {string}*/ curr){
+    const both = prev + curr;
+    const grabbed = both.split(",").map(c_unescape);
+    prev = grabbed.pop();
+    const newline = prev.split("\n", 2);
+    if(newline.length === 2){
+        grabbed.push(newline[0]);
+        prev = newline[1];
+        get_f = get_n;
+    }
+}
+
+// grab save data, split by newline
+function get_n(/** @type {string}*/ curr){
+    const both = prev + curr;
+    const grabbed = both.split("\n").map(c_unescape);
+    prev = grabbed.pop();
+    return grabbed;
+}
+
+let new_titles = [];
+
+// convert text (chunk by chunk) into map, overriding the existing map and queue;
+function load_chunk(text){
+    if(get_f === get_c){
+        new_titles.push(...grabbed);
+    }
+    if(get_f === get_n) for(const grabbed_item of grabbed){
+        const t_node = grabbed_item.split(";");
+        map.push({page: c_unescape(t_node[0]), links_i: new Set(
+            t_node[1] ?
+            t_node[1].split(",").map(from_base_64) :
+            []
+        ), links_o: new Set(
+            t_node[2] ?
+            t_node[2].split(",").map(from_base_64) :
+            []
+        )});
+    }
+}
+
+async function load_all(){
+    new_titles = [];
+    get_f = get_c;
+    
+    const saver = new Saver();
+    saver.process = load_chunk;
+    await saver.load();
+    
+    scanner = new Scanner(new_titles);
+    
+    // setup map.ids;
+    map.ids = new Map();
+    map.forEach((node, id) => {
+        if(id === 0) return;
+        map.ids.set(node.page, id - 1);
+    });
+}
+
+
+// == scan_ui.js ==
+// this section is WIP part where I need to rewrite quite a bit;
 // convert map and scanner.to_scan into text, returns that text; also mutates map to be sorted;
 function save_t(){
     // first, sort the map;
@@ -550,9 +1027,6 @@ function load_m(new_map){
 	scanner = new Scanner(new_map[0], scanned);
 }
 
-// TODO: make a function to fuse 2 maps together;
-
-// Global or state variable to store your directory handle once retrieved
 let dir_handle = null;
 
 /**
@@ -631,7 +1105,7 @@ let current_title;
 let refresh = true;
 let scanner_paused = true;
 
-function frame(){
+const view_frame = new Frame({ontick: function my_frame(){
     if(!scanner_paused && scanner){
         if(scanner.done()){
             scanner = null;
@@ -691,7 +1165,7 @@ function frame(){
 	t += `</ul>`;
 	
 	viewer.innerHTML = t;
-}
+},});
 
 window.my_navigate = function my_navigate(new_title){
 	current_title = new_title;
@@ -707,3 +1181,5 @@ async function main(){
     console.log("Done scanning.");
 }
 main();
+
+
