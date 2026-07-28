@@ -65,6 +65,7 @@ uint* base_colors = new uint[16]{
 };
 
 auto recipes = new Color_Recipes();
+auto prev_added = new Color_Exists();
 auto added = new Color_Exists();
 auto exists = new Color_Exists();
 
@@ -78,10 +79,13 @@ void add(uint color, uchar dye){
 bool added_any = true;
 void cycle(){
     for(uint i = 0; i < 1<<24; i++){
+        prev_added->set(i, added->get(i));
+    }
+    for(uint i = 0; i < 1<<24; i++){
         added->set(i, 0);
     }
     for(uint i = 0; i < 1<<24; i++){
-        if(exists->get(i)){
+        if(prev_added->get(i)){
             for(uint j = 0; j < 16; j++){
                 add(mix(i, base_colors[j]), j);
             }
@@ -120,20 +124,96 @@ int main(int argc, char const *argv[]){
 }
 
 /*
+BE results:
+
+Cycle 0
+Added: 42
+Found colors: 58
+Cycle 1
+Added: 48
+Found colors: 106
+Cycle 2
+Added: 112
+Found colors: 218
+Cycle 3
+Added: 288
+Found colors: 506
+Cycle 4
+Added: 704
+Found colors: 1210
+Cycle 5
+Added: 1760
+Found colors: 2970
+Cycle 6
+Added: 4339
+Found colors: 7309
+Cycle 7
+Added: 10637
+Found colors: 17946
+Cycle 8
+Added: 25188
+Found colors: 43134
+Cycle 9
+Added: 40602
+Found colors: 83736
+Cycle 10
+Added: 32817
+Found colors: 116553
+Cycle 11
+Added: 16249
+Found colors: 132802
+Cycle 12
+Added: 8143
+Found colors: 140945
+Cycle 13
+Added: 4019
+Found colors: 144964
+Cycle 14
+Added: 1964
+Found colors: 146928
+Cycle 15
+Added: 1001
+Found colors: 147929
+Cycle 16
+Added: 502
+Found colors: 148431
+Cycle 17
+Added: 210
+Found colors: 148641
+Cycle 18
+Added: 87
+Found colors: 148728
+Cycle 19
+Added: 22
+Found colors: 148750
+Cycle 20
+Added: 0
+Found colors: 148750
+
+
 
 In ''Bedrock Edition'', there are 4732109 obtainable colors of dyed water. Different colors require a different number of dyes to make (the following numbers are all minimums):
-* 16      colors require 1  dye
-* 1928115 colors require 2  dyes
-* 1997347 colors require 3  dyes
-* 641067  colors require 4  dyes
-* 136991  colors require 5  dyes
-* 23708   colors require 6  dyes
-* 3691    colors require 7  dyes
-* 832     colors require 8  dyes
-* 227     colors require 9  dyes
-* 80      colors require 10 dyes
-* 32      colors require 11 dyes
-* 3       colors require 12 dyes
+* 16    colors require 1  dye
+* 42    colors require 2  dyes
+* 48    colors require 3  dyes
+* 112   colors require 4  dyes
+* 288   colors require 5  dyes
+* 704   colors require 6  dyes
+* 1760  colors require 7  dyes
+* 4339  colors require 8  dyes
+* 10637 colors require 9  dyes
+* 25188 colors require 10 dyes
+* 40602 colors require 11 dyes
+* 32817 colors require 12 dyes
+* 16249 colors require 13 dyes
+* 8143  colors require 14 dyes
+* 4019  colors require 15 dyes
+* 1964  colors require 16 dyes
+* 1001  colors require 17 dyes
+* 502   colors require 18 dyes
+* 210   colors require 19 dyes
+* 87    colors require 20 dyes
+* 22    colors require 21 dyes
 
 Adding any due to the cauldron 8 times in a row is guaranteed to set the cauldron's current color to that dye.
 
