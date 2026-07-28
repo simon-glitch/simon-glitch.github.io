@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <set>
 #include "cwr.cpp"
 
@@ -35,7 +36,7 @@ public:
     }
     uchar get(uint idx){
         uchar v = d[idx / 8];
-        return v & (1 << (idx % 8));
+        return (v & (((uchar) 1) << (idx % 8))) >> (idx % 8);
     }
     /** `value` should only be 1 bit */
     void set(uint idx, uchar value){
@@ -239,8 +240,10 @@ auto added = new Color_Exists();
 auto c_exists = new Color_Exists();
 auto mixers = gen_mixes();
 
+uint found = 0;
 void add(uint color, ulng mix_d){
     if(c_exists->get(color)) return;
+    found++;
     added->set(color, 1);
     c_exists->set(color, 1);
     recipes->set(color, mix_d);
@@ -254,9 +257,24 @@ void cycle(){
     for(uint i = 0; i < 1<<24; i++){
         added->set(i, 0);
     }
+    uint prev_c = 0;
     for(uint i = 0; i < 1<<24; i++){
         if(prev_added->get(i)){
-            for(uint j = 0; j < mixer_c; j++){
+            prev_c++;
+        }
+    }
+    uint prev_i = 0;
+    uint prev_li = 0;
+    uint prev_lf = 1000;
+    for(uint i = 0; i < 1<<24; i++){
+        if(prev_added->get(i)){
+            prev_i++;
+            prev_li++;
+            if(prev_li == prev_lf){
+                prev_li = 0;
+                std::cout << prev_i << "/" << prev_c << "; found colors: " << found << std::endl;
+            }
+            for(uint j = 0; j < mixer_c /* this takes forever! */; j++){
                 add(mix(i, mixers[j]), mixers[j].mix_d);
             }
         }
@@ -282,14 +300,34 @@ int main(int argc, char const *argv[]){
         std::cout << "Cycle " << ic << std::endl;
         ic++;
         cycle();
-        uint found = 0;
-        for(uint i = 0; i < 1<<24; i++){
-            if(c_exists->get(i)){
-                found++;
-            }
-        }
         std::cout << "Found colors: " << found << std::endl;
     }
+    
+    
+    uint size = (1<<24) * 8;
+    uint i = 0;
+    uchar* mychars = new uchar[size];
+    for(uint j = 0; j < 1<<24; j++, i += 8){
+        ulng dyem = recipes->d[j];
+        mychars[i    ] = dyem & 0xff00000000000000;
+        mychars[i + 1] = dyem & 0x00ff000000000000;
+        mychars[i + 2] = dyem & 0x0000ff0000000000;
+        mychars[i + 3] = dyem & 0x000000ff00000000;
+        mychars[i + 4] = dyem & 0x00000000ff000000;
+        mychars[i + 5] = dyem & 0x0000000000ff0000;
+        mychars[i + 6] = dyem & 0x000000000000ff00;
+        mychars[i + 7] = dyem & 0x00000000000000ff;
+    }
+    
+    std::cout << "Saving..." << std::endl;
+    
+    auto fout = std::ofstream("je_res.bin");
+    fout << "Testing.";
+    for(i = 0; i < size; i++){
+        fout << mychars[i];
+    }
+    
+    std::cout << "Saved." << std::endl;
     
     return 0;
 }
@@ -297,78 +335,17 @@ int main(int argc, char const *argv[]){
 /*
 JE results:
 
-mixer_c: 39202
+Start of gen
+Pregen done
+mixer_c: 735470
 Main!
 Cycle 0
-Added: 85655
-Found colors: 85671
+Added: 1005595
+Found colors: 1005611
 Cycle 1
-Added: 2370406
-Found colors: 2456077
+Added: 4297125
+Found colors: 5302736
 Cycle 2
-Added: 1335918
-Found colors: 3791995
-Cycle 3
-Added: 427104
-Found colors: 4219099
-Cycle 4
-Added: 137348
-Found colors: 4356447
-Cycle 5
-Added: 47108
-Found colors: 4403555
-Cycle 6
-Added: 19276
-Found colors: 4422831
-Cycle 7
-Added: 9277
-Found colors: 4432108
-Cycle 8
-Added: 4520
-Found colors: 4436628
-Cycle 9
-Added: 2021
-Found colors: 4438649
-Cycle 10
-Added: 863
-Found colors: 4439512
-Cycle 11
-Added: 441
-Found colors: 4439953
-Cycle 12
-Added: 156
-Found colors: 4440109
-Cycle 13
-Added: 57
-Found colors: 4440166
-Cycle 14
-Added: 6
-Found colors: 4440172
-Cycle 15
-Added: 2
-Found colors: 4440174
-Cycle 16
-Added: 0
-Found colors: 4440174
-
-4440174?
-* 85655
-* 2370406
-* 1335918
-* 427104
-* 137348
-* 47108
-* 19276
-* 9277
-* 4520
-* 2021
-* 863
-* 441
-* 156
-* 57
-* 6
-* 2
-
 
 */
 

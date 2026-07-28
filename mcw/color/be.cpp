@@ -15,7 +15,7 @@ public:
     }
     uchar get(uint idx){
         uchar v = d[idx / 2];
-        return v & (15 << (idx % 2));
+        return (v & ((uchar) 15 << (4 * (idx % 2)))) >> (4 * (idx % 2));
     }
     /** `value` should only be 4 bits */
     void set(uint idx, uchar value){
@@ -31,7 +31,7 @@ public:
     }
     uchar get(uint idx){
         uchar v = d[idx / 8];
-        return v & (1 << (idx % 8));
+        return (v & (((uchar) 1) << (idx % 8))) >> (idx % 8);
     }
     /** `value` should only be 1 bit */
     void set(uint idx, uchar value){
@@ -151,68 +151,67 @@ int main(int argc, char const *argv[]){
 BE results:
 
 Cycle 0
-Added: 42
-Found colors: 58
+Added: 120
+Found colors: 136
 Cycle 1
-Added: 48
-Found colors: 106
+Added: 1920
+Found colors: 2056
 Cycle 2
-Added: 112
-Found colors: 218
+Added: 30606
+Found colors: 32662
 Cycle 3
-Added: 288
-Found colors: 506
+Added: 449760
+Found colors: 482422
 Cycle 4
-Added: 704
-Found colors: 1210
+Added: 2656378
+Found colors: 3138800
 Cycle 5
-Added: 1760
-Found colors: 2970
+Added: 1401502
+Found colors: 4540302
 Cycle 6
-Added: 4339
-Found colors: 7309
+Added: 157177
+Found colors: 4697479
 Cycle 7
-Added: 10637
-Found colors: 17946
+Added: 21106
+Found colors: 4718585
 Cycle 8
-Added: 25188
-Found colors: 43134
+Added: 7293
+Found colors: 4725878
 Cycle 9
-Added: 40602
-Found colors: 83736
+Added: 3286
+Found colors: 4729164
 Cycle 10
-Added: 32817
-Found colors: 116553
+Added: 1508
+Found colors: 4730672
 Cycle 11
-Added: 16249
-Found colors: 132802
+Added: 720
+Found colors: 4731392
 Cycle 12
-Added: 8143
-Found colors: 140945
+Added: 381
+Found colors: 4731773
 Cycle 13
-Added: 4019
-Found colors: 144964
+Added: 183
+Found colors: 4731956
 Cycle 14
-Added: 1964
-Found colors: 146928
+Added: 77
+Found colors: 4732033
 Cycle 15
-Added: 1001
-Found colors: 147929
+Added: 46
+Found colors: 4732079
 Cycle 16
-Added: 502
-Found colors: 148431
+Added: 23
+Found colors: 4732102
 Cycle 17
-Added: 210
-Found colors: 148641
+Added: 5
+Found colors: 4732107
 Cycle 18
-Added: 87
-Found colors: 148728
+Added: 2
+Found colors: 4732109
 Cycle 19
-Added: 22
-Found colors: 148750
-Cycle 20
 Added: 0
-Found colors: 148750
+Found colors: 4732109
+Saving...
+Saved.
 
 
 
