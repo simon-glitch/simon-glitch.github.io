@@ -159,7 +159,7 @@ uint mixer_c = 0;
 uint dye_c = 16;
 uint dye_lim = 8;
 float MAGIC_MIX_VIBRANCE = 50.0;
-float MAGIC_COLOR_VIBRANCE = 100.0;
+float MAGIC_COLOR_VIBRANCE = 150.0;
 
 Mixer* gen_mixes(){
     std::set<Mixer> mixer_s = std::set<Mixer>();
