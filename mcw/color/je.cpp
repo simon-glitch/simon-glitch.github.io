@@ -2,7 +2,11 @@
 #include <fstream>
 #include <set>
 #include "cwr.cpp"
+#define IN_JE true
+#include "be.cpp"
+#include <math.h>
 
+namespace je{
 typedef unsigned int uint;
 typedef unsigned short ushort;
 typedef unsigned char uchar;
@@ -154,6 +158,8 @@ uint* base_colors = new uint[16]{
 uint mixer_c = 0;
 uint dye_c = 16;
 uint dye_lim = 8;
+float MAGIC_MIX_VIBRANCE = 75.0;
+float MAGIC_COLOR_VIBRANCE = 60.0;
 
 Mixer* gen_mixes(){
     std::set<Mixer> mixer_s = std::set<Mixer>();
@@ -177,9 +183,19 @@ Mixer* gen_mixes(){
             }
         }
         Mixer mixer = premix(colors, dyem, len);
-        // std::cout << "Inserting..." << std::endl;
-        // if(!mixer_s.contains(mixer)) it seems set::contains is not wanting to work;
-        mixer_s.insert(mixer);
+        // let's filter mixers so only vibrant ones are kept;
+        if(
+            pow(
+                pow((((float) mixer.tr) / ((float) len)) - 127.0, 2) +
+                pow((((float) mixer.tg) / ((float) len)) - 127.0, 2) +
+                pow((((float) mixer.tb) / ((float) len)) - 127.0, 2),
+                0.5
+            ) > MAGIC_MIX_VIBRANCE
+        ){
+            // std::cout << "Inserting..." << std::endl;
+            // if(!mixer_s.contains(mixer)) it seems set::contains is not wanting to work;
+            mixer_s.insert(mixer);
+        }
     }
     mixer_c = mixer_s.size();
     std::cout << "mixer_c: " << mixer_c << std::endl;
@@ -249,9 +265,21 @@ void add(uint color, ulng mix_d){
     recipes->set(color, mix_d);
 }
 
+uint ic = 0;
 bool added_any = true;
 void cycle(){
     for(uint i = 0; i < 1<<24; i++){
+        prev_added->set(i, 0);
+    }
+    for(uint i = 0; i < 1<<24; i++){
+        // prevent BE colors from being checked, because they are highly unlikely to give anything interesting;
+        if(ic > 0 && be::c_exists->get(i)) continue;
+        if(ic > 1 && pow(
+            pow(((i & 0xff0000) >> 16) - 127, 2) +
+            pow(((i & 0x00ff00) >> 8 ) - 127, 2) +
+            pow( (i & 0x0000ff)        - 127, 2),
+            0.5
+        ) > MAGIC_COLOR_VIBRANCE) continue;
         prev_added->set(i, added->get(i));
     }
     for(uint i = 0; i < 1<<24; i++){
@@ -266,6 +294,7 @@ void cycle(){
     uint prev_i = 0;
     uint prev_li = 0;
     uint prev_lf = 1000;
+    
     for(uint i = 0; i < 1<<24; i++){
         if(prev_added->get(i)){
             prev_i++;
@@ -273,12 +302,15 @@ void cycle(){
             if(prev_li == prev_lf){
                 prev_li = 0;
                 std::cout << prev_i << "/" << prev_c << "; found colors: " << found << std::endl;
+                // this is taking too long so I'm limiting it to 9000;
+                // if(prev_i == 9000) break;
             }
             for(uint j = 0; j < mixer_c /* this takes forever! */; j++){
                 add(mix(i, mixers[j]), mixers[j].mix_d);
             }
         }
     }
+    
     uint added_c = 0;
     for(uint i = 0; i < 1<<24; i++){
         if(added->get(i)){
@@ -287,18 +319,19 @@ void cycle(){
     }
     std::cout << "Added: " << added_c << std::endl;
     added_any = (added_c > 0);
+    ic++;
 }
 
 int main(int argc, char const *argv[]){
+    be::main(0, argv);
+    
     std::cout << "Main!" << std::endl;
     
     for(uint i = 0; i < 16; i++){
         add(base_colors[i], (1 << i));
     }
-    uint ic = 0;
     while(added_any){
         std::cout << "Cycle " << ic << std::endl;
-        ic++;
         cycle();
         std::cout << "Found colors: " << found << std::endl;
     }
@@ -331,21 +364,94 @@ int main(int argc, char const *argv[]){
     
     return 0;
 }
+}
+
+int main(int argc, char const *argv[]){
+    int r = je::main(argc, argv);
+    return 0;
+}
+
 
 /*
+g++ je.cpp -O6 -o je.exe
+
 JE results:
 
 Start of gen
 Pregen done
-mixer_c: 735470
+mixer_c: 116629
+
 Main!
 Cycle 0
-Added: 1005595
-Found colors: 1005611
+Added: 283048
+Found colors: 283064
 Cycle 1
-Added: 4297125
-Found colors: 5302736
+1000/8801; found colors: 2669187
+2000/8801; found colors: 3070741
+3000/8801; found colors: 3261280
+4000/8801; found colors: 3429156
+5000/8801; found colors: 3673119
+6000/8801; found colors: 3879789
+7000/8801; found colors: 3978490
+8000/8801; found colors: 4050375
+Added: 3819842
+Found colors: 4102906
 Cycle 2
+1000/546771; found colors: 4134220
+2000/546771; found colors: 4145548
+3000/546771; found colors: 4153023
+4000/546771; found colors: 4158723
+5000/546771; found colors: 4161884
+6000/546771; found colors: 4166601
+7000/546771; found colors: 4168560
+8000/546771; found colors: 4173458
+9000/546771; found colors: 4174694
+10000/546771; found colors: 4177253
+11000/546771; found colors: 4180071
+12000/546771; found colors: 4181704
+13000/546771; found colors: 4186798
+14000/546771; found colors: 4187907
+15000/546771; found colors: 4188978
+16000/546771; found colors: 4195114
+17000/546771; found colors: 4196050
+18000/546771; found colors: 4199546
+19000/546771; found colors: 4200379
+20000/546771; found colors: 4201546
+21000/546771; found colors: 4205058
+22000/546771; found colors: 4206073
+23000/546771; found colors: 4210216
+24000/546771; found colors: 4212135
+25000/546771; found colors: 4213215
+26000/546771; found colors: 4224017
+27000/546771; found colors: 4224946
+28000/546771; found colors: 4226481
+29000/546771; found colors: 4235343
+30000/546771; found colors: 4236388
+31000/546771; found colors: 4242976
+32000/546771; found colors: 4244316
+33000/546771; found colors: 4245594
+34000/546771; found colors: 4253350
+35000/546771; found colors: 4257993
+36000/546771; found colors: 4261352
+37000/546771; found colors: 4264687
+38000/546771; found colors: 4265736
+39000/546771; found colors: 4269232
+40000/546771; found colors: 4270471
+41000/546771; found colors: 4273855
+42000/546771; found colors: 4274606
+43000/546771; found colors: 4281585
+44000/546771; found colors: 4287409
+45000/546771; found colors: 4289910
+46000/546771; found colors: 4295777
+47000/546771; found colors: 4297717
+48000/546771; found colors: 4303135
+49000/546771; found colors: 4304062
+50000/546771; found colors: 4310968
+51000/546771; found colors: 4312079
+52000/546771; found colors: 4318377
+53000/546771; found colors: 4321400
+
+
 
 */
 

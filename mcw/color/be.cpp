@@ -4,6 +4,7 @@
 // #include <filesystem>
 // #include <string>
 
+namespace be{
 typedef unsigned int uint;
 typedef unsigned char uchar;
 
@@ -83,6 +84,9 @@ void add(uint color, uchar dye){
 bool added_any = true;
 void cycle(){
     for(uint i = 0; i < 1<<24; i++){
+        prev_added->set(i, 0);
+    }
+    for(uint i = 0; i < 1<<24; i++){
         prev_added->set(i, added->get(i));
     }
     for(uint i = 0; i < 1<<24; i++){
@@ -124,6 +128,9 @@ int main(int argc, char const *argv[]){
         std::cout << "Found colors: " << found << std::endl;
     }
     
+    // prevent BE from saving while running JE setup;
+    if(argc == 0) return 0;
+    
     uint size = (1<<24) / 2 + (1<<24) / 8;
     uint i = 0;
     uchar* mychars = new uchar[size];
@@ -146,8 +153,18 @@ int main(int argc, char const *argv[]){
     
     return 0;
 }
+}
+
+#ifndef IN_JE
+int main(int argc, char const *argv[]){
+    int r = be::main(argc, argv);
+    return 0;
+}
+#endif
 
 /*
+g++ be.cpp -O4 -o be.exe
+
 BE results:
 
 Cycle 0
@@ -241,4 +258,5 @@ In ''Bedrock Edition'', there are 4732109 obtainable colors of dyed water. Diffe
 Adding any due to the cauldron 8 times in a row is guaranteed to set the cauldron's current color to that dye.
 
 */
+
 
