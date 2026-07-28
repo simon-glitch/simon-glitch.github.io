@@ -163,7 +163,7 @@ int main(int argc, char const *argv[]){
 #endif
 
 /*
-g++ be.cpp -O4 -o be.exe
+g++ be.cpp -O6 -o be.exe
 
 BE results:
 

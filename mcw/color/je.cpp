@@ -158,8 +158,8 @@ uint* base_colors = new uint[16]{
 uint mixer_c = 0;
 uint dye_c = 16;
 uint dye_lim = 8;
-float MAGIC_MIX_VIBRANCE = 75.0;
-float MAGIC_COLOR_VIBRANCE = 60.0;
+float MAGIC_MIX_VIBRANCE = 50.0;
+float MAGIC_COLOR_VIBRANCE = 100.0;
 
 Mixer* gen_mixes(){
     std::set<Mixer> mixer_s = std::set<Mixer>();
@@ -275,11 +275,11 @@ void cycle(){
         // prevent BE colors from being checked, because they are highly unlikely to give anything interesting;
         if(ic > 0 && be::c_exists->get(i)) continue;
         if(ic > 1 && pow(
-            pow(((i & 0xff0000) >> 16) - 127, 2) +
-            pow(((i & 0x00ff00) >> 8 ) - 127, 2) +
-            pow( (i & 0x0000ff)        - 127, 2),
+            pow(((float) ((i & 0xff0000) >> 16)) - 127.0, 2) +
+            pow(((float) ((i & 0x00ff00) >> 8 )) - 127.0, 2) +
+            pow(((float) ((i & 0x0000ff)      )) - 127.0, 2),
             0.5
-        ) > MAGIC_COLOR_VIBRANCE) continue;
+        ) < MAGIC_COLOR_VIBRANCE) continue;
         prev_added->set(i, added->get(i));
     }
     for(uint i = 0; i < 1<<24; i++){

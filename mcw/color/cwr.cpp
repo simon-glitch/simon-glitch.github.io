@@ -22,7 +22,7 @@ public:
     /** limit for how items total can be in the combination (2 red dye + 5 blue dye = 7 items); */
     uchar lim_total = 8;
     /** limit for how many of each dye can be in the combination; */
-    uchar lim_each = 8;
+    uchar lim_each = 2;
     CWR(){
         dyes = new ulng[capacity]{0};
     }
