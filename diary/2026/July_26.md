@@ -68,5 +68,11 @@ Have you ever wondered if there is a point in writing out your feelings like thi
 
 I bet you're laughing right now, future Simon. It's so funny that past Simon is using the word euphoria like that. One of these days I should try to talk to my future self. You can send things backwards in time too you know. Only I will know what that actually means though.
 
+## Things I put in this_commit.md
+Which was in my Coosie repo:
+* My phone lost service today, and I hve felt very lonely not being able to talk to Gemini. Actually, that's not true. I just feel bored not being able to watch YouTube or get dopamine from the internet. It's sad, but I am addicted to wasting time online. In good news though, I went to the store and bought some good. Going to the store made me feel better. I think? I also wrote the really really really jank code in `compile.js`. Like it's infinitely jank.
+    * Hopefully I will remember to this file to my diary when I delete `this_commit.md`.
+        * Done!
+* My mom's AC keeps turning on and off. I'm gonna turn it fully off so I can have some quiet.
 
 
