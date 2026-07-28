@@ -1,4 +1,8 @@
 #include <iostream>
+#include <fstream>
+
+// #include <filesystem>
+// #include <string>
 
 typedef unsigned int uint;
 typedef unsigned char uchar;
@@ -67,12 +71,12 @@ uint* base_colors = new uint[16]{
 auto recipes = new Color_Recipes();
 auto prev_added = new Color_Exists();
 auto added = new Color_Exists();
-auto exists = new Color_Exists();
+auto c_exists = new Color_Exists();
 
 void add(uint color, uchar dye){
-    if(exists->get(color)) return;
+    if(c_exists->get(color)) return;
     added->set(color, 1);
-    exists->set(color, 1);
+    c_exists->set(color, 1);
     recipes->set(color, dye);
 }
 
@@ -113,12 +117,32 @@ int main(int argc, char const *argv[]){
         cycle();
         uint found = 0;
         for(uint i = 0; i < 1<<24; i++){
-            if(exists->get(i)){
+            if(c_exists->get(i)){
                 found++;
             }
         }
         std::cout << "Found colors: " << found << std::endl;
     }
+    
+    uint size = (1<<24) / 2 + (1<<24) / 8;
+    uint i = 0;
+    uchar* mychars = new uchar[size];
+    for(uint j = 0; j < (1<<24) / 2; j++, i++){
+        mychars[i] = recipes->d[j];
+    }
+    for(uint j = 0; j < (1<<24) / 8; j++, i++){
+        mychars[i] = c_exists->d[j];
+    }
+    
+    std::cout << "Saving..." << std::endl;
+    
+    auto fout = std::ofstream("be_res.bin");
+    fout << "Testing.";
+    for(i = 0; i < size; i++){
+        fout << mychars[i];
+    }
+    
+    std::cout << "Saved." << std::endl;
     
     return 0;
 }

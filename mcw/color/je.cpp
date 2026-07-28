@@ -156,7 +156,9 @@ uint dye_lim = 8;
 
 Mixer* gen_mixes(){
     std::set<Mixer> mixer_s = std::set<Mixer>();
+    std::cout << "Start of gen" << std::endl;
     CWR* cwr = pregen();
+    std::cout << "Pregen done" << std::endl;
     for(uint i = 0; i < cwr->size; i++){
         ulng dyem = cwr->dyes[i];
         uchar len = 0;
@@ -170,9 +172,11 @@ Mixer* gen_mixes(){
             while(k > 0){
                 colors[colori] = base_colors[j];
                 colori++;
+                k--;
             }
         }
         Mixer mixer = premix(colors, dyem, len);
+        // std::cout << "Inserting..." << std::endl;
         // if(!mixer_s.contains(mixer)) it seems set::contains is not wanting to work;
         mixer_s.insert(mixer);
     }
@@ -232,13 +236,13 @@ Mixer* gen_mixes(){
 auto recipes = new Color_Recipes();
 auto prev_added = new Color_Exists();
 auto added = new Color_Exists();
-auto exists = new Color_Exists();
+auto c_exists = new Color_Exists();
 auto mixers = gen_mixes();
 
 void add(uint color, ulng mix_d){
-    if(exists->get(color)) return;
+    if(c_exists->get(color)) return;
     added->set(color, 1);
-    exists->set(color, 1);
+    c_exists->set(color, 1);
     recipes->set(color, mix_d);
 }
 
@@ -280,7 +284,7 @@ int main(int argc, char const *argv[]){
         cycle();
         uint found = 0;
         for(uint i = 0; i < 1<<24; i++){
-            if(exists->get(i)){
+            if(c_exists->get(i)){
                 found++;
             }
         }
