@@ -1,5 +1,9 @@
 #include <iostream>
 #include <fstream>
+#include <string>
+#include <vector>
+using std::string;
+using std::vector;
 
 // #include <filesystem>
 // #include <string>
@@ -64,10 +68,29 @@ uint* base_colors = new uint[16]{
     0x1d80f9, /* cyan */
     0x3dd8fe, /* light blue */
     0x262eb0, /* blue */
-    0xaa8bf3, /* lime */
-    0xbd4ec7, /* yellow */
-    0xb83289, /* orange */
+    0xaa8bf3, /* purple */
+    0xbd4ec7, /* magenta */
+    0xb83289, /* pink */
 };
+string* base_colors_names = new string[16]{
+    string("white"), /* 0xf0f0f0 */
+    string("light gray"), /* 0x979d9d */
+    string("gray"), /* 0x325483 */
+    string("black"), /* 0x211d1d */
+    string("brown"), /* 0x524f47 */
+    string("red"), /* 0xaa443c */
+    string("orange"), /* 0xdab33a */
+    string("yellow"), /* 0x9c9c16 */
+    string("lime"), /* 0x1fc780 */
+    string("green"), /* 0x167c5e */
+    string("cyan"), /* 0x1d80f9 */
+    string("light blue"), /* 0x3dd8fe */
+    string("blue"), /* 0x262eb0 */
+    string("lime"), /* 0xaa8bf3 */
+    string("yellow"), /* 0xbd4ec7 */
+    string("orange"), /* 0xb83289 */
+};
+
 
 auto recipes = new Color_Recipes();
 auto prev_added = new Color_Exists();
@@ -109,6 +132,154 @@ void cycle(){
     added_any = (added_c > 0);
 }
 
+class Recipe{
+    uint res = 0;
+    // limit the recursion;
+    uint depth = 0;
+    uint depth_lim = 10;
+    // dyes, in reverse order;
+    vector<uint> done_dyes;
+    // dyes, in reverse order;
+    vector<uint> dyes;
+    // how many tries it took to find a valid recipe;
+    uint tries = 0;
+    uint trylim = 0;
+    Recipe(uint a_res){
+        res = a_res;
+        done_dyes = vector<uint>();
+        dyes = vector<uint>();
+    }
+    void try_last(uint color){
+        if(!c_exists->get(color)) return;
+        uchar dye_i = recipes->get(color);
+        uint last = base_colors[dye_i];
+        uint cr = (color & 0xff0000) >> 16;
+        uint cg = (color & 0x00ff00) >> 8;
+        uint cb = (color & 0x0000ff);
+        uint lr = (last  & 0xff0000) >> 16;
+        uint lg = (last  & 0x00ff00) >> 8;
+        uint lb = (last  & 0x0000ff);
+        if(cr == lr && cg == lg && cb == lb){
+            done_dyes = dyes;
+            return;
+        }
+        if(depth == 0){
+            return;
+        }
+        tries++;
+        if(tries >= trylim){
+            return;
+        }
+        
+        dyes.push_back(dye_i);
+        depth--;
+        uint r = 2 * cr - lr;
+        uint g = 2 * cg - lg;
+        uint b = 2 * cb - lb;
+        try_last((r << 16) | (g << 8) | b);
+        // there are 18 cases to handle the round down operation applied to each color channel;
+        bool r0 = ~(lr & 1);
+        bool r1 =  (lr & 1) & ~(r & 1);
+        bool g0 = ~(lg & 1);
+        bool g1 =  (lg & 1) & ~(g & 1);
+        bool b0 = ~(lb & 1);
+        bool b1 =  (lb & 1) & ~(b & 1);
+        if(r0){
+            try_last(((r-1) << 16) | ((g) << 8) | (b));
+            if(g0){
+                try_last(((r-1) << 16) | ((g-1) << 8) | (b));
+                if(b0){
+                    try_last(((r-1) << 16) | ((g-1) << 8) | (b-1));
+                }
+                else if(b1){
+                    try_last(((r-1) << 16) | ((g-1) << 8) | (b+1));
+                }
+            }
+            else if(g1){
+                try_last(((r-1) << 16) | ((g+1) << 8) | (b));
+                if(b0){
+                    try_last(((r-1) << 16) | ((g+1) << 8) | (b-1));
+                }
+                else if(b1){
+                    try_last(((r-1) << 16) | ((g+1) << 8) | (b+1));
+                }
+            }
+            else{
+                if(b0){
+                    try_last(((r-1) << 16) | ((g) << 8) | (b-1));
+                }
+                else if(b1){
+                    try_last(((r-1) << 16) | ((g) << 8) | (b+1));
+                }
+            }
+        }
+        else if(r1){
+            try_last(((r+1) << 16) | ((g) << 8) | (b));
+            if(g0){
+                try_last(((r+1) << 16) | ((g-1) << 8) | (b));
+                if(b0){
+                    try_last(((r+1) << 16) | ((g-1) << 8) | (b-1));
+                }
+                else if(b1){
+                    try_last(((r+1) << 16) | ((g-1) << 8) | (b+1));
+                }
+            }
+            else if(g1){
+                try_last(((r+1) << 16) | ((g+1) << 8) | (b));
+                if(b0){
+                    try_last(((r+1) << 16) | ((g+1) << 8) | (b-1));
+                }
+                else if(b1){
+                    try_last(((r+1) << 16) | ((g+1) << 8) | (b+1));
+                }
+            }
+            else{
+                if(b0){
+                    try_last(((r+1) << 16) | ((g) << 8) | (b-1));
+                }
+                else if(b1){
+                    try_last(((r+1) << 16) | ((g) << 8) | (b+1));
+                }
+            }
+        }
+        else{
+            if(g0){
+                try_last(((r) << 16) | ((g-1) << 8) | (b));
+                if(b0){
+                    try_last(((r) << 16) | ((g-1) << 8) | (b-1));
+                }
+                else if(b1){
+                    try_last(((r) << 16) | ((g-1) << 8) | (b+1));
+                }
+            }
+            else if(g1){
+                try_last(((r) << 16) | ((g+1) << 8) | (b));
+                if(b0){
+                    try_last(((r) << 16) | ((g+1) << 8) | (b-1));
+                }
+                else if(b1){
+                    try_last(((r) << 16) | ((g+1) << 8) | (b+1));
+                }
+            }
+            else{
+                if(b0){
+                    try_last(((r) << 16) | ((g) << 8) | (b-1));
+                }
+                else if(b1){
+                    try_last(((r) << 16) | ((g) << 8) | (b+1));
+                }
+            }
+        }
+        depth++;
+        dyes.pop_back();
+    }
+    void search(){
+        while(depth <= depth_lim && done_dyes.size() == 0){
+            try_last(res);
+            depth++;
+        }
+    }
+};
 
 int main(int argc, char const *argv[]){
     for(uint i = 0; i < 16; i++){
@@ -153,9 +324,10 @@ int main(int argc, char const *argv[]){
     
     return 0;
 }
-}
+};
 
-#ifndef IN_JE
+#if IN_JE
+#else
 int main(int argc, char const *argv[]){
     int r = be::main(argc, argv);
     return 0;
@@ -233,27 +405,26 @@ Saved.
 
 
 In ''Bedrock Edition'', there are 4732109 obtainable colors of dyed water. Different colors require a different number of dyes to make (the following numbers are all minimums):
-* 16    colors require 1  dye
-* 42    colors require 2  dyes
-* 48    colors require 3  dyes
-* 112   colors require 4  dyes
-* 288   colors require 5  dyes
-* 704   colors require 6  dyes
-* 1760  colors require 7  dyes
-* 4339  colors require 8  dyes
-* 10637 colors require 9  dyes
-* 25188 colors require 10 dyes
-* 40602 colors require 11 dyes
-* 32817 colors require 12 dyes
-* 16249 colors require 13 dyes
-* 8143  colors require 14 dyes
-* 4019  colors require 15 dyes
-* 1964  colors require 16 dyes
-* 1001  colors require 17 dyes
-* 502   colors require 18 dyes
-* 210   colors require 19 dyes
-* 87    colors require 20 dyes
-* 22    colors require 21 dyes
+* 16      colors require 1  dye
+* 120     colors require 2  dyes
+* 1920    colors require 3  dyes
+* 30606   colors require 4  dyes
+* 449760  colors require 5  dyes
+* 2656378 colors require 6  dyes
+* 1401502 colors require 7  dyes
+* 157177  colors require 8  dyes
+* 21106   colors require 9  dyes
+* 7293    colors require 10 dyes
+* 3286    colors require 11 dyes
+* 1508    colors require 12 dyes
+* 720     colors require 13 dyes
+* 381     colors require 14 dyes
+* 183     colors require 15 dyes
+* 77      colors require 16 dyes
+* 46      colors require 17 dyes
+* 23      colors require 18 dyes
+* 5       colors require 19 dyes
+* 2       colors require 20 dyes
 
 Adding any due to the cauldron 8 times in a row is guaranteed to set the cauldron's current color to that dye.
 
