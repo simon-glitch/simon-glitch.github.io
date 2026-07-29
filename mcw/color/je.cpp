@@ -110,10 +110,6 @@ public:
         }
         /* if this function gets called, we force a to go into the heap no matter what; we're assuming it most go in the heap; */
         void add(Node a){
-            if(c0 == this){
-                std::cout << "how does this even happen? the only assignment to c0 is NEW node; NEW; as in you know, unallocated memory; that kind of new;" << std::endl;
-            }
-            
             if(a.md > md){
                 float s_md = a.md;
                 a.md = md;
@@ -143,68 +139,52 @@ public:
             // if this the worst heap remove method ever???
             if(!c0 && !c1){
                 // (X-X)
-                std::cout << "this code is the most sus" << std::endl;
                 return true;
             }
             else if(c0 && !c1){
-                std::cout << "checkpoint 1" << std::endl;
-                if(c0 == this){
-                    std::cout << "oh no!" << std::endl;
-                    abort();
-                }
                 md = c0->md;
                 mixer = c0->mixer;
                 bool gone = c0->remove();
-                std::cout << "post 1" << std::endl;
                 if(gone){
                     delete c0;
                     c0 = 0;
-                    std::cout << "it ran tho!" << std::endl;
                 }
             }
             else if(!c0 && c1){
-                std::cout << "checkpoint 2" << std::endl;
                 md = c1->md;
                 mixer = c1->mixer;
                 bool gone = c1->remove();
-                std::cout << "post 2" << std::endl;
                 if(gone){
                     delete c1;
                     c1 = 0;
-                    std::cout << "it ran tho!" << std::endl;
                 }
             }
             // figure out which child is bigger, since it's about to get a promotion;
             else if(c0->md > c1->md){
-                std::cout << "checkpoint 3" << std::endl;
                 // promote c0 and then remove() it;
                 md = c0->md;
                 mixer = c0->mixer;
                 bool gone = c0->remove();
-                std::cout << "post 3" << std::endl;
                 if(gone){
                     delete c0;
                     c0 = 0;
-                    std::cout << "it ran tho!" << std::endl;
                 }
             }
             else{
-                std::cout << "checkpoint 4" << std::endl;
                 // promote c1 and then remove() it;
                 md = c1->md;
                 mixer = c1->mixer;
                 bool gone = c1->remove();
-                std::cout << "post 4" << std::endl;
                 if(gone){
                     delete c1;
                     c1 = 0;
-                    std::cout << "it ran tho!" << std::endl;
                 }
             }
             return false;
         }
         void push(Mixer* mixers, uint& j){
             mixers[j] = mixer;
+            // j++;
             if(c0){
                 c0->push(mixers, j);
             }
@@ -579,6 +559,7 @@ int main(int argc, char const *argv[]){
     std::cout << "Cats: ";
     for(uint i = 0; i < 64; i++){
         std::cout << cat.heaps[i].size << ",";
+        cat.heaps[i].finalize();
     }
     std::cout << std::endl;
     
