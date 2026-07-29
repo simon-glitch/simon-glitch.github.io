@@ -156,17 +156,19 @@ public:
     vector<uint> done_dyes;
     // dyes, in reverse order;
     vector<uint> dyes;
-    // how many tries it took to find a valid recipe;
-    uint tries = 0;
-    uint trylim = 0;
     Recipe(uint a_res){
         res = a_res;
         done_dyes = vector<uint>();
         dyes = vector<uint>();
     }
     void try_last(uint color){
+        std::cout << "enter try_last" << std::endl;
+        std::cout << "color = " << color << std::endl;
         uchar data = recipes->get(color);
-        if(!(data & 0x80)) return;
+        std::cout << "data = " << data << std::endl;
+        if(!(data & 0x80)){
+            std::cout << "color does not exist" << std::endl;
+        }
         uchar dye_i = data & 0x0f;
         uint last = base_colors[dye_i];
         uint cr = (color & 0xff0000) >> 16;
@@ -176,23 +178,26 @@ public:
         uint lg = (last  & 0x00ff00) >> 8;
         uint lb = (last  & 0x0000ff);
         if(cr == lr && cg == lg && cb == lb){
+            std::cout << "done? dye = " << dye_i << std::endl;
+            std::cout << "cr = " << cr << std::endl;
+            std::cout << "cg = " << cg << std::endl;
+            std::cout << "cb = " << cb << std::endl;
             done_dyes = dyes;
             return;
         }
         if(depth == 0){
-            return;
-        }
-        tries++;
-        if(tries >= trylim){
+            std::cout << "depth = 0" << std::endl;
             return;
         }
         
         dyes.push_back(dye_i);
         depth--;
+        std::cout << "begin business" << std::endl;
         uint r = ((2 * cr - lr) & 0xfe) | ((data & 0x40) >> 6);
         uint g = ((2 * cg - lg) & 0xfe) | ((data & 0x20) >> 5);
         uint b = ((2 * cb - lb) & 0xfe) | ((data & 0x10) >> 4);
         try_last((r << 16) | (g << 8) | b);
+        std::cout << "end business" << std::endl;
         depth++;
         dyes.pop_back();
     }
@@ -256,24 +261,25 @@ int main(int argc, char const *argv[]){
             your_c *= 16;
             your_c += my_decode[*it];
         }
+        if(!your_c) continue;
         bool e = recipes->exists(your_c);
-        std::cout << "You color = " << your_c << std::endl;
         std::cout << "You color exists? " << (e ? "Yes." : "No.") << std::endl;
         if(!e) continue;
         Recipe find_boi = Recipe(your_c);
         find_boi.search();
-        std::cout << "Tries: " << find_boi.tries << std::endl;
         
         std::cout << "Recipe [";
         for(auto it = find_boi.done_dyes.begin(); it != find_boi.done_dyes.end(); it++){
             std::cout << (*it) << ",";
         }
         std::cout << "]" << std::endl;
+        /*
         std::cout << "Dyes? [";
         for(auto it = find_boi.dyes.begin(); it != find_boi.dyes.end(); it++){
             std::cout << (*it) << ",";
         }
         std::cout << "]" << std::endl;
+        */
     }
     
     return 0;
