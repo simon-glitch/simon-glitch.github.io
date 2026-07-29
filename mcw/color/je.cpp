@@ -158,7 +158,7 @@ public:
     };
     /** a list of 64 sets, each of which contains 0 or more mixers; sets are used to prevent duplicates; */
     Heap* heaps;
-    uint heap_lim = 16;
+    uint heap_lim = 256;
     Catifier(){
         heaps = new Heap[64];
         for(uchar i = 0; i < 64; i++){
@@ -398,7 +398,7 @@ void cycle(){
     }
     for(uint i = 0; i < 1<<24; i++){
         // prevent BE colors from being checked, because they are highly unlikely to give anything interesting;
-        if(ic > 1 && be::c_exists->get(i)) continue;
+        // if(ic > 1 && be::c_exists->get(i)) continue;
         prev_added->set(i, added->get(i));
     }
     for(uint i = 0; i < 1<<24; i++){
