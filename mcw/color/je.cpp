@@ -96,18 +96,88 @@ public:
             z = (color & 0x0000ff);
         }
     };
+    class Node{
+    public:
+        Mixer mixer;
+        float md;
+        Node* c0;
+        Node* c1;
+        Node(Mixer a_mixer, float a_md){
+            mixer = a_mixer;
+            md = a_md;
+        }
+        /* if this function gets called, we force a to go into the heap no matter what; we're assuming it most go in the heap; */
+        void add(Node& a){
+            if(a.md > md){
+                float s_md = a.md;
+                a.md = md;
+                md = s_md;
+                Mixer s_mixer = a.mixer;
+                a.mixer = mixer;
+                mixer = s_mixer;
+            }
+            // now a has the pathetic small node data that we MUST push down;
+            // check if the children even exist;
+            if(!c0){
+                c0 = new Node(a);
+            }
+            else if(!c1){
+                c1 = new Node(a);
+            }
+            // order doesn't matter, so push to whichever child is first;
+            else if(c0){
+                c0->add(a);
+            }
+            else{
+                c1->add(a);
+            }
+        }
+        // the only place where any amount of memory-leak safety will actually be practice;
+        void remove(){
+            // if this the worst heap remove method ever???
+            if(!c0 && !c1){
+                // (X-X)
+                delete this;
+            }
+            else if(c0 && !c1){
+                md = c0->md;
+                mixer = c0->mixer;
+                delete c0;
+                c0 = 0;
+            }
+            else if(!c0 && c1){
+                md = c1->md;
+                mixer = c1->mixer;
+                delete c1;
+                c1 = 0;
+            }
+            // figure out which child is bigger, since it's about to get a promotion;
+            else if(c0->md > c1->md){
+                // promote c0 and then remove() it;
+                md = c0->md;
+                mixer = c0->mixer;
+                c0->remove();
+            }
+            else{
+                // promote c1 and then remove() it;
+                md = c1->md;
+                mixer = c1->mixer;
+                c1->remove();
+            }
+        }
+    };
+    // this is a max heap;
     class Heap{
     public:
         /** the mixers in the category; */
-        std::vector<Mixer> mixers;
-        /** distance from each mixer to the core; */
-        std::vector<float> ds;
+        Node* root;
+        /** the mixers in the category; */
+        uint size = 0;
+        /** the mixers in the category; */
+        Mixer* mixers;
         /** the center of the category; */
         Point core;
-        Heap(){
-            mixers = std::vector<Mixer>();
-            ds = std::vector<float>();
-        }
+        Heap(){}
         float dist(Point a, Point b){
             return pow(
                 (a.x - b.x) * (a.x - b.x) +
@@ -118,42 +188,16 @@ public:
         }
         void add(Mixer mixer, uint& heap_lim){
             float d = dist(core, Point(mixer));
-            /*
-            uint l = 0;
-            uint r = ds.size();
-            while(l != r){
-                uint m = (l + r) / 2;
-                if(d < ds[m]){
-                    r = m;
-                }
-                else{
-                    l = m;
-                }
+            if(!root){
+                root = new Node(mixer, d);
             }
-            */
-            // I'm doing a binary search, and then splicing a vector;
-            // there is no helping it though, since the vectors are so small;
-            // I've decided linear search is just better;
-            // the alternative is to implement this as an actual heap, in case you were wondering;
-            uint i = 0;
-            auto it = ds.begin();
-            for(; it != ds.end() && d >= *it; it++){
-                i++;
+            else if(size < heap_lim){
+                root->add(Node(mixer, d));
             }
-            if(i == ds.size()){
-                // don't add items that don't fit;
-                if(i < heap_lim){
-                    mixers.push_back(mixer);
-                    ds.push_back(d);
-                }
-                return;
+            else if(d < root->md){
+                root->remove();
+                root->add(Node(mixer, d));
             }
-            mixers.pop_back();
-            ds.pop_back();
-            auto mit = mixers.begin();
-            while(i > 0) mit++, i--;
-            mixers.insert(mit, mixer);
-            ds.insert(it, d);
         }
     };
     /** a list of 64 sets, each of which contains 0 or more mixers; sets are used to prevent duplicates; */
