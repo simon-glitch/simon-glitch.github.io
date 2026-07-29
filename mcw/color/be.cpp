@@ -18,10 +18,10 @@ public:
      * format per char:
      * - (ordered from most significant bit to least significant bit)
      * - first  bit: whether the color exists;
-     * - second bit: the last bit of the r channel of the source color;
-     * - third  bit: the last bit of the g channel of the source color;
-     * - fourth bit: the last bit of the b channel of the source color;
-     * - last four bits: the index of the last dye added to get the result color;
+     * - second bit: whether the different between r values on the last step was odd;
+     * - third  bit: whether the different between g values on the last step was odd;
+     * - fourth bit: whether the different between b values on the last step was odd;
+     * - last four bits: the index of the last dye added;
      */
     uchar* d;
     Color_Recipes(){
@@ -126,11 +126,12 @@ void cycle(){
     for(uint i = 0; i < 1<<24; i++){
         if(prev_added->get(i)){
             for(uint j = 0; j < 16; j++){
-                add(mix(i, base_colors[j]), (
+                uint c = base_colors[j];
+                add(mix(i, c), (
                     0x80 |
-                    ((i & 0x010000) >> 10) |
-                    ((i & 0x000100) >>  3) |
-                    ((i & 0x000001) <<  4) |
+                    ((((i & 0xff0000) >> 16) - ((c & 0xff0000) >> 16) & 1) << 6) |
+                    ((((i & 0x00ff00) >>  8) - ((c & 0x00ff00) >>  8) & 1) << 5) |
+                    ((((i & 0x0000ff)      ) - ((c & 0x0000ff)      ) & 1) << 4) |
                     j
                 ));
             }
@@ -145,6 +146,19 @@ void cycle(){
     std::cout << "Added: " << added_c << std::endl;
     added_any = (added_c > 0);
 }
+
+/*
+5 + 10 -> 15 -> 7
+i see 10 and 7, want to find 5
+7 + (7 - 10) -> 4;
+4 will go to 5 correctly;
+
+6 + 11 -> 17 -> 8
+i see 11 and 8, want to find 6
+8 + (8 - 11) -> 5;
+
+
+*/
 
 class Recipe{
 public:
@@ -162,42 +176,43 @@ public:
         dyes = vector<uint>();
     }
     void try_last(uint color){
-        std::cout << "enter try_last" << std::endl;
-        std::cout << "color = " << color << std::endl;
+        // std::cout << "enter try_last" << std::endl;
+        // std::cout << "color = " << color << std::endl;
         uchar data = recipes->get(color);
-        std::cout << "data = " << data << std::endl;
+        // std::cout << "data = " << data << std::endl;
         if(!(data & 0x80)){
-            std::cout << "color does not exist" << std::endl;
+            // std::cout << "color does not exist" << std::endl;
+            return;
         }
         uchar dye_i = data & 0x0f;
         uint last = base_colors[dye_i];
-        uint cr = (color & 0xff0000) >> 16;
-        uint cg = (color & 0x00ff00) >> 8;
-        uint cb = (color & 0x0000ff);
-        uint lr = (last  & 0xff0000) >> 16;
-        uint lg = (last  & 0x00ff00) >> 8;
-        uint lb = (last  & 0x0000ff);
+        int cr = (color & 0xff0000) >> 16;
+        int cg = (color & 0x00ff00) >> 8;
+        int cb = (color & 0x0000ff);
+        int lr = (last  & 0xff0000) >> 16;
+        int lg = (last  & 0x00ff00) >> 8;
+        int lb = (last  & 0x0000ff);
         if(cr == lr && cg == lg && cb == lb){
-            std::cout << "done? dye = " << dye_i << std::endl;
-            std::cout << "cr = " << cr << std::endl;
-            std::cout << "cg = " << cg << std::endl;
-            std::cout << "cb = " << cb << std::endl;
+            // std::cout << "done? dye = " << dye_i << std::endl;
+            // std::cout << "cr = " << cr << std::endl;
+            // std::cout << "cg = " << cg << std::endl;
+            // std::cout << "cb = " << cb << std::endl;
             done_dyes = dyes;
             return;
         }
         if(depth == 0){
-            std::cout << "depth = 0" << std::endl;
+            // std::cout << "depth = 0" << std::endl;
             return;
         }
         
         dyes.push_back(dye_i);
         depth--;
-        std::cout << "begin business" << std::endl;
-        uint r = ((2 * cr - lr) & 0xfe) | ((data & 0x40) >> 6);
-        uint g = ((2 * cg - lg) & 0xfe) | ((data & 0x20) >> 5);
-        uint b = ((2 * cb - lb) & 0xfe) | ((data & 0x10) >> 4);
+        // std::cout << "begin business" << std::endl;
+        uint r = (2 * cr - lr) + ((data & 0x40) >> 6);
+        uint g = (2 * cg - lg) + ((data & 0x20) >> 5);
+        uint b = (2 * cb - lb) + ((data & 0x10) >> 4);
         try_last((r << 16) | (g << 8) | b);
-        std::cout << "end business" << std::endl;
+        // std::cout << "end business" << std::endl;
         depth++;
         dyes.pop_back();
     }
@@ -246,15 +261,34 @@ int main(int argc, char const *argv[]){
     
     std::cout << "Saved." << std::endl;
     
+    for(uint i = 0; i < 1<<24; i++){
+        if(!(prev_added->get(i))) continue;
+        
+        std::cout << "One of the last found colors: " << i << std::endl;
+        
+        Recipe find_boi = Recipe(i);
+        find_boi.search();
+        
+        std::cout << "Recipe [";
+        for(auto it = find_boi.done_dyes.begin(); it != find_boi.done_dyes.end(); it++){
+            std::cout << base_colors_names[*it] << ",";
+        }
+        std::cout << "]" << std::endl;
+    }
+    
+    
+    uint* my_decode = new uint[256]{0};
+    my_decode['0'] = 0x0; my_decode['1'] = 0x1; my_decode['2'] = 0x2; my_decode['3'] = 0x3;
+    my_decode['4'] = 0x4; my_decode['5'] = 0x5; my_decode['6'] = 0x6; my_decode['7'] = 0x7;
+    my_decode['8'] = 0x8; my_decode['9'] = 0x9; my_decode['a'] = 0xa; my_decode['b'] = 0xb;
+    my_decode['c'] = 0xc; my_decode['d'] = 0xd; my_decode['e'] = 0xe; my_decode['f'] = 0xf;
+    
     while(true){
         std::cout << "Which color would you like to search for (hex)?" << std::endl;
         string c_hex = "";
         std::cin >> c_hex;
-        uint* my_decode = new uint[256]{0};
-        my_decode['0'] = 0x0; my_decode['1'] = 0x1; my_decode['2'] = 0x2; my_decode['3'] = 0x3;
-        my_decode['4'] = 0x4; my_decode['5'] = 0x5; my_decode['6'] = 0x6; my_decode['7'] = 0x7;
-        my_decode['8'] = 0x8; my_decode['9'] = 0x9; my_decode['a'] = 0xa; my_decode['b'] = 0xb;
-        my_decode['c'] = 0xc; my_decode['d'] = 0xd; my_decode['e'] = 0xe; my_decode['f'] = 0xf;
+        if(c_hex.size() == 0) continue;
+        
         // fun fact: this code shouldn't be able to hit an error;
         uint your_c = 0;
         for(auto it = c_hex.begin(); it != c_hex.end(); it++){
@@ -270,13 +304,13 @@ int main(int argc, char const *argv[]){
         
         std::cout << "Recipe [";
         for(auto it = find_boi.done_dyes.begin(); it != find_boi.done_dyes.end(); it++){
-            std::cout << (*it) << ",";
+            std::cout << base_colors_names[*it] << ",";
         }
         std::cout << "]" << std::endl;
         /*
         std::cout << "Dyes? [";
         for(auto it = find_boi.dyes.begin(); it != find_boi.dyes.end(); it++){
-            std::cout << (*it) << ",";
+            std::cout << base_colors_names[*it] << ",";
         }
         std::cout << "]" << std::endl;
         */
@@ -296,6 +330,22 @@ int main(int argc, char const *argv[]){
 
 /*
 g++ be.cpp -O6 -o be.exe
+
+The last 2 colors:
+* 23b7a7 -> [lime,  cyan, lime,  light blue, lime,   white,  lime,  lime,   lime,   white,  lime, white,  orange, orange, orange, white,  white, white,  light blue,]
+* b9ddbe -> [white, lime, white, orange,     orange, orange, white, orange, orange, orange, red,  orange, orange, red,    red,    yellow, black, yellow, red,       ]
+
+Recipe examples to test:
+* 0x777777 -> [light   gray,   brown,      brown,  orange,            ]
+* 0x345678 -> [black,  cyan,   light blue, red,    lime,              ]
+* 0xbeab43 -> [orange, orange, green,      orange, light gray, orange,]
+* 0xaa3377 -> [orange, orange, red,        black,  red,        yellow,]
+* 0x33ccbb -> [light   blue,   lime,       lime,   lime,       orange,]
+* 0x6355ac -> [blue,   lime,   yellow,     orange, orange,            ]
+* 0x534ec2 -> [blue,   yellow, light blue, blue,   yellow,            ]
+* 0x267ed1 -> [cyan,   light   blue,       black,  blue,       blue,  ]
+
+
 
 BE results:
 
