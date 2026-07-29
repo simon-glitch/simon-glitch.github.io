@@ -105,9 +105,15 @@ public:
         Node(Mixer a_mixer, float a_md){
             mixer = a_mixer;
             md = a_md;
+            c0 = 0;
+            c1 = 0;
         }
         /* if this function gets called, we force a to go into the heap no matter what; we're assuming it most go in the heap; */
-        void add(Node& a){
+        void add(Node a){
+            if(c0 == this){
+                std::cout << "how does this even happen? the only assignment to c0 is NEW node; NEW; as in you know, unallocated memory; that kind of new;" << std::endl;
+            }
+            
             if(a.md > md){
                 float s_md = a.md;
                 a.md = md;
@@ -119,13 +125,13 @@ public:
             // now a has the pathetic small node data that we MUST push down;
             // check if the children even exist;
             if(!c0){
-                c0 = new Node(a);
+                c0 = new Node(a.mixer, a.md);
             }
             else if(!c1){
-                c1 = new Node(a);
+                c1 = new Node(a.mixer, a.md);
             }
-            // order doesn't matter, so push to whichever child is first;
-            else if(c0){
+            // maybe order does matter, especially since BOTH children exist;
+            else if(c0->md < c1->md){
                 c0->add(a);
             }
             else{
@@ -133,37 +139,69 @@ public:
             }
         }
         // the only place where any amount of memory-leak safety will actually be practice;
-        void remove(){
+        bool remove(){
             // if this the worst heap remove method ever???
             if(!c0 && !c1){
                 // (X-X)
-                delete this;
+                std::cout << "this code is the most sus" << std::endl;
+                return true;
             }
             else if(c0 && !c1){
+                std::cout << "checkpoint 1" << std::endl;
+                if(c0 == this){
+                    std::cout << "oh no!" << std::endl;
+                    abort();
+                }
                 md = c0->md;
                 mixer = c0->mixer;
-                delete c0;
-                c0 = 0;
+                bool gone = c0->remove();
+                std::cout << "post 1" << std::endl;
+                if(gone){
+                    delete c0;
+                    c0 = 0;
+                    std::cout << "it ran tho!" << std::endl;
+                }
             }
             else if(!c0 && c1){
+                std::cout << "checkpoint 2" << std::endl;
                 md = c1->md;
                 mixer = c1->mixer;
-                delete c1;
-                c1 = 0;
+                bool gone = c1->remove();
+                std::cout << "post 2" << std::endl;
+                if(gone){
+                    delete c1;
+                    c1 = 0;
+                    std::cout << "it ran tho!" << std::endl;
+                }
             }
             // figure out which child is bigger, since it's about to get a promotion;
             else if(c0->md > c1->md){
+                std::cout << "checkpoint 3" << std::endl;
                 // promote c0 and then remove() it;
                 md = c0->md;
                 mixer = c0->mixer;
-                c0->remove();
+                bool gone = c0->remove();
+                std::cout << "post 3" << std::endl;
+                if(gone){
+                    delete c0;
+                    c0 = 0;
+                    std::cout << "it ran tho!" << std::endl;
+                }
             }
             else{
+                std::cout << "checkpoint 4" << std::endl;
                 // promote c1 and then remove() it;
                 md = c1->md;
                 mixer = c1->mixer;
-                c1->remove();
+                bool gone = c1->remove();
+                std::cout << "post 4" << std::endl;
+                if(gone){
+                    delete c1;
+                    c1 = 0;
+                    std::cout << "it ran tho!" << std::endl;
+                }
             }
+            return false;
         }
         void push(Mixer* mixers, uint& j){
             mixers[j] = mixer;
@@ -196,15 +234,15 @@ public:
             );
         }
         void add(Mixer mixer, uint& heap_lim){
-            std::cout <<
-            "Adding (" << mixer.tr <<
-            "," << mixer.tg <<
-            "," << mixer.tb <<
-            "," << mixer.tm <<
-            "," << mixer.len <<
-            "," << mixer.mix_d <<
-            ") / " <<
-            size << std::endl;
+            // std::cout <<
+            // "Adding (" << mixer.tr <<
+            // "," << mixer.tg <<
+            // "," << mixer.tb <<
+            // "," << mixer.tm <<
+            // "," << mixer.len <<
+            // "," << mixer.mix_d <<
+            // ") / " <<
+            // size << std::endl;
             float d = dist(core, Point(mixer));
             if(!root){
                 root = new Node(mixer, d);
