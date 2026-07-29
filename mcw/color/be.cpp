@@ -147,10 +147,11 @@ void cycle(){
 }
 
 class Recipe{
+public:
     uint res = 0;
     // temporary way to prevent infinite loop;
     uint depth = 0;
-    uint depth_lim = 10;
+    uint depth_lim = 100;
     // dyes, in reverse order;
     vector<uint> done_dyes;
     // dyes, in reverse order;
@@ -239,6 +240,41 @@ int main(int argc, char const *argv[]){
     }
     
     std::cout << "Saved." << std::endl;
+    
+    while(true){
+        std::cout << "Which color would you like to search for (hex)?" << std::endl;
+        string c_hex = "";
+        std::cin >> c_hex;
+        uint* my_decode = new uint[256]{0};
+        my_decode['0'] = 0x0; my_decode['1'] = 0x1; my_decode['2'] = 0x2; my_decode['3'] = 0x3;
+        my_decode['4'] = 0x4; my_decode['5'] = 0x5; my_decode['6'] = 0x6; my_decode['7'] = 0x7;
+        my_decode['8'] = 0x8; my_decode['9'] = 0x9; my_decode['a'] = 0xa; my_decode['b'] = 0xb;
+        my_decode['c'] = 0xc; my_decode['d'] = 0xd; my_decode['e'] = 0xe; my_decode['f'] = 0xf;
+        // fun fact: this code shouldn't be able to hit an error;
+        uint your_c = 0;
+        for(auto it = c_hex.begin(); it != c_hex.end(); it++){
+            your_c *= 16;
+            your_c += my_decode[*it];
+        }
+        bool e = recipes->exists(your_c);
+        std::cout << "You color = " << your_c << std::endl;
+        std::cout << "You color exists? " << (e ? "Yes." : "No.") << std::endl;
+        if(!e) continue;
+        Recipe find_boi = Recipe(your_c);
+        find_boi.search();
+        std::cout << "Tries: " << find_boi.tries << std::endl;
+        
+        std::cout << "Recipe [";
+        for(auto it = find_boi.done_dyes.begin(); it != find_boi.done_dyes.end(); it++){
+            std::cout << (*it) << ",";
+        }
+        std::cout << "]" << std::endl;
+        std::cout << "Dyes? [";
+        for(auto it = find_boi.dyes.begin(); it != find_boi.dyes.end(); it++){
+            std::cout << (*it) << ",";
+        }
+        std::cout << "]" << std::endl;
+    }
     
     return 0;
 }
