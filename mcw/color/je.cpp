@@ -184,7 +184,8 @@ public:
         }
         void push(Mixer* mixers, uint& j){
             mixers[j] = mixer;
-            // j++;
+            j++;
+            // std::cout << "j=" << j << std::endl;
             if(c0){
                 c0->push(mixers, j);
             }
@@ -226,6 +227,7 @@ public:
             float d = dist(core, Point(mixer));
             if(!root){
                 root = new Node(mixer, d);
+                size++;
             }
             else if(size < heap_lim){
                 Node node = Node(mixer, d);
@@ -242,11 +244,8 @@ public:
             mixers = new Mixer[size];
             uint j = 0;
             root->push(mixers, j);
-            std::cout << "Check if jank code works? ";
-            if(j == size){
-                std::cout << "It does!";
-            }
-            else{
+            // std::cout << "Check if jank code works? ";
+            if(j != size){
                 std::cout << "It does not, good luck making it work.";
             }
             for(uint i = 0; i < size; i++){
@@ -482,6 +481,7 @@ auto mixers = gen_mixes();
 
 uint found = 0;
 void add(uint color, ulng mix_d){
+    std::cout << "add" << std::endl;
     if(c_exists->get(color)) return;
     found++;
     added->set(color, 1);
@@ -511,7 +511,7 @@ void cycle(){
     }
     uint prev_i = 0;
     uint prev_li = 0;
-    uint prev_lf = 10000;
+    uint prev_lf = 1;
     
     for(uint i = 0; i < 1<<24; i++){
         if(prev_added->get(i)){
@@ -531,10 +531,9 @@ void cycle(){
                 // this is taking too long so let's filter the mixers spatially;
                 uchar cat_num = cat.cat_calc(i);
                 auto cs = cat.heaps[cat_num];
-                // std::cout << "? " << ((uint) cati[j]);
-                // std::cout << " ? " << cs.size() << std::endl;
                 for(uint j = 0; j < cs.size; j++){
                     add(mix(i, cs.mixers[j]), cs.mixers[i].mix_d);
+                    std::cout << "i=" << i << ", j=" << j << std::endl;
                 }
             }
         }
