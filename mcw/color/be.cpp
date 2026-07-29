@@ -14,18 +14,28 @@ typedef unsigned char uchar;
 
 class Color_Recipes{
 public:
+    /**
+     * format per char:
+     * - (ordered from most significant bit to least significant bit)
+     * - first  bit: whether the color exists;
+     * - second bit: the last bit of the r channel of the source color;
+     * - third  bit: the last bit of the g channel of the source color;
+     * - fourth bit: the last bit of the b channel of the source color;
+     * - last four bits: the index of the last dye added to get the result color;
+     */
     uchar* d;
     Color_Recipes(){
-        d = new uchar[(1<<24) / 2]{0};
+        d = new uchar[1<<24]{0};
+    }
+    bool exists(uint idx){
+        return d[idx] & 0x80;
     }
     uchar get(uint idx){
-        uchar v = d[idx / 2];
-        return (v & ((uchar) 15 << (4 * (idx % 2)))) >> (4 * (idx % 2));
+        return d[idx];
     }
-    /** `value` should only be 4 bits */
+    // make sure the first bit of value is 1;
     void set(uint idx, uchar value){
-        d[idx / 2] &= ~(((uchar) 15) << (4 * (idx % 2)));
-        d[idx / 2] |= value << (4 * (idx % 2));
+        d[idx] = value;
     }
 };
 class Color_Exists{
@@ -95,12 +105,10 @@ string* base_colors_names = new string[16]{
 auto recipes = new Color_Recipes();
 auto prev_added = new Color_Exists();
 auto added = new Color_Exists();
-auto c_exists = new Color_Exists();
 
 void add(uint color, uchar dye){
-    if(c_exists->get(color)) return;
+    if(recipes->exists(color)) return;
     added->set(color, 1);
-    c_exists->set(color, 1);
     recipes->set(color, dye);
 }
 
@@ -118,7 +126,13 @@ void cycle(){
     for(uint i = 0; i < 1<<24; i++){
         if(prev_added->get(i)){
             for(uint j = 0; j < 16; j++){
-                add(mix(i, base_colors[j]), j);
+                add(mix(i, base_colors[j]), (
+                    0x80 |
+                    ((i & 0x010000) >> 10) |
+                    ((i & 0x000100) >>  3) |
+                    ((i & 0x000001) <<  4) |
+                    j
+                ));
             }
         }
     }
@@ -134,7 +148,7 @@ void cycle(){
 
 class Recipe{
     uint res = 0;
-    // limit the recursion;
+    // temporary way to prevent infinite loop;
     uint depth = 0;
     uint depth_lim = 10;
     // dyes, in reverse order;
@@ -150,8 +164,9 @@ class Recipe{
         dyes = vector<uint>();
     }
     void try_last(uint color){
-        if(!c_exists->get(color)) return;
-        uchar dye_i = recipes->get(color);
+        uchar data = recipes->get(color);
+        if(!(data & 0x80)) return;
+        uchar dye_i = data & 0x0f;
         uint last = base_colors[dye_i];
         uint cr = (color & 0xff0000) >> 16;
         uint cg = (color & 0x00ff00) >> 8;
@@ -173,111 +188,16 @@ class Recipe{
         
         dyes.push_back(dye_i);
         depth--;
-        uint r = 2 * cr - lr;
-        uint g = 2 * cg - lg;
-        uint b = 2 * cb - lb;
+        uint r = ((2 * cr - lr) & 0xfe) | ((data & 0x40) >> 6);
+        uint g = ((2 * cg - lg) & 0xfe) | ((data & 0x20) >> 5);
+        uint b = ((2 * cb - lb) & 0xfe) | ((data & 0x10) >> 4);
         try_last((r << 16) | (g << 8) | b);
-        // there are 18 cases to handle the round down operation applied to each color channel;
-        bool r0 = ~(lr & 1);
-        bool r1 =  (lr & 1) & ~(r & 1);
-        bool g0 = ~(lg & 1);
-        bool g1 =  (lg & 1) & ~(g & 1);
-        bool b0 = ~(lb & 1);
-        bool b1 =  (lb & 1) & ~(b & 1);
-        if(r0){
-            try_last(((r-1) << 16) | ((g) << 8) | (b));
-            if(g0){
-                try_last(((r-1) << 16) | ((g-1) << 8) | (b));
-                if(b0){
-                    try_last(((r-1) << 16) | ((g-1) << 8) | (b-1));
-                }
-                else if(b1){
-                    try_last(((r-1) << 16) | ((g-1) << 8) | (b+1));
-                }
-            }
-            else if(g1){
-                try_last(((r-1) << 16) | ((g+1) << 8) | (b));
-                if(b0){
-                    try_last(((r-1) << 16) | ((g+1) << 8) | (b-1));
-                }
-                else if(b1){
-                    try_last(((r-1) << 16) | ((g+1) << 8) | (b+1));
-                }
-            }
-            else{
-                if(b0){
-                    try_last(((r-1) << 16) | ((g) << 8) | (b-1));
-                }
-                else if(b1){
-                    try_last(((r-1) << 16) | ((g) << 8) | (b+1));
-                }
-            }
-        }
-        else if(r1){
-            try_last(((r+1) << 16) | ((g) << 8) | (b));
-            if(g0){
-                try_last(((r+1) << 16) | ((g-1) << 8) | (b));
-                if(b0){
-                    try_last(((r+1) << 16) | ((g-1) << 8) | (b-1));
-                }
-                else if(b1){
-                    try_last(((r+1) << 16) | ((g-1) << 8) | (b+1));
-                }
-            }
-            else if(g1){
-                try_last(((r+1) << 16) | ((g+1) << 8) | (b));
-                if(b0){
-                    try_last(((r+1) << 16) | ((g+1) << 8) | (b-1));
-                }
-                else if(b1){
-                    try_last(((r+1) << 16) | ((g+1) << 8) | (b+1));
-                }
-            }
-            else{
-                if(b0){
-                    try_last(((r+1) << 16) | ((g) << 8) | (b-1));
-                }
-                else if(b1){
-                    try_last(((r+1) << 16) | ((g) << 8) | (b+1));
-                }
-            }
-        }
-        else{
-            if(g0){
-                try_last(((r) << 16) | ((g-1) << 8) | (b));
-                if(b0){
-                    try_last(((r) << 16) | ((g-1) << 8) | (b-1));
-                }
-                else if(b1){
-                    try_last(((r) << 16) | ((g-1) << 8) | (b+1));
-                }
-            }
-            else if(g1){
-                try_last(((r) << 16) | ((g+1) << 8) | (b));
-                if(b0){
-                    try_last(((r) << 16) | ((g+1) << 8) | (b-1));
-                }
-                else if(b1){
-                    try_last(((r) << 16) | ((g+1) << 8) | (b+1));
-                }
-            }
-            else{
-                if(b0){
-                    try_last(((r) << 16) | ((g) << 8) | (b-1));
-                }
-                else if(b1){
-                    try_last(((r) << 16) | ((g) << 8) | (b+1));
-                }
-            }
-        }
         depth++;
         dyes.pop_back();
     }
     void search(){
-        while(depth <= depth_lim && done_dyes.size() == 0){
-            try_last(res);
-            depth++;
-        }
+        depth = depth_lim;
+        try_last(res);
     }
 };
 
@@ -292,7 +212,7 @@ int main(int argc, char const *argv[]){
         cycle();
         uint found = 0;
         for(uint i = 0; i < 1<<24; i++){
-            if(c_exists->get(i)){
+            if(recipes->exists(i)){
                 found++;
             }
         }
@@ -302,15 +222,13 @@ int main(int argc, char const *argv[]){
     // prevent BE from saving while running JE setup;
     if(argc == 0) return 0;
     
-    uint size = (1<<24) / 2 + (1<<24) / 8;
+    uint size = (1<<24);
     uint i = 0;
     uchar* mychars = new uchar[size];
-    for(uint j = 0; j < (1<<24) / 2; j++, i++){
+    for(uint j = 0; j < (1<<24); j++, i++){
         mychars[i] = recipes->d[j];
     }
-    for(uint j = 0; j < (1<<24) / 8; j++, i++){
-        mychars[i] = c_exists->d[j];
-    }
+    
     
     std::cout << "Saving..." << std::endl;
     
