@@ -136,8 +136,11 @@ public:
             // I've decided linear search is just better;
             // the alternative is to implement this as an actual heap, in case you were wondering;
             uint i = 0;
+            std::cout << "i" << std::endl;
             auto it = ds.begin();
+            std::cout << (it != ds.end()) << std::endl;
             for(; d >= *it && it != ds.end(); it++){
+                std::cout << "loop" << std::endl;
                 i++;
             }
             std::cout << "?" << std::endl;
