@@ -256,7 +256,7 @@ public:
     };
     /** a list of 64 sets, each of which contains 0 or more mixers; sets are used to prevent duplicates; */
     Heap* heaps;
-    uint heap_lim = 120;
+    uint heap_lim = 1024;
     Catifier(){
         heaps = new Heap[64];
         for(uchar i = 0; i < 64; i++){
