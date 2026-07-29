@@ -478,10 +478,11 @@ auto prev_added = new Color_Exists();
 auto added = new Color_Exists();
 auto c_exists = new Color_Exists();
 auto mixers = gen_mixes();
+uint ic = 0;
 
 uint found = 0;
 void add(uint color, ulng mix_d){
-    std::cout << "add" << std::endl;
+    if(ic > 0) std::cout << "add" << std::endl;
     if(c_exists->get(color)) return;
     found++;
     added->set(color, 1);
@@ -489,7 +490,6 @@ void add(uint color, ulng mix_d){
     recipes->set(color, mix_d);
 }
 
-uint ic = 0;
 bool added_any = true;
 void cycle(){
     for(uint i = 0; i < 1<<24; i++){
@@ -532,8 +532,13 @@ void cycle(){
                 uchar cat_num = cat.cat_calc(i);
                 auto cs = cat.heaps[cat_num];
                 for(uint j = 0; j < cs.size; j++){
-                    add(mix(i, cs.mixers[j]), cs.mixers[i].mix_d);
                     std::cout << "i=" << i << ", j=" << j << std::endl;
+                    Mixer mixer = cs.mixers[j];
+                    std::cout << "step 1 / 3" << std::endl;
+                    auto res = mix(i, mixer);
+                    std::cout << "step 2 / 3" << std::endl;
+                    add(res, mixer.mix_d);
+                    std::cout << "step 3 / 3" << std::endl;
                 }
             }
         }
