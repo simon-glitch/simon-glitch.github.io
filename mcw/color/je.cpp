@@ -96,37 +96,73 @@ public:
             z = (color & 0x0000ff);
         }
     };
-    class Sorter{
+    class Heap{
     public:
-        uchar idx = 0;
-        float d = 0.0;
-        Sorter(uchar a_idx, Point a, Point b){
-            idx = a_idx;
-            dist(a, b);
+        /** the mixers in the category; */
+        std::vector<Mixer> mixers;
+        /** distance from each mixer to the core; */
+        std::vector<float> ds;
+        /** the center of the category; */
+        Point core;
+        Heap(){
+            mixers = std::vector<Mixer>();
+            ds = std::vector<float>();
         }
-        void dist(Point a, Point b){
-            d = pow(
+        float dist(Point a, Point b){
+            return pow(
                 (a.x - b.x) * (a.x - b.x) +
                 (a.y - b.y) * (a.y - b.y) +
                 (a.z - b.z) * (a.z - b.z),
                 0.5
             );
         }
-        bool operator<(Sorter b){
-            return d < b.d;
+        void add(Mixer mixer, uint& heap_lim){
+            float d = dist(core, Point(mixer));
+            /*
+            uint l = 0;
+            uint r = ds.size();
+            while(l != r){
+                uint m = (l + r) / 2;
+                if(d < ds[m]){
+                    r = m;
+                }
+                else{
+                    l = m;
+                }
+            }
+            */
+            // I'm doing a binary search, and then splicing a vector;
+            // there is no helping it though, since the vectors are so small;
+            // I've decided linear search is just better;
+            // the alternative is to implement this as an actual heap, in case you were wondering;
+            uint i = 0;
+            auto it = ds.begin();
+            for(; d >= *it && it != ds.end(); it++){
+                i++;
+            }
+            if(i == ds.size()){
+                // don't add items that don't fit;
+                if(i < heap_lim){
+                    mixers.push_back(mixer);
+                    ds.push_back(d);
+                }
+                return;
+            }
+            mixers.pop_back();
+            ds.pop_back();
+            auto mit = mixers.begin();
+            while(i > 0) mit++, i--;
+            mixers.insert(mit, mixer);
+            ds.insert(it, d);
         }
     };
     /** a list of 64 sets, each of which contains 0 or more mixers; sets are used to prevent duplicates; */
-    std::set<Mixer>* cat;
-    uint cat_lim = 16;
-    uchar cat_num = 4;
-    /** the "centers" of the categories; */
-    Point* cores;
+    Heap* heaps;
+    uint heap_lim = 16;
     Catifier(){
-        cat = new std::set<Mixer>[64];
-        cores = new Point[64];
+        heaps = new Heap[64];
         for(uchar i = 0; i < 64; i++){
-            cores[i] = Point(
+            heaps[i].core = Point(
                 32 + 64 * ((i & 0x30) >> 4),
                 32 + 64 * ((i & 0xc) >> 2),
                 32 + 64 * (i & 0x3)
@@ -134,60 +170,24 @@ public:
         }
     }
     /** returns a list of all 64 category indices, sorted by how close the point is to each category's core; */
-    uchar* cat_calc(Point p){
-        std::vector<Sorter> s = {};
-        for(uchar i = 0; i < 64; i++){
-            s.push_back(Sorter(i, p, cores[i]));
-        }
-        
-        std::sort<std::vector<Sorter>::iterator>(s.begin(), s.end());
-        
-        uchar* res = new uchar[64];
-        uchar i = 0;
-        for(auto it = s.begin(); it != s.end(); it++, i++){
-            res[i] = it->idx;
-        }
-        return res;
+    uchar cat_calc(Point p){
+        return (
+            (((uchar) p.x) / 64) * 16 +
+            (((uchar) p.y) / 64) * 4 +
+            (((uchar) p.z) / 64)
+        );
+    }
+    uchar cat_calc(uint color){
+        return (
+            (((uchar) ((color & 0xc00000) >> 22)) / 64) * 16 +
+            (((uchar) ((color & 0x00c000) >> 14)) / 64) *  4 +
+            (((uchar) ((color & 0x0000c0) >>  6)) / 64)
+        );
     }
     void add_mixer(Mixer mixer){
         for(uchar i = 0; i < 64; i++){
-            cat[i].insert(mixer);
+            heaps[i].add(mixer, heap_lim);
         }
-    }
-    /** make it so only the (cat_lim) best items of each set are kept */
-    void better_cat(){
-        for(uchar i = 0; i < 64; i++){
-            auto &cs = cat[i];
-            Mixer* c = new Mixer[cs.size()];
-            uchar j = 0;
-            for(auto it = cs.begin(); it != cs.end(); it++, j++){
-                std::cout << "A" << cs.size() << std::endl;
-                c[j] = *it;
-            }
-            std::vector<Sorter> s = {};
-            for(j = 0; j < cs.size(); j++){
-                std::cout << "B" << std::endl;
-                s.push_back(Sorter(j, cores[i], Point(c[j])));
-            }
-            
-            std::sort<std::vector<Sorter>::iterator>(s.begin(), s.end());
-            
-            uchar size = cat_lim < cs.size() ? cat_lim : cs.size();
-            Mixer* res = new Mixer[size];
-            j = 0;
-            for(auto it = s.begin(); it != s.end(); it++, j++){
-                std::cout << "C" << std::endl;
-                res[j] = c[it->idx];
-            }
-            cs = std::set<Mixer>();
-            for(j = 0; j < size; j++){
-                std::cout << "D" << std::endl;
-                cs.insert(res[j]);
-            }
-        }
-    }
-    uchar* cat_calc(uint color){
-        return cat_calc(Point(color));
     }
 };
 Catifier cat = Catifier();
