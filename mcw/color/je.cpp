@@ -136,16 +136,11 @@ public:
             // I've decided linear search is just better;
             // the alternative is to implement this as an actual heap, in case you were wondering;
             uint i = 0;
-            std::cout << "i" << std::endl;
             auto it = ds.begin();
-            std::cout << (it != ds.end()) << std::endl;
-            for(; d >= *it && it != ds.end(); it++){
-                std::cout << "loop" << std::endl;
+            for(; it != ds.end() && d >= *it; it++){
                 i++;
             }
-            std::cout << "?" << std::endl;
             if(i == ds.size()){
-                std::cout << "if" << std::endl;
                 // don't add items that don't fit;
                 if(i < heap_lim){
                     mixers.push_back(mixer);
@@ -153,7 +148,6 @@ public:
                 }
                 return;
             }
-            std::cout << "implied else" << std::endl;
             mixers.pop_back();
             ds.pop_back();
             auto mit = mixers.begin();
