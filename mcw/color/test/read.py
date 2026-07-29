@@ -94,7 +94,7 @@ def test():
             i //= 2
         print(hex(color), hex(res[si]), color == res[si])
 
-# stuff()
+stuff()
 # test()
 
 """

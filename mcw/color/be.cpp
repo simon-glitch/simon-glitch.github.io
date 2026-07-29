@@ -336,16 +336,28 @@ The last 2 colors:
 * b9ddbe -> [white, lime, white, orange,     orange, orange, white, orange, orange, orange, red,  orange, orange, red,    red,    yellow, black, yellow, red,       ]
 
 Recipe examples to test:
-* 0x777777 -> [light   gray,   brown,      brown,  orange,            ]
-* 0x345678 -> [black,  cyan,   light blue, red,    lime,              ]
-* 0xbeab43 -> [orange, orange, green,      orange, light gray, orange,]
-* 0xaa3377 -> [orange, orange, red,        black,  red,        yellow,]
-* 0x33ccbb -> [light   blue,   lime,       lime,   lime,       orange,]
-* 0x6355ac -> [blue,   lime,   yellow,     orange, orange,            ]
-* 0x534ec2 -> [blue,   yellow, light blue, blue,   yellow,            ]
-* 0x267ed1 -> [cyan,   light   blue,       black,  blue,       blue,  ]
+* 0xbeab43 -> [orange,     orange,     green,      orange, light gray, orange,]
+* 0xaa3377 -> [orange,     orange,     red,        black,  red,        yellow,]
+* 0x777777 -> [light gray, brown,      brown,      orange,                    ]
+* 0x6355ac -> [blue,       lime,       yellow,     orange, orange,            ]
+* 0x534ec2 -> [blue,       yellow,     light blue, blue,   yellow,            ]
+* 0x345678 -> [black,      cyan,       light blue, red,    lime,              ]
+* 0x33ccbb -> [light blue, lime,       lime,       lime,   orange,            ]
+* 0x267ed1 -> [cyan,       light blue, black,      blue,   blue,              ]
 
+in game:
+a3d8d5;
+9d8624;
+8d8078;
+7cb864;
+687e7c;
+617e9e;
+575b2e;
+4dbb63;
+1f80e2;
+1f6fe0;
 
+100% fail;
 
 BE results:
 
