@@ -270,283 +270,294 @@ test_mixes = set(mix(a,b) for a,b in zip(sum(([a]*len(dyes) for a in dyes), []),
 
 print(mixes == test_mixes)
 
-"""
-Our base colors:
-f0f0f0ff
-979d9dff
-9c9c16ff
-dab33aff
-aa443cff
-b83289ff
-bd4ec7ff
-aa8bf3ff
-524f47ff
-211d1dff
-325483ff
-262eb0ff
-1d80f9ff
-3dd8feff
-1fc780ff
-167c5eff
+base = [
+    0xf0f0f0,
+    0x979d9d,
+    0x9c9c16,
+    0xdab33a,
+    0xaa443c,
+    0xb83289,
+    0xbd4ec7,
+    0xaa8bf3,
+    0x524f47,
+    0x211d1d,
+    0x325483,
+    0x262eb0,
+    0x1d80f9,
+    0x3dd8fe,
+    0x1fc780,
+    0x167c5e,
+]
+grid = [
+    0xf0f0f0,
+    0xc3c6c6,
+    0xc6c683,
+    0x276abe,
+    0x2157d4,
+    0x1d80f9,
+    0x2dacfb,
+    0x1ea3bc,
+    0x197eab,
+    0x5c8e87,
+    0x7b9999,
+    0x63629a,
+    0x6a59c1,
+    0xe5d195,
+    0x6d67e0,
+    0x6385f6,
+    0x96e4f7,
+    0x6abacd,
+    0x4793a2,
+    0x2f7a8d,
+    0x3796c0,
+    0x3183d7,
+    0x2dacfb,
+    0x3dd8fe,
+    0xcd9a96,
+    0x2ecfbf,
+    0x29aaae,
+    0x6cba8a,
+    0x8bc59c,
+    0x738e9d,
+    0x7a85c3,
+    0x7d93e2,
+    0x73b1f8,
+    0x87dbb8,
+    0x5bb28e,
+    0xd491bc,
+    0x388b63,
+    0x20724e,
+    0x288d81,
+    0x227a98,
+    0x1ea3bc,
+    0x2ecfbf,
+    0x1fc780,
+    0x1aa16f,
+    0x5db14b,
+    0x7cbd5d,
+    0xd69fdb,
+    0x64855e,
+    0x6b7c84,
+    0x6e8aa3,
+    0x64a9b9,
+    0x83b6a7,
+    0x568c7d,
+    0x346552,
+    0x1b4c3d,
+    0x246870,
+    0x1e5587,
+    0xcdbdf1,
+    0x197eab,
+    0x29aaae,
+    0x1aa16f,
+    0x167c5e,
+    0x598c3a,
+    0x78974c,
+    0x60604d,
+    0x675773,
+    0x696592,
+    0x6083a8,
+    0xc3c6c6,
+    0xc6c683,
+    0x999c59,
+    0x77752e,
+    0x5e5c19,
+    0x67784c,
+    0x616563,
+    0x5c8e87,
+    0x6cba8a,
+    0x5db14b,
+    0x598c3a,
+    0x979d9d,
+    0x9c9c16,
+    0xbba728,
+    0xa37029,
+    0xaa674f,
+    0xac756e,
+    0xa39384,
+    0xe5d195,
+    0xb8a86b,
+    0x968140,
+    0x7d682b,
+    0x747672,
+    0x86835e,
+    0x807075,
+    0x7b9999,
+    0x8bc59c,
+    0x7cbd5d,
+    0x78974c,
+    0xbba728,
+    0xdab33a,
+    0xc27b3b,
+    0xc97261,
+    0x5c5d5d,
+    0xcb8080,
+    0xc29f96,
+    0xcd9a96,
+    0xa0706c,
+    0x7e4941,
+    0x65302c,
+    0x6e4c5f,
+    0x683976,
+    0x63629a,
+    0x738e9d,
+    0xa19f9b,
+    0x647890,
+    0x64855e,
+    0x60604d,
+    0xa37029,
+    0xc27b3b,
+    0xaa443c,
+    0xb13b62,
+    0xb34981,
+    0xaa6797,
+    0xd491bc,
+    0xa76793,
+    0x5e65a6,
+    0x854068,
+    0x6c2753,
+    0x754386,
+    0x6f309c,
+    0x6a59c1,
+    0x7a85c3,
+    0x6b7c84,
+    0x675773,
+    0xaa674f,
+    0xc97261,
+    0x5a8ecb,
+    0xb13b62,
+    0xb83289,
+    0xba40a8,
+    0xb15ebe,
+    0xd69fdb,
+    0xaa75b2,
+    0x874e87,
+    0x6f3572,
+    0x7751a5,
+    0x713ebb,
+    0x6abacd,
+    0x6d67e0,
+    0x7d93e2,
+    0x6e8aa3,
+    0x696592,
+    0xac756e,
+    0xcb8080,
+    0xb34981,
+    0xba40a8,
+    0xbd4ec7,
+    0xb36cdd,
+    0x5bb28e,
+    0xcdbdf1,
+    0xa094c8,
+    0x7e6d9d,
+    0x655488,
+    0x6e6fbb,
+    0x685cd1,
+    0x6385f6,
+    0x73b1f8,
+    0x64a9b9,
+    0x6083a8,
+    0x568c7d,
+    0xa39384,
+    0xc29f96,
+    0xaa6797,
+    0xb15ebe,
+    0xb36cdd,
+    0xaa8bf3,
+    0x999c59,
+    0xb8a86b,
+    0xa0706c,
+    0xa76793,
+    0x888686,
+    0xaa75b2,
+    0xa094c8,
+    0xa19f9b,
+    0x747672,
+    0x524f47,
+    0x393632,
+    0x425165,
+    0x3c3e7b,
+    0x3767a0,
+    0x4793a2,
+    0x91a2b9,
+    0x388b63,
+    0x346552,
+    0x77752e,
+    0x968140,
+    0x7e4941,
+    0x854068,
+    0x874e87,
+    0x7e6d9d,
+    0x888686,
+    0x5c5d5d,
+    0x8b8fd0,
+    0x393632,
+    0x211d1d,
+    0x293850,
+    0x232566,
+    0x1f4e8b,
+    0x2f7a8d,
+    0x20724e,
+    0x1b4c3d,
+    0x5e5c19,
+    0x7d682b,
+    0x86b8f4,
+    0x65302c,
+    0x6c2753,
+    0x6f3572,
+    0x655488,
+    0x91a2b9,
+    0x647890,
+    0x425165,
+    0x293850,
+    0x325483,
+    0x2c4199,
+    0x96e4f7,
+    0x276abe,
+    0x3796c0,
+    0x288d81,
+    0x246870,
+    0x67784c,
+    0x86835e,
+    0x6e4c5f,
+    0x754386,
+    0x7751a5,
+    0x6e6fbb,
+    0x87dbb8,
+    0x8b8fd0,
+    0x5e65a6,
+    0x3c3e7b,
+    0x232566,
+    0x2c4199,
+    0x262eb0,
+    0x2157d4,
+    0x3183d7,
+    0x227a98,
+    0x1e5587,
+    0x83b6a7,
+    0x616563,
+    0x807075,
+    0x683976,
+    0x6f309c,
+    0x713ebb,
+    0x685cd1,
+    0x86b8f4,
+    0x5a8ecb,
+    0x3767a0,
+    0x1f4e8b,
+]
 
-Here is our color grid:
-f0f0f0ff - white
-c3c6c6ff -
-c6c683ff -
-276abeff -
-2157d4ff -
-1d80f9ff -
-2dacfbff -
-1ea3bcff -
-197eabff -
-5c8e87ff -
-7b9999ff -
-63629aff -
-6a59c1ff -
-e5d195ff -
-6d67e0ff -
-6385f6ff -
-96e4f7ff -
-6abacdff - ?
-4793a2ff -
-2f7a8dff -
-3796c0ff -
-3183d7ff -
-2dacfbff -
-3dd8feff -
-cd9a96ff -
-2ecfbfff -
-29aaaeff -
-6cba8aff -
-8bc59cff -
-738e9dff -
-7a85c3ff -
-7d93e2ff -
-73b1f8ff -
-87dbb8ff -
-5bb28eff - ?
-d491bcff -
-388b63ff -
-20724eff -
-288d81ff -
-227a98ff -
-1ea3bcff -
-2ecfbfff -
-1fc780ff -
-1aa16fff -
-5db14bff -
-7cbd5dff -
-d69fdbff -
-64855eff -
-6b7c84ff -
-6e8aa3ff -
-64a9b9ff -
-83b6a7ff - ?
-568c7dff -
-346552ff -
-1b4c3dff -
-246870ff -
-1e5587ff -
-cdbdf1ff -
-197eabff -
-29aaaeff -
-1aa16fff -
-167c5eff -
-598c3aff -
-78974cff -
-60604dff -
-675773ff -
-696592ff -
-6083a8ff -
-c3c6c6ff - ?
-c6c683ff -
-999c59ff -
-77752eff -
-5e5c19ff -
-67784cff -
-616563ff -
-5c8e87ff -
-6cba8aff -
-5db14bff -
-598c3aff -
-979d9dff -
-9c9c16ff -
-bba728ff -
-a37029ff -
-aa674fff -
-ac756eff -
-a39384ff - ?
-e5d195ff -
-b8a86bff -
-968140ff -
-7d682bff -
-747672ff -
-86835eff -
-807075ff -
-7b9999ff -
-8bc59cff -
-7cbd5dff -
-78974cff -
-bba728ff -
-dab33aff -
-c27b3bff -
-c97261ff -
-5c5d5dff -
-cb8080ff - ?
-c29f96ff -
-cd9a96ff -
-a0706cff -
-7e4941ff -
-65302cff -
-6e4c5fff -
-683976ff -
-63629aff -
-738e9dff -
-a19f9bff -
-647890ff -
-64855eff -
-60604dff -
-a37029ff -
-c27b3bff -
-aa443cff -
-b13b62ff - ?
-b34981ff -
-aa6797ff -
-d491bcff -
-a76793ff -
-5e65a6ff -
-854068ff -
-6c2753ff -
-754386ff -
-6f309cff -
-6a59c1ff -
-7a85c3ff -
-6b7c84ff -
-675773ff -
-aa674fff -
-c97261ff -
-5a8ecbff -
-b13b62ff - ?
-b83289ff -
-ba40a8ff -
-b15ebeff -
-d69fdbff -
-aa75b2ff -
-874e87ff -
-6f3572ff -
-7751a5ff -
-713ebbff -
-6abacdff -
-6d67e0ff -
-7d93e2ff -
-6e8aa3ff -
-696592ff -
-ac756eff -
-cb8080ff -
-b34981ff - ?
-ba40a8ff -
-bd4ec7ff -
-b36cddff -
-5bb28eff -
-cdbdf1ff -
-a094c8ff -
-7e6d9dff -
-655488ff -
-6e6fbbff -
-685cd1ff -
-6385f6ff -
-73b1f8ff -
-64a9b9ff -
-6083a8ff -
-568c7dff -
-a39384ff -
-c29f96ff - ?
-aa6797ff -
-b15ebeff -
-b36cddff -
-aa8bf3ff -
-999c59ff -
-b8a86bff -
-a0706cff -
-a76793ff -
-888686ff -
-aa75b2ff -
-a094c8ff -
-a19f9bff -
-747672ff -
-524f47ff -
-393632ff -
-425165ff -
-3c3e7bff - ?
-3767a0ff -
-4793a2ff -
-91a2b9ff -
-388b63ff -
-346552ff -
-77752eff -
-968140ff -
-7e4941ff -
-854068ff -
-874e87ff -
-7e6d9dff -
-888686ff -
-5c5d5dff -
-8b8fd0ff -
-393632ff -
-211d1dff -
-293850ff - ?
-232566ff -
-1f4e8bff -
-2f7a8dff -
-20724eff -
-1b4c3dff -
-5e5c19ff -
-7d682bff -
-86b8f4ff -
-65302cff -
-6c2753ff -
-6f3572ff -
-655488ff -
-91a2b9ff -
-647890ff -
-425165ff -
-293850ff -
-325483ff - ?
-2c4199ff -
-96e4f7ff -
-276abeff -
-3796c0ff -
-288d81ff -
-246870ff -
-67784cff -
-86835eff -
-6e4c5fff -
-754386ff -
-7751a5ff -
-6e6fbbff -
-87dbb8ff -
-8b8fd0ff -
-5e65a6ff -
-3c3e7bff -
-232566ff - ?
-2c4199ff -
-262eb0ff -
-2157d4ff -
-3183d7ff -
-227a98ff -
-1e5587ff -
-83b6a7ff -
-616563ff -
-807075ff -
-683976ff -
-6f309cff -
-713ebbff -
-685cd1ff -
-86b8f4ff -
-5a8ecbff -
-3767a0ff -
-1f4e8bff - ?
+n_grid = []
+for g in grid():
+    res = []
+    for a in base:
+        for b in base:
+            if(mix(a,b) == g):
+                res = [a,b]
+    if(len(res) == 0):
+        print("failed color", g)
+    n_grid += [a,b,g]
 
-"""
+grid = n_grid
 
 
