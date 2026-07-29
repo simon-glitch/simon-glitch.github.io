@@ -1,12 +1,15 @@
 #include <iostream>
 #include <fstream>
+#include <vector>
 #include <set>
+#include <algorithm>
 #include "cwr.cpp"
 #define IN_JE true
 #include "be.cpp"
 #include <math.h>
 
 namespace je{
+// using std::vector;
 typedef unsigned int uint;
 typedef unsigned short ushort;
 typedef unsigned char uchar;
@@ -68,6 +71,84 @@ public:
     }
 };
 
+/* Class to give mixers in 3D space categories. */
+class Catifier{
+public:
+    class Point{
+    public:
+        float x = 0.0;
+        float y = 0.0;
+        float z = 0.0;
+        Point(float a_x, float a_y, float a_z){
+            x = a_x;
+            y = a_y;
+            z = a_z;
+        }
+        Point(Mixer mixer){
+            x = mixer.tr;
+            y = mixer.tg;
+            z = mixer.tb;
+        }
+        Point(uint color){
+            x = (color & 0xff0000) >> 16;
+            y = (color & 0x00ff00) >> 8;
+            z = (color & 0x0000ff);
+        }
+    };
+    class Sorter{
+    public:
+        uchar idx = 0;
+        float d = 0.0;
+        Sorter(uchar a_idx, Point a, Point b){
+            idx = a_idx;
+            dist(a, b);
+        }
+        void dist(Point a, Point b){
+            d = pow(
+                (a.x - b.x) * (a.x - b.x) +
+                (a.y - b.y) * (a.y - b.y) +
+                (a.z - b.z) * (a.z - b.z),
+                0.5
+            );
+        }
+    };
+    /** a list of 64 sets, each of which contains 0 or more mixers; sets are used to prevent duplicates; */
+    std::set<Mixer>* cat;
+    uchar cat_num = 4;
+    /** the "centers" of the categories; */
+    Point* cores;
+    Catifier(){
+        cat = new std::set<Mixer>[64];
+    }
+    bool compare(std::vector<Sorter>::iterator a, std::vector<Sorter>::iterator b){
+        return a->d < b->d;
+    }
+    /** returns a list of all 64 category indices, sorted by how close the point is to each category's core; */
+    uchar* cat_calc(Point p){
+        std::vector<Sorter> s = {};
+        for(uchar i = 0; i < 64; i++){
+            s.push_back(Sorter(i, p, cores[i]));
+        }
+        std::sort<std::vector<Sorter>::iterator>(s.begin(), s.end(), compare);
+        uchar* res = new uchar[64];
+        uchar i = 0;
+        for(auto it = s.begin(); it != s.end(); it++, i++){
+            res[i] = it->idx;
+        }
+        return res;
+    }
+    void add_calc(Mixer mixer){
+        uchar* res = cat_calc(Point(mixer));
+        for(uint i = 0; i < cat_num; i++){
+            cat[res[i]].insert(mixer);
+        }
+    }
+    uchar* cat_calc(uint color){
+        return cat_calc(Point(color));
+    }
+};
+Catifier cat = Catifier();
+
 bool operator==(const Mixer a, const Mixer b){
     return (
         a.tr    == b.tr    &&
@@ -78,7 +159,7 @@ bool operator==(const Mixer a, const Mixer b){
         a.len   == b.len
     );
 }
-bool operator<(const Mixer a, const Mixer b){
+bool operator< (const Mixer a, const Mixer b){
     return (
         (                      a.tr    < b.tr  ) ||
         (a.tr    == b.tr    && a.tg    < b.tg    ||
@@ -88,7 +169,7 @@ bool operator<(const Mixer a, const Mixer b){
         (a.mix_d == b.mix_d && a.len   < b.len)))))
     );
 }
-bool operator>(const Mixer a, const Mixer b){
+bool operator> (const Mixer a, const Mixer b){
     return (
         (                      a.tr    > b.tr  ) ||
         (a.tr    == b.tr    && a.tg    > b.tg    ||
@@ -203,6 +284,7 @@ Mixer* gen_mixes(){
     uint i = 0;
     for(auto it = mixer_s.begin(); it != mixer_s.end(); i++, it++){
         mixer_a[i] = *it;
+        cat.add_calc(*it);
     }
     return mixer_a;
 }
@@ -274,12 +356,6 @@ void cycle(){
     for(uint i = 0; i < 1<<24; i++){
         // prevent BE colors from being checked, because they are highly unlikely to give anything interesting;
         if(ic > 0 && be::c_exists->get(i)) continue;
-        if(ic > 1 && pow(
-            pow(((float) ((i & 0xff0000) >> 16)) - 127.0, 2) +
-            pow(((float) ((i & 0x00ff00) >> 8 )) - 127.0, 2) +
-            pow(((float) ((i & 0x0000ff)      )) - 127.0, 2),
-            0.5
-        ) < MAGIC_COLOR_VIBRANCE) continue;
         prev_added->set(i, added->get(i));
     }
     for(uint i = 0; i < 1<<24; i++){
@@ -293,7 +369,7 @@ void cycle(){
     }
     uint prev_i = 0;
     uint prev_li = 0;
-    uint prev_lf = 1000;
+    uint prev_lf = 10000;
     
     for(uint i = 0; i < 1<<24; i++){
         if(prev_added->get(i)){
@@ -302,11 +378,13 @@ void cycle(){
             if(prev_li == prev_lf){
                 prev_li = 0;
                 std::cout << prev_i << "/" << prev_c << "; found colors: " << found << std::endl;
-                // this is taking too long so I'm limiting it to 9000;
-                // if(prev_i == 9000) break;
             }
-            for(uint j = 0; j < mixer_c /* this takes forever! */; j++){
-                add(mix(i, mixers[j]), mixers[j].mix_d);
+            // this is taking too long so let's try to filter the mixers spatially;
+            uchar* cati = cat.cat_calc(i);
+            for(uchar j = 0; j < cat.cat_num; j++){
+                for(auto it = cat.cat[j].begin(); it != cat.cat[j].begin(); it++){
+                    add(mix(i, *it), it->mix_d);
+                }
             }
         }
     }
