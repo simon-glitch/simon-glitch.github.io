@@ -158,7 +158,7 @@ public:
     };
     /** a list of 64 sets, each of which contains 0 or more mixers; sets are used to prevent duplicates; */
     Heap* heaps;
-    uint heap_lim = 256;
+    uint heap_lim = 120;
     Catifier(){
         heaps = new Heap[64];
         for(uchar i = 0; i < 64; i++){
@@ -422,13 +422,21 @@ void cycle(){
                 prev_li = 0;
                 std::cout << prev_i << "/" << prev_c << "; found colors: " << found << std::endl;
             }
-            // this is taking too long so let's filter the mixers spatially;
-            uchar cat_num = cat.cat_calc(i);
-            auto cs = cat.heaps[cat_num].mixers;
-            // std::cout << "? " << ((uint) cati[j]);
-            // std::cout << " ? " << cs.size() << std::endl;
-            for(auto it = cs.begin(); it != cs.end(); it++){
-                add(mix(i, *it), it->mix_d);
+            // on the first cycle, do the big loop;
+            if(ic == 0){
+                for(uint j = 0; j < mixer_c; j++){
+                    add(mix(i, mixers[j]), mixers[j].mix_d);
+                }
+            }
+            else{
+                // this is taking too long so let's filter the mixers spatially;
+                uchar cat_num = cat.cat_calc(i);
+                auto cs = cat.heaps[cat_num].mixers;
+                // std::cout << "? " << ((uint) cati[j]);
+                // std::cout << " ? " << cs.size() << std::endl;
+                for(auto it = cs.begin(); it != cs.end(); it++){
+                    add(mix(i, *it), it->mix_d);
+                }
             }
         }
     }
