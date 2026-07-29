@@ -165,6 +165,15 @@ public:
                 c1->remove();
             }
         }
+        void push(Mixer* mixers, uint& j){
+            mixers[j] = mixer;
+            if(c0){
+                c0->push(mixers, j);
+            }
+            if(c1){
+                c1->push(mixers, j);
+            }
+        }
     };
     // this is a max heap;
     class Heap{
@@ -187,17 +196,45 @@ public:
             );
         }
         void add(Mixer mixer, uint& heap_lim){
+            std::cout <<
+            "Adding (" << mixer.tr <<
+            "," << mixer.tg <<
+            "," << mixer.tb <<
+            "," << mixer.tm <<
+            "," << mixer.len <<
+            "," << mixer.mix_d <<
+            ") / " <<
+            size << std::endl;
             float d = dist(core, Point(mixer));
             if(!root){
                 root = new Node(mixer, d);
             }
             else if(size < heap_lim){
-                root->add(Node(mixer, d));
+                Node node = Node(mixer, d);
+                root->add(node);
+                size++;
             }
             else if(d < root->md){
                 root->remove();
-                root->add(Node(mixer, d));
+                Node node = Node(mixer, d);
+                root->add(node);
             }
+        }
+        void finalize(){
+            mixers = new Mixer[size];
+            uint j = 0;
+            root->push(mixers, j);
+            std::cout << "Check if jank code works? ";
+            if(j == size){
+                std::cout << "It does!";
+            }
+            else{
+                std::cout << "It does not, good luck making it work.";
+            }
+            for(uint i = 0; i < size; i++){
+                root->remove();
+            }
+            root = 0;
         }
     };
     /** a list of 64 sets, each of which contains 0 or more mixers; sets are used to prevent duplicates; */
@@ -475,11 +512,11 @@ void cycle(){
             else{
                 // this is taking too long so let's filter the mixers spatially;
                 uchar cat_num = cat.cat_calc(i);
-                auto cs = cat.heaps[cat_num].mixers;
+                auto cs = cat.heaps[cat_num];
                 // std::cout << "? " << ((uint) cati[j]);
                 // std::cout << " ? " << cs.size() << std::endl;
-                for(auto it = cs.begin(); it != cs.end(); it++){
-                    add(mix(i, *it), it->mix_d);
+                for(uint j = 0; j < cs.size; j++){
+                    add(mix(i, cs.mixers[j]), cs.mixers[i].mix_d);
                 }
             }
         }
@@ -503,7 +540,7 @@ int main(int argc, char const *argv[]){
     
     std::cout << "Cats: ";
     for(uint i = 0; i < 64; i++){
-        std::cout << cat.heaps[i].mixers.size() << ",";
+        std::cout << cat.heaps[i].size << ",";
     }
     std::cout << std::endl;
     
