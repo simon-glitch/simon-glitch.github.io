@@ -118,6 +118,7 @@ public:
     };
     /** a list of 64 sets, each of which contains 0 or more mixers; sets are used to prevent duplicates; */
     std::set<Mixer>* cat;
+    uint cat_lim = 16;
     uchar cat_num = 4;
     /** the "centers" of the categories; */
     Point* cores;
@@ -134,7 +135,6 @@ public:
     }
     /** returns a list of all 64 category indices, sorted by how close the point is to each category's core; */
     uchar* cat_calc(Point p){
-        
         std::vector<Sorter> s = {};
         for(uchar i = 0; i < 64; i++){
             s.push_back(Sorter(i, p, cores[i]));
@@ -149,10 +149,41 @@ public:
         }
         return res;
     }
-    void add_calc(Mixer mixer){
-        uchar* res = cat_calc(Point(mixer));
-        for(uint i = 0; i < cat_num; i++){
-            cat[res[i]].insert(mixer);
+    void add_mixer(Mixer mixer){
+        for(uchar i = 0; i < 64; i++){
+            cat[i].insert(mixer);
+        }
+    }
+    /** make it so only the (cat_lim) best items of each set are kept */
+    void better_cat(){
+        for(uchar i = 0; i < 64; i++){
+            auto &cs = cat[i];
+            Mixer* c = new Mixer[cs.size()];
+            uchar j = 0;
+            for(auto it = cs.begin(); it != cs.end(); it++, j++){
+                std::cout << "A" << cs.size() << std::endl;
+                c[j] = *it;
+            }
+            std::vector<Sorter> s = {};
+            for(j = 0; j < cs.size(); j++){
+                std::cout << "B" << std::endl;
+                s.push_back(Sorter(j, cores[i], Point(c[j])));
+            }
+            
+            std::sort<std::vector<Sorter>::iterator>(s.begin(), s.end());
+            
+            uchar size = cat_lim < cs.size() ? cat_lim : cs.size();
+            Mixer* res = new Mixer[size];
+            j = 0;
+            for(auto it = s.begin(); it != s.end(); it++, j++){
+                std::cout << "C" << std::endl;
+                res[j] = c[it->idx];
+            }
+            cs = std::set<Mixer>();
+            for(j = 0; j < size; j++){
+                std::cout << "D" << std::endl;
+                cs.insert(res[j]);
+            }
         }
     }
     uchar* cat_calc(uint color){
@@ -296,7 +327,7 @@ Mixer* gen_mixes(){
     uint i = 0;
     for(auto it = mixer_s.begin(); it != mixer_s.end(); i++, it++){
         mixer_a[i] = *it;
-        cat.add_calc(*it);
+        cat.add_mixer(*it);
     }
     return mixer_a;
 }
@@ -367,7 +398,7 @@ void cycle(){
     }
     for(uint i = 0; i < 1<<24; i++){
         // prevent BE colors from being checked, because they are highly unlikely to give anything interesting;
-        if(ic > 0 && be::c_exists->get(i)) continue;
+        if(ic > 1 && be::c_exists->get(i)) continue;
         prev_added->set(i, added->get(i));
     }
     for(uint i = 0; i < 1<<24; i++){
@@ -394,7 +425,10 @@ void cycle(){
             // this is taking too long so let's try to filter the mixers spatially;
             uchar* cati = cat.cat_calc(i);
             for(uchar j = 0; j < cat.cat_num; j++){
-                for(auto it = cat.cat[j].begin(); it != cat.cat[j].begin(); it++){
+                auto cs = cat.cat[cati[j]];
+                // std::cout << "? " << ((uint) cati[j]);
+                // std::cout << " ? " << cs.size() << std::endl;
+                for(auto it = cs.begin(); it != cs.end(); it++){
                     add(mix(i, *it), it->mix_d);
                 }
             }
@@ -416,6 +450,13 @@ int main(int argc, char const *argv[]){
     be::main(0, argv);
     
     std::cout << "Main!" << std::endl;
+    
+    cat.better_cat();
+    std::cout << "Cats: ";
+    for(uint i = 0; i < 64; i++){
+        std::cout << cat.cat[i].size() << ",";
+    }
+    std::cout << std::endl;
     
     for(uint i = 0; i < 16; i++){
         add(base_colors[i], (1 << i));
