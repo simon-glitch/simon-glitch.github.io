@@ -79,6 +79,7 @@ public:
         float x = 0.0;
         float y = 0.0;
         float z = 0.0;
+        Point(){}
         Point(float a_x, float a_y, float a_z){
             x = a_x;
             y = a_y;
@@ -111,6 +112,9 @@ public:
                 0.5
             );
         }
+        bool operator<(Sorter b){
+            return d < b.d;
+        }
     };
     /** a list of 64 sets, each of which contains 0 or more mixers; sets are used to prevent duplicates; */
     std::set<Mixer>* cat;
@@ -119,17 +123,25 @@ public:
     Point* cores;
     Catifier(){
         cat = new std::set<Mixer>[64];
-    }
-    bool compare(std::vector<Sorter>::iterator a, std::vector<Sorter>::iterator b){
-        return a->d < b->d;
+        cores = new Point[64];
+        for(uchar i = 0; i < 64; i++){
+            cores[i] = Point(
+                32 + 64 * ((i & 0x30) >> 4),
+                32 + 64 * ((i & 0xc) >> 2),
+                32 + 64 * (i & 0x3)
+            );
+        }
     }
     /** returns a list of all 64 category indices, sorted by how close the point is to each category's core; */
     uchar* cat_calc(Point p){
+        
         std::vector<Sorter> s = {};
         for(uchar i = 0; i < 64; i++){
             s.push_back(Sorter(i, p, cores[i]));
         }
-        std::sort<std::vector<Sorter>::iterator>(s.begin(), s.end(), compare);
+        
+        std::sort<std::vector<Sorter>::iterator>(s.begin(), s.end());
+        
         uchar* res = new uchar[64];
         uchar i = 0;
         for(auto it = s.begin(); it != s.end(); it++, i++){
