@@ -140,7 +140,9 @@ public:
             for(; d >= *it && it != ds.end(); it++){
                 i++;
             }
+            std::cout << "?" << std::endl;
             if(i == ds.size()){
+                std::cout << "if" << std::endl;
                 // don't add items that don't fit;
                 if(i < heap_lim){
                     mixers.push_back(mixer);
@@ -148,6 +150,7 @@ public:
                 }
                 return;
             }
+            std::cout << "implied else" << std::endl;
             mixers.pop_back();
             ds.pop_back();
             auto mit = mixers.begin();
@@ -422,15 +425,13 @@ void cycle(){
                 prev_li = 0;
                 std::cout << prev_i << "/" << prev_c << "; found colors: " << found << std::endl;
             }
-            // this is taking too long so let's try to filter the mixers spatially;
-            uchar* cati = cat.cat_calc(i);
-            for(uchar j = 0; j < cat.cat_num; j++){
-                auto cs = cat.cat[cati[j]];
-                // std::cout << "? " << ((uint) cati[j]);
-                // std::cout << " ? " << cs.size() << std::endl;
-                for(auto it = cs.begin(); it != cs.end(); it++){
-                    add(mix(i, *it), it->mix_d);
-                }
+            // this is taking too long so let's filter the mixers spatially;
+            uchar cat_num = cat.cat_calc(i);
+            auto cs = cat.heaps[cat_num].mixers;
+            // std::cout << "? " << ((uint) cati[j]);
+            // std::cout << " ? " << cs.size() << std::endl;
+            for(auto it = cs.begin(); it != cs.end(); it++){
+                add(mix(i, *it), it->mix_d);
             }
         }
     }
@@ -451,10 +452,9 @@ int main(int argc, char const *argv[]){
     
     std::cout << "Main!" << std::endl;
     
-    cat.better_cat();
     std::cout << "Cats: ";
     for(uint i = 0; i < 64; i++){
-        std::cout << cat.cat[i].size() << ",";
+        std::cout << cat.heaps[i].mixers.size() << ",";
     }
     std::cout << std::endl;
     
