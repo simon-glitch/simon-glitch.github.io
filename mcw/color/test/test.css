@@ -1,19 +1,42 @@
 
+/* from the structure file */
 div{
     color: #f0f0f0; /* white */
-    color: #979d9d; /* light gray */
-    color: #325483; /* gray */
-    color: #211d1d; /* black */
-    color: #524f47; /* brown */
-    color: #aa443c; /* red */
-    color: #dab33a; /* orange */
-    color: #9c9c16; /* yellow */
-    color: #1fc780; /* lime */
-    color: #167c5e; /* green */
-    color: #1d80f9; /* cyan */
-    color: #3dd8fe; /* light blue */
-    color: #262eb0; /* blue */
-    color: #aa8bf3; /* lime */
-    color: #bd4ec7; /* yellow */
-    color: #b83289; /* orange */
+    color: #9d9d97; /* light gray */
+    color: #474f52; /* gray */
+    color: #1d1d21; /* black */
+    color: #835432; /* brown */
+    color: #b02e26; /* red */
+    color: #f9801d; /* orange */
+    color: #fed83d; /* yellow */
+    color: #80c71f; /* lime */
+    color: #5e7c16; /* green */
+    color: #169c9c; /* cyan */
+    color: #3ab3da; /* light blue */
+    color: #3c44aa; /* blue */
+    color: #8932b8; /* purple */
+    color: #c74ebd; /* magent */
+    color: #f38baa; /* orange */
 }
+
+/* from the wiki */
+div{
+    color: #F0F0F0; /* white */
+    color: #9D9D97; /* light gray */
+    color: #474F52; /* gray */
+    color: #1D1D21; /* black */
+    color: #835432; /* brown */
+    color: #B02E26; /* red */
+    color: #F9801D; /* orange */
+    color: #FED83D; /* yellow */
+    color: #80C71F; /* lime */
+    color: #5E7C16; /* green */
+    color: #169C9C; /* cyan */
+    color: #3AB3DA; /* light blue */
+    color: #3C44AA; /* blue */
+    color: #8932B8; /* lime */
+    color: #C74EBD; /* yellow */
+    color: #F38BAA; /* orange */
+}
+
+

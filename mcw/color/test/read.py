@@ -94,7 +94,7 @@ def test():
             i //= 2
         print(hex(color), hex(res[si]), color == res[si])
 
-stuff()
+# stuff()
 # test()
 
 """
@@ -547,17 +547,39 @@ grid = [
     0x1f4e8b,
 ]
 
+mixed = {}
+for a in base:
+    for b in base:
+        mixed[mix(a,b)] = [a,b]
+
 n_grid = []
-for g in grid():
-    res = []
-    for a in base:
-        for b in base:
-            if(mix(a,b) == g):
-                res = [a,b]
-    if(len(res) == 0):
-        print("failed color", g)
-    n_grid += [a,b,g]
+for g in grid:
+    if(g in mixed):
+        n_grid += [[g, "Y"]]
+    else:
+        n_grid += [[g, "n"]]
 
 grid = n_grid
+print(grid)
 
+
+
+"""
+#F0F0F0
+#F9801D
+#C74EBD
+#3AB3DA
+#FED83D
+#80C71F
+#F38BAA
+#474F52
+#9D9D97
+#169C9C
+#8932B8
+#3C44AA
+#835432
+#5E7C16
+#B02E26
+#1D1D21
+"""
 

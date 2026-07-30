@@ -123,20 +123,22 @@ void cycle(){
     for(uint i = 0; i < 1<<24; i++){
         added->set(i, 0);
     }
+    
     for(uint i = 0; i < 1<<24; i++){
         if(prev_added->get(i)){
             for(uint j = 0; j < 16; j++){
                 uint c = base_colors[j];
                 add(mix(i, c), (
-                    0x80 |
-                    ((((i & 0xff0000) >> 16) - ((c & 0xff0000) >> 16) & 1) << 6) |
-                    ((((i & 0x00ff00) >>  8) - ((c & 0x00ff00) >>  8) & 1) << 5) |
-                    ((((i & 0x0000ff)      ) - ((c & 0x0000ff)      ) & 1) << 4) |
+                    0x80 | 
+                    (((((i & 0xff0000) >> 16) - ((c & 0xff0000) >> 16)) & 1) << 6) |
+                    (((((i & 0x00ff00) >>  8) - ((c & 0x00ff00) >>  8)) & 1) << 5) |
+                    (((((i & 0x0000ff)      ) - ((c & 0x0000ff)      )) & 1) << 4) |
                     j
                 ));
             }
         }
     }
+    
     uint added_c = 0;
     for(uint i = 0; i < 1<<24; i++){
         if(added->get(i)){
@@ -198,6 +200,7 @@ public:
             // std::cout << "cg = " << cg << std::endl;
             // std::cout << "cb = " << cb << std::endl;
             done_dyes = dyes;
+            done_dyes.push_back(dye_i);
             return;
         }
         if(depth == 0){
@@ -221,6 +224,35 @@ public:
         try_last(res);
     }
 };
+
+void verify(uint c, vector<uint> dyes){
+    auto it = dyes.rbegin();
+    uint color = base_colors[*it];
+    for(it++; it != dyes.rend(); it++){
+        color = mix(color, base_colors[*it]);
+    }
+    if(c == color){
+        std::cout << "Recipe is correct." << std::endl;
+    }
+    else{
+        std::cout << "Recipe is incorrect." << std::endl;
+        std::cout << "Got " << color << std::endl;
+    }
+}
+
+void see_recipe(string msg, uint i){
+    std::cout << msg << i << std::endl;
+    
+    Recipe find_boi = Recipe(i);
+    find_boi.search();
+    
+    std::cout << "Recipe [";
+    for(auto it = find_boi.done_dyes.begin(); it != find_boi.done_dyes.end(); it++){
+        std::cout << base_colors_names[*it] << ",";
+    }
+    std::cout << "]" << std::endl;
+    verify(i, find_boi.done_dyes);
+}
 
 int main(int argc, char const *argv[]){
     for(uint i = 0; i < 16; i++){
@@ -263,18 +295,14 @@ int main(int argc, char const *argv[]){
     
     for(uint i = 0; i < 1<<24; i++){
         if(!(prev_added->get(i))) continue;
-        
-        std::cout << "One of the last found colors: " << i << std::endl;
-        
-        Recipe find_boi = Recipe(i);
-        find_boi.search();
-        
-        std::cout << "Recipe [";
-        for(auto it = find_boi.done_dyes.begin(); it != find_boi.done_dyes.end(); it++){
-            std::cout << base_colors_names[*it] << ",";
-        }
-        std::cout << "]" << std::endl;
+        see_recipe(string("One of the last found colors: "), i);
     }
+    
+    see_recipe(base_colors_names[0] + string("+") + base_colors_names[1] + string(" = "), mix(base_colors[0], base_colors[1]));
+    see_recipe(base_colors_names[2] + string("+") + base_colors_names[5] + string(" = "), mix(base_colors[2], base_colors[5]));
+    see_recipe(base_colors_names[1] + string("+") + base_colors_names[7] + string(" = "), mix(base_colors[1], base_colors[7]));
+    see_recipe(base_colors_names[3] + string("+") + base_colors_names[4] + string(" = "), mix(base_colors[3], base_colors[4]));
+    see_recipe(base_colors_names[5] + string("+") + base_colors_names[8] + string(" = "), mix(base_colors[5], base_colors[8]));
     
     
     uint* my_decode = new uint[256]{0};
@@ -283,7 +311,7 @@ int main(int argc, char const *argv[]){
     my_decode['8'] = 0x8; my_decode['9'] = 0x9; my_decode['a'] = 0xa; my_decode['b'] = 0xb;
     my_decode['c'] = 0xc; my_decode['d'] = 0xd; my_decode['e'] = 0xe; my_decode['f'] = 0xf;
     
-    while(true){
+    while(false){
         std::cout << "Which color would you like to search for (hex)?" << std::endl;
         string c_hex = "";
         std::cin >> c_hex;
@@ -299,21 +327,8 @@ int main(int argc, char const *argv[]){
         bool e = recipes->exists(your_c);
         std::cout << "You color exists? " << (e ? "Yes." : "No.") << std::endl;
         if(!e) continue;
-        Recipe find_boi = Recipe(your_c);
-        find_boi.search();
         
-        std::cout << "Recipe [";
-        for(auto it = find_boi.done_dyes.begin(); it != find_boi.done_dyes.end(); it++){
-            std::cout << base_colors_names[*it] << ",";
-        }
-        std::cout << "]" << std::endl;
-        /*
-        std::cout << "Dyes? [";
-        for(auto it = find_boi.dyes.begin(); it != find_boi.dyes.end(); it++){
-            std::cout << base_colors_names[*it] << ",";
-        }
-        std::cout << "]" << std::endl;
-        */
+        see_recipe(string("Your color (decimal): "), your_c);
     }
     
     return 0;
