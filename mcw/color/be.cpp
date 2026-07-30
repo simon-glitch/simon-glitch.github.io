@@ -243,12 +243,12 @@ void verify(uint c, vector<uint> dyes){
 string to_hex(uint c){
     const char* hex = "0123456789abcdef";
     return string({
-        hex[c & 0xf00000],
-        hex[c & 0x0f0000],
-        hex[c & 0x00f000],
-        hex[c & 0x000f00],
-        hex[c & 0x0000f0],
-        hex[c & 0x00000f],
+        hex[(c & 0xf00000) >> 20],
+        hex[(c & 0x0f0000) >> 16],
+        hex[(c & 0x00f000) >> 12],
+        hex[(c & 0x000f00) >>  8],
+        hex[(c & 0x0000f0) >>  4],
+        hex[ c & 0x00000f       ],
     });
 }
 
@@ -313,6 +313,8 @@ int main(int argc, char const *argv[]){
         if(!(prev_added->get(i))) continue;
         see_recipe(string("One of the last found colors: "), i);
     }
+    
+    std::cout << "Does this code even run?" << std::endl;
     
     see_recipe(base_colors_names[0] + string("+") + base_colors_names[1] + string(" = "), mix(base_colors[0], base_colors[1]));
     see_recipe(base_colors_names[2] + string("+") + base_colors_names[5] + string(" = "), mix(base_colors[2], base_colors[5]));
