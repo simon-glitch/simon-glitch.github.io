@@ -240,8 +240,22 @@ void verify(uint c, vector<uint> dyes){
     }
 }
 
+string to_hex(uint c){
+    const char* hex = "0123456789abcdef";
+    string s = "";
+    for(uint i = 0; i < 6; i++){
+        s += hex[c & 0xf];
+        c >>= 4;
+    }
+    return s;
+}
+
 void see_recipe(string msg, uint i){
-    std::cout << msg << i << std::endl;
+    if(!recipes->exists(i)){
+        std::cout << "Color not found: " << to_hex(i) << std::endl;
+        return;
+    }
+    std::cout << msg << to_hex(i) << std::endl;
     
     Recipe find_boi = Recipe(i);
     find_boi.search();
@@ -304,14 +318,13 @@ int main(int argc, char const *argv[]){
     see_recipe(base_colors_names[3] + string("+") + base_colors_names[4] + string(" = "), mix(base_colors[3], base_colors[4]));
     see_recipe(base_colors_names[5] + string("+") + base_colors_names[8] + string(" = "), mix(base_colors[5], base_colors[8]));
     
-    
     uint* my_decode = new uint[256]{0};
     my_decode['0'] = 0x0; my_decode['1'] = 0x1; my_decode['2'] = 0x2; my_decode['3'] = 0x3;
     my_decode['4'] = 0x4; my_decode['5'] = 0x5; my_decode['6'] = 0x6; my_decode['7'] = 0x7;
     my_decode['8'] = 0x8; my_decode['9'] = 0x9; my_decode['a'] = 0xa; my_decode['b'] = 0xb;
     my_decode['c'] = 0xc; my_decode['d'] = 0xd; my_decode['e'] = 0xe; my_decode['f'] = 0xf;
     
-    while(false){
+    while(true){
         std::cout << "Which color would you like to search for (hex)?" << std::endl;
         string c_hex = "";
         std::cin >> c_hex;
@@ -328,7 +341,7 @@ int main(int argc, char const *argv[]){
         std::cout << "You color exists? " << (e ? "Yes." : "No.") << std::endl;
         if(!e) continue;
         
-        see_recipe(string("Your color (decimal): "), your_c);
+        see_recipe(string("Your color: "), your_c);
     }
     
     return 0;
@@ -347,32 +360,60 @@ int main(int argc, char const *argv[]){
 g++ be.cpp -O6 -o be.exe
 
 The last 2 colors:
-* 23b7a7 -> [lime,  cyan, lime,  light blue, lime,   white,  lime,  lime,   lime,   white,  lime, white,  orange, orange, orange, white,  white, white,  light blue,]
-* b9ddbe -> [white, lime, white, orange,     orange, orange, white, orange, orange, orange, red,  orange, orange, red,    red,    yellow, black, yellow, red,       ]
+* 327b7a -> [lime,orange,lime,yellow,lime,white,lime,lime,lime,white,lime,white,light blue,light blue,light blue,white,white,white,yellow,lime,]
+* 9bddeb -> [white,lime,white,light blue,light blue,light blue,white,purple,light blue,light blue,blue,purple,light blue,blue,blue,cyan,black,cyan,blue,cyan,]
 
-Recipe examples to test:
-* 0xbeab43 -> [orange,     orange,     green,      orange, light gray, orange,]
-* 0xaa3377 -> [orange,     orange,     red,        black,  red,        yellow,]
-* 0x777777 -> [light gray, brown,      brown,      orange,                    ]
-* 0x6355ac -> [blue,       lime,       yellow,     orange, orange,            ]
-* 0x534ec2 -> [blue,       yellow,     light blue, blue,   yellow,            ]
-* 0x345678 -> [black,      cyan,       light blue, red,    lime,              ]
-* 0x33ccbb -> [light blue, lime,       lime,       lime,   orange,            ]
-* 0x267ed1 -> [cyan,       light blue, black,      blue,   blue,              ]
+console.log(Array(20).fill(0).map(()=>(Math.floor(Math.random()*2**24)).toString(16)).join("\n"))
+
+white+light gray  = 3c6c6c -> [white,light gray,]
+gray+red          = c3e3b7 -> [red,gray,]
+light gray+yellow = a6abdc -> [yellow,light gray,]
+black+brown       = 928305 -> [brown,black,]
+red+lime          = 22a789 -> [red,lime,]
+
+Recipe samples to test:
+* 03e6f9 -> [brown,yellow,black,orange,red,]
+* 04e59d -> [orange,red,magenta,magenta,red,magenta,orange,brown,]
+* 06198a -> [yellow,blue,gray,red,magenta,cyan,]
+* 096467 -> [purple,brown,blue,blue,lime,light blue,]
+* 1278ec -> [orange,green,orange,yellow,pink,lime,]
+* 180982 -> [cyan,cyan,green,green,purple,gray,]
+* 1a93e9 -> [purple,magenta,red,purple,red,purple,red,cyan,]
+* 1b1a13 -> [light blue,cyan,cyan,black,white,green,]
+* 1daa9a -> [white,purple,light blue,cyan,red,cyan,]
+* 2555eb -> [red,pink,red,light blue,yellow,orange,]
+* 26c55b -> [red,pink,light blue,red,yellow,magenta,]
+* 348965 -> [lime,cyan,black,brown,black,white,black,]
+* 42a4b9 -> [red,green,red,orange,black,white,green,]
+* 44fb58 -> [lime,lime,white,gray,blue,cyan,]
+* 4518e5 -> [green,light blue,brown,green,magenta,purple,]
+* 460366 -> [black,magenta,purple,red,purple,magenta,light gray,]
+* 49d9d8 -> [light gray,light gray,cyan,light gray,pink,lime,]
+* 4d7bbc -> [white,magenta,light blue,white,red,yellow,brown,]
+* 53f94f -> [orange,yellow,orange,white,lime,yellow,purple,]
+* 638394 -> [black,brown,gray,magenta,green,gray,]
+* 652947 -> [lime,gray,purple,light blue,white,magenta,]
+* 65ebcb -> [yellow,lime,blue,white,light blue,pink,blue,]
+* 749846 -> [lime,blue,black,lime,magenta,brown,]
+* 8c7728 -> [magenta,light blue,light blue,blue,light blue,magenta,light blue,]
+* 8c296b -> [white,purple,purple,black,purple,yellow,blue,]
+* 948a9b -> [yellow,gray,lime,pink,pink,gray,]
+* 9a2a1b -> [white,red,cyan,blue,light gray,blue,]
+* ba277b -> [pink,purple,light blue,magenta,red,green,]
+* c27b98 -> [lime,lime,brown,yellow,light blue,yellow,magenta,]
+* d3175b -> [orange,gray,magenta,lime,green,]
+* dc7c8a -> [white,cyan,white,blue,orange,blue,]
+* e224b2 -> [black,black,lime,cyan,cyan,cyan,orange,lime,]
+* eb951a -> [magenta,purple,light blue,magenta,light blue,white,brown,]
+* f5d82d -> [yellow,magenta,red,black,pink,blue,]
+* f93a14 -> [light blue,cyan,lime,brown,brown,gray,]
+* fa0588 -> [magenta,blue,purple,cyan,green,cyan,]
+* faa585 -> [blue,blue,white,purple,green,blue,]
+
 
 in game:
-a3d8d5;
-9d8624;
-8d8078;
-7cb864;
-687e7c;
-617e9e;
-575b2e;
-4dbb63;
-1f80e2;
-1f6fe0;
 
-100% fail;
+
 
 BE results:
 
