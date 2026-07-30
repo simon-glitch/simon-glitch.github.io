@@ -66,7 +66,7 @@ uint mix(uint a, uint b){
 // isn't there a way to put this on the stack instead of the heap? i don't remember what it is;
 uint* base_colors = new uint[16]{
     0xf0f0f0, /* #f0f0f0 white      */
-    0x9d9d97, /* #9d9d97 light gray */
+    0x9d9d97, /* #9d9d97 l_gray */
     0x474f52, /* #474f52 gray       */
     0x1d1d21, /* #1d1d21 black      */
     0x835432, /* #835432 brown      */
@@ -76,7 +76,7 @@ uint* base_colors = new uint[16]{
     0x80c71f, /* #80c71f lime       */
     0x5e7c16, /* #5e7c16 green      */
     0x169c9c, /* #169c9c cyan       */
-    0x3ab3da, /* #3ab3da light blue */
+    0x3ab3da, /* #3ab3da l_blue */
     0x3c44aa, /* #3c44aa blue       */
     0x8932b8, /* #8932b8 purple     */
     0xc74ebd, /* #c74ebd magenta    */
@@ -84,7 +84,7 @@ uint* base_colors = new uint[16]{
 };
 string* base_colors_names = new string[16]{
     string("white"),      /* #f0f0f0 */
-    string("light gray"), /* #9d9d97 */
+    string("l_gray"), /* #9d9d97 */
     string("gray"),       /* #474f52 */
     string("black"),      /* #1d1d21 */
     string("brown"),      /* #835432 */
@@ -94,7 +94,7 @@ string* base_colors_names = new string[16]{
     string("lime"),       /* #80c71f */
     string("green"),      /* #5e7c16 */
     string("cyan"),       /* #169c9c */
-    string("light blue"), /* #3ab3da */
+    string("l_blue"), /* #3ab3da */
     string("blue"),       /* #3c44aa */
     string("purple"),     /* #8932b8 */
     string("magenta"),    /* #c74ebd */
@@ -242,12 +242,14 @@ void verify(uint c, vector<uint> dyes){
 
 string to_hex(uint c){
     const char* hex = "0123456789abcdef";
-    string s = "";
-    for(uint i = 0; i < 6; i++){
-        s += hex[c & 0xf];
-        c >>= 4;
-    }
-    return s;
+    return string({
+        hex[c & 0xf00000],
+        hex[c & 0x0f0000],
+        hex[c & 0x00f000],
+        hex[c & 0x000f00],
+        hex[c & 0x0000f0],
+        hex[c & 0x00000f],
+    });
 }
 
 void see_recipe(string msg, uint i){
@@ -360,55 +362,55 @@ int main(int argc, char const *argv[]){
 g++ be.cpp -O6 -o be.exe
 
 The last 2 colors:
-* 327b7a -> [lime,orange,lime,yellow,lime,white,lime,lime,lime,white,lime,white,light blue,light blue,light blue,white,white,white,yellow,lime,]
-* 9bddeb -> [white,lime,white,light blue,light blue,light blue,white,purple,light blue,light blue,blue,purple,light blue,blue,blue,cyan,black,cyan,blue,cyan,]
+* #327b7a -> [lime,   orange, lime,  yellow, lime,   white,  lime,  lime,   lime,    white,  lime, white,  l_blue, l_blue, l_blue, white, white, white, yellow, lime,]
+* #9bddeb -> [white,  lime,   white, l_blue, l_blue, l_blue, white, purple, l_blue,  l_blue, blue, purple, l_blue, blue,   blue,   cyan,  black, cyan,  blue,   cyan,]
 
 console.log(Array(20).fill(0).map(()=>(Math.floor(Math.random()*2**24)).toString(16)).join("\n"))
 
-white+light gray  = 3c6c6c -> [white,light gray,]
-gray+red          = c3e3b7 -> [red,gray,]
-light gray+yellow = a6abdc -> [yellow,light gray,]
-black+brown       = 928305 -> [brown,black,]
-red+lime          = 22a789 -> [red,lime,]
+white+l_gray  = #c6c6c3 -> [white,  l_gray,]
+gray+red      = #7b3e3c -> [red,    gray,  ]
+l_gray+yellow = #cdba6a -> [yellow, l_gray,]
+black+brown   = #503829 -> [brown,  black, ]
+red+lime      = #987a22 -> [red,    lime,  ]
 
 Recipe samples to test:
-* 03e6f9 -> [brown,yellow,black,orange,red,]
-* 04e59d -> [orange,red,magenta,magenta,red,magenta,orange,brown,]
-* 06198a -> [yellow,blue,gray,red,magenta,cyan,]
-* 096467 -> [purple,brown,blue,blue,lime,light blue,]
-* 1278ec -> [orange,green,orange,yellow,pink,lime,]
-* 180982 -> [cyan,cyan,green,green,purple,gray,]
-* 1a93e9 -> [purple,magenta,red,purple,red,purple,red,cyan,]
-* 1b1a13 -> [light blue,cyan,cyan,black,white,green,]
-* 1daa9a -> [white,purple,light blue,cyan,red,cyan,]
-* 2555eb -> [red,pink,red,light blue,yellow,orange,]
-* 26c55b -> [red,pink,light blue,red,yellow,magenta,]
-* 348965 -> [lime,cyan,black,brown,black,white,black,]
-* 42a4b9 -> [red,green,red,orange,black,white,green,]
-* 44fb58 -> [lime,lime,white,gray,blue,cyan,]
-* 4518e5 -> [green,light blue,brown,green,magenta,purple,]
-* 460366 -> [black,magenta,purple,red,purple,magenta,light gray,]
-* 49d9d8 -> [light gray,light gray,cyan,light gray,pink,lime,]
-* 4d7bbc -> [white,magenta,light blue,white,red,yellow,brown,]
-* 53f94f -> [orange,yellow,orange,white,lime,yellow,purple,]
-* 638394 -> [black,brown,gray,magenta,green,gray,]
-* 652947 -> [lime,gray,purple,light blue,white,magenta,]
-* 65ebcb -> [yellow,lime,blue,white,light blue,pink,blue,]
-* 749846 -> [lime,blue,black,lime,magenta,brown,]
-* 8c7728 -> [magenta,light blue,light blue,blue,light blue,magenta,light blue,]
-* 8c296b -> [white,purple,purple,black,purple,yellow,blue,]
-* 948a9b -> [yellow,gray,lime,pink,pink,gray,]
-* 9a2a1b -> [white,red,cyan,blue,light gray,blue,]
-* ba277b -> [pink,purple,light blue,magenta,red,green,]
-* c27b98 -> [lime,lime,brown,yellow,light blue,yellow,magenta,]
-* d3175b -> [orange,gray,magenta,lime,green,]
-* dc7c8a -> [white,cyan,white,blue,orange,blue,]
-* e224b2 -> [black,black,lime,cyan,cyan,cyan,orange,lime,]
-* eb951a -> [magenta,purple,light blue,magenta,light blue,white,brown,]
-* f5d82d -> [yellow,magenta,red,black,pink,blue,]
-* f93a14 -> [light blue,cyan,lime,brown,brown,gray,]
-* fa0588 -> [magenta,blue,purple,cyan,green,cyan,]
-* faa585 -> [blue,blue,white,purple,green,blue,]
+* #9f6e30 -> [brown,   yellow,  black,   orange,  red,                            ]
+* #d95e40 -> [orange,  red,     magenta, magenta, red,     magenta, orange,  brown]
+* #a89160 -> [yellow,  blue,    gray,    red,     magenta, cyan,                  ]
+* #764690 -> [purple,  brown,   blue,    blue,    lime,    l_blue,                ]
+* #ce8721 -> [orange,  green,   orange,  yellow,  pink,    lime,                  ]
+* #289081 -> [cyan,    cyan,    green,   green,   purple,  gray,                  ]
+* #9e39a1 -> [purple,  magenta, red,     purple,  red,     purple,  red,     cyan,]
+* #31a1b1 -> [l_blue,  cyan,    cyan,    black,   white,   green,                 ]
+* #a9aad1 -> [white,   purple,  l_blue,  cyan,    red,     cyan,                  ]
+* #be5552 -> [red,     pink,    red,     l_blue,  yellow,  orange,                ]
+* #b55c62 -> [red,     pink,    l_blue,  red,     yellow,  magenta,               ]
+* #569843 -> [lime,    cyan,    black,   brown,   black,   white,   black,        ]
+* #9b4a24 -> [red,     green,   red,     orange,  black,   white,   green,        ]
+* #85bf44 -> [lime,    lime,    white,   gray,    blue,    cyan,                  ]
+* #5e8154 -> [green,   l_blue,  brown,   green,   magenta, purple,                ]
+* #663064 -> [black,   magenta, purple,  red,     purple,  magenta, l_gray,       ]
+* #8d9d94 -> [l_gray,  l_gray,  cyan,    l_gray,  pink,    lime,                  ]
+* #cbb7d4 -> [white,   magenta, l_blue,  white,   red,     yellow,  brown,        ]
+* #f49f35 -> [orange,  yellow,  orange,  white,   lime,    yellow,  purple,       ]
+* #493836 -> [black,   brown,   gray,    magenta, green,   gray,                  ]
+* #749256 -> [lime,    gray,    purple,  l_blue,  white,   magenta,               ]
+* #bcbe56 -> [yellow,  lime,    blue,    white,   l_blue,  pink,    blue,         ]
+* #648947 -> [lime,    blue,    black,   lime,    magenta, brown,                 ]
+* #8277c8 -> [magenta, l_blue,  l_blue,  blue,    l_blue,  magenta, l_blue,       ]
+* #b692c8 -> [white,   purple,  purple,  black,   purple,  yellow,  blue,         ]
+* #b9a849 -> [yellow,  gray,    lime,    pink,    pink,    gray,                  ]
+* #b1a2a9 -> [white,   red,     cyan,    blue,    l_gray,  blue,                  ]
+* #b772ab -> [pink,    purple,  l_blue,  magenta, red,     green,                 ]
+* #89b72c -> [lime,    lime,    brown,   yellow,  l_blue,  yellow,  magenta,      ]
+* #b5713d -> [orange,  gray,    magenta, lime,    green,                          ]
+* #a8c7cd -> [white,   cyan,    white,   blue,    orange,  blue,                  ]
+* #2b422e -> [black,   black,   lime,    cyan,    cyan,    cyan,    orange,  lime,]
+* #a159be -> [magenta, purple,  l_blue,  magenta, l_blue,  white,   brown,        ]
+* #d28d5f -> [yellow,  magenta, red,     black,   pink,    blue,                  ]
+* #41a39f -> [l_blue,  cyan,    lime,    brown,   brown,   gray,                  ]
+* #8850af -> [magenta, blue,    purple,  cyan,    green,   cyan,                  ]
+* #585aaf -> [blue,    blue,    white,   purple,  green,   blue,                  ]
 
 
 in game:
