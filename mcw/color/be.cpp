@@ -65,40 +65,40 @@ uint mix(uint a, uint b){
 
 // isn't there a way to put this on the stack instead of the heap? i don't remember what it is;
 uint* base_colors = new uint[16]{
-    0xf0f0f0, /* white */
-    0x979d9d, /* light gray */
-    0x325483, /* gray */
-    0x211d1d, /* black */
-    0x524f47, /* brown */
-    0xaa443c, /* red */
-    0xdab33a, /* orange */
-    0x9c9c16, /* yellow */
-    0x1fc780, /* lime */
-    0x167c5e, /* green */
-    0x1d80f9, /* cyan */
-    0x3dd8fe, /* light blue */
-    0x262eb0, /* blue */
-    0xaa8bf3, /* purple */
-    0xbd4ec7, /* magenta */
-    0xb83289, /* pink */
+    0xf0f0f0, /* #f0f0f0 white      */
+    0x9d9d97, /* #9d9d97 light gray */
+    0x474f52, /* #474f52 gray       */
+    0x1d1d21, /* #1d1d21 black      */
+    0x835432, /* #835432 brown      */
+    0xb02e26, /* #b02e26 red        */
+    0xf9801d, /* #f9801d orange     */
+    0xfed83d, /* #fed83d yellow     */
+    0x80c71f, /* #80c71f lime       */
+    0x5e7c16, /* #5e7c16 green      */
+    0x169c9c, /* #169c9c cyan       */
+    0x3ab3da, /* #3ab3da light blue */
+    0x3c44aa, /* #3c44aa blue       */
+    0x8932b8, /* #8932b8 purple     */
+    0xc74ebd, /* #c74ebd magenta    */
+    0xf38baa, /* #f38baa pink       */
 };
 string* base_colors_names = new string[16]{
-    string("white"), /* 0xf0f0f0 */
-    string("light gray"), /* 0x979d9d */
-    string("gray"), /* 0x325483 */
-    string("black"), /* 0x211d1d */
-    string("brown"), /* 0x524f47 */
-    string("red"), /* 0xaa443c */
-    string("orange"), /* 0xdab33a */
-    string("yellow"), /* 0x9c9c16 */
-    string("lime"), /* 0x1fc780 */
-    string("green"), /* 0x167c5e */
-    string("cyan"), /* 0x1d80f9 */
-    string("light blue"), /* 0x3dd8fe */
-    string("blue"), /* 0x262eb0 */
-    string("lime"), /* 0xaa8bf3 */
-    string("yellow"), /* 0xbd4ec7 */
-    string("orange"), /* 0xb83289 */
+    string("white"),      /* #f0f0f0 */
+    string("light gray"), /* #9d9d97 */
+    string("gray"),       /* #474f52 */
+    string("black"),      /* #1d1d21 */
+    string("brown"),      /* #835432 */
+    string("red"),        /* #b02e26 */
+    string("orange"),     /* #f9801d */
+    string("yellow"),     /* #fed83d */
+    string("lime"),       /* #80c71f */
+    string("green"),      /* #5e7c16 */
+    string("cyan"),       /* #169c9c */
+    string("light blue"), /* #3ab3da */
+    string("blue"),       /* #3c44aa */
+    string("purple"),     /* #8932b8 */
+    string("magenta"),    /* #c74ebd */
+    string("pink"),       /* #f38baa */
 };
 
 
