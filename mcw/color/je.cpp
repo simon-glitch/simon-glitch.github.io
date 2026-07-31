@@ -24,6 +24,46 @@ float max(float a, float b){
     return (a > b) ? a : b;
 }
 
+// isn't there a way to put this on the stack instead of the heap? i don't remember what it is;
+// well global vars can be on the heap, since they will be deleted when the program finishes running XD;
+uint* base_colors = new uint[16]{
+    0xffffff, /* #ffffff white   */
+    0x9d9d97, /* #9d9d97 l_gray  */
+    0x474f52, /* #474f52 gray    */
+    0x1d1d21, /* #1d1d21 black   */
+    0x835432, /* #835432 brown   */
+    0xb02e26, /* #b02e26 red     */
+    0xf9801d, /* #f9801d orange  */
+    0xfed83d, /* #fed83d yellow  */
+    0x80c71f, /* #80c71f lime    */
+    0x5e7c16, /* #5e7c16 green   */
+    0x169c9c, /* #169c9c cyan    */
+    0x3ab3da, /* #3ab3da l_blue  */
+    0x3c44aa, /* #3c44aa blue    */
+    0x8932b8, /* #8932b8 purple  */
+    0xc74ebd, /* #c74ebd magenta */
+    0xf38baa, /* #f38baa pink    */
+};
+string* base_colors_names = new string[16]{
+    string("white   "), /* #ffffff */
+    string("l_gray  "), /* #9d9d97 */
+    string("gray    "), /* #474f52 */
+    string("black   "), /* #1d1d21 */
+    string("brown   "), /* #835432 */
+    string("red     "), /* #b02e26 */
+    string("orange  "), /* #f9801d */
+    string("yellow  "), /* #fed83d */
+    string("lime    "), /* #80c71f */
+    string("green   "), /* #5e7c16 */
+    string("cyan    "), /* #169c9c */
+    string("l_blue  "), /* #3ab3da */
+    string("blue    "), /* #3c44aa */
+    string("purple  "), /* #8932b8 */
+    string("magenta "), /* #c74ebd */
+    string("pink    "), /* #f38baa */
+};
+
+
 /**
  * Recipes are 32 bits. Each set of bits is directly a number to increment the dye index by. The 8 sets together are effectively the list of dye indices. Once the index accumulates to 16, that signifies the end of the list. Or the list just ends at the 8th item.
  * - But Simon, what about [0]? Great question! That is represented with 0xf2000000. Now, Simon, that is bad... Yes, I know. 0xf0****** is reserved for sequences of 15. So 0xf1000000 indicates [15]. If the second nibble is some x, where x > 1, then the number presents (x-1) zeroes. It is a perfect system that can't possibly fail. Also, white is so useless so it should be fine. Remember, bad code is the best kind of code. And incorrect is the true best kind of correct.
@@ -99,7 +139,7 @@ public:
         mix_d = dyem;
         uint colors[8] = {};
         uchar a_len = 0;
-        uchar z = (dyem & 0xff000000) >> 24;
+        uchar z = (mix_d & 0xff000000) >> 24;
         // crazy zero check; but it's less crazy than the code i used to have here;
         if(z > 0xf1){
             a_len = z > 0xf1;
@@ -110,7 +150,7 @@ public:
         else{
             uchar total = 0;
             while(a_len < 8 && total < 16){
-                uchar big_endian_number = ((dyem << (4*a_len)) & 0xf0000000) >> 28;
+                uchar big_endian_number = ((mix_d << (4*a_len)) & 0xf0000000) >> 28;
                 total += big_endian_number;
                 colors[a_len] = total;
                 a_len++;
@@ -176,226 +216,37 @@ public:
         float max_avg = max(ar, ag, ab);
         return avg_max / max_avg;
     }
-};
-
-/* Class to give mixers in 3D space categories. */
-class Catifier{
-public:
-    class Point{
-    public:
-        float x = 0.0;
-        float y = 0.0;
-        float z = 0.0;
-        Point(){}
-        Point(float a_x, float a_y, float a_z){
-            x = a_x;
-            y = a_y;
-            z = a_z;
-        }
-        Point(Mixer mixer){
-            x = mixer.tr;
-            y = mixer.tg;
-            z = mixer.tb;
-        }
-        Point(uint color){
-            x = (color & 0xff0000) >> 16;
-            y = (color & 0x00ff00) >> 8;
-            z = (color & 0x0000ff);
-        }
-    };
-    class Node{
-    public:
-        Mixer mixer;
-        float md;
-        Node* c0;
-        Node* c1;
-        Node(Mixer a_mixer, float a_md){
-            mixer = a_mixer;
-            md = a_md;
-            c0 = 0;
-            c1 = 0;
-        }
-        /* if this function gets called, we force a to go into the heap no matter what; we're assuming it most go in the heap; */
-        void add(Node a){
-            if(a.md > md){
-                float s_md = a.md;
-                a.md = md;
-                md = s_md;
-                Mixer s_mixer = a.mixer;
-                a.mixer = mixer;
-                mixer = s_mixer;
-            }
-            // now a has the pathetic small node data that we MUST push down;
-            // check if the children even exist;
-            if(!c0){
-                c0 = new Node(a.mixer, a.md);
-            }
-            else if(!c1){
-                c1 = new Node(a.mixer, a.md);
-            }
-            // maybe order does matter, especially since BOTH children exist;
-            else if(c0->md < c1->md){
-                c0->add(a);
-            }
-            else{
-                c1->add(a);
+    string recipe_step(){
+        // print the recipe step, i.e. convert mix_d into its respective array and then map the indices using base_color_names;
+        uint colors[8] = {};
+        uchar a_len = 0;
+        uchar z = (mix_d & 0xff000000) >> 24;
+        // crazy zero check; but it's less crazy than the code i used to have here;
+        if(z > 0xf1){
+            a_len = z > 0xf1;
+            for(uchar i = 0; i < a_len; i++){
+                colors[i] = 0;
             }
         }
-        // the only place where any amount of memory-leak safety will actually be practice;
-        bool remove(){
-            // if this the worst heap remove method ever???
-            if(!c0 && !c1){
-                // (X-X)
-                return true;
-            }
-            else if(c0 && !c1){
-                md = c0->md;
-                mixer = c0->mixer;
-                bool gone = c0->remove();
-                if(gone){
-                    delete c0;
-                    c0 = 0;
-                }
-            }
-            else if(!c0 && c1){
-                md = c1->md;
-                mixer = c1->mixer;
-                bool gone = c1->remove();
-                if(gone){
-                    delete c1;
-                    c1 = 0;
-                }
-            }
-            // figure out which child is bigger, since it's about to get a promotion;
-            else if(c0->md > c1->md){
-                // promote c0 and then remove() it;
-                md = c0->md;
-                mixer = c0->mixer;
-                bool gone = c0->remove();
-                if(gone){
-                    delete c0;
-                    c0 = 0;
-                }
-            }
-            else{
-                // promote c1 and then remove() it;
-                md = c1->md;
-                mixer = c1->mixer;
-                bool gone = c1->remove();
-                if(gone){
-                    delete c1;
-                    c1 = 0;
-                }
-            }
-            return false;
-        }
-        void push(Mixer* mixers, uint& j){
-            mixers[j] = mixer;
-            j++;
-            // std::cout << "j=" << j << std::endl;
-            if(c0){
-                c0->push(mixers, j);
-            }
-            if(c1){
-                c1->push(mixers, j);
+        else{
+            uchar total = 0;
+            while(a_len < 8 && total < 16){
+                uchar big_endian_number = ((mix_d << (4*a_len)) & 0xf0000000) >> 28;
+                total += big_endian_number;
+                colors[a_len] = total;
+                a_len++;
             }
         }
-    };
-    // this is a max heap;
-    class Heap{
-    public:
-        /** the mixers in the category; */
-        Node* root;
-        /** the mixers in the category; */
-        uint size = 0;
-        /** the mixers in the category; */
-        Mixer* mixers;
-        /** the center of the category; */
-        Point core;
-        Heap(){}
-        float dist(Point a, Point b){
-            return pow(
-                (a.x - b.x) * (a.x - b.x) +
-                (a.y - b.y) * (a.y - b.y) +
-                (a.z - b.z) * (a.z - b.z),
-                0.5
-            );
+        string s = "[";
+        s += base_colors_names[colors[0]];
+        for(uint i = 1; i < a_len; i++){
+            s += ",";
+            s += base_colors_names[colors[i]];
         }
-        void add(Mixer mixer, uint& heap_lim){
-            // std::cout <<
-            // "Adding (" << mixer.tr <<
-            // "," << mixer.tg <<
-            // "," << mixer.tb <<
-            // "," << mixer.tm <<
-            // "," << mixer.len <<
-            // "," << mixer.mix_d <<
-            // ") / " <<
-            // size << std::endl;
-            float d = dist(core, Point(mixer));
-            if(!root){
-                root = new Node(mixer, d);
-                size++;
-            }
-            else if(size < heap_lim){
-                Node node = Node(mixer, d);
-                root->add(node);
-                size++;
-            }
-            else if(d < root->md){
-                root->remove();
-                Node node = Node(mixer, d);
-                root->add(node);
-            }
-        }
-        void finalize(){
-            mixers = new Mixer[size];
-            uint j = 0;
-            root->push(mixers, j);
-            // std::cout << "Check if jank code works? ";
-            if(j != size){
-                std::cout << "It does not, good luck making it work.";
-            }
-            for(uint i = 0; i < size; i++){
-                root->remove();
-            }
-            root = 0;
-        }
-    };
-    /** a list of 64 sets, each of which contains 0 or more mixers; sets are used to prevent duplicates; */
-    Heap* heaps;
-    uint heap_lim = 1024;
-    Catifier(){
-        heaps = new Heap[64];
-        for(uchar i = 0; i < 64; i++){
-            heaps[i].core = Point(
-                32 + 64 * ((i & 0x30) >> 4),
-                32 + 64 * ((i & 0xc) >> 2),
-                32 + 64 * (i & 0x3)
-            );
-        }
-    }
-    /** returns a list of all 64 category indices, sorted by how close the point is to each category's core; */
-    uchar cat_calc(Point p){
-        return (
-            (((uchar) p.x) / 64) * 16 +
-            (((uchar) p.y) / 64) * 4 +
-            (((uchar) p.z) / 64)
-        );
-    }
-    uchar cat_calc(uint color){
-        return (
-            (((uchar) ((color & 0xc00000) >> 22)) / 64) * 16 +
-            (((uchar) ((color & 0x00c000) >> 14)) / 64) *  4 +
-            (((uchar) ((color & 0x0000c0) >>  6)) / 64)
-        );
-    }
-    void add_mixer(Mixer mixer){
-        for(uchar i = 0; i < 64; i++){
-            heaps[i].add(mixer, heap_lim);
-        }
+        s += "]";
+        return s;
     }
 };
-Catifier cat = Catifier();
 
 bool operator==(const Mixer a, const Mixer b){
     return (
@@ -448,51 +299,7 @@ uint mix(uint color, Mixer mixer){
     );
 }
 
-// isn't there a way to put this on the stack instead of the heap? i don't remember what it is;
-// well global vars can be on the heap, since they will be deleted when the program finishes running XD;
-uint* base_colors = new uint[16]{
-    0xffffff, /* #ffffff white   */
-    0x9d9d97, /* #9d9d97 l_gray  */
-    0x474f52, /* #474f52 gray    */
-    0x1d1d21, /* #1d1d21 black   */
-    0x835432, /* #835432 brown   */
-    0xb02e26, /* #b02e26 red     */
-    0xf9801d, /* #f9801d orange  */
-    0xfed83d, /* #fed83d yellow  */
-    0x80c71f, /* #80c71f lime    */
-    0x5e7c16, /* #5e7c16 green   */
-    0x169c9c, /* #169c9c cyan    */
-    0x3ab3da, /* #3ab3da l_blue  */
-    0x3c44aa, /* #3c44aa blue    */
-    0x8932b8, /* #8932b8 purple  */
-    0xc74ebd, /* #c74ebd magenta */
-    0xf38baa, /* #f38baa pink    */
-};
-string* base_colors_names = new string[16]{
-    string("white   "), /* #ffffff */
-    string("l_gray  "), /* #9d9d97 */
-    string("gray    "), /* #474f52 */
-    string("black   "), /* #1d1d21 */
-    string("brown   "), /* #835432 */
-    string("red     "), /* #b02e26 */
-    string("orange  "), /* #f9801d */
-    string("yellow  "), /* #fed83d */
-    string("lime    "), /* #80c71f */
-    string("green   "), /* #5e7c16 */
-    string("cyan    "), /* #169c9c */
-    string("l_blue  "), /* #3ab3da */
-    string("blue    "), /* #3c44aa */
-    string("purple  "), /* #8932b8 */
-    string("magenta "), /* #c74ebd */
-    string("pink    "), /* #f38baa */
-};
-
 vector<Mixer> mixers_v;
-uint dye_c = 16;
-uint dye_lim = 8;
-float MAGIC_MIX_VIBRANCE = 50.0;
-float MAGIC_COLOR_VIBRANCE = 150.0;
-
 void gen_mixes(CWR cwr){
     std::set<Mixer> mixer_s = std::set<Mixer>();
     // uint mix_indx = 0;
@@ -696,8 +503,9 @@ void true_bounds(uint dye_c){
     for(auto it = mixers_v.begin(); it != mixers_v.end(); it++){
         if(it->len - 1 != dye_c) continue;
         mixers_checked++;
-        if(dye_c <= 4) true_bounds_i(*it, 0, 255);
+        if(dye_c < 4) true_bounds_i(*it, 0, 255);
         if(dye_c < 4) true_bounds_i(*it, 1, 254);
+        if(dye_c <= 4) true_bounds_i(*it, 5, 250);
         if(dye_c > 4) true_bounds_i(*it, 80, 220);
     }
     std::cout << "Mixers: " << mixers_checked << std::endl;
@@ -855,6 +663,106 @@ void poly_fill(){
     delete filled;
     delete outside;
 }
+void convex_hull(){
+    uint fill_c = 0;
+    for(uint i = 0; i < (1 << 24); i++){
+        if(in_bounds->get(i)) fill_c++;
+    }
+    std::cout << "Total in bounds before: " << fill_c << std::endl;
+    for(uint i = 0; i < (1 << 24); i++){
+        if(in_bounds->get(i)) continue;
+        uint ir = (i & 0xff0000) >> 16;
+        uint ig = (i & 0x00ff00) >> 8;
+        uint ib = (i & 0x0000ff);
+        // skip edge items, since i don't want to polyfill the outside;
+        if(
+            ir == 0 || ir == 255 ||
+            ig == 0 || ig == 255 ||
+            ib == 0 || ib == 255
+        ) continue;
+        
+        // check if this tile should be filled, and stop search here if it should not;
+        if(
+            in_bounds->get(i + 0x010000) +
+            in_bounds->get(i - 0x010000) +
+            in_bounds->get(i + 0x000100) +
+            in_bounds->get(i - 0x000100) +
+            in_bounds->get(i + 0x000001) +
+            in_bounds->get(i - 0x000001) <= 3
+        ) continue;
+        // fill this tile;
+        in_bounds->set(i, 1);
+        
+        // this vector acts like a queue;
+        auto filling = vector<uint>();
+        filling.push_back(i);
+        for(uint fill_i = 0; fill_i < filling.size(); fill_i++){
+            uint i = filling.at(fill_i);
+            // skip filled tiles;
+            if(in_bounds->get(i)) continue;
+            uint ir = (i & 0xff0000) >> 16;
+            uint ig = (i & 0x00ff00) >> 8;
+            uint ib = (i & 0x0000ff);
+            
+            // if we hit the edge, skip that;
+            if(
+                ir == 0 || ir == 255 ||
+                ig == 0 || ig == 255 ||
+                ib == 0 || ib == 255
+            ) continue;
+            
+            // check if this tile should be filled, and stop search here if it should not;
+            if(
+                in_bounds->get(i + 0x010000) +
+                in_bounds->get(i - 0x010000) +
+                in_bounds->get(i + 0x000100) +
+                in_bounds->get(i - 0x000100) +
+                in_bounds->get(i + 0x000001) +
+                in_bounds->get(i - 0x000001) <= 3
+            ) continue;
+            // fill this tile;
+            in_bounds->set(i, 1);
+            
+            // if we hit a found tile, stop searching at that tile;
+            uint j;
+            
+            j = ((ir + 1) << 16) | ((ig    ) << 8) | (ib    );
+            if(!in_bounds->get(j)){
+                filling.push_back(j);
+            }
+            
+            j = ((ir - 1) << 16) | ((ig    ) << 8) | (ib    );
+            if(!in_bounds->get(j)){
+                filling.push_back(j);
+            }
+            
+            j = ((ir    ) << 16) | ((ig + 1) << 8) | (ib    );
+            if(!in_bounds->get(j)){
+                filling.push_back(j);
+            }
+            
+            j = ((ir    ) << 16) | ((ig - 1) << 8) | (ib    );
+            if(!in_bounds->get(j)){
+                filling.push_back(j);
+            }
+            
+            j = ((ir    ) << 16) | ((ig    ) << 8) | (ib + 1);
+            if(!in_bounds->get(j)){
+                filling.push_back(j);
+            }
+            
+            j = ((ir    ) << 16) | ((ig    ) << 8) | (ib - 1);
+            if(!in_bounds->get(j)){
+                filling.push_back(j);
+            }
+        }
+    }
+    fill_c = 0;
+    for(uint i = 0; i < (1 << 24); i++){
+        if(in_bounds->get(i)) fill_c++;
+    }
+    std::cout << "Total in bounds after: " << fill_c << std::endl;
+}
 
 uint found = 0;
 void add(uint color, ulng mix_d){
@@ -954,8 +862,9 @@ int main(int argc, char const *argv[]){
     true_bounds(2);
     true_bounds(3);
     true_bounds(4);
-    true_bounds(5);
+    // true_bounds(5);
     poly_fill();
+    convex_hull();
     
     /*
     for(uint i = 0; i < 16; i++){
