@@ -89,6 +89,7 @@ public:
         len = a_len;
     }
     void find_bounds(){
+        std::cout << "Does it die here?";
         float max_a = 0;
         max_a = max(max_a, alpha(0xff, 0x00, 0x00));
         max_a = max(max_a, alpha(0x00, 0xff, 0x00));
@@ -113,7 +114,7 @@ public:
         if(max_b >= 0x100){
             std::cout << "Oh no! max_b is " << max_b << ". I didn't think that was possible." << std::endl;
         }
-        if(max(max_r, max_g, max_b)){
+        if(max(max_r, max_g, max_b) >= 0x100){
             abort();
         }
     }
@@ -453,6 +454,7 @@ void gen_mixes(){
     for(auto it = cwr.dyes.begin(); it != cwr.dyes.end(); it++){
         uint colors[8] = {};
         uint dyem = *it;
+        std::cout << "Color? " << dyem << std::endl;
         uchar len = 0;
         uchar z = (dyem & 0xff000000) >> 24;
         // crazy zero check; but it's less crazy than the code i used to have here;
@@ -465,13 +467,22 @@ void gen_mixes(){
         else{
             uchar total = 0;
             while(len < 8 && total < 16){
-                uchar big_endian_number = (dyem << (4*len)) & 0xff000000;
-                colors[len] = big_endian_number;
+                uchar big_endian_number = ((dyem << (4*len)) & 0xf0000000) >> 28;
                 total += big_endian_number;
+                colors[len] = total;
                 len++;
             }
         }
         
+        std::cout << "Colors? " <<
+        colors[0] << ","<<
+        colors[1] << ","<<
+        colors[2] << ","<<
+        colors[3] << ","<<
+        colors[4] << ","<<
+        colors[5] << ","<<
+        colors[6] << ","<<
+        colors[7] << ",[" << len << "]" << std::endl;
         Mixer mixer = premix(colors, dyem, len);
         mixer.find_bounds();
         mixer_s.insert(mixer);

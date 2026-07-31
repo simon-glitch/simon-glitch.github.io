@@ -55,7 +55,7 @@ public:
                 // << std::endl;
                 
                 // now add the combination to the list;
-                uint formatted = 0;
+                uint formatted = indices[0];
                 bool all_zero = indices[0] == 0;
                 for(uchar i = 1; i < dye_c; i++){
                     // this code was written by an autistic man at 8 in the morning who hasn't slept all morning;
@@ -69,7 +69,7 @@ public:
                 else if(dye_c < 8){
                     formatted = (formatted << 4) | (16 - indices[carry_place]);
                 }
-                formatted <<= 4*(8-dye_c);
+                if(!all_zero) formatted <<= 4*(8-dye_c);
                 dyes.push_back(formatted);
                 // now incremenet; we have to carry next loop because there just isn't any other way to do this; i've written this code like 8 times, trust me;
                 indices[carry_place]++;
