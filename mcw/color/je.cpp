@@ -41,6 +41,9 @@ public:
     void set(uint idx, uint value){
         d[idx] = value;
     }
+    ~Color_Recipes(){
+        delete d;
+    }
 };
 class Color_Exists{
 public:
@@ -56,6 +59,9 @@ public:
     void set(uint idx, uchar value){
         d[idx / 8] &= ~(((uchar) 1) << (idx % 8));
         d[idx / 8] |= value << (idx % 8);
+    }
+    ~Color_Exists(){
+        delete d;
     }
 };
 
@@ -599,9 +605,11 @@ void all_bounds(){
 void poly_fill(){
     bool outside_done = false;
     uint outside_size = 0;
+    auto filled = new Color_Exists();
     auto outside = new Color_Exists();
     uint fill_c = 0;
     for(uint i = 0; i < (1 << 24); i++){
+        if(filled->get(i)) continue;
         if(outside->get(i)) continue;
         if(in_bounds->get(i)) continue;
         uint ir = (i & 0xff0000) >> 16;
@@ -616,15 +624,12 @@ void poly_fill(){
         // this vector acts like a queue;
         auto filling = vector<uint>();
         filling.push_back(i);
+        filled->set(i, 1);
         bool success = true;
         for(uint fill_i = 0; fill_i < filling.size(); fill_i++){
             // std::cout << "Searching i=" << filling.at(fill_i) << ", size=" << filling.size() << std::endl;
             
             uint i = filling.at(fill_i);
-            if(i > 0xffffff){
-                std::cout << "Fatal error. i=" << i << std::endl;
-                abort();
-            }
             uint ir = (i & 0xff0000) >> 16;
             uint ig = (i & 0x00ff00) >> 8;
             uint ib = (i & 0x0000ff);
@@ -644,67 +649,49 @@ void poly_fill(){
                 
                 if(ir < 255){
                     j = ((ir + 1) << 16) | ((ig    ) << 8) | (ib    );
-                    if(j > 0xffffff){
-                        std::cout << "Fatal error. j=" << j << std::endl;
-                        abort();
-                    }
-                    if(!in_bounds->get(j)){
+                    if(!in_bounds->get(j) && !filled->get(j)){
                         filling.push_back(j);
+                        filled->set(j, 1);
                     }
                 }
                 
                 if(ir > 0){
                     j = ((ir - 1) << 16) | ((ig    ) << 8) | (ib    );
-                    if(j > 0xffffff){
-                        std::cout << "Fatal error. j=" << j << std::endl;
-                        abort();
-                    }
-                    if(!in_bounds->get(j)){
+                    if(!in_bounds->get(j) && !filled->get(j)){
                         filling.push_back(j);
+                        filled->set(j, 1);
                     }
                 }
                 
                 if(ig < 255){
                     j = ((ir    ) << 16) | ((ig + 1) << 8) | (ib    );
-                    if(j > 0xffffff){
-                        std::cout << "Fatal error. j=" << j << std::endl;
-                        abort();
-                    }
-                    if(!in_bounds->get(j)){
+                    if(!in_bounds->get(j) && !filled->get(j)){
                         filling.push_back(j);
+                        filled->set(j, 1);
                     }
                 }
                 
                 if(ig > 0){
                     j = ((ir    ) << 16) | ((ig - 1) << 8) | (ib    );
-                    if(j > 0xffffff){
-                        std::cout << "Fatal error. j=" << j << std::endl;
-                        abort();
-                    }
-                    if(!in_bounds->get(j)){
+                    if(!in_bounds->get(j) && !filled->get(j)){
                         filling.push_back(j);
+                        filled->set(j, 1);
                     }
                 }
                 
                 if(ib < 255){
                     j = ((ir    ) << 16) | ((ig    ) << 8) | (ib + 1);
-                    if(j > 0xffffff){
-                        std::cout << "Fatal error. j=" << j << std::endl;
-                        abort();
-                    }
-                    if(!in_bounds->get(j)){
+                    if(!in_bounds->get(j) && !filled->get(j)){
                         filling.push_back(j);
+                        filled->set(j, 1);
                     }
                 }
                 
                 if(ib > 0){
                     j = ((ir    ) << 16) | ((ig    ) << 8) | (ib - 1);
-                    if(j > 0xffffff){
-                        std::cout << "Fatal error. j=" << j << std::endl;
-                        abort();
-                    }
-                    if(!in_bounds->get(j)){
+                    if(!in_bounds->get(j) && !filled->get(j)){
                         filling.push_back(j);
+                        filled->set(j, 1);
                     }
                 }
                 continue;
@@ -713,57 +700,39 @@ void poly_fill(){
             uint j;
             
             j = ((ir + 1) << 16) | ((ig    ) << 8) | (ib    );
-            if(j > 0xffffff){
-                std::cout << "Fatal error. j=" << j << std::endl;
-                abort();
-            }
-            if(!in_bounds->get(j)){
+            if(!in_bounds->get(j) && !filled->get(j)){
                 filling.push_back(j);
+                filled->set(j, 1);
             }
             
             j = ((ir - 1) << 16) | ((ig    ) << 8) | (ib    );
-            if(j > 0xffffff){
-                std::cout << "Fatal error. j=" << j << std::endl;
-                abort();
-            }
-            if(!in_bounds->get(j)){
+            if(!in_bounds->get(j) && !filled->get(j)){
                 filling.push_back(j);
+                filled->set(j, 1);
             }
             
             j = ((ir    ) << 16) | ((ig + 1) << 8) | (ib    );
-            if(j > 0xffffff){
-                std::cout << "Fatal error. j=" << j << std::endl;
-                abort();
-            }
-            if(!in_bounds->get(j)){
+            if(!in_bounds->get(j) && !filled->get(j)){
                 filling.push_back(j);
+                filled->set(j, 1);
             }
             
             j = ((ir    ) << 16) | ((ig - 1) << 8) | (ib    );
-            if(j > 0xffffff){
-                std::cout << "Fatal error. j=" << j << std::endl;
-                abort();
-            }
-            if(!in_bounds->get(j)){
+            if(!in_bounds->get(j) && !filled->get(j)){
                 filling.push_back(j);
+                filled->set(j, 1);
             }
             
             j = ((ir    ) << 16) | ((ig    ) << 8) | (ib + 1);
-            if(j > 0xffffff){
-                std::cout << "Fatal error. j=" << j << std::endl;
-                abort();
-            }
-            if(!in_bounds->get(j)){
+            if(!in_bounds->get(j) && !filled->get(j)){
                 filling.push_back(j);
+                filled->set(j, 1);
             }
             
             j = ((ir    ) << 16) | ((ig    ) << 8) | (ib - 1);
-            if(j > 0xffffff){
-                std::cout << "Fatal error. j=" << j << std::endl;
-                abort();
-            }
-            if(!in_bounds->get(j)){
+            if(!in_bounds->get(j) && !filled->get(j)){
                 filling.push_back(j);
+                filled->set(j, 1);
             }
         }
         std::cout << "Outside done? " << outside_done << std::endl;
@@ -786,6 +755,8 @@ void poly_fill(){
     }
     std::cout << "Outside: " << outside_size << std::endl;
     std::cout << "Filled: " << fill_c << std::endl;
+    delete filled;
+    delete outside;
 }
 
 uint found = 0;
