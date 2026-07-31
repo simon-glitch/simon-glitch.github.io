@@ -36,32 +36,32 @@ CustomColor = [0x43, 0x75, 0x73, 0x74, 0x6f, 0x6d, 0x43, 0x6f, 0x6c, 0x6f, 0x72]
 import fileinput
 def stuff():
     for line in fileinput.input(mode="rb"):
-        line = [code for code in line]
-        s = ""
-        i = 0
-        j = 0
-        grab = 4
-        for code in line:
-            if(i == len(CustomColor)):
-                if(j == grab): break
-                s += mhex(code)
-                j += 1
-            elif(code == CustomColor[i]):
-                i += 1
-            else: i = 0
-        if(s): print(s)
+        # line = [code for code in line]
+        # s = ""
+        # i = 0
+        # j = 0
+        # grab = 4
+        # for code in line:
+        #     if(i == len(CustomColor)):
+        #         if(j == grab): break
+        #         s += mhex(code)
+        #         j += 1
+        #     elif(code == CustomColor[i]):
+        #         i += 1
+        #     else: i = 0
+        # if(s): print(s)
         
-        # s = "|"
-        # for code in line:
-        #     char = from_code[code]
-        #     if(char in line_chars): s += "\\n"
-        #     elif(char in my_ascii): s += " " + char
-        #     else: s += " ."
-        # s += "|\n|"
-        # for code in line:
-        #     s += mhex(code)
-        # s += "|"
-        # print(s)
+        s = "|"
+        for code in line:
+            char = from_code[code]
+            if(char in line_chars): s += "\\n"
+            elif(char in my_ascii): s += " " + char
+            else: s += " ."
+        s += "|\n|"
+        for code in line:
+            s += mhex(code)
+        s += "|"
+        print(s)
 
 
 """
@@ -95,9 +95,6 @@ def test():
             color = mix(color, colors[i % 2])
             i //= 2
         print(hex(color), hex(res[si]), color == res[si])
-
-# stuff()
-# test()
 
 """
 Here are the colors:
@@ -661,4 +658,7 @@ def stuff_b():
         0xbeddb9,
     ])
 
-stuff_b()
+# stuff_b()
+stuff()
+# test()
+
