@@ -1,0 +1,8 @@
+My theories for the mcstructure format:
+* It's JSON.
+* 00 indicates the start/end of an entry
+* 06 or 07 is for commas
+* 0c or 0a is for colons
+* lists probably have their length next to them
+* the blocks use indices within a pallete, making it very simple to use
+
