@@ -617,10 +617,10 @@ void poly_fill(){
         auto filling = vector<uint>();
         filling.push_back(i);
         bool success = true;
-        for(auto it = filling.begin(); it != filling.end(); it++){
-            std::cout << "Searching i=" << (*it) << ", size=" << filling.size() << std::endl;
+        for(uint fill_i = 0; fill_i < filling.size(); fill_i++){
+            // std::cout << "Searching i=" << filling.at(fill_i) << ", size=" << filling.size() << std::endl;
             
-            uint i = *it;
+            uint i = filling.at(fill_i);
             if(i > 0xffffff){
                 std::cout << "Fatal error. i=" << i << std::endl;
                 abort();
@@ -628,6 +628,9 @@ void poly_fill(){
             uint ir = (i & 0xff0000) >> 16;
             uint ig = (i & 0x00ff00) >> 8;
             uint ib = (i & 0x0000ff);
+            
+            // std::cout << "ir=" << ir << ", ig=" << ig << ", ib=" << ib << std::endl;
+            
             // if we hit the edge, fail;
             if(
                 ir == 0 || ir == 255 ||
@@ -638,6 +641,7 @@ void poly_fill(){
                 if(outside_done) break;
                 // the outside needs separate logic;
                 uint j;
+                
                 if(ir < 255){
                     j = ((ir + 1) << 16) | ((ig    ) << 8) | (ib    );
                     if(j > 0xffffff){
@@ -648,6 +652,7 @@ void poly_fill(){
                         filling.push_back(j);
                     }
                 }
+                
                 if(ir > 0){
                     j = ((ir - 1) << 16) | ((ig    ) << 8) | (ib    );
                     if(j > 0xffffff){
@@ -658,6 +663,7 @@ void poly_fill(){
                         filling.push_back(j);
                     }
                 }
+                
                 if(ig < 255){
                     j = ((ir    ) << 16) | ((ig + 1) << 8) | (ib    );
                     if(j > 0xffffff){
@@ -668,6 +674,7 @@ void poly_fill(){
                         filling.push_back(j);
                     }
                 }
+                
                 if(ig > 0){
                     j = ((ir    ) << 16) | ((ig - 1) << 8) | (ib    );
                     if(j > 0xffffff){
@@ -678,6 +685,7 @@ void poly_fill(){
                         filling.push_back(j);
                     }
                 }
+                
                 if(ib < 255){
                     j = ((ir    ) << 16) | ((ig    ) << 8) | (ib + 1);
                     if(j > 0xffffff){
@@ -688,6 +696,7 @@ void poly_fill(){
                         filling.push_back(j);
                     }
                 }
+                
                 if(ib > 0){
                     j = ((ir    ) << 16) | ((ig    ) << 8) | (ib - 1);
                     if(j > 0xffffff){
@@ -702,6 +711,7 @@ void poly_fill(){
             }
             // if we hit a found tile, stop searching at that tile; this is how we detect the edge of the area to fill in;
             uint j;
+            
             j = ((ir + 1) << 16) | ((ig    ) << 8) | (ib    );
             if(j > 0xffffff){
                 std::cout << "Fatal error. j=" << j << std::endl;
@@ -710,6 +720,7 @@ void poly_fill(){
             if(!in_bounds->get(j)){
                 filling.push_back(j);
             }
+            
             j = ((ir - 1) << 16) | ((ig    ) << 8) | (ib    );
             if(j > 0xffffff){
                 std::cout << "Fatal error. j=" << j << std::endl;
@@ -718,6 +729,7 @@ void poly_fill(){
             if(!in_bounds->get(j)){
                 filling.push_back(j);
             }
+            
             j = ((ir    ) << 16) | ((ig + 1) << 8) | (ib    );
             if(j > 0xffffff){
                 std::cout << "Fatal error. j=" << j << std::endl;
@@ -726,6 +738,7 @@ void poly_fill(){
             if(!in_bounds->get(j)){
                 filling.push_back(j);
             }
+            
             j = ((ir    ) << 16) | ((ig - 1) << 8) | (ib    );
             if(j > 0xffffff){
                 std::cout << "Fatal error. j=" << j << std::endl;
@@ -734,6 +747,7 @@ void poly_fill(){
             if(!in_bounds->get(j)){
                 filling.push_back(j);
             }
+            
             j = ((ir    ) << 16) | ((ig    ) << 8) | (ib + 1);
             if(j > 0xffffff){
                 std::cout << "Fatal error. j=" << j << std::endl;
@@ -742,6 +756,7 @@ void poly_fill(){
             if(!in_bounds->get(j)){
                 filling.push_back(j);
             }
+            
             j = ((ir    ) << 16) | ((ig    ) << 8) | (ib - 1);
             if(j > 0xffffff){
                 std::cout << "Fatal error. j=" << j << std::endl;
@@ -754,6 +769,7 @@ void poly_fill(){
         std::cout << "Outside done? " << outside_done << std::endl;
         std::cout << "Success? " << success << std::endl;
         std::cout << "Filling " << filling.size() << std::endl;
+        abort();
         if(success){
             fill_c += filling.size();
             for(auto it = filling.begin(); it != filling.end(); it++){
