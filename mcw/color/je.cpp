@@ -65,7 +65,7 @@ public:
     uint tg = 0;
     uint tb = 0;
     uint tm = 0;
-    ushort mix_d = 0;
+    uint mix_d = 0;
     uint len = 0;
     /** min value of R channel for this mixer */
     uint min_r = 0;
@@ -80,7 +80,7 @@ public:
     /** max value of B channel for this mixer */
     uint max_b = 0;
     Mixer(){}
-    Mixer(uint a_tr, uint a_tg, uint a_tb, uint a_tm, ushort a_mix_d, uint a_len){
+    Mixer(uint a_tr, uint a_tg, uint a_tb, uint a_tm, uint a_mix_d, uint a_len){
         tr = a_tr;
         tg = a_tg;
         tb = a_tb;
@@ -455,7 +455,7 @@ void gen_mixes(){
     for(auto it = cwr.dyes.begin(); it != cwr.dyes.end(); it++){
         uint colors[8] = {};
         uint dyem = *it;
-        // std::cout << "Color? " << dyem << std::endl;
+        std::cout << "Color? " << dyem << std::endl;
         uchar len = 0;
         uchar z = (dyem & 0xff000000) >> 24;
         // crazy zero check; but it's less crazy than the code i used to have here;
@@ -511,6 +511,7 @@ void gen_mixes(){
             ", tm =" << mixer.tm <<
             ", len =" << mixer.len <<
             ", mix_d =" << mixer.mix_d <<
+            ", dyem =" << dyem <<
             ", colors = [";
             if(len > 0) std::cout         << colors[0];
             if(len > 1) std::cout << ", " << colors[1];

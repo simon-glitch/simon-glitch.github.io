@@ -23,8 +23,8 @@ public:
     void gen(){
         dyes = vector<uint>();
         uchar indices[8] = {0};
-        uint be_able_to_cout_limit = 1000;
-        uint be_able_to_cout_i = 0;
+        // uint be_able_to_cout_limit = 1000;
+        // uint be_able_to_cout_i = 0;
         for(uchar dye_c = 1; dye_c <= 8; dye_c++){
             for(uchar i = 0; i < dye_c - 1; i++){
                 indices[i] = 0;
@@ -32,10 +32,10 @@ public:
             indices[dye_c - 1] = -1;
             uchar carry_place = dye_c - 1;
             while(true){
-                be_able_to_cout_i++;
-                if(be_able_to_cout_i == be_able_to_cout_limit){
-                    abort();
-                }
+                // be_able_to_cout_i++;
+                // if(be_able_to_cout_i == be_able_to_cout_limit){
+                //     abort();
+                // }
                 
                 // carry if needed
                 while(carry_place > 0 && indices[carry_place] == 16){
@@ -83,10 +83,10 @@ public:
                     formatted = (formatted << 4) | (indices[i] - indices[i - 1]);
                 }
                 if(all_zero){
-                    std::cout << "This should be a list of " << uint(dye_c) << " zeroes. ";
-                    std::cout << "At " << dyes.size() << ". ";
+                    // std::cout << "This should be a list of " << uint(dye_c) << " zeroes. ";
+                    // std::cout << "At " << dyes.size() << ". ";
                     formatted = (0xf0 | (dye_c + 1)) << 24;
-                    std::cout << "Formatted =  " << formatted << std::endl;
+                    // std::cout << "Formatted =  " << formatted << std::endl;
                 }
                 else if(dye_c < 8){
                     formatted = (formatted << 4) | (16 - indices[carry_place]);
