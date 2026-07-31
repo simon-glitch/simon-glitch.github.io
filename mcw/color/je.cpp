@@ -20,6 +20,18 @@ uint max(uint a, uint b){
 uint max(uint a, uint b, uint c){
     return (a > b) ? ((a > c) ? a : c) : ((b > c) ? b : c);
 }
+short min(short a, short b){
+    return (a < b) ? a : b;
+}
+short min(short a, short b, short c){
+    return (a < b) ? ((a < c) ? a : c) : ((b < c) ? b : c);
+}
+short max(short a, short b){
+    return (a > b) ? a : b;
+}
+short max(short a, short b, short c){
+    return (a > b) ? ((a > c) ? a : c) : ((b > c) ? b : c);
+}
 float max(float a, float b){
     return (a > b) ? a : b;
 }
@@ -669,6 +681,8 @@ void convex_hull(){
         if(in_bounds->get(i)) fill_c++;
     }
     std::cout << "Total in bounds before: " << fill_c << std::endl;
+    
+    
     for(uint i = 0; i < (1 << 24); i++){
         if(in_bounds->get(i)) continue;
         uint ir = (i & 0xff0000) >> 16;
@@ -757,6 +771,47 @@ void convex_hull(){
             }
         }
     }
+    // cast inward shadows to improve shape further;
+    short* shadow_a = new short[65536];
+    #define shadow(v1, v2, v3, f1, f2, f3, f4, f5, f6, mia) \
+    for(uint v1 = 0; v1 <= 255; v1++){           \
+        for(uint v2 = 0; v2 <= 255; v2++){       \
+            shadow_a[(v1 << 8) | v2] = 0;        \
+            for(uint v3 = f1; v3 f2 f3; v3 f4){  \
+                if(in_bounds->get(               \
+                    (ir << 16) | (ig << 8) | ib) \
+                ) break;                         \
+                shadow_a[(v1 << 8) | v2]++;      \
+            }                                    \
+        }                                        \
+    }                                            \
+    for(uint v1 = 1; v1 <= 254; v1++){           \
+        for(uint v2 = 1; v2 <= 254; v2++){       \
+            uint i = (v1 << 8) | v2;             \
+            short shadow_b = mia(                \
+                shadow_a[i],                     \
+                mia(shadow_a[i + 0x0100],        \
+                    shadow_a[i - 0x0100]),       \
+                mia(shadow_a[i + 0x0001],        \
+                    shadow_a[i - 0x0001])        \
+            );                                   \
+            for(uint v3 = f5; v3 < f6; v3++){    \
+                in_bounds->set(                  \
+                    (ir << 16) | (ig << 8) | ib, \
+                    1                            \
+                );                               \
+            }                                    \
+        }                                        \
+    }
+    shadow(ir, ig, ib, 0, <=, 255, ++, shadow_b - 1, shadow_a[i] - 1, min);
+    shadow(ig, ib, ir, 0, <=, 255, ++, shadow_b - 1, shadow_a[i] - 1, min);
+    shadow(ir, ib, ig, 0, <=, 255, ++, shadow_b - 1, shadow_a[i] - 1, min);
+    shadow(ir, ig, ib, 255, >=, 0, --, shadow_a[i] + 1, shadow_b + 1, max);
+    shadow(ig, ib, ir, 255, >=, 0, --, shadow_a[i] + 1, shadow_b + 1, max);
+    shadow(ir, ib, ig, 255, >=, 0, --, shadow_a[i] + 1, shadow_b + 1, max);
+    delete shadow_a;
+    
+    
     fill_c = 0;
     for(uint i = 0; i < (1 << 24); i++){
         if(in_bounds->get(i)) fill_c++;
