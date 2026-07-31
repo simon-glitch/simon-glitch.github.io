@@ -537,12 +537,6 @@ uint ic = 0;
 
 void all_bounds(){
     for(auto it = mixers_v.begin(); it != mixers_v.end(); it++){
-        // it->min_r = 3;
-        // it->max_r = 7;
-        // it->min_g = 3;
-        // it->max_g = 7;
-        // it->min_b = 3;
-        // it->max_b = 7;
         uint outer = ((
             (it->max_r - it->min_r + 1) *
             (it->max_g - it->min_g + 1) *
@@ -552,7 +546,6 @@ void all_bounds(){
             (it->max_g - it->min_g - 1) *
             (it->max_b - it->min_b - 1)
         ));
-        // std::cout << "Outer olume: " << outer << std::endl;
         uint added = 0;
         uint ir;
         ir = it->min_r;
@@ -564,7 +557,6 @@ void all_bounds(){
                 (ib      ),
                 1
             );
-            // std::cout << "Set " << ir << "," << ig << "," << ib << std::endl;
             added++;
         }
         }
@@ -577,7 +569,6 @@ void all_bounds(){
                 (ib      ),
                 1
             );
-            // std::cout << "Set " << ir << "," << ig << "," << ib << std::endl;
             added++;
         }
         }
@@ -591,7 +582,6 @@ void all_bounds(){
                     (ib      ),
                     1
                 );
-                // std::cout << "Set " << ir << "," << ig << "," << ib << std::endl;
                 added++;
             }
             ig = it->max_g;
@@ -602,7 +592,6 @@ void all_bounds(){
                     (ib      ),
                     1
                 );
-                // std::cout << "Set " << ir << "," << ig << "," << ib << std::endl;
                 added++;
             }
             for(ig = it->min_g + 1; ig <= it->max_g - 1; ig++){
@@ -614,7 +603,6 @@ void all_bounds(){
                     (ib      ),
                     1
                 );
-                // std::cout << "Set " << ir << "," << ig << "," << ib << std::endl;
                 added++;
                 ib = it->max_b;
                 in_bounds->set(
@@ -623,7 +611,6 @@ void all_bounds(){
                     (ib      ),
                     1
                 );
-                // std::cout << "Set " << ir << "," << ig << "," << ib << std::endl;
                 added++;
             }
         }
@@ -631,7 +618,6 @@ void all_bounds(){
             std::cout << "outer=" << outer << ", added=" << added << std::endl;
             abort();
         }
-        // abort();
     }
     uint in_bound = 0;
     for(uint i = 0; i < (1<<24); i++){
@@ -639,14 +625,89 @@ void all_bounds(){
     }
     std::cout << "In bounds: " << in_bound << std::endl;
 }
+
+// a better approach is to actually mix each mixer with the edge of the 256^3 cube;
+void true_bounds_i(Mixer mixer, uint a, uint b){
+    uint ir;
+    ir = a;
+    for(uint ig = a; ig <= b; ig++){
+    for(uint ib = a; ib <= b; ib++){
+        in_bounds->set(mix(
+            (ir << 16) |
+            (ig <<  8) |
+            (ib      ), mixer),
+            1
+        );
+    }
+    }
+    ir = b;
+    for(uint ig = a; ig <= b; ig++){
+    for(uint ib = a; ib <= b; ib++){
+        in_bounds->set(mix(
+            (ir << 16) |
+            (ig <<  8) |
+            (ib      ), mixer),
+            1
+        );
+    }
+    }
+    for(ir = a+1; ir <= b-1; ir++){
+        uint ig;
+        ig = a;
+        for(uint ib = a; ib <= b; ib++){
+            in_bounds->set(mix(
+                (ir << 16) |
+                (ig <<  8) |
+                (ib      ), mixer),
+                1
+            );
+        }
+        ig = b;
+        for(uint ib = a; ib <= b; ib++){
+            in_bounds->set(mix(
+                (ir << 16) |
+                (ig <<  8) |
+                (ib      ), mixer),
+                1
+            );
+        }
+        for(ig = a+1; ig <= b-1; ig++){
+            uint ib;
+            ib = a;
+            in_bounds->set(mix(
+                (ir << 16) |
+                (ig <<  8) |
+                (ib      ), mixer),
+                1
+            );
+            ib = b;
+            in_bounds->set(mix(
+                (ir << 16) |
+                (ig <<  8) |
+                (ib      ), mixer),
+                1
+            );
+        }
+    }
+}
+void true_bounds(uint dye_c){
+    std::cout << "Dyes: " << dye_c << std::endl;
+    uint mixers_checked = 0;
+    for(auto it = mixers_v.begin(); it != mixers_v.end(); it++){
+        if(it->len - 1 != dye_c) continue;
+        mixers_checked++;
+        if(dye_c <= 4) true_bounds_i(*it, 0, 255);
+        if(dye_c < 4) true_bounds_i(*it, 1, 254);
+        if(dye_c > 4) true_bounds_i(*it, 80, 220);
+    }
+    std::cout << "Mixers: " << mixers_checked << std::endl;
+    uint in_bound = 0;
+    for(uint i = 0; i < (1<<24); i++){
+        if(in_bounds->get(i)) in_bound++;
+    }
+    std::cout << "In bounds: " << in_bound << std::endl;
+}
 void poly_fill(){
-    // in_bounds->set(0x030202, 1);
-    // in_bounds->set(0x010202, 1);
-    // in_bounds->set(0x020302, 1);
-    // in_bounds->set(0x020102, 1);
-    // in_bounds->set(0x020203, 1);
-    // in_bounds->set(0x020201, 1);
-    // in_bounds->set(0x020202, 0);
     bool outside_done = false;
     uint outside_size = 0;
     auto filled = new Color_Exists();
@@ -671,14 +732,10 @@ void poly_fill(){
         filled->set(i, 1);
         bool success = true;
         for(uint fill_i = 0; fill_i < filling.size(); fill_i++){
-            // std::cout << "Searching i=" << filling.at(fill_i) << ", size=" << filling.size() << std::endl;
-            
             uint i = filling.at(fill_i);
             uint ir = (i & 0xff0000) >> 16;
             uint ig = (i & 0x00ff00) >> 8;
             uint ib = (i & 0x0000ff);
-            
-            // std::cout << "ir=" << ir << ", ig=" << ig << ", ib=" << ib << std::endl;
             
             // if we hit the edge, fail;
             if(
@@ -779,10 +836,6 @@ void poly_fill(){
                 filled->set(j, 1);
             }
         }
-        // std::cout << "Outside done? " << outside_done << std::endl;
-        // std::cout << "Success? " << success << std::endl;
-        // std::cout << "Filling " << filling.size() << std::endl;
-        // abort();
         if(success){
             fill_c += filling.size();
             for(auto it = filling.begin(); it != filling.end(); it++){
@@ -896,7 +949,12 @@ int main(int argc, char const *argv[]){
     // 735470 -> 564927;
     std::cout << "mixer_c: " << mixers_v.size() << std::endl;
     
-    all_bounds();
+    // all_bounds();
+    true_bounds(1);
+    true_bounds(2);
+    true_bounds(3);
+    true_bounds(4);
+    true_bounds(5);
     poly_fill();
     
     /*
