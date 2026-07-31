@@ -89,7 +89,7 @@ public:
         len = a_len;
     }
     void find_bounds(){
-        std::cout << "Does it die here?";
+        // std::cout << "Does it die here?";
         float max_a = 0;
         max_a = max(max_a, alpha(0xff, 0x00, 0x00));
         max_a = max(max_a, alpha(0x00, 0xff, 0x00));
@@ -454,7 +454,7 @@ void gen_mixes(){
     for(auto it = cwr.dyes.begin(); it != cwr.dyes.end(); it++){
         uint colors[8] = {};
         uint dyem = *it;
-        std::cout << "Color? " << dyem << std::endl;
+        // std::cout << "Color? " << dyem << std::endl;
         uchar len = 0;
         uchar z = (dyem & 0xff000000) >> 24;
         // crazy zero check; but it's less crazy than the code i used to have here;
@@ -474,15 +474,16 @@ void gen_mixes(){
             }
         }
         
-        std::cout << "Colors? " <<
-        colors[0] << ","<<
-        colors[1] << ","<<
-        colors[2] << ","<<
-        colors[3] << ","<<
-        colors[4] << ","<<
-        colors[5] << ","<<
-        colors[6] << ","<<
-        colors[7] << ",[" << len << "]" << std::endl;
+        // std::cout << "Colors? " <<
+        // colors[0] << ","<<
+        // colors[1] << ","<<
+        // colors[2] << ","<<
+        // colors[3] << ","<<
+        // colors[4] << ","<<
+        // colors[5] << ","<<
+        // colors[6] << ","<<
+        // colors[7] << ",[" << len << "]" << std::endl;
+        
         Mixer mixer = premix(colors, dyem, len);
         mixer.find_bounds();
         mixer_s.insert(mixer);
@@ -493,12 +494,40 @@ void gen_mixes(){
     }
 }
 
-
 auto recipes = new Color_Recipes();
 auto prev_added = new Color_Exists();
 auto added = new Color_Exists();
 auto c_exists = new Color_Exists();
+auto in_bounds = new Color_Exists();
 uint ic = 0;
+
+void all_bounds(){
+    for(auto it = mixers_v.begin(); it != mixers_v.end(); it++){
+        // std::cout << "Volume: " << (
+        //     (it->max_r - it->min_r) *
+        //     (it->max_g - it->min_g) *
+        //     (it->max_b - it->min_b)
+        // ) << std::endl;
+        for(uint ir = it->min_r; ir < it->max_r; ir++){
+        for(uint ig = it->min_g; ig < it->max_g; ig++){
+        for(uint ib = it->min_b; ib < it->max_b; ib++){
+            in_bounds->set(
+                (ir << 16) |
+                (ig <<  8) |
+                (ib      ),
+                1
+            );
+        }
+        }
+        }
+    }
+    uint in_bound = 0;
+    for(uint i = 0; i < (1<<24); i++){
+        if(in_bounds->get(i)) in_bound++;
+    }
+    std::cout << "In bounds: " << in_bound << std::endl;
+}
+
 
 uint found = 0;
 void add(uint color, ulng mix_d){
@@ -589,7 +618,12 @@ int main(int argc, char const *argv[]){
     gen_mixes();
     // it generates 1081566 CWR, but it seems making the actual mixers is not working;
     std::cout << "mixer_c: " << mixers_v.size() << std::endl;
+    // somehow it reduces down to 95087; how???
+    // well if the in-game dyes are just that redundant than there is no need to second guess it;
     
+    all_bounds();
+    
+    /*
     for(uint i = 0; i < 16; i++){
         add(base_colors[i], (1 << i));
     }
@@ -598,6 +632,7 @@ int main(int argc, char const *argv[]){
         cycle();
         std::cout << "Found colors: " << found << std::endl;
     }
+    */
     
     
     return 0;
