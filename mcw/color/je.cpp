@@ -8,8 +8,8 @@
 #include "be.cpp"
 #include <math.h>
 
+using std::vector;
 namespace je{
-// using std::vector;
 typedef unsigned int uint;
 typedef unsigned short ushort;
 typedef unsigned char uchar;
@@ -20,18 +20,25 @@ uint max(uint a, uint b){
 uint max(uint a, uint b, uint c){
     return (a > b) ? ((a > c) ? a : c) : ((b > c) ? b : c);
 }
+float max(float a, float b){
+    return (a > b) ? a : b;
+}
 
+/**
+ * Recipes are 32 bits. Each set of bits is directly a number to increment the dye index by. The 8 sets together are effectively the list of dye indices. Once the index accumulates to 16, that signifies the end of the list. Or the list just ends at the 8th item.
+ * - But Simon, what about [0]? Great question! That is represented with 0xf2000000. Now, Simon, that is bad... Yes, I know. 0xf0****** is reserved for sequences of 15. So 0xf1000000 indicates [15]. If the second nibble is some x, where x > 1, then the number presents (x-1) zeroes. It is a perfect system that can't possibly fail. Also, white is so useless so it should be fine. Remember, bad code is the best kind of code. And incorrect is the true best kind of correct.
+ * - Hm? How many of the 4 billion int values are invalid in this format? Well logically, it should 2^24 - (17 choose 8 with repetitions) + 1. If we just consider all of the ones that I don't use to be invalid. Though most of them shouldn't break the code. Huh? Oh, the + 1 is because the number of mixers is (17 choose 8 with repetitions) - 1, since we have to remove the option of a mixer with nothing in it. I can't have that now.
+ */
 class Color_Recipes{
 public:
-    ushort* d;
+    uint* d;
     Color_Recipes(){
-        d = new ushort[1<<24]{0};
+        d = new uint[1<<24]{0};
     }
-    ushort get(uint idx){
+    uint get(uint idx){
         return d[idx];
     }
-    /** `value` should only be 4 bits */
-    void set(uint idx, ushort value){
+    void set(uint idx, uint value){
         d[idx] = value;
     }
 };
@@ -60,6 +67,18 @@ public:
     uint tm = 0;
     ushort mix_d = 0;
     uint len = 0;
+    /** min value of R channel for this mixer */
+    uint min_r = 0;
+    /** min value of G channel for this mixer */
+    uint min_g = 0;
+    /** min value of B channel for this mixer */
+    uint min_b = 0;
+    /** max value of R channel for this mixer */
+    uint max_r = 0;
+    /** max value of G channel for this mixer */
+    uint max_g = 0;
+    /** max value of B channel for this mixer */
+    uint max_b = 0;
     Mixer(){}
     Mixer(uint a_tr, uint a_tg, uint a_tb, uint a_tm, ushort a_mix_d, uint a_len){
         tr = a_tr;
@@ -68,6 +87,46 @@ public:
         tm = a_tm;
         mix_d = a_mix_d;
         len = a_len;
+    }
+    void find_bounds(){
+        float max_a = 0;
+        max_a = max(max_a, alpha(0xff, 0x00, 0x00));
+        max_a = max(max_a, alpha(0x00, 0xff, 0x00));
+        max_a = max(max_a, alpha(0xff, 0xff, 0x00));
+        max_a = max(max_a, alpha(0x00, 0x00, 0xff));
+        max_a = max(max_a, alpha(0xff, 0x00, 0xff));
+        max_a = max(max_a, alpha(0x00, 0xff, 0xff));
+        max_a = max(max_a, alpha(0xff, 0xff, 0xff));
+        
+        min_r = uint(max_a * tr) / len;
+        min_g = uint(max_a * tg) / len;
+        min_b = uint(max_a * tb) / len;
+        max_r = (max_a * float(tr + 0x100)) / float(len);
+        max_g = (max_a * float(tg + 0x100)) / float(len);
+        max_b = (max_a * float(tb + 0x100)) / float(len);
+        if(max_r >= 0x100){
+            std::cout << "Oh no! max_r is " << max_r << ". I didn't think that was possible." << std::endl;
+        }
+        if(max_g >= 0x100){
+            std::cout << "Oh no! max_g is " << max_g << ". I didn't think that was possible." << std::endl;
+        }
+        if(max_b >= 0x100){
+            std::cout << "Oh no! max_b is " << max_b << ". I didn't think that was possible." << std::endl;
+        }
+        if(max(max_r, max_g, max_b)){
+            abort();
+        }
+    }
+    float alpha(uint r, uint g, uint b){
+        uint a_tr = tr + r;
+        uint a_tg = tg + g;
+        uint a_tb = tb + b;
+        uint ar = a_tr / len;
+        uint ag = a_tg / len;
+        uint ab = a_tb / len;
+        float avg_max = float(tm + max(r, g, b)) / float(len);
+        float max_avg = max(ar, ag, ab);
+        return avg_max / max_avg;
     }
 };
 
@@ -342,22 +401,25 @@ Mixer premix(uint* colors, uint mix_d, uint len){
 uint mix(uint color, Mixer mixer){
     uint r = (color & 0xff0000) >> 16;
     uint g = (color & 0x00ff00) >> 8;
-    uint b = color & 0x0000ff;
+    uint b = (color & 0x0000ff);
     uint tr = mixer.tr + r;
     uint tg = mixer.tg + g;
     uint tb = mixer.tb + b;
-    float mul = (
-        (float) (mixer.tm + max(r, g, b)) /
-        (float) max(tr, tg, tb)
-    ) / mixer.len;
+    uint ar = tr / mixer.len;
+    uint ag = tg / mixer.len;
+    uint ab = tb / mixer.len;
+    float avg_max = float(mixer.tm + max(r, g, b)) / float(mixer.len);
+    float max_avg = max(ar, ag, ab);
+    // note the order of operations matters here; you must multiply then divide;
     return (
-        (((uint) (tr * mul)) << 16) |
-        (((uint) (tg * mul)) << 8) |
-        ((uint) (tb * mul))
+        (((uint) ((float(tr) * avg_max) / max_avg)) << 16) |
+        (((uint) ((float(tg) * avg_max) / max_avg)) <<  8) |
+        (((uint) ((float(tb) * avg_max) / max_avg))      )
     );
 }
 
 // isn't there a way to put this on the stack instead of the heap? i don't remember what it is;
+// well global vars can be on the heap, since they will be deleted when the program finishes running XD;
 uint* base_colors = new uint[16]{
     0xf0f0f0, /* white */
     0x979d9d, /* light gray */
@@ -405,19 +467,7 @@ Mixer* gen_mixes(){
             }
         }
         Mixer mixer = premix(colors, dyem, len);
-        // let's filter mixers so only vibrant ones are kept;
-        if(
-            pow(
-                pow((((float) mixer.tr) / ((float) len)) - 127.0, 2) +
-                pow((((float) mixer.tg) / ((float) len)) - 127.0, 2) +
-                pow((((float) mixer.tb) / ((float) len)) - 127.0, 2),
-                0.5
-            ) > MAGIC_MIX_VIBRANCE
-        ){
-            // std::cout << "Inserting..." << std::endl;
-            // if(!mixer_s.contains(mixer)) it seems set::contains is not wanting to work;
-            mixer_s.insert(mixer);
-        }
+        mixer_s.insert(mixer);
     }
     mixer_c = mixer_s.size();
     std::cout << "mixer_c: " << mixer_c << std::endl;
@@ -430,48 +480,6 @@ Mixer* gen_mixes(){
     return mixer_a;
 }
 
-/*
-Mixer* gen_mixes(){
-    // first figure out the length
-    for(uint i = 0; i < 1 << dye_c; i++){
-        uint len = 0;
-        uint j = i;
-        while(j > 0){
-            len += j % 2;
-            j /= 2;
-        }
-        if(len > dye_lim) continue;
-        if(len == 0) continue;
-        mixer_c++;
-    }
-    std::cout << "mixer_c: " << mixer_c << std::endl;
-    // then fill the array
-    Mixer* mixers = new Mixer[mixer_c];
-    uint mixer_i = 0;
-    for(uint i = 0; i < 1 << dye_c; i++){
-        uint len = 0;
-        uint j = i;
-        while(j > 0){
-            len += j % 2;
-            j /= 2;
-        }
-        if(len > dye_lim) continue;
-        if(len == 0) continue;
-        uint* colors = new uint[len]{0};
-        // std::cout << "len: " << len << std::endl;
-        uint k = 0;
-        for(j = 0; j < dye_c; j++){
-            if(i & (1 << j)){
-                colors[k] = base_colors[j];
-                k++;
-            }
-        }
-        mixers[mixer_i] = premix(colors, i, len);
-        mixer_i++;
-    }
-    return mixers;
-}
-*/
 
 auto recipes = new Color_Recipes();
 auto prev_added = new Color_Exists();

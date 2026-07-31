@@ -3,7 +3,8 @@
 I've implemented combinations with repetitions several times in order to find dye combinations for the Minecraft Wiki. I'm doing it again now! But this time lets use a CLASS, since it will get optimized into ultra-efficient code.
 */
 
-// #include <iostream>
+#include <vector>
+using std::vector;
 
 // this is infinitely annoying; gcc has a BUILTIN type named "ulong", but for some reason Intellisense is not identifying it; truly beyond confusing;
 typedef unsigned long long ulng;
@@ -13,94 +14,54 @@ typedef unsigned char uchar;
 
 class CWR{
 public:
-    // now, I don't rmember the formula for CWR, and I don't wanna use vector bc for some reason my VS Code is not liking imports; probably because I am offline;
-    // maybe I can fix the latter issue when I get back oneline;
-    uint capacity = 2;
-    uint size = 0;
-    /** we can store all dyes in 64 bits, by storing how many of each dye there is; this has a limit of 16 of each dye; */
-    ulng* dyes;
-    /** limit for how items total can be in the combination (2 red dye + 5 blue dye = 7 items); */
-    uchar lim_total = 8;
-    /** limit for how many of each dye can be in the combination; */
-    uchar lim_each = 2;
+    /** See je.cpp::je::Color_Recipes. */
+    vector<uint> dyes;
     CWR(){
-        dyes = new ulng[capacity]{0};
-    }
-    void add(ulng dyem){
-        if(size == capacity){
-            ulng* copy = dyes;
-            uint copy_capacity = capacity;
-            capacity *= 2;
-            dyes = new ulng[capacity]{0};
-            for(uint i = 0; i < copy_capacity; i++){
-                dyes[i] = copy[i];
-            }
-        }
-        dyes[size] = dyem;
-        size++;
-    }
-    ulng dyem_c = 0;
-    uchar dyem_tl = 0;
-    uchar dyem_i = 0;
-    bool done = false;
-    void down(){
-        uchar v = (dyem_c & ((ulng) 0xf << (4 * dyem_i))) >> (4 * dyem_i);
-        v++;
-        dyem_tl++;
-        // if we exceed the limit, carry;
-        if(v > lim_each || dyem_tl > lim_total){
-            dyem_tl -= v;
-            dyem_c &= ~(((ulng) 0xf) << (4 * dyem_i));
-            left();
-            if(!done) add(dyem_c);
-        }
-        else{
-            dyem_c &= ~(((ulng) 0xf) << (4 * dyem_i));
-            dyem_c |= ((ulng) v) << (4 * dyem_i);
-            add(dyem_c);
-        }
-    }
-    void left(){
-        if(dyem_i >= 15){
-            done = true;
-            return;
-        }
-        dyem_i++;
-        down();
-        dyem_i--;
+        gen();
     }
     void gen(){
-        while(!done){
-            // std::cout << "dyes: " <<
-            // ((dyem_c & 0xf000000000000000) >> 60) << "," <<
-            // ((dyem_c & 0x0f00000000000000) >> 56) << "," <<
-            // ((dyem_c & 0x00f0000000000000) >> 52) << "," <<
-            // ((dyem_c & 0x000f000000000000) >> 48) << "," <<
-            // ((dyem_c & 0x0000f00000000000) >> 44) << "," <<
-            // ((dyem_c & 0x00000f0000000000) >> 40) << "," <<
-            // ((dyem_c & 0x000000f000000000) >> 36) << "," <<
-            // ((dyem_c & 0x0000000f00000000) >> 32) << "," <<
-            // ((dyem_c & 0x00000000f0000000) >> 28) << "," <<
-            // ((dyem_c & 0x000000000f000000) >> 24) << "," <<
-            // ((dyem_c & 0x0000000000f00000) >> 20) << "," <<
-            // ((dyem_c & 0x00000000000f0000) >> 16) << "," <<
-            // ((dyem_c & 0x000000000000f000) >> 12) << "," <<
-            // ((dyem_c & 0x0000000000000f00) >> 8) << "," <<
-            // ((dyem_c & 0x00000000000000f0) >> 4) << "," <<
-            // ((dyem_c & 0x000000000000000f)) << "=" <<
-            // ((uint) dyem_tl) << " at " <<
-            // ((uint) dyem_i) <<
-            // std::endl;
-            down();
+        dyes = vector<uint>();
+        uchar indices[8];
+        for(uchar dye_c = 1; dye_c <= 8; dye_c++){
+            for(uchar i = 0; i < dye_c; i++){
+                indices[i] = 0;
+            }
+            while(true){
+                uchar carry_place = dye_c - 1;
+                // carry if needed
+                while(carry_place > 0 && indices[carry_place] == 16){
+                    indices[carry_place] = 0;
+                    carry_place--;
+                }
+                // highest digit maxes out -> end of loop;
+                if(indices[carry_place] == 16) break;
+                // uncarry, making sure that all later indices are in ascending order; this simultaneously removes duplicate combinations, while allowing for repetitions;
+                while(carry_place < dye_c - 1){
+                    indices[carry_place + 1] = indices[carry_place];
+                    carry_place++;
+                }
+                // now add the combination to the list;
+                uint formatted = 0;
+                bool all_zero = indices[0] == 0;
+                for(uchar i = 1; i < dye_c; i++){
+                    // this code was written by an autistic man at 8 in the morning who hasn't slept all morning;
+                    all_zero = all_zero && indices[i] == 0;
+                    // just store the diff; edge case for zeroes explained in je.cpp;
+                    formatted = formatted * 16 + indices[i] - indices[i - 1];
+                }
+                if(all_zero){
+                    formatted = (0xf0 | (dye_c + 1)) << 24;
+                }
+                else if(dye_c < 8){
+                    formatted = formatted * 16 + (16 - indices[carry_place]);
+                }
+                dyes.push_back(formatted);
+                // now incremenet; we have to carry next loop because there just isn't any other way to do this; i've written this code like 8 times, trust me;
+                indices[carry_place]++;
+            }
         }
     }
 };
-
-CWR* pregen(){
-    auto cwr = new CWR();
-    cwr->gen();
-    return cwr;
-}
 
 /*
 int main(int argc, char const *argv[]){
