@@ -132,4 +132,6 @@ And I have this new format for recipes in JE: Recipes are 32 bits. Each set of b
 
 It's a great system.
 
+9:30 AM and I have bad news. Something is not working.
 
+Another good water to figure out which colors are reachable from a mixable is to only mix the colors on the edge of 256^3 cube. So that is 256^3-254^3 = 390152 colors. You can then do a poly fill from any point within that object's empty space, to get all of the colors. Before doing the polyfill, you can generate just the edges of all of the mixers, and then just do one global polyfill operation. These edges should be exact, unlike my get_bounds method. But the operation is also much more expensive, so it would only be good to run it after somehow reducing the number of mixers. And you would have to reduce the mixers confidently.

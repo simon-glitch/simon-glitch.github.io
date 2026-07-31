@@ -451,6 +451,7 @@ void gen_mixes(){
     std::cout << "Start of CWR gen" << std::endl;
     CWR cwr = CWR();
     std::cout << "CWR gen done" << std::endl;
+    uint mix_indx = 0;
     for(auto it = cwr.dyes.begin(); it != cwr.dyes.end(); it++){
         uint colors[8] = {};
         uint dyem = *it;
@@ -468,6 +469,21 @@ void gen_mixes(){
             uchar total = 0;
             while(len < 8 && total < 16){
                 uchar big_endian_number = ((dyem << (4*len)) & 0xf0000000) >> 28;
+                std::cout << "From " << dyem <<
+                ":" <<
+                " big_endian_number =" << uint(big_endian_number) <<
+                ", total =" << uint(total) <<
+                ", len =" << uint(len) <<
+                ", colors = [";
+                if(len > 0) std::cout         << colors[0];
+                if(len > 1) std::cout << ", " << colors[1];
+                if(len > 2) std::cout << ", " << colors[2];
+                if(len > 3) std::cout << ", " << colors[3];
+                if(len > 4) std::cout << ", " << colors[4];
+                if(len > 5) std::cout << ", " << colors[5];
+                if(len > 6) std::cout << ", " << colors[6];
+                if(len > 7) std::cout << ", " << colors[7];
+                std::cout << "]" << std::endl;
                 total += big_endian_number;
                 colors[len] = total;
                 len++;
@@ -486,7 +502,28 @@ void gen_mixes(){
         
         Mixer mixer = premix(colors, dyem, len);
         mixer.find_bounds();
-        mixer_s.insert(mixer);
+        if(!mixer_s.insert(mixer).second){
+            std::cout << "Duplicate at " << mix_indx <<
+            ":" <<
+            " tr =" << mixer.tr <<
+            ", tg =" << mixer.tg <<
+            ", tb =" << mixer.tb <<
+            ", tm =" << mixer.tm <<
+            ", len =" << mixer.len <<
+            ", mix_d =" << mixer.mix_d <<
+            ", colors = [";
+            if(len > 0) std::cout         << colors[0];
+            if(len > 1) std::cout << ", " << colors[1];
+            if(len > 2) std::cout << ", " << colors[2];
+            if(len > 3) std::cout << ", " << colors[3];
+            if(len > 4) std::cout << ", " << colors[4];
+            if(len > 5) std::cout << ", " << colors[5];
+            if(len > 6) std::cout << ", " << colors[6];
+            if(len > 7) std::cout << ", " << colors[7];
+            std::cout << "]" << std::endl;
+            abort();
+        }
+        mix_indx++;
     }
     mixers_v = vector<Mixer>();
     for(auto it = mixer_s.begin(); it != mixer_s.end(); it++){
@@ -612,7 +649,7 @@ void save_je(){
 }
 
 int main(int argc, char const *argv[]){
-    be::main(0, argv);
+    // be::main(0, argv);
     
     std::cout << "Main!" << std::endl;
     gen_mixes();
@@ -621,7 +658,7 @@ int main(int argc, char const *argv[]){
     // somehow it reduces down to 95087; how???
     // well if the in-game dyes are just that redundant than there is no need to second guess it;
     
-    all_bounds();
+    // all_bounds();
     
     /*
     for(uint i = 0; i < 16; i++){

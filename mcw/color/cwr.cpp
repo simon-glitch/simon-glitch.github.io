@@ -23,25 +23,44 @@ public:
     void gen(){
         dyes = vector<uint>();
         uchar indices[8] = {0};
-        // uint be_able_to_cout_limit = 2000;
-        // uint be_able_to_cout_i = 0;
+        uint be_able_to_cout_limit = 1000;
+        uint be_able_to_cout_i = 0;
         for(uchar dye_c = 1; dye_c <= 8; dye_c++){
-            for(uchar i = 0; i < dye_c; i++){
+            for(uchar i = 0; i < dye_c - 1; i++){
                 indices[i] = 0;
             }
+            indices[dye_c - 1] = -1;
+            uchar carry_place = dye_c - 1;
             while(true){
-                // be_able_to_cout_i++;
-                // if(be_able_to_cout_i == be_able_to_cout_limit){
-                //     return;
-                // }
+                be_able_to_cout_i++;
+                if(be_able_to_cout_i == be_able_to_cout_limit){
+                    abort();
+                }
                 
-                uchar carry_place = dye_c - 1;
                 // carry if needed
                 while(carry_place > 0 && indices[carry_place] == 16){
                     // std::cout << "carry" << std::endl;
                     indices[carry_place] = 0;
                     carry_place--;
                 }
+                
+                // now incremenet; we have to carry next loop because there just isn't any other way to do this; i've written this code like 8 times, trust me;
+                indices[carry_place]++;
+                
+                // uncarry, making sure that all later indices are in ascending order; this simultaneously removes duplicate combinations, while allowing for repetitions;
+                while(carry_place < dye_c - 1){
+                    // std::cout << "uncarry" << std::endl;
+                    indices[carry_place + 1] = indices[carry_place];
+                    carry_place++;
+                }
+                
+                // highest digit maxes out -> end of loop;
+                if(indices[0] == 16){
+                    // std::cout << "break" << std::endl;
+                    break;
+                }
+                
+                if(indices[carry_place] == 16) continue;
                 
                 // std::cout << "["
                 // << ((uint) indices[0]) << ","
@@ -64,29 +83,18 @@ public:
                     formatted = (formatted << 4) | (indices[i] - indices[i - 1]);
                 }
                 if(all_zero){
+                    std::cout << "This should be a list of " << uint(dye_c) << " zeroes. ";
+                    std::cout << "At " << dyes.size() << ". ";
                     formatted = (0xf0 | (dye_c + 1)) << 24;
+                    std::cout << "Formatted =  " << formatted << std::endl;
                 }
                 else if(dye_c < 8){
                     formatted = (formatted << 4) | (16 - indices[carry_place]);
                 }
                 if(!all_zero) formatted <<= 4*(8-dye_c);
                 dyes.push_back(formatted);
-                // now incremenet; we have to carry next loop because there just isn't any other way to do this; i've written this code like 8 times, trust me;
-                indices[carry_place]++;
-                // even though i've written this before, i still forget this next step goes down here;
                 
-                // highest digit maxes out -> end of loop;
-                if(indices[0] == 16){
-                    // std::cout << "break" << std::endl;
-                    break;
-                }
-                // uncarry, making sure that all later indices are in ascending order; this simultaneously removes duplicate combinations, while allowing for repetitions;
-                while(carry_place < dye_c - 1){
-                    // std::cout << "uncarry" << std::endl;
-                    indices[carry_place + 1] = indices[carry_place];
-                    carry_place++;
-                }
-                
+                // even though i've written this before, i didn't remember that you are forced to handle carrying in a really jank way; like using a negative or separating the steps;
             }
         }
     }
