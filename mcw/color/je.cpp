@@ -439,45 +439,47 @@ uint* base_colors = new uint[16]{
     0xb83289, /* orange */
 };
 
-uint mixer_c = 0;
+vector<Mixer> mixers_v;
 uint dye_c = 16;
 uint dye_lim = 8;
 float MAGIC_MIX_VIBRANCE = 50.0;
 float MAGIC_COLOR_VIBRANCE = 150.0;
 
-Mixer* gen_mixes(){
+void gen_mixes(){
     std::set<Mixer> mixer_s = std::set<Mixer>();
-    std::cout << "Start of gen" << std::endl;
-    CWR* cwr = pregen();
-    std::cout << "Pregen done" << std::endl;
-    for(uint i = 0; i < cwr->size; i++){
-        ulng dyem = cwr->dyes[i];
+    std::cout << "Start of CWR gen" << std::endl;
+    CWR cwr = CWR();
+    std::cout << "CWR gen done" << std::endl;
+    for(auto it = cwr.dyes.begin(); it != cwr.dyes.end(); it++){
+        uint colors[8] = {};
+        uint dyem = *it;
         uchar len = 0;
-        for(uchar j = 0; j < 16; j++){
-            len += (dyem >> (4*j)) & 0xf;
-        }
-        uint* colors = new uint[len];
-        uchar colori = 0;
-        for(uchar j = 0; j < 16; j++){
-            uchar k = (dyem >> (4*j)) & 0xf;
-            while(k > 0){
-                colors[colori] = base_colors[j];
-                colori++;
-                k--;
+        uchar z = (dyem & 0xff000000) >> 24;
+        // crazy zero check; but it's less crazy than the code i used to have here;
+        if(z > 0xf1){
+            len = z > 0xf1;
+            for(uchar i = 0; i < len; i++){
+                colors[i] = 0;
             }
         }
+        else{
+            uchar total = 0;
+            while(len < 8 && total < 16){
+                uchar big_endian_number = (dyem << (4*len)) & 0xff000000;
+                colors[len] = big_endian_number;
+                total += big_endian_number;
+                len++;
+            }
+        }
+        
         Mixer mixer = premix(colors, dyem, len);
+        mixer.find_bounds();
         mixer_s.insert(mixer);
     }
-    mixer_c = mixer_s.size();
-    std::cout << "mixer_c: " << mixer_c << std::endl;
-    Mixer* mixer_a = new Mixer[mixer_c];
-    uint i = 0;
-    for(auto it = mixer_s.begin(); it != mixer_s.end(); i++, it++){
-        mixer_a[i] = *it;
-        cat.add_mixer(*it);
+    mixers_v = vector<Mixer>();
+    for(auto it = mixer_s.begin(); it != mixer_s.end(); it++){
+        mixers_v.push_back(*it);
     }
-    return mixer_a;
 }
 
 
@@ -485,7 +487,6 @@ auto recipes = new Color_Recipes();
 auto prev_added = new Color_Exists();
 auto added = new Color_Exists();
 auto c_exists = new Color_Exists();
-auto mixers = gen_mixes();
 uint ic = 0;
 
 uint found = 0;
@@ -511,44 +512,28 @@ void cycle(){
     for(uint i = 0; i < 1<<24; i++){
         added->set(i, 0);
     }
-    uint prev_c = 0;
-    for(uint i = 0; i < 1<<24; i++){
-        if(prev_added->get(i)){
-            prev_c++;
-        }
-    }
-    uint prev_i = 0;
-    uint prev_li = 0;
-    uint prev_lf = 10000;
+    
+    // uint prev_c = 0;
+    // for(uint i = 0; i < 1<<24; i++){
+    //     if(prev_added->get(i)){
+    //         prev_c++;
+    //     }
+    // }
+    // uint prev_i = 0;
+    // uint prev_li = 0;
+    // uint prev_lf = 10000;
     
     for(uint i = 0; i < 1<<24; i++){
-        if(prev_added->get(i)){
-            prev_i++;
-            prev_li++;
-            if(prev_li == prev_lf){
-                prev_li = 0;
-                std::cout << prev_i << "/" << prev_c << "; found colors: " << found << std::endl;
-            }
-            // on the first cycle, do the big loop;
-            if(ic == 0){
-                for(uint j = 0; j < mixer_c; j++){
-                    add(mix(i, mixers[j]), mixers[j].mix_d);
-                }
-            }
-            else{
-                // this is taking too long so let's filter the mixers spatially;
-                uchar cat_num = cat.cat_calc(i);
-                auto cs = cat.heaps[cat_num];
-                for(uint j = 0; j < cs.size; j++){
-                    // std::cout << "i=" << i << ", j=" << j << std::endl;
-                    Mixer mixer = cs.mixers[j];
-                    // std::cout << "step 1 / 3" << std::endl;
-                    auto res = mix(i, mixer);
-                    // std::cout << "step 2 / 3" << std::endl;
-                    add(res, mixer.mix_d);
-                    // std::cout << "step 3 / 3" << std::endl;
-                }
-            }
+        if(!prev_added->get(i)) continue;
+        // prev_i++;
+        // prev_li++;
+        // if(prev_li == prev_lf){
+        //     prev_li = 0;
+        //     std::cout << prev_i << "/" << prev_c << "; found colors: " << found << std::endl;
+        // }
+        for(auto it = mixers_v.begin(); it != mixers_v.end(); it++){
+            auto res = mix(i, *it);
+            add(res, it->mix_d);
         }
     }
     
@@ -563,41 +548,16 @@ void cycle(){
     ic++;
 }
 
-int main(int argc, char const *argv[]){
-    be::main(0, argv);
-    
-    std::cout << "Main!" << std::endl;
-    
-    std::cout << "Cats: ";
-    for(uint i = 0; i < 64; i++){
-        std::cout << cat.heaps[i].size << ",";
-        cat.heaps[i].finalize();
-    }
-    std::cout << std::endl;
-    
-    for(uint i = 0; i < 16; i++){
-        add(base_colors[i], (1 << i));
-    }
-    while(added_any){
-        std::cout << "Cycle " << ic << std::endl;
-        cycle();
-        std::cout << "Found colors: " << found << std::endl;
-    }
-    
-    
+void save_je(){
     uint size = (1<<24) * 8;
     uint i = 0;
     uchar* mychars = new uchar[size];
     for(uint j = 0; j < 1<<24; j++, i += 8){
         ulng dyem = recipes->d[j];
-        mychars[i    ] = dyem & 0xff00000000000000;
-        mychars[i + 1] = dyem & 0x00ff000000000000;
-        mychars[i + 2] = dyem & 0x0000ff0000000000;
-        mychars[i + 3] = dyem & 0x000000ff00000000;
-        mychars[i + 4] = dyem & 0x00000000ff000000;
-        mychars[i + 5] = dyem & 0x0000000000ff0000;
-        mychars[i + 6] = dyem & 0x000000000000ff00;
-        mychars[i + 7] = dyem & 0x00000000000000ff;
+        mychars[i    ] = dyem & 0xff000000;
+        mychars[i + 1] = dyem & 0x00ff0000;
+        mychars[i + 2] = dyem & 0x0000ff00;
+        mychars[i + 3] = dyem & 0x000000ff;
     }
     
     std::cout << "Saving..." << std::endl;
@@ -609,6 +569,25 @@ int main(int argc, char const *argv[]){
     }
     
     std::cout << "Saved." << std::endl;
+}
+
+int main(int argc, char const *argv[]){
+    be::main(0, argv);
+    
+    std::cout << "Main!" << std::endl;
+    gen_mixes();
+    // it generates 1081566 CWR, but it seems making the actual mixers is not working;
+    std::cout << "mixer_c: " << mixers_v.size() << std::endl;
+    
+    for(uint i = 0; i < 16; i++){
+        add(base_colors[i], (1 << i));
+    }
+    while(added_any){
+        std::cout << "Cycle " << ic << std::endl;
+        cycle();
+        std::cout << "Found colors: " << found << std::endl;
+    }
+    
     
     return 0;
 }
