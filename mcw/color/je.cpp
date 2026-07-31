@@ -88,6 +88,48 @@ public:
         mix_d = a_mix_d;
         len = a_len;
     }
+    /** Generate a mixer directly from "dyem", which is the recipe format used by CWR and Color_Recipes. */
+    Mixer(uint dyem){
+        mix_d = dyem;
+        uint colors[8] = {};
+        uchar a_len = 0;
+        uchar z = (dyem & 0xff000000) >> 24;
+        // crazy zero check; but it's less crazy than the code i used to have here;
+        if(z > 0xf1){
+            a_len = z > 0xf1;
+            for(uchar i = 0; i < a_len; i++){
+                colors[i] = 0;
+            }
+        }
+        else{
+            uchar total = 0;
+            while(a_len < 8 && total < 16){
+                uchar big_endian_number = ((dyem << (4*a_len)) & 0xf0000000) >> 28;
+                total += big_endian_number;
+                colors[a_len] = total;
+                a_len++;
+            }
+        }
+        init(colors, a_len);
+        len = a_len + 1;
+        find_bounds();
+    }
+    void init(uint* colors, uint len){
+        tr = 0;
+        tg = 0;
+        tb = 0;
+        tm = 0;
+        for(uint i = 0; i < len; i++){
+            uint color = colors[i];
+            uint r = (color & 0xff0000) >> 16;
+            uint g = (color & 0x00ff00) >> 8;
+            uint b = color & 0x0000ff;
+            tr += r;
+            tg += g;
+            tb += b;
+            tm += max(r, g, b);
+        }
+    }
     void find_bounds(){
         // std::cout << "Does it die here?";
         float max_a = 0;
@@ -99,9 +141,9 @@ public:
         max_a = max(max_a, alpha(0x00, 0xff, 0xff));
         max_a = max(max_a, alpha(0xff, 0xff, 0xff));
         
-        min_r = uint(max_a * tr) / len;
-        min_g = uint(max_a * tg) / len;
-        min_b = uint(max_a * tb) / len;
+        min_r = tr / len;
+        min_g = tg / len;
+        min_b = tb / len;
         max_r = (max_a * float(tr + 0x100)) / float(len);
         max_g = (max_a * float(tg + 0x100)) / float(len);
         max_b = (max_a * float(tb + 0x100)) / float(len);
@@ -381,24 +423,6 @@ bool operator> (const Mixer a, const Mixer b){
     );
 }
 
-
-Mixer premix(uint* colors, uint mix_d, uint len){
-    uint tr = 0;
-    uint tg = 0;
-    uint tb = 0;
-    uint tm = 0;
-    for(uint i = 0; i < len; i++){
-        uint color = colors[i];
-        uint r = (color & 0xff0000) >> 16;
-        uint g = (color & 0x00ff00) >> 8;
-        uint b = color & 0x0000ff;
-        tr += r;
-        tg += g;
-        tb += b;
-        tm += max(r, g, b);
-    }
-    return Mixer(tr, tg, tb, tm, mix_d, len + 1);
-}
 uint mix(uint color, Mixer mixer){
     uint r = (color & 0xff0000) >> 16;
     uint g = (color & 0x00ff00) >> 8;
@@ -446,62 +470,12 @@ uint dye_lim = 8;
 float MAGIC_MIX_VIBRANCE = 50.0;
 float MAGIC_COLOR_VIBRANCE = 150.0;
 
-void gen_mixes(){
+void gen_mixes(CWR cwr){
     std::set<Mixer> mixer_s = std::set<Mixer>();
-    std::cout << "Start of CWR gen" << std::endl;
-    CWR cwr = CWR();
-    std::cout << "CWR gen done" << std::endl;
-    uint mix_indx = 0;
+    // uint mix_indx = 0;
     for(auto it = cwr.dyes.begin(); it != cwr.dyes.end(); it++){
-        uint colors[8] = {};
-        uint dyem = *it;
-        std::cout << "Color? " << dyem << std::endl;
-        uchar len = 0;
-        uchar z = (dyem & 0xff000000) >> 24;
-        // crazy zero check; but it's less crazy than the code i used to have here;
-        if(z > 0xf1){
-            len = z > 0xf1;
-            for(uchar i = 0; i < len; i++){
-                colors[i] = 0;
-            }
-        }
-        else{
-            uchar total = 0;
-            while(len < 8 && total < 16){
-                uchar big_endian_number = ((dyem << (4*len)) & 0xf0000000) >> 28;
-                std::cout << "From " << dyem <<
-                ":" <<
-                " big_endian_number =" << uint(big_endian_number) <<
-                ", total =" << uint(total) <<
-                ", len =" << uint(len) <<
-                ", colors = [";
-                if(len > 0) std::cout         << colors[0];
-                if(len > 1) std::cout << ", " << colors[1];
-                if(len > 2) std::cout << ", " << colors[2];
-                if(len > 3) std::cout << ", " << colors[3];
-                if(len > 4) std::cout << ", " << colors[4];
-                if(len > 5) std::cout << ", " << colors[5];
-                if(len > 6) std::cout << ", " << colors[6];
-                if(len > 7) std::cout << ", " << colors[7];
-                std::cout << "]" << std::endl;
-                total += big_endian_number;
-                colors[len] = total;
-                len++;
-            }
-        }
-        
-        // std::cout << "Colors? " <<
-        // colors[0] << ","<<
-        // colors[1] << ","<<
-        // colors[2] << ","<<
-        // colors[3] << ","<<
-        // colors[4] << ","<<
-        // colors[5] << ","<<
-        // colors[6] << ","<<
-        // colors[7] << ",[" << len << "]" << std::endl;
-        
-        Mixer mixer = premix(colors, dyem, len);
-        mixer.find_bounds();
+        mixer_s.insert(Mixer(*it));
+        /*
         if(!mixer_s.insert(mixer).second){
             std::cout << "Duplicate at " << mix_indx <<
             ":" <<
@@ -511,7 +485,6 @@ void gen_mixes(){
             ", tm =" << mixer.tm <<
             ", len =" << mixer.len <<
             ", mix_d =" << mixer.mix_d <<
-            ", dyem =" << dyem <<
             ", colors = [";
             if(len > 0) std::cout         << colors[0];
             if(len > 1) std::cout << ", " << colors[1];
@@ -522,9 +495,9 @@ void gen_mixes(){
             if(len > 6) std::cout << ", " << colors[6];
             if(len > 7) std::cout << ", " << colors[7];
             std::cout << "]" << std::endl;
-            abort();
         }
-        mix_indx++;
+        */
+        // mix_indx++;
     }
     mixers_v = vector<Mixer>();
     for(auto it = mixer_s.begin(); it != mixer_s.end(); it++){
@@ -546,7 +519,17 @@ void all_bounds(){
         //     (it->max_g - it->min_g) *
         //     (it->max_b - it->min_b)
         // ) << std::endl;
-        for(uint ir = it->min_r; ir < it->max_r; ir++){
+        // std::cout << "Outer olume: " << ((
+        //     (it->max_r - it->min_r) *
+        //     (it->max_g - it->min_g) *
+        //     (it->max_b - it->min_b)
+        // ) - (
+        //     (it->max_r - it->min_r - 2) *
+        //     (it->max_g - it->min_g - 2) *
+        //     (it->max_b - it->min_b - 2)
+        // )) << std::endl;
+        uint ir;
+        ir = it->min_r;
         for(uint ig = it->min_g; ig < it->max_g; ig++){
         for(uint ib = it->min_b; ib < it->max_b; ib++){
             in_bounds->set(
@@ -557,6 +540,54 @@ void all_bounds(){
             );
         }
         }
+        ir = it->max_r;
+        for(uint ig = it->min_g; ig < it->max_g; ig++){
+        for(uint ib = it->min_b; ib < it->max_b; ib++){
+            in_bounds->set(
+                (ir << 16) |
+                (ig <<  8) |
+                (ib      ),
+                1
+            );
+        }
+        }
+        for(ir = it->min_r + 1; ir < it->max_r - 1; ir++){
+            uint ig;
+            ig = it->min_g;
+            for(uint ib = it->min_b; ib < it->max_b; ib++){
+                in_bounds->set(
+                    (ir << 16) |
+                    (ig <<  8) |
+                    (ib      ),
+                    1
+                );
+            }
+            ig = it->max_g;
+            for(uint ib = it->min_b; ib < it->max_b; ib++){
+                in_bounds->set(
+                    (ir << 16) |
+                    (ig <<  8) |
+                    (ib      ),
+                    1
+                );
+            }
+            for(ig = it->min_g + 1; ig < it->max_g - 1; ig++){
+                uint ib;
+                ib = it->min_b;
+                in_bounds->set(
+                    (ir << 16) |
+                    (ig <<  8) |
+                    (ib      ),
+                    1
+                );
+                ib = it->max_b;
+                in_bounds->set(
+                    (ir << 16) |
+                    (ig <<  8) |
+                    (ib      ),
+                    1
+                );
+            }
         }
     }
     uint in_bound = 0;
@@ -565,7 +596,181 @@ void all_bounds(){
     }
     std::cout << "In bounds: " << in_bound << std::endl;
 }
-
+void poly_fill(){
+    bool outside_done = false;
+    uint outside_size = 0;
+    auto outside = new Color_Exists();
+    uint fill_c = 0;
+    for(uint i = 0; i < (1 << 24); i++){
+        if(outside->get(i)) continue;
+        if(in_bounds->get(i)) continue;
+        uint ir = (i & 0xff0000) >> 16;
+        uint ig = (i & 0x00ff00) >> 8;
+        uint ib = (i & 0x0000ff);
+        // skip edge items, since i don't want to polyfill the outside;
+        if(
+            ir == 0 || ir == 255 ||
+            ig == 0 || ig == 255 ||
+            ib == 0 || ib == 255
+        ) continue;
+        // this vector acts like a queue;
+        auto filling = vector<uint>();
+        filling.push_back(i);
+        bool success = true;
+        for(auto it = filling.begin(); it != filling.end(); it++){
+            std::cout << "Searching i=" << (*it) << ", size=" << filling.size() << std::endl;
+            
+            uint i = *it;
+            if(i > 0xffffff){
+                std::cout << "Fatal error. i=" << i << std::endl;
+                abort();
+            }
+            uint ir = (i & 0xff0000) >> 16;
+            uint ig = (i & 0x00ff00) >> 8;
+            uint ib = (i & 0x0000ff);
+            // if we hit the edge, fail;
+            if(
+                ir == 0 || ir == 255 ||
+                ig == 0 || ig == 255 ||
+                ib == 0 || ib == 255
+            ){
+                success = false;
+                if(outside_done) break;
+                // the outside needs separate logic;
+                uint j;
+                if(ir < 255){
+                    j = ((ir + 1) << 16) | ((ig    ) << 8) | (ib    );
+                    if(j > 0xffffff){
+                        std::cout << "Fatal error. j=" << j << std::endl;
+                        abort();
+                    }
+                    if(!in_bounds->get(j)){
+                        filling.push_back(j);
+                    }
+                }
+                if(ir > 0){
+                    j = ((ir - 1) << 16) | ((ig    ) << 8) | (ib    );
+                    if(j > 0xffffff){
+                        std::cout << "Fatal error. j=" << j << std::endl;
+                        abort();
+                    }
+                    if(!in_bounds->get(j)){
+                        filling.push_back(j);
+                    }
+                }
+                if(ig < 255){
+                    j = ((ir    ) << 16) | ((ig + 1) << 8) | (ib    );
+                    if(j > 0xffffff){
+                        std::cout << "Fatal error. j=" << j << std::endl;
+                        abort();
+                    }
+                    if(!in_bounds->get(j)){
+                        filling.push_back(j);
+                    }
+                }
+                if(ig > 0){
+                    j = ((ir    ) << 16) | ((ig - 1) << 8) | (ib    );
+                    if(j > 0xffffff){
+                        std::cout << "Fatal error. j=" << j << std::endl;
+                        abort();
+                    }
+                    if(!in_bounds->get(j)){
+                        filling.push_back(j);
+                    }
+                }
+                if(ib < 255){
+                    j = ((ir    ) << 16) | ((ig    ) << 8) | (ib + 1);
+                    if(j > 0xffffff){
+                        std::cout << "Fatal error. j=" << j << std::endl;
+                        abort();
+                    }
+                    if(!in_bounds->get(j)){
+                        filling.push_back(j);
+                    }
+                }
+                if(ib > 0){
+                    j = ((ir    ) << 16) | ((ig    ) << 8) | (ib - 1);
+                    if(j > 0xffffff){
+                        std::cout << "Fatal error. j=" << j << std::endl;
+                        abort();
+                    }
+                    if(!in_bounds->get(j)){
+                        filling.push_back(j);
+                    }
+                }
+                continue;
+            }
+            // if we hit a found tile, stop searching at that tile; this is how we detect the edge of the area to fill in;
+            uint j;
+            j = ((ir + 1) << 16) | ((ig    ) << 8) | (ib    );
+            if(j > 0xffffff){
+                std::cout << "Fatal error. j=" << j << std::endl;
+                abort();
+            }
+            if(!in_bounds->get(j)){
+                filling.push_back(j);
+            }
+            j = ((ir - 1) << 16) | ((ig    ) << 8) | (ib    );
+            if(j > 0xffffff){
+                std::cout << "Fatal error. j=" << j << std::endl;
+                abort();
+            }
+            if(!in_bounds->get(j)){
+                filling.push_back(j);
+            }
+            j = ((ir    ) << 16) | ((ig + 1) << 8) | (ib    );
+            if(j > 0xffffff){
+                std::cout << "Fatal error. j=" << j << std::endl;
+                abort();
+            }
+            if(!in_bounds->get(j)){
+                filling.push_back(j);
+            }
+            j = ((ir    ) << 16) | ((ig - 1) << 8) | (ib    );
+            if(j > 0xffffff){
+                std::cout << "Fatal error. j=" << j << std::endl;
+                abort();
+            }
+            if(!in_bounds->get(j)){
+                filling.push_back(j);
+            }
+            j = ((ir    ) << 16) | ((ig    ) << 8) | (ib + 1);
+            if(j > 0xffffff){
+                std::cout << "Fatal error. j=" << j << std::endl;
+                abort();
+            }
+            if(!in_bounds->get(j)){
+                filling.push_back(j);
+            }
+            j = ((ir    ) << 16) | ((ig    ) << 8) | (ib - 1);
+            if(j > 0xffffff){
+                std::cout << "Fatal error. j=" << j << std::endl;
+                abort();
+            }
+            if(!in_bounds->get(j)){
+                filling.push_back(j);
+            }
+        }
+        std::cout << "Outside done? " << outside_done << std::endl;
+        std::cout << "Success? " << success << std::endl;
+        std::cout << "Filling " << filling.size() << std::endl;
+        if(success){
+            fill_c += filling.size();
+            for(auto it = filling.begin(); it != filling.end(); it++){
+                in_bounds->set(*it, 1);
+            }
+        }
+        else if(!outside_done){
+            outside_done = true;
+            outside_size = filling.size();
+            for(auto it = filling.begin(); it != filling.end(); it++){
+                outside->set(*it, 1);
+            }
+        }
+    }
+    std::cout << "Outside: " << outside_size << std::endl;
+    std::cout << "Filled: " << fill_c << std::endl;
+}
 
 uint found = 0;
 void add(uint color, ulng mix_d){
@@ -653,13 +858,15 @@ int main(int argc, char const *argv[]){
     // be::main(0, argv);
     
     std::cout << "Main!" << std::endl;
-    gen_mixes();
-    // it generates 1081566 CWR, but it seems making the actual mixers is not working;
-    std::cout << "mixer_c: " << mixers_v.size() << std::endl;
-    // somehow it reduces down to 95087; how???
-    // well if the in-game dyes are just that redundant than there is no need to second guess it;
     
-    // all_bounds();
+    CWR cwr = CWR();
+    std::cout << "cwr entries: " << cwr.dyes.size() << std::endl;
+    gen_mixes(cwr);
+    // 735470 -> 564927;
+    std::cout << "mixer_c: " << mixers_v.size() << std::endl;
+    
+    all_bounds();
+    poly_fill();
     
     /*
     for(uint i = 0; i < 16; i++){
