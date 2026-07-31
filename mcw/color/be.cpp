@@ -65,40 +65,40 @@ uint mix(uint a, uint b){
 
 // isn't there a way to put this on the stack instead of the heap? i don't remember what it is;
 uint* base_colors = new uint[16]{
-    0xf0f0f0, /* #f0f0f0 white      */
-    0x9d9d97, /* #9d9d97 l_gray */
-    0x474f52, /* #474f52 gray       */
-    0x1d1d21, /* #1d1d21 black      */
-    0x835432, /* #835432 brown      */
-    0xb02e26, /* #b02e26 red        */
-    0xf9801d, /* #f9801d orange     */
-    0xfed83d, /* #fed83d yellow     */
-    0x80c71f, /* #80c71f lime       */
-    0x5e7c16, /* #5e7c16 green      */
-    0x169c9c, /* #169c9c cyan       */
-    0x3ab3da, /* #3ab3da l_blue */
-    0x3c44aa, /* #3c44aa blue       */
-    0x8932b8, /* #8932b8 purple     */
-    0xc74ebd, /* #c74ebd magenta    */
-    0xf38baa, /* #f38baa pink       */
+    0xf0f0f0, /* #f0f0f0 white   */
+    0x9d9d97, /* #9d9d97 l_gray  */
+    0x474f52, /* #474f52 gray    */
+    0x1d1d21, /* #1d1d21 black   */
+    0x835432, /* #835432 brown   */
+    0xb02e26, /* #b02e26 red     */
+    0xf9801d, /* #f9801d orange  */
+    0xfed83d, /* #fed83d yellow  */
+    0x80c71f, /* #80c71f lime    */
+    0x5e7c16, /* #5e7c16 green   */
+    0x169c9c, /* #169c9c cyan    */
+    0x3ab3da, /* #3ab3da l_blue  */
+    0x3c44aa, /* #3c44aa blue    */
+    0x8932b8, /* #8932b8 purple  */
+    0xc74ebd, /* #c74ebd magenta */
+    0xf38baa, /* #f38baa pink    */
 };
 string* base_colors_names = new string[16]{
-    string("white"),      /* #f0f0f0 */
-    string("l_gray"), /* #9d9d97 */
-    string("gray"),       /* #474f52 */
-    string("black"),      /* #1d1d21 */
-    string("brown"),      /* #835432 */
-    string("red"),        /* #b02e26 */
-    string("orange"),     /* #f9801d */
-    string("yellow"),     /* #fed83d */
-    string("lime"),       /* #80c71f */
-    string("green"),      /* #5e7c16 */
-    string("cyan"),       /* #169c9c */
-    string("l_blue"), /* #3ab3da */
-    string("blue"),       /* #3c44aa */
-    string("purple"),     /* #8932b8 */
-    string("magenta"),    /* #c74ebd */
-    string("pink"),       /* #f38baa */
+    string("white   "), /* #f0f0f0 */
+    string("l_gray  "), /* #9d9d97 */
+    string("gray    "), /* #474f52 */
+    string("black   "), /* #1d1d21 */
+    string("brown   "), /* #835432 */
+    string("red     "), /* #b02e26 */
+    string("orange  "), /* #f9801d */
+    string("yellow  "), /* #fed83d */
+    string("lime    "), /* #80c71f */
+    string("green   "), /* #5e7c16 */
+    string("cyan    "), /* #169c9c */
+    string("l_blue  "), /* #3ab3da */
+    string("blue    "), /* #3c44aa */
+    string("purple  "), /* #8932b8 */
+    string("magenta "), /* #c74ebd */
+    string("pink    "), /* #f38baa */
 };
 
 
@@ -331,8 +331,10 @@ int main(int argc, char const *argv[]){
     while(true){
         std::cout << "Which color would you like to search for (hex)?" << std::endl;
         string c_hex = "";
+        // cin seems to get completely stuck if you resize the terminal; which is completely outside my control;
+        // I really do want to make my own terminal library; like something that doesn't get stuck if you resize the terminal;
         std::cin >> c_hex;
-        if(c_hex.size() == 0) continue;
+        if(c_hex.size() == 0) break;
         
         // fun fact: this code shouldn't be able to hit an error;
         uint your_c = 0;
@@ -364,8 +366,8 @@ int main(int argc, char const *argv[]){
 g++ be.cpp -O6 -o be.exe
 
 The last 2 colors:
-* #327b7a -> [lime,   orange, lime,  yellow, lime,   white,  lime,  lime,   lime,    white,  lime, white,  l_blue, l_blue, l_blue, white, white, white, yellow, lime,]
-* #9bddeb -> [white,  lime,   white, l_blue, l_blue, l_blue, white, purple, l_blue,  l_blue, blue, purple, l_blue, blue,   blue,   cyan,  black, cyan,  blue,   cyan,]
+* #a7b723 -> [lime,   orange, lime,  yellow, lime,   white,  lime,  lime,   lime,    white,  lime, white,  l_blue, l_blue, l_blue, white, white, white, yellow, lime,]
+* #beddb9 -> [white,  lime,   white, l_blue, l_blue, l_blue, white, purple, l_blue,  l_blue, blue, purple, l_blue, blue,   blue,   cyan,  black, cyan,  blue,   cyan,]
 
 console.log(Array(20).fill(0).map(()=>(Math.floor(Math.random()*2**24)).toString(16)).join("\n"))
 
@@ -374,6 +376,10 @@ gray+red      = #7b3e3c -> [red,    gray,  ]
 l_gray+yellow = #cdba6a -> [yellow, l_gray,]
 black+brown   = #503829 -> [brown,  black, ]
 red+lime      = #987a22 -> [red,    lime,  ]
+
+
+#919b98, #4a3a34, #642e64, #f2a132, #86bc45, #8f4222, #608154, #cab3d3, #759757
+#8d9d94, #493836, #663064, #f49f35, #85bf44, #9b4a24, #5e8154, #cbb7d4, #749256
 
 Recipe samples to test:
 * #9f6e30 -> [brown,   yellow,  black,   orange,  red,                            ]
@@ -388,6 +394,7 @@ Recipe samples to test:
 * #be5552 -> [red,     pink,    red,     l_blue,  yellow,  orange,                ]
 * #b55c62 -> [red,     pink,    l_blue,  red,     yellow,  magenta,               ]
 * #569843 -> [lime,    cyan,    black,   brown,   black,   white,   black,        ]
+
 * #9b4a24 -> [red,     green,   red,     orange,  black,   white,   green,        ]
 * #85bf44 -> [lime,    lime,    white,   gray,    blue,    cyan,                  ]
 * #5e8154 -> [green,   l_blue,  brown,   green,   magenta, purple,                ]
@@ -397,6 +404,7 @@ Recipe samples to test:
 * #f49f35 -> [orange,  yellow,  orange,  white,   lime,    yellow,  purple,       ]
 * #493836 -> [black,   brown,   gray,    magenta, green,   gray,                  ]
 * #749256 -> [lime,    gray,    purple,  l_blue,  white,   magenta,               ]
+
 * #bcbe56 -> [yellow,  lime,    blue,    white,   l_blue,  pink,    blue,         ]
 * #648947 -> [lime,    blue,    black,   lime,    magenta, brown,                 ]
 * #8277c8 -> [magenta, l_blue,  l_blue,  blue,    l_blue,  magenta, l_blue,       ]
