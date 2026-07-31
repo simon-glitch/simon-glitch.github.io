@@ -603,6 +603,13 @@ void all_bounds(){
     std::cout << "In bounds: " << in_bound << std::endl;
 }
 void poly_fill(){
+    // in_bounds->set(0x030202, 1);
+    // in_bounds->set(0x010202, 1);
+    // in_bounds->set(0x020302, 1);
+    // in_bounds->set(0x020102, 1);
+    // in_bounds->set(0x020203, 1);
+    // in_bounds->set(0x020201, 1);
+    // in_bounds->set(0x020202, 0);
     bool outside_done = false;
     uint outside_size = 0;
     auto filled = new Color_Exists();
@@ -735,10 +742,10 @@ void poly_fill(){
                 filled->set(j, 1);
             }
         }
-        std::cout << "Outside done? " << outside_done << std::endl;
-        std::cout << "Success? " << success << std::endl;
-        std::cout << "Filling " << filling.size() << std::endl;
-        abort();
+        // std::cout << "Outside done? " << outside_done << std::endl;
+        // std::cout << "Success? " << success << std::endl;
+        // std::cout << "Filling " << filling.size() << std::endl;
+        // abort();
         if(success){
             fill_c += filling.size();
             for(auto it = filling.begin(); it != filling.end(); it++){
