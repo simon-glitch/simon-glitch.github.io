@@ -98,10 +98,15 @@ void process_file(string file_in, string file_out){
 }
 
 int main(int argc, char const *argv[]){
+    for(int i = 0; i < 50; i++){
+        char c = i;
+        std::cout << i << "=" << c << "  " << std::endl;
+    }
+    
     process_file("base.mcstructure", "base.txt");
     process_file("awesome.mcstructure", "awesome.txt");
-    // process_file("wow0a2.mcstructure", "wow0a2.txt");
+    process_file("wow/wow000.mcstructure", "wow.txt");
     // process_file("biiig.mcstructure", "biiig.txt");
-    process_file("tall.mcstructure", "tall.txt");
+    // process_file("tall.mcstructure", "tall.txt");
     process_file("grid.mcstructure", "grid.txt");
 }

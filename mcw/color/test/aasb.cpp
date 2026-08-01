@@ -47,9 +47,10 @@ Break down of awesome.txt:
 0f -> pink concrete
 10 -> yellow concrete
 11 -> orange concrete
+12??? -> white concrete
 20 -> white concrete
 
-20 -> white concrete        my 0  -> 0x20;
+20 -> white concrete        my 0  -> 0x12;
 0c -> light gray concrete   my 1  -> 0x0c;
 04 -> gray concrete         my 2  -> 0x04;
 02 -> black concrete        my 3  -> 0x02;
@@ -206,7 +207,7 @@ int main(int argc, char const *argv[]){
         ) be3[i] = 17;
     }
     char reind[18] = {
-        0x20,
+        0x0a,
         0x0c,
         0x04,
         0x02,
@@ -276,11 +277,11 @@ int main(int argc, char const *argv[]){
     }
     
     // how many bits of r to put into file_i;
-    const int split_r = 3;
+    const int split_r = 4;
     // how many bits of g to put into file_i;
-    const int split_g = 3;
+    const int split_g = 4;
     // how many bits of b to put into file_i;
-    const int split_b = 3;
+    const int split_b = 4;
     // number of RGB bits left;
     const int split_data = 24 - (split_r + split_g + split_b);
     const int and_1_r = ((1 << (8 - split_r)) - 1) << (split_data - (8 - split_r));
@@ -303,7 +304,7 @@ int main(int argc, char const *argv[]){
         auto fout = std::ofstream(file_out, std::ios_base::binary);
         
         // do stuff before block indices section;
-        int size = awe_txt.size() - 16*16*16*4*2 + (1 << split_data)*4*2;
+        int size = awe_txt.size() - 16*16*16*4*2 + (1 << split_data)*4*2 - 4;
         char* my_txt = new char[size];
         for(int i = 0; i < found_data_i + 4; i++){
             my_txt[i] = awe_txt[i];
@@ -328,8 +329,8 @@ int main(int argc, char const *argv[]){
         const int after_i_in  = found_data_i + 6 + 16*16*16*4*2;
         const int after_i_out = found_data_i + 6 + (1 << split_data)*4*2;
         const int diff = after_i_out - after_i_in;
-        for(int i = after_i_out; i < size; i++){
-            my_txt[i] = awe_txt[i - diff];
+        for(int i = after_i_out - 4; i < size; i++){
+            my_txt[i] = awe_txt[i + 4 - diff];
         }
         // std::cout << "Where do it fail? 4" << std::endl;
         
@@ -341,7 +342,7 @@ int main(int argc, char const *argv[]){
             int ir = ((i & and_1_r) >> shift_1_r) | ((file_i & and_2_r) << shift_2_r);
             int ig = ((i & and_1_g) >> shift_1_g) | ((file_i & and_2_g) << shift_2_g);
             int ib = ((i & and_1_b) >> shift_1_b) | ((file_i & and_2_b) << shift_2_b);
-            int ii = found_data_i + 6 + i * 4;
+            int ii = found_data_i + 7 + i * 4;
             my_txt[ii    ] = 0;
             my_txt[ii + 1] = 0;
             my_txt[ii + 2] = 0;
@@ -353,8 +354,8 @@ int main(int argc, char const *argv[]){
         }
         // std::cout << "Where do it fail? 5" << std::endl;
         // and the ffs at the end;
-        for(int i = 0; i < (1 << split_data); i++){
-            int ii = found_data_i + 6 + (i + (1 << split_data)) * 4;
+        for(int i = 0; i < (1 << split_data) - 1; i++){
+            int ii = found_data_i + 7 + (i + (1 << split_data)) * 4;
             my_txt[ii    ] = 0xff;
             my_txt[ii + 1] = 0xff;
             my_txt[ii + 2] = 0xff;
@@ -367,6 +368,8 @@ int main(int argc, char const *argv[]){
         }
         
         fout.close();
+        
+        break;
     }
     std::cout << "I should be done now!" << std::endl;
     std::cout << "I should have made " << (1 << (split_r + split_g + split_b)) << " file total." << std::endl;
