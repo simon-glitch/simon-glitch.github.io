@@ -23,87 +23,6 @@ string hex_c(char c){
     return s;
 }
 
-bool* gen_is_ascii(){
-    bool* is_ascii = new bool[256]{false};
-    auto ia = "abcdefghijklmnopqrstuvwxyz"
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    "`0123456789-="
-    "~!@#$%^&*()_+"
-    "[]\\;',./"
-    "{}|:\"<>?"
-    " \n";
-    for(int i = 0, c = ia[0]; c != 0; i++, c = ia[i]){
-        is_ascii[c] = true;
-    }
-    return is_ascii;
-}
-
-void process_file(string file_in, string file_out){
-    int size = 0x10000;
-    char* txt_in = new char[size];
-    auto fin = std::ifstream(file_in, std::ios_base::binary);
-    fin.read(txt_in, size);
-    int count = fin.gcount();
-    // std::cout << "Chunk size: " << count << std::endl;
-    
-    string txt_out = "";
-    bool* is_ascii = gen_is_ascii();
-    
-    int j = 0;
-    while(count > 0){
-        j++;
-        for(int i = 0; i < count; i++){
-            char c = txt_in[i];
-            // std::cout << "Hi? " << c << std::endl;
-            txt_out += " ";
-            if(is_ascii[c]){
-                // std::cout << "Hello? " << c << std::endl;
-                txt_out += " ";
-                char* cc = new char[2]{c};
-                cc[1] = 0;
-                txt_out += cc;
-                delete cc;
-            }
-            else if(c == '\f'){
-                txt_out += "\\f";
-            }
-            else if(c == '\r'){
-                txt_out += "\\r";
-            }
-            else if(c == '\t'){
-                txt_out += "\\t";
-            }
-            else if(c == '\v'){
-                txt_out += "\\v";
-            }
-            else if(c == 0){
-                txt_out += "-x";
-            }
-            else{
-                txt_out += hex_c(c);
-            }
-        }
-        fin.read(txt_in, size);
-        count = fin.gcount();
-        // std::cout << "Chunk size: " << count << std::endl;
-    }
-    
-    fin.close();
-    
-    auto fout = std::ofstream(file_out, std::ios_base::binary);
-    fout << txt_out;
-    fout.close();
-    
-    delete txt_in;
-    delete is_ascii;
-}
-
-void function_that_has_served_its_purpose(){
-    process_file("base.mcstructure", "base.txt");
-    process_file("awesome.mcstructure", "awesome.txt");
-    process_file("grid.mcstructure", "grid.txt");
-}
-
 /*
 Break down of awesome.txt:
 \t = 09
@@ -188,7 +107,7 @@ vector<char> whole_file(string file_in){
 
 
 string wow_file(int file_i, int hex_d){
-    string s = string("wow");
+    string s = string("wow/wow");
     // std::cout << "s: " << s << std::endl;
     char* hex_ds = new char[hex_d + 1]{};
     hex_ds[hex_d] = 0;
@@ -248,7 +167,8 @@ int main(int argc, char const *argv[]){
     }
     char* be1 = new char[1 << 24];
     for(int i = 0; i < (1 << 24); i++){
-        be1[i] = be0[i] ? (be0[i] & 0xf) : 0x10;
+        // be1[i] = be0[i] ? (be0[i] & 0xf) : 0x10;
+        be1[i] = (be0[i] & 0xf);
     }
     char* be2 = new char[1 << 24];
     for(int i = 0; i < (1 << 24); i++){
@@ -285,11 +205,6 @@ int main(int argc, char const *argv[]){
             (ib > 0    ? be2[((ir    ) << 16) | ((ig    ) << 8) | (ib - 1)] : true)
         ) be3[i] = 17;
     }
-    // we only need be3 from here;
-    delete be0;
-    delete be1;
-    delete be2;
-    
     char reind[18] = {
         0x20,
         0x0c,
@@ -310,6 +225,18 @@ int main(int argc, char const *argv[]){
         0x00,
         0x01,
     };
+    char* be4 = new char[1 << 24];
+    for(int i = 0; i < (1 << 24); i++){
+        // be4[i] = reind[be3[i]];
+        // be4[i] = reind[be1[i]];
+        be4[i] = reind[i % 18];
+    }
+    // we only need be4 from here;
+    delete be0;
+    delete be1;
+    delete be2;
+    delete be3;
+    
     
     int i = 0;
     int j = 0;
@@ -382,18 +309,24 @@ int main(int argc, char const *argv[]){
             my_txt[i] = awe_txt[i];
         }
         // std::cout << "Where do it fail? 2" << std::endl;
-        // set size to 64x256x64;
-        my_txt[found_size_i +  8] = (1 << (8 - split_r)) & 0xf0;
-        my_txt[found_size_i +  9] = (1 << (8 - split_r)) & 0x0f;
-        my_txt[found_size_i + 12] = (1 << (8 - split_g)) & 0xf0;
-        my_txt[found_size_i + 13] = (1 << (8 - split_g)) & 0x0f;
-        my_txt[found_size_i + 16] = (1 << (8 - split_b)) & 0xf0;
-        my_txt[found_size_i + 17] = (1 << (8 - split_b)) & 0x0f;
+        // set X, Y, Z size; these are in big endian;
+        my_txt[found_size_i +  8] = ((1 << (8 - split_r)) & 0xff00) >> 8;
+        my_txt[found_size_i +  9] = ((1 << (8 - split_r)) & 0x00ff);
+        my_txt[found_size_i + 12] = ((1 << (8 - split_g)) & 0xff00) >> 8;
+        my_txt[found_size_i + 13] = ((1 << (8 - split_g)) & 0x00ff);
+        my_txt[found_size_i + 16] = ((1 << (8 - split_b)) & 0xff00) >> 8;
+        my_txt[found_size_i + 17] = ((1 << (8 - split_b)) & 0x00ff);
+        
+        // set volume; this is in little endian;
+        my_txt[found_data_i + 2] = ((1 << (split_data)) & 0x000000ff);
+        my_txt[found_data_i + 3] = ((1 << (split_data)) & 0x0000ff00) >> 8;
+        my_txt[found_data_i + 4] = ((1 << (split_data)) & 0x00ff0000) >> 16;
+        my_txt[found_data_i + 5] = ((1 << (split_data)) & 0xff000000) >> 24;
         
         // std::cout << "Where do it fail? 3" << std::endl;
         // do stuff after block indices section;
-        const int after_i_in  = found_data_i + 4 + 16*16*16*4*2;
-        const int after_i_out = found_data_i + 4 + (1 << split_data)*4*2;
+        const int after_i_in  = found_data_i + 6 + 16*16*16*4*2;
+        const int after_i_out = found_data_i + 6 + (1 << split_data)*4*2;
         const int diff = after_i_out - after_i_in;
         for(int i = after_i_out; i < size; i++){
             my_txt[i] = awe_txt[i - diff];
@@ -408,11 +341,11 @@ int main(int argc, char const *argv[]){
             int ir = ((i & and_1_r) >> shift_1_r) | ((file_i & and_2_r) << shift_2_r);
             int ig = ((i & and_1_g) >> shift_1_g) | ((file_i & and_2_g) << shift_2_g);
             int ib = ((i & and_1_b) >> shift_1_b) | ((file_i & and_2_b) << shift_2_b);
-            int ii = found_data_i + 4 + i * 4;
+            int ii = found_data_i + 6 + i * 4;
             my_txt[ii    ] = 0;
             my_txt[ii + 1] = 0;
             my_txt[ii + 2] = 0;
-            my_txt[ii + 3] = be3[(
+            my_txt[ii + 3] = be4[(
                 (ir << 16) |
                 (ig << 8) |
                 ib
@@ -421,7 +354,7 @@ int main(int argc, char const *argv[]){
         // std::cout << "Where do it fail? 5" << std::endl;
         // and the ffs at the end;
         for(int i = 0; i < (1 << split_data); i++){
-            int ii = found_data_i + 4 + (i + (1 << split_data)) * 4;
+            int ii = found_data_i + 6 + (i + (1 << split_data)) * 4;
             my_txt[ii    ] = 0xff;
             my_txt[ii + 1] = 0xff;
             my_txt[ii + 2] = 0xff;
