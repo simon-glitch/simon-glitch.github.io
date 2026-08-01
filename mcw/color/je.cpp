@@ -188,6 +188,13 @@ public:
             tm += max(r, g, b);
         }
     }
+    /** Get the base color of the mixer. */
+    uint base(){
+        len--;
+        uint c = mix(0, *this);
+        len++;
+        return c;
+    }
     void find_bounds(){
         float max_a = 0;
         max_a = max(max_a, alpha(0xff, 0x00, 0x00));
@@ -348,10 +355,12 @@ void gen_mixes(CWR cwr){
 }
 
 auto recipes = new Color_Recipes();
+auto last_cs = new Color_Recipes();
 auto prev_added = new Color_Exists();
 auto added = new Color_Exists();
 auto c_exists = new Color_Exists();
 auto in_bounds = new Color_Exists();
+auto on_edge = new Color_Exists();
 uint ic = 0;
 
 void all_bounds(){
@@ -773,16 +782,20 @@ void convex_hull(){
     }
     // cast inward shadows to improve shape further;
     short* shadow_a = new short[65536];
-    #define shadow(v1, v2, v3, f1, f2, f3, f4, f5, f6, mia) \
+    #define shadow(v1, v2, v3, f1, f2, f3, f4, f5, f6, f7, f8, mia, s1, s2, s3) \
     for(uint v1 = 0; v1 <= 255; v1++){           \
         for(uint v2 = 0; v2 <= 255; v2++){       \
-            shadow_a[(v1 << 8) | v2] = 0;        \
+            shadow_a[(v1 << 8) | v2] = f1;       \
             for(uint v3 = f1; v3 f2 f3; v3 f4){  \
                 if(in_bounds->get(               \
                     (ir << 16) | (ig << 8) | ib) \
                 ) break;                         \
-                shadow_a[(v1 << 8) | v2]++;      \
+                shadow_a[(v1 << 8) | v2] f4;     \
             }                                    \
+            if(shadow_a[(v1 << 8) | v2] f7 f8)   \
+                on_edge->set(                    \
+                    s1 | s2 | s3, 1              \
+                );                               \
         }                                        \
     }                                            \
     for(uint v1 = 1; v1 <= 254; v1++){           \
@@ -795,20 +808,28 @@ void convex_hull(){
                 mia(shadow_a[i + 0x0001],        \
                     shadow_a[i - 0x0001])        \
             );                                   \
+            if(!(shadow_b f7 f8)) continue;      \
             for(uint v3 = f5; v3 < f6; v3++){    \
                 in_bounds->set(                  \
+                    (ir << 16) | (ig << 8) | ib, \
+                    1                            \
+                );                               \
+                on_edge->set(                    \
+                    s1 | s2 | s3, 0              \
+                );                               \
+                on_edge->set(                    \
                     (ir << 16) | (ig << 8) | ib, \
                     1                            \
                 );                               \
             }                                    \
         }                                        \
     }
-    shadow(ir, ig, ib, 0, <=, 255, ++, shadow_b - 1, shadow_a[i] - 1, min);
-    shadow(ig, ib, ir, 0, <=, 255, ++, shadow_b - 1, shadow_a[i] - 1, min);
-    shadow(ir, ib, ig, 0, <=, 255, ++, shadow_b - 1, shadow_a[i] - 1, min);
-    shadow(ir, ig, ib, 255, >=, 0, --, shadow_a[i] + 1, shadow_b + 1, max);
-    shadow(ig, ib, ir, 255, >=, 0, --, shadow_a[i] + 1, shadow_b + 1, max);
-    shadow(ir, ib, ig, 255, >=, 0, --, shadow_a[i] + 1, shadow_b + 1, max);
+    shadow(ir, ig, ib, 0, <=, 255, ++, shadow_b - 1, shadow_a[i] - 1, <=, 255, min, (                      ir << 16), (                      ig << 8), shadow_a[(ir << 8) | ig]);
+    shadow(ig, ib, ir, 0, <=, 255, ++, shadow_b - 1, shadow_a[i] - 1, <=, 255, min, (shadow_a[(ig << 8) | ib] << 16), (                      ig << 8),                       ib);
+    shadow(ir, ib, ig, 0, <=, 255, ++, shadow_b - 1, shadow_a[i] - 1, <=, 255, min, (                      ir << 16), (shadow_a[(ir << 8) | ib] << 8),                       ib);
+    shadow(ir, ig, ib, 255, >=, 0, --, shadow_a[i] + 1, shadow_b + 1, >=,   0, max, (                      ir << 16), (                      ig << 8), shadow_a[(ir << 8) | ig]);
+    shadow(ig, ib, ir, 255, >=, 0, --, shadow_a[i] + 1, shadow_b + 1, >=,   0, max, (shadow_a[(ig << 8) | ib] << 16), (                      ig << 8),                       ib);
+    shadow(ir, ib, ig, 255, >=, 0, --, shadow_a[i] + 1, shadow_b + 1, >=,   0, max, (                      ir << 16), (shadow_a[(ir << 8) | ib] << 8),                       ib);
     delete shadow_a;
     
     
@@ -817,53 +838,57 @@ void convex_hull(){
         if(in_bounds->get(i)) fill_c++;
     }
     std::cout << "Total in bounds after: " << fill_c << std::endl;
+    
+    fill_c = 0;
+    for(uint i = 0; i < (1 << 24); i++){
+        if(on_edge->get(i)) fill_c++;
+    }
+    std::cout << "Total on edge: " << fill_c << std::endl;
 }
 
 uint found = 0;
-void add(uint color, ulng mix_d){
+void add(uint color, uint last, ulng mix_d){
     // if(ic > 0) std::cout << "add" << std::endl;
     if(c_exists->get(color)) return;
     found++;
     added->set(color, 1);
     c_exists->set(color, 1);
     recipes->set(color, mix_d);
+    last_cs->set(color, last);
 }
 
 bool added_any = true;
 void cycle(){
     for(uint i = 0; i < 1<<24; i++){
-        prev_added->set(i, 0);
-    }
-    for(uint i = 0; i < 1<<24; i++){
-        // prevent BE colors from being checked, because they are highly unlikely to give anything interesting;
-        // if(ic > 1 && be::c_exists->get(i)) continue;
+        // filter so only colors in in_bounds are kept;
+        if(!in_bounds->get(i)) continue;
         prev_added->set(i, added->get(i));
     }
     for(uint i = 0; i < 1<<24; i++){
         added->set(i, 0);
     }
     
-    // uint prev_c = 0;
-    // for(uint i = 0; i < 1<<24; i++){
-    //     if(prev_added->get(i)){
-    //         prev_c++;
-    //     }
-    // }
-    // uint prev_i = 0;
-    // uint prev_li = 0;
-    // uint prev_lf = 10000;
+    uint prev_c = 0;
+    for(uint i = 0; i < 1<<24; i++){
+        if(prev_added->get(i)){
+            prev_c++;
+        }
+    }
+    uint prev_i = 0;
+    uint prev_li = 0;
+    uint prev_lf = 10000;
     
     for(uint i = 0; i < 1<<24; i++){
         if(!prev_added->get(i)) continue;
-        // prev_i++;
-        // prev_li++;
-        // if(prev_li == prev_lf){
-        //     prev_li = 0;
-        //     std::cout << prev_i << "/" << prev_c << "; found colors: " << found << std::endl;
-        // }
+        prev_i++;
+        prev_li++;
+        if(prev_li == prev_lf){
+            prev_li = 0;
+            std::cout << prev_i << "/" << prev_c << "; found colors: " << found << std::endl;
+        }
         for(auto it = mixers_v.begin(); it != mixers_v.end(); it++){
             auto res = mix(i, *it);
-            add(res, it->mix_d);
+            add(res, i, it->mix_d);
         }
     }
     
@@ -879,15 +904,26 @@ void cycle(){
 }
 
 void save_je(){
-    uint size = (1<<24) * 8;
+    // recipes, then last_cs, then c_exists;
+    uint size = (1<<24) * 4 + (1<<24) * 4 + (1<<24) / 8;
     uint i = 0;
     uchar* mychars = new uchar[size];
-    for(uint j = 0; j < 1<<24; j++, i += 8){
-        ulng dyem = recipes->d[j];
+    for(uint j = 0; j < 1<<24; j++, i += 4){
+        uint dyem = recipes->d[j];
         mychars[i    ] = dyem & 0xff000000;
         mychars[i + 1] = dyem & 0x00ff0000;
         mychars[i + 2] = dyem & 0x0000ff00;
         mychars[i + 3] = dyem & 0x000000ff;
+    }
+    for(uint j = 0; j < 1<<24; j++, i += 4){
+        uint dyem = last_cs->d[j];
+        mychars[i    ] = dyem & 0xff000000;
+        mychars[i + 1] = dyem & 0x00ff0000;
+        mychars[i + 2] = dyem & 0x0000ff00;
+        mychars[i + 3] = dyem & 0x000000ff;
+    }
+    for(uint j = 0; j < (1<<24) / 8; j++, i ++){
+        mychars[i    ] = c_exists->d[j];
     }
     
     std::cout << "Saving..." << std::endl;
@@ -900,6 +936,120 @@ void save_je(){
     
     std::cout << "Saved." << std::endl;
 }
+
+class Recipe{
+public:
+    uint res = 0;
+    // temporary way to prevent infinite loop;
+    uint depth = 0;
+    uint depth_lim = 100;
+    // dyes, in reverse order;
+    vector<uint> done_dyems;
+    // dyes, in reverse order;
+    vector<uint> dyems;
+    Recipe(uint a_res){
+        res = a_res;
+        done_dyems = vector<uint>();
+        dyems = vector<uint>();
+    }
+    void try_last(uint color){
+        if(!c_exists->get(color)){
+            // std::cout << "color does not exist" << std::endl;
+            return;
+        }
+        // std::cout << "enter try_last" << std::endl;
+        // std::cout << "color = " << color << std::endl;
+        uint dyem = recipes->get(color);
+        uint last = last_cs->get(color);
+        // std::cout << "dyem = " << dyem << std::endl;
+        // std::cout << "last = " << last << std::endl;
+        int cr = (color & 0xff0000) >> 16;
+        int cg = (color & 0x00ff00) >> 8;
+        int cb = (color & 0x0000ff);
+        int lr = (last  & 0xff0000) >> 16;
+        int lg = (last  & 0x00ff00) >> 8;
+        int lb = (last  & 0x0000ff);
+        if(cr == lr && cg == lg && cb == lb){
+            // std::cout << "done? dye = " << dye_i << std::endl;
+            // std::cout << "cr = " << cr << std::endl;
+            // std::cout << "cg = " << cg << std::endl;
+            // std::cout << "cb = " << cb << std::endl;
+            done_dyems = dyems;
+            done_dyems.push_back(dyem);
+            return;
+        }
+        if(depth == 0){
+            // std::cout << "depth = 0" << std::endl;
+            return;
+        }
+        
+        dyems.push_back(dyem);
+        depth--;
+        // std::cout << "begin business" << std::endl;
+        try_last(last);
+        // std::cout << "end business" << std::endl;
+        depth++;
+        dyems.pop_back();
+    }
+    void search(){
+        depth = depth_lim;
+        try_last(res);
+    }
+};
+
+void verify(uint c, vector<uint> dyems){
+    auto it = dyems.rbegin();
+    uint color = Mixer(*it).base();
+    for(it++; it != dyems.rend(); it++){
+        color = mix(color, Mixer(*it));
+    }
+    if(c == color){
+        std::cout << "Recipe is correct." << std::endl;
+    }
+    else{
+        std::cout << "Recipe is incorrect." << std::endl;
+        std::cout << "Got " << color << std::endl;
+    }
+}
+
+const char* hex = "0123456789abcdef";
+string to_hex(uint c){
+    return string({
+        hex[(c & 0xf00000) >> 20],
+        hex[(c & 0x0f0000) >> 16],
+        hex[(c & 0x00f000) >> 12],
+        hex[(c & 0x000f00) >>  8],
+        hex[(c & 0x0000f0) >>  4],
+        hex[ c & 0x00000f       ],
+    });
+}
+string hex_c(char c){
+    char* cc = new char[2];
+    cc[0] = hex[c];
+    cc[1] = hex[16];
+    string s = string(cc);
+    delete cc;
+    return s;
+}
+
+void see_recipe(string msg, uint i){
+    if(!c_exists->get(i)){
+        std::cout << "Color not found: " << to_hex(i) << std::endl;
+        return;
+    }
+    std::cout << msg << to_hex(i) << std::endl;
+    
+    Recipe find_boi = Recipe(i);
+    find_boi.search();
+    
+    std::cout << "Recipe [";
+    for(auto it = find_boi.done_dyems.begin(); it != find_boi.done_dyems.end(); it++){
+        std::cout << Mixer(*it).recipe_step() << ",";
+    }
+    std::cout << "]" << std::endl;
+    verify(i, find_boi.done_dyems);
+}
+
 
 int main(int argc, char const *argv[]){
     // be::main(0, argv);
@@ -921,16 +1071,15 @@ int main(int argc, char const *argv[]){
     poly_fill();
     convex_hull();
     
-    /*
-    for(uint i = 0; i < 16; i++){
-        add(base_colors[i], (1 << i));
+    for(auto it = mixers_v.begin(); it != mixers_v.end(); it++){
+        uint i = it->base();
+        add(i, i, it->mix_d);
     }
     while(added_any){
         std::cout << "Cycle " << ic << std::endl;
         cycle();
         std::cout << "Found colors: " << found << std::endl;
     }
-    */
     
     
     return 0;

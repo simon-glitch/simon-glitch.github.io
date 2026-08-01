@@ -241,7 +241,6 @@ void verify(uint c, vector<uint> dyes){
 }
 
 const char* hex = "0123456789abcdef";
-
 string to_hex(uint c){
     return string({
         hex[(c & 0xf00000) >> 20],
