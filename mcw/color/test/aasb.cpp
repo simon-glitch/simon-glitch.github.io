@@ -187,6 +187,23 @@ vector<char> whole_file(string file_in){
 }
 
 
+string wow_file(int file_i, int hex_d){
+    string s = string("wow");
+    // std::cout << "s: " << s << std::endl;
+    char* hex_ds = new char[hex_d + 1]{};
+    hex_ds[hex_d] = 0;
+    // this i must be signed;
+    for(int i = hex_d - 1; i >= 0; i--){
+        // std::cout << "hex_ds: " << hex_ds << std::endl;
+        // std::cout << "file_i: " << file_i << std::endl;
+        hex_ds[i] = hex[file_i & 0xf];
+        file_i >>= 4;
+    }
+    s += hex_ds;
+    s += string(".mcstructure");
+    return s;
+};
+
 int main(int argc, char const *argv[]){
     char size_str[18] = {
         's',  // 0
@@ -215,7 +232,7 @@ int main(int argc, char const *argv[]){
         16,
     };
     
-    vector<char> awe_txt = whole_file("awesome.txt");
+    vector<char> awe_txt = whole_file("awesome.mcstructure");
     vector<char> be_bin = whole_file("be_res.bin");
     // gotta skip "Testing." = 8 chars;
     int be_skip = 8;
@@ -294,29 +311,12 @@ int main(int argc, char const *argv[]){
         0x01,
     };
     
-    string files[16] = {
-        string("wow00.mcstructure"),
-        string("wow01.mcstructure"),
-        string("wow02.mcstructure"),
-        string("wow03.mcstructure"),
-        string("wow04.mcstructure"),
-        string("wow05.mcstructure"),
-        string("wow06.mcstructure"),
-        string("wow07.mcstructure"),
-        string("wow08.mcstructure"),
-        string("wow09.mcstructure"),
-        string("wow10.mcstructure"),
-        string("wow11.mcstructure"),
-        string("wow12.mcstructure"),
-        string("wow13.mcstructure"),
-        string("wow14.mcstructure"),
-        string("wow15.mcstructure"),
-    };
-    
     int i = 0;
     int j = 0;
     int found_size_i = 0;
     for(; i < awe_txt.size(); i++){
+        if(i > 400) break;
+        std::cout << "Reading " << int(awe_txt[i]) << ", j = " << j << std::endl;
         if(awe_txt[i] == size_str[j]){
             j++;
         }
@@ -348,49 +348,95 @@ int main(int argc, char const *argv[]){
         abort();
     }
     
-    for(int file_i = 0; file_i < 16; file_i++){
-        auto fout = std::ofstream(files[file_i], std::ios_base::binary);
+    // how many bits of r to put into file_i;
+    const int split_r = 3;
+    // how many bits of g to put into file_i;
+    const int split_g = 3;
+    // how many bits of b to put into file_i;
+    const int split_b = 3;
+    // number of RGB bits left;
+    const int split_data = 24 - (split_r + split_g + split_b);
+    const int and_1_r = ((1 << (8 - split_r)) - 1) << (split_data - (8 - split_r));
+    const int and_1_g = ((1 << (8 - split_g)) - 1) << (split_data - (8 - split_g) - (8 - split_r));
+    const int and_1_b = ((1 << (8 - split_b)) - 1) << (split_data - (8 - split_b) - (8 - split_g) - (8 - split_r));
+    const int and_2_r = ((1 << split_r) - 1) << (split_g + split_b);
+    const int and_2_g = ((1 << split_g) - 1) << (split_b);
+    const int and_2_b = ((1 << split_b) - 1);
+    const int shift_1_r = (split_data - (8 - split_r));
+    const int shift_1_g = (split_data - (8 - split_g) - (8 - split_r));
+    const int shift_1_b = (split_data - (8 - split_b) - (8 - split_g) - (8 - split_r));
+    const int shift_2_r = 24 - (split_r + split_g + split_b);
+    const int shift_2_g = 16 - (split_g + split_b);
+    const int shift_2_b =  8 - (split_b);
+    
+    for(int file_i = 0; file_i < (1 << (split_r + split_g + split_b)); file_i++){
+        // std::cout << "Try to make file name." << std::endl;
+        string file_out = wow_file(file_i, 3);
+        // std::cout << "Where do it fail? 1" << std::endl;
+        auto fout = std::ofstream(file_out, std::ios_base::binary);
         
         // do stuff before block indices section;
-        int size = awe_txt.size() - 16*16*16*4*2 + 256*64*64*4*2;
+        int size = awe_txt.size() - 16*16*16*4*2 + (1 << split_data)*4*2;
         char* my_txt = new char[size];
         for(int i = 0; i < found_data_i + 4; i++){
             my_txt[i] = awe_txt[i];
         }
+        // std::cout << "Where do it fail? 2" << std::endl;
         // set size to 64x256x64;
-        my_txt[found_size_i +  9] = 64;
-        my_txt[found_size_i + 12] =  1;
-        my_txt[found_size_i + 13] =  0;
-        my_txt[found_size_i + 17] = 64;
+        my_txt[found_size_i +  8] = (1 << (8 - split_r)) & 0xf0;
+        my_txt[found_size_i +  9] = (1 << (8 - split_r)) & 0x0f;
+        my_txt[found_size_i + 12] = (1 << (8 - split_g)) & 0xf0;
+        my_txt[found_size_i + 13] = (1 << (8 - split_g)) & 0x0f;
+        my_txt[found_size_i + 16] = (1 << (8 - split_b)) & 0xf0;
+        my_txt[found_size_i + 17] = (1 << (8 - split_b)) & 0x0f;
         
+        // std::cout << "Where do it fail? 3" << std::endl;
         // do stuff after block indices section;
-        int after_i_in  = found_data_i + 4 + 16*16*16*4*2;
-        int after_i_out = found_data_i + 4 + 256*64*64*4*2;
-        int diff = after_i_out - after_i_in;
+        const int after_i_in  = found_data_i + 4 + 16*16*16*4*2;
+        const int after_i_out = found_data_i + 4 + (1 << split_data)*4*2;
+        const int diff = after_i_out - after_i_in;
         for(int i = after_i_out; i < size; i++){
             my_txt[i] = awe_txt[i - diff];
         }
+        // std::cout << "Where do it fail? 4" << std::endl;
         
         // now the data!
-        for(int i = 0; i < (1 << 24); i++){
+        for(int i = 0; i < (1 << split_data); i++){
+            // i encodes 6 bits of red, 8 bits of green, and then 6 bits of blue;
+            // 0b1100 -> 0xc;
+            // 0b0011 -> 0x3;
+            int ir = ((i & and_1_r) >> shift_1_r) | ((file_i & and_2_r) << shift_2_r);
+            int ig = ((i & and_1_g) >> shift_1_g) | ((file_i & and_2_g) << shift_2_g);
+            int ib = ((i & and_1_b) >> shift_1_b) | ((file_i & and_2_b) << shift_2_b);
             int ii = found_data_i + 4 + i * 4;
             my_txt[ii    ] = 0;
             my_txt[ii + 1] = 0;
             my_txt[ii + 2] = 0;
-            my_txt[ii + 3] = be3[i];
+            my_txt[ii + 3] = be3[(
+                (ir << 16) |
+                (ig << 8) |
+                ib
+            )];
         }
+        // std::cout << "Where do it fail? 5" << std::endl;
         // and the ffs at the end;
-        for(int i = 0; i < (1 << 24); i++){
-            int ii = found_data_i + 4 + (i + (1 << 24)) * 4;
+        for(int i = 0; i < (1 << split_data); i++){
+            int ii = found_data_i + 4 + (i + (1 << split_data)) * 4;
             my_txt[ii    ] = 0xff;
             my_txt[ii + 1] = 0xff;
             my_txt[ii + 2] = 0xff;
             my_txt[ii + 3] = 0xff;
         }
         
+        // now write to file;
+        for(int i = 0; i < size; i++){
+            fout << my_txt[i];
+        }
+        
         fout.close();
     }
-    
+    std::cout << "I should be done now!" << std::endl;
+    std::cout << "I should have made " << (1 << (split_r + split_g + split_b)) << " file total." << std::endl;
 }
 
 
