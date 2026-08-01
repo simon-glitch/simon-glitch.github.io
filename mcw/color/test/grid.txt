@@ -1,0 +1,793 @@
+  
+ -x -x 03 0e -x  f  o  r  m  a  t  _  v  e  r  s  i  o  n 01 -x -x -x \t 04 -x  s  i  z  e 03 03 -x -x -x 10 -x -x -x 01 -x -x -x 10 -x -x -x  
+ \t -x  s  t  r  u  c  t  u  r  e \t \r -x  b  l  o  c  k  _  i  n  d  i  c  e  s \t 02 -x -x -x 03 -x 01 -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x -x 03 -x 01 -x -x ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff \t 08 -x  e  n  t  i  t  i  e  s -x -x -x -x -x  
+ 07 -x  p  a  l  e  t  t  e  
+ 07 -x  d  e  f  a  u  l  t \t \r -x  b  l  o  c  k  _  p  a  l  e  t  t  e  
+ 01 -x -x -x 08 04 -x  n  a  m  e 12 -x  m  i  n  e  c  r  a  f  t  :  c  a  u  l  d  r  o  n  
+ 06 -x  s  t  a  t  e  s 08 0f -x  c  a  u  l  d  r  o  n  _  l  i  q  u  i  d 05 -x  w  a  t  e  r 03  
+ -x  f  i  l  l  _  l  e  v  e  l 06 -x -x -x -x 03 07 -x  v  e  r  s  i  o  n  !  < 15 01 -x  
+ 13 -x  b  l  o  c  k  _  p  o  s  i  t  i  o  n  _  d  a  t  a  
+ 01 -x  0  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 01 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  + 01 -x -x -x -x  
+ 01 -x  1  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 01 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  , 01 -x -x -x -x  
+ 02 -x  1  0  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  � 83 ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 01 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  5 01 -x -x -x -x  
+ 03 -x  1  0  0  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  '  j  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 07 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  / 01 -x -x -x -x  
+ 03 -x  1  0  1  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  !  W d4 ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 07 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  0 01 -x -x -x -x  
+ 03 -x  1  0  2  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r 1d  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 07 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  1 01 -x -x -x -x  
+ 03 -x  1  0  3  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  -  � fb ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 07 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  2 01 -x -x -x -x  
+ 03 -x  1  0  4  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r 1e a3  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 07 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  3 01 -x -x -x -x  
+ 03 -x  1  0  5  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r 19  ~  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 07 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  4 01 -x -x -x -x  
+ 03 -x  1  0  6  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  \  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 07 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  5 01 -x -x -x -x  
+ 03 -x  1  0  7  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  {  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 07 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  6 01 -x -x -x -x  
+ 03 -x  1  0  8  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  c  b  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 07 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  7 01 -x -x -x -x  
+ 03 -x  1  0  9  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  j  Y  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 07 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  8 01 -x -x -x -x  
+ 02 -x  1  1  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r e5  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 01 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  6 01 -x -x -x -x  
+ 03 -x  1  1  0  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  m  g  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 07 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  9 01 -x -x -x -x  
+ 03 -x  1  1  1  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  c  � f6 ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 07 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  : 01 -x -x -x -x  
+ 03 -x  1  1  2  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r 96 e4 f7 ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 08 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  + 01 -x -x -x -x  
+ 03 -x  1  1  3  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  j  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 08 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  , 01 -x -x -x -x  
+ 03 -x  1  1  4  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  G  � a2 ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 08 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  - 01 -x -x -x -x  
+ 03 -x  1  1  5  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  /  z  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 08 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  . 01 -x -x -x -x  
+ 03 -x  1  1  6  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  7  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 08 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  / 01 -x -x -x -x  
+ 03 -x  1  1  7  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  1  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 08 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  0 01 -x -x -x -x  
+ 03 -x  1  1  8  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  -  � fb ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 08 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  1 01 -x -x -x -x  
+ 03 -x  1  1  9  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  =  � fe ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 08 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  2 01 -x -x -x -x  
+ 02 -x  1  2  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 01 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  7 01 -x -x -x -x  
+ 03 -x  1  2  0  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  . cf bf ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 08 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  3 01 -x -x -x -x  
+ 03 -x  1  2  1  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  )  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 08 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  4 01 -x -x -x -x  
+ 03 -x  1  2  2  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  l  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 08 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  5 01 -x -x -x -x  
+ 03 -x  1  2  3  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 08 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  6 01 -x -x -x -x  
+ 03 -x  1  2  4  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  s 8e  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 08 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  7 01 -x -x -x -x  
+ 03 -x  1  2  5  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  z  � c3 ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 08 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  8 01 -x -x -x -x  
+ 03 -x  1  2  6  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  } 93  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 08 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  9 01 -x -x -x -x  
+ 03 -x  1  2  7  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  s b1  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 08 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  : 01 -x -x -x -x  
+ 03 -x  1  2  8  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \t 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  + 01 -x -x -x -x  
+ 03 -x  1  2  9  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  [ b2  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \t 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  , 01 -x -x -x -x  
+ 02 -x  1  3  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  � 91  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 01 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  8 01 -x -x -x -x  
+ 03 -x  1  3  0  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  8  �  c ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \t 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  - 01 -x -x -x -x  
+ 03 -x  1  3  1  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r     r  N ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \t 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  . 01 -x -x -x -x  
+ 03 -x  1  3  2  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  (  � 81 ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \t 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  / 01 -x -x -x -x  
+ 03 -x  1  3  3  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  "  z  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \t 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  0 01 -x -x -x -x  
+ 03 -x  1  3  4  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r 1e  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \t 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  1 01 -x -x -x -x  
+ 03 -x  1  3  5  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  .  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \t 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  2 01 -x -x -x -x  
+ 03 -x  1  3  6  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r 1f  � 80 ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \t 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  3 01 -x -x -x -x  
+ 03 -x  1  3  7  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r 1a  �  o ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \t 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  4 01 -x -x -x -x  
+ 03 -x  1  3  8  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  ]  �  K ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \t 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  5 01 -x -x -x -x  
+ 03 -x  1  3  9  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  |  �  ] ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \t 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  6 01 -x -x -x -x  
+ 02 -x  1  4  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r d6  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 01 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  9 01 -x -x -x -x  
+ 03 -x  1  4  0  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  d  �  ^ ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \t 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  7 01 -x -x -x -x  
+ 03 -x  1  4  1  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  k  |  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \t 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  8 01 -x -x -x -x  
+ 03 -x  1  4  2  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  n  � a3 ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \t 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  9 01 -x -x -x -x  
+ 03 -x  1  4  3  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  d  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \t 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  : 01 -x -x -x -x  
+ 03 -x  1  4  4  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x  
+ 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  + 01 -x -x -x -x  
+ 03 -x  1  4  5  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  V  �  } ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x  
+ 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  , 01 -x -x -x -x  
+ 03 -x  1  4  6  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  4  e  R ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x  
+ 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  - 01 -x -x -x -x  
+ 03 -x  1  4  7  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r 1b  L  = ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x  
+ 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  . 01 -x -x -x -x  
+ 03 -x  1  4  8  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  $  h  p ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x  
+ 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  / 01 -x -x -x -x  
+ 03 -x  1  4  9  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r 1e  U  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x  
+ 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  0 01 -x -x -x -x  
+ 02 -x  1  5  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r cd bd  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 01 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  : 01 -x -x -x -x  
+ 03 -x  1  5  0  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r 19  ~  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x  
+ 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  1 01 -x -x -x -x  
+ 03 -x  1  5  1  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  )  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x  
+ 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  2 01 -x -x -x -x  
+ 03 -x  1  5  2  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r 1a a1  o ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x  
+ 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  3 01 -x -x -x -x  
+ 03 -x  1  5  3  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r 16  |  ^ ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x  
+ 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  4 01 -x -x -x -x  
+ 03 -x  1  5  4  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  Y  �  : ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x  
+ 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  5 01 -x -x -x -x  
+ 03 -x  1  5  5  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  x 97  L ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x  
+ 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  6 01 -x -x -x -x  
+ 03 -x  1  5  6  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  `  `  M ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x  
+ 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  7 01 -x -x -x -x  
+ 03 -x  1  5  7  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  g  W  s ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x  
+ 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  8 01 -x -x -x -x  
+ 03 -x  1  5  8  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  i  e  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x  
+ 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  9 01 -x -x -x -x  
+ 03 -x  1  5  9  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  `  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x  
+ 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  : 01 -x -x -x -x  
+ 02 -x  1  6  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 02 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  + 01 -x -x -x -x  
+ 03 -x  1  6  0  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \v 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  + 01 -x -x -x -x  
+ 03 -x  1  6  1  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  �  Y ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \v 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  , 01 -x -x -x -x  
+ 03 -x  1  6  2  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  w  u  . ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \v 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  - 01 -x -x -x -x  
+ 03 -x  1  6  3  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  ^  \ 19 ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \v 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  . 01 -x -x -x -x  
+ 03 -x  1  6  4  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  g  x  L ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \v 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  / 01 -x -x -x -x  
+ 03 -x  1  6  5  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  a  e  c ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \v 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  0 01 -x -x -x -x  
+ 03 -x  1  6  6  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  \  � 87 ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \v 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  1 01 -x -x -x -x  
+ 03 -x  1  6  7  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  l  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \v 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  2 01 -x -x -x -x  
+ 03 -x  1  6  8  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  ]  �  K ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \v 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  3 01 -x -x -x -x  
+ 03 -x  1  6  9  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  Y  �  : ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \v 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  4 01 -x -x -x -x  
+ 02 -x  1  7  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 02 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  , 01 -x -x -x -x  
+ 03 -x  1  7  0  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r 9c 9c 16 ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \v 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  5 01 -x -x -x -x  
+ 03 -x  1  7  1  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  � a7  ( ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \v 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  6 01 -x -x -x -x  
+ 03 -x  1  7  2  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  p  ) ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \v 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  7 01 -x -x -x -x  
+ 03 -x  1  7  3  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  g  O ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \v 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  8 01 -x -x -x -x  
+ 03 -x  1  7  4  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r ac  u  n ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \v 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  9 01 -x -x -x -x  
+ 03 -x  1  7  5  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \v 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  : 01 -x -x -x -x  
+ 03 -x  1  7  6  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  � d1  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \f 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  + 01 -x -x -x -x  
+ 03 -x  1  7  7  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  �  k ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \f 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  , 01 -x -x -x -x  
+ 03 -x  1  7  8  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  �  @ ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \f 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  - 01 -x -x -x -x  
+ 03 -x  1  7  9  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  }  h  + ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \f 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  . 01 -x -x -x -x  
+ 02 -x  1  8  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  t  v  r ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 02 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  - 01 -x -x -x -x  
+ 03 -x  1  8  0  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  �  ^ ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \f 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  / 01 -x -x -x -x  
+ 03 -x  1  8  1  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  p  u ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \f 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  0 01 -x -x -x -x  
+ 03 -x  1  8  2  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  {  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \f 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  1 01 -x -x -x -x  
+ 03 -x  1  8  3  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \f 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  2 01 -x -x -x -x  
+ 03 -x  1  8  4  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  |  �  ] ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \f 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  3 01 -x -x -x -x  
+ 03 -x  1  8  5  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  x  �  L ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \f 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  4 01 -x -x -x -x  
+ 03 -x  1  8  6  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  � a7  ( ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \f 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  5 01 -x -x -x -x  
+ 03 -x  1  8  7  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  � b3  : ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \f 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  6 01 -x -x -x -x  
+ 03 -x  1  8  8  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  {  ; ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \f 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  7 01 -x -x -x -x  
+ 03 -x  1  8  9  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  r  a ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \f 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  8 01 -x -x -x -x  
+ 02 -x  1  9  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  \  ]  ] ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 02 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  . 01 -x -x -x -x  
+ 03 -x  1  9  0  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  � 80 80 ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \f 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  9 01 -x -x -x -x  
+ 03 -x  1  9  1  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \f 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  : 01 -x -x -x -x  
+ 03 -x  1  9  2  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \r 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  + 01 -x -x -x -x  
+ 03 -x  1  9  3  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r a0  p  l ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \r 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  , 01 -x -x -x -x  
+ 03 -x  1  9  4  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  ~  I  A ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \r 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  - 01 -x -x -x -x  
+ 03 -x  1  9  5  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  e  0  , ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \r 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  . 01 -x -x -x -x  
+ 03 -x  1  9  6  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  n  L  _ ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \r 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  / 01 -x -x -x -x  
+ 03 -x  1  9  7  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  h  9  v ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \r 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  0 01 -x -x -x -x  
+ 03 -x  1  9  8  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  c  b  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \r 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  1 01 -x -x -x -x  
+ 03 -x  1  9  9  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  s 8e 9d ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \r 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  2 01 -x -x -x -x  
+ 01 -x  2  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  � 9f 9b ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 01 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  - 01 -x -x -x -x  
+ 02 -x  2  0  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  d  x  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 02 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  / 01 -x -x -x -x  
+ 03 -x  2  0  0  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  d  �  ^ ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \r 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  3 01 -x -x -x -x  
+ 03 -x  2  0  1  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  `  `  M ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \r 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  4 01 -x -x -x -x  
+ 03 -x  2  0  2  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  p  ) ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \r 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  5 01 -x -x -x -x  
+ 03 -x  2  0  3  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  {  ; ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \r 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  6 01 -x -x -x -x  
+ 03 -x  2  0  4  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r aa  D  < ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \r 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  7 01 -x -x -x -x  
+ 03 -x  2  0  5  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  ;  b ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \r 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  8 01 -x -x -x -x  
+ 03 -x  2  0  6  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  I 81 ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \r 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  9 01 -x -x -x -x  
+ 03 -x  2  0  7  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  g  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x \r 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  : 01 -x -x -x -x  
+ 03 -x  2  0  8  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  � bc ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 0e 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  + 01 -x -x -x -x  
+ 03 -x  2  0  9  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  g 93 ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 0e 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  , 01 -x -x -x -x  
+ 02 -x  2  1  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  ^  e  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 02 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  0 01 -x -x -x -x  
+ 03 -x  2  1  0  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  @  h ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 0e 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  - 01 -x -x -x -x  
+ 03 -x  2  1  1  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  l  '  S ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 0e 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  . 01 -x -x -x -x  
+ 03 -x  2  1  2  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  u  C  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 0e 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  / 01 -x -x -x -x  
+ 03 -x  2  1  3  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  o  0  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 0e 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  0 01 -x -x -x -x  
+ 03 -x  2  1  4  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  j  Y  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 0e 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  1 01 -x -x -x -x  
+ 03 -x  2  1  5  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  z  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 0e 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  2 01 -x -x -x -x  
+ 03 -x  2  1  6  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  k  |  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 0e 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  3 01 -x -x -x -x  
+ 03 -x  2  1  7  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  g  W  s ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 0e 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  4 01 -x -x -x -x  
+ 03 -x  2  1  8  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  g  O ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 0e 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  5 01 -x -x -x -x  
+ 03 -x  2  1  9  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  r  a ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 0e 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  6 01 -x -x -x -x  
+ 02 -x  2  2  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  Z 8e  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 02 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  1 01 -x -x -x -x  
+ 03 -x  2  2  0  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  ;  b ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 0e 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  7 01 -x -x -x -x  
+ 03 -x  2  2  1  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  2  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 0e 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  8 01 -x -x -x -x  
+ 03 -x  2  2  2  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  @  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 0e 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  9 01 -x -x -x -x  
+ 03 -x  2  2  3  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  ^  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 0e 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  : 01 -x -x -x -x  
+ 03 -x  2  2  4  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 0f 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  + 01 -x -x -x -x  
+ 03 -x  2  2  5  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  u b2 ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 0f 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  , 01 -x -x -x -x  
+ 03 -x  2  2  6  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  N  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 0f 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  - 01 -x -x -x -x  
+ 03 -x  2  2  7  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  o  5  r ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 0f 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  . 01 -x -x -x -x  
+ 03 -x  2  2  8  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  w  Q a5 ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 0f 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  / 01 -x -x -x -x  
+ 03 -x  2  2  9  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  q  >  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 0f 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  0 01 -x -x -x -x  
+ 02 -x  2  3  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  j ba  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 02 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  2 01 -x -x -x -x  
+ 03 -x  2  3  0  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  m  g  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 0f 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  1 01 -x -x -x -x  
+ 03 -x  2  3  1  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  }  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 0f 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  2 01 -x -x -x -x  
+ 03 -x  2  3  2  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  n 8a  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 0f 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  3 01 -x -x -x -x  
+ 03 -x  2  3  3  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  i  e  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 0f 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  4 01 -x -x -x -x  
+ 03 -x  2  3  4  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  u  n ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 0f 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  5 01 -x -x -x -x  
+ 03 -x  2  3  5  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 0f 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  6 01 -x -x -x -x  
+ 03 -x  2  3  6  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  I  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 0f 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  7 01 -x -x -x -x  
+ 03 -x  2  3  7  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  @  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 0f 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  8 01 -x -x -x -x  
+ 03 -x  2  3  8  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r bd  N  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 0f 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  9 01 -x -x -x -x  
+ 03 -x  2  3  9  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  l  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 0f 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  : 01 -x -x -x -x  
+ 02 -x  2  4  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  [  � 8e ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 02 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  3 01 -x -x -x -x  
+ 03 -x  2  4  0  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  � bd  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 10 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  + 01 -x -x -x -x  
+ 03 -x  2  4  1  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 10 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  , 01 -x -x -x -x  
+ 03 -x  2  4  2  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  ~  m  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 10 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  - 01 -x -x -x -x  
+ 03 -x  2  4  3  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  e  T  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 10 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  . 01 -x -x -x -x  
+ 03 -x  2  4  4  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  n  o  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 10 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  / 01 -x -x -x -x  
+ 03 -x  2  4  5  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  h  \  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 10 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  0 01 -x -x -x -x  
+ 03 -x  2  4  6  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  c  � f6 ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 10 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  1 01 -x -x -x -x  
+ 03 -x  2  4  7  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  s  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 10 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  2 01 -x -x -x -x  
+ 03 -x  2  4  8  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  d  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 10 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  3 01 -x -x -x -x  
+ 03 -x  2  4  9  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  `  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 10 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  4 01 -x -x -x -x  
+ 02 -x  2  5  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  V 8c  } ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 02 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  4 01 -x -x -x -x  
+ 03 -x  2  5  0  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  � 93  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 10 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  5 01 -x -x -x -x  
+ 03 -x  2  5  1  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 10 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  6 01 -x -x -x -x  
+ 03 -x  2  5  2  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  g 97 ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 10 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  7 01 -x -x -x -x  
+ 03 -x  2  5  3  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  ^  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 10 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  8 01 -x -x -x -x  
+ 03 -x  2  5  4  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  l  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 10 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  9 01 -x -x -x -x  
+ 03 -x  2  5  5  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r aa  � f3 ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 10 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  : 01 -x -x -x -x  
+ 02 -x  2  6  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  �  Y ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 02 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  5 01 -x -x -x -x  
+ 02 -x  2  7  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r b8  �  k ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 02 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  6 01 -x -x -x -x  
+ 02 -x  2  8  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  p  l ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 02 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  7 01 -x -x -x -x  
+ 02 -x  2  9  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r a7  g 93 ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 02 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  8 01 -x -x -x -x  
+ 01 -x  3  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 01 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  . 01 -x -x -x -x  
+ 02 -x  3  0  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  u b2 ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 02 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  9 01 -x -x -x -x  
+ 02 -x  3  1  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  � c8 ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 02 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  : 01 -x -x -x -x  
+ 02 -x  3  2  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  � 9f  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 03 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  + 01 -x -x -x -x  
+ 02 -x  3  3  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  t  v  r ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 03 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  , 01 -x -x -x -x  
+ 02 -x  3  4  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  R  O  G ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 03 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  - 01 -x -x -x -x  
+ 02 -x  3  5  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  9  6  2 ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 03 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  . 01 -x -x -x -x  
+ 02 -x  3  6  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  B  Q  e ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 03 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  / 01 -x -x -x -x  
+ 02 -x  3  7  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  <  >  { ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 03 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  0 01 -x -x -x -x  
+ 02 -x  3  8  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  7  g  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 03 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  1 01 -x -x -x -x  
+ 02 -x  3  9  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  G  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 03 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  2 01 -x -x -x -x  
+ 01 -x  4  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  � b9 ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 01 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  / 01 -x -x -x -x  
+ 02 -x  4  0  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  8  �  c ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 03 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  3 01 -x -x -x -x  
+ 02 -x  4  1  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  4  e  R ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 03 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  4 01 -x -x -x -x  
+ 02 -x  4  2  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  w  u  . ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 03 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  5 01 -x -x -x -x  
+ 02 -x  4  3  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  �  @ ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 03 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  6 01 -x -x -x -x  
+ 02 -x  4  4  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  ~  I  A ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 03 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  7 01 -x -x -x -x  
+ 02 -x  4  5  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  @  h ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 03 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  8 01 -x -x -x -x  
+ 02 -x  4  6  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  N  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 03 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  9 01 -x -x -x -x  
+ 02 -x  4  7  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  ~  m  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 03 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  : 01 -x -x -x -x  
+ 02 -x  4  8  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 04 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  + 01 -x -x -x -x  
+ 02 -x  4  9  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  \  ]  ] ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 04 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  , 01 -x -x -x -x  
+ 01 -x  5  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r 8b  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 01 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  0 01 -x -x -x -x  
+ 02 -x  5  0  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  9  6  2 ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 04 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  - 01 -x -x -x -x  
+ 02 -x  5  1  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  ! 1d 1d ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 04 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  . 01 -x -x -x -x  
+ 02 -x  5  2  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  )  8  P ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 04 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  / 01 -x -x -x -x  
+ 02 -x  5  3  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  #  %  f ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 04 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  0 01 -x -x -x -x  
+ 02 -x  5  4  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r 1f  N 8b ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 04 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  1 01 -x -x -x -x  
+ 02 -x  5  5  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  /  z  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 04 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  2 01 -x -x -x -x  
+ 02 -x  5  6  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r     r  N ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 04 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  3 01 -x -x -x -x  
+ 02 -x  5  7  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r 1b  L  = ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 04 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  4 01 -x -x -x -x  
+ 02 -x  5  8  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  ^  \ 19 ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 04 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  5 01 -x -x -x -x  
+ 02 -x  5  9  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  }  h  + ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 04 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  6 01 -x -x -x -x  
+ 01 -x  6  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  � f4 ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 01 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  1 01 -x -x -x -x  
+ 02 -x  6  0  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  e  0  , ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 04 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  7 01 -x -x -x -x  
+ 02 -x  6  1  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  l  '  S ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 04 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  8 01 -x -x -x -x  
+ 02 -x  6  2  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  o  5  r ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 04 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  9 01 -x -x -x -x  
+ 02 -x  6  3  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  e  T  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 04 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  : 01 -x -x -x -x  
+ 02 -x  6  4  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 05 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  + 01 -x -x -x -x  
+ 02 -x  6  5  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  d  x  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 05 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  , 01 -x -x -x -x  
+ 02 -x  6  6  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  B  Q  e ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 05 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  - 01 -x -x -x -x  
+ 02 -x  6  7  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  )  8  P ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 05 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  . 01 -x -x -x -x  
+ 02 -x  6  8  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  2  T  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 05 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  / 01 -x -x -x -x  
+ 02 -x  6  9  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  ,  A  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 05 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  0 01 -x -x -x -x  
+ 01 -x  7  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r 96 e4 f7 ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 01 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  2 01 -x -x -x -x  
+ 02 -x  7  0  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  '  j  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 05 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  1 01 -x -x -x -x  
+ 02 -x  7  1  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  7 96  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 05 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  2 01 -x -x -x -x  
+ 02 -x  7  2  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  ( 8d  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 05 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  3 01 -x -x -x -x  
+ 02 -x  7  3  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  $  h  p ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 05 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  4 01 -x -x -x -x  
+ 02 -x  7  4  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  g  x  L ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 05 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  5 01 -x -x -x -x  
+ 02 -x  7  5  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  �  ^ ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 05 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  6 01 -x -x -x -x  
+ 02 -x  7  6  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  n  L  _ ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 05 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  7 01 -x -x -x -x  
+ 02 -x  7  7  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  u  C  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 05 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  8 01 -x -x -x -x  
+ 02 -x  7  8  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  w  Q  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 05 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  9 01 -x -x -x -x  
+ 02 -x  7  9  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  n  o  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 05 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  : 01 -x -x -x -x  
+ 01 -x  8  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 01 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  3 01 -x -x -x -x  
+ 02 -x  8  0  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 06 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  + 01 -x -x -x -x  
+ 02 -x  8  1  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  ^  e  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 06 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  , 01 -x -x -x -x  
+ 02 -x  8  2  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  <  >  { ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 06 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  - 01 -x -x -x -x  
+ 02 -x  8  3  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  #  %  f ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 06 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  . 01 -x -x -x -x  
+ 02 -x  8  4  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  ,  A  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 06 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  / 01 -x -x -x -x  
+ 02 -x  8  5  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  &  . b0 ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 06 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  0 01 -x -x -x -x  
+ 02 -x  8  6  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  !  W  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 06 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  1 01 -x -x -x -x  
+ 02 -x  8  7  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  1 83  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 06 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  2 01 -x -x -x -x  
+ 02 -x  8  8  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  "  z 98 ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 06 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  3 01 -x -x -x -x  
+ 02 -x  8  9  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r 1e  U  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 06 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  4 01 -x -x -x -x  
+ 01 -x  9  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r 83  �  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 01 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  4 01 -x -x -x -x  
+ 02 -x  9  0  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  a  e  c ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 06 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  5 01 -x -x -x -x  
+ 02 -x  9  1  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  p  u ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 06 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  6 01 -x -x -x -x  
+ 02 -x  9  2  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  h  9  v ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 06 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  7 01 -x -x -x -x  
+ 02 -x  9  3  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  o  0  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 06 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  8 01 -x -x -x -x  
+ 02 -x  9  4  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  q  >  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 06 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  9 01 -x -x -x -x  
+ 02 -x  9  5  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  h  \ d1 ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 06 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  : 01 -x -x -x -x  
+ 02 -x  9  6  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  �  � f4 ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 07 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  + 01 -x -x -x -x  
+ 02 -x  9  7  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  Z 8e  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 07 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  , 01 -x -x -x -x  
+ 02 -x  9  8  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r  7  g  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 07 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  - 01 -x -x -x -x  
+ 02 -x  9  9  
+ 11 -x  b  l  o  c  k  _  e  n  t  i  t  y  _  d  a  t  a 03 12 -x  B  l  o  c  k  E  n  t  i  t  y  V  e  r  s  i  o  n -x -x -x -x 03 \v -x  C  u  s  t  o  m  C  o  l  o  r 1f  N  � ff \t 05 -x  I  t  e  m  s -x -x -x -x -x 02 08 -x  P  o  t  i  o  n  I  d ff ff 02  
+ -x  P  o  t  i  o  n  T  y  p  e ff ff 08 02 -x  i  d 08 -x  C  a  u  l  d  r  o  n 03 01 -x  x 07 01 -x -x 03 01 -x  y  C -x -x -x 03 01 -x  z  . 01 -x -x -x -x -x -x -x -x \t 16 -x  s  t  r  u  c  t  u  r  e  _  w  o  r  l  d  _  o  r  i  g  i  n 03 03 -x -x -x 01 01 -x -x  C -x -x -x  + 01 -x -x -x
