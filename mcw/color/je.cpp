@@ -20,6 +20,9 @@ uint max(uint a, uint b){
 uint max(uint a, uint b, uint c){
     return (a > b) ? ((a > c) ? a : c) : ((b > c) ? b : c);
 }
+uint min(uint a, uint b){
+    return (a < b) ? a : b;
+}
 short min(short a, short b){
     return (a < b) ? a : b;
 }
@@ -147,6 +150,14 @@ public:
         mix_d = a_mix_d;
         len = a_len;
     }
+    Mixer(const Mixer& that){
+        tr = that.tr;
+        tg = that.tg;
+        tb = that.tb;
+        tm = that.tm;
+        mix_d = that.mix_d;
+        len = that.len;
+    }
     /** Generate a mixer directly from "dyem", which is the recipe format used by CWR and Color_Recipes. */
     Mixer(uint dyem){
         mix_d = dyem;
@@ -155,7 +166,7 @@ public:
         uchar z = (mix_d & 0xff000000) >> 24;
         // crazy zero check; but it's less crazy than the code i used to have here;
         if(z > 0xf1){
-            a_len = z > 0xf1;
+            a_len = z - 0xf1;
             for(uchar i = 0; i < a_len; i++){
                 colors[i] = 0;
             }
@@ -165,6 +176,7 @@ public:
             while(a_len < 8 && total < 16){
                 uchar big_endian_number = ((mix_d << (4*a_len)) & 0xf0000000) >> 28;
                 total += big_endian_number;
+                if(total >= 16) break;
                 colors[a_len] = total;
                 a_len++;
             }
@@ -174,35 +186,36 @@ public:
         
         const uint test = 0x1f000000;
         
-        if(a_len < 3){
-            std::cout << "Mixer:" <<
-            " tr= " << tr <<
-            ", tg= " << tg <<
-            ", tb= " << tb <<
-            ", tm= " << tm <<
-            ", len= " << a_len <<
-            ", mix_d= " << mix_d <<
-            ", colors= [";
-            if(a_len > 0) std::cout         << colors[0];
-            if(a_len > 1) std::cout << ", " << colors[1];
-            if(a_len > 2) std::cout << ", " << colors[2];
-            if(a_len > 3) std::cout << ", " << colors[3];
-            if(a_len > 4) std::cout << ", " << colors[4];
-            if(a_len > 5) std::cout << ", " << colors[5];
-            if(a_len > 6) std::cout << ", " << colors[6];
-            if(a_len > 7) std::cout << ", " << colors[7];
-            std::cout << "]" << std::endl;
-        }
+        // if(a_len < 3){
+        //     std::cout << "Mixer:" <<
+        //     " tr= " << tr <<
+        //     ", tg= " << tg <<
+        //     ", tb= " << tb <<
+        //     ", tm= " << tm <<
+        //     ", len= " << a_len <<
+        //     ", mix_d= " << mix_d <<
+        //     ", base= " << base() <<
+        //     ", colors= [";
+        //     if(a_len > 0) std::cout         << colors[0];
+        //     if(a_len > 1) std::cout << ", " << colors[1];
+        //     if(a_len > 2) std::cout << ", " << colors[2];
+        //     if(a_len > 3) std::cout << ", " << colors[3];
+        //     if(a_len > 4) std::cout << ", " << colors[4];
+        //     if(a_len > 5) std::cout << ", " << colors[5];
+        //     if(a_len > 6) std::cout << ", " << colors[6];
+        //     if(a_len > 7) std::cout << ", " << colors[7];
+        //     std::cout << "]" << std::endl;
+        // }
         
         find_bounds();
     }
-    void init(uint* colors, uint len){
+    void init(uint* colors, uint a_len){
         tr = 0;
         tg = 0;
         tb = 0;
         tm = 0;
-        for(uint i = 0; i < len; i++){
-            uint color = colors[i];
+        for(uint i = 0; i < a_len; i++){
+            uint color = base_colors[colors[i]];
             uint r = (color & 0xff0000) >> 16;
             uint g = (color & 0x00ff00) >> 8;
             uint b = color & 0x0000ff;
@@ -232,21 +245,21 @@ public:
         min_r = tr / len;
         min_g = tg / len;
         min_b = tb / len;
-        max_r = (max_a * float(tr + 0xff)) / float(len);
-        max_g = (max_a * float(tg + 0xff)) / float(len);
-        max_b = (max_a * float(tb + 0xff)) / float(len);
-        if(max_r >= 0x100){
-            std::cout << "Oh no! max_r is " << max_r << ". I didn't think that was possible." << std::endl;
-        }
-        if(max_g >= 0x100){
-            std::cout << "Oh no! max_g is " << max_g << ". I didn't think that was possible." << std::endl;
-        }
-        if(max_b >= 0x100){
-            std::cout << "Oh no! max_b is " << max_b << ". I didn't think that was possible." << std::endl;
-        }
-        if(max(max_r, max_g, max_b) >= 0x100){
-            abort();
-        }
+        max_r = min(255, uint((max_a * float(tr + 0xff)) / float(len)));
+        max_g = min(255, uint((max_a * float(tg + 0xff)) / float(len)));
+        max_b = min(255, uint((max_a * float(tb + 0xff)) / float(len)));
+        // if(max_r >= 0x100){
+        //     std::cout << "Oh no! max_r is " << max_r << ". I didn't think that was possible." << std::endl;
+        // }
+        // if(max_g >= 0x100){
+        //     std::cout << "Oh no! max_g is " << max_g << ". I didn't think that was possible." << std::endl;
+        // }
+        // if(max_b >= 0x100){
+        //     std::cout << "Oh no! max_b is " << max_b << ". I didn't think that was possible." << std::endl;
+        // }
+        // if(max(max_r, max_g, max_b) >= 0x100){
+        //     abort();
+        // }
     }
     float alpha(uint r, uint g, uint b){
         uint a_tr = tr + r;
@@ -266,7 +279,7 @@ public:
         uchar z = (mix_d & 0xff000000) >> 24;
         // crazy zero check; but it's less crazy than the code i used to have here;
         if(z > 0xf1){
-            a_len = z > 0xf1;
+            a_len = z - 0xf1;
             for(uchar i = 0; i < a_len; i++){
                 colors[i] = 0;
             }
@@ -297,7 +310,6 @@ bool operator==(const Mixer a, const Mixer b){
         a.tg    == b.tg    &&
         a.tb    == b.tb    &&
         a.tm    == b.tm    &&
-        a.mix_d == b.mix_d &&
         a.len   == b.len
     );
 }
@@ -307,8 +319,7 @@ bool operator< (const Mixer a, const Mixer b){
         (a.tr    == b.tr    && a.tg    < b.tg    ||
         (a.tg    == b.tg    && a.tb    < b.tb    ||
         (a.tb    == b.tb    && a.tm    < b.tm    ||
-        (a.tm    == b.tm    && a.mix_d < b.mix_d ||
-        (a.mix_d == b.mix_d && a.len   < b.len)))))
+        (a.tm    == b.tm    && a.len   < b.len))))
     );
 }
 bool operator> (const Mixer a, const Mixer b){
@@ -317,8 +328,7 @@ bool operator> (const Mixer a, const Mixer b){
         (a.tr    == b.tr    && a.tg    > b.tg    ||
         (a.tg    == b.tg    && a.tb    > b.tb    ||
         (a.tb    == b.tb    && a.tm    > b.tm    ||
-        (a.tm    == b.tm    && a.mix_d > b.mix_d ||
-        (a.mix_d == b.mix_d && a.len   > b.len)))))
+        (a.tm    == b.tm    && a.len   > b.len))))
     );
 }
 
@@ -336,9 +346,9 @@ uint mix(uint color, Mixer mixer){
     float max_avg = max(ar, ag, ab);
     // note the order of operations matters here; you must multiply then divide;
     return (
-        (((uint) ((float(tr) * avg_max) / max_avg)) << 16) |
-        (((uint) ((float(tg) * avg_max) / max_avg)) <<  8) |
-        (((uint) ((float(tb) * avg_max) / max_avg))      )
+        (((uint) ((float(ar) * avg_max) / max_avg)) << 16) |
+        (((uint) ((float(ag) * avg_max) / max_avg)) <<  8) |
+        (((uint) ((float(ab) * avg_max) / max_avg))      )
     );
 }
 
@@ -877,7 +887,7 @@ void cycle(){
     }
     uint prev_i = 0;
     uint prev_li = 0;
-    uint prev_lf = 10000;
+    uint prev_lf = 1000;
     
     for(uint i = 0; i < 1<<24; i++){
         if(!prev_added->get(i)) continue;
@@ -1064,16 +1074,18 @@ int main(int argc, char const *argv[]){
     std::cout << "mixer_c: " << mixers_v.size() << std::endl;
     
     // all_bounds();
-    true_bounds(1);
-    true_bounds(2);
-    true_bounds(3);
-    true_bounds(4);
+    // true_bounds(1);
+    // true_bounds(2);
+    // true_bounds(3);
+    // true_bounds(4);
     // true_bounds(5);
-    poly_fill();
-    convex_hull();
+    // poly_fill();
+    // convex_hull();
     
     for(auto it = mixers_v.begin(); it != mixers_v.end(); it++){
+        // std::cout << "mixer= " << it->mix_d << std::endl;
         uint i = it->base();
+        // std::cout << "base= " << i << std::endl;
         add(i, i, it->mix_d);
     }
     while(added_any){
