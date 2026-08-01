@@ -75,7 +75,6 @@ string* base_colors_names = new string[16]{
     string("pink    "), /* #f38baa */
 };
 
-
 /**
  * Recipes are 32 bits. Each set of bits is directly a number to increment the dye index by. The 8 sets together are effectively the list of dye indices. Once the index accumulates to 16, that signifies the end of the list. Or the list just ends at the 8th item.
  * - But Simon, what about [0]? Great question! That is represented with 0xf2000000. Now, Simon, that is bad... Yes, I know. 0xf0****** is reserved for sequences of 15. So 0xf1000000 indicates [15]. If the second nibble is some x, where x > 1, then the number presents (x-1) zeroes. It is a perfect system that can't possibly fail. Also, white is so useless so it should be fine. Remember, bad code is the best kind of code. And incorrect is the true best kind of correct.
@@ -117,6 +116,8 @@ public:
     }
 };
 
+class Mixer;
+uint mix(uint color, Mixer mixer);
 class Mixer{
 public:
     uint tr = 0;
@@ -170,6 +171,29 @@ public:
         }
         init(colors, a_len);
         len = a_len + 1;
+        
+        const uint test = 0x1f000000;
+        
+        if(a_len < 3){
+            std::cout << "Mixer:" <<
+            " tr= " << tr <<
+            ", tg= " << tg <<
+            ", tb= " << tb <<
+            ", tm= " << tm <<
+            ", len= " << a_len <<
+            ", mix_d= " << mix_d <<
+            ", colors= [";
+            if(a_len > 0) std::cout         << colors[0];
+            if(a_len > 1) std::cout << ", " << colors[1];
+            if(a_len > 2) std::cout << ", " << colors[2];
+            if(a_len > 3) std::cout << ", " << colors[3];
+            if(a_len > 4) std::cout << ", " << colors[4];
+            if(a_len > 5) std::cout << ", " << colors[5];
+            if(a_len > 6) std::cout << ", " << colors[6];
+            if(a_len > 7) std::cout << ", " << colors[7];
+            std::cout << "]" << std::endl;
+        }
+        
         find_bounds();
     }
     void init(uint* colors, uint len){
@@ -320,37 +344,14 @@ uint mix(uint color, Mixer mixer){
 
 vector<Mixer> mixers_v;
 void gen_mixes(CWR cwr){
-    std::set<Mixer> mixer_s = std::set<Mixer>();
+    mixers_v = vector<Mixer>();
     // uint mix_indx = 0;
     for(auto it = cwr.dyes.begin(); it != cwr.dyes.end(); it++){
-        mixer_s.insert(Mixer(*it));
-        /*
-        if(!mixer_s.insert(mixer).second){
-            std::cout << "Duplicate at " << mix_indx <<
-            ":" <<
-            " tr =" << mixer.tr <<
-            ", tg =" << mixer.tg <<
-            ", tb =" << mixer.tb <<
-            ", tm =" << mixer.tm <<
-            ", len =" << mixer.len <<
-            ", mix_d =" << mixer.mix_d <<
-            ", colors = [";
-            if(len > 0) std::cout         << colors[0];
-            if(len > 1) std::cout << ", " << colors[1];
-            if(len > 2) std::cout << ", " << colors[2];
-            if(len > 3) std::cout << ", " << colors[3];
-            if(len > 4) std::cout << ", " << colors[4];
-            if(len > 5) std::cout << ", " << colors[5];
-            if(len > 6) std::cout << ", " << colors[6];
-            if(len > 7) std::cout << ", " << colors[7];
-            std::cout << "]" << std::endl;
-        }
-        */
+        Mixer mixer = Mixer(*it);
+        mixers_v.push_back(mixer);
+         
+        
         // mix_indx++;
-    }
-    mixers_v = vector<Mixer>();
-    for(auto it = mixer_s.begin(); it != mixer_s.end(); it++){
-        mixers_v.push_back(*it);
     }
 }
 
@@ -861,7 +862,7 @@ bool added_any = true;
 void cycle(){
     for(uint i = 0; i < 1<<24; i++){
         // filter so only colors in in_bounds are kept;
-        if(!in_bounds->get(i)) continue;
+        // if(!in_bounds->get(i)) continue;
         prev_added->set(i, added->get(i));
     }
     for(uint i = 0; i < 1<<24; i++){
