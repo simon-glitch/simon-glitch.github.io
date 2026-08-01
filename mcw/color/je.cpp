@@ -129,18 +129,20 @@ public:
     uint tm = 0;
     uint mix_d = 0;
     uint len = 0;
-    /** min value of R channel for this mixer */
+    /*
+    / ** min value of R channel for this mixer * /
     uint min_r = 0;
-    /** min value of G channel for this mixer */
+    / ** min value of G channel for this mixer * /
     uint min_g = 0;
-    /** min value of B channel for this mixer */
+    / ** min value of B channel for this mixer * /
     uint min_b = 0;
-    /** max value of R channel for this mixer */
+    / ** max value of R channel for this mixer * /
     uint max_r = 0;
-    /** max value of G channel for this mixer */
+    / ** max value of G channel for this mixer * /
     uint max_g = 0;
-    /** max value of B channel for this mixer */
+    / ** max value of B channel for this mixer * /
     uint max_b = 0;
+    */
     Mixer(){}
     Mixer(uint a_tr, uint a_tg, uint a_tb, uint a_tm, uint a_mix_d, uint a_len){
         tr = a_tr;
@@ -207,7 +209,7 @@ public:
         //     std::cout << "]" << std::endl;
         // }
         
-        find_bounds();
+        // find_bounds();
     }
     void init(uint* colors, uint a_len){
         tr = 0;
@@ -232,6 +234,7 @@ public:
         len++;
         return c;
     }
+    /*
     void find_bounds(){
         float max_a = 0;
         max_a = max(max_a, alpha(0xff, 0x00, 0x00));
@@ -261,6 +264,7 @@ public:
         //     abort();
         // }
     }
+    */
     float alpha(uint r, uint g, uint b){
         uint a_tr = tr + r;
         uint a_tg = tg + g;
@@ -374,6 +378,7 @@ auto in_bounds = new Color_Exists();
 auto on_edge = new Color_Exists();
 uint ic = 0;
 
+/*
 void all_bounds(){
     for(auto it = mixers_v.begin(); it != mixers_v.end(); it++){
         uint outer = ((
@@ -856,6 +861,7 @@ void convex_hull(){
     }
     std::cout << "Total on edge: " << fill_c << std::endl;
 }
+*/
 
 uint found = 0;
 void add(uint color, uint last, ulng mix_d){
@@ -887,7 +893,7 @@ void cycle(){
     }
     uint prev_i = 0;
     uint prev_li = 0;
-    uint prev_lf = 1000;
+    uint prev_lf = 10000;
     
     for(uint i = 0; i < 1<<24; i++){
         if(!prev_added->get(i)) continue;
@@ -897,7 +903,13 @@ void cycle(){
             prev_li = 0;
             std::cout << prev_i << "/" << prev_c << "; found colors: " << found << std::endl;
         }
+        uint mix_lim = 200;
+        uint mix_i = 0;
         for(auto it = mixers_v.begin(); it != mixers_v.end(); it++){
+            mix_i++;
+            if(mix_i > mix_lim){
+                break;
+            }
             auto res = mix(i, *it);
             add(res, i, it->mix_d);
         }
@@ -940,7 +952,7 @@ void save_je(){
     std::cout << "Saving..." << std::endl;
     
     auto fout = std::ofstream("je_res.bin");
-    fout << "Testing.";
+    fout << "Format: recipes, then last_cs, then c_exists\n";
     for(i = 0; i < size; i++){
         fout << mychars[i];
     }
@@ -1094,6 +1106,7 @@ int main(int argc, char const *argv[]){
         std::cout << "Found colors: " << found << std::endl;
     }
     
+    save_je();
     
     return 0;
 }
