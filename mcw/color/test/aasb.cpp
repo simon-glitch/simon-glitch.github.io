@@ -292,20 +292,20 @@ int main(int argc, char const *argv[]){
     const int shift_1_r = (split_data - (8 - split_r));
     const int shift_1_g = (split_data - (8 - split_g) - (8 - split_r));
     const int shift_1_b = (split_data - (8 - split_b) - (8 - split_g) - (8 - split_r));
-    const int shift_2_r = 8 - (split_r - split_g - split_b);
-    const int shift_2_g = 8 - (split_g - split_b);
+    const int shift_2_r = 8 - (split_r + split_g + split_b);
+    const int shift_2_g = 8 - (split_g + split_b);
     const int shift_2_b = 8 - (split_b);
     const int shift_l2_r = shift_2_r > 0 ?  shift_2_r : 0;
-    const int shift_l2_g = shift_2_r > 0 ?  shift_2_r : 0;
-    const int shift_l2_b = shift_2_r > 0 ?  shift_2_r : 0;
+    const int shift_l2_g = shift_2_g > 0 ?  shift_2_g : 0;
+    const int shift_l2_b = shift_2_b > 0 ?  shift_2_b : 0;
     const int shift_r2_r = shift_2_r < 0 ? -shift_2_r : 0;
-    const int shift_r2_g = shift_2_r < 0 ? -shift_2_r : 0;
-    const int shift_r2_b = shift_2_r < 0 ? -shift_2_r : 0;
+    const int shift_r2_g = shift_2_g < 0 ? -shift_2_g : 0;
+    const int shift_r2_b = shift_2_b < 0 ? -shift_2_b : 0;
     
     for(int file_i = 0; file_i < (1 << (split_r + split_g + split_b)); file_i++){
-        // std::cout << "Try to make file name." << std::endl;
+        std::cout << "Try to make file name." << std::endl;
         string file_out = wow_file(file_i, 3);
-        // std::cout << "Where do it fail? 1" << std::endl;
+        std::cout << "Where do it fail? 1" << std::endl;
         auto fout = std::ofstream(file_out, std::ios_base::binary);
         
         // do stuff before block indices section;
@@ -314,7 +314,7 @@ int main(int argc, char const *argv[]){
         for(int i = 0; i < found_data_i + 4; i++){
             my_txt[i] = awe_txt[i];
         }
-        // std::cout << "Where do it fail? 2" << std::endl;
+        std::cout << "Where do it fail? 2" << std::endl;
         // set X, Y, Z size; these are in big endian;
         my_txt[found_size_i +  8] = ((1 << (8 - split_r)) & 0xff00) >> 8;
         my_txt[found_size_i +  9] = ((1 << (8 - split_r)) & 0x00ff);
@@ -339,7 +339,7 @@ int main(int argc, char const *argv[]){
         my_txt[(1 << (split_data))*4 + found_data_i + 1 + 4] = 0x00;
         my_txt[(1 << (split_data))*4 + found_data_i + 2 + 4] = 0x03;
         
-        // std::cout << "Where do it fail? 3" << std::endl;
+        std::cout << "Where do it fail? 3" << std::endl;
         // do stuff after block indices section;
         const int after_i_in  = found_data_i + 6 + 16*16*16*4*2 + 0;
         const int after_i_out = found_data_i + 6 + (1 << split_data)*4*2 + 4;
@@ -347,7 +347,7 @@ int main(int argc, char const *argv[]){
         for(int i = after_i_out; i < size; i++){
             my_txt[i] = awe_txt[i + 4 - diff];
         }
-        // std::cout << "Where do it fail? 4" << std::endl;
+        std::cout << "Where do it fail? 4" << std::endl;
         
         // now the data!
         for(int i = 1; i < (1 << split_data); i++){
@@ -364,7 +364,7 @@ int main(int argc, char const *argv[]){
                 ib
             )];
         }
-        // std::cout << "Where do it fail? 5" << std::endl;
+        std::cout << "Where do it fail? 5" << std::endl;
         // and the ffs at the end;
         for(int i = 0; i < (1 << split_data); i++){
             int ii = found_data_i + 11 + (i + (1 << split_data)) * 4;
