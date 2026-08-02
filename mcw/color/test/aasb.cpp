@@ -107,7 +107,7 @@ vector<char> whole_file(string file_in){
 
 
 string wow_file(int file_i, int hex_d){
-    string s = string("wow/wow");
+    string s = string("wow/awb");
     // std::cout << "s: " << s << std::endl;
     char* hex_ds = new char[hex_d + 1]{};
     hex_ds[hex_d] = 0;
@@ -167,8 +167,8 @@ int main(int argc, char const *argv[]){
     }
     char* be1 = new char[1 << 24];
     for(int i = 0; i < (1 << 24); i++){
-        // be1[i] = be0[i] ? (be0[i] & 0xf) : 0x10;
-        be1[i] = (be0[i] & 0xf);
+        be1[i] = be0[i] ? (be0[i] & 0xf) : 0x10;
+        // be1[i] = (be0[i] & 0xf);
     }
     char* be2 = new char[1 << 24];
     for(int i = 0; i < (1 << 24); i++){
@@ -181,12 +181,12 @@ int main(int argc, char const *argv[]){
             ir == 0xff || ig == 0xff || ib == 0xff
         ) continue;
         if(
-            be1[((ir + 1) << 16) | ((ig    ) << 8) | (ib    )] &&
-            be1[((ir - 1) << 16) | ((ig    ) << 8) | (ib    )] &&
-            be1[((ir    ) << 16) | ((ig + 1) << 8) | (ib    )] &&
-            be1[((ir    ) << 16) | ((ig - 1) << 8) | (ib    )] &&
-            be1[((ir    ) << 16) | ((ig    ) << 8) | (ib + 1)] &&
-            be1[((ir    ) << 16) | ((ig    ) << 8) | (ib - 1)]
+            be0[((ir + 1) << 16) | ((ig    ) << 8) | (ib    )] &&
+            be0[((ir - 1) << 16) | ((ig    ) << 8) | (ib    )] &&
+            be0[((ir    ) << 16) | ((ig + 1) << 8) | (ib    )] &&
+            be0[((ir    ) << 16) | ((ig - 1) << 8) | (ib    )] &&
+            be0[((ir    ) << 16) | ((ig    ) << 8) | (ib + 1)] &&
+            be0[((ir    ) << 16) | ((ig    ) << 8) | (ib - 1)]
         ) be2[i] = 16;
     }
     char* be3 = new char[1 << 24];
@@ -196,13 +196,13 @@ int main(int argc, char const *argv[]){
         int ig = (i & 0x00ff00) >> 8;
         int ib = (i & 0x0000ff);
         if(
-            be2[i] == 16 &&
-            (ir < 0xff ? be2[((ir + 1) << 16) | ((ig    ) << 8) | (ib    )] : true) &&
-            (ir > 0    ? be2[((ir - 1) << 16) | ((ig    ) << 8) | (ib    )] : true) &&
-            (ig < 0xff ? be2[((ir    ) << 16) | ((ig + 1) << 8) | (ib    )] : true) &&
-            (ig > 0    ? be2[((ir    ) << 16) | ((ig - 1) << 8) | (ib    )] : true) &&
-            (ib < 0xff ? be2[((ir    ) << 16) | ((ig    ) << 8) | (ib + 1)] : true) &&
-            (ib > 0    ? be2[((ir    ) << 16) | ((ig    ) << 8) | (ib - 1)] : true)
+            be2[i] == 16 && (
+            (ir < 0xff ? (be2[((ir + 1) << 16) | ((ig    ) << 8) | (ib    )] < 0x10) : true) ||
+            (ir > 0    ? (be2[((ir - 1) << 16) | ((ig    ) << 8) | (ib    )] < 0x10) : true) ||
+            (ig < 0xff ? (be2[((ir    ) << 16) | ((ig + 1) << 8) | (ib    )] < 0x10) : true) ||
+            (ig > 0    ? (be2[((ir    ) << 16) | ((ig - 1) << 8) | (ib    )] < 0x10) : true) ||
+            (ib < 0xff ? (be2[((ir    ) << 16) | ((ig    ) << 8) | (ib + 1)] < 0x10) : true) ||
+            (ib > 0    ? (be2[((ir    ) << 16) | ((ig    ) << 8) | (ib - 1)] < 0x10) : true))
         ) be3[i] = 17;
     }
     char reind[18] = {
@@ -227,9 +227,9 @@ int main(int argc, char const *argv[]){
     };
     char* be4 = new char[1 << 24];
     for(int i = 0; i < (1 << 24); i++){
-        // be4[i] = reind[be3[i]];
+        be4[i] = reind[be3[i]];
         // be4[i] = reind[be1[i]];
-        be4[i] = reind[i % 18];
+        // be4[i] = reind[i % 18];
     }
     // we only need be4 from here;
     delete be0;
@@ -276,11 +276,11 @@ int main(int argc, char const *argv[]){
     }
     
     // how many bits of r to put into file_i;
-    const int split_r = 3;
+    const int split_r = 2;
     // how many bits of g to put into file_i;
-    const int split_g = 3;
+    const int split_g = 1;
     // how many bits of b to put into file_i;
-    const int split_b = 3;
+    const int split_b = 2;
     // number of RGB bits left;
     const int split_data = 24 - (split_r + split_g + split_b);
     const int and_1_r = ((1 << (8 - split_r)) - 1) << (split_data - (8 - split_r));
@@ -292,9 +292,15 @@ int main(int argc, char const *argv[]){
     const int shift_1_r = (split_data - (8 - split_r));
     const int shift_1_g = (split_data - (8 - split_g) - (8 - split_r));
     const int shift_1_b = (split_data - (8 - split_b) - (8 - split_g) - (8 - split_r));
-    const int shift_2_r = 24 - (split_r + split_g + split_b);
-    const int shift_2_g = 16 - (split_g + split_b);
-    const int shift_2_b =  8 - (split_b);
+    const int shift_2_r = 8 - (split_r - split_g - split_b);
+    const int shift_2_g = 8 - (split_g - split_b);
+    const int shift_2_b = 8 - (split_b);
+    const int shift_l2_r = shift_2_r > 0 ?  shift_2_r : 0;
+    const int shift_l2_g = shift_2_r > 0 ?  shift_2_r : 0;
+    const int shift_l2_b = shift_2_r > 0 ?  shift_2_r : 0;
+    const int shift_r2_r = shift_2_r < 0 ? -shift_2_r : 0;
+    const int shift_r2_g = shift_2_r < 0 ? -shift_2_r : 0;
+    const int shift_r2_b = shift_2_r < 0 ? -shift_2_r : 0;
     
     for(int file_i = 0; file_i < (1 << (split_r + split_g + split_b)); file_i++){
         // std::cout << "Try to make file name." << std::endl;
@@ -345,9 +351,9 @@ int main(int argc, char const *argv[]){
         
         // now the data!
         for(int i = 1; i < (1 << split_data); i++){
-            int ir = ((i & and_1_r) >> shift_1_r) | ((file_i & and_2_r) << shift_2_r);
-            int ig = ((i & and_1_g) >> shift_1_g) | ((file_i & and_2_g) << shift_2_g);
-            int ib = ((i & and_1_b) >> shift_1_b) | ((file_i & and_2_b) << shift_2_b);
+            int ir = ((i & and_1_r) >> shift_1_r) | (((file_i & and_2_r) << shift_l2_r) >> shift_r2_r);
+            int ig = ((i & and_1_g) >> shift_1_g) | (((file_i & and_2_g) << shift_l2_g) >> shift_r2_g);
+            int ib = ((i & and_1_b) >> shift_1_b) | (((file_i & and_2_b) << shift_l2_b) >> shift_r2_b);
             int ii = found_data_i + 3 + i * 4;
             my_txt[ii    ] = 0;
             my_txt[ii + 1] = 0;
@@ -375,7 +381,7 @@ int main(int argc, char const *argv[]){
         
         fout.close();
         
-        break;
+        // break;
     }
     std::cout << "I should be done now!" << std::endl;
     std::cout << "I should have made " << (1 << (split_r + split_g + split_b)) << " file total." << std::endl;
