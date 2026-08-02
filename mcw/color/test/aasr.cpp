@@ -43,7 +43,7 @@ void process_file(string file_in, string file_out){
     auto fin = std::ifstream(file_in, std::ios_base::binary);
     fin.read(txt_in, size);
     int count = fin.gcount();
-    // std::cout << "Chunk size: " << count << std::endl;
+    std::cout << "Chunk size: " << count << std::endl;
     
     string txt_out = "";
     bool* is_ascii = gen_is_ascii();
@@ -84,7 +84,7 @@ void process_file(string file_in, string file_out){
         }
         fin.read(txt_in, size);
         count = fin.gcount();
-        // std::cout << "Chunk size: " << count << std::endl;
+        std::cout << "Chunk size: " << count << std::endl;
     }
     
     fin.close();
@@ -103,10 +103,13 @@ int main(int argc, char const *argv[]){
         std::cout << i << "=" << c << "  " << std::endl;
     }
     
-    process_file("base.mcstructure", "base.txt");
-    process_file("awesome.mcstructure", "awesome.txt");
+    // process_file("base.mcstructure", "base.txt");
+    // process_file("grid.mcstructure", "grid.txt");
+    // process_file("awesome.mcstructure", "big_awesome.txt");
+    // process_file("awet.mcstructure", "awet.txt");
     process_file("wow/wow000.mcstructure", "wow.txt");
     // process_file("biiig.mcstructure", "biiig.txt");
     // process_file("tall.mcstructure", "tall.txt");
-    process_file("grid.mcstructure", "grid.txt");
+    // process_file("tall2.mcstructure", "tall2.txt");
+    // process_file("one.mcstructure", "one.txt");
 }

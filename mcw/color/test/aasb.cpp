@@ -40,32 +40,31 @@ Break down of awesome.txt:
 07 -> blue concrete
 08 -> light blue concrete
 09 -> purple concrete
-0b -> brown concrete
-0c -> light gray concrete
-0d -> red concrete
-0e -> magenta concrete
-0f -> pink concrete
-10 -> yellow concrete
-11 -> orange concrete
-12??? -> white concrete
-20 -> white concrete
+0a -> brown concrete
+0b -> light gray concrete
+0c -> red concrete
+0d -> magenta concrete
+0e -> pink concrete
+0f -> yellow concrete
+10 -> orange concrete
+11 -> white concrete
 
-20 -> white concrete        my 0  -> 0x12;
-0c -> light gray concrete   my 1  -> 0x0c;
+20 -> white concrete        my 0  -> 0x11;
+0c -> light gray concrete   my 1  -> 0x0b;
 04 -> gray concrete         my 2  -> 0x04;
 02 -> black concrete        my 3  -> 0x02;
-0b -> brown concrete        my 4  -> 0x0b;
-0d -> red concrete          my 5  -> 0x0d;
-11 -> orange concrete       my 6  -> 0x11;
-10 -> yellow concrete       my 7  -> 0x10;
+0b -> brown concrete        my 4  -> 0x0a;
+0d -> red concrete          my 5  -> 0x0c;
+11 -> orange concrete       my 6  -> 0x10;
+10 -> yellow concrete       my 7  -> 0x0f;
 06 -> lime concrete         my 8  -> 0x06;
 03 -> green concrete        my 9  -> 0x03;
 05 -> cyan concrete         my 10 -> 0x05;
 08 -> light blue concrete   my 11 -> 0x08;
 07 -> blue concrete         my 12 -> 0x07;
 09 -> purple concrete       my 13 -> 0x09;
-0e -> magenta concrete      my 14 -> 0x0e;
-0f -> pink concrete         my 15 -> 0x0f;
+0e -> magenta concrete      my 14 -> 0x0d;
+0f -> pink concrete         my 15 -> 0x0e;
 00 -> air                   my 16 -> 0x00;
 01 -> light block 15        my 17 -> 0x01;
 
@@ -207,22 +206,22 @@ int main(int argc, char const *argv[]){
         ) be3[i] = 17;
     }
     char reind[18] = {
-        0x0a,
-        0x0c,
+        0x11,
+        0x0b,
         0x04,
         0x02,
-        0x0b,
-        0x0d,
-        0x11,
+        0x0a,
+        0x0c,
         0x10,
+        0x0f,
         0x06,
         0x03,
         0x05,
         0x08,
         0x07,
         0x09,
+        0x0d,
         0x0e,
-        0x0f,
         0x00,
         0x01,
     };
@@ -277,11 +276,11 @@ int main(int argc, char const *argv[]){
     }
     
     // how many bits of r to put into file_i;
-    const int split_r = 4;
+    const int split_r = 3;
     // how many bits of g to put into file_i;
-    const int split_g = 4;
+    const int split_g = 3;
     // how many bits of b to put into file_i;
-    const int split_b = 4;
+    const int split_b = 3;
     // number of RGB bits left;
     const int split_data = 24 - (split_r + split_g + split_b);
     const int and_1_r = ((1 << (8 - split_r)) - 1) << (split_data - (8 - split_r));
@@ -304,7 +303,7 @@ int main(int argc, char const *argv[]){
         auto fout = std::ofstream(file_out, std::ios_base::binary);
         
         // do stuff before block indices section;
-        int size = awe_txt.size() - 16*16*16*4*2 + (1 << split_data)*4*2 - 4;
+        int size = awe_txt.size() - 16*16*16*4*2 + (1 << split_data)*4*2;
         char* my_txt = new char[size];
         for(int i = 0; i < found_data_i + 4; i++){
             my_txt[i] = awe_txt[i];
@@ -323,26 +322,33 @@ int main(int argc, char const *argv[]){
         my_txt[found_data_i + 3] = ((1 << (split_data)) & 0x0000ff00) >> 8;
         my_txt[found_data_i + 4] = ((1 << (split_data)) & 0x00ff0000) >> 16;
         my_txt[found_data_i + 5] = ((1 << (split_data)) & 0xff000000) >> 24;
+        // set volume for the ff section too;
+        my_txt[(1 << (split_data))*4 + found_data_i + 3 + 4] = ((1 << (split_data)) & 0x000000ff);
+        my_txt[(1 << (split_data))*4 + found_data_i + 4 + 4] = ((1 << (split_data)) & 0x0000ff00) >> 8;
+        my_txt[(1 << (split_data))*4 + found_data_i + 5 + 4] = ((1 << (split_data)) & 0x00ff0000) >> 16;
+        my_txt[(1 << (split_data))*4 + found_data_i + 6 + 4] = ((1 << (split_data)) & 0xff000000) >> 24;
+        // also there is a 00,00,00,03 before the second volume, just like with the first volume;
+        my_txt[(1 << (split_data))*4 + found_data_i - 1 + 4] = 0x00;
+        my_txt[(1 << (split_data))*4 + found_data_i     + 4] = 0x00;
+        my_txt[(1 << (split_data))*4 + found_data_i + 1 + 4] = 0x00;
+        my_txt[(1 << (split_data))*4 + found_data_i + 2 + 4] = 0x03;
         
         // std::cout << "Where do it fail? 3" << std::endl;
         // do stuff after block indices section;
-        const int after_i_in  = found_data_i + 6 + 16*16*16*4*2;
-        const int after_i_out = found_data_i + 6 + (1 << split_data)*4*2;
+        const int after_i_in  = found_data_i + 6 + 16*16*16*4*2 + 0;
+        const int after_i_out = found_data_i + 6 + (1 << split_data)*4*2 + 4;
         const int diff = after_i_out - after_i_in;
-        for(int i = after_i_out - 4; i < size; i++){
+        for(int i = after_i_out; i < size; i++){
             my_txt[i] = awe_txt[i + 4 - diff];
         }
         // std::cout << "Where do it fail? 4" << std::endl;
         
         // now the data!
-        for(int i = 0; i < (1 << split_data); i++){
-            // i encodes 6 bits of red, 8 bits of green, and then 6 bits of blue;
-            // 0b1100 -> 0xc;
-            // 0b0011 -> 0x3;
+        for(int i = 1; i < (1 << split_data); i++){
             int ir = ((i & and_1_r) >> shift_1_r) | ((file_i & and_2_r) << shift_2_r);
             int ig = ((i & and_1_g) >> shift_1_g) | ((file_i & and_2_g) << shift_2_g);
             int ib = ((i & and_1_b) >> shift_1_b) | ((file_i & and_2_b) << shift_2_b);
-            int ii = found_data_i + 7 + i * 4;
+            int ii = found_data_i + 3 + i * 4;
             my_txt[ii    ] = 0;
             my_txt[ii + 1] = 0;
             my_txt[ii + 2] = 0;
@@ -354,8 +360,8 @@ int main(int argc, char const *argv[]){
         }
         // std::cout << "Where do it fail? 5" << std::endl;
         // and the ffs at the end;
-        for(int i = 0; i < (1 << split_data) - 1; i++){
-            int ii = found_data_i + 7 + (i + (1 << split_data)) * 4;
+        for(int i = 0; i < (1 << split_data); i++){
+            int ii = found_data_i + 11 + (i + (1 << split_data)) * 4;
             my_txt[ii    ] = 0xff;
             my_txt[ii + 1] = 0xff;
             my_txt[ii + 2] = 0xff;

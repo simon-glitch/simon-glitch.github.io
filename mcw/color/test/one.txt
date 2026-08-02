@@ -1,0 +1,8 @@
+  
+ -x -x 03 0e -x  f  o  r  m  a  t  _  v  e  r  s  i  o  n 01 -x -x -x \t 04 -x  s  i  z  e 03 03 -x -x -x 01 -x -x -x 01 -x -x -x 01 -x -x -x  
+ \t -x  s  t  r  u  c  t  u  r  e \t \r -x  b  l  o  c  k  _  i  n  d  i  c  e  s \t 02 -x -x -x 03 01 -x -x -x -x -x -x -x 03 01 -x -x -x ff ff ff ff \t 08 -x  e  n  t  i  t  i  e  s -x -x -x -x -x  
+ 07 -x  p  a  l  e  t  t  e  
+ 07 -x  d  e  f  a  u  l  t \t \r -x  b  l  o  c  k  _  p  a  l  e  t  t  e  
+ 01 -x -x -x 08 04 -x  n  a  m  e 15 -x  m  i  n  e  c  r  a  f  t  :  g  r  a  s  s  _  b  l  o  c  k  
+ 06 -x  s  t  a  t  e  s -x 03 07 -x  v  e  r  s  i  o  n  !  < 15 01 -x  
+ 13 -x  b  l  o  c  k  _  p  o  s  i  t  i  o  n  _  d  a  t  a -x -x -x -x \t 16 -x  s  t  r  u  c  t  u  r  e  _  w  o  r  l  d  _  o  r  i  g  i  n 03 03 -x -x -x 14 -x -x -x  F -x -x -x c4 ff ff ff -x
