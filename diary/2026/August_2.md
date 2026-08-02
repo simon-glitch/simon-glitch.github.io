@@ -26,4 +26,57 @@ I also plan on finding all the recipes for JE. Actually, I'll just copy someone 
 Also, for BE, I could upload structure files with dyed cauldron water and other things for in-game use / demonstration.
 
 
+    // see_recipe("Default: ",                0x44aff5); /* #44aff5 - Modified Badlands Plateau, Modified Wooded Badlands Plateau, Desert Lakes, Stony Peaks, Modified Jungle Edge, Shattered Savanna Plateau, Lush Caves, Plains, Sunflower Plains, Dripstone Caves, Deep Dark, Dark Forest Hills, Tall Birch Hills, Old Growth Birch Forest, Meadow, Old Growth Spruce Taiga, Giant Spruce Taiga Hills, Legacy Frozen Ocean, Grove, Snowy Slopes, Frozen Peaks, Jagged Peaks */
+    // see_recipe("Badlands: ",               0x4e7f81); /* #4e7f81 - Badlands */
+    // see_recipe("Eroded Badlands: ",        0x497f99); /* #497f99 - Eroded Badlands */
+    // see_recipe("Wooded Badlands: ",        0x55809e); /* #55809e - Badlands Plateau, Wooded Badlands */
+    // see_recipe("Desert: ",                 0x32a598); /* #32a598 - Desert */
+    // see_recipe("Desert Hills: ",           0x1a7aa1); /* #1a7aa1 - Desert Hills */
+    // see_recipe("Savanna: ",                0x2c8b9c); /* #2c8b9c - Savanna */
+    // see_recipe("Savanna Plateau: ",        0x2590a8); /* #2590a8 - Savanna Plateau, Windswept Savanna */
+    // see_recipe("Nether: ",                 0x905957); /* #905957 - Nether Wastes, Warped Forest, Crimson Forest, Soul Sand Valley */
+    // see_recipe("Basalt Deltas: ",          0x3f76e4); /* #3f76e4 - Basalt Deltas */
+    // see_recipe("Jungle: ",                 0x14a2c5); /* #14a2c5 - Jungle, Bamboo Jungle */
+    // see_recipe("Jungle Hills: ",           0x1b9ed8); /* #1b9ed8 - Jungle Hills, Modified Jungle, Bamboo Jungle Hills */
+    // see_recipe("Sparse Jungle: ",          0x0d8ae3); /* #0d8ae3 - Sparse Jungle */
+    // see_recipe("Mushroom Fields: ",        0x8a8997); /* #8a8997 - Mushroom Fields */
+    // see_recipe("Mushroom Field Shore: ",   0x818193); /* #818193 - Mushroom Field Shore */
+    // see_recipe("Beach: ",                  0x157cab); /* #157cab - Beach */
+    // see_recipe("Sulfur Caves: ",           0x34BF89); /* #34BF89 - Sulfur Caves */
+    // see_recipe("Swamp: ",                  0x617b64); /* #617b64 - Swamp */
+    // see_recipe("Swamp Hills: ",            0x4c6156); /* #4c6156 - Swamp Hills */
+    // see_recipe("Mangrove Swamp: ",         0x3a7a6a); /* #3a7a6a - Mangrove Swamp */
+    // see_recipe("Forest: ",                 0x1e97f2); /* #1e97f2 - Forest */
+    // see_recipe("Flower Forest: ",          0x20a3cc); /* #20a3cc - Flower Forest */
+    // see_recipe("Dark Forest: ",            0x3b6cd1); /* #3b6cd1 - Dark Forest */
+    // see_recipe("Wooded Hills: ",           0x056bd1); /* #056bd1 - Wooded Hills */
+    // see_recipe("Pale Garden: ",            0x76889d); /* #76889d - Pale Garden */
+    // see_recipe("Birch Forest: ",           0x0677ce); /* #0677ce - Birch Forest */
+    // see_recipe("Birch Forest Hills: ",     0x0a74c4); /* #0a74c4 - Birch Forest Hills */
+    // see_recipe("Dappled Forest: ",         0x375154); /* #375154 - Dappled Forest */
+    // see_recipe("Ocean: ",                  0x1787D4); /* #1787D4 - Ocean, Deep Ocean */
+    // see_recipe("Warm Ocean: ",             0x02b0e5); /* #02b0e5 - Warm Ocean, Deep Warm Ocean */
+    // see_recipe("Lukewarm Ocean: ",         0x0d96db); /* #0d96db - Lukewarm Ocean, Deep Lukewarm Ocean */
+    // see_recipe("Cold Ocean: ",             0x2080c9); /* #2080c9 - Cold Ocean, Deep Cold Ocean */
+    // see_recipe("Frozen Ocean: ",           0x2570b5); /* #2570b5 - Frozen Ocean, Deep Frozen Ocean */
+    // see_recipe("River: ",                  0x0084ff); /* #0084ff - River */
+    // see_recipe("The End: ",                0x62529e); /* #62529e - The End */
+    // see_recipe("Cherry Grove: ",           0x5db7ef); /* #5db7ef - Cherry Grove */
+    // see_recipe("Old Growth Pine Taiga: ",  0x2d6d77); /* #2d6d77 - Old Growth Pine Taiga */
+    // see_recipe("Giant Tree Taiga Hills: ", 0x286378); /* #286378 - Giant Tree Taiga Hills */
+    // see_recipe("Taiga: ",                  0x287082); /* #287082 - Taiga */
+    // see_recipe("Taiga Hills: ",            0x236583); /* #236583 - Taiga Hills */
+    // see_recipe("Taiga Mountains: ",        0x1e6b82); /* #1e6b82 - Taiga Mountains */
+    // see_recipe("Windswept Hills: ",        0x007bf7); /* #007bf7 - Windswept Hills */
+    // see_recipe("Windswept Etc.: ",         0x0e63ab); /* #0e63ab - Windswept Forest, Windswept Gravelly Hills, Gravelly Mountains+ */
+    // see_recipe("Mountain Edge: ",          0x045cd5); /* #045cd5 - Mountain Edge */
+    // see_recipe("Stony Shore: ",            0x0d67bb); /* #0d67bb - Stony Shore */
+    // see_recipe("Snowy Beach: ",            0x1463a5); /* #1463a5 - Snowy Beach */
+    // see_recipe("Snowy Plains: ",           0x14559b); /* #14559b - Snowy Plains, Ice Spikes */
+    // see_recipe("Snowy Mountains: ",        0x1156a7); /* #1156a7 - Snowy Mountains */
+    // see_recipe("Frozen River: ",           0x185390); /* #185390 - Frozen River */
+    // see_recipe("Snowy Taiga: ",            0x205e83); /* #205e83 - Snowy Taiga, Snowy Taiga Mountains */
+    // see_recipe("Snowy Taiga Hills: ",      0x245b78); /* #245b78 - Snowy Taiga Hills */
+
+
 
