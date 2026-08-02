@@ -123,7 +123,7 @@ string wow_file(int file_i, int hex_d){
     return s;
 };
 
-int main(int argc, char const *argv[]){
+void bring_on_the_wow(){
     char size_str[18] = {
         's',  // 0
         'i',  // 
@@ -385,6 +385,577 @@ int main(int argc, char const *argv[]){
     }
     std::cout << "I should be done now!" << std::endl;
     std::cout << "I should have made " << (1 << (split_r + split_g + split_b)) << " file total." << std::endl;
+}
+
+void give_me_them_colors(){
+    vector<char> grid_txt = whole_file("grid.mcstructure");
+    char colour[12] = "CustomColor";
+    char potion[9] = "PotionId";
+    std::cout << "colour[0] = " << colour[0] << std::endl;
+    vector<int> desired_colors = {
+        0xf4a460, /* sandybrown     */
+        0x00ff7f, /* springgreen    */
+        0x8b4513, /* saddlebrown    */
+        0xdeb887, /* burlywood      */
+        0x663399, /* rebeccapurple  */
+        0x6495ed, /* cornflowerblue */
+        0x9400d3, /* darkviolet     */
+        0xf0fff0, /* honeydew       */
+        0xe6e6fa, /* lavender       */
+        0xfff0f5, /* lavenderblush  */
+        0xc0c0c0, /* silver         */
+        0xadff2f, /* greenyellow    */
+        0xa0522d, /* sienna     */
+        0xdc143c, /* crimson    */
+        0xd2691e, /* chocolate  */
+        0xff7f50, /* coral      */
+        0x000080, /* navy       */
+        0x8a2be2, /* blueviolet */
+        0x9932cc, /* darkorchid */
+        0x8a2be2, /* blueviolet */
+        0xff4500, /* orangered  */
+        0xfffff0, /* ivory      */
+        0x87ceeb, /* skyblue    */
+        0xee82ee, /* violet     */
+        0x40e0d0, /* turquoise  */
+        0xf0e68c, /* khaki      */
+        0x008080, /* teal       */
+        0xf5f5dc, /* beige      */
+        0xda70d6, /* orchid     */
+        0xff00ff, /* fuchsia    */
+        0xd2b48c, /* tan        */
+        0x800000, /* maroon     */
+        0x7fffd4, /* aquamarine */
+        0x708090, /* slategray  */
+        0x6a5acd, /* slateblue  */
+        0xfa8072, /* salmon     */
+        0xffd700, /* gold       */
+        0xffffff, /* white      */
+        0xd3d3d3, /* lightgray  */
+        0x808080, /* gray       */
+        0x000000, /* black      */
+        0xa52a2a, /* brown      */
+        0xff0000, /* red        */
+        0xffa500, /* orange     */
+        0xffff00, /* yellow     */
+        0x00ff00, /* lime       */
+        0x008000, /* green      */
+        0x00ffff, /* cyan       */
+        0xadd8e6, /* lightblue  */
+        0x0000ff, /* blue       */
+        0x800080, /* purple     */
+        0xff00ff, /* magenta    */
+        0xf000ff, /* purple variant */
+        0xe000ff, /* purple variant */
+        0xd800ff, /* purple variant */
+        0xd000ff, /* purple variant */
+        0xc800ff, /* purple variant */
+        0xc000ff, /* purple variant */
+        0xb800ff, /* purple variant */
+        0xb000ff, /* purple variant */
+        0xa800ff, /* purple variant */
+        0xa000ff, /* purple variant */
+        0x9800ff, /* purple variant */
+        0x9000ff, /* purple variant */
+        0x8800ff, /* purple variant */
+        0x8000ff, /* purple variant */
+        0x7800ff, /* purple variant */
+        0x7000ff, /* purple variant */
+        0x6800ff, /* purple variant */
+        0x6000ff, /* purple variant */
+        0x5000ff, /* purple variant */
+    };
+    vector<int> desired_potions = {
+        0x052c,
+        0x0617,
+        0x0627,
+        0x0705,
+        0x072a,
+        0x0806,
+        0x0828,
+        0x0907,
+        0x0927,
+        0x0a08,
+        0x0b24,
+        0x0b2e,
+        0x0c14,
+        0x0c1f,
+        0x0d0a,
+        0x0e0c,
+        0x0e29,
+        0x0f0d,
+        0x100b,
+        0x1311,
+        0x1328,
+        0x1513,
+        0x1715,
+        0x1917,
+        0x110e,
+        0x1111,
+        0x120f,
+        0x1412,
+        0x1510,
+        0x1614,
+        0x1636,
+        0x1727,
+        0x1816,
+        0x190d,
+        0x1a18,
+        0x1b2a,
+        0x1c19,
+        0x1c23,
+        0x1d1a,
+        0x1e1b,
+        0x1f09,
+        0x1f1c,
+        0x201d,
+        0x202b,
+        0x211e,
+        0x221f,
+        0x2222,
+        0x2320,
+        0x2422,
+        0x242e,
+        0x2521,
+        0x2524,
+        0x261c,
+        0x2623,
+        0x2721,
+        0x2725,
+        0x2806,
+        0x2825,
+        0x2926,
+        0x2a15,
+        0x2a10,
+        0x2b1d,
+        0x2b28,
+        0x2c2b,
+        0x2d19,
+        0x2d2c,
+        0x2e2d,
+        0x3637,
+        0x3739,
+        0x3936,
+        0xff29,
+    };
+    vector<int> found_colour_is = {};
+    vector<int> found_potion_is = {};
+    int found_colour_i = 0;
+    int i = 0;
+    for(int ii = 0; ii < desired_colors.size(); ii++){
+        int j = 0;
+        for(; i < grid_txt.size(); i++){
+            // if(j > 0 || grid_txt[i] == 'C') std::cout << "Reading " << int(grid_txt[i]) << ", j = " << j << std::endl;
+            if(grid_txt[i] == colour[j]){
+                j++;
+            }
+            else{
+                j = 0;
+            }
+            if(j == 11){
+                found_colour_i = i + 1;
+                break;
+            }
+        }
+        if(!found_colour_i) break;
+        found_colour_is.push_back(found_colour_i);
+    }
+    
+    found_colour_i = 0;
+    i = 0;
+    for(int ii = 0; ii < desired_colors.size(); ii++){
+        int j = 0;
+        for(; i < grid_txt.size(); i++){
+            if(grid_txt[i] == potion[j]){
+                j++;
+            }
+            else{
+                j = 0;
+            }
+            if(j == 8){
+                found_colour_i = i + 1;
+                break;
+            }
+        }
+        if(!found_colour_i) break;
+        found_potion_is.push_back(found_colour_i);
+    }
+    
+    std::cout << "i = " << i << std::endl;
+    
+    std::cout << "Found slots for " << found_colour_is.size() << " / " << desired_colors.size() << " colors." << std::endl;
+    
+    char* my_txt = new char[grid_txt.size()];
+    for(int g_i = 0; g_i < grid_txt.size(); g_i++){
+        my_txt[g_i] = grid_txt[g_i];
+    }
+    
+    // now write my colors;
+    for(int ii = 0; ii < found_colour_is.size(); ii++){
+        int desired_color = desired_colors[ii];
+        int found_colour_i = found_colour_is[ii];
+        my_txt[found_colour_i    ] = (desired_color & 0x0000ff);
+        my_txt[found_colour_i + 1] = (desired_color & 0x00ff00) >> 8;
+        my_txt[found_colour_i + 2] = (desired_color & 0xff0000) >> 16;
+    }
+    
+    // and potions;
+    // for(int ii = 0; ii < found_colour_is.size(); ii++){
+    //     int desired_potion = desired_potions[ii];
+    //     int found_colour_i = found_potion_is[ii];
+    //     my_txt[found_colour_i    ] = (desired_potion & 0x00ff);
+    //     my_txt[found_colour_i + 1] = (desired_potion & 0xff00) >> 8;
+    // }
+    
+    string file_out = "my_colors_b.mcstructure";
+    // std::cout << "Where do it fail? 1" << std::endl;
+    auto fout = std::ofstream(file_out, std::ios_base::binary);
+    
+    // now write to file;
+    for(int g_i = 0; g_i < grid_txt.size(); g_i++){
+        fout << my_txt[g_i];
+    }
+    
+    fout.close();
+}
+
+void potion_ids(){
+    vector<char> grid_txt = whole_file("potions.mcstructure");
+    char block_entity_data[18] = "block_entity_data";
+    char potion_id[9] = "PotionId";
+    std::cout << "block_entity_data[0] = " << block_entity_data[0] << std::endl;
+    std::cout << "potion_id[0] = " << potion_id[0] << std::endl;
+    vector<int> block_idxs = {};
+    vector<int> potion_idxs = {};
+    vector<int> potion_ids = {};
+    vector<int> found_colour_is = {};
+    int found_colour_i = 0;
+    int i = 0;
+    for(int ii = 0; ii < 43*3; ii++){
+        int j = 0;
+        for(; i < grid_txt.size(); i++){
+            if(grid_txt[i] == block_entity_data[j]){
+                j++;
+            }
+            else{
+                j = 0;
+            }
+            if(j == 17){
+                found_colour_i = i - 16 - 4;
+                break;
+            }
+        }
+        if(!found_colour_i) break;
+        found_colour_is.push_back(found_colour_i);
+    }
+    
+    found_colour_i = 0;
+    i = 0;
+    for(int ii = 0; ii < 42*3; ii++){
+        int j = 0;
+        for(; i < grid_txt.size(); i++){
+            if(grid_txt[i] == potion_id[j]){
+                j++;
+            }
+            else{
+                j = 0;
+            }
+            if(j == 8){
+                found_colour_i = i + 1;
+                break;
+            }
+        }
+        if(!found_colour_i) break;
+        potion_idxs.push_back(found_colour_i);
+    }
+    
+    std::cout << "i = " << i << std::endl;
+    
+    
+    /*
+    char* my_txt = new char[grid_txt.size()];
+    for(int g_i = 0; g_i < grid_txt.size(); g_i++){
+        my_txt[g_i] = grid_txt[g_i];
+    }
+    */
+    
+    // reading time;
+    int max_idx = 0;
+    for(int ii = 0; ii < found_colour_is.size(); ii++){
+        vector<char> digits = {};
+        for(int j = found_colour_is[ii]; j > 0; j--){
+            char c = grid_txt[j];
+            if(c == '0'){
+                std::cout << c;
+                digits.push_back(0);
+            }
+            else if(c == '1'){
+                std::cout << c;
+                digits.push_back(1);
+            }
+            else if(c == '2'){
+                std::cout << c;
+                digits.push_back(2);
+            }
+            else if(c == '3'){
+                std::cout << c;
+                digits.push_back(3);
+            }
+            else if(c == '4'){
+                std::cout << c;
+                digits.push_back(4);
+            }
+            else if(c == '5'){
+                std::cout << c;
+                digits.push_back(5);
+            }
+            else if(c == '6'){
+                std::cout << c;
+                digits.push_back(6);
+            }
+            else if(c == '7'){
+                std::cout << c;
+                digits.push_back(7);
+            }
+            else if(c == '8'){
+                std::cout << c;
+                digits.push_back(8);
+            }
+            else if(c == '9'){
+                std::cout << c;
+                digits.push_back(9);
+            }
+            else break;
+        }
+        int idx = 0;
+        for(auto it = digits.rbegin(); it != digits.rend(); it++){
+            idx = 10 * idx + *it;
+        }
+        if(idx > max_idx) max_idx = idx;
+        block_idxs.push_back(idx);
+        std::cout << std::endl;
+    }
+    
+    vector<int> inv_idxs = {};
+    for(int ii = 0; ii < max_idx; ii++){
+        inv_idxs.push_back(-1);
+        potion_ids.push_back(-1);
+    }
+    for(int ii = 0; ii < block_idxs.size(); ii++){
+        inv_idxs[block_idxs[ii]] = ii;
+    }
+    
+    for(int ii = 0; ii < block_idxs.size(); ii++){
+        int v = (grid_txt[potion_idxs[ii]] << 8) | (grid_txt[potion_idxs[ii + 1]]);
+        potion_ids[block_idxs[ii]] = v;
+    }
+    
+    for(int ii = 0; ii < block_idxs.size(); ii++){
+        int i = inv_idxs[block_idxs[ii]];
+        if(i == -1) continue;
+        int potion_id = potion_ids[i];
+        if(potion_id == -1) continue;
+        std::cout << "inv idx: " << i << ", ";
+        std::cout << "block idx: " << block_idxs[i] << ", ";
+        std::cout << "potion id: " <<
+        hex[(potion_id & 0xf000) >> 12] <<
+        hex[(potion_id & 0x0f00) >> 8] <<
+        hex[(potion_id & 0x00f0) >> 4] <<
+        hex[(potion_id & 0x000f)] <<
+        std::endl;
+        // std::cout << "potion id: " << potion_id << std::endl;
+        // std::cout << "found_colour_i: " << found_colour_is[i] << std::endl;
+        // std::cout << "block idx: " << block_idxs[i] << std::endl;
+        // std::cout << "potion idx: " << potion_idxs[i] << std::endl;
+        
+    }
+    
+    
+    /*
+    string file_out = "my_colors.mcstructure";
+    // std::cout << "Where do it fail? 1" << std::endl;
+    auto fout = std::ofstream(file_out, std::ios_base::binary);
+    
+    // now write to file;
+    for(int g_i = 0; g_i < grid_txt.size(); g_i++){
+        fout << my_txt[g_i];
+    }
+    
+    fout.close();
+    */
+}
+
+/*
+inv idx: 0, block idx: 0, potion id: 2e2d
+inv idx: 1, block idx: 1, potion id: 2d19
+inv idx: 66, block idx: 2, potion id: 2b28
+inv idx: 72, block idx: 3, potion id: 1c19
+inv idx: 83, block idx: 4, potion id: ff29
+inv idx: 93, block idx: 6, potion id: 1d1a
+inv idx: 101, block idx: 7, potion id: 0a08
+inv idx: 119, block idx: 9, potion id: 2a15
+inv idx: 7, block idx: 11, potion id: 2222
+inv idx: 13, block idx: 12, potion id: 1328
+inv idx: 20, block idx: 13, potion id: ff29
+inv idx: 31, block idx: 14, potion id: 1a18
+inv idx: 39, block idx: 15, potion id: 0828
+inv idx: 56, block idx: 17, potion id: 2a10
+inv idx: 65, block idx: 19, potion id: 2c2b
+inv idx: 67, block idx: 20, potion id: 2825
+inv idx: 68, block idx: 25, potion id: 2524
+inv idx: 69, block idx: 26, potion id: 2422
+inv idx: 70, block idx: 28, potion id: 221f
+inv idx: 71, block idx: 29, potion id: 1f1c
+inv idx: 73, block idx: 30, potion id: 1917
+inv idx: 74, block idx: 31, potion id: 1715
+inv idx: 75, block idx: 32, potion id: 1513
+inv idx: 76, block idx: 33, potion id: 1311
+inv idx: 77, block idx: 34, potion id: 110e
+inv idx: 78, block idx: 35, potion id: 0e0c
+inv idx: 79, block idx: 36, potion id: 0c1f
+inv idx: 80, block idx: 37, potion id: 0907
+inv idx: 81, block idx: 38, potion id: 0705
+inv idx: 88, block idx: 51, potion id: 2926
+inv idx: 89, block idx: 52, potion id: 261c
+inv idx: 91, block idx: 57, potion id: 2320
+inv idx: 92, block idx: 59, potion id: 201d
+inv idx: 94, block idx: 63, potion id: 1a18
+inv idx: 95, block idx: 64, potion id: 1816
+inv idx: 96, block idx: 65, potion id: 1636
+inv idx: 97, block idx: 66, potion id: 3637
+inv idx: 98, block idx: 67, potion id: 3739
+inv idx: 99, block idx: 68, potion id: 3936
+inv idx: 100, block idx: 69, potion id: 0d0a
+inv idx: 102, block idx: 70, potion id: 0806
+inv idx: 103, block idx: 71, potion id: 0617
+inv idx: 110, block idx: 78, potion id: 2721
+inv idx: 113, block idx: 80, potion id: 211e
+inv idx: 114, block idx: 81, potion id: 1e1b
+inv idx: 115, block idx: 82, potion id: 1b2a
+inv idx: 120, block idx: 91, potion id: 100b
+inv idx: 122, block idx: 93, potion id: 0b2e
+inv idx: 126, block idx: 97, potion id: 2e2d
+inv idx: 127, block idx: 98, potion id: 2d2c
+inv idx: 128, block idx: 99, potion id: 2c2b
+inv idx: 3, block idx: 100, potion id: 2b1d
+inv idx: 4, block idx: 101, potion id: 2806
+inv idx: 5, block idx: 102, potion id: 2521
+inv idx: 6, block idx: 103, potion id: 242e
+inv idx: 8, block idx: 110, potion id: 1f09
+inv idx: 9, block idx: 113, potion id: 1c23
+inv idx: 10, block idx: 114, potion id: 190d
+inv idx: 11, block idx: 115, potion id: 1727
+inv idx: 12, block idx: 119, potion id: 1510
+inv idx: 14, block idx: 120, potion id: 1111
+inv idx: 15, block idx: 122, potion id: 0e29
+inv idx: 16, block idx: 126, potion id: 0c14
+inv idx: 17, block idx: 127, potion id: 0927
+inv idx: 18, block idx: 128, potion id: 072a
+inv idx: 19, block idx: 129, potion id: 052c
+inv idx: 25, block idx: 134, potion id: 2926
+inv idx: 26, block idx: 135, potion id: 2623
+inv idx: 28, block idx: 137, potion id: 2320
+inv idx: 29, block idx: 138, potion id: 202b
+inv idx: 30, block idx: 139, potion id: 1d1a
+inv idx: 32, block idx: 140, potion id: 1816
+inv idx: 33, block idx: 141, potion id: 1614
+inv idx: 34, block idx: 142, potion id: 1412
+inv idx: 35, block idx: 143, potion id: 120f
+inv idx: 36, block idx: 144, potion id: 0f0d
+inv idx: 37, block idx: 145, potion id: 0d0a
+inv idx: 38, block idx: 146, potion id: 0a08
+inv idx: 40, block idx: 151, potion id: 0627
+inv idx: 47, block idx: 159, potion id: 2725
+inv idx: 50, block idx: 161, potion id: 211e
+inv idx: 51, block idx: 162, potion id: 1e1b
+inv idx: 52, block idx: 163, potion id: 1b2a
+inv idx: 57, block idx: 173, potion id: 100b
+inv idx: 59, block idx: 177, potion id: 0b24
+inv idx: 63, block idx: 183, potion id: 2e2d
+inv idx: 64, block idx: 185, potion id: 2d2c
+
+If you can figure out what these numbers mean, you are probably the guy who added them in the first place.
+052c
+0617
+0627
+0705
+072a
+0806
+0828
+0907
+0927
+0a08
+0b24
+0b2e
+0c14
+0c1f
+0d0a
+0e0c
+0e29
+0f0d
+100b
+1311
+1328
+1513
+1715
+1917
+110e
+1111
+120f
+1412
+1510
+1614
+1636
+1727
+1816
+190d
+1a18
+1b2a
+1c19
+1c23
+1d1a
+1e1b
+1f09
+1f1c
+201d
+202b
+211e
+221f
+2222
+2320
+2422
+242e
+2521
+2524
+261c
+2623
+2721
+2725
+2806
+2825
+2926
+2a15
+2a10
+2b1d
+2b28
+2c2b
+2d19
+2d2c
+2e2d
+3637
+3739
+3936
+ff29
+
+
+
+*/
+
+int main(int argc, char const *argv[]){
+    give_me_them_colors();
+    // potion_ids();
+    
+    return 0;
 }
 
 

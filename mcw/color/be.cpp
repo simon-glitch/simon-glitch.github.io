@@ -106,10 +106,15 @@ auto recipes = new Color_Recipes();
 auto prev_added = new Color_Exists();
 auto added = new Color_Exists();
 
+uint ic = 0;
+
 void add(uint color, uchar dye){
     if(recipes->exists(color)) return;
     added->set(color, 1);
     recipes->set(color, dye);
+    // if(ic >= 17){
+    //     std::cout << color << std::endl;
+    // }
 }
 
 bool added_any = true;
@@ -304,17 +309,25 @@ void recipe_examples(){
     
     std::cout << "Does this code even run?" << std::endl;
     
-    see_recipe(base_colors_names[0] + string("+") + base_colors_names[1] + string(" = "), mix(base_colors[0], base_colors[1]));
-    see_recipe(base_colors_names[2] + string("+") + base_colors_names[5] + string(" = "), mix(base_colors[2], base_colors[5]));
-    see_recipe(base_colors_names[1] + string("+") + base_colors_names[7] + string(" = "), mix(base_colors[1], base_colors[7]));
-    see_recipe(base_colors_names[3] + string("+") + base_colors_names[4] + string(" = "), mix(base_colors[3], base_colors[4]));
-    see_recipe(base_colors_names[5] + string("+") + base_colors_names[8] + string(" = "), mix(base_colors[5], base_colors[8]));
+    see_recipe("second to last cycle (19 dyes)", 9683164);
+    see_recipe("second to last cycle (19 dyes)", 2528946);
+    see_recipe("second to last cycle (19 dyes)", 3762873);
+    see_recipe("second to last cycle (19 dyes)", 9292674);
+    see_recipe("second to last cycle (19 dyes)", 13608744);
+    
+    // see_recipe(base_colors_names[0] + string("+") + base_colors_names[1] + string(" = "), mix(base_colors[0], base_colors[1]));
+    // see_recipe(base_colors_names[2] + string("+") + base_colors_names[5] + string(" = "), mix(base_colors[2], base_colors[5]));
+    // see_recipe(base_colors_names[1] + string("+") + base_colors_names[7] + string(" = "), mix(base_colors[1], base_colors[7]));
+    // see_recipe(base_colors_names[3] + string("+") + base_colors_names[4] + string(" = "), mix(base_colors[3], base_colors[4]));
+    // see_recipe(base_colors_names[5] + string("+") + base_colors_names[8] + string(" = "), mix(base_colors[5], base_colors[8]));
     
     uint* my_decode = new uint[256]{0};
     my_decode['0'] = 0x0; my_decode['1'] = 0x1; my_decode['2'] = 0x2; my_decode['3'] = 0x3;
     my_decode['4'] = 0x4; my_decode['5'] = 0x5; my_decode['6'] = 0x6; my_decode['7'] = 0x7;
     my_decode['8'] = 0x8; my_decode['9'] = 0x9; my_decode['a'] = 0xa; my_decode['b'] = 0xb;
     my_decode['c'] = 0xc; my_decode['d'] = 0xd; my_decode['e'] = 0xe; my_decode['f'] = 0xf;
+    
+    return;
     
     while(true){
         std::cout << "Which color would you like to search for (hex)?" << std::endl;
@@ -396,7 +409,6 @@ int main(int argc, char const *argv[]){
     for(uint i = 0; i < 16; i++){
         add(base_colors[i], i);
     }
-    uint ic = 0;
     while(added_any){
         std::cout << "Cycle " << ic << std::endl;
         ic++;
@@ -414,25 +426,29 @@ int main(int argc, char const *argv[]){
     if(argc == 0) return 0;
     
     // save_be();
-    // recipe_examples();
-    graph_be();
+    recipe_examples();
+    // graph_be();
     
     return 0;
 }
 };
 
-#if IN_JE
-#else
 int main(int argc, char const *argv[]){
     int r = be::main(argc, argv);
     return 0;
 }
-#endif
 
 /*
 g++ be.cpp -O6 -o be.exe
 
-The last 2 colors:
+second to last cycle (19 dyes):
+93c0dc: [white , l_blue, blue  , l_blue, cyan  , blue , l_blue, cyan  , l_blue, l_blue, blue  , cyan  , black , cyan  , cyan , cyan , black, black , cyan,]
+2696b2: [cyan  , l_blue, blue  , l_blue, cyan  , blue , l_blue, cyan  , l_blue, l_blue, blue  , cyan  , black , cyan  , cyan , cyan , black, black , cyan,]
+396ab9: [blue  , l_blue, blue  , l_blue, cyan  , blue , l_blue, cyan  , l_blue, l_blue, blue  , cyan  , black , cyan  , cyan , cyan , black, black , cyan,]
+8dcb82: [lime  , white , l_blue, l_blue, l_blue, white, purple, l_blue, l_blue, blue  , purple, l_blue, blue  , blue  , cyan , black, cyan , blue  , cyan,]
+cfa728: [orange, lime  , yellow, lime  , white , lime , lime  , lime  , white , lime  , white , l_blue, l_blue, l_blue, white, white, white, yellow, lime,]
+
+The last 2 colors (20 dyes):
 * #a7b723 -> [lime,   orange, lime,  yellow, lime,   white,  lime,  lime,   lime,    white,  lime, white,  l_blue, l_blue, l_blue, white, white, white, yellow, lime,]
 * #beddb9 -> [white,  lime,   white, l_blue, l_blue, l_blue, white, purple, l_blue,  l_blue, blue, purple, l_blue, blue,   blue,   cyan,  black, cyan,  blue,   cyan,]
 

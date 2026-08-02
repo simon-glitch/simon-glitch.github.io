@@ -103,11 +103,12 @@ int main(int argc, char const *argv[]){
         std::cout << i << "=" << c << "  " << std::endl;
     }
     
+    process_file("potions.mcstructure", "potions.txt");
     // process_file("base.mcstructure", "base.txt");
     // process_file("grid.mcstructure", "grid.txt");
     // process_file("awesome.mcstructure", "big_awesome.txt");
     // process_file("awet.mcstructure", "awet.txt");
-    process_file("wow/wow000.mcstructure", "wow.txt");
+    // process_file("wow/wow000.mcstructure", "wow.txt");
     // process_file("biiig.mcstructure", "biiig.txt");
     // process_file("tall.mcstructure", "tall.txt");
     // process_file("tall2.mcstructure", "tall2.txt");
