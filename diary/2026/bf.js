@@ -150,13 +150,11 @@ const Array_prototype = `${l_squar}+${r_squar}+${l_squar}+${quote}+${constructor
 const Number_prototype = `${l_paren}+(${_0})+${r_paren}+${l_squar}+${quote}+${constructor}+${quote}+${r_squar}+${l_squar}+${quote}+${prototype}+${quote}+${r_squar}`;
 const s_String = `${S}+${t}+${r}+${i}+${n}+${g}`;
 
-// this initial magic method is bad for performance;
 // Function("(+[])[\"constructor\"][\"prototype\"][[]]=String[\"fromCharCode\"]")();
 const codify = `${_Function}(${Number_prototype}+${l_squar}+${l_squar}+${r_squar}+${r_squar}+${equals}+${s_String}+${l_squar}+${quote}+${fromCharCode}+${quote}+${r_squar})()`;
 eval(codify);
 
 if(true){
-    console.log("codify.length", codify.length);
     const D = [_0, _1, _2, _3, _4, _5, _6, _7, _8, _9];
     const to_codes = (s) => {
         let o = "";
@@ -164,16 +162,22 @@ if(true){
             let ds = C.charCodeAt().toString(10).split("");
             o += `(+[])[[]](${ds.length > 1 ? ds.map(d => `[${D[d]}]`).join("+") : D[ds[0]]})`;
         }
+        return o;
     }
     const n_codify = `Function("(+[])[\"constructor\"][\"prototype\"][[]]=String[\"fromCharCode\"]")()`;
+    /*
+    This was 3x as long as codify and thus not worth the effort;
+    
     const backslash = `(+[])[[]]([${_9}]+[${_2}])`;
     const s_function = `${f}+${u}+${n}+${c}+${t}+${i}+${o}+${n}`;
     const s_Function = `${F}+${u}+${n}+${c}+${t}+${i}+${o}+${n}`;
     const Array_prototype_escaped = `${l_squar}+${r_squar}+${l_squar}+${backslash}+${quote}+${constructor}+${backslash}+${quote}+${r_squar}+${l_squar}+${backslash}+${quote}+${prototype}+${backslash}+${quote}+${r_squar}`;
     
-    // this initial magic method is bad for performance;
     const shorthand = `${_Function}(${Array_prototype}+${l_squar}+${l_squar}+${r_squar}+${r_squar}+${equals}+${s_Function}+${l_paren}+${quote}+${_return}+${space}+${s_function}+${l_paren}+${f}+${r_paren}+${l_curly}+${_return}+${space}+${s_function}+${l_paren}+${t}+${r_paren}+${l_curly}+${Array_prototype_escaped}+${l_squar}+${f}+${r_squar}+${equals}+${t}+${r_curly}+${r_curly}+${quote}+${r_paren}+${l_paren}+${r_paren})()`;
     eval(shorthand);
+    */
+    
+    const shorthand = to_codes(`(Array.prototype[[]]=(f)=>(t)=>Array.prototype[f]=t)`);
     
     console.log("codify.length", codify.length);
     console.log("shorthand.length", shorthand.length);
