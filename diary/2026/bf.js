@@ -1,0 +1,181 @@
+
+/*
+const f = (![]+[])[+![]];
+const t = (!![]+[])[+![]];
+const r = (!![]+[])[+!![]];
+const u = ([][[]]+[])[+![]];
+const n = ([][[]]+[])[+!![]];
+const N = ([+[][[]]]+[])[+![]];
+const a = ([+[][[]]]+[])[+!![]];
+const d = ([][[]]+[])[!![]+!![]];
+const s = (![]+[])[!![]+!![]+!![]];
+const e = (!![]+[])[!![]+!![]+!![]];
+const i = ([][[]]+[])[!![]+!![]+!![]+!![]+!![]];
+
+([].find)+[] == 'function find() { [native code] }';
+
+const c = (([][
+    (![]+[])[+![]]+
+    ([][[]]+[])[!![]+!![]+!![]+!![]+!![]]+
+    ([][[]]+[])[+!![]]+
+    ([][[]]+[])[!![]+!![]]
+])+[])[!![]+!![]+!![]];
+const o = (([][
+    (![]+[])[+![]]+
+    ([][[]]+[])[!![]+!![]+!![]+!![]+!![]]+
+    ([][[]]+[])[+!![]]+
+    ([][[]]+[])[!![]+!![]]
+])+[])[!![]+!![]+!![]+!![]+!![]+!![]];
+const space = (([][
+    (![]+[])[+![]]+
+    ([][[]]+[])[!![]+!![]+!![]+!![]+!![]]+
+    ([][[]]+[])[+!![]]+
+    ([][[]]+[])[!![]+!![]]
+])+[])[!![]+!![]+!![]+!![]+!![]+!![]+!![]+!![]];
+const v = (([][
+    (![]+[])[+![]]+
+    ([][[]]+[])[!![]+!![]+!![]+!![]+!![]]+
+    ([][[]]+[])[+!![]]+
+    ([][[]]+[])[!![]+!![]]
+])+[])[[!![]+!![]]+[!![]+!![]+!![]]];
+
+[].constructor + []        == 'function Array() { [native code] }';    // gives A y;
+(![]).constructor + []     == 'function Boolean() { [native code] }';  // gives B l;
+(+![]).constructor + []    == 'function Number() { [native code] }';   // gives N m b;
+([] + []).constructor + [] == 'function String() { [native code] }';   // gives S g;
+[].find.constructor + []   == 'function Function() { [native code] }'; // gives F;
+
+"".fontcolor() == '<font color="undefined"></font>'; // gives = > / ";
+Function() + [] == 'function anonymous(\n) {\n\n}'; // gives \n a y m; USELESS actually;
+Function("return {}")().constructor + [] == 'function Object() { [native code] }'; // gives O b j;
+Function("return /f/")().constructor + [] == 'function RegExp() { [native code] }'; // gives R g E p;
+Function("return document")() + [] == '[object HTMLDocument]'; // gives b j H T M L D;
+document.createElement("canvas").constructor + [] === 'function HTMLCanvasElement() { [native code] }'; // gives C;
+([] + []).constructor.fromCharCode(); // gives every other character;
+
+// to make code shorter, we will do
+Function("[].constructor.prototype[[]] = Function(\"return function(f){return function t(t){[].constructor.prototype[f] = t}}\")()")();
+// that let's us define shorthands; so `[][[]](![])("p")` will define a shorthand for p; so now `[][![]] === 'p`;
+
+// for another tool, we will do
+Function("(+[]).constructor.prototype[[]] = Function(\"return function(f){return String.fromCharCode(f)}\")()")();
+// now we can easily make characters, like `(+[])[[]](95) === '_'`; 95 can be made by '9'+'5'; so this also works: `(+[])[[]]([!![]+!![]+!![]+!![]+!![]+!![]+!![]+!![]+!![]] + [!![]+!![]+!![]+!![]+!![]]) === '_'`;
+*/
+
+const _0 = `+![]`;
+const _1 = `+!![]`;
+const _2 = `!![]+!![]`;
+const _3 = `!![]+!![]+!![]`;
+const _4 = `${_2}+${_2}`;
+const _5 = `${_2}+${_3}`;
+const _6 = `${_3}+${_3}`;
+const _7 = `${_3}+${_4}`;
+const _8 = `${_4}+${_4}`;
+const _9 = `${_4}+${_5}`;
+
+const f = `(![]+[])[${_0}]`;
+const t = `(!![]+[])[${_0}]`;
+const r = `(!![]+[])[${_1}]`;
+const u = `([][[]]+[])[${_0}]`;
+const n = `([][[]]+[])[${_1}]`;
+const N = `([+[][[]]]+[])[${_0}]`;
+const a = `([+[][[]]]+[])[${_1}]`;
+const d = `([][[]]+[])[${_2}]`;
+const s = `(![]+[])[${_3}]`;
+const e = `(!![]+[])[${_3}]`;
+const i = `([][[]]+[])[${_5}]`;
+
+const find = `${f}+${i}+${n}+${d}`;
+const aa = ([]["find"])+[]; // 'function find() { [native code] }'
+
+const c       = `(([][${find}])+[])[${_3}]`;
+const o       = `(([][${find}])+[])[${_6}]`;
+const space   = `(([][${find}])+[])[${_8}]`;
+const v       = `(([][${find}])+[])[[${_2}]+[${_3}]]`;
+const l_paren = `(([][${find}])+[])[[${_1}]+[${_3}]]`;
+const r_paren = `(([][${find}])+[])[[${_1}]+[${_4}]]`;
+const l_squar = `(([][${find}])+[])[[${_1}]+[${_8}]]`;
+const r_squar = `(([][${find}])+[])[[${_3}]+[${_0}]]`;
+const l_curly = `(([][${find}])+[])[[${_1}]+[${_6}]]`;
+const r_curly = `(([][${find}])+[])[[${_3}]+[${_2}]]`;
+
+const constructor = `${c}+${o}+${n}+${s}+${t}+${r}+${u}+${c}+${t}+${o}+${r}`;
+const _String = `([]+[])[${constructor}]`;
+const _Function = `[][${find}][${constructor}]`;
+const F = `(${_Function}+[])[${_9}]`;
+const y = `([][${constructor}]+[])[[${_1}]+[${_3}]]`;
+const S = `(${_String}+[])[${_9}]`;
+
+
+const _return = `${r}+${e}+${t}+${u}+${r}+${n}`;
+
+const l = `((![])[${constructor}]+[])[[${_1}]+[${_2}]]`;
+const slash = `(([]+[])[${f}+${o}+${n}+${t}+${c}+${o}+${l}+${o}+${r}]()+[])[[${_2}]+[${_5}]]`;
+const g = `(${_Function}(${_return}+${space}+${slash}+${f}+${slash})()[${constructor}]+[])[[${_1}]+[${_1}]]`;
+const E = `(${_Function}(${_return}+${space}+${slash}+${f}+${slash})()[${constructor}]+[])[[${_1}]+[${_2}]]`;
+const x = `(${_Function}(${_return}+${space}+${slash}+${f}+${slash})()[${constructor}]+[])[[${_1}]+[${_3}]]`;
+const p = `(${_Function}(${_return}+${space}+${slash}+${f}+${slash})()[${constructor}]+[])[[${_1}]+[${_4}]]`;
+
+const equals = `(([]+[])[${f}+${o}+${n}+${t}+${c}+${o}+${l}+${o}+${r}]()+[])[[${_1}]+[${_1}]]`;
+const quote = `(([]+[])[${f}+${o}+${n}+${t}+${c}+${o}+${l}+${o}+${r}]()+[])[[${_1}]+[${_2}]]`;
+
+const m = `((+![])[${constructor}]+[])[[${_1}]+[${_1}]]`;
+
+const prototype = `${p}+${r}+${o}+${t}+${o}+${t}+${y}+${p}+${e}`;
+const s_document = `${d}+${o}+${c}+${u}+${m}+${e}+${n}+${t}`;
+const createElement = `${c}+${r}+${e}+${a}+${t}+${e}+${E}+${l}+${e}+${m}+${e}+${n}+${t}`;
+const canvas = `${c}+${a}+${n}+${v}+${a}+${s}`;
+
+// document["createElement"]("canvas").constructor + [] === 'function HTMLCanvasElement() { [native code] }'
+const C = `(${_Function}(${_return}+${space}+${s_document}+${l_squar}+${quote}+${createElement}+${quote}+${r_squar}+${l_paren}+${quote}+${canvas}+${quote}+${r_paren})()[${constructor}]+[])[[${_1}]+[${_3}]]`;
+
+/*
+const H = `(${_Function}(${_return}+${space}+${s_document}+${l_squar}+${quote}+${createElement}+${quote}+${r_squar}+${l_paren}+${quote}+${canvas}+${quote}+${r_paren})()[${constructor}]+[])[${_9}]`;
+const L = `(${_Function}(${_return}+${space}+${s_document}+${l_squar}+${quote}+${createElement}+${quote}+${r_squar}+${l_paren}+${quote}+${canvas}+${quote}+${r_paren})()[${constructor}]+[])[[${_1}]+[${_2}]]`;
+console.log("L", eval(L));
+console.log("H", eval(H));
+const h = `(${H})[${t}+${o}+${L}+${o}+${w}+${e}+${r}+${C}+${a}+${s}+${e}]`;
+console.log("h", eval(h));
+*/
+
+// document.createElement("canvas").getContext("2d").lang[2] == 'h';
+const getContext = `${g}+${e}+${t}+${C}+${o}+${n}+${t}+${e}+${x}+${t}`;
+const lang = `${l}+${a}+${n}+${g}`;
+const h = `${_Function}(${_return}+${space}+${s_document}+${l_squar}+${quote}+${createElement}+${quote}+${r_squar}+${l_paren}+${quote}+${canvas}+${quote}+${r_paren})()[${getContext}](${_2}+${d})[${lang}][${_2}]`;
+
+const fromCharCode = `${f}+${r}+${o}+${m}+${C}+${h}+${a}+${r}+${C}+${o}+${d}+${e}`;
+const backslash = `${_String}[${fromCharCode}]([${_9}]+[${_2}])`;
+
+const Array_prototype = `${l_squar}+${r_squar}+${l_squar}+${quote}+${constructor}+${quote}+${r_squar}+${l_squar}+${quote}+${prototype}+${quote}+${r_squar}`;
+const Number_prototype = `${l_paren}+(${_0})+${r_paren}+${l_squar}+${quote}+${constructor}+${quote}+${r_squar}+${l_squar}+${quote}+${prototype}+${quote}+${r_squar}`;
+const s_String = `${S}+${t}+${r}+${i}+${n}+${g}`;
+
+// this initial magic method is bad for performance;
+// Function("(+[])[\"constructor\"][\"prototype\"][[]]=String[\"fromCharCode\"]")();
+const codify = `${_Function}(${Number_prototype}+${l_squar}+${l_squar}+${r_squar}+${r_squar}+${equals}+${s_String}+${l_squar}+${quote}+${fromCharCode}+${quote}+${r_squar})()`;
+eval(codify);
+
+if(true){
+    console.log("codify.length", codify.length);
+    const D = [_0, _1, _2, _3, _4, _5, _6, _7, _8, _9];
+    const to_codes = (s) => {
+        let o = "";
+        for(const c of s){
+            let ds = C.charCodeAt().toString(10).split("");
+            o += `(+[])[[]](${ds.length > 1 ? ds.map(d => `[${D[d]}]`).join("+") : D[ds[0]]})`;
+        }
+    }
+    const n_codify = `Function("(+[])[\"constructor\"][\"prototype\"][[]]=String[\"fromCharCode\"]")()`;
+    const backslash = `(+[])[[]]([${_9}]+[${_2}])`;
+    const s_function = `${f}+${u}+${n}+${c}+${t}+${i}+${o}+${n}`;
+    const s_Function = `${F}+${u}+${n}+${c}+${t}+${i}+${o}+${n}`;
+    const Array_prototype_escaped = `${l_squar}+${r_squar}+${l_squar}+${backslash}+${quote}+${constructor}+${backslash}+${quote}+${r_squar}+${l_squar}+${backslash}+${quote}+${prototype}+${backslash}+${quote}+${r_squar}`;
+    
+    // this initial magic method is bad for performance;
+    const shorthand = `${_Function}(${Array_prototype}+${l_squar}+${l_squar}+${r_squar}+${r_squar}+${equals}+${s_Function}+${l_paren}+${quote}+${_return}+${space}+${s_function}+${l_paren}+${f}+${r_paren}+${l_curly}+${_return}+${space}+${s_function}+${l_paren}+${t}+${r_paren}+${l_curly}+${Array_prototype_escaped}+${l_squar}+${f}+${r_squar}+${equals}+${t}+${r_curly}+${r_curly}+${quote}+${r_paren}+${l_paren}+${r_paren})()`;
+    eval(shorthand);
+    
+    console.log("codify.length", codify.length);
+    console.log("shorthand.length", shorthand.length);
+    
+}
