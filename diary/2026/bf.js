@@ -62,7 +62,7 @@ Function("(+[]).constructor.prototype[[]] = Function(\"return function(f){return
 // now we can easily make characters, like `(+[])[[]](95) === '_'`; 95 can be made by '9'+'5'; so this also works: `(+[])[[]]([!![]+!![]+!![]+!![]+!![]+!![]+!![]+!![]+!![]] + [!![]+!![]+!![]+!![]+!![]]) === '_'`;
 */
 
-const _0 = `+![]`;
+const _0 = `+[]`;
 const _1 = `+!![]`;
 const _2 = `!![]+!![]`;
 const _3 = `!![]+!![]+!![]`;
@@ -78,8 +78,8 @@ const t = `(!![]+[])[${_0}]`;
 const r = `(!![]+[])[${_1}]`;
 const u = `([][[]]+[])[${_0}]`;
 const n = `([][[]]+[])[${_1}]`;
-const N = `([+[][[]]]+[])[${_0}]`;
-const a = `([+[][[]]]+[])[${_1}]`;
+const N = `(+[![]])[${_0}]`;
+const a = `(+[![]])[${_1}]`;
 const d = `([][[]]+[])[${_2}]`;
 const s = `(![]+[])[${_3}]`;
 const e = `(!![]+[])[${_3}]`;
@@ -182,6 +182,164 @@ function main(){
     console.log("codify.length", codify.length);
     console.log("shorthand.length", shorthand.length);
     
+    /*
+    how to shorten it even more;
+    shortest values:
+        []        == []
+        0         == +[]
+        false     == ![]
+        true      == !![]
+        1         == +!![]
+        NaN       == +[![]]
+        undefined == [][[]] unless we reserve this for shorthand;
+        2         == !![]+!![]
+        null      == "".match(![]) which is not an option
+    I should note that even though (NaN instanceof Number) is false, NaN actually inherits from the number prototype; undefined and null of course do not have prototypes since you cannot read properties of them;
+    we can define a prototype property for numbers, strings, and booleans that changes based on the value; for example, you could make your own Number.toString, and read the value of the number directly;
+    so we could make 3+[] evaluate to "c"; like this;
+    const _l = "abcdefghijklmnopqrstuvwxyz";
+    const _ = _l + _l.toUpperCase() + "` \n-=[]\\;',./~!@#$%^&*()_+{}|:\"<>?";
+    Number.prototype.toString = function(){
+        return _[this];
+    }
+    console.log(3+"");
+    we can combine this with some unused values, like
+    number[0], number[1], etc.
+    even more conciseness could be obtained by using a getter,
+    so (0)[0] and (1)[0] give different values;
+    unfortunately, if we try to do this to strings or arrays, any items will override the prototype;
+    so if a string or array, a, has an item at a[5], then `Object.defineProperty(String or Array.prototype, 5, {
+        get(){return "Hi " + this;}
+    });` will not affect it;
+    
+    finally, we can change array.toString and valueOf, so that:
+        +[]   !== +[[]]
+        []+[] !== [[]]+[]
+    like we could set the right expressions to be 3 and 4;
+    
+    but booleans are just as modifiable as numbers; though there are unfortunately only two values;
+    
+    anyways, we have 86 ascii characters we want to encode;
+    here is 86 values we can put overrides on:
+    [][[]]
+    [][+[]]
+    [][![]]
+    [][!![]]
+    [][+!![]]
+    [][+[[]]]
+    [][[[]]+[]]
+    [][!![]+!![]]
+    (+[])[[]]
+    (+[])[+[]]
+    (+[])[![]]
+    (+[])[!![]]
+    (+[])[+!![]]
+    (+[])[+[[]]]
+    (+[])[[[]]+[]]
+    (+[])[!![]+!![]]
+    (![])[[]]
+    (![])[+[]]
+    (![])[![]]
+    (![])[!![]]
+    (![])[+!![]]
+    (![])[+[[]]]
+    (![])[[[]]+[]]
+    (![])[!![]+!![]]
+    (!![])[[]]
+    (!![])[+[]]
+    (!![])[![]]
+    (!![])[!![]]
+    (!![])[+!![]]
+    (!![])[+[[]]]
+    (!![])[[[]]+[]]
+    (!![])[!![]+!![]]
+    (+!![])[[]]
+    (+!![])[+[]]
+    (+!![])[![]]
+    (+!![])[!![]]
+    (+!![])[+!![]]
+    (+!![])[+[[]]]
+    (+!![])[[[]]+[]]
+    (+!![])[!![]+!![]]
+    (+[[]])[[]]
+    (+[[]])[+[]]
+    (+[[]])[![]]
+    (+[[]])[!![]]
+    (+[[]])[+!![]]
+    (+[[]])[+[[]]]
+    (+[[]])[[[]]+[]]
+    (+[[]])[!![]+!![]]
+    ([[]]+[])[[]]
+    ([[]]+[])[+[]]
+    ([[]]+[])[![]]
+    ([[]]+[])[!![]]
+    ([[]]+[])[+!![]]
+    ([[]]+[])[+[[]]]
+    ([[]]+[])[[[]]+[]]
+    ([[]]+[])[!![]+!![]]
+    
+    if we sort those by length:
+    [][[]]
+    [][+[]]
+    [][![]]
+    [][!![]]
+    [][+!![]]
+    [][+[[]]]
+    (+[])[[]]
+    (![])[[]]
+    (+[])[+[]]
+    (+[])[![]]
+    (![])[+[]]
+    (![])[![]]
+    (!![])[[]]
+    [][[[]]+[]]
+    (+[])[!![]]
+    (![])[!![]]
+    (!![])[+[]]
+    (!![])[![]]
+    (+!![])[[]]
+    (+[[]])[[]]
+    (+[])[+!![]]
+    (+[])[+[[]]]
+    (![])[+!![]]
+    (![])[+[[]]]
+    (!![])[!![]]
+    (+!![])[+[]]
+    (+!![])[![]]
+    (+[[]])[+[]]
+    (+[[]])[![]]
+    [][!![]+!![]]
+    (!![])[+!![]]
+    (!![])[+[[]]]
+    (+!![])[!![]]
+    (+[[]])[!![]]
+    ([[]]+[])[[]]
+    (+[])[[[]]+[]]
+    (![])[[[]]+[]]
+    (+!![])[+!![]]
+    (+!![])[+[[]]]
+    (+[[]])[+!![]]
+    (+[[]])[+[[]]]
+    ([[]]+[])[+[]]
+    ([[]]+[])[![]]
+    (!![])[[[]]+[]]
+    ([[]]+[])[!![]]
+    (+[])[!![]+!![]]
+    (![])[!![]+!![]]
+    (+!![])[[[]]+[]]
+    (+[[]])[[[]]+[]]
+    ([[]]+[])[+!![]]
+    ([[]]+[])[+[[]]]
+    (!![])[!![]+!![]]
+    (+!![])[!![]+!![]]
+    (+[[]])[!![]+!![]]
+    ([[]]+[])[[[]]+[]]
+    ([[]]+[])[!![]+!![]]
+    */
+    
+    /*
+    What we do from here is obvious. We take the developer's code, and we count how often every character appears, sort from most common to least common, and then assign the most common to characters to the shortest override. The function to do this can just be generated using to_codes, since it won't be too long; then probably up to 30 or 40 kb of code can be naively compressed this way, as long as we compress the entire program, keep whitespace and comments, and thus keep important strings, and as long as the developer wrote their code to work in the global namespace. For a standard web JS script, like Cookie Clicker's code, this should be sufficient. Do you know what that means? That means that if I was crazy enough I could turn any random JS program into this format. I'm not going to do that though. I've gone far enough down this rabbit hole.
+    */
 }
 
 // here is my brainfuck setup function;
