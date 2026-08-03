@@ -103,6 +103,7 @@ int main(int argc, char const *argv[]){
         std::cout << i << "=" << c << "  " << std::endl;
     }
     
+    process_file("cow.mcstructure", "cow.txt");
     process_file("potions.mcstructure", "potions.txt");
     // process_file("base.mcstructure", "base.txt");
     // process_file("grid.mcstructure", "grid.txt");
