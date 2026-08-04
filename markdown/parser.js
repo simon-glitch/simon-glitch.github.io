@@ -234,7 +234,7 @@ class AST{
             throw RangeError("You can't eat from an empty AST.");
         }
         const m = new Match_Expression(m_ast, exp);
-        return m.toTree();
+        return m;
     }
     /** For debugging. */
     toString(){
@@ -252,11 +252,11 @@ class Expression{
     /** Whether this is a leaf expression, i.e. it just matches a single node. */
     is_leaf = false;
     /** What this expression matches. If it is a leaf node, it matches any string within the set. @type {Set<string> | List | Multiple | Choice | Layer} */
-    match = Set();
+    match = new Set();
     constructor(match){
         if(typeof match === "string"){
             this.is_leaf = true;
-            this.match = Set(match);
+            this.match = new Set(match);
         }
         else if(match instanceof Set){
             this.is_leaf = true;
@@ -264,7 +264,7 @@ class Expression{
         }
         else if(match[Symbol.iterator]){
             this.is_leaf = true;
-            this.match = Set(match);
+            this.match = new Set(match);
         }
         // otherwise we assume it is one of the valid expression types; notice how none of them are subclasses of Expression; this is intended;
         else{
@@ -275,9 +275,10 @@ class Expression{
 
 /** Define a list of expressions, where the first one must be matched, then the second one, then the third, etc. */
 class List{
-    constructor(){
+    /** @param {Expression[]} items the list of expressions to match; */
+    constructor(items){
         /** @type {Expression[]} */
-        this.items = [];
+        this.items = items;
     }
 }
 
@@ -308,7 +309,7 @@ class Choice{
 /** Defines a way to match a node based on its children. i.e. this makes the matcher recursively enter the node and continue matching in there. */
 class Layer{
     /** A set of strings, for which anode names are valid, for the anode that will be entered. @type {Set<string>} */
-    name = Set();
+    name = new Set();
     /** An expression defining what the content should match. @type {Expression} */
     content = null;
     /** Whether the expression can match only some of the children of node. If this is true, it can leave the node partially matched, which is useful for handling transitions. This defaults to false because it is more intuitive to match the entire node strictly. */
@@ -316,9 +317,9 @@ class Layer{
     constructor(name, content, partial){
         // fun fact: every time I use ternary, it's pretty random which exact syntax I'll actually use;
         this.name = (typeof name === "string")
-        ? Set([name]) :
+        ? new Set([name]) :
         ((!(name instanceof Set)) && name[Symbol.iterator])
-        ? Set(name) : name;
+        ? new Set(name) : name;
         this.content = content;
         this.partial = Boolean(partial);
     }
@@ -478,13 +479,21 @@ class Match_Layer extends Match_Expression{
         const a_lil_trickery = this.node;
         this.node = my_layer_boi;
         this.ast.down();
-        super(exp.content);
+        super.match(exp.content);
         this.node = a_lil_trickery;
         // we gotta take all the F's that life hands us;
         if(!this.ast_has_no_f____s_left_to_give && !exp.partial){
             this.succeeded = false;
         }
     }
+}
+
+const all_chars = new Set(Array(65536).fill(0).map((v,i) => String.fromCharCode(i)));
+function invert(char_set){
+    if(typeof char_set === "string") char_set = new Set(char_set);
+    // what's odd is VS Code does not have documentation for `Set.prototype.diference`;
+    // now `union` or `intersect`;
+    return all_chars.difference(char_set);
 }
 
 class Characters extends AST{
@@ -516,7 +525,31 @@ class Tokens extends AST{
         console.log("tokens", this, this + "");
     }
     tokenize(){
-        
+        const indent = new Multiple(
+            new Expression(" \t"),
+            Multiple.ZERO_OR_MORE
+        );
+        const newl = new Multiple(
+            new Expression("\n"),
+            Multiple.ZERO_OR_MORE
+        );
+        const line = new Multiple(
+            new Expression(invert("\n")),
+            Multiple.ZERO_OR_MORE
+        );
+        const line_w_newl = new List([
+            newl,
+            line
+        ]);
+        const everything = new List([
+            line,
+            new Multiple(
+                line_w_newl,
+                Multiple.ZERO_OR_MORE
+            )
+        ]);
+        const m = this.eat(everything);
+        this.add(m.node);
     }
 }
 
