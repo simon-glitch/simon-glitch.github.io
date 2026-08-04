@@ -211,9 +211,9 @@ class AST{
     }
     /**
      * Grab a sequence / tree of anodes from the ast.
-     * @param {Regular} reg similar ot a regular expression, but for anodes;
+     * @param {Expression} exp similar ot a regular expression, but for anodes;
      */
-    eat(reg){
+    eat(exp){
         
     }
     /** For debugging. */
@@ -227,67 +227,52 @@ class AST{
     }
 }
 
-/** A way to define a regular language that accepts anodes. This class is intended to be used with `ast.eat`. */
-class Regular{
+/** A type of regular expression designed to work with anodes / ASTs. */
+class Expression{
+    /** Whether this is a leaf expression, i.e. it just matches a single node. */
+    is_leaf = false;
+    /** What this expression matches. @type {string | List | Multiple | Choice | Layer} */
+    match = "";
+    constructor(match){
+        this.match = match;
+        if(typeof match === "string") this.is_leaf = true;
+    }
+}
+
+/** Define a list of expressions, where the first one must be matched, then the second one, then the third, etc. */
+class List{
+    constructor(){
+        /** @type {Expression[]} */
+        this.items = [];
+    }
+}
+
+/** Define an expression's logic being repeated. */
+class Multiple{
     static ZERO_OR_ONE = Symbol("Regular.ZERO_OR_ONE");
     static ONE = Symbol("Regular.ONE");
     static ZERO_OR_MORE = Symbol("Regular.ZERO_OR_MORE");
     static ONE_OR_MORE = Symbol("Regular.ONE_OR_MORE");
-    last_layer = false;
-    /** @type {Map<string, Regular> | Set<string>} */
-    entries = null;
-    /** @type {Symbol} */
-    count = Regular.ONE;
-    /**
-     * This class is intended to be used with `ast.eat`. Each regular object can accept many different options, which are defined by the keys of `entries`. If `last_layer` is `true`, `entries` is assumed to be a set, and this class will try to grab a sequence of anodes in the current level of the AST. `count` indicates how many anodes can be grabbed. If you want to grab exactly two or three nodes or something like that, you will have to use multiple calls of `ast.eat`.
-     * - In entries, you can map a set of strings to a set of Regular objects. Each item in the set of strings can be grabbed from the AST. The `eat` function will attempt to grab each one, and then it will attempt to use each of the Regular objects, until one succeeds.
-     * - I don't think any of these explanations make any sense at all, but I'm just going to write my code and call it a day.
-     * @param {Map<Set<string>, Set<Regular>> | Set<string>} entries a map or set that defines which content to consume;
-     * @param {number} count either `Regular.ZERO_OR_ONE`, `Regular.ONE`, `Regular.ZERO_OR_MORE`, or `Regular.ONE_OR_MORE`;
-     * @param {boolean} last_layer whether this is the last layer; default is `false`, which indicates that `entries` has type `Map<Set<string>, Set<Regular>>`; `true` indicates that `entries` has type `Regular | Set<string>`;
-     */
-    constructor(entries, count, last_layer){
-        this.last_layer = Boolean(last_layer);
-        if(last_layer){
-            this.entries = (entries instanceof Set) ? entries : Set(entries);
-        }
-        else{
-            this.entries = new Map();
-            if(!(entries[Symbol.iterator])){
-                throw new TypeError("entries is not iterable;");
-            }
-            let i = 0;
-            if(entries instanceof Map){
-                for(const entry of Map){
-                    this.add(entry);
-                }
-            }
-            else for(const entry of entries){
-                if(!(entry?.length === 2) && Object.hasOwn(entry, 0) && Object.hasOwn(entry, 1)){
-                    throw new TypeError("entries[i] is not array of length 2;");
-                }
-                i++;
-                let ak = entry[0];
-                let av = entry[1];
-                const sk = typeof ak === "string";
-                const sv = typeof av === "string";
-                const ik = !!ak[Symbol.iterator];
-                const iv = !!av[Symbol.iterator];
-                if(!sk && !ik){
-                    ak = ak.toString();
-                }
-                if(!sv && !iv){
-                    av = av.toString();
-                }
-                if(sk || !ik) ak = [ak];
-                if(sv || !iv) av = [av];
-                for(const k of ak) for(const v of av){
-                    this.entries.set(k, v instanceof Regular ?
-                        v : Regular([v], Regular.ONE, true));
-                }
-            }
-        }
+    /** @type {Expression} */
+    exp = null;
+}
+
+/** Define a list of choices for an expression. */
+class Choice{
+    constructor(){
+        /** @type {Expression[]} */
+        this.choices = [];
     }
+}
+
+/** Defines a way to match a node based on its children. i.e. this makes the matcher recursively enter the node and continue matching in there. */
+class Layer{
+    /** The name of the anode to enter inside of. */
+    name = "";
+    /** An expression defining what the content should match. */
+    content = null;
+    /** Whether the expression can match only some of the children of node. If this is true, it can leave the node partially matched, which is useful for handling transitions. This defaults to false because it is more intuitive to match the entire node strictly. */
+    partial = false;
 }
 
 class Characters extends AST{
