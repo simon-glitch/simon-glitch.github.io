@@ -214,7 +214,12 @@ class AST{
      * @param {Expression} exp similar ot a regular expression, but for anodes;
      */
     eat(exp){
-        
+        // create a new AST just for matching, and set its root to current;
+        const m_ast = new AST();
+        m_ast.stack = [m_ast.current = m_ast.root = this.prev_ast.current];
+        m_ast.i = [this.prev_ast.i.at(-1)];
+        const m = new Match_Expression(m_ast, exp);
+        return m.toTree();
     }
     /** For debugging. */
     toString(){
@@ -231,11 +236,25 @@ class AST{
 class Expression{
     /** Whether this is a leaf expression, i.e. it just matches a single node. */
     is_leaf = false;
-    /** What this expression matches. @type {string | List | Multiple | Choice | Layer} */
-    match = "";
+    /** What this expression matches. If it is a leaf node, it matches any string within the set. @type {Set<string> | List | Multiple | Choice | Layer} */
+    match = Set();
     constructor(match){
-        this.match = match;
-        if(typeof match === "string") this.is_leaf = true;
+        if(typeof match === "string"){
+            this.is_leaf = true;
+            this.match = Set(match);
+        }
+        else if(match instanceof Set){
+            this.is_leaf = true;
+            this.match = match;
+        }
+        else if(match[Symbol.iterator]){
+            this.is_leaf = true;
+            this.match = Set(match);
+        }
+        // otherwise we assume it is one of the valid expression types; notice how none of them are subclasses of Expression; this is intended;
+        else{
+            this.match = match;
+        }
     }
 }
 
@@ -253,26 +272,119 @@ class Multiple{
     static ONE = Symbol("Regular.ONE");
     static ZERO_OR_MORE = Symbol("Regular.ZERO_OR_MORE");
     static ONE_OR_MORE = Symbol("Regular.ONE_OR_MORE");
-    /** @type {Expression} */
+    /** which expression is matched on each repetition; @type {Expression} */
     exp = null;
+    /** how many times to match the expression @type {Symbol} */
+    count = Multiple.ONE;
+    constructor(exp, count){
+        this.exp = exp;
+        this.count = count;
+    }
 }
 
 /** Define a list of choices for an expression. */
 class Choice{
-    constructor(){
+    constructor(choices){
         /** @type {Expression[]} */
-        this.choices = [];
+        this.choices = choices;
     }
 }
 
 /** Defines a way to match a node based on its children. i.e. this makes the matcher recursively enter the node and continue matching in there. */
 class Layer{
-    /** The name of the anode to enter inside of. */
-    name = "";
-    /** An expression defining what the content should match. */
+    /** A set of strings, for which anode names are valid, for the anode that will be entered. @type {Set<string>} */
+    name = Set();
+    /** An expression defining what the content should match. @type {Expression} */
     content = null;
     /** Whether the expression can match only some of the children of node. If this is true, it can leave the node partially matched, which is useful for handling transitions. This defaults to false because it is more intuitive to match the entire node strictly. */
     partial = false;
+    constructor(name, content, partial){
+        // fun fact: every time I use ternary, it's pretty random which exact syntax I'll actually use;
+        this.name = (typeof name === "string")
+        ? Set([name]) :
+        ((!(name instanceof Set)) && name[Symbol.iterator])
+        ? Set(name) : name;
+        this.content = content;
+        this.partial = Boolean(partial);
+    }
+}
+
+class Match_Expression{
+    /** in a list or choice, which step of the match the matcher is on; */
+    match_idx = 0;
+    /** whether the match succeeded; */
+    succeeded = true;
+    /** the AST being matched in; @type {AST} */
+    ast = null;
+    /** the anode of this matcher; this is a different entity than the one in the AST; @type {Anode} */
+    node = null;
+    /**
+     * Match an expression, with recursive business logic split across five classes.
+     * @param {AST} ast the AST being matched in;
+     * @param {Expression | List | Multiple | Choice | Layer} exp he expression to match;
+     */
+    constructor(ast, exp){
+        this.ast = ast;
+        this.match(exp);
+        this.node = new Anode("match");
+    } // fun fact: you don't need super if you don't specify a constructor;
+    match(exp){
+        let m;
+        if(exp instanceof List){
+            m = new Match_List(this.ast, exp);
+        }
+        if(exp instanceof Multiple){
+            m = new Match_Multiple(this.ast, exp);
+        }
+        if(exp instanceof Choice){
+            m = new Match_Choice(this.ast, exp);
+        }
+        if(exp instanceof Layer){
+            m = new Match_Layer(this.ast, exp);
+        }
+        if(m.succeeded){
+            this.node.children.push(...m.node.children);
+        }
+        else{
+            this.succeeded = false;
+        }
+    }
+}
+
+class Match_List extends Match_Expression{
+    /**
+     * @param {List} exp match definition;
+     */
+    match(exp){
+        // I like writing code~
+    }
+}
+
+class Match_Multiple extends Match_Expression{
+    /**
+     * @param {Multiple} exp match definition;
+     */
+    match(exp){
+        // I have lots of code to write today~
+    }
+}
+
+class Match_Choice extends Match_Expression{
+    /**
+     * @param {Choice} exp match definition;
+     */
+    match(exp){
+        // Oh yay I get to write some code~
+    }
+}
+
+class Match_Layer extends Match_Expression{
+    /**
+     * @param {Layer} exp match definition;
+     */
+    match(exp){
+        // Better prepare for a challenge~
+    }
 }
 
 class Characters extends AST{
