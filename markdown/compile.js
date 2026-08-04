@@ -11,6 +11,17 @@ const settings = {
 I am redoing this project with more abstraction. My general approach was correct though - multiple layers of context-sensitive parsing. Lexing is the first layer of content-based parsing. I'll use it to crab code blocks and inline code since those don't combine with the other styles. And lists, indents, and comments too.
 */
 
+class FatalError extends Error{
+    constructor(message, options){
+        super(
+            "= 🚨💥🌪️😨💀🔥🚨💥🌪️😨💀🔥 =\n" +
+            "FatalError: " + message +
+            "\n= 🚨💥🌪️😨💀🔥🚨💥🌪️😨💀🔥 =",
+            options
+        );
+    }
+};
+
 /** Node for the AST. */
 class Anode{
     /** The index within the source text where this anode starts. */
@@ -56,7 +67,7 @@ class AST{
         /** @type {boolean[]} */
         this.is_option = [];
         /** @type {Object} */
-        this.failed_option = {};
+        this.failed_options = {};
         /** @type {Anode} @private */
         this.root = new Anode("root");
         /** Do not write to this Anode externally. Use the methods of AST instead. @type {Anode} */
@@ -129,11 +140,42 @@ class AST{
     toString(stringify){
         return this.root.toString(stringify, "");
     }
-    // create a branching path in how the syntax is parsed;
+    /**
+     * Create a branching path in how the syntax is parsed.
+     * - this branch refers to the branch created by one call of `option`;
+     * @param {*} name the name of the node at the root of the branch; if this branch succeeds, children of the node will become children of the last non-option node, in order to help flatten the tree;
+     * @param {*} callback this function gets called "during" this branch of the branching path; it is responsible for defining the logic of this branch;
+     */
     option(name, callback){
         this.add(name);
         this.down(true);
         this.is_option[this.is_option.length - 1] = true;
+        const f = {};
+        // __proto__ handles scope for us for free; or presumably in an optimized manner;
+        f.__proto__ = this.failed_options.at(-1);
+        this.failed_options.push(p);
+    }
+    /**
+     * Fail the current branch of the branching path.
+     */
+    fail(){
+        if(this.failed_options.length <= 1){
+            throw RangeError("There is currently no option on the stack to fail.");
+        }
+        while(!this.is_option.at(-1)){
+            this.remove();
+            if(!this.removed_all) this.up();
+        }
+        if(!this.is_option){
+            throw FatalError("AST deleted everything on fail. This error is especially fatal because it most surely means something is wrong with Simon.s code specifically.");
+        }
+        const name = this.current.name;
+        this.remove();
+        if(!this.removed_all){
+            throw FatalError("The option node had a sibling. Options are supposed to be single children. That definitely makes sense out of context XD."); // oh no I said single but I meant only XD.
+        }
+        this.failed_options.pop();
+        this.failed_options.at(-1)[name] = true;
     }
 }
 
