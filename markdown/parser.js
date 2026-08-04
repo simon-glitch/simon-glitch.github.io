@@ -22,6 +22,17 @@ class FatalError extends Error{
     }
 };
 
+class RecursionError extends Error{
+    constructor(message, options){
+        super(
+            "RecursionError: " + message +
+            "\n'A recursion error is a type of recursion error that happens when you throw a recursion error.'" +
+            "\n- Leo Alimony LAR.",
+            options
+        );
+    }
+};
+
 /** Node for the AST. */
 class Anode{
     /** The index within the source text where this anode starts. */
@@ -30,7 +41,7 @@ class Anode{
     idx_end = 0;
     /** String describing the type or contents of the anode. */
     name = "";
-    /** @param {strign} name value for `anode.name`; */
+    /** @param {string} name value for `anode.name`; */
     constructor(name){
         this.name = name;
         /** Children of this node within the tree. @type {Anode[]} */
@@ -129,9 +140,9 @@ class AST{
      * @returns {Boolean} indicating whether this function failed or succeeded;
      */
     next(){
-        const prev = this.stack[this.stack.length - 2];
+        const prev = this.stack.at(-2);
         if(!prev) return false;
-        const i = ++this.i[this.i.length - 1];
+        const i = ++this.i.at(-1);
         if(i >= prev.children.length) return false;
         this.current = prev.children[i];
         return true;
@@ -215,9 +226,13 @@ class AST{
      */
     eat(exp){
         // create a new AST just for matching, and set its root to current;
-        const m_ast = new AST();
+        const m_ast = new AST("");
         m_ast.stack = [m_ast.current = m_ast.root = this.prev_ast.current];
         m_ast.i = [this.prev_ast.i.at(-1)];
+        const succeeded = m_ast.down();
+        if(!succeeded){
+            throw RangeError("You can't eat from an empty AST.");
+        }
         const m = new Match_Expression(m_ast, exp);
         return m.toTree();
     }
@@ -331,13 +346,31 @@ class Match_Expression{
         this.node = new Anode("match");
     } // fun fact: you don't need super if you don't specify a constructor;
     match(exp){
-        if(exp instanceof Expression){
+        if(exp instanceof Expression && exp.is_leaf){
             // yippee it's a leaf node!
-            if(this.ast.i.at(-1) === this.ast.stack.at(-2)){}
+            if(this.ast.i.at(-1) === this.ast.stack.at(-2).children.length){
+                this.ast_has_no_f____s_left_to_give = true;
+                this.succeeded = false;
+                return;
+            }
+            if(exp.match.has(this.ast.current.name)){
+                this.node.children.push(new Anode(this.ast.current.name));
+            }
             // we'll check twice just to be extra sure;
+            // well i'm pretty sure this code is really really important;
+            if(this.ast.i.at(-1) === this.ast.stack.at(-2).children.length){
+                this.ast_has_no_f____s_left_to_give = true;
+            }
             return;
         }
         let m;
+        // TODO: add a smart recursion check for all of these cases;
+        if(exp instanceof Expression){
+            if(exp === exp.match){
+                throw new RecursionError("Expression contains itself directly. That is definitely unsafe recursion, lad.");
+            }
+            m = new Match_Expression(this.ast, exp.match);
+        }
         if(exp instanceof List){
             m = new Match_List(this.ast, exp);
         }
@@ -444,6 +477,7 @@ class Match_Layer extends Match_Expression{
         this.node.children.push(my_layer_boi);
         const a_lil_trickery = this.node;
         this.node = my_layer_boi;
+        this.ast.down();
         super(exp.content);
         this.node = a_lil_trickery;
         // we gotta take all the F's that life hands us;
