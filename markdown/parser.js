@@ -209,6 +209,8 @@ class AST{
         this.failed_options.pop();
         this.failed_options.at(-1)[name] = true;
     }
+    eat(){
+    }
     /** For debugging. */
     toString(){
         return (
