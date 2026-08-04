@@ -209,9 +209,12 @@ class AST{
         this.failed_options.pop();
         this.failed_options.at(-1)[name] = true;
     }
-    eat(){
-        // so I'm sitting here thinking how it would be cool to make eat take a definition for a regular language and then grab content matching that regular language; but that is also a bit of a pain to setup; also, there is the annoying complication that regular languages are theoretically O(n^2) to parse, but I would write an O(m^n) algorithm because that's easier to write; so that's pretty annying;
-        // the bright side is that in practice, most parsers will have simple arguments for eat, which means it would be basically O(n); but that still requires me writing support for an entire regular lamguage, which would be encoded either using jank sets and maps, or using jank JSON; and usually that much jank = many hours of debugging just for one small thing; but also it would be cool; so I'm REALLY debating whether I should do this; and I guess I need to make it output a subtree of anodes; so that is a further complication; truly it would be no small task;
+    /**
+     * Grab a sequence / tree of anodes from the ast.
+     * @param {Regular} reg similar ot a regular expression, but for anodes;
+     */
+    eat(reg){
+        
     }
     /** For debugging. */
     toString(){
@@ -221,6 +224,69 @@ class AST{
             this.failed_options.map(f => "" + f)
             .join("\n  ") + "\n]"
         );
+    }
+}
+
+/** A way to define a regular language that accepts anodes. This class is intended to be used with `ast.eat`. */
+class Regular{
+    static ZERO_OR_ONE = Symbol("Regular.ZERO_OR_ONE");
+    static ONE = Symbol("Regular.ONE");
+    static ZERO_OR_MORE = Symbol("Regular.ZERO_OR_MORE");
+    static ONE_OR_MORE = Symbol("Regular.ONE_OR_MORE");
+    last_layer = false;
+    /** @type {Map<string, Regular> | Set<string>} */
+    entries = null;
+    /** @type {Symbol} */
+    count = Regular.ONE;
+    /**
+     * This class is intended to be used with `ast.eat`. Each regular object can accept many different options, which are defined by the keys of `entries`. If `last_layer` is `true`, `entries` is assumed to be a set, and this class will try to grab a sequence of anodes in the current level of the AST. `count` indicates how many anodes can be grabbed. If you want to grab exactly two or three nodes or something like that, you will have to use multiple calls of `ast.eat`.
+     * - In entries, you can map a set of strings to a set of Regular objects. Each item in the set of strings can be grabbed from the AST. The `eat` function will attempt to grab each one, and then it will attempt to use each of the Regular objects, until one succeeds.
+     * - I don't think any of these explanations make any sense at all, but I'm just going to write my code and call it a day.
+     * @param {Map<Set<string>, Set<Regular>> | Set<string>} entries a map or set that defines which content to consume;
+     * @param {number} count either `Regular.ZERO_OR_ONE`, `Regular.ONE`, `Regular.ZERO_OR_MORE`, or `Regular.ONE_OR_MORE`;
+     * @param {boolean} last_layer whether this is the last layer; default is `false`, which indicates that `entries` has type `Map<Set<string>, Set<Regular>>`; `true` indicates that `entries` has type `Regular | Set<string>`;
+     */
+    constructor(entries, count, last_layer){
+        this.last_layer = Boolean(last_layer);
+        if(last_layer){
+            this.entries = (entries instanceof Set) ? entries : Set(entries);
+        }
+        else{
+            this.entries = new Map();
+            if(!(entries[Symbol.iterator])){
+                throw new TypeError("entries is not iterable;");
+            }
+            let i = 0;
+            if(entries instanceof Map){
+                for(const entry of Map){
+                    this.add(entry);
+                }
+            }
+            else for(const entry of entries){
+                if(!(entry?.length === 2) && Object.hasOwn(entry, 0) && Object.hasOwn(entry, 1)){
+                    throw new TypeError("entries[i] is not array of length 2;");
+                }
+                i++;
+                let ak = entry[0];
+                let av = entry[1];
+                const sk = typeof ak === "string";
+                const sv = typeof av === "string";
+                const ik = !!ak[Symbol.iterator];
+                const iv = !!av[Symbol.iterator];
+                if(!sk && !ik){
+                    ak = ak.toString();
+                }
+                if(!sv && !iv){
+                    av = av.toString();
+                }
+                if(sk || !ik) ak = [ak];
+                if(sv || !iv) av = [av];
+                for(const k of ak) for(const v of av){
+                    this.entries.set(k, v instanceof Regular ?
+                        v : Regular([v], Regular.ONE, true));
+                }
+            }
+        }
     }
 }
 
