@@ -210,6 +210,8 @@ class AST{
         this.failed_options.at(-1)[name] = true;
     }
     eat(){
+        // so I'm sitting here thinking how it would be cool to make eat take a definition for a regular language and then grab content matching that regular language; but that is also a bit of a pain to setup; also, there is the annoying complication that regular languages are theoretically O(n^2) to parse, but I would write an O(m^n) algorithm because that's easier to write; so that's pretty annying;
+        // the bright side is that in practice, most parsers will have simple arguments for eat, which means it would be basically O(n); but that still requires me writing support for an entire regular lamguage, which would be encoded either using jank sets and maps, or using jank JSON; and usually that much jank = many hours of debugging just for one small thing; but also it would be cool; so I'm REALLY debating whether I should do this; and I guess I need to make it output a subtree of anodes; so that is a further complication; truly it would be no small task;
     }
     /** For debugging. */
     toString(){
