@@ -38,14 +38,14 @@ class Anode{
     }
     /** indentation added at each recursive level in my toString function; */
     indent = "  ";
-    toString(stringify, indent){
-        if(stringify[this.type]){
-            return stringify[this.type](this, indent);
+    toString(stringify = {}, indent = ""){
+        if(stringify[this.name]){
+            return stringify[this.name](this, indent);
         }
-        let s = `${this.type}{`;
+        let s = `${this.name}{`;
         let prev = false;
         for(const c of this.children){
-            const curr = !stringify[c.type];
+            const curr = !stringify[c.name];
             if(prev || curr){
                 s += `\n${indent + this.indent}`;
             }
@@ -70,6 +70,10 @@ class Failed_Options_Level extends Object{
 }
 
 class AST{
+    /** For debugging. @type {Object<string, (anode: Anode, indent: string) => string>} */
+    stringify = {};
+    /** The previous parsing layer (i.e. characters, lexing, etc.). @type {AST?} */
+    prev_ast = null;
     /**
      * Constructs an Abstract Syntax Tree builder.
      * @param {string} source value for `ast.sorce`;
@@ -205,6 +209,48 @@ class AST{
         this.failed_options.pop();
         this.failed_options.at(-1)[name] = true;
     }
+    /** For debugging. */
+    toString(){
+        return (
+            this.root.toString(this.stringify) +
+            "\n[\n  " +
+            this.failed_options.map(f => "" + f)
+            .join("\n  ") + "\n]"
+        );
+    }
+}
+
+class Characters extends AST{
+    /**
+     * Converts (lexes) the source string into a list of character nodes.
+     * @param {string} source the source string to be converted;
+     */
+    constructor(source){
+        super(source);
+        for(const char of source){
+            this.add("char");
+            this.down(true);
+            this.add(char);
+            this.up();
+        }
+        // console.log("chars", this, this + "");
+    }
+}
+
+class Tokens extends AST{
+    /**
+     * Constructs a markdown parser.
+     * @param {string} source the markdown source code to be parsed;
+     */
+    constructor(source){
+        super(source);
+        this.prev_ast = new Characters(source);
+        this.tokenize();
+        console.log("tokens", this, this + "");
+    }
+    tokenize(){
+        
+    }
 }
 
 class Markdown extends AST{
@@ -214,18 +260,9 @@ class Markdown extends AST{
      */
     constructor(source){
         super(source);
-        this.tokenize();
-        this.build();
+        this.prev_ast = new Tokens(source);
         this.parse();
-        // console.log(this.output);
-        console.log(ast, ast.root + "");
-        console.log("failed options", ast.failed_options.map(f => "" + f));
-    }
-    tokenize(){
-        
-    }
-    build(){
-        
+        console.log("markdown", this, this + "");
     }
     parse(){
         
