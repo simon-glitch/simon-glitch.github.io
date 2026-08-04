@@ -30,9 +30,9 @@ class Anode{
     idx_end = 0;
     /** String describing the type or contents of the anode. */
     name = "";
-    /** @param {strign} a_name value for `anode.name`; */
-    constructor(a_name){
-        this.name = a_name;
+    /** @param {strign} name value for `anode.name`; */
+    constructor(name){
+        this.name = name;
         /** Children of this node within the tree. @type {Anode[]} */
         this.children = [];
     }
@@ -60,14 +60,31 @@ class Anode{
     }
 }
 
+/** Minor class for slightly better debugging. */
+class Failed_Options_Level extends Object{
+    toString(){
+        return "Failed Options {" + Object.getOwnPropertyNames(this).map(
+            name => `${name}: ${this[name]}`
+        ).join(", ") + "}";
+    }
+}
+
 class AST{
-    constructor(){
+    /**
+     * Constructs an Abstract Syntax Tree builder.
+     * @param {string} source value for `ast.sorce`;
+     */
+    constructor(source){
+        /** The text that this AST is parsing. @type {string} */
+        this.source = source;
+        /** The text output of this AST. @type {string} */
+        this.output = "";
         /** @type {Anode[]} */
         this.stack = [];
         /** @type {boolean[]} */
         this.is_option = [];
-        /** @type {Object} */
-        this.failed_options = {};
+        /** @type {Failed_Options_Level[]} */
+        this.failed_options = [new Failed_Options_Level()];
         /** @type {Anode} @private */
         this.root = new Anode("root");
         /** Do not write to this Anode externally. Use the methods of AST instead. @type {Anode} */
@@ -143,17 +160,28 @@ class AST{
     /**
      * Create a branching path in how the syntax is parsed.
      * - this branch refers to the branch created by one call of `option`;
-     * @param {*} name the name of the node at the root of the branch; if this branch succeeds, children of the node will become children of the last non-option node, in order to help flatten the tree;
-     * @param {*} callback this function gets called "during" this branch of the branching path; it is responsible for defining the logic of this branch;
+     * @param {string} name the name of the node at the root of the branch; if this branch succeeds, children of the node will become children of the last non-option node, in order to help flatten the tree;
+     * @param {Function} callback this function gets called "during" this branch of the branching path; it is responsible for defining the logic of this branch;
      */
     option(name, callback){
         this.add(name);
         this.down(true);
         this.is_option[this.is_option.length - 1] = true;
-        const f = {};
+        const f = new Failed_Options_Level();
+        f[name] = false;
         // __proto__ handles scope for us for free; or presumably in an optimized manner;
         f.__proto__ = this.failed_options.at(-1);
-        this.failed_options.push(p);
+        this.failed_options.push(f);
+        callback.apply(this);
+        if(!f[name]){
+            const option = this.current;
+            this.up();
+            this.remove();
+            if(!this.removed_all){
+                throw FatalError("(after successful option) The option node had a sibling. Options are supposed to be single children. That definitely makes sense out of context XD."); // oh no I said single but I meant only XD.
+            }
+            this.current.children.push(...option.children);
+        }
     }
     /**
      * Fail the current branch of the branching path.
@@ -172,12 +200,42 @@ class AST{
         const name = this.current.name;
         this.remove();
         if(!this.removed_all){
-            throw FatalError("The option node had a sibling. Options are supposed to be single children. That definitely makes sense out of context XD."); // oh no I said single but I meant only XD.
+            throw FatalError("(after failed option) The option node had a sibling. Options are supposed to be single children. That definitely makes sense out of context XD."); // oh no I said single but I meant only XD.
         }
         this.failed_options.pop();
         this.failed_options.at(-1)[name] = true;
     }
 }
+
+class Markdown extends AST{
+    /**
+     * Constructs a markdown parser.
+     * @param {string} source the markdown source code to be parsed;
+     */
+    constructor(source){
+        super(source);
+        this.tokenize();
+        this.build();
+        this.parse();
+        // console.log(this.output);
+        console.log(ast, ast.root + "");
+        console.log("failed options", ast.failed_options.map(f => "" + f));
+    }
+    tokenize(){
+        
+    }
+    build(){
+        
+    }
+    parse(){
+        
+    }
+}
+
+const ast = new Markdown(`
+This is the text string.
+    Let's test indentation first. Well technically this tests other things too. Not surprising. right?
+`);
 
 
 
