@@ -314,6 +314,8 @@ class Match_Expression{
     match_idx = 0;
     /** whether the match succeeded; */
     succeeded = true;
+    /** whether the AST reached the end of its children list; */
+    ast_has_no_f____s_left_to_give = false;
     /** the AST being matched in; @type {AST} */
     ast = null;
     /** the anode of this matcher; this is a different entity than the one in the AST; @type {Anode} */
@@ -329,6 +331,12 @@ class Match_Expression{
         this.node = new Anode("match");
     } // fun fact: you don't need super if you don't specify a constructor;
     match(exp){
+        if(exp instanceof Expression){
+            // yippee it's a leaf node!
+            if(this.ast.i.at(-1) === this.ast.stack.at(-2)){}
+            // we'll check twice just to be extra sure;
+            return;
+        }
         let m;
         if(exp instanceof List){
             m = new Match_List(this.ast, exp);
@@ -341,6 +349,9 @@ class Match_Expression{
         }
         if(exp instanceof Layer){
             m = new Match_Layer(this.ast, exp);
+        }
+        if(!m){
+            throw FatalError("Something that was not an expression was put somewhere where an expression belongs. Or Simon really messed up his logic.");
         }
         if(m.succeeded){
             this.node.children.push(...m.node.children);
@@ -356,7 +367,11 @@ class Match_List extends Match_Expression{
      * @param {List} exp match definition;
      */
     match(exp){
-        // I like writing code~
+        for(const a_exp of exp.items){
+            super.match(a_exp);
+            if(!this.succeeded) break;
+            // see i get worried when the code is this short; and mysterious;
+        }
     }
 }
 
@@ -365,7 +380,35 @@ class Match_Multiple extends Match_Expression{
      * @param {Multiple} exp match definition;
      */
     match(exp){
-        // I have lots of code to write today~
+        // storing these here is inefficient because they could MAYBE be handled at Match_Layer, but that would also be really hard code to write; and a few extra arrays never hurt anyone, right?
+        let old_i       = this.ast.i.slice();
+        let old_stack   = this.ast.stack.slice();
+        let old_current = this.ast.current.slice();
+        let count = 0;
+        if(exp.count == Multiple.ZERO_OR_ONE || exp.count == Multiple.ONE){
+            super.match(exp.exp);
+            if(this.succeeded) count++;
+        }
+        else while(true){
+            super.match(exp.exp);
+            if(!this.succeeded) break;
+            count++;
+            old_i       = this.ast.i.slice();
+            old_stack   = this.ast.stack.slice();
+            old_current = this.ast.current.slice();
+        }
+        // this is very confusing, which unfortunately means i will probably need to debug it a lot;
+        // my debugging process is always very slow and inefficient;
+        if(
+            (!this.count === 0 && exp.count == Multiple.ZERO_OR_ONE) ||
+            (exp.count == Multiple.ZERO_OR_MORE) ||
+            (this.count > 0 && exp.count == Multiple.ONE_OR_MORE)
+        ){
+            this.succeeded   = true;
+            this.ast.i       = old_i;
+            this.ast.stack   = old_stack;
+            this.ast.current = old_current;
+        }
     }
 }
 
@@ -374,7 +417,17 @@ class Match_Choice extends Match_Expression{
      * @param {Choice} exp match definition;
      */
     match(exp){
-        // Oh yay I get to write some code~
+        // storing these here is inefficient because they could MAYBE be handled at Match_Layer, but that would also be really hard code to write; and a few extra arrays never hurt anyone, right?
+        const old_i       = this.ast.i.slice();
+        const old_stack   = this.ast.stack.slice();
+        const old_current = this.ast.current.slice();
+        for(const a_exp of exp.choices){
+            super.match(a_exp);
+            if(this.succeeded) break;
+            this.ast.i       = old_i;
+            this.ast.stack   = old_stack;
+            this.ast.current = old_current;
+        }
     }
 }
 
@@ -383,7 +436,20 @@ class Match_Layer extends Match_Expression{
      * @param {Layer} exp match definition;
      */
     match(exp){
-        // Better prepare for a challenge~
+        if(!exp.name.has(this.ast.current.name)){
+            this.succeeded = false;
+            return;
+        }
+        const my_layer_boi = new Node(this.ast.current.name);
+        this.node.children.push(my_layer_boi);
+        const a_lil_trickery = this.node;
+        this.node = my_layer_boi;
+        super(exp.content);
+        this.node = a_lil_trickery;
+        // we gotta take all the F's that life hands us;
+        if(!this.ast_has_no_f____s_left_to_give && !exp.partial){
+            this.succeeded = false;
+        }
     }
 }
 
