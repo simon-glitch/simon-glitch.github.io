@@ -85,6 +85,8 @@ class AST{
     stringify = {};
     /** The previous parsing layer (i.e. characters, lexing, etc.). @type {AST?} */
     prev_ast = null;
+    /** To prevent infinite loops in parsing. @type {Map<Match_Expression, number[][]} */
+    frame = null;
     /**
      * Constructs an Abstract Syntax Tree builder.
      * @param {string} source value for `ast.sorce`;
@@ -148,11 +150,18 @@ class AST{
         return true;
     }
     /**
-     * Add a Anode to the tree.
+     * Create and add an Anode to the tree.
      * @param {String} type the type of the new Anode;
      */
     add(name){
         this.current.children.push(new Anode(name));
+    }
+    /**
+     * Add an Anode to the tree.
+     * @param {Anode} node the Anode;
+     */
+    add_node(node){
+        this.current.children.push(node);
     }
     /**
      * Remove the selected child of the this.current Anode.
@@ -229,6 +238,7 @@ class AST{
         const m_ast = new AST("");
         m_ast.stack = [m_ast.current = m_ast.root = this.prev_ast.current];
         m_ast.i = [this.prev_ast.i.at(-1)];
+        m_ast.frame = new Map();
         const succeeded = m_ast.down();
         if(!succeeded){
             throw RangeError("You can't eat from an empty AST.");
@@ -238,6 +248,7 @@ class AST{
     }
     /** For debugging. */
     toString(){
+        // return "Infinite loop?";
         return (
             this.root.toString(this.stringify) +
             "\n[\n  " +
@@ -325,6 +336,8 @@ class Layer{
     }
 }
 
+let depth = 0;
+let max_depth = 12;
 class Match_Expression{
     /** in a list or choice, which step of the match the matcher is on; */
     match_idx = 0;
@@ -364,8 +377,25 @@ class Match_Expression{
             }
             return;
         }
+        depth++;
+        if(depth > max_depth){
+            console.log(this);
+            throw new Error("Max depth reached");
+        }
+        const f = this.ast.i.slice();
+        if(!this.ast.frame.has(this)){
+            this.ast.frame.set(this, []);
+        }
+        // check if the current indices are in the frame;
+        if(this.ast.frame.get(this).findIndex(af => af.forEach((v,i) => v === f[i]) !== -1)){
+            // if so, fail;
+            console.log("recursion prevention?");
+            this.succeeded = false;
+            depth--;
+            return;
+        }
+        this.ast.frame.get(this).push(f);
         let m;
-        // TODO: add a smart recursion check for all of these cases;
         if(exp instanceof Expression){
             if(exp === exp.match){
                 throw new RecursionError("Expression contains itself directly. That is definitely unsafe recursion, lad.");
@@ -393,6 +423,7 @@ class Match_Expression{
         else{
             this.succeeded = false;
         }
+        depth--;
     }
 }
 
@@ -414,10 +445,11 @@ class Match_Multiple extends Match_Expression{
      * @param {Multiple} exp match definition;
      */
     match(exp){
+        console.log(this.ast);
         // storing these here is inefficient because they could MAYBE be handled at Match_Layer, but that would also be really hard code to write; and a few extra arrays never hurt anyone, right?
         let old_i       = this.ast.i.slice();
         let old_stack   = this.ast.stack.slice();
-        let old_current = this.ast.current.slice();
+        let old_current = this.ast.current;
         let count = 0;
         if(exp.count == Multiple.ZERO_OR_ONE || exp.count == Multiple.ONE){
             super.match(exp.exp);
@@ -429,7 +461,7 @@ class Match_Multiple extends Match_Expression{
             count++;
             old_i       = this.ast.i.slice();
             old_stack   = this.ast.stack.slice();
-            old_current = this.ast.current.slice();
+            old_current = this.ast.current;
         }
         // this is very confusing, which unfortunately means i will probably need to debug it a lot;
         // my debugging process is always very slow and inefficient;
@@ -454,7 +486,7 @@ class Match_Choice extends Match_Expression{
         // storing these here is inefficient because they could MAYBE be handled at Match_Layer, but that would also be really hard code to write; and a few extra arrays never hurt anyone, right?
         const old_i       = this.ast.i.slice();
         const old_stack   = this.ast.stack.slice();
-        const old_current = this.ast.current.slice();
+        const old_current = this.ast.current;
         for(const a_exp of exp.choices){
             super.match(a_exp);
             if(this.succeeded) break;
@@ -525,18 +557,18 @@ class Tokens extends AST{
         console.log("tokens", this, this + "");
     }
     tokenize(){
-        const indent = new Multiple(
+        const indent = new Layer("char", new Multiple(
             new Expression(" \t"),
-            Multiple.ZERO_OR_MORE
-        );
-        const newl = new Multiple(
+            Multiple.ONE_OR_MORE
+        ));
+        const newl = new Layer("char", new Multiple(
             new Expression("\n"),
-            Multiple.ZERO_OR_MORE
-        );
-        const line = new Multiple(
+            Multiple.ONE_OR_MORE
+        ));
+        const line = new Layer("char", new Multiple(
             new Expression(invert("\n")),
-            Multiple.ZERO_OR_MORE
-        );
+            Multiple.ONE_OR_MORE
+        ));
         const line_w_newl = new List([
             newl,
             line
@@ -545,11 +577,11 @@ class Tokens extends AST{
             line,
             new Multiple(
                 line_w_newl,
-                Multiple.ZERO_OR_MORE
+                Multiple.ONE_OR_MORE
             )
         ]);
         const m = this.eat(everything);
-        this.add(m.node);
+        this.add_node(m.node);
     }
 }
 
@@ -569,10 +601,10 @@ class Markdown extends AST{
     }
 }
 
-const ast = new Markdown(`
+const ast = new Markdown(`Stuff   
 This is the text string.
     Let's test indentation first. Well technically this tests other things too. Not surprising. right?
-`);
+  More stuff.`);
 
 
 
