@@ -15,5 +15,18 @@ Also this sounds really dumb, but my mom kinda said it too, but I'm going a bit 
 
 And my point stands that I have a lot of love. I was thinking and honestly I'm entirely made of a mix of love, passion, and potential. In fact I have all of the world's leftover love in my heart.
 
+^ That was all written at like 12:30 AM. So it was technically August 5th, but it was also kind of August 4th. Technicalities!
+
+Alright, it's 2:18 PM now, and I've decided I'm going to rewrite my markdown parser again. I've written a parser with no AST before, so the progression has been no AST -> basic AST -> regular language for AST nodes. I think the next step is somehow integrating the different classes together. Or just making sure things are more organized and debuggable. But how do you do that? Like how do you know what needs debugged? I'm pretty sure you just don't know. That's why the real solution is to just make the core system better.
+
+So in my code, I encountered 4 different kinds of trees. First we have the tree being parsed and the tree being built. So I made code to parse a character tree and build a token tree. And the next step would have been parsing the token to tree and building a markdown tree. Then there is the tree that describes the content that `eat` tries to match. i.e. this tree is a regular language definition. And the final kind of tree is the tree used to handle parsing for the 3rd kind of tree. You see, parsing requires making call stacks and allowing for duplicate instances of the things that the first tree defines.
+
+Now, fundamentally, this setup makes sense. One tree for input, one for output, one for definition, and one for parsing. This actually matches perfectly with my structure of everything. So I guess we want to keep this model. The problem is the current code is too scattered. And it does everything all at once, rather than taking things step by step. If I could define a parsing step, then I could make the code step through things for debugging. Also, being able to simply see all past states from parsing would help. But that sounds hard to implement. And that means I would spent time debugging features for my future debugging. Nonetheless I am seriously considering it.
+
+So let's define a parsing step. Logically it should look at the name of a node on the tree. It should already know which name it needs to look at. Then it needs to know whether to go down, to the next, or up. And it basically needs to know what same information for the input tree, output tree, language definition tree, and parsing tree.
+
+??? How in the world do we do that though? I'm seeing why this task is so challenging and why my code is hard to debug. It is hard to define how the states of 4 distinct systems should relate to each other. Especially when part of that relation is supposed to vary based on the language definition.
+
+I'm going to have to just think about this for a while.
 
 
