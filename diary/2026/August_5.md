@@ -29,4 +29,15 @@ So let's define a parsing step. Logically it should look at the name of a node o
 
 I'm going to have to just think about this for a while.
 
+Okay, I figured it out. I need to put everything into one class, and then call all of the trees what they actually are. Well the language definition is really directed graph with cycles, so let's stop calling it a tree. And it makes sense that language features should be part of a name-based dictionary, so you can make cycles more easily.
+
+What's important and different from my current code is the parsing tree needs to be an actual tree with methods, so I can control it.
+
+So when we travel through the parsing tree, we can directly call the next method. Also, we shouldn't store nodes on the matching objects, but instead modify the output tree directly.
+
+So the flow looks like this (language definition) -> (parsing tree node point to that definition) -> (call back based on the type of feature) -> (add node to output tree and add node to parsing tree, flatten certain parts of the parsing tree). And most importantly I need better handling for reaching the end of the parsing tree.
+
+But how I write any of this? I feel like my current AST class hides the important details behind "success" flags. And honestly I just can't comprehend this idea of multiple trees coexisting or talking to each other. I have already written code that does that, but I just don't have a mental model for it. I will spend my time trying to create a mental model first. This is the kind of thing that is simply not possible to be put into words, so I won't be writing about it here.
+
+
 
