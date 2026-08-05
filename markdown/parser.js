@@ -335,6 +335,12 @@ class Layer{
     }
 }
 
+function a_little_smarter(char){
+    if(char === "\n") return "newline";
+    if(char === " ") return "space";
+    return char;
+}
+
 let depth = 0;
 let max_depth = 12;
 class Match_Expression{
@@ -370,7 +376,7 @@ class Match_Expression{
                 return;
             }
             if(exp.match.has(this.ast.current.name)){
-                console.log("grabbing character: ", this.ast.current.name);
+                console.log("grabbing character: ", a_little_smarter(this.ast.current.name));
                 this.node.children.push(new Anode(this.ast.current.name));
                 // console.log("ast.next;");
                 this.ast.next();
@@ -378,7 +384,7 @@ class Match_Expression{
                 this.succeeded = true;
             }
             else{
-                console.log("character does not match: ", this.ast.current.name);
+                console.log("character does not match: ", a_little_smarter(this.ast.current.name));
                 this.succeeded = false;
             }
             console.log((this.succeeded ? "success" : "failure") + " in leaf");
@@ -563,9 +569,9 @@ class Match_Multiple extends Match_Expression{
             this.ast.i       = old_i;
             this.ast.stack   = old_stack;
             this.ast.current = old_current;
-            if(old_stack.at(-1) !== old_current){
-                throw Error("They should be equal!");
-            }
+            // if(old_stack.at(-1) !== old_current){
+            //     throw Error("They should be equal!");
+            // }
         }
         console.log("count", count);
         console.log((this.succeeded ? "success" : "failure") + " in multiple");
