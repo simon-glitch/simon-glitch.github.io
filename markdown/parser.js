@@ -362,7 +362,7 @@ class Match_Expression{
     match(exp){
         console.log("? 1", this, exp);
         if(exp instanceof Expression && exp.is_leaf){
-            // console.log("leaf handling", this, exp);
+            console.log("leaf handling", this, exp);
             // yippee it's a leaf node!
             if(this.ast.i.at(-1) === this.ast.stack.at(-2).children.length){
                 this.ast_has_no_f____s_left_to_give = true;
@@ -534,6 +534,15 @@ class Match_Multiple extends Match_Expression{
             
             if(!this.succeeded) break;
             count++;
+            console.log("========");
+            console.log({
+                // i: old_i,
+                // stack: old_stack,
+                // current: this.ast.current,
+                // old_current,
+                current: this.ast.current.children[0].name,
+                old_current: old_current.children[0].name,
+            });
             old_i       = this.ast.i.slice();
             old_stack   = this.ast.stack.slice();
             old_current = this.ast.current;
@@ -546,11 +555,19 @@ class Match_Multiple extends Match_Expression{
             (count > 0 && exp.count == Multiple.ONE_OR_MORE)
         ){
             this.succeeded   = true;
+            console.log({
+                i: old_i,
+                stack: old_stack,
+                current: old_current,
+            });
             this.ast.i       = old_i;
             this.ast.stack   = old_stack;
             this.ast.current = old_current;
+            if(old_stack.at(-1) !== old_current){
+                throw Error("They should be equal!");
+            }
         }
-        // console.log("count", count);
+        console.log("count", count);
         console.log((this.succeeded ? "success" : "failure") + " in multiple");
     }
 }
@@ -659,24 +676,24 @@ class Tokens extends AST{
     tokenize(){
         this.prev_ast.down();
         // console.log("current", this.prev_ast.current);
-        const char = new Multiple(new Layer("char", new Choice([new Expression("S"), new Expression("t"), new Expression("u"), new Expression("f")])), Multiple.ONE_OR_MORE);
+        // const char = new Multiple(new Layer("char", new Expression("Stuf")), Multiple.ONE_OR_MORE);
         // console.log("is_leaf", char.is_leaf);
         // console.log("stack?", this.prev_ast.stack.slice());
-        const m = this.eat(char);
-        this.add_node(m.node);
-        /*
-        const indent = new Layer("char", new Multiple(
-            new Expression(" \t"),
+        // const m = this.eat(char);
+        // this.add_node(m.node);
+        
+        const indent = new Multiple(new Layer("char",
+            new Expression(" \t")),
             Multiple.ONE_OR_MORE
-        ));
-        const newl = new Layer("char", new Multiple(
-            new Expression("\n"),
+        );
+        const newl = new Multiple(new Layer("char",
+            new Expression("\n")),
             Multiple.ONE_OR_MORE
-        ));
-        const line = new Layer("char", new Multiple(
-            new Expression(invert("\n")),
+        );
+        const line = new Multiple(new Layer("char",
+            new Expression(invert("\n"))),
             Multiple.ONE_OR_MORE
-        ));
+        );
         const line_w_newl = new List([
             newl,
             line
@@ -690,7 +707,8 @@ class Tokens extends AST{
         ]);
         const m = this.eat(everything);
         this.add_node(m.node);
-        */
+        
+        console.log("tokens", this, this + "");
     }
 }
 
