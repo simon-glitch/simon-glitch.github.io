@@ -39,6 +39,29 @@ float max(float a, float b){
     return (a > b) ? a : b;
 }
 
+vector<char> whole_file(string file_in){
+    vector<char> data = vector<char>();
+    
+    int size = 0x10000;
+    char* txt_in = new char[size];
+    auto fin = std::ifstream(file_in, std::ios_base::binary);
+    fin.read(txt_in, size);
+    int count = fin.gcount();
+    int j = 0;
+    while(count > 0){
+        j++;
+        for(int i = 0; i < count; i++){
+            data.push_back(txt_in[i]);
+        }
+        fin.read(txt_in, size);
+        count = fin.gcount();
+    }
+    fin.close();
+    delete txt_in;
+    
+    return data;
+}
+
 // isn't there a way to put this on the stack instead of the heap? i don't remember what it is;
 // well global vars can be on the heap, since they will be deleted when the program finishes running XD;
 uint* base_colors = new uint[16]{
@@ -294,7 +317,7 @@ public:
                 uchar big_endian_number = ((mix_d << (4*a_len)) & 0xf0000000) >> 28;
                 total += big_endian_number;
                 colors[a_len] = total;
-                a_len++;
+                if(total < 16) a_len++;
             }
         }
         string s = "[";
@@ -380,38 +403,99 @@ auto c_exists = new Color_Exists();
 uint ic = 0;
 uint found = 0;
 
+uint save_size = (1<<24) * 4 + (1<<24) * 4 + (1<<24) / 8;
+uchar* save_chars = new uchar[save_size];
+uchar* load_chars = new uchar[save_size];
+
 void save_je(){
     // recipes, then last_cs, then c_exists;
-    uint size = (1<<24) * 4 + (1<<24) * 4 + (1<<24) / 8;
     uint i = 0;
-    uchar* mychars = new uchar[size];
     for(uint j = 0; j < 1<<24; j++, i += 4){
         uint dyem = recipes->d[j];
-        mychars[i    ] = dyem & 0xff000000;
-        mychars[i + 1] = dyem & 0x00ff0000;
-        mychars[i + 2] = dyem & 0x0000ff00;
-        mychars[i + 3] = dyem & 0x000000ff;
+        save_chars[i    ] = (dyem & 0xff000000u) >> 24u;
+        save_chars[i + 1] = (dyem & 0x00ff0000u) >> 16u;
+        save_chars[i + 2] = (dyem & 0x0000ff00u) >>  8u;
+        save_chars[i + 3] = (dyem & 0x000000ffu);
     }
     for(uint j = 0; j < 1<<24; j++, i += 4){
-        uint dyem = last_cs->d[j];
-        mychars[i    ] = dyem & 0xff000000;
-        mychars[i + 1] = dyem & 0x00ff0000;
-        mychars[i + 2] = dyem & 0x0000ff00;
-        mychars[i + 3] = dyem & 0x000000ff;
+        uint last = last_cs->d[j];
+        save_chars[i    ] = (last & 0xff000000u) >> 24u;
+        save_chars[i + 1] = (last & 0x00ff0000u) >> 16u;
+        save_chars[i + 2] = (last & 0x0000ff00u) >>  8u;
+        save_chars[i + 3] = (last & 0x000000ffu);
     }
-    for(uint j = 0; j < (1<<24) / 8; j++, i ++){
-        mychars[i    ] = c_exists->d[j];
+    for(uint j = 0; j < (1<<24) / 8; j++, i++){
+        save_chars[i    ] = c_exists->d[j];
     }
     
     std::cout << "Saving..." << std::endl;
     
-    auto fout = std::ofstream("je_res.bin");
-    fout << "Format: recipes, then last_cs, then c_exists\n";
-    for(i = 0; i < size; i++){
-        fout << mychars[i];
+    auto fout = std::ofstream("je_res.bin", std::ios_base::binary);
+    fout << string("Format: recipes, then last_cs, then c_exists\n");
+    for(i = 0; i < save_size; i++){
+        fout << save_chars[i];
     }
     
     std::cout << "Saved." << std::endl;
+}
+void load_je(){
+    std::cout << "Loading..." << std::endl;
+    vector<char> saved = whole_file("je_res.bin");
+    
+    std::cout << "Loaded." << std::endl;
+    uint i = 0;
+    // skip past "Format: recipes, then last_cs, then c_exists\n";
+    for(; saved[i] != '\n'; i++);
+    // skip '\n' itself;
+    i++;
+    uint skip_c = i;
+    std::cout << "Skipped " << skip_c << " chars." << std::endl;
+    for(uint ii = skip_c; ii < save_size + skip_c; ii++){
+        load_chars[ii - skip_c] = saved[ii];
+    }
+    uint save_0s = 0;
+    uint load_0s = 0;
+    for(uint ii = 0; ii < save_size; ii++){
+        if(save_chars[ii] != 0) break;
+        save_0s++;
+        // if(save_chars[ii] != load_chars[ii]){
+        //     std::cout << "unequal char at ii = " << ii << std::endl;
+        //     std::cout << "save: " << uint(save_chars[ii]) << std::endl;
+        //     std::cout << "load: " << uint(load_chars[ii]) << std::endl;
+        //     abort();
+        // }
+    }
+    for(uint ii = 0; ii < save_size; ii++){
+        if(load_chars[ii] != 0) break;
+        load_0s++;
+    }
+    std::cout << "save 0s: " << uint(save_0s) << std::endl;
+    std::cout << "load 0s: " << uint(load_0s) << std::endl;
+    std::cout << "save non-zero: " << uint(save_chars[save_0s]) << std::endl;
+    std::cout << "load non-zero: " << uint(load_chars[load_0s]) << std::endl;
+    if(save_0s != load_0s){
+        abort();
+    }
+    // recipes, then last_cs, then c_exists;
+    for(uint j = 0; j < 1<<24; j++, i += 4){
+        recipes->d[j] = (
+            (saved[i    ] << 24) |
+            (saved[i + 1] << 16) |
+            (saved[i + 2] <<  8) |
+            (saved[i + 3])
+        );
+    }
+    for(uint j = 0; j < 1<<24; j++, i += 4){
+        last_cs->d[j] = (
+            (saved[i    ] << 24) |
+            (saved[i + 1] << 16) |
+            (saved[i + 2] <<  8) |
+            (saved[i + 3])
+        );
+    }
+    for(uint j = 0; j < (1<<24) / 8; j++, i++){
+        c_exists->d[j] = saved[i];
+    }
 }
 
 void add(uint color, uint last, ulng mix_d){
@@ -451,8 +535,9 @@ void cycle(){
             prev_li = 0;
             std::cout << prev_i << "/" << prev_c << "; found colors: " << found << std::endl;
         }
-        uint mix_lim = ic == 0 ? mixer_c :
-        ic == 1 ? 16 : 0;
+        uint mix_lim =
+        ic == 0 ? 1000:
+        ic == 1 ? 0: 0; // use mixer_c for full search;
         for(uint mixer_i = 0; mixer_i < mix_lim; mixer_i++){
             Mixer& m = mixers_a[mixer_i];
             auto res = mix(i, m);
@@ -573,12 +658,13 @@ void see_recipe(string msg, uint i){
     }
     std::cout << msg << to_hex(i) << std::endl;
     
+    // std::cout << "Does this run? " << i << std::endl;
     Recipe find_boi = Recipe(i);
     find_boi.search();
     
-    std::cout << "Recipe [";
+    std::cout << "-> [\n";
     for(auto it = find_boi.done_dyems.begin(); it != find_boi.done_dyems.end(); it++){
-        std::cout << Mixer(*it).recipe_step() << ",";
+        std::cout << "  " << Mixer(*it).recipe_step() << ",\n";
     }
     std::cout << "]" << std::endl;
     verify(i, find_boi.done_dyems);
@@ -593,6 +679,7 @@ int main(int argc, char const *argv[]){
     // 735470 -> 564927;
     std::cout << "mixer_c: " << mixer_c << std::endl;
     
+    /* */
     for(uint mixer_i = 0; mixer_i < mixer_c; mixer_i++){
         Mixer& m = mixers_a[mixer_i];
         uint i = m.base();
@@ -605,6 +692,60 @@ int main(int argc, char const *argv[]){
     }
     
     save_je();
+    /* */
+    
+    /* */
+    load_je();
+    
+    found = 0;
+    for(uint i = 0; i < 1<<24; i++){
+        if(c_exists->get(i)) found++;
+    }
+    std::cout << "Found " << found << " colors." << std::endl;
+    /* */
+    
+    // std::cout << "Test lgray, gray, black, black, lime:" << std::endl;
+    // Mixer m = Mixer(286283776);
+    // std::cout << "Color: " << m.base() << std::endl;
+    
+    see_recipe("Example: ", 0x546443);
+    /*
+    Start of try_last 5530691
+    dyem = 286283776
+    last = 5530691
+    1 1 1 0 5 8 0 0
+    1 2 3 3 8 end
+    lgray, gray, black, black, lime
+    
+    */
+    
+    uint* my_decode = new uint[256]{0};
+    my_decode['0'] = 0x0; my_decode['1'] = 0x1; my_decode['2'] = 0x2; my_decode['3'] = 0x3;
+    my_decode['4'] = 0x4; my_decode['5'] = 0x5; my_decode['6'] = 0x6; my_decode['7'] = 0x7;
+    my_decode['8'] = 0x8; my_decode['9'] = 0x9; my_decode['a'] = 0xa; my_decode['b'] = 0xb;
+    my_decode['c'] = 0xc; my_decode['d'] = 0xd; my_decode['e'] = 0xe; my_decode['f'] = 0xf;
+    
+    while(false){
+        std::cout << "Which color would you like to search for (hex)?" << std::endl;
+        string c_hex = "";
+        // cin seems to get completely stuck if you resize the terminal; which is completely outside my control;
+        // I really do want to make my own terminal library; like something that doesn't get stuck if you resize the terminal;
+        std::cin >> c_hex;
+        if(c_hex.size() == 0) break;
+        
+        // fun fact: this code shouldn't be able to hit an error;
+        uint your_c = 0;
+        for(auto it = c_hex.begin(); it != c_hex.end(); it++){
+            your_c *= 16;
+            your_c += my_decode[*it];
+        }
+        if(!your_c) continue;
+        bool e = c_exists->get(your_c);
+        std::cout << "You color exists? " << (e ? "Yes." : "No.") << std::endl;
+        if(!e) continue;
+        
+        see_recipe(string("Your color: "), your_c);
+    }
     
     return 0;
 }

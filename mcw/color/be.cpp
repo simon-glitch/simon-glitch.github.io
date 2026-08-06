@@ -307,8 +307,6 @@ void recipe_examples(){
         see_recipe(string("One of the last found colors: "), i);
     }
     
-    std::cout << "Does this code even run?" << std::endl;
-    
     // see_recipe("second to last cycle (19 dyes)", 9683164);
     // see_recipe("second to last cycle (19 dyes)", 2528946);
     // see_recipe("second to last cycle (19 dyes)", 3762873);
