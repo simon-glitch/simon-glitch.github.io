@@ -397,11 +397,12 @@ void gen_mixes(){
 
 auto recipes = new Color_Recipes();
 auto last_cs = new Color_Recipes();
+auto c_exists = new Color_Exists();
 auto prev_added = new Color_Exists();
 auto added = new Color_Exists();
-auto c_exists = new Color_Exists();
 uint ic = 0;
 uint found = 0;
+uint in_progress_i = 0;
 
 void save_je(){
     uint save_size = (1<<24) * 4 + (1<<24) * 4 + (1<<24) / 8;
@@ -469,6 +470,92 @@ void load_je(){
         c_exists->d[j] = saved[i];
     }
 }
+void save_je_in_progress(){
+    uint save_size = (1<<24) * 4 + (1<<24) * 4 + (1<<24) / 8 + (1<<24) / 8 + (1<<24) / 8 + 3;
+    uchar* save_chars = new uchar[save_size];
+    // recipes, then last_cs, then c_exists;
+    uint i = 0;
+    for(uint j = 0; j < 1<<24; j++, i += 4){
+        uint dyem = recipes->d[j];
+        save_chars[i    ] = (dyem & 0xff000000u) >> 24u;
+        save_chars[i + 1] = (dyem & 0x00ff0000u) >> 16u;
+        save_chars[i + 2] = (dyem & 0x0000ff00u) >>  8u;
+        save_chars[i + 3] = (dyem & 0x000000ffu);
+    }
+    for(uint j = 0; j < 1<<24; j++, i += 4){
+        uint last = last_cs->d[j];
+        save_chars[i    ] = (last & 0xff000000u) >> 24u;
+        save_chars[i + 1] = (last & 0x00ff0000u) >> 16u;
+        save_chars[i + 2] = (last & 0x0000ff00u) >>  8u;
+        save_chars[i + 3] = (last & 0x000000ffu);
+    }
+    for(uint j = 0; j < (1<<24) / 8; j++, i++){
+        save_chars[i    ] = c_exists->d[j];
+    }
+    for(uint j = 0; j < (1<<24) / 8; j++, i++){
+        save_chars[i    ] = prev_added->d[j];
+    }
+    for(uint j = 0; j < (1<<24) / 8; j++, i++){
+        save_chars[i    ] = added->d[j];
+    }
+    
+    std::cout << "Saving..." << std::endl;
+    
+    auto fout = std::ofstream("je_res.bin", std::ios_base::binary);
+    fout << string("Format: recipes, then last_cs, then c_exists\n");
+    for(i = 0; i < save_size; i++){
+        fout << save_chars[i];
+    }
+    fout << ((in_progress_i & 0xff0000) >> 16);
+    fout << ((in_progress_i & 0x00ff00) >>  8);
+    fout << ((in_progress_i & 0x0000ff));
+    
+    std::cout << "Saved." << std::endl;
+    
+    delete save_chars;
+}
+void load_je_in_progress(){
+    std::cout << "Loading..." << std::endl;
+    vector<char> saved = whole_file("je_res.bin");
+    
+    std::cout << "Loaded." << std::endl;
+    uint i = 0;
+    // skip past "Format: recipes, then last_cs, then c_exists\n";
+    for(; saved[i] != '\n'; i++);
+    // skip '\n' itself;
+    i++;
+    // recipes, then last_cs, then c_exists;
+    for(uint j = 0; j < 1<<24; j++, i += 4){
+        recipes->d[j] = (
+            (saved[i    ] << 24) |
+            (saved[i + 1] << 16) |
+            (saved[i + 2] <<  8) |
+            (saved[i + 3])
+        );
+    }
+    for(uint j = 0; j < 1<<24; j++, i += 4){
+        last_cs->d[j] = (
+            (saved[i    ] << 24) |
+            (saved[i + 1] << 16) |
+            (saved[i + 2] <<  8) |
+            (saved[i + 3])
+        );
+    }
+    for(uint j = 0; j < (1<<24) / 8; j++, i++){
+        c_exists->d[j] = saved[i];
+    }
+    for(uint j = 0; j < (1<<24) / 8; j++, i++){
+        prev_added->d[j] = saved[i];
+    }
+    for(uint j = 0; j < (1<<24) / 8; j++, i++){
+        added->d[j] = saved[i];
+    }
+    in_progress_i = (
+        (saved[i    ] << 16) |
+        (saved[i + 1] <<  8) |
+        (saved[i + 2])
+    );
+}
 
 void add(uint color, uint last, ulng mix_d){
     // if(ic > 0) std::cout << "add" << std::endl;
@@ -481,14 +568,16 @@ void add(uint color, uint last, ulng mix_d){
 }
 
 bool added_any = true;
-void cycle(){
+void cycle_init(){
     for(uint i = 0; i < 1<<24; i++){
         prev_added->set(i, added->get(i));
     }
     for(uint i = 0; i < 1<<24; i++){
         added->set(i, 0);
     }
-    
+    in_progress_i = 0;
+}
+void cycle(){
     uint prev_c = 0;
     for(uint i = 0; i < 1<<24; i++){
         if(prev_added->get(i)){
@@ -499,17 +588,19 @@ void cycle(){
     uint prev_li = 0;
     uint prev_lf = 10000;
     
-    for(uint i = 0; i < 1<<24; i++){
+    for(uint i = in_progress_i; i < 1<<24; i++){
         if(!prev_added->get(i)) continue;
         prev_i++;
         prev_li++;
         if(prev_li == prev_lf){
             prev_li = 0;
             std::cout << prev_i << "/" << prev_c << "; found colors: " << found << std::endl;
+            in_progress_i = i;
+            // save_je_in_progress();
         }
         uint mix_lim =
-        ic == 0 ? 1000:
-        ic == 1 ? 0: 0; // use mixer_c for full search;
+        ic == 0 ? 100:
+        ic == 1 ? 100: 100; // use mixer_c for full search;
         for(uint mixer_i = 0; mixer_i < mix_lim; mixer_i++){
             Mixer& m = mixers_a[mixer_i];
             auto res = mix(i, m);
@@ -651,7 +742,11 @@ int main(int argc, char const *argv[]){
     // 735470 -> 564927;
     std::cout << "mixer_c: " << mixer_c << std::endl;
     
-    /* */
+    std::cout << "Cycle " << ic << std::endl;
+    // load_je_in_progress();
+    cycle_init();
+    cycle();
+    std::cout << "Found colors: " << found << std::endl;
     for(uint mixer_i = 0; mixer_i < mixer_c; mixer_i++){
         Mixer& m = mixers_a[mixer_i];
         uint i = m.base();
@@ -659,22 +754,12 @@ int main(int argc, char const *argv[]){
     }
     while(added_any){
         std::cout << "Cycle " << ic << std::endl;
+        cycle_init();
         cycle();
         std::cout << "Found colors: " << found << std::endl;
     }
     
     save_je();
-    /* */
-    
-    /* */
-    load_je();
-    
-    found = 0;
-    for(uint i = 0; i < 1<<24; i++){
-        if(c_exists->get(i)) found++;
-    }
-    std::cout << "Found " << found << " colors." << std::endl;
-    /* */
     
     // std::cout << "Test lgray, gray, black, black, lime:" << std::endl;
     // Mixer m = Mixer(286283776);
