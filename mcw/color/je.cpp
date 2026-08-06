@@ -14,12 +14,6 @@ typedef unsigned int uint;
 typedef unsigned short ushort;
 typedef unsigned char uchar;
 
-uint max(uint a, uint b){
-    return (a > b) ? a : b;
-}
-uint max(uint a, uint b, uint c){
-    return (a > b) ? ((a > c) ? a : c) : ((b > c) ? b : c);
-}
 uint min(uint a, uint b){
     return (a < b) ? a : b;
 }
@@ -28,6 +22,12 @@ short min(short a, short b){
 }
 short min(short a, short b, short c){
     return (a < b) ? ((a < c) ? a : c) : ((b < c) ? b : c);
+}
+uint max(uint a, uint b){
+    return (a > b) ? a : b;
+}
+uint max(uint a, uint b, uint c){
+    return (a > b) ? ((a > c) ? a : c) : ((b > c) ? b : c);
 }
 short max(short a, short b){
     return (a > b) ? a : b;
@@ -356,16 +356,19 @@ uint mix(uint color, Mixer mixer){
     );
 }
 
-vector<Mixer> mixers_v;
-void gen_mixes(CWR cwr){
+uint mixer_c = 0;
+Mixer* mixers_a;
+void gen_mixes(){
+    CWR cwr = CWR();
     mixers_v = vector<Mixer>();
-    // uint mix_indx = 0;
     for(auto it = cwr.dyes.begin(); it != cwr.dyes.end(); it++){
         Mixer mixer = Mixer(*it);
         mixers_v.push_back(mixer);
-         
-        
-        // mix_indx++;
+    }
+    mixer_c = mixers_v.size();
+    mixers_a = new Mixer[mixer_c];
+    for(uint i = 0; i < mixer_c; i++){
+        mixers_a[i] = mixers_v[i];
     }
 }
 
@@ -374,496 +377,43 @@ auto last_cs = new Color_Recipes();
 auto prev_added = new Color_Exists();
 auto added = new Color_Exists();
 auto c_exists = new Color_Exists();
-auto in_bounds = new Color_Exists();
-auto on_edge = new Color_Exists();
 uint ic = 0;
-
-/*
-void all_bounds(){
-    for(auto it = mixers_v.begin(); it != mixers_v.end(); it++){
-        uint outer = ((
-            (it->max_r - it->min_r + 1) *
-            (it->max_g - it->min_g + 1) *
-            (it->max_b - it->min_b + 1)
-        ) - (
-            (it->max_r - it->min_r - 1) *
-            (it->max_g - it->min_g - 1) *
-            (it->max_b - it->min_b - 1)
-        ));
-        uint added = 0;
-        uint ir;
-        ir = it->min_r;
-        for(uint ig = it->min_g; ig <= it->max_g; ig++){
-        for(uint ib = it->min_b; ib <= it->max_b; ib++){
-            in_bounds->set(
-                (ir << 16) |
-                (ig <<  8) |
-                (ib      ),
-                1
-            );
-            added++;
-        }
-        }
-        ir = it->max_r;
-        for(uint ig = it->min_g; ig <= it->max_g; ig++){
-        for(uint ib = it->min_b; ib <= it->max_b; ib++){
-            in_bounds->set(
-                (ir << 16) |
-                (ig <<  8) |
-                (ib      ),
-                1
-            );
-            added++;
-        }
-        }
-        for(ir = it->min_r + 1; ir <= it->max_r - 1; ir++){
-            uint ig;
-            ig = it->min_g;
-            for(uint ib = it->min_b; ib <= it->max_b; ib++){
-                in_bounds->set(
-                    (ir << 16) |
-                    (ig <<  8) |
-                    (ib      ),
-                    1
-                );
-                added++;
-            }
-            ig = it->max_g;
-            for(uint ib = it->min_b; ib <= it->max_b; ib++){
-                in_bounds->set(
-                    (ir << 16) |
-                    (ig <<  8) |
-                    (ib      ),
-                    1
-                );
-                added++;
-            }
-            for(ig = it->min_g + 1; ig <= it->max_g - 1; ig++){
-                uint ib;
-                ib = it->min_b;
-                in_bounds->set(
-                    (ir << 16) |
-                    (ig <<  8) |
-                    (ib      ),
-                    1
-                );
-                added++;
-                ib = it->max_b;
-                in_bounds->set(
-                    (ir << 16) |
-                    (ig <<  8) |
-                    (ib      ),
-                    1
-                );
-                added++;
-            }
-        }
-        if(added != outer){
-            std::cout << "outer=" << outer << ", added=" << added << std::endl;
-            abort();
-        }
-    }
-    uint in_bound = 0;
-    for(uint i = 0; i < (1<<24); i++){
-        if(in_bounds->get(i)) in_bound++;
-    }
-    std::cout << "In bounds: " << in_bound << std::endl;
-}
-
-// a better approach is to actually mix each mixer with the edge of the 256^3 cube;
-void true_bounds_i(Mixer mixer, uint a, uint b){
-    uint ir;
-    ir = a;
-    for(uint ig = a; ig <= b; ig++){
-    for(uint ib = a; ib <= b; ib++){
-        in_bounds->set(mix(
-            (ir << 16) |
-            (ig <<  8) |
-            (ib      ), mixer),
-            1
-        );
-    }
-    }
-    ir = b;
-    for(uint ig = a; ig <= b; ig++){
-    for(uint ib = a; ib <= b; ib++){
-        in_bounds->set(mix(
-            (ir << 16) |
-            (ig <<  8) |
-            (ib      ), mixer),
-            1
-        );
-    }
-    }
-    for(ir = a+1; ir <= b-1; ir++){
-        uint ig;
-        ig = a;
-        for(uint ib = a; ib <= b; ib++){
-            in_bounds->set(mix(
-                (ir << 16) |
-                (ig <<  8) |
-                (ib      ), mixer),
-                1
-            );
-        }
-        ig = b;
-        for(uint ib = a; ib <= b; ib++){
-            in_bounds->set(mix(
-                (ir << 16) |
-                (ig <<  8) |
-                (ib      ), mixer),
-                1
-            );
-        }
-        for(ig = a+1; ig <= b-1; ig++){
-            uint ib;
-            ib = a;
-            in_bounds->set(mix(
-                (ir << 16) |
-                (ig <<  8) |
-                (ib      ), mixer),
-                1
-            );
-            ib = b;
-            in_bounds->set(mix(
-                (ir << 16) |
-                (ig <<  8) |
-                (ib      ), mixer),
-                1
-            );
-        }
-    }
-}
-void true_bounds(uint dye_c){
-    std::cout << "Dyes: " << dye_c << std::endl;
-    uint mixers_checked = 0;
-    for(auto it = mixers_v.begin(); it != mixers_v.end(); it++){
-        if(it->len - 1 != dye_c) continue;
-        mixers_checked++;
-        if(dye_c < 4) true_bounds_i(*it, 0, 255);
-        if(dye_c < 4) true_bounds_i(*it, 1, 254);
-        if(dye_c <= 4) true_bounds_i(*it, 5, 250);
-        if(dye_c > 4) true_bounds_i(*it, 80, 220);
-    }
-    std::cout << "Mixers: " << mixers_checked << std::endl;
-    uint in_bound = 0;
-    for(uint i = 0; i < (1<<24); i++){
-        if(in_bounds->get(i)) in_bound++;
-    }
-    std::cout << "In bounds: " << in_bound << std::endl;
-}
-void poly_fill(){
-    bool outside_done = false;
-    uint outside_size = 0;
-    auto filled = new Color_Exists();
-    auto outside = new Color_Exists();
-    uint fill_c = 0;
-    for(uint i = 0; i < (1 << 24); i++){
-        if(filled->get(i)) continue;
-        if(outside->get(i)) continue;
-        if(in_bounds->get(i)) continue;
-        uint ir = (i & 0xff0000) >> 16;
-        uint ig = (i & 0x00ff00) >> 8;
-        uint ib = (i & 0x0000ff);
-        // skip edge items, since i don't want to polyfill the outside;
-        if(
-            ir == 0 || ir == 255 ||
-            ig == 0 || ig == 255 ||
-            ib == 0 || ib == 255
-        ) continue;
-        // this vector acts like a queue;
-        auto filling = vector<uint>();
-        filling.push_back(i);
-        filled->set(i, 1);
-        bool success = true;
-        for(uint fill_i = 0; fill_i < filling.size(); fill_i++){
-            uint i = filling.at(fill_i);
-            uint ir = (i & 0xff0000) >> 16;
-            uint ig = (i & 0x00ff00) >> 8;
-            uint ib = (i & 0x0000ff);
-            
-            // if we hit the edge, fail;
-            if(
-                ir == 0 || ir == 255 ||
-                ig == 0 || ig == 255 ||
-                ib == 0 || ib == 255
-            ){
-                success = false;
-                if(outside_done) break;
-                // the outside needs separate logic;
-                uint j;
-                
-                if(ir < 255){
-                    j = ((ir + 1) << 16) | ((ig    ) << 8) | (ib    );
-                    if(!in_bounds->get(j) && !filled->get(j)){
-                        filling.push_back(j);
-                        filled->set(j, 1);
-                    }
-                }
-                
-                if(ir > 0){
-                    j = ((ir - 1) << 16) | ((ig    ) << 8) | (ib    );
-                    if(!in_bounds->get(j) && !filled->get(j)){
-                        filling.push_back(j);
-                        filled->set(j, 1);
-                    }
-                }
-                
-                if(ig < 255){
-                    j = ((ir    ) << 16) | ((ig + 1) << 8) | (ib    );
-                    if(!in_bounds->get(j) && !filled->get(j)){
-                        filling.push_back(j);
-                        filled->set(j, 1);
-                    }
-                }
-                
-                if(ig > 0){
-                    j = ((ir    ) << 16) | ((ig - 1) << 8) | (ib    );
-                    if(!in_bounds->get(j) && !filled->get(j)){
-                        filling.push_back(j);
-                        filled->set(j, 1);
-                    }
-                }
-                
-                if(ib < 255){
-                    j = ((ir    ) << 16) | ((ig    ) << 8) | (ib + 1);
-                    if(!in_bounds->get(j) && !filled->get(j)){
-                        filling.push_back(j);
-                        filled->set(j, 1);
-                    }
-                }
-                
-                if(ib > 0){
-                    j = ((ir    ) << 16) | ((ig    ) << 8) | (ib - 1);
-                    if(!in_bounds->get(j) && !filled->get(j)){
-                        filling.push_back(j);
-                        filled->set(j, 1);
-                    }
-                }
-                continue;
-            }
-            // if we hit a found tile, stop searching at that tile; this is how we detect the edge of the area to fill in;
-            uint j;
-            
-            j = ((ir + 1) << 16) | ((ig    ) << 8) | (ib    );
-            if(!in_bounds->get(j) && !filled->get(j)){
-                filling.push_back(j);
-                filled->set(j, 1);
-            }
-            
-            j = ((ir - 1) << 16) | ((ig    ) << 8) | (ib    );
-            if(!in_bounds->get(j) && !filled->get(j)){
-                filling.push_back(j);
-                filled->set(j, 1);
-            }
-            
-            j = ((ir    ) << 16) | ((ig + 1) << 8) | (ib    );
-            if(!in_bounds->get(j) && !filled->get(j)){
-                filling.push_back(j);
-                filled->set(j, 1);
-            }
-            
-            j = ((ir    ) << 16) | ((ig - 1) << 8) | (ib    );
-            if(!in_bounds->get(j) && !filled->get(j)){
-                filling.push_back(j);
-                filled->set(j, 1);
-            }
-            
-            j = ((ir    ) << 16) | ((ig    ) << 8) | (ib + 1);
-            if(!in_bounds->get(j) && !filled->get(j)){
-                filling.push_back(j);
-                filled->set(j, 1);
-            }
-            
-            j = ((ir    ) << 16) | ((ig    ) << 8) | (ib - 1);
-            if(!in_bounds->get(j) && !filled->get(j)){
-                filling.push_back(j);
-                filled->set(j, 1);
-            }
-        }
-        if(success){
-            fill_c += filling.size();
-            for(auto it = filling.begin(); it != filling.end(); it++){
-                in_bounds->set(*it, 1);
-            }
-        }
-        else if(!outside_done){
-            outside_done = true;
-            outside_size = filling.size();
-            for(auto it = filling.begin(); it != filling.end(); it++){
-                outside->set(*it, 1);
-            }
-        }
-    }
-    std::cout << "Outside: " << outside_size << std::endl;
-    std::cout << "Filled: " << fill_c << std::endl;
-    delete filled;
-    delete outside;
-}
-void convex_hull(){
-    uint fill_c = 0;
-    for(uint i = 0; i < (1 << 24); i++){
-        if(in_bounds->get(i)) fill_c++;
-    }
-    std::cout << "Total in bounds before: " << fill_c << std::endl;
-    
-    
-    for(uint i = 0; i < (1 << 24); i++){
-        if(in_bounds->get(i)) continue;
-        uint ir = (i & 0xff0000) >> 16;
-        uint ig = (i & 0x00ff00) >> 8;
-        uint ib = (i & 0x0000ff);
-        // skip edge items, since i don't want to polyfill the outside;
-        if(
-            ir == 0 || ir == 255 ||
-            ig == 0 || ig == 255 ||
-            ib == 0 || ib == 255
-        ) continue;
-        
-        // check if this tile should be filled, and stop search here if it should not;
-        if(
-            in_bounds->get(i + 0x010000) +
-            in_bounds->get(i - 0x010000) +
-            in_bounds->get(i + 0x000100) +
-            in_bounds->get(i - 0x000100) +
-            in_bounds->get(i + 0x000001) +
-            in_bounds->get(i - 0x000001) <= 3
-        ) continue;
-        // fill this tile;
-        in_bounds->set(i, 1);
-        
-        // this vector acts like a queue;
-        auto filling = vector<uint>();
-        filling.push_back(i);
-        for(uint fill_i = 0; fill_i < filling.size(); fill_i++){
-            uint i = filling.at(fill_i);
-            // skip filled tiles;
-            if(in_bounds->get(i)) continue;
-            uint ir = (i & 0xff0000) >> 16;
-            uint ig = (i & 0x00ff00) >> 8;
-            uint ib = (i & 0x0000ff);
-            
-            // if we hit the edge, skip that;
-            if(
-                ir == 0 || ir == 255 ||
-                ig == 0 || ig == 255 ||
-                ib == 0 || ib == 255
-            ) continue;
-            
-            // check if this tile should be filled, and stop search here if it should not;
-            if(
-                in_bounds->get(i + 0x010000) +
-                in_bounds->get(i - 0x010000) +
-                in_bounds->get(i + 0x000100) +
-                in_bounds->get(i - 0x000100) +
-                in_bounds->get(i + 0x000001) +
-                in_bounds->get(i - 0x000001) <= 3
-            ) continue;
-            // fill this tile;
-            in_bounds->set(i, 1);
-            
-            // if we hit a found tile, stop searching at that tile;
-            uint j;
-            
-            j = ((ir + 1) << 16) | ((ig    ) << 8) | (ib    );
-            if(!in_bounds->get(j)){
-                filling.push_back(j);
-            }
-            
-            j = ((ir - 1) << 16) | ((ig    ) << 8) | (ib    );
-            if(!in_bounds->get(j)){
-                filling.push_back(j);
-            }
-            
-            j = ((ir    ) << 16) | ((ig + 1) << 8) | (ib    );
-            if(!in_bounds->get(j)){
-                filling.push_back(j);
-            }
-            
-            j = ((ir    ) << 16) | ((ig - 1) << 8) | (ib    );
-            if(!in_bounds->get(j)){
-                filling.push_back(j);
-            }
-            
-            j = ((ir    ) << 16) | ((ig    ) << 8) | (ib + 1);
-            if(!in_bounds->get(j)){
-                filling.push_back(j);
-            }
-            
-            j = ((ir    ) << 16) | ((ig    ) << 8) | (ib - 1);
-            if(!in_bounds->get(j)){
-                filling.push_back(j);
-            }
-        }
-    }
-    // cast inward shadows to improve shape further;
-    short* shadow_a = new short[65536];
-    #define shadow(v1, v2, v3, f1, f2, f3, f4, f5, f6, f7, f8, mia, s1, s2, s3) \
-    for(uint v1 = 0; v1 <= 255; v1++){           \
-        for(uint v2 = 0; v2 <= 255; v2++){       \
-            shadow_a[(v1 << 8) | v2] = f1;       \
-            for(uint v3 = f1; v3 f2 f3; v3 f4){  \
-                if(in_bounds->get(               \
-                    (ir << 16) | (ig << 8) | ib) \
-                ) break;                         \
-                shadow_a[(v1 << 8) | v2] f4;     \
-            }                                    \
-            if(shadow_a[(v1 << 8) | v2] f7 f8)   \
-                on_edge->set(                    \
-                    s1 | s2 | s3, 1              \
-                );                               \
-        }                                        \
-    }                                            \
-    for(uint v1 = 1; v1 <= 254; v1++){           \
-        for(uint v2 = 1; v2 <= 254; v2++){       \
-            uint i = (v1 << 8) | v2;             \
-            short shadow_b = mia(                \
-                shadow_a[i],                     \
-                mia(shadow_a[i + 0x0100],        \
-                    shadow_a[i - 0x0100]),       \
-                mia(shadow_a[i + 0x0001],        \
-                    shadow_a[i - 0x0001])        \
-            );                                   \
-            if(!(shadow_b f7 f8)) continue;      \
-            for(uint v3 = f5; v3 < f6; v3++){    \
-                in_bounds->set(                  \
-                    (ir << 16) | (ig << 8) | ib, \
-                    1                            \
-                );                               \
-                on_edge->set(                    \
-                    s1 | s2 | s3, 0              \
-                );                               \
-                on_edge->set(                    \
-                    (ir << 16) | (ig << 8) | ib, \
-                    1                            \
-                );                               \
-            }                                    \
-        }                                        \
-    }
-    shadow(ir, ig, ib, 0, <=, 255, ++, shadow_b - 1, shadow_a[i] - 1, <=, 255, min, (                      ir << 16), (                      ig << 8), shadow_a[(ir << 8) | ig]);
-    shadow(ig, ib, ir, 0, <=, 255, ++, shadow_b - 1, shadow_a[i] - 1, <=, 255, min, (shadow_a[(ig << 8) | ib] << 16), (                      ig << 8),                       ib);
-    shadow(ir, ib, ig, 0, <=, 255, ++, shadow_b - 1, shadow_a[i] - 1, <=, 255, min, (                      ir << 16), (shadow_a[(ir << 8) | ib] << 8),                       ib);
-    shadow(ir, ig, ib, 255, >=, 0, --, shadow_a[i] + 1, shadow_b + 1, >=,   0, max, (                      ir << 16), (                      ig << 8), shadow_a[(ir << 8) | ig]);
-    shadow(ig, ib, ir, 255, >=, 0, --, shadow_a[i] + 1, shadow_b + 1, >=,   0, max, (shadow_a[(ig << 8) | ib] << 16), (                      ig << 8),                       ib);
-    shadow(ir, ib, ig, 255, >=, 0, --, shadow_a[i] + 1, shadow_b + 1, >=,   0, max, (                      ir << 16), (shadow_a[(ir << 8) | ib] << 8),                       ib);
-    delete shadow_a;
-    
-    
-    fill_c = 0;
-    for(uint i = 0; i < (1 << 24); i++){
-        if(in_bounds->get(i)) fill_c++;
-    }
-    std::cout << "Total in bounds after: " << fill_c << std::endl;
-    
-    fill_c = 0;
-    for(uint i = 0; i < (1 << 24); i++){
-        if(on_edge->get(i)) fill_c++;
-    }
-    std::cout << "Total on edge: " << fill_c << std::endl;
-}
-*/
-
 uint found = 0;
+
+void save_je(){
+    // recipes, then last_cs, then c_exists;
+    uint size = (1<<24) * 4 + (1<<24) * 4 + (1<<24) / 8;
+    uint i = 0;
+    uchar* mychars = new uchar[size];
+    for(uint j = 0; j < 1<<24; j++, i += 4){
+        uint dyem = recipes->d[j];
+        mychars[i    ] = dyem & 0xff000000;
+        mychars[i + 1] = dyem & 0x00ff0000;
+        mychars[i + 2] = dyem & 0x0000ff00;
+        mychars[i + 3] = dyem & 0x000000ff;
+    }
+    for(uint j = 0; j < 1<<24; j++, i += 4){
+        uint dyem = last_cs->d[j];
+        mychars[i    ] = dyem & 0xff000000;
+        mychars[i + 1] = dyem & 0x00ff0000;
+        mychars[i + 2] = dyem & 0x0000ff00;
+        mychars[i + 3] = dyem & 0x000000ff;
+    }
+    for(uint j = 0; j < (1<<24) / 8; j++, i ++){
+        mychars[i    ] = c_exists->d[j];
+    }
+    
+    std::cout << "Saving..." << std::endl;
+    
+    auto fout = std::ofstream("je_res.bin");
+    fout << "Format: recipes, then last_cs, then c_exists\n";
+    for(i = 0; i < size; i++){
+        fout << mychars[i];
+    }
+    
+    std::cout << "Saved." << std::endl;
+}
+
 void add(uint color, uint last, ulng mix_d){
     // if(ic > 0) std::cout << "add" << std::endl;
     if(c_exists->get(color)) return;
@@ -877,8 +427,6 @@ void add(uint color, uint last, ulng mix_d){
 bool added_any = true;
 void cycle(){
     for(uint i = 0; i < 1<<24; i++){
-        // filter so only colors in in_bounds are kept;
-        // if(!in_bounds->get(i)) continue;
         prev_added->set(i, added->get(i));
     }
     for(uint i = 0; i < 1<<24; i++){
@@ -924,40 +472,6 @@ void cycle(){
     std::cout << "Added: " << added_c << std::endl;
     added_any = (added_c > 0);
     ic++;
-}
-
-void save_je(){
-    // recipes, then last_cs, then c_exists;
-    uint size = (1<<24) * 4 + (1<<24) * 4 + (1<<24) / 8;
-    uint i = 0;
-    uchar* mychars = new uchar[size];
-    for(uint j = 0; j < 1<<24; j++, i += 4){
-        uint dyem = recipes->d[j];
-        mychars[i    ] = dyem & 0xff000000;
-        mychars[i + 1] = dyem & 0x00ff0000;
-        mychars[i + 2] = dyem & 0x0000ff00;
-        mychars[i + 3] = dyem & 0x000000ff;
-    }
-    for(uint j = 0; j < 1<<24; j++, i += 4){
-        uint dyem = last_cs->d[j];
-        mychars[i    ] = dyem & 0xff000000;
-        mychars[i + 1] = dyem & 0x00ff0000;
-        mychars[i + 2] = dyem & 0x0000ff00;
-        mychars[i + 3] = dyem & 0x000000ff;
-    }
-    for(uint j = 0; j < (1<<24) / 8; j++, i ++){
-        mychars[i    ] = c_exists->d[j];
-    }
-    
-    std::cout << "Saving..." << std::endl;
-    
-    auto fout = std::ofstream("je_res.bin");
-    fout << "Format: recipes, then last_cs, then c_exists\n";
-    for(i = 0; i < size; i++){
-        fout << mychars[i];
-    }
-    
-    std::cout << "Saved." << std::endl;
 }
 
 class Recipe{
@@ -1078,21 +592,9 @@ int main(int argc, char const *argv[]){
     // be::main(0, argv);
     
     std::cout << "Main!" << std::endl;
-    
-    CWR cwr = CWR();
-    std::cout << "cwr entries: " << cwr.dyes.size() << std::endl;
-    gen_mixes(cwr);
+    gen_mixes();
     // 735470 -> 564927;
     std::cout << "mixer_c: " << mixers_v.size() << std::endl;
-    
-    // all_bounds();
-    // true_bounds(1);
-    // true_bounds(2);
-    // true_bounds(3);
-    // true_bounds(4);
-    // true_bounds(5);
-    // poly_fill();
-    // convex_hull();
     
     for(auto it = mixers_v.begin(); it != mixers_v.end(); it++){
         // std::cout << "mixer= " << it->mix_d << std::endl;
