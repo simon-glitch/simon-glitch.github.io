@@ -403,11 +403,9 @@ auto c_exists = new Color_Exists();
 uint ic = 0;
 uint found = 0;
 
-uint save_size = (1<<24) * 4 + (1<<24) * 4 + (1<<24) / 8;
-uchar* save_chars = new uchar[save_size];
-uchar* load_chars = new uchar[save_size];
-
 void save_je(){
+    uint save_size = (1<<24) * 4 + (1<<24) * 4 + (1<<24) / 8;
+    uchar* save_chars = new uchar[save_size];
     // recipes, then last_cs, then c_exists;
     uint i = 0;
     for(uint j = 0; j < 1<<24; j++, i += 4){
@@ -437,6 +435,8 @@ void save_je(){
     }
     
     std::cout << "Saved." << std::endl;
+    
+    delete save_chars;
 }
 void load_je(){
     std::cout << "Loading..." << std::endl;
@@ -448,34 +448,6 @@ void load_je(){
     for(; saved[i] != '\n'; i++);
     // skip '\n' itself;
     i++;
-    uint skip_c = i;
-    std::cout << "Skipped " << skip_c << " chars." << std::endl;
-    for(uint ii = skip_c; ii < save_size + skip_c; ii++){
-        load_chars[ii - skip_c] = saved[ii];
-    }
-    uint save_0s = 0;
-    uint load_0s = 0;
-    for(uint ii = 0; ii < save_size; ii++){
-        if(save_chars[ii] != 0) break;
-        save_0s++;
-        // if(save_chars[ii] != load_chars[ii]){
-        //     std::cout << "unequal char at ii = " << ii << std::endl;
-        //     std::cout << "save: " << uint(save_chars[ii]) << std::endl;
-        //     std::cout << "load: " << uint(load_chars[ii]) << std::endl;
-        //     abort();
-        // }
-    }
-    for(uint ii = 0; ii < save_size; ii++){
-        if(load_chars[ii] != 0) break;
-        load_0s++;
-    }
-    std::cout << "save 0s: " << uint(save_0s) << std::endl;
-    std::cout << "load 0s: " << uint(load_0s) << std::endl;
-    std::cout << "save non-zero: " << uint(save_chars[save_0s]) << std::endl;
-    std::cout << "load non-zero: " << uint(load_chars[load_0s]) << std::endl;
-    if(save_0s != load_0s){
-        abort();
-    }
     // recipes, then last_cs, then c_exists;
     for(uint j = 0; j < 1<<24; j++, i += 4){
         recipes->d[j] = (
