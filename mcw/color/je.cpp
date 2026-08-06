@@ -9,6 +9,7 @@
 
 using std::vector;
 using std::string;
+
 namespace je{
 typedef unsigned int uint;
 typedef unsigned short ushort;
@@ -122,11 +123,34 @@ public:
         delete d;
     }
 };
+/** This indicate show many crafting steps it takes to obtain a color. The max is 255 because I can't imagine needing even more. I think just 15 would be enough, but there is no need to minimize the amount of data. */
+class Color_Steps{
+public:
+    uchar* d;
+    Color_Steps(){
+        d = new uchar[1<<24]{0};
+        // for(uint i = 0; i < (1<<24); i++){
+        //     d[i] = 0;
+        // }
+    }
+    uchar get(uchar idx){
+        return d[idx];
+    }
+    void set(uchar idx, uchar value){
+        d[idx] = value;
+    }
+    ~Color_Steps(){
+        delete d;
+    }
+};
 class Color_Exists{
 public:
     uchar* d;
     Color_Exists(){
         d = new uchar[(1<<24) / 8]{0};
+        // for(uint i = 0; i < (1<<24) / 8; i++){
+        //     d[i] = 0;
+        // }
     }
     uchar get(uint idx){
         uchar v = d[idx >> 3];
@@ -397,6 +421,7 @@ void gen_mixes(){
 
 auto recipes = new Color_Recipes();
 auto last_cs = new Color_Recipes();
+auto step_cs = new Color_Steps();
 auto c_exists = new Color_Exists();
 auto prev_added = new Color_Exists();
 auto added = new Color_Exists();
@@ -405,7 +430,7 @@ uint found = 0;
 uint in_progress_i = 0;
 
 void save_je(){
-    uint save_size = (1<<24) * 4 + (1<<24) * 4 + (1<<24) / 8;
+    uint save_size = (1<<24) * 4 + (1<<24) * 4 + (1<<24) + (1<<24) / 8;
     uchar* save_chars = new uchar[save_size];
     // recipes, then last_cs, then c_exists;
     uint i = 0;
@@ -423,11 +448,14 @@ void save_je(){
         save_chars[i + 2] = (last & 0x0000ff00u) >>  8u;
         save_chars[i + 3] = (last & 0x000000ffu);
     }
+    for(uint j = 0; j < 1<<24; j++, i++){
+        save_chars[i    ] = step_cs->d[j];
+    }
     for(uint j = 0; j < (1<<24) / 8; j++, i++){
         save_chars[i    ] = c_exists->d[j];
     }
     
-    std::cout << "Saving..." << std::endl;
+    std::cout << "Saving " << save_size << " bytes ..." << std::endl;
     
     auto fout = std::ofstream("je_res.bin", std::ios_base::binary);
     fout << string("Format: recipes, then last_cs, then c_exists\n");
@@ -466,12 +494,15 @@ void load_je(){
             (saved[i + 3])
         );
     }
+    for(uint j = 0; j < 1<<24; j++, i++){
+        step_cs->d[j] = saved[i];
+    }
     for(uint j = 0; j < (1<<24) / 8; j++, i++){
         c_exists->d[j] = saved[i];
     }
 }
 void save_je_in_progress(){
-    uint save_size = (1<<24) * 4 + (1<<24) * 4 + (1<<24) / 8 + (1<<24) / 8 + (1<<24) / 8 + 3;
+    uint save_size = (1<<24) * 4 + (1<<24) * 4 + (1<<24) + (1<<24) / 8 + (1<<24) / 8 + (1<<24) / 8 + 3;
     uchar* save_chars = new uchar[save_size];
     // recipes, then last_cs, then c_exists;
     uint i = 0;
@@ -489,6 +520,9 @@ void save_je_in_progress(){
         save_chars[i + 2] = (last & 0x0000ff00u) >>  8u;
         save_chars[i + 3] = (last & 0x000000ffu);
     }
+    for(uint j = 0; j < 1<<24; j++, i++){
+        save_chars[i    ] = step_cs->d[j];
+    }
     for(uint j = 0; j < (1<<24) / 8; j++, i++){
         save_chars[i    ] = c_exists->d[j];
     }
@@ -499,7 +533,7 @@ void save_je_in_progress(){
         save_chars[i    ] = added->d[j];
     }
     
-    std::cout << "Saving..." << std::endl;
+    std::cout << "Saving " << save_size << " bytes (loop in progress) ..." << std::endl;
     
     auto fout = std::ofstream("je_res.bin", std::ios_base::binary);
     fout << string("Format: recipes, then last_cs, then c_exists\n");
@@ -515,7 +549,7 @@ void save_je_in_progress(){
     delete save_chars;
 }
 void load_je_in_progress(){
-    std::cout << "Loading..." << std::endl;
+    std::cout << "Loading (loop in progress)..." << std::endl;
     vector<char> saved = whole_file("je_res.bin");
     
     std::cout << "Loaded." << std::endl;
@@ -541,6 +575,9 @@ void load_je_in_progress(){
             (saved[i + 3])
         );
     }
+    for(uint j = 0; j < 1<<24; j++, i++){
+        step_cs->d[j] = saved[i];
+    }
     for(uint j = 0; j < (1<<24) / 8; j++, i++){
         c_exists->d[j] = saved[i];
     }
@@ -560,11 +597,12 @@ void load_je_in_progress(){
 void add(uint color, uint last, ulng mix_d){
     // if(ic > 0) std::cout << "add" << std::endl;
     if(c_exists->get(color)) return;
-    found++;
-    added->set(color, 1);
-    c_exists->set(color, 1);
     recipes->set(color, mix_d);
     last_cs->set(color, last);
+    step_cs->set(color, ic + 2u);
+    c_exists->set(color, 1);
+    added->set(color, 1);
+    found++;
 }
 
 bool added_any = true;
@@ -586,7 +624,7 @@ void cycle(){
     }
     uint prev_i = 0;
     uint prev_li = 0;
-    uint prev_lf = 10000;
+    uint prev_lf = 100000;
     
     for(uint i = in_progress_i; i < 1<<24; i++){
         if(!prev_added->get(i)) continue;
@@ -599,8 +637,8 @@ void cycle(){
             // save_je_in_progress();
         }
         uint mix_lim =
-        ic == 0 ? 100:
-        ic == 1 ? 100: 100; // use mixer_c for full search;
+        ic == 0 ? 10:
+        ic == 1 ? 10: 10; // use mixer_c for full search;
         for(uint mixer_i = 0; mixer_i < mix_lim; mixer_i++){
             Mixer& m = mixers_a[mixer_i];
             auto res = mix(i, m);
@@ -742,16 +780,20 @@ int main(int argc, char const *argv[]){
     // 735470 -> 564927;
     std::cout << "mixer_c: " << mixer_c << std::endl;
     
-    std::cout << "Cycle " << ic << std::endl;
-    // load_je_in_progress();
-    cycle_init();
-    cycle();
-    std::cout << "Found colors: " << found << std::endl;
+    std::cout << "Base colors!" << std::endl;
+    ic = -1;
     for(uint mixer_i = 0; mixer_i < mixer_c; mixer_i++){
         Mixer& m = mixers_a[mixer_i];
         uint i = m.base();
         add(i, i, m.mix_d);
     }
+    ic = 0;
+    
+    std::cout << "Cycle " << ic << std::endl;
+    // load_je_in_progress();
+    cycle_init();
+    cycle();
+    std::cout << "Found colors: " << found << std::endl;
     while(added_any){
         std::cout << "Cycle " << ic << std::endl;
         cycle_init();
@@ -761,20 +803,98 @@ int main(int argc, char const *argv[]){
     
     save_je();
     
-    // std::cout << "Test lgray, gray, black, black, lime:" << std::endl;
-    // Mixer m = Mixer(286283776);
-    // std::cout << "Color: " << m.base() << std::endl;
+    // this is really pissing me off, because i shouldn't have to check to see if the item's exist;
+    // items that don't exist should be marked as 0 steps; but you know what? since something is clearly very wrong,
+    // lets count the number of items that have each value,
+    // AND double check to avoid checking for recipes on ones that don't exist;
+    // because it seems that something is wrong with my code;
+    // i'm pretty it's not a bit shifting issue, because there are no bits to be shifted;
+    // and it's not a forgotten code isuee because there was so little code it shouldn't be possible to forget any;
+    bool did_step_0 = false;
+    bool did_step_1 = false;
+    bool did_step_2 = false;
+    bool did_step_3 = false;
+    bool did_step_4 = false;
+    bool did_step_5 = false;
+    uint found_0 = 0;
+    uint found_1 = 0;
+    uint found_2 = 0;
+    uint found_3 = 0;
+    uint found_4 = 0;
+    uint found_5 = 0;
+    uint step_0 = 0xc0ffee;
+    uint step_1 = 0xc0ffee;
+    uint step_2 = 0xc0ffee;
+    uint step_3 = 0xc0ffee;
+    uint step_4 = 0xc0ffee;
+    uint step_5 = 0xc0ffee;
+    for(uint i = 0; i < (1 << 24); i++){
+        if(step_cs->get(i) == 0){
+            found_0++;
+            if(!did_step_0 && c_exists->get(i)){
+                did_step_0 = true;
+                step_0 = i;
+            }
+        }
+    }
+    for(uint i = 0; i < (1 << 24); i++){
+        if(step_cs->get(i) == 1){
+            found_1++;
+            if(!did_step_1 && c_exists->get(i)){
+                did_step_1 = true;
+                step_1 = i;
+            }
+        }
+    }
+    for(uint i = 0; i < (1 << 24); i++){
+        if(step_cs->get(i) == 2){
+            found_2++;
+            if(!did_step_2 && c_exists->get(i)){
+                did_step_2 = true;
+                step_2 = i;
+            }
+        }
+    }
+    for(uint i = 0; i < (1 << 24); i++){
+        if(step_cs->get(i) == 3){
+            found_3++;
+            if(!did_step_3 && c_exists->get(i)){
+                did_step_3 = true;
+                step_3 = i;
+            }
+        }
+    }
+    for(uint i = 0; i < (1 << 24); i++){
+        if(step_cs->get(i) == 4){
+            found_4++;
+            if(!did_step_4 && c_exists->get(i)){
+                did_step_4 = true;
+                step_4 = i;
+            }
+        }
+    }
+    for(uint i = 0; i < (1 << 24); i++){
+        if(step_cs->get(i) == 5){
+            found_5++;
+            if(!did_step_5 && c_exists->get(i)){
+                did_step_5 = true;
+                step_5 = i;
+            }
+        }
+    }
     
-    see_recipe("Example: ", 0x546443);
-    /*
-    Start of try_last 5530691
-    dyem = 286283776
-    last = 5530691
-    1 1 1 0 5 8 0 0
-    1 2 3 3 8 end
-    lgray, gray, black, black, lime
-    
-    */
+    std::cout << "Found " << found_0 << " recipes with 0 steps." << std::endl;
+    std::cout << "Found " << found_1 << " recipes with 1 steps." << std::endl;
+    std::cout << "Found " << found_2 << " recipes with 2 steps." << std::endl;
+    std::cout << "Found " << found_3 << " recipes with 3 steps." << std::endl;
+    std::cout << "Found " << found_4 << " recipes with 4 steps." << std::endl;
+    std::cout << "Found " << found_5 << " recipes with 5 steps." << std::endl;
+    if(did_step_0) see_recipe("0 step: ", step_0);
+    if(did_step_1) see_recipe("1 step: ", step_1);
+    if(did_step_2) see_recipe("2 step: ", step_2);
+    if(did_step_3) see_recipe("3 step: ", step_3);
+    if(did_step_4) see_recipe("4 step: ", step_4);
+    if(did_step_5) see_recipe("5 step: ", step_5);
     
     uint* my_decode = new uint[256]{0};
     my_decode['0'] = 0x0; my_decode['1'] = 0x1; my_decode['2'] = 0x2; my_decode['3'] = 0x3;

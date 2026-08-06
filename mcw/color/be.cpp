@@ -2,11 +2,9 @@
 #include <fstream>
 #include <string>
 #include <vector>
+
 using std::string;
 using std::vector;
-
-// #include <filesystem>
-// #include <string>
 
 namespace be{
 typedef unsigned int uint;
