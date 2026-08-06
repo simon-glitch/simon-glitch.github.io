@@ -632,141 +632,64 @@ void cycle_init(){
     }
     in_progress_i = 0;
 }
-void cycle_inline(){
-    uint prev_c = 0;
-    for(uint i = 0; i < 1<<24; i++){
-        if(prev_added->get(i)){
-            prev_c++;
-        }
-    }
-    uint prev_i = 0;
-    uint prev_li = 0;
-    uint prev_lf = 100;
+struct Add_Attempt{
+    uint color;
+    uint last;
+    ulng mix_d;
+};
+
+void cycle(){
+    uint mixer_lf = 32;
     
-    #pragma omp parallel for schedule(dynamic, 1000)
-    for(uint i = in_progress_i; i < 1<<24; i++){
-        if(!prev_added->get(i)) continue;
-        prev_i++;
-        prev_li++;
-        if(prev_li == prev_lf){
-            prev_li = 0;
-            std::cout << prev_i << "/" << prev_c << "; found colors: " << found << std::endl;
-            in_progress_i = i;
-            if(interrupted){
-                std::cout << "Ctrl+C detected at index " << in_progress_i << ", cycle " << ic << std::endl;
-                save_je_in_progress();
-                abort();
-            }
-        }
+    #pragma omp parallel
+    for(uint outer_i = 0; outer_i < mixer_c; outer_i += mixer_lf){
+        uint chunk_end = std::min(outer_i + mixer_lf, mixer_c);
         
-        uchar indices[8] = {0};
-        // uint be_able_to_cout_limit = 1000;
-        // uint be_able_to_cout_i = 0;
-        for(uchar dye_c = 1; dye_c <= 8; dye_c++){
-            for(uchar i = 0; i < dye_c - 1; i++){
-                indices[i] = 0;
+        vector<Add_Attempt> chunk_attempts;
+        
+        {
+            vector<Add_Attempt> thread_local_attempts;
+            
+            #pragma omp for schedule(dynamic, 64)
+            for(uint mixer_i = outer_i; mixer_i < chunk_end; mixer_i++){
+                Mixer& m = mixers_a[mixer_i];
+                
+                for(uint i = 0; i < (1<<24); i++){
+                    if(!prev_added->get(i)) continue;
+                    
+                    auto res = mix(i, m);
+                    if(!c_exists->get(res)){
+                        thread_local_attempts.push_back({res, i, m.mix_d});
+                    }
+                }
             }
-            indices[dye_c - 1] = -1;
-            uchar carry_place = dye_c - 1;
-            while(true){
-                // carry if needed
-                while(carry_place > 0 && indices[carry_place] == 16){
-                    indices[carry_place] = 0;
-                    carry_place--;
-                }
-                
-                // now incremenet; we have to carry next loop because there just isn't any other way to do this; i've written this code like 8 times, trust me;
-                indices[carry_place]++;
-                
-                // uncarry, making sure that all later indices are in ascending order; this simultaneously removes duplicate combinations, while allowing for repetitions;
-                while(carry_place < dye_c - 1){
-                    indices[carry_place + 1] = indices[carry_place];
-                    carry_place++;
-                }
-                
-                // highest digit maxes out -> end of loop;
-                if(indices[0] == 16){
-                    break;
-                }
-                
-                if(indices[carry_place] == 16) continue;
-                
-                // now add the combination to the list;
-                uint formatted = indices[0];
-                bool all_zero = indices[0] == 0;
-                for(uchar i = 1; i < dye_c; i++){
-                    // this code was written by an autistic man at 8 in the morning who hasn't slept all morning;
-                    all_zero = all_zero && indices[i] == 0;
-                    // just store the diff; edge case for zeroes explained in je.cpp;
-                    formatted = (formatted << 4) | (indices[i] - indices[i - 1]);
-                }
-                if(all_zero){
-                    // std::cout << "This should be a list of " << uint(dye_c) << " zeroes. ";
-                    // std::cout << "At " << dyes.size() << ". ";
-                    formatted = (0xf0 | (dye_c + 1)) << 24;
-                    // std::cout << "Formatted =  " << formatted << std::endl;
-                }
-                else if(dye_c < 8){
-                    formatted = (formatted << 4) | (16 - indices[carry_place]);
-                }
-                if(all_zero){
-                    formatted = (0xf0 | (dye_c + 1)) << 24;
-                }
-                else if(dye_c < 8){
-                    formatted = (formatted << 4) | (16 - indices[carry_place]);
-                    formatted <<= 4 * (8 - 1 - dye_c);
-                }
-                
-                // inline mixing logic, because i don't have a need for it anywhere else;
-                uint tr = 0;
-                uint tg = 0;
-                uint tb = 0;
-                uint tm = 0;
-                for(uint i = 0; i < dye_c; i++){
-                    uint color = base_colors[indices[i]];
-                    uint r = (color & 0xff0000) >> 16;
-                    uint g = (color & 0x00ff00) >> 8;
-                    uint b = color & 0x0000ff;
-                    tr += r;
-                    tg += g;
-                    tb += b;
-                    tm += max(r, g, b);
-                }
-                
-                uint r = (i & 0xff0000) >> 16;
-                uint g = (i & 0x00ff00) >> 8;
-                uint b = (i & 0x0000ff);
-                tr += r;
-                tg += g;
-                tb += b;
-                uint ar = tr / (dye_c + 1);
-                uint ag = tg / (dye_c + 1);
-                uint ab = tb / (dye_c + 1);
-                float avg_max = float(tm + max(r, g, b)) / float(dye_c + 1);
-                float max_avg = max(ar, ag, ab);
-                // note the order of operations matters here; you must multiply then divide;
-                uint result = (
-                    (((uint) ((float(ar) * avg_max) / max_avg)) << 16) |
-                    (((uint) ((float(ag) * avg_max) / max_avg)) <<  8) |
-                    (((uint) ((float(ab) * avg_max) / max_avg))      )
+            
+            #pragma omp critical
+            {
+                chunk_attempts.insert(
+                    chunk_attempts.end(), 
+                    thread_local_attempts.begin(), 
+                    thread_local_attempts.end()
                 );
-                
-                add(result, i, formatted);
             }
+        }
+        for(const auto& item : chunk_attempts){
+            add(item.color, item.last, item.mix_d);
+        }
+
+        std::cout << chunk_end << " / " << mixer_c << " mixers done | Found colors: " << found << std::endl;
+        
+        if(interrupted){
+            in_progress_i = chunk_end;
+            std::cout << "Ctrl+C detected at mixer " << in_progress_i << std::endl;
+            save_je_in_progress();
+            abort();
         }
     }
     
-    uint added_c = 0;
-    for(uint i = 0; i < 1<<24; i++){
-        if(added->get(i)){
-            added_c++;
-        }
-    }
-    std::cout << "Added: " << added_c << std::endl;
-    added_any = (added_c > 0);
     ic++;
 }
-void cycle(){
+void cycle_og(){
     uint mixer_li = 0;
     uint mixer_lf = 100;
     
