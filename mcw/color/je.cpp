@@ -1,14 +1,14 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <string>
 #include <set>
 #include <algorithm>
 #include "cwr.cpp"
-#define IN_JE true
-#include "be.cpp"
 #include <math.h>
 
 using std::vector;
+using std::string;
 namespace je{
 typedef unsigned int uint;
 typedef unsigned short ushort;
@@ -360,7 +360,7 @@ uint mixer_c = 0;
 Mixer* mixers_a;
 void gen_mixes(){
     CWR cwr = CWR();
-    mixers_v = vector<Mixer>();
+    vector<Mixer> mixers_v = vector<Mixer>();
     for(auto it = cwr.dyes.begin(); it != cwr.dyes.end(); it++){
         Mixer mixer = Mixer(*it);
         mixers_v.push_back(mixer);
@@ -451,15 +451,12 @@ void cycle(){
             prev_li = 0;
             std::cout << prev_i << "/" << prev_c << "; found colors: " << found << std::endl;
         }
-        uint mix_lim = 200;
-        uint mix_i = 0;
-        for(auto it = mixers_v.begin(); it != mixers_v.end(); it++){
-            mix_i++;
-            if(mix_i > mix_lim){
-                break;
-            }
-            auto res = mix(i, *it);
-            add(res, i, it->mix_d);
+        uint mix_lim = ic == 0 ? mixer_c :
+        ic == 1 ? 16 : 0;
+        for(uint mixer_i = 0; mixer_i < mix_lim; mixer_i++){
+            Mixer& m = mixers_a[mixer_i];
+            auto res = mix(i, m);
+            add(res, i, m.mix_d);
         }
     }
     
@@ -594,13 +591,12 @@ int main(int argc, char const *argv[]){
     std::cout << "Main!" << std::endl;
     gen_mixes();
     // 735470 -> 564927;
-    std::cout << "mixer_c: " << mixers_v.size() << std::endl;
+    std::cout << "mixer_c: " << mixer_c << std::endl;
     
-    for(auto it = mixers_v.begin(); it != mixers_v.end(); it++){
-        // std::cout << "mixer= " << it->mix_d << std::endl;
-        uint i = it->base();
-        // std::cout << "base= " << i << std::endl;
-        add(i, i, it->mix_d);
+    for(uint mixer_i = 0; mixer_i < mixer_c; mixer_i++){
+        Mixer& m = mixers_a[mixer_i];
+        uint i = m.base();
+        add(i, i, m.mix_d);
     }
     while(added_any){
         std::cout << "Cycle " << ic << std::endl;
