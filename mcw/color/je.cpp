@@ -7,6 +7,16 @@
 #include "cwr.cpp"
 #include <math.h>
 
+#include <csignal>
+
+volatile std::sig_atomic_t interrupted = 0;
+
+void signal_handler(int signal) {
+    if (signal == SIGINT) {
+        interrupted = 1;
+    }
+}
+
 using std::vector;
 using std::string;
 
@@ -481,18 +491,18 @@ void load_je(){
     // recipes, then last_cs, then c_exists;
     for(uint j = 0; j < 1<<24; j++, i += 4){
         recipes->d[j] = (
-            (saved[i    ] << 24) |
-            (saved[i + 1] << 16) |
-            (saved[i + 2] <<  8) |
-            (saved[i + 3])
+            (uchar(saved[i    ]) << 24) |
+            (uchar(saved[i + 1]) << 16) |
+            (uchar(saved[i + 2]) <<  8) |
+            (uchar(saved[i + 3]))
         );
     }
     for(uint j = 0; j < 1<<24; j++, i += 4){
         last_cs->d[j] = (
-            (saved[i    ] << 24) |
-            (saved[i + 1] << 16) |
-            (saved[i + 2] <<  8) |
-            (saved[i + 3])
+            (uchar(saved[i    ]) << 24) |
+            (uchar(saved[i + 1]) << 16) |
+            (uchar(saved[i + 2]) <<  8) |
+            (uchar(saved[i + 3]))
         );
     }
     for(uint j = 0; j < 1<<24; j++, i++){
@@ -503,7 +513,7 @@ void load_je(){
     }
 }
 void save_je_in_progress(){
-    uint save_size = (1<<24) * 4 + (1<<24) * 4 + (1<<24) + (1<<24) / 8 + (1<<24) / 8 + (1<<24) / 8 + 3;
+    uint save_size = (1<<24) * 4 + (1<<24) * 4 + (1<<24) + (1<<24) / 8 + (1<<24) / 8 + (1<<24) / 8;
     uchar* save_chars = new uchar[save_size];
     // recipes, then last_cs, then c_exists;
     uint i = 0;
@@ -536,14 +546,15 @@ void save_je_in_progress(){
     
     std::cout << "Saving " << save_size << " bytes (loop in progress) ..." << std::endl;
     
-    auto fout = std::ofstream("je_res.bin", std::ios_base::binary);
+    auto fout = std::ofstream("je_res_in_progress.bin", std::ios_base::binary);
     fout << string("Format: recipes, then last_cs, then c_exists\n");
     for(i = 0; i < save_size; i++){
         fout << save_chars[i];
     }
-    fout << ((in_progress_i & 0xff0000) >> 16);
-    fout << ((in_progress_i & 0x00ff00) >>  8);
-    fout << ((in_progress_i & 0x0000ff));
+    fout << uchar((in_progress_i & 0xff0000) >> 16);
+    fout << uchar((in_progress_i & 0x00ff00) >>  8);
+    fout << uchar((in_progress_i & 0x0000ff));
+    fout << uchar(ic);
     
     std::cout << "Saved." << std::endl;
     
@@ -551,7 +562,7 @@ void save_je_in_progress(){
 }
 void load_je_in_progress(){
     std::cout << "Loading (loop in progress)..." << std::endl;
-    vector<char> saved = whole_file("je_res.bin");
+    vector<char> saved = whole_file("je_res_in_progress.bin");
     
     std::cout << "Loaded." << std::endl;
     uint i = 0;
@@ -562,18 +573,18 @@ void load_je_in_progress(){
     // recipes, then last_cs, then c_exists;
     for(uint j = 0; j < 1<<24; j++, i += 4){
         recipes->d[j] = (
-            (saved[i    ] << 24) |
-            (saved[i + 1] << 16) |
-            (saved[i + 2] <<  8) |
-            (saved[i + 3])
+            (uchar(saved[i    ]) << 24) |
+            (uchar(saved[i + 1]) << 16) |
+            (uchar(saved[i + 2]) <<  8) |
+            (uchar(saved[i + 3]))
         );
     }
     for(uint j = 0; j < 1<<24; j++, i += 4){
         last_cs->d[j] = (
-            (saved[i    ] << 24) |
-            (saved[i + 1] << 16) |
-            (saved[i + 2] <<  8) |
-            (saved[i + 3])
+            (uchar(saved[i    ]) << 24) |
+            (uchar(saved[i + 1]) << 16) |
+            (uchar(saved[i + 2]) <<  8) |
+            (uchar(saved[i + 3]))
         );
     }
     for(uint j = 0; j < 1<<24; j++, i++){
@@ -589,10 +600,15 @@ void load_je_in_progress(){
         added->d[j] = saved[i];
     }
     in_progress_i = (
-        (saved[i    ] << 16) |
-        (saved[i + 1] <<  8) |
-        (saved[i + 2])
+        (uchar(saved[i    ]) << 16) |
+        (uchar(saved[i + 1]) <<  8) |
+        (uchar(saved[i + 2]))
     );
+    ic = uchar(saved[i + 3]);
+    
+    for(uint j = 0; j < 1<<24; j++){
+        if(c_exists->get(j)) found++;
+    }
 }
 
 void add(uint color, uint last, ulng mix_d){
@@ -616,7 +632,7 @@ void cycle_init(){
     }
     in_progress_i = 0;
 }
-void cycle(){
+void cycle_inline(){
     uint prev_c = 0;
     for(uint i = 0; i < 1<<24; i++){
         if(prev_added->get(i)){
@@ -625,8 +641,9 @@ void cycle(){
     }
     uint prev_i = 0;
     uint prev_li = 0;
-    uint prev_lf = 100000;
+    uint prev_lf = 100;
     
+    #pragma omp parallel for schedule(dynamic, 1000)
     for(uint i = in_progress_i; i < 1<<24; i++){
         if(!prev_added->get(i)) continue;
         prev_i++;
@@ -635,13 +652,145 @@ void cycle(){
             prev_li = 0;
             std::cout << prev_i << "/" << prev_c << "; found colors: " << found << std::endl;
             in_progress_i = i;
-            // save_je_in_progress();
+            if(interrupted){
+                std::cout << "Ctrl+C detected at index " << in_progress_i << ", cycle " << ic << std::endl;
+                save_je_in_progress();
+                abort();
+            }
         }
-        uint mix_lim =
-        ic == 0 ? 10:
-        ic == 1 ? 10: 10; // use mixer_c for full search;
-        for(uint mixer_i = 0; mixer_i < mix_lim; mixer_i++){
-            Mixer& m = mixers_a[mixer_i];
+        
+        uchar indices[8] = {0};
+        // uint be_able_to_cout_limit = 1000;
+        // uint be_able_to_cout_i = 0;
+        for(uchar dye_c = 1; dye_c <= 8; dye_c++){
+            for(uchar i = 0; i < dye_c - 1; i++){
+                indices[i] = 0;
+            }
+            indices[dye_c - 1] = -1;
+            uchar carry_place = dye_c - 1;
+            while(true){
+                // carry if needed
+                while(carry_place > 0 && indices[carry_place] == 16){
+                    indices[carry_place] = 0;
+                    carry_place--;
+                }
+                
+                // now incremenet; we have to carry next loop because there just isn't any other way to do this; i've written this code like 8 times, trust me;
+                indices[carry_place]++;
+                
+                // uncarry, making sure that all later indices are in ascending order; this simultaneously removes duplicate combinations, while allowing for repetitions;
+                while(carry_place < dye_c - 1){
+                    indices[carry_place + 1] = indices[carry_place];
+                    carry_place++;
+                }
+                
+                // highest digit maxes out -> end of loop;
+                if(indices[0] == 16){
+                    break;
+                }
+                
+                if(indices[carry_place] == 16) continue;
+                
+                // now add the combination to the list;
+                uint formatted = indices[0];
+                bool all_zero = indices[0] == 0;
+                for(uchar i = 1; i < dye_c; i++){
+                    // this code was written by an autistic man at 8 in the morning who hasn't slept all morning;
+                    all_zero = all_zero && indices[i] == 0;
+                    // just store the diff; edge case for zeroes explained in je.cpp;
+                    formatted = (formatted << 4) | (indices[i] - indices[i - 1]);
+                }
+                if(all_zero){
+                    // std::cout << "This should be a list of " << uint(dye_c) << " zeroes. ";
+                    // std::cout << "At " << dyes.size() << ". ";
+                    formatted = (0xf0 | (dye_c + 1)) << 24;
+                    // std::cout << "Formatted =  " << formatted << std::endl;
+                }
+                else if(dye_c < 8){
+                    formatted = (formatted << 4) | (16 - indices[carry_place]);
+                }
+                if(all_zero){
+                    formatted = (0xf0 | (dye_c + 1)) << 24;
+                }
+                else if(dye_c < 8){
+                    formatted = (formatted << 4) | (16 - indices[carry_place]);
+                    formatted <<= 4 * (8 - 1 - dye_c);
+                }
+                
+                // inline mixing logic, because i don't have a need for it anywhere else;
+                uint tr = 0;
+                uint tg = 0;
+                uint tb = 0;
+                uint tm = 0;
+                for(uint i = 0; i < dye_c; i++){
+                    uint color = base_colors[indices[i]];
+                    uint r = (color & 0xff0000) >> 16;
+                    uint g = (color & 0x00ff00) >> 8;
+                    uint b = color & 0x0000ff;
+                    tr += r;
+                    tg += g;
+                    tb += b;
+                    tm += max(r, g, b);
+                }
+                
+                uint r = (i & 0xff0000) >> 16;
+                uint g = (i & 0x00ff00) >> 8;
+                uint b = (i & 0x0000ff);
+                tr += r;
+                tg += g;
+                tb += b;
+                uint ar = tr / (dye_c + 1);
+                uint ag = tg / (dye_c + 1);
+                uint ab = tb / (dye_c + 1);
+                float avg_max = float(tm + max(r, g, b)) / float(dye_c + 1);
+                float max_avg = max(ar, ag, ab);
+                // note the order of operations matters here; you must multiply then divide;
+                uint result = (
+                    (((uint) ((float(ar) * avg_max) / max_avg)) << 16) |
+                    (((uint) ((float(ag) * avg_max) / max_avg)) <<  8) |
+                    (((uint) ((float(ab) * avg_max) / max_avg))      )
+                );
+                
+                add(result, i, formatted);
+            }
+        }
+    }
+    
+    uint added_c = 0;
+    for(uint i = 0; i < 1<<24; i++){
+        if(added->get(i)){
+            added_c++;
+        }
+    }
+    std::cout << "Added: " << added_c << std::endl;
+    added_any = (added_c > 0);
+    ic++;
+}
+void cycle(){
+    uint mixer_li = 0;
+    uint mixer_lf = 100;
+    
+    // use mixer_c for full search;
+    uint mix_lim =
+    mixer_c;
+    // ic == 0 ? 100:
+    // ic == 1 ? 100: 100;
+    #pragma omp parallel for schedule(dynamic, 1000)
+    for(uint mixer_i = in_progress_i; mixer_i < mix_lim; mixer_i++){
+        Mixer& m = mixers_a[mixer_i];
+        mixer_li++;
+        if(mixer_li == mixer_lf){
+            mixer_li = 0;
+            std::cout << mixer_i << "/" << mixer_c << "; found colors: " << found << std::endl;
+            in_progress_i = mixer_i;
+            if(interrupted){
+                std::cout << "Ctrl+C detected at mixer index " << in_progress_i << ", cycle " << ic << std::endl;
+                save_je_in_progress();
+                abort();
+            }
+        }
+        for(uint i = 0; i < 1<<24; i++){
+            if(!prev_added->get(i)) continue;
             auto res = mix(i, m);
             add(res, i, m.mix_d);
         }
@@ -773,26 +922,190 @@ void see_recipe(string msg, uint i){
 }
 
 
+/*
+Expected results for in progress test:
+Main!
+mixer_c: 735470
+Base colors!
+Cycle 0
+100000/531606; found colors: 2222754
+200000/531606; found colors: 2720925
+300000/531606; found colors: 3028662
+400000/531606; found colors: 3273631
+500000/531606; found colors: 3520353
+Added: 3139230
+Found colors: 3670836
+Cycle 1
+100000/3139230; found colors: 3871174
+200000/3139230; found colors: 3967701
+300000/3139230; found colors: 4041947
+400000/3139230; found colors: 4107656
+500000/3139230; found colors: 4168545
+600000/3139230; found colors: 4226585
+700000/3139230; found colors: 4281016
+800000/3139230; found colors: 4329933
+900000/3139230; found colors: 4376196
+1000000/3139230; found colors: 4418462
+1100000/3139230; found colors: 4460052
+1200000/3139230; found colors: 4493380
+1300000/3139230; found colors: 4528867
+1400000/3139230; found colors: 4564413
+1500000/3139230; found colors: 4594609
+1600000/3139230; found colors: 4627243
+1700000/3139230; found colors: 4657421
+1800000/3139230; found colors: 4687443
+1900000/3139230; found colors: 4717892
+2000000/3139230; found colors: 4746275
+2100000/3139230; found colors: 4776797
+2200000/3139230; found colors: 4804070
+2300000/3139230; found colors: 4827672
+2400000/3139230; found colors: 4853384
+2500000/3139230; found colors: 4878549
+2600000/3139230; found colors: 4901171
+2700000/3139230; found colors: 4926020
+2800000/3139230; found colors: 4950630
+2900000/3139230; found colors: 4979441
+3000000/3139230; found colors: 5012999
+3100000/3139230; found colors: 5062443
+Added: 1434188
+Found colors: 5105024
+Cycle 2
+100000/1434188; found colors: 5148754
+200000/1434188; found colors: 5173298
+300000/1434188; found colors: 5194695
+400000/1434188; found colors: 5216941
+500000/1434188; found colors: 5239036
+600000/1434188; found colors: 5260741
+700000/1434188; found colors: 5283383
+800000/1434188; found colors: 5304357
+900000/1434188; found colors: 5325200
+1000000/1434188; found colors: 5346306
+1100000/1434188; found colors: 5367086
+1200000/1434188; found colors: 5389403
+1300000/1434188; found colors: 5408976
+1400000/1434188; found colors: 5427686
+Added: 335253
+Found colors: 5440277
+Cycle 3
+100000/335253; found colors: 5456508
+200000/335253; found colors: 5474549
+300000/335253; found colors: 5494287
+Added: 59771
+Found colors: 5500048
+Cycle 4
+Added: 14031
+Found colors: 5514079
+Cycle 5
+Added: 5521
+Found colors: 5519600
+Cycle 6
+Added: 2389
+Found colors: 5521989
+Cycle 7
+Added: 1073
+Found colors: 5523062
+Cycle 8
+Added: 522
+Found colors: 5523584
+Cycle 9
+Added: 251
+Found colors: 5523835
+Cycle 10
+Added: 113
+Found colors: 5523948
+Cycle 11
+Added: 56
+Found colors: 5524004
+Cycle 12
+Added: 21
+Found colors: 5524025
+Cycle 13
+Added: 14
+Found colors: 5524039
+Cycle 14
+Added: 8
+Found colors: 5524047
+Cycle 15
+Added: 3
+Found colors: 5524050
+Cycle 16
+Added: 1
+Found colors: 5524051
+Cycle 17
+Added: 0
+Found colors: 5524051
+Saving 153092096 bytes ...
+Saved.
+Found 11253165 recipes with 0 steps.
+Found 531606 recipes with 1 steps.
+Found 3139230 recipes with 2 steps.
+Found 1434188 recipes with 3 steps.
+Found 335253 recipes with 4 steps.
+Found 59771 recipes with 5 steps.
+1 step: 168c8c
+-> [
+  [black   ,cyan    ,cyan    ,cyan    ,cyan    ,cyan    ,cyan    ,cyan    ],
+]
+Recipe is correct.
+2 step: 168f8f
+-> [
+  [cyan    ],
+  [black   ,cyan    ,cyan    ,cyan    ,cyan    ],
+]
+Recipe is correct.
+3 step: 169090
+-> [
+  [cyan    ],
+  [cyan    ],
+  [black   ,black   ,black   ,cyan    ,cyan    ,cyan    ,cyan    ,cyan    ],
+]
+Recipe is correct.
+4 step: 168a8a
+-> [
+  [cyan    ],
+  [cyan    ],
+  [black   ],
+  [black   ,cyan    ,cyan    ,cyan    ,cyan    ,cyan    ,cyan    ,cyan    ],
+]
+Recipe is correct.
+5 step: 168a8b
+-> [
+  [cyan    ],
+  [cyan    ],
+  [black   ],
+  [cyan    ],
+  [black   ,cyan    ,cyan    ,cyan    ,cyan    ],
+]
+Recipe is correct.
+
+*/
+
 int main(int argc, char const *argv[]){
-    // be::main(0, argv);
+    std::signal(SIGINT, signal_handler);
+    
+    bool run_from_save_in_progress = (argc == 2);
     
     std::cout << "Main!" << std::endl;
     gen_mixes();
     // 735470 -> 564927;
     std::cout << "mixer_c: " << mixer_c << std::endl;
     
-    std::cout << "Base colors!" << std::endl;
-    ic = -1;
-    for(uint mixer_i = 0; mixer_i < mixer_c; mixer_i++){
-        Mixer& m = mixers_a[mixer_i];
-        uint i = m.base();
-        add(i, i, m.mix_d);
+    if(run_from_save_in_progress){
+        load_je_in_progress();
+        std::cout << "Cycle " << ic << std::endl;
     }
-    ic = 0;
-    
-    std::cout << "Cycle " << ic << std::endl;
-    // load_je_in_progress();
-    cycle_init();
+    else{
+        std::cout << "Base colors!" << std::endl;
+        ic = -1;
+        for(uint mixer_i = 0; mixer_i < mixer_c; mixer_i++){
+            Mixer& m = mixers_a[mixer_i];
+            uint i = m.base();
+            add(i, i, m.mix_d);
+        }
+        ic = 0;
+        std::cout << "Cycle " << ic << std::endl;
+        cycle_init();
+    }
     cycle();
     std::cout << "Found colors: " << found << std::endl;
     while(added_any){
