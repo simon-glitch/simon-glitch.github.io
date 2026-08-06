@@ -91,7 +91,13 @@ public:
                 else if(dye_c < 8){
                     formatted = (formatted << 4) | (16 - indices[carry_place]);
                 }
-                if(!all_zero) formatted <<= 4*(8-dye_c);
+                if(all_zero){
+                    formatted = (0xf0 | (dye_c + 1)) << 24;
+                }
+                else if(dye_c < 8){
+                    formatted = (formatted << 4) | (16 - indices[carry_place]);
+                    formatted <<= 4 * (8 - 1 - dye_c);
+                }
                 dyes.push_back(formatted);
                 
                 // even though i've written this before, i didn't remember that you are forced to handle carrying in a really jank way; like using a negative or separating the steps;

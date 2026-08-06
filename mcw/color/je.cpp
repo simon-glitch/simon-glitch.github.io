@@ -133,10 +133,10 @@ public:
         //     d[i] = 0;
         // }
     }
-    uchar get(uchar idx){
+    uchar get(uint idx){
         return d[idx];
     }
-    void set(uchar idx, uchar value){
+    void set(uint idx, uchar value){
         d[idx] = value;
     }
     ~Color_Steps(){
@@ -340,8 +340,9 @@ public:
             while(a_len < 8 && total < 16){
                 uchar big_endian_number = ((mix_d << (4*a_len)) & 0xf0000000) >> 28;
                 total += big_endian_number;
+                if(total >= 16) break;
                 colors[a_len] = total;
-                if(total < 16) a_len++;
+                a_len++;
             }
         }
         string s = "[";
