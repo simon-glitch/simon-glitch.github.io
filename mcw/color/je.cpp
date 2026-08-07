@@ -639,8 +639,6 @@ struct Add_Attempt{
 };
 
 void cycle(){
-    // 1. Build a dense array of active colors ONCE at start of cycle
-    // (Takes ~1-2ms, completely eliminates scanning 16.7M bits inside parallel loops)
     std::vector<uint> active_colors;
     active_colors.reserve(1500000);
     for(uint i = 0; i < (1 << 24); i++){
@@ -648,215 +646,114 @@ void cycle(){
             active_colors.push_back(i);
         }
     }
-
+    
     uint total_colors = active_colors.size();
     std::cout << "Cycle " << ic << ": Processing " << total_colors << " active colors across " << mixer_c << " mixers..." << std::endl;
-
-    // Chunk by active colors so logging is frequent and regular
-    uint color_chunk_size = 100; // Adjust as needed for logging frequency
+    uint color_chunk_size = 10000;
     
     #pragma omp parallel
     {
-        // Pre-allocated ONCE per thread—zero heap allocation overhead inside inner loops
         std::vector<Add_Attempt> local_attempts;
         local_attempts.reserve(65536);
         
         for(uint outer_i = 0; outer_i < total_colors; outer_i += color_chunk_size){
             uint chunk_end = std::min(outer_i + color_chunk_size, total_colors);
+            local_attempts.clear();
             
-            local_attempts.clear(); // Reset buffer capacity without freeing memory
-            
-            // 2. Parallelize across active color indices in this chunk
             #pragma omp for schedule(dynamic, 8)
             for(uint c_idx = outer_i; c_idx < chunk_end; c_idx++){
                 uint color = active_colors[c_idx];
                 
-                uchar indices[8] = {0};
                 // this is an idea I had for changing the file format since it would take up less space anyways;
                 uint mixer_id = 0;
                 
-                #define inline_mix \
-                /* 3. Inner loop: Test color against ALL mixers */\
-                /* (Mixer data in cache is probably bad) */\
-                \
-                /* inline mixing logic, because i don't have a need for it anywhere else; */\
-                uint tr = 0;\
-                uint tg = 0;\
-                uint tb = 0;\
-                uint tm = 0;\
-                for(uint i = 0; i < dye_c; i++){\
-                    uint color = base_colors[indices[i]];\
-                    uint r = (color & 0xff0000) >> 16;\
-                    uint g = (color & 0x00ff00) >> 8;\
-                    uint b = color & 0x0000ff;\
-                    tr += r;\
-                    tg += g;\
-                    tb += b;\
-                    tm += max(r, g, b);\
-                }\
-                \
-                uint r = (color & 0xff0000) >> 16;\
-                uint g = (color & 0x00ff00) >> 8;\
-                uint b = (color & 0x0000ff);\
-                tr += r;\
-                tg += g;\
-                tb += b;\
-                uint ar = tr / (dye_c + 1);\
-                uint ag = tg / (dye_c + 1);\
-                uint ab = tb / (dye_c + 1);\
-                float avg_max = float(tm + max(r, g, b)) / float(dye_c + 1);\
-                float max_avg = max(ar, ag, ab);\
-                /* note the order of operations matters here; you must multiply then divide; */\
-                uint result = (\
-                    (((uint) ((float(ar) * avg_max) / max_avg)) << 16) |\
-                    (((uint) ((float(ag) * avg_max) / max_avg)) <<  8) |\
-                    (((uint) ((float(ab) * avg_max) / max_avg))      )\
-                );\
-                \
-                /* Fast check to avoid unnecessary queueing */\
-                if(!c_exists->get(result)){\
-                    local_attempts.push_back({result, color, mixer_id});\
-                }\
-                mixer_id++;
+                uint last_i = 0;
+                uint dye_c = 0;
+                uint tr_accum = 0;
+                uint tg_accum = 0;
+                uint tb_accum = 0;
+                uint tm_accum = 0;
                 
-                uint dye_c = 1;
-                for(uint i0 = 0; i0 < 16; i0++){
-                    indices[0] = i0;
-                    inline_mix;
+                #define MIX_EVAL \
+                { \
+                uint r = (color & 0xff0000) >> 16; \
+                uint g = (color & 0x00ff00) >> 8; \
+                uint b = (color & 0x0000ff); \
+                uint tr = tr_accum + r; \
+                uint tg = tg_accum + g; \
+                uint tb = tb_accum + b; \
+                uint tm = tm_accum + max(r, g, b); \
+                \
+                uint div = (dye_c + 1); \
+                uint ar = tr / div; \
+                uint ag = tg / div; \
+                uint ab = tb / div; \
+                float avg_max = float(tm) / float(div); \
+                float max_avg = max(ar, ag, ab); \
+                \
+                uint result = ( \
+                    (((uint)((float(ar) * avg_max) / max_avg)) << 16) | \
+                    (((uint)((float(ag) * avg_max) / max_avg)) <<  8) | \
+                    (((uint)((float(ab) * avg_max) / max_avg))      )   \
+                ); \
+                \
+                if (!c_exists->get(result)) { \
+                    local_attempts.push_back({result, color, mixer_id}); \
+                } \
+                mixer_id++; \
                 }
-                dye_c = 2;
-                for(uint i0 = 0; i0 < 16; i0++){
-                    indices[0] = i0;
-                    for(uint i1 = i0; i1 < 16; i1++){
-                        indices[1] = i1;
-                        inline_mix;
-                    }
+                
+                #define DYE_TIER(INNER_TIER) \
+                for(uint i = last_i; i < 16; i++){ \
+                uint c = base_colors[i]; \
+                uint r = (c & 0xff0000) >> 16; \
+                uint g = (c & 0x00ff00) >> 8; \
+                uint b = (c & 0x0000ff); \
+                uint m = max(r, g, b); \
+                tr_accum += r; \
+                tg_accum += g; \
+                tb_accum += b; \
+                tm_accum += m; \
+                dye_c++; \
+                /* uint prev_last = last_i; */ \
+                last_i = i;\
+                { \
+                    INNER_TIER; \
+                } \
+                last_i = i; \
+                dye_c--; \
+                tr_accum -= r; \
+                tg_accum -= g; \
+                tb_accum -= b; \
+                tm_accum -= m; \
                 }
-                dye_c = 3;
-                for(uint i0 = 0; i0 < 16; i0++){
-                    indices[0] = i0;
-                    for(uint i1 = i0; i1 < 16; i1++){
-                        indices[1] = i1;
-                        for(uint i2 = i1; i2 < 16; i2++){
-                            indices[2] = i2;
-                            inline_mix;
-                        }
-                    }
-                }
-                dye_c = 4;
-                for(uint i0 = 0; i0 < 16; i0++){
-                    indices[0] = i0;
-                    for(uint i1 = i0; i1 < 16; i1++){
-                        indices[1] = i1;
-                        for(uint i2 = i1; i2 < 16; i2++){
-                            indices[2] = i2;
-                            for(uint i3 = i2; i3 < 16; i3++){
-                                indices[3] = i3;
-                                inline_mix;
-                            }
-                        }
-                    }
-                }
-                dye_c = 5;
-                for(uint i0 = 0; i0 < 16; i0++){
-                    indices[0] = i0;
-                    for(uint i1 = i0; i1 < 16; i1++){
-                        indices[1] = i1;
-                        for(uint i2 = i1; i2 < 16; i2++){
-                            indices[2] = i2;
-                            for(uint i3 = i2; i3 < 16; i3++){
-                                indices[3] = i3;
-                                for(uint i4 = i3; i4 < 16; i4++){
-                                    indices[4] = i4;
-                                    inline_mix;
-                                }
-                            }
-                        }
-                    }
-                }
-                dye_c = 6;
-                for(uint i0 = 0; i0 < 16; i0++){
-                    indices[0] = i0;
-                    for(uint i1 = i0; i1 < 16; i1++){
-                        indices[1] = i1;
-                        for(uint i2 = i1; i2 < 16; i2++){
-                            indices[2] = i2;
-                            for(uint i3 = i2; i3 < 16; i3++){
-                                indices[3] = i3;
-                                for(uint i4 = i3; i4 < 16; i4++){
-                                    indices[4] = i4;
-                                    for(uint i5 = i4; i5 < 16; i5++){
-                                        indices[5] = i5;
-                                        inline_mix;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                dye_c = 7;
-                for(uint i0 = 0; i0 < 16; i0++){
-                    indices[0] = i0;
-                    for(uint i1 = i0; i1 < 16; i1++){
-                        indices[1] = i1;
-                        for(uint i2 = i1; i2 < 16; i2++){
-                            indices[2] = i2;
-                            for(uint i3 = i2; i3 < 16; i3++){
-                                indices[3] = i3;
-                                for(uint i4 = i3; i4 < 16; i4++){
-                                    indices[4] = i4;
-                                    for(uint i5 = i4; i5 < 16; i5++){
-                                        indices[5] = i5;
-                                        for(uint i6 = i5; i6 < 16; i6++){
-                                            indices[6] = i6;
-                                            inline_mix;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                dye_c = 8;
-                for(uint i0 = 0; i0 < 16; i0++){
-                    indices[0] = i0;
-                    for(uint i1 = i0; i1 < 16; i1++){
-                        indices[1] = i1;
-                        for(uint i2 = i1; i2 < 16; i2++){
-                            indices[2] = i2;
-                            for(uint i3 = i2; i3 < 16; i3++){
-                                indices[3] = i3;
-                                for(uint i4 = i3; i4 < 16; i4++){
-                                    indices[4] = i4;
-                                    for(uint i5 = i4; i5 < 16; i5++){
-                                        indices[5] = i5;
-                                        for(uint i6 = i5; i6 < 16; i6++){
-                                            indices[6] = i6;
-                                            for(uint i7 = i6; i7 < 16; i7++){
-                                                indices[7] = i7;
-                                                inline_mix;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                
+                #define DYE_TIER_1 DYE_TIER(MIX_EVAL)
+                #define DYE_TIER_2 DYE_TIER(DYE_TIER_1)
+                #define DYE_TIER_3 DYE_TIER(DYE_TIER_2)
+                #define DYE_TIER_4 DYE_TIER(DYE_TIER_3)
+                #define DYE_TIER_5 DYE_TIER(DYE_TIER_4)
+                #define DYE_TIER_6 DYE_TIER(DYE_TIER_5)
+                #define DYE_TIER_7 DYE_TIER(DYE_TIER_6)
+                #define DYE_TIER_8 DYE_TIER(DYE_TIER_7)
+                
+                DYE_TIER_1;
+                DYE_TIER_2;
+                DYE_TIER_3;
+                // DYE_TIER_4;
+                // DYE_TIER_5;
+                // DYE_TIER_6;
+                // DYE_TIER_7;
+                // DYE_TIER_8;
             }
             
-            // 4. Safely flush thread-local results into global memory
             #pragma omp critical
             {
                 for(const auto& item : local_attempts){
                     add(item.color, item.last, item.mix_d);
                 }
             }
-            
-            // Synchronize all threads before logging/interrupt check
             #pragma omp barrier
-            
-            // 5. Single master thread logs status and checks for Ctrl+C
             #pragma omp single
             {
                 std::cout << chunk_end << " / " << total_colors << " colors expanded ("
@@ -1037,160 +934,26 @@ void see_recipe(string msg, uint i){
 
 
 /*
-Expected results for in progress test:
-Main!
-mixer_c: 735470
-Base colors!
-Cycle 0
-100000/531606; found colors: 2222754
-200000/531606; found colors: 2720925
-300000/531606; found colors: 3028662
-400000/531606; found colors: 3273631
-500000/531606; found colors: 3520353
-Added: 3139230
-Found colors: 3670836
-Cycle 1
-100000/3139230; found colors: 3871174
-200000/3139230; found colors: 3967701
-300000/3139230; found colors: 4041947
-400000/3139230; found colors: 4107656
-500000/3139230; found colors: 4168545
-600000/3139230; found colors: 4226585
-700000/3139230; found colors: 4281016
-800000/3139230; found colors: 4329933
-900000/3139230; found colors: 4376196
-1000000/3139230; found colors: 4418462
-1100000/3139230; found colors: 4460052
-1200000/3139230; found colors: 4493380
-1300000/3139230; found colors: 4528867
-1400000/3139230; found colors: 4564413
-1500000/3139230; found colors: 4594609
-1600000/3139230; found colors: 4627243
-1700000/3139230; found colors: 4657421
-1800000/3139230; found colors: 4687443
-1900000/3139230; found colors: 4717892
-2000000/3139230; found colors: 4746275
-2100000/3139230; found colors: 4776797
-2200000/3139230; found colors: 4804070
-2300000/3139230; found colors: 4827672
-2400000/3139230; found colors: 4853384
-2500000/3139230; found colors: 4878549
-2600000/3139230; found colors: 4901171
-2700000/3139230; found colors: 4926020
-2800000/3139230; found colors: 4950630
-2900000/3139230; found colors: 4979441
-3000000/3139230; found colors: 5012999
-3100000/3139230; found colors: 5062443
-Added: 1434188
-Found colors: 5105024
-Cycle 2
-100000/1434188; found colors: 5148754
-200000/1434188; found colors: 5173298
-300000/1434188; found colors: 5194695
-400000/1434188; found colors: 5216941
-500000/1434188; found colors: 5239036
-600000/1434188; found colors: 5260741
-700000/1434188; found colors: 5283383
-800000/1434188; found colors: 5304357
-900000/1434188; found colors: 5325200
-1000000/1434188; found colors: 5346306
-1100000/1434188; found colors: 5367086
-1200000/1434188; found colors: 5389403
-1300000/1434188; found colors: 5408976
-1400000/1434188; found colors: 5427686
-Added: 335253
-Found colors: 5440277
-Cycle 3
-100000/335253; found colors: 5456508
-200000/335253; found colors: 5474549
-300000/335253; found colors: 5494287
-Added: 59771
-Found colors: 5500048
-Cycle 4
-Added: 14031
-Found colors: 5514079
-Cycle 5
-Added: 5521
-Found colors: 5519600
-Cycle 6
-Added: 2389
-Found colors: 5521989
-Cycle 7
-Added: 1073
-Found colors: 5523062
-Cycle 8
-Added: 522
-Found colors: 5523584
-Cycle 9
-Added: 251
-Found colors: 5523835
-Cycle 10
-Added: 113
-Found colors: 5523948
+Expected results:
+
+Cycle 10: Processing 17 active colors across 735470 mixers...
+17 / 17 colors expanded (12502990 evaluations) | Found: 5684750
+Cycle 10 Complete. Added: 4 new colors.
+Found colors: 5684750
 Cycle 11
-Added: 56
-Found colors: 5524004
-Cycle 12
-Added: 21
-Found colors: 5524025
-Cycle 13
-Added: 14
-Found colors: 5524039
-Cycle 14
-Added: 8
-Found colors: 5524047
-Cycle 15
-Added: 3
-Found colors: 5524050
-Cycle 16
-Added: 1
-Found colors: 5524051
-Cycle 17
-Added: 0
-Found colors: 5524051
+Cycle 11: Processing 4 active colors across 735470 mixers...
+4 / 4 colors expanded (2941880 evaluations) | Found: 5684750
+Cycle 11 Complete. Added: 0 new colors.
+Found colors: 5684750
 Saving 153092096 bytes ...
 Saved.
-Found 11253165 recipes with 0 steps.
+Found 11092466 recipes with 0 steps.
 Found 531606 recipes with 1 steps.
-Found 3139230 recipes with 2 steps.
-Found 1434188 recipes with 3 steps.
-Found 335253 recipes with 4 steps.
-Found 59771 recipes with 5 steps.
-1 step: 168c8c
--> [
-  [black   ,cyan    ,cyan    ,cyan    ,cyan    ,cyan    ,cyan    ,cyan    ],
-]
-Recipe is correct.
-2 step: 168f8f
--> [
-  [cyan    ],
-  [black   ,cyan    ,cyan    ,cyan    ,cyan    ],
-]
-Recipe is correct.
-3 step: 169090
--> [
-  [cyan    ],
-  [cyan    ],
-  [black   ,black   ,black   ,cyan    ,cyan    ,cyan    ,cyan    ,cyan    ],
-]
-Recipe is correct.
-4 step: 168a8a
--> [
-  [cyan    ],
-  [cyan    ],
-  [black   ],
-  [black   ,cyan    ,cyan    ,cyan    ,cyan    ,cyan    ,cyan    ,cyan    ],
-]
-Recipe is correct.
-5 step: 168a8b
--> [
-  [cyan    ],
-  [cyan    ],
-  [black   ],
-  [cyan    ],
-  [black   ,cyan    ,cyan    ,cyan    ,cyan    ],
-]
-Recipe is correct.
+      2582694
+Found 4603752 recipes with 2 steps.
+Found 492754 recipes with 3 steps.
+Found 40853 recipes with 4 steps.
+Found 10537 recipes with 5 steps.
 
 */
 
