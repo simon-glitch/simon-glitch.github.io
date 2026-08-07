@@ -611,7 +611,7 @@ void load_je_in_progress(){
     }
 }
 
-void add(uint color, uint last, ulng mix_d){
+void add(uint color, uint last, uint mix_d){
     // if(ic > 0) std::cout << "add" << std::endl;
     if(c_exists->get(color)) return;
     recipes->set(color, mix_d);
@@ -635,61 +635,252 @@ void cycle_init(){
 struct Add_Attempt{
     uint color;
     uint last;
-    ulng mix_d;
+    uint mix_d;
 };
 
 void cycle(){
-    uint mixer_lf = 32;
+    // 1. Build a dense array of active colors ONCE at start of cycle
+    // (Takes ~1-2ms, completely eliminates scanning 16.7M bits inside parallel loops)
+    std::vector<uint> active_colors;
+    active_colors.reserve(1500000);
+    for(uint i = 0; i < (1 << 24); i++){
+        if(prev_added->get(i)) {
+            active_colors.push_back(i);
+        }
+    }
+
+    uint total_colors = active_colors.size();
+    std::cout << "Cycle " << ic << ": Processing " << total_colors << " active colors across " << mixer_c << " mixers..." << std::endl;
+
+    // Chunk by active colors so logging is frequent and regular
+    uint color_chunk_size = 100; // Adjust as needed for logging frequency
     
     #pragma omp parallel
-    for(uint outer_i = 0; outer_i < mixer_c; outer_i += mixer_lf){
-        uint chunk_end = std::min(outer_i + mixer_lf, mixer_c);
+    {
+        // Pre-allocated ONCE per thread—zero heap allocation overhead inside inner loops
+        std::vector<Add_Attempt> local_attempts;
+        local_attempts.reserve(65536);
         
-        vector<Add_Attempt> chunk_attempts;
-        
-        {
-            vector<Add_Attempt> thread_local_attempts;
+        for(uint outer_i = 0; outer_i < total_colors; outer_i += color_chunk_size){
+            uint chunk_end = std::min(outer_i + color_chunk_size, total_colors);
             
-            #pragma omp for schedule(dynamic, 64)
-            for(uint mixer_i = outer_i; mixer_i < chunk_end; mixer_i++){
-                Mixer& m = mixers_a[mixer_i];
+            local_attempts.clear(); // Reset buffer capacity without freeing memory
+            
+            // 2. Parallelize across active color indices in this chunk
+            #pragma omp for schedule(dynamic, 8)
+            for(uint c_idx = outer_i; c_idx < chunk_end; c_idx++){
+                uint color = active_colors[c_idx];
                 
-                for(uint i = 0; i < (1<<24); i++){
-                    if(!prev_added->get(i)) continue;
-                    
-                    auto res = mix(i, m);
-                    if(!c_exists->get(res)){
-                        thread_local_attempts.push_back({res, i, m.mix_d});
+                uchar indices[8] = {0};
+                // this is an idea I had for changing the file format since it would take up less space anyways;
+                uint mixer_id = 0;
+                
+                #define inline_mix \
+                /* 3. Inner loop: Test color against ALL mixers */\
+                /* (Mixer data in cache is probably bad) */\
+                \
+                /* inline mixing logic, because i don't have a need for it anywhere else; */\
+                uint tr = 0;\
+                uint tg = 0;\
+                uint tb = 0;\
+                uint tm = 0;\
+                for(uint i = 0; i < dye_c; i++){\
+                    uint color = base_colors[indices[i]];\
+                    uint r = (color & 0xff0000) >> 16;\
+                    uint g = (color & 0x00ff00) >> 8;\
+                    uint b = color & 0x0000ff;\
+                    tr += r;\
+                    tg += g;\
+                    tb += b;\
+                    tm += max(r, g, b);\
+                }\
+                \
+                uint r = (color & 0xff0000) >> 16;\
+                uint g = (color & 0x00ff00) >> 8;\
+                uint b = (color & 0x0000ff);\
+                tr += r;\
+                tg += g;\
+                tb += b;\
+                uint ar = tr / (dye_c + 1);\
+                uint ag = tg / (dye_c + 1);\
+                uint ab = tb / (dye_c + 1);\
+                float avg_max = float(tm + max(r, g, b)) / float(dye_c + 1);\
+                float max_avg = max(ar, ag, ab);\
+                /* note the order of operations matters here; you must multiply then divide; */\
+                uint result = (\
+                    (((uint) ((float(ar) * avg_max) / max_avg)) << 16) |\
+                    (((uint) ((float(ag) * avg_max) / max_avg)) <<  8) |\
+                    (((uint) ((float(ab) * avg_max) / max_avg))      )\
+                );\
+                \
+                /* Fast check to avoid unnecessary queueing */\
+                if(!c_exists->get(result)){\
+                    local_attempts.push_back({result, color, mixer_id});\
+                }\
+                mixer_id++;
+                
+                uint dye_c = 1;
+                for(uint i0 = 0; i0 < 16; i0++){
+                    indices[0] = i0;
+                    inline_mix;
+                }
+                dye_c = 2;
+                for(uint i0 = 0; i0 < 16; i0++){
+                    indices[0] = i0;
+                    for(uint i1 = i0; i1 < 16; i1++){
+                        indices[1] = i1;
+                        inline_mix;
+                    }
+                }
+                dye_c = 3;
+                for(uint i0 = 0; i0 < 16; i0++){
+                    indices[0] = i0;
+                    for(uint i1 = i0; i1 < 16; i1++){
+                        indices[1] = i1;
+                        for(uint i2 = i1; i2 < 16; i2++){
+                            indices[2] = i2;
+                            inline_mix;
+                        }
+                    }
+                }
+                dye_c = 4;
+                for(uint i0 = 0; i0 < 16; i0++){
+                    indices[0] = i0;
+                    for(uint i1 = i0; i1 < 16; i1++){
+                        indices[1] = i1;
+                        for(uint i2 = i1; i2 < 16; i2++){
+                            indices[2] = i2;
+                            for(uint i3 = i2; i3 < 16; i3++){
+                                indices[3] = i3;
+                                inline_mix;
+                            }
+                        }
+                    }
+                }
+                dye_c = 5;
+                for(uint i0 = 0; i0 < 16; i0++){
+                    indices[0] = i0;
+                    for(uint i1 = i0; i1 < 16; i1++){
+                        indices[1] = i1;
+                        for(uint i2 = i1; i2 < 16; i2++){
+                            indices[2] = i2;
+                            for(uint i3 = i2; i3 < 16; i3++){
+                                indices[3] = i3;
+                                for(uint i4 = i3; i4 < 16; i4++){
+                                    indices[4] = i4;
+                                    inline_mix;
+                                }
+                            }
+                        }
+                    }
+                }
+                dye_c = 6;
+                for(uint i0 = 0; i0 < 16; i0++){
+                    indices[0] = i0;
+                    for(uint i1 = i0; i1 < 16; i1++){
+                        indices[1] = i1;
+                        for(uint i2 = i1; i2 < 16; i2++){
+                            indices[2] = i2;
+                            for(uint i3 = i2; i3 < 16; i3++){
+                                indices[3] = i3;
+                                for(uint i4 = i3; i4 < 16; i4++){
+                                    indices[4] = i4;
+                                    for(uint i5 = i4; i5 < 16; i5++){
+                                        indices[5] = i5;
+                                        inline_mix;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                dye_c = 7;
+                for(uint i0 = 0; i0 < 16; i0++){
+                    indices[0] = i0;
+                    for(uint i1 = i0; i1 < 16; i1++){
+                        indices[1] = i1;
+                        for(uint i2 = i1; i2 < 16; i2++){
+                            indices[2] = i2;
+                            for(uint i3 = i2; i3 < 16; i3++){
+                                indices[3] = i3;
+                                for(uint i4 = i3; i4 < 16; i4++){
+                                    indices[4] = i4;
+                                    for(uint i5 = i4; i5 < 16; i5++){
+                                        indices[5] = i5;
+                                        for(uint i6 = i5; i6 < 16; i6++){
+                                            indices[6] = i6;
+                                            inline_mix;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                dye_c = 8;
+                for(uint i0 = 0; i0 < 16; i0++){
+                    indices[0] = i0;
+                    for(uint i1 = i0; i1 < 16; i1++){
+                        indices[1] = i1;
+                        for(uint i2 = i1; i2 < 16; i2++){
+                            indices[2] = i2;
+                            for(uint i3 = i2; i3 < 16; i3++){
+                                indices[3] = i3;
+                                for(uint i4 = i3; i4 < 16; i4++){
+                                    indices[4] = i4;
+                                    for(uint i5 = i4; i5 < 16; i5++){
+                                        indices[5] = i5;
+                                        for(uint i6 = i5; i6 < 16; i6++){
+                                            indices[6] = i6;
+                                            for(uint i7 = i6; i7 < 16; i7++){
+                                                indices[7] = i7;
+                                                inline_mix;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
             
+            // 4. Safely flush thread-local results into global memory
             #pragma omp critical
             {
-                chunk_attempts.insert(
-                    chunk_attempts.end(), 
-                    thread_local_attempts.begin(), 
-                    thread_local_attempts.end()
-                );
+                for(const auto& item : local_attempts){
+                    add(item.color, item.last, item.mix_d);
+                }
+            }
+            
+            // Synchronize all threads before logging/interrupt check
+            #pragma omp barrier
+            
+            // 5. Single master thread logs status and checks for Ctrl+C
+            #pragma omp single
+            {
+                std::cout << chunk_end << " / " << total_colors << " colors expanded ("
+                          << (ulng(chunk_end) * ulng(mixer_c)) << " evaluations) | Found: " << found << std::endl;
+                
+                if(interrupted){
+                    in_progress_i = chunk_end;
+                    std::cout << "Ctrl+C detected at color index " << in_progress_i << " on cycle " << ic << std::endl;
+                    save_je_in_progress();
+                    abort();
+                }
             }
         }
-        for(const auto& item : chunk_attempts){
-            add(item.color, item.last, item.mix_d);
-        }
-
-        std::cout << chunk_end << " / " << mixer_c << " mixers done | Found colors: " << found << std::endl;
-        
-        if(interrupted){
-            in_progress_i = chunk_end;
-            std::cout << "Ctrl+C detected at mixer " << in_progress_i << std::endl;
-            save_je_in_progress();
-            abort();
-        }
     }
-    
+
+    uint added_c = 0;
+    for(uint i = 0; i < (1 << 24); i++){
+        if(added->get(i)) added_c++;
+    }
+    std::cout << "Cycle " << ic << " Complete. Added: " << added_c << " new colors." << std::endl;
+    added_any = (added_c > 0);
     ic++;
 }
-void cycle_og(){
+void cycle_old(){
     uint mixer_li = 0;
     uint mixer_lf = 100;
     
