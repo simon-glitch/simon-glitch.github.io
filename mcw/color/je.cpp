@@ -648,148 +648,121 @@ void cycle(){
     uint total_colors = active_colors.size();
     std::cout << "cycle " << ic << ": processing " << total_colors << " active colors across " << mixer_c << " mixers;" << std::endl;
     
-    // Track global progress safely across threads
-    std::atomic<uint> processed_count(0);
-    std::atomic<uint> lowest_interrupted_idx(UINT32_MAX);
-    
-    #pragma omp parallel
-    {
-        std::vector<Add_Attempt> local_attempts;
-        local_attempts.reserve(1024);
-        
-        #pragma omp for schedule(dynamic, 64)
-        for(uint c_idx = in_progress_i; c_idx < total_colors; c_idx++){
-            if(interrupted){
-                uint current_min = lowest_interrupted_idx.load();
-                while (c_idx < current_min && 
-                    !lowest_interrupted_idx.compare_exchange_weak(current_min, c_idx));
-                continue;
-            }
-            
-            uint color = active_colors[c_idx];
-            uint mixer_id = 0;
-            uint last_i = 0;
-            uint dye_c = 0;
-            uint tr_accum = 0;
-            uint tg_accum = 0;
-            uint tb_accum = 0;
-            uint tm_accum = 0;
-            
-            #define MIX_EVAL \
-            { \
-            uint r = (color & 0xff0000) >> 16; \
-            uint g = (color & 0x00ff00) >> 8; \
-            uint b = (color & 0x0000ff); \
-            uint tr = tr_accum + r; \
-            uint tg = tg_accum + g; \
-            uint tb = tb_accum + b; \
-            uint tm = tm_accum + max(r, g, b); \
-            \
-            uint div = (dye_c + 1); \
-            uint ar = tr / div; \
-            uint ag = tg / div; \
-            uint ab = tb / div; \
-            float avg_max = float(tm) / float(div); \
-            float max_avg = max(ar, ag, ab); \
-            \
-            uint result = ( \
-                (((uint)((float(ar) * avg_max) / max_avg)) << 16) | \
-                (((uint)((float(ag) * avg_max) / max_avg)) <<  8) | \
-                (((uint)((float(ab) * avg_max) / max_avg))      )   \
-            ); \
-            \
-            if (!c_exists->get(result)) { \
-                local_attempts.push_back({result, color, mixer_id}); \
-            } \
-            mixer_id++; \
-            }
-            
-            #define DYE_TIER(var, start, INNER_TIER) \
-            for(uint var = start; var < 16; var ++){ \
-            uint c = base_colors[ var ]; \
-            uint r = (c & 0xff0000) >> 16; \
-            uint g = (c & 0x00ff00) >> 8; \
-            uint b = (c & 0x0000ff); \
-            uint m = max(r, g, b); \
-            tr_accum += r; \
-            tg_accum += g; \
-            tb_accum += b; \
-            tm_accum += m; \
-            dye_c++; \
-            { \
-                INNER_TIER ; \
-            } \
-            dye_c--; \
-            tr_accum -= r; \
-            tg_accum -= g; \
-            tb_accum -= b; \
-            tm_accum -= m; \
-            }
-            
-            #define DYE_TIER_1 DYE_TIER(i1, i2, MIX_EVAL)
-            #define DYE_TIER_2 DYE_TIER(i2, i3, DYE_TIER_1)
-            #define DYE_TIER_3 DYE_TIER(i3, i4, DYE_TIER_2)
-            #define DYE_TIER_4 DYE_TIER(i4, i5, DYE_TIER_3)
-            #define DYE_TIER_5 DYE_TIER(i5, i6, DYE_TIER_4)
-            #define DYE_TIER_6 DYE_TIER(i6, i7, DYE_TIER_5)
-            #define DYE_TIER_7 DYE_TIER(i7, i8, DYE_TIER_6)
-            #define DYE_TIER_8 DYE_TIER(i8, 0, DYE_TIER_7)
-            
-            uint i2 = 0;
-            DYE_TIER_1;
-            uint i3 = 0;
-            DYE_TIER_2;
-            uint i4 = 0;
-            DYE_TIER_3;
-            uint i5 = 0;
-            DYE_TIER_4;
-            uint i6 = 0;
-            DYE_TIER_5;
-            uint i7 = 0;
-            DYE_TIER_6;
-            uint i8 = 0;
-            DYE_TIER_7;
-            DYE_TIER_8;
-            
-            if(local_attempts.size() >= 32768){
-                #pragma omp critical
-                {
-                    for(const auto& item : local_attempts){
-                        add(item.color, item.last, item.mix_d);
-                    }
-                }
-                local_attempts.clear();
-            }
-            
-            uint current_processed = ++processed_count;
-            if(current_processed % 480 == 0){
-                #pragma omp single nowait
-                {
-                    std::cout
-                    << current_processed << " / " << total_colors 
-                    << " colors expanded | Found: " << found << std::endl;
-                }
-            }
+    uint chunk_size = 480;
+
+    for(uint outer_i = in_progress_i; outer_i < total_colors; outer_i += chunk_size){
+        if(interrupted){
+            in_progress_i = outer_i;
+            std::cout << "Ctrl+C detected! Pausing at color index " << in_progress_i << " on cycle " << ic << std::endl;
+            save_je_in_progress();
+            abort();
         }
-        
-        // Flush remaining local attempts
-        #pragma omp critical
+
+        uint chunk_end = std::min(outer_i + chunk_size, total_colors);
+
+        #pragma omp parallel
         {
-            for(const auto& item : local_attempts){
-                add(item.color, item.last, item.mix_d);
+            std::vector<Add_Attempt> local_attempts;
+            local_attempts.reserve(1024);
+            
+            #pragma omp for schedule(dynamic, 16)
+            for(uint c_idx = outer_i; c_idx < chunk_end; c_idx++){
+                uint color = active_colors[c_idx];
+                uint mixer_id = 0;
+                uint last_i = 0;
+                uint dye_c = 0;
+                uint tr_accum = 0, tg_accum = 0, tb_accum = 0, tm_accum = 0;
+                
+                #define MIX_EVAL \
+                { \
+                uint r = (color & 0xff0000) >> 16; \
+                uint g = (color & 0x00ff00) >> 8; \
+                uint b = (color & 0x0000ff); \
+                uint tr = tr_accum + r; \
+                uint tg = tg_accum + g; \
+                uint tb = tb_accum + b; \
+                uint tm = tm_accum + max(r, g, b); \
+                \
+                uint div = (dye_c + 1); \
+                uint ar = tr / div; \
+                uint ag = tg / div; \
+                uint ab = tb / div; \
+                float avg_max = float(tm) / float(div); \
+                float max_avg = max(ar, ag, ab); \
+                \
+                uint result = ( \
+                    (((uint)((float(ar) * avg_max) / max_avg)) << 16) | \
+                    (((uint)((float(ag) * avg_max) / max_avg)) <<  8) | \
+                    (((uint)((float(ab) * avg_max) / max_avg))      )   \
+                ); \
+                \
+                if (!c_exists->get(result)) { \
+                    local_attempts.push_back({result, color, mixer_id}); \
+                } \
+                mixer_id++; \
+                }
+                
+                #define DYE_TIER(var, start, INNER_TIER) \
+                for(uint var = start; var < 16; var ++){ \
+                uint c = base_colors[ var ]; \
+                uint r = (c & 0xff0000) >> 16; \
+                uint g = (c & 0x00ff00) >> 8; \
+                uint b = (c & 0x0000ff); \
+                uint m = max(r, g, b); \
+                tr_accum += r; \
+                tg_accum += g; \
+                tb_accum += b; \
+                tm_accum += m; \
+                dye_c++; \
+                { \
+                    INNER_TIER ; \
+                } \
+                dye_c--; \
+                tr_accum -= r; \
+                tg_accum -= g; \
+                tb_accum -= b; \
+                tm_accum -= m; \
+                }
+                
+                #define DYE_TIER_1 DYE_TIER(i1, i2, MIX_EVAL)
+                #define DYE_TIER_2 DYE_TIER(i2, i3, DYE_TIER_1)
+                #define DYE_TIER_3 DYE_TIER(i3, i4, DYE_TIER_2)
+                #define DYE_TIER_4 DYE_TIER(i4, i5, DYE_TIER_3)
+                #define DYE_TIER_5 DYE_TIER(i5, i6, DYE_TIER_4)
+                #define DYE_TIER_6 DYE_TIER(i6, i7, DYE_TIER_5)
+                #define DYE_TIER_7 DYE_TIER(i7, i8, DYE_TIER_6)
+                #define DYE_TIER_8 DYE_TIER(i8, 0, DYE_TIER_7)
+                
+                uint i2 = 0;
+                DYE_TIER_1;
+                uint i3 = 0;
+                DYE_TIER_2;
+                uint i4 = 0;
+                DYE_TIER_3;
+                uint i5 = 0;
+                DYE_TIER_4;
+                uint i6 = 0;
+                DYE_TIER_5;
+                uint i7 = 0;
+                DYE_TIER_6;
+                uint i8 = 0;
+                DYE_TIER_7;
+                DYE_TIER_8;
+            }
+            
+            #pragma omp critical
+            {
+                for(const auto& item : local_attempts){
+                    add(item.color, item.last, item.mix_d);
+                }
             }
         }
+        
+        std::cout
+        << chunk_end << " / " << total_colors 
+        << " colors expanded; found: " << found << std::endl;
     }
     
-    if(interrupted){
-        in_progress_i = lowest_interrupted_idx.load();
-        if (in_progress_i == UINT32_MAX) in_progress_i = total_colors;
-        std::cout << "Ctrl+C detected! Resuming at color index " << in_progress_i << " on cycle " << ic << std::endl;
-        save_je_in_progress();
-        abort();
-    }
-    
-    // reset this for the next cycle;
     in_progress_i = 0;
     
     uint added_c = 0;
