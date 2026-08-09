@@ -75,31 +75,25 @@ public:
                 
                 // now add the combination to the list;
                 uint formatted = indices[0];
-                bool all_zero = indices[0] == 0;
-                for(uchar i = 1; i < dye_c; i++){
-                    // this code was written by an autistic man at 8 in the morning who hasn't slept all morning;
-                    all_zero = all_zero && indices[i] == 0;
-                    // just store the diff; edge case for zeroes explained in je.cpp;
+                bool all_zero = (indices[0] == 0);
+
+                for (uchar i = 1; i < dye_c; i++) {
+                    all_zero = all_zero && (indices[i] == 0);
                     formatted = (formatted << 4) | (indices[i] - indices[i - 1]);
                 }
-                if(all_zero){
-                    // std::cout << "This should be a list of " << uint(dye_c) << " zeroes. ";
-                    // std::cout << "At " << dyes.size() << ". ";
+
+                if (all_zero) {
                     formatted = (0xf0 | (dye_c + 1)) << 24;
-                    // std::cout << "Formatted =  " << formatted << std::endl;
-                }
-                else if(dye_c < 8){
-                    formatted = (formatted << 4) | (16 - indices[carry_place]);
-                }
-                if(all_zero){
-                    formatted = (0xf0 | (dye_c + 1)) << 24;
-                }
-                else if(dye_c < 8){
-                    formatted = (formatted << 4) | (16 - indices[carry_place]);
+                } 
+                else if (dye_c < 8) {
+                    // use indices[dye_c - 1] instead of carry_place;
+                    uchar last_dye = indices[dye_c - 1]; 
+                    
+                    formatted = (formatted << 4) | (16 - last_dye);
                     formatted <<= 4 * (8 - 1 - dye_c);
                 }
+
                 dyes.push_back(formatted);
-                
                 // even though i've written this before, i didn't remember that you are forced to handle carrying in a really jank way; like using a negative or separating the steps;
             }
         }

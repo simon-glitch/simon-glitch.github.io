@@ -94,22 +94,22 @@ uint* base_colors = new uint[16]{
     0xf38baa, /* #f38baa pink    */
 };
 string* base_colors_names = new string[16]{
-    string("white   "), /* #ffffff */
-    string("l_gray  "), /* #9d9d97 */
-    string("gray    "), /* #474f52 */
-    string("black   "), /* #1d1d21 */
-    string("brown   "), /* #835432 */
-    string("red     "), /* #b02e26 */
-    string("orange  "), /* #f9801d */
-    string("yellow  "), /* #fed83d */
-    string("lime    "), /* #80c71f */
-    string("green   "), /* #5e7c16 */
-    string("cyan    "), /* #169c9c */
-    string("l_blue  "), /* #3ab3da */
-    string("blue    "), /* #3c44aa */
-    string("purple  "), /* #8932b8 */
-    string("magenta "), /* #c74ebd */
-    string("pink    "), /* #f38baa */
+    string("white   "), /* #ffffff  0 */
+    string("l_gray  "), /* #9d9d97  1 */
+    string("gray    "), /* #474f52  2 */
+    string("black   "), /* #1d1d21  3 */
+    string("brown   "), /* #835432  4 */
+    string("red     "), /* #b02e26  5 */
+    string("orange  "), /* #f9801d  6 */
+    string("yellow  "), /* #fed83d  7 */
+    string("lime    "), /* #80c71f  8 */
+    string("green   "), /* #5e7c16  9 */
+    string("cyan    "), /* #169c9c 10 */
+    string("l_blue  "), /* #3ab3da 11 */
+    string("blue    "), /* #3c44aa 12 */
+    string("purple  "), /* #8932b8 13 */
+    string("magenta "), /* #c74ebd 14 */
+    string("pink    "), /* #f38baa 15 */
 };
 
 /**
@@ -649,14 +649,16 @@ void cycle(){
     
     uint total_colors = active_colors.size();
     std::cout << "Cycle " << ic << ": Processing " << total_colors << " active colors across " << mixer_c << " mixers..." << std::endl;
-    uint color_chunk_size = 10000;
+    uint color_chunk_size = 16;
+    uint log_freq = 30;
+    uint log_i = 0;
     
     #pragma omp parallel
     {
         std::vector<Add_Attempt> local_attempts;
         local_attempts.reserve(65536);
         
-        for(uint outer_i = 0; outer_i < total_colors; outer_i += color_chunk_size){
+        for(uint outer_i = in_progress_i; outer_i < total_colors; outer_i += color_chunk_size){
             uint chunk_end = std::min(outer_i + color_chunk_size, total_colors);
             local_attempts.clear();
             
@@ -703,9 +705,9 @@ void cycle(){
                 mixer_id++; \
                 }
                 
-                #define DYE_TIER(INNER_TIER) \
-                for(uint i = last_i; i < 16; i++){ \
-                uint c = base_colors[i]; \
+                #define DYE_TIER(var, start, INNER_TIER) \
+                for(uint var = start; var < 16; var ++){ \
+                uint c = base_colors[ var ]; \
                 uint r = (c & 0xff0000) >> 16; \
                 uint g = (c & 0x00ff00) >> 8; \
                 uint b = (c & 0x0000ff); \
@@ -715,12 +717,9 @@ void cycle(){
                 tb_accum += b; \
                 tm_accum += m; \
                 dye_c++; \
-                /* uint prev_last = last_i; */ \
-                last_i = i;\
                 { \
-                    INNER_TIER; \
+                    INNER_TIER ; \
                 } \
-                last_i = i; \
                 dye_c--; \
                 tr_accum -= r; \
                 tg_accum -= g; \
@@ -728,23 +727,30 @@ void cycle(){
                 tm_accum -= m; \
                 }
                 
-                #define DYE_TIER_1 DYE_TIER(MIX_EVAL)
-                #define DYE_TIER_2 DYE_TIER(DYE_TIER_1)
-                #define DYE_TIER_3 DYE_TIER(DYE_TIER_2)
-                #define DYE_TIER_4 DYE_TIER(DYE_TIER_3)
-                #define DYE_TIER_5 DYE_TIER(DYE_TIER_4)
-                #define DYE_TIER_6 DYE_TIER(DYE_TIER_5)
-                #define DYE_TIER_7 DYE_TIER(DYE_TIER_6)
-                #define DYE_TIER_8 DYE_TIER(DYE_TIER_7)
+                #define DYE_TIER_1 DYE_TIER(i1, i2, MIX_EVAL)
+                #define DYE_TIER_2 DYE_TIER(i2, i3, DYE_TIER_1)
+                #define DYE_TIER_3 DYE_TIER(i3, i4, DYE_TIER_2)
+                #define DYE_TIER_4 DYE_TIER(i4, i5, DYE_TIER_3)
+                #define DYE_TIER_5 DYE_TIER(i5, i6, DYE_TIER_4)
+                #define DYE_TIER_6 DYE_TIER(i6, i7, DYE_TIER_5)
+                #define DYE_TIER_7 DYE_TIER(i7, i8, DYE_TIER_6)
+                #define DYE_TIER_8 DYE_TIER(i8, 0, DYE_TIER_7)
                 
+                uint i2 = 0;
                 DYE_TIER_1;
+                uint i3 = 0;
                 DYE_TIER_2;
+                uint i4 = 0;
                 DYE_TIER_3;
-                // DYE_TIER_4;
-                // DYE_TIER_5;
-                // DYE_TIER_6;
-                // DYE_TIER_7;
-                // DYE_TIER_8;
+                uint i5 = 0;
+                DYE_TIER_4;
+                uint i6 = 0;
+                DYE_TIER_5;
+                uint i7 = 0;
+                DYE_TIER_6;
+                uint i8 = 0;
+                DYE_TIER_7;
+                DYE_TIER_8;
             }
             
             #pragma omp critical
@@ -756,9 +762,13 @@ void cycle(){
             #pragma omp barrier
             #pragma omp single
             {
-                std::cout << chunk_end << " / " << total_colors << " colors expanded ("
-                          << (ulng(chunk_end) * ulng(mixer_c)) << " evaluations) | Found: " << found << std::endl;
-                
+                log_i++;
+                if(log_i == log_freq){
+                    log_i = 0;
+                    std::cout
+                    << chunk_end << " / " << total_colors << " colors expanded ("
+                    << (ulng(chunk_end) * ulng(mixer_c)) << " evaluations) | Found: " << found << std::endl;
+                }
                 if(interrupted){
                     in_progress_i = chunk_end;
                     std::cout << "Ctrl+C detected at color index " << in_progress_i << " on cycle " << ic << std::endl;
@@ -835,12 +845,13 @@ public:
     }
     void try_last(uint color){
         if(!c_exists->get(color)){
-            // std::cout << "color does not exist" << std::endl;
+            std::cout << "color does not exist" << std::endl;
             return;
         }
         // std::cout << "enter try_last" << std::endl;
+        // std::cout << "mixer id " << recipes->get(color) << std::endl;
         // std::cout << "color = " << color << std::endl;
-        uint dyem = recipes->get(color);
+        uint dyem = mixers_a[recipes->get(color)].mix_d;
         uint last = last_cs->get(color);
         // std::cout << "dyem = " << dyem << std::endl;
         // std::cout << "last = " << last << std::endl;
@@ -933,159 +944,71 @@ void see_recipe(string msg, uint i){
 }
 
 
-/*
-Expected results:
-
-Cycle 10: Processing 17 active colors across 735470 mixers...
-17 / 17 colors expanded (12502990 evaluations) | Found: 5684750
-Cycle 10 Complete. Added: 4 new colors.
-Found colors: 5684750
-Cycle 11
-Cycle 11: Processing 4 active colors across 735470 mixers...
-4 / 4 colors expanded (2941880 evaluations) | Found: 5684750
-Cycle 11 Complete. Added: 0 new colors.
-Found colors: 5684750
-Saving 153092096 bytes ...
-Saved.
-Found 11092466 recipes with 0 steps.
-Found 531606 recipes with 1 steps.
-      2582694
-Found 4603752 recipes with 2 steps.
-Found 492754 recipes with 3 steps.
-Found 40853 recipes with 4 steps.
-Found 10537 recipes with 5 steps.
-
-*/
-
 int main(int argc, char const *argv[]){
     std::signal(SIGINT, signal_handler);
     
     bool run_from_save_in_progress = (argc == 2);
+    bool run_from_save = (argc == 3);
     
     std::cout << "Main!" << std::endl;
     gen_mixes();
-    // 735470 -> 564927;
     std::cout << "mixer_c: " << mixer_c << std::endl;
     
     if(run_from_save_in_progress){
         load_je_in_progress();
         std::cout << "Cycle " << ic << std::endl;
     }
-    else{
+    else if(!run_from_save){
         std::cout << "Base colors!" << std::endl;
         ic = -1;
         for(uint mixer_i = 0; mixer_i < mixer_c; mixer_i++){
             Mixer& m = mixers_a[mixer_i];
             uint i = m.base();
-            add(i, i, m.mix_d);
+            add(i, i, mixer_i);
         }
         ic = 0;
         std::cout << "Cycle " << ic << std::endl;
         cycle_init();
     }
-    cycle();
-    std::cout << "Found colors: " << found << std::endl;
-    while(added_any){
-        std::cout << "Cycle " << ic << std::endl;
-        cycle_init();
+    if(!run_from_save){
         cycle();
         std::cout << "Found colors: " << found << std::endl;
+        while(added_any){
+            std::cout << "Cycle " << ic << std::endl;
+            cycle_init();
+            cycle();
+            std::cout << "Found colors: " << found << std::endl;
+        }
+        
+        save_je();
+    }
+    else{
+        load_je();
     }
     
-    save_je();
-    
-    // this is really pissing me off, because i shouldn't have to check to see if the item's exist;
-    // items that don't exist should be marked as 0 steps; but you know what? since something is clearly very wrong,
-    // lets count the number of items that have each value,
-    // AND double check to avoid checking for recipes on ones that don't exist;
-    // because it seems that something is wrong with my code;
-    // i'm pretty it's not a bit shifting issue, because there are no bits to be shifted;
-    // and it's not a forgotten code isuee because there was so little code it shouldn't be possible to forget any;
-    bool did_step_0 = false;
-    bool did_step_1 = false;
-    bool did_step_2 = false;
-    bool did_step_3 = false;
-    bool did_step_4 = false;
-    bool did_step_5 = false;
-    uint found_0 = 0;
-    uint found_1 = 0;
-    uint found_2 = 0;
-    uint found_3 = 0;
-    uint found_4 = 0;
-    uint found_5 = 0;
-    uint step_0 = 0xc0ffee;
-    uint step_1 = 0xc0ffee;
-    uint step_2 = 0xc0ffee;
-    uint step_3 = 0xc0ffee;
-    uint step_4 = 0xc0ffee;
-    uint step_5 = 0xc0ffee;
-    for(uint i = 0; i < (1 << 24); i++){
-        if(step_cs->get(i) == 0){
-            found_0++;
-            if(!did_step_0 && c_exists->get(i)){
-                did_step_0 = true;
-                step_0 = i;
+    vector<uint> at_step = {};
+    vector<uint> test_these = {};
+    uint at_last_step = 1;
+    uint at_last_step_prev = 1;
+    while(at_last_step > 0 && at_last_step_prev > 0){
+        at_last_step_prev = at_last_step;
+        at_last_step = 0;
+        uint step_i = at_step.size();
+        for(uint i = 0; i < (1 << 24); i++){
+            if(step_cs->get(i) == step_i){
+                at_last_step++;
+                if(step_i > 9){
+                    test_these.push_back(i);
+                }
             }
         }
-    }
-    for(uint i = 0; i < (1 << 24); i++){
-        if(step_cs->get(i) == 1){
-            found_1++;
-            if(!did_step_1 && c_exists->get(i)){
-                did_step_1 = true;
-                step_1 = i;
-            }
-        }
-    }
-    for(uint i = 0; i < (1 << 24); i++){
-        if(step_cs->get(i) == 2){
-            found_2++;
-            if(!did_step_2 && c_exists->get(i)){
-                did_step_2 = true;
-                step_2 = i;
-            }
-        }
-    }
-    for(uint i = 0; i < (1 << 24); i++){
-        if(step_cs->get(i) == 3){
-            found_3++;
-            if(!did_step_3 && c_exists->get(i)){
-                did_step_3 = true;
-                step_3 = i;
-            }
-        }
-    }
-    for(uint i = 0; i < (1 << 24); i++){
-        if(step_cs->get(i) == 4){
-            found_4++;
-            if(!did_step_4 && c_exists->get(i)){
-                did_step_4 = true;
-                step_4 = i;
-            }
-        }
-    }
-    for(uint i = 0; i < (1 << 24); i++){
-        if(step_cs->get(i) == 5){
-            found_5++;
-            if(!did_step_5 && c_exists->get(i)){
-                did_step_5 = true;
-                step_5 = i;
-            }
-        }
+        std::cout << "Found " << at_last_step << " recipes with " << step_i << " steps." << std::endl;
+        at_step.push_back(at_last_step);
     }
     
-    std::cout << "Found " << found_0 << " recipes with 0 steps." << std::endl;
-    std::cout << "Found " << found_1 << " recipes with 1 steps." << std::endl;
-    std::cout << "Found " << found_2 << " recipes with 2 steps." << std::endl;
-    std::cout << "Found " << found_3 << " recipes with 3 steps." << std::endl;
-    std::cout << "Found " << found_4 << " recipes with 4 steps." << std::endl;
-    std::cout << "Found " << found_5 << " recipes with 5 steps." << std::endl;
-    if(did_step_0) see_recipe("0 step: ", step_0);
-    if(did_step_1) see_recipe("1 step: ", step_1);
-    if(did_step_2) see_recipe("2 step: ", step_2);
-    if(did_step_3) see_recipe("3 step: ", step_3);
-    if(did_step_4) see_recipe("4 step: ", step_4);
-    if(did_step_5) see_recipe("5 step: ", step_5);
+    for(auto it = test_these.begin(); it != test_these.end(); it++){
+        see_recipe("one of the last found colors: ", *it);
+    }
     
     uint* my_decode = new uint[256]{0};
     my_decode['0'] = 0x0; my_decode['1'] = 0x1; my_decode['2'] = 0x2; my_decode['3'] = 0x3;
@@ -1130,80 +1053,216 @@ g++ je.cpp -O6 -o je.exe
 
 JE results:
 
-Start of gen
-Pregen done
-mixer_c: 116629
-
 Main!
-Cycle 0
-Added: 283048
-Found colors: 283064
-Cycle 1
-1000/8801; found colors: 2669187
-2000/8801; found colors: 3070741
-3000/8801; found colors: 3261280
-4000/8801; found colors: 3429156
-5000/8801; found colors: 3673119
-6000/8801; found colors: 3879789
-7000/8801; found colors: 3978490
-8000/8801; found colors: 4050375
-Added: 3819842
-Found colors: 4102906
-Cycle 2
-1000/546771; found colors: 4134220
-2000/546771; found colors: 4145548
-3000/546771; found colors: 4153023
-4000/546771; found colors: 4158723
-5000/546771; found colors: 4161884
-6000/546771; found colors: 4166601
-7000/546771; found colors: 4168560
-8000/546771; found colors: 4173458
-9000/546771; found colors: 4174694
-10000/546771; found colors: 4177253
-11000/546771; found colors: 4180071
-12000/546771; found colors: 4181704
-13000/546771; found colors: 4186798
-14000/546771; found colors: 4187907
-15000/546771; found colors: 4188978
-16000/546771; found colors: 4195114
-17000/546771; found colors: 4196050
-18000/546771; found colors: 4199546
-19000/546771; found colors: 4200379
-20000/546771; found colors: 4201546
-21000/546771; found colors: 4205058
-22000/546771; found colors: 4206073
-23000/546771; found colors: 4210216
-24000/546771; found colors: 4212135
-25000/546771; found colors: 4213215
-26000/546771; found colors: 4224017
-27000/546771; found colors: 4224946
-28000/546771; found colors: 4226481
-29000/546771; found colors: 4235343
-30000/546771; found colors: 4236388
-31000/546771; found colors: 4242976
-32000/546771; found colors: 4244316
-33000/546771; found colors: 4245594
-34000/546771; found colors: 4253350
-35000/546771; found colors: 4257993
-36000/546771; found colors: 4261352
-37000/546771; found colors: 4264687
-38000/546771; found colors: 4265736
-39000/546771; found colors: 4269232
-40000/546771; found colors: 4270471
-41000/546771; found colors: 4273855
-42000/546771; found colors: 4274606
-43000/546771; found colors: 4281585
-44000/546771; found colors: 4287409
-45000/546771; found colors: 4289910
-46000/546771; found colors: 4295777
-47000/546771; found colors: 4297717
-48000/546771; found colors: 4303135
-49000/546771; found colors: 4304062
-50000/546771; found colors: 4310968
-51000/546771; found colors: 4312079
-52000/546771; found colors: 4318377
-53000/546771; found colors: 4321400
-
+mixer_c: 735470
+Loading...
+Loaded.
+Found 11070726 recipes with 0 steps.
+Found 605824 recipes with 1 steps.
+Found 5008434 recipes with 2 steps.
+Found 74930 recipes with 3 steps.
+Found 12834 recipes with 4 steps.
+Found 3263 recipes with 5 steps.
+Found 854 recipes with 6 steps.
+Found 244 recipes with 7 steps.
+Found 69 recipes with 8 steps.
+Found 25 recipes with 9 steps.
+Found 8 recipes with 10 steps.
+Found 2 recipes with 11 steps.
+Found 2 recipes with 12 steps.
+Found 1 recipes with 13 steps.
+Found 0 recipes with 14 steps.
+one of the last found colors: 9b7b1b
+-> [
+  [orange  ,green   ],
+  [black   ],
+  [green   ,green   ],
+  [orange  ],
+  [lime    ],
+  [orange  ,green   ],
+  [lime    ],
+  [orange  ,orange  ,green   ,green   ,green   ],
+  [lime    ,green   ,green   ,green   ],
+  [black   ,orange  ,orange  ,orange  ,orange  ,green   ,green   ,green   ],
+]
+Recipe is correct.
+one of the last found colors: 9bcd1f
+-> [
+  [lime    ,lime    ,lime    ],
+  [orange  ,lime    ],
+  [orange  ,lime    ],
+  [orange  ,orange  ,lime    ,lime    ,lime    ,lime    ],
+  [lime    ,lime    ,lime    ],
+  [orange  ,orange  ],
+  [orange  ,yellow  ,yellow  ],
+  [orange  ,lime    ,lime    ,lime    ],
+  [orange  ,orange  ,orange  ,yellow  ,yellow  ,lime    ,lime    ,lime    ],
+  [orange  ,lime    ,lime    ,lime    ,lime    ],
+]
+Recipe is correct.
+one of the last found colors: a62d35
+-> [
+  [red     ],
+  [black   ,red     ,red     ,red     ,red     ,red     ,purple  ],
+  [red     ,purple  ],
+  [black   ],
+  [purple  ,purple  ],
+  [red     ],
+  [black   ,black   ,black   ,purple  ,purple  ,purple  ,purple  ],
+  [red     ],
+  [black   ,black   ,red     ,purple  ,purple  ,purple  ,purple  ,purple  ],
+  [black   ,black   ,black   ,red     ,purple  ,purple  ,magenta ],
+]
+Recipe is correct.
+one of the last found colors: aa3692
+-> [
+  [purple  ],
+  [black   ,red     ,red     ,red     ,red     ,red     ,purple  ],
+  [red     ,purple  ],
+  [black   ],
+  [purple  ,purple  ],
+  [red     ],
+  [black   ,black   ,black   ,purple  ,purple  ,purple  ,purple  ],
+  [red     ],
+  [black   ,black   ,red     ,purple  ,purple  ,purple  ,purple  ,purple  ],
+  [black   ,black   ,black   ,red     ,purple  ,purple  ,magenta ],
+]
+Recipe is correct.
+one of the last found colors: b9d321
+-> [
+  [lime    ],
+  [orange  ,lime    ],
+  [orange  ,lime    ],
+  [orange  ,orange  ,lime    ,lime    ,lime    ,lime    ],
+  [lime    ,lime    ,lime    ],
+  [orange  ,orange  ],
+  [orange  ,yellow  ,yellow  ],
+  [orange  ,lime    ,lime    ,lime    ],
+  [orange  ,orange  ,orange  ,yellow  ,yellow  ,lime    ,lime    ,lime    ],
+  [orange  ,lime    ,lime    ,lime    ,lime    ],
+]
+Recipe is correct.
+one of the last found colors: c3444f
+-> [
+  [red     ,red     ,magenta ],
+  [red     ,orange  ,orange  ,orange  ,orange  ,orange  ],
+  [purple  ,purple  ],
+  [red     ],
+  [purple  ,purple  ,purple  ],
+  [purple  ],
+  [red     ],
+  [red     ,red     ,purple  ,purple  ,purple  ,purple  ,purple  ,purple  ],
+  [purple  ,purple  ,purple  ,purple  ,purple  ,purple  ,purple  ],
+  [black   ,black   ,black   ,black   ,black   ,red     ,magenta ],
+]
+Recipe is correct.
+one of the last found colors: d65b78
+-> [
+  [magenta ],
+  [red     ,orange  ,orange  ,orange  ,orange  ,orange  ],
+  [purple  ,purple  ],
+  [red     ],
+  [purple  ,purple  ,purple  ],
+  [purple  ],
+  [red     ],
+  [red     ,red     ,purple  ,purple  ,purple  ,purple  ,purple  ,purple  ],
+  [purple  ,purple  ,purple  ,purple  ,purple  ,purple  ,purple  ],
+  [black   ,black   ,black   ,black   ,black   ,red     ,magenta ],
+]
+Recipe is correct.
+one of the last found colors: ef7428
+-> [
+  [orange  ],
+  [red     ,orange  ,orange  ,orange  ,orange  ,orange  ],
+  [purple  ,purple  ],
+  [red     ],
+  [purple  ,purple  ,purple  ],
+  [purple  ],
+  [red     ],
+  [red     ,red     ,purple  ,purple  ,purple  ,purple  ,purple  ,purple  ],
+  [purple  ,purple  ,purple  ,purple  ,purple  ,purple  ,purple  ],
+  [black   ,black   ,black   ,black   ,black   ,red     ,magenta ],
+]
+Recipe is correct.
+one of the last found colors: abc31f
+-> [
+  [orange  ,lime    ,lime    ,green   ],
+  [lime    ,lime    ,lime    ],
+  [orange  ,lime    ],
+  [orange  ,lime    ],
+  [orange  ,orange  ,lime    ,lime    ,lime    ,lime    ],
+  [lime    ,lime    ,lime    ],
+  [orange  ,orange  ],
+  [orange  ,yellow  ,yellow  ],
+  [orange  ,lime    ,lime    ,lime    ],
+  [orange  ,orange  ,orange  ,yellow  ,yellow  ,lime    ,lime    ,lime    ],
+  [orange  ,lime    ,lime    ,lime    ,lime    ],
+]
+Recipe is correct.
+one of the last found colors: ceb41f
+-> [
+  [orange  ,orange  ,lime    ,green   ],
+  [lime    ],
+  [orange  ,lime    ],
+  [orange  ,lime    ],
+  [orange  ,orange  ,lime    ,lime    ,lime    ,lime    ],
+  [lime    ,lime    ,lime    ],
+  [orange  ,orange  ],
+  [orange  ,yellow  ,yellow  ],
+  [orange  ,lime    ,lime    ,lime    ],
+  [orange  ,orange  ,orange  ,yellow  ,yellow  ,lime    ,lime    ,lime    ],
+  [orange  ,lime    ,lime    ,lime    ,lime    ],
+]
+Recipe is correct.
+one of the last found colors: a2a51c
+-> [
+  [green   ],
+  [orange  ,orange  ,lime    ,green   ],
+  [lime    ],
+  [orange  ,lime    ],
+  [orange  ,lime    ],
+  [orange  ,orange  ,lime    ,lime    ,lime    ,lime    ],
+  [lime    ,lime    ,lime    ],
+  [orange  ,orange  ],
+  [orange  ,yellow  ,yellow  ],
+  [orange  ,lime    ,lime    ,lime    ],
+  [orange  ,orange  ,orange  ,yellow  ,yellow  ,lime    ,lime    ,lime    ],
+  [orange  ,lime    ,lime    ,lime    ,lime    ],
+]
+Recipe is correct.
+one of the last found colors: bdc320
+-> [
+  [orange  ,lime    ,lime    ,green   ],
+  [orange  ,orange  ,lime    ,green   ],
+  [lime    ],
+  [orange  ,lime    ],
+  [orange  ,lime    ],
+  [orange  ,orange  ,lime    ,lime    ,lime    ,lime    ],
+  [lime    ,lime    ,lime    ],
+  [orange  ,orange  ],
+  [orange  ,yellow  ,yellow  ],
+  [orange  ,lime    ,lime    ,lime    ],
+  [orange  ,orange  ,orange  ,yellow  ,yellow  ,lime    ,lime    ,lime    ],
+  [orange  ,lime    ,lime    ,lime    ,lime    ],
+]
+Recipe is correct.
+one of the last found colors: bc951b
+-> [
+  [orange  ,orange  ,green   ,green   ],
+  [orange  ,lime    ,lime    ,green   ],
+  [orange  ,orange  ,lime    ,green   ],
+  [lime    ],
+  [orange  ,lime    ],
+  [orange  ,lime    ],
+  [orange  ,orange  ,lime    ,lime    ,lime    ,lime    ],
+  [lime    ,lime    ,lime    ],
+  [orange  ,orange  ],
+  [orange  ,yellow  ,yellow  ],
+  [orange  ,lime    ,lime    ,lime    ],
+  [orange  ,orange  ,orange  ,yellow  ,yellow  ,lime    ,lime    ,lime    ],
+  [orange  ,lime    ,lime    ,lime    ,lime    ],
+]
+Recipe is correct.
 
 
 */
