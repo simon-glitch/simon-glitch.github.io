@@ -3,11 +3,16 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include <stdfloat>
 #include <set>
 #include <algorithm>
 #include <math.h>
 #include <atomic>
 #include <csignal>
+#include <limits>
+
+static_assert(sizeof(float) == 4 &&
+std::numeric_limits<float>::is_iec559, "System float is not 32-bit IEEE-754!");
 
 volatile std::sig_atomic_t interrupted = 0;
 
@@ -21,6 +26,7 @@ using std::vector;
 using std::string;
 
 namespace je{
+typedef std::float32_t flot;
 typedef unsigned int uint;
 typedef unsigned short ushort;
 typedef unsigned char uchar;
@@ -73,10 +79,47 @@ vector<char> whole_file(string file_in){
     return data;
 }
 
-// isn't there a way to put this on the stack instead of the heap? i don't remember what it is;
-// well global vars can be on the heap, since they will be deleted when the program finishes running XD;
+/** Colors used from 12w34a (when armor dyeing was first added) to 1.4.3. */
+uint* base_colors_1_2 = new uint[16]{
+    0xFFFFFF, /* #FFFFFF white   */
+    0x999999, /* #999999 l_gray  */
+    0x4C4C4C, /* #4C4C4C gray    */
+    0x191919, /* #191919 black   */
+    0x7F664C, /* #7F664C brown   */
+    0xCC4C4C, /* #CC4C4C red     */
+    0xF2B233, /* #F2B233 orange  */
+    0xE5E533, /* #E5E533 yellow  */
+    0x7FCC19, /* #7FCC19 lime    */
+    0x667F33, /* #667F33 green   */
+    0x4C99B2, /* #4C99B2 cyan    */
+    0x99B2F2, /* #99B2F2 l_blue  */
+    0x3366CC, /* #3366CC blue    */
+    0xB266E5, /* #B266E5 purple  */
+    0xE57FD8, /* #E57FD8 magenta */
+    0xF2B2CC, /* #F2B2CC pink    */
+};
+/** Colors used from 1.4.3 to 17w06a. */
+uint* base_colors_1_4 = new uint[16]{
+    0xFFFFFF, /* #FFFFFF white   */
+    0x999999, /* #999999 l_gray  */
+    0x4C4C4C, /* #4C4C4C gray    */
+    0x191919, /* #191919 black   */
+    0x664C33, /* #664C33 brown   */
+    0x993333, /* #993333 red     */
+    0xD87F33, /* #D87F33 orange  */
+    0xE5E533, /* #E5E533 yellow  */
+    0x7FCC19, /* #7FCC19 lime    */
+    0x667F33, /* #667F33 green   */
+    0x4C7F99, /* #4C7F99 cyan    */
+    0x6699D8, /* #6699D8 l_blue  */
+    0x334CB2, /* #334CB2 blue    */
+    0x7F3FB2, /* #7F3FB2 purple  */
+    0xB24CD8, /* #B24CD8 magenta */
+    0xF27FA5, /* #F27FA5 pink    */
+};
+/** Colors used from 17w06a to now. */
 uint* base_colors = new uint[16]{
-    0xffffff, /* #ffffff white   */
+    0xf9fffe, /* #f9fffe white   */
     0x9d9d97, /* #9d9d97 l_gray  */
     0x474f52, /* #474f52 gray    */
     0x1d1d21, /* #1d1d21 black   */
@@ -404,13 +447,13 @@ uint mix(uint color, Mixer mixer){
     uint ar = tr / mixer.len;
     uint ag = tg / mixer.len;
     uint ab = tb / mixer.len;
-    float avg_max = float(mixer.tm + max(r, g, b)) / float(mixer.len);
-    float max_avg = max(ar, ag, ab);
+    flot avg_max = flot(mixer.tm + max(r, g, b)) / flot(mixer.len);
+    flot max_avg = max(ar, ag, ab);
     // note the order of operations matters here; you must multiply then divide;
     return (
-        (((uint) ((float(ar) * avg_max) / max_avg)) << 16) |
-        (((uint) ((float(ag) * avg_max) / max_avg)) <<  8) |
-        (((uint) ((float(ab) * avg_max) / max_avg))      )
+        (((uint) ((flot(ar) * avg_max) / max_avg)) << 16) |
+        (((uint) ((flot(ag) * avg_max) / max_avg)) <<  8) |
+        (((uint) ((flot(ab) * avg_max) / max_avg))      )
     );
 }
 
@@ -1204,6 +1247,7 @@ Found 1 recipes with 13 steps.
 Found 0 recipes with 14 steps.
 
 11070726+605824+5008434+74930+12834+3263+854+244+69+25+8+2+2+1+0
+-> 5706490 obtainable colors.
 
 one of the last found colors: 9b7b1b
 -> [
