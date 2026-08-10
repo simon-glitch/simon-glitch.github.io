@@ -68,7 +68,7 @@ vector<char> whole_file(string file_in){
         count = fin.gcount();
     }
     fin.close();
-    delete txt_in;
+    delete[] txt_in;
     
     return data;
 }
@@ -130,7 +130,7 @@ public:
         d[idx] = value;
     }
     ~Color_Recipes(){
-        delete d;
+        delete[] d;
     }
 };
 /** This indicate show many crafting steps it takes to obtain a color. The max is 255 because I can't imagine needing even more. I think just 15 would be enough, but there is no need to minimize the amount of data. */
@@ -150,7 +150,7 @@ public:
         d[idx] = value;
     }
     ~Color_Steps(){
-        delete d;
+        delete[] d;
     }
 };
 class Color_Exists{
@@ -172,7 +172,7 @@ public:
         d[idx >> 3] |= value         << (idx & 7);
     }
     ~Color_Exists(){
-        delete d;
+        delete[] d;
     }
 };
 
@@ -476,7 +476,7 @@ void save_je(){
     
     std::cout << "Saved." << std::endl;
     
-    delete save_chars;
+    delete[] save_chars;
 }
 void load_je(){
     std::cout << "Loading..." << std::endl;
@@ -558,7 +558,7 @@ void save_je_in_progress(){
     
     std::cout << "Saved." << std::endl;
     
-    delete save_chars;
+    delete[] save_chars;
 }
 void load_je_in_progress(){
     std::cout << "Loading (loop in progress)..." << std::endl;
@@ -773,6 +773,155 @@ void cycle(){
     added_any = (added_c > 0);
     ic++;
 }
+void cycle_other(){
+    std::vector<uint> active_colors;
+    active_colors.reserve(1500000);
+    for(uint i = 0; i < (1 << 24); i++){
+        if(prev_added->get(i)) {
+            active_colors.push_back(i);
+        }
+    }
+    
+    uint total_colors = active_colors.size();
+    std::cout << "Cycle " << ic << ": Processing " << total_colors << " active colors across " << mixer_c << " mixers..." << std::endl;
+    uint color_chunk_size = 16;
+    uint log_freq = 30;
+    uint log_i = 0;
+    
+    // no pragma;
+    {
+        std::vector<Add_Attempt> local_attempts;
+        local_attempts.reserve(65536);
+        
+        for(uint outer_i = in_progress_i; outer_i < total_colors; outer_i += color_chunk_size){
+            uint chunk_end = std::min(outer_i + color_chunk_size, total_colors);
+            local_attempts.clear();
+            
+            // no pragma;
+            for(uint c_idx = outer_i; c_idx < chunk_end; c_idx++){
+                uint color = active_colors[c_idx];
+                
+                // this is an idea I had for changing the file format since it would take up less space anyways;
+                uint mixer_id = 0;
+                
+                uint last_i = 0;
+                uint dye_c = 0;
+                uint tr_accum = 0;
+                uint tg_accum = 0;
+                uint tb_accum = 0;
+                uint tm_accum = 0;
+                
+                #define MIX_EVAL \
+                { \
+                uint r = (color & 0xff0000) >> 16; \
+                uint g = (color & 0x00ff00) >> 8; \
+                uint b = (color & 0x0000ff); \
+                uint tr = tr_accum + r; \
+                uint tg = tg_accum + g; \
+                uint tb = tb_accum + b; \
+                uint tm = tm_accum + max(r, g, b); \
+                \
+                uint div = (dye_c + 1); \
+                uint ar = tr / div; \
+                uint ag = tg / div; \
+                uint ab = tb / div; \
+                float avg_max = float(tm) / float(div); \
+                float max_avg = max(ar, ag, ab); \
+                \
+                uint result = ( \
+                    (((uint)((float(ar) * avg_max) / max_avg)) << 16) | \
+                    (((uint)((float(ag) * avg_max) / max_avg)) <<  8) | \
+                    (((uint)((float(ab) * avg_max) / max_avg))      )   \
+                ); \
+                \
+                if (!c_exists->get(result)) { \
+                    local_attempts.push_back({result, color, mixer_id}); \
+                } \
+                mixer_id++; \
+                }
+                
+                #define DYE_TIER(var, start, INNER_TIER) \
+                for(uint var = start; var < 16; var ++){ \
+                uint c = base_colors[ var ]; \
+                uint r = (c & 0xff0000) >> 16; \
+                uint g = (c & 0x00ff00) >> 8; \
+                uint b = (c & 0x0000ff); \
+                uint m = max(r, g, b); \
+                tr_accum += r; \
+                tg_accum += g; \
+                tb_accum += b; \
+                tm_accum += m; \
+                dye_c++; \
+                { \
+                    INNER_TIER ; \
+                } \
+                dye_c--; \
+                tr_accum -= r; \
+                tg_accum -= g; \
+                tb_accum -= b; \
+                tm_accum -= m; \
+                }
+                
+                #define DYE_TIER_1 DYE_TIER(i1, i2, MIX_EVAL)
+                #define DYE_TIER_2 DYE_TIER(i2, i3, DYE_TIER_1)
+                #define DYE_TIER_3 DYE_TIER(i3, i4, DYE_TIER_2)
+                #define DYE_TIER_4 DYE_TIER(i4, i5, DYE_TIER_3)
+                #define DYE_TIER_5 DYE_TIER(i5, i6, DYE_TIER_4)
+                #define DYE_TIER_6 DYE_TIER(i6, i7, DYE_TIER_5)
+                #define DYE_TIER_7 DYE_TIER(i7, i8, DYE_TIER_6)
+                #define DYE_TIER_8 DYE_TIER(i8, 0, DYE_TIER_7)
+                
+                uint i2 = 0;
+                DYE_TIER_1;
+                uint i3 = 0;
+                DYE_TIER_2;
+                uint i4 = 0;
+                DYE_TIER_3;
+                uint i5 = 0;
+                DYE_TIER_4;
+                uint i6 = 0;
+                DYE_TIER_5;
+                uint i7 = 0;
+                DYE_TIER_6;
+                uint i8 = 0;
+                DYE_TIER_7;
+                DYE_TIER_8;
+            }
+            
+            // no pragma;
+            {
+                for(const auto& item : local_attempts){
+                    add(item.color, item.last, item.mix_d);
+                }
+            }
+            // no pragma;
+            // no pragma;
+            {
+                log_i++;
+                if(log_i == log_freq){
+                    log_i = 0;
+                    std::cout
+                    << chunk_end << " / " << total_colors << " colors expanded ("
+                    << (ulng(chunk_end) * ulng(mixer_c)) << " evaluations) | Found: " << found << std::endl;
+                }
+                if(interrupted){
+                    in_progress_i = chunk_end;
+                    std::cout << "Ctrl+C detected at color index " << in_progress_i << " on cycle " << ic << std::endl;
+                    save_je_in_progress();
+                    abort();
+                }
+            }
+        }
+    }
+
+    uint added_c = 0;
+    for(uint i = 0; i < (1 << 24); i++){
+        if(added->get(i)) added_c++;
+    }
+    std::cout << "Cycle " << ic << " Complete. Added: " << added_c << " new colors." << std::endl;
+    added_any = (added_c > 0);
+    ic++;
+}
 void cycle_old(){
     uint mixer_li = 0;
     uint mixer_lf = 100;
@@ -902,12 +1051,7 @@ string to_hex(uint c){
     });
 }
 string hex_c(char c){
-    char* cc = new char[2];
-    cc[0] = hex[c];
-    cc[1] = hex[16];
-    string s = string(cc);
-    delete cc;
-    return s;
+    return string(1, hex[c]);
 }
 
 void see_recipe(string msg, uint i){
