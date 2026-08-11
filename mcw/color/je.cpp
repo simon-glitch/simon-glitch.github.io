@@ -135,7 +135,7 @@ uint base_colors[16] = {
     0xf38baa, /* #f38baa pink    */
 };
 string base_colors_names[16] = {
-    string("white   "), /* #ffffff  0 */
+    string("white   "), /* #f9fffe  0 */
     string("l_gray  "), /* #9d9d97  1 */
     string("gray    "), /* #474f52  2 */
     string("black   "), /* #1d1d21  3 */
@@ -153,11 +153,6 @@ string base_colors_names[16] = {
     string("pink    "), /* #f38baa 15 */
 };
 
-/**
- * Recipes are 32 bits. Each set of bits is directly a number to increment the dye index by. The 8 sets together are effectively the list of dye indices. Once the index accumulates to 16, that signifies the end of the list. Or the list just ends at the 8th item.
- * - But Simon, what about [0]? Great question! That is represented with 0xf2000000. Now, Simon, that is bad... Yes, I know. 0xf0****** is reserved for sequences of 15. So 0xf1000000 indicates [15]. If the second nibble is some x, where x > 1, then the number presents (x-1) zeroes. It is a perfect system that can't possibly fail. Also, white is so useless so it should be fine. Remember, bad code is the best kind of code. And incorrect is the true best kind of correct.
- * - Hm? How many of the 4 billion int values are invalid in this format? Well logically, it should 2^24 - (17 choose 8 with repetitions) + 1. If we just consider all of the ones that I don't use to be invalid. Though most of them shouldn't break the code. Huh? Oh, the + 1 is because the number of mixers is (17 choose 8 with repetitions) - 1, since we have to remove the option of a mixer with nothing in it. I can't have that now.
- */
 class Color_Recipes{
 public:
     uint* d;

@@ -4,4 +4,3 @@ diary/secret/
 *.bin
 *.mcstructure
 mcw/color/*.zip
-mcw/color/*/*.zip

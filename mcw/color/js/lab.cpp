@@ -220,7 +220,7 @@ void save_je(){
 }
 void load_je(){
     std::cout << "Loading..." << std::endl;
-    vector<char> saved = whole_file("../je_res.bin");
+    vector<char> saved = whole_file("./je_res.bin");
     
     std::cout << "Loaded." << std::endl;
     uint i = 0;
@@ -253,29 +253,23 @@ void load_je(){
     }
 }
 
-// 1. Define your point structure for 3D Lab space
-struct LabPoint {
+struct LabPoint{
     float l, a, b;
 };
-
-// 2. Adaptor class that nanoflann uses to read your array
-struct PointCloud {
+struct PointCloud{
     std::vector<LabPoint> pts;
-
-    // Required nanoflann interface methods:
+    // required nanoflann interface methods:
     inline size_t kdtree_get_point_count() const { return pts.size(); }
-    
     inline float kdtree_get_pt(const size_t idx, const size_t dim) const {
         if (dim == 0) return pts[idx].l;
         if (dim == 1) return pts[idx].a;
         return pts[idx].b;
     }
-
     template <class BBOX>
     bool kdtree_get_bbox(BBOX&) const { return false; }
 };
 
-// Typedef for readability
+// typedef for readability
 using KDTree = nanoflann::KDTreeSingleIndexAdaptor<
     nanoflann::L2_Simple_Adaptor<float, PointCloud>,
     PointCloud,
@@ -316,10 +310,6 @@ int main(){
         // nanoflann expects query coordinates as a raw array pointer;
         float query_pt[3] = {target_L, target_a, target_b};
         
-        // output variables; nanoflan sends the data backwards;
-        size_t nearest_index;
-        float out_dist_sqr;
-        
         // get multiple close colors by euclidian distance within RGB (CIE76)
         const size_t num_results = 10;
         size_t ret_indexes[num_results];
@@ -344,7 +334,7 @@ int main(){
         }
 
         // save the result
-        closest->set(i, cloud_to_rgb[nearest_index]);
+        closest->set(i, best_rgb);
         
         log_i++;
         if(log_i == log_freq){
