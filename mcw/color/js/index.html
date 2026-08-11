@@ -4,15 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simanelix Armor Dyeing Calculator</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <p id="input_wrapper">Input for je_lab.zip: <input type="file" id="my_file_input"></p>
-    <p>Select color: <input type="color" id="target_color"></p>
-    <p><button id="load_main">Load main recipes</button></p>
-    <p><button id="load_2x2">Load 2x2 recipes</button></p>
-    <p><button id="load_1_4">Load 1.4 recipes</button></p>
-    <p><button id="load_1_2">Load 1.2 recipes</button></p>
-    <p id="output">Output recipe will go here.</p>
-    <script src="main.js"></script>
+    <div class="split">
+        <div>
+            <p id="input_wrapper">Input for je_lab.zip: <input type="file" id="my_file_input"></p>
+            <p>Select color: <input type="color" id="target_color"></p>
+            <p><button id="load_main">Load main recipes</button></p>
+            <p><button id="load_2x2">Load 2x2 recipes</button></p>
+            <p><button id="load_1_4">Load 1.4 recipes</button></p>
+            <p><button id="load_1_2">Load 1.2 recipes</button></p>
+        </div>
+        <div>
+            <p id="output">Output recipe will go here.</p>
+            <script src="main.js"></script>
+        </div>
+    </div>
 </body>
 </html>

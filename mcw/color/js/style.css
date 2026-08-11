@@ -1,0 +1,7 @@
+.split{
+    display: flex;
+    flex: 1 0;
+}
+.split > div{
+    width: 50%;
+}

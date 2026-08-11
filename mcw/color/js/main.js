@@ -142,10 +142,10 @@ function update(e){
     s += `${found} colors are obtainable.<br>`;
     s += `Color is ${exists ? "" : "not"} obtainable.<br>`;
     if(!exists){
-        s += `Closest color in Lab space: #${closest.get(color).toString(16)}<br>`;
-        // color = closest.get(color);
+        s += `Closest color in Lab space: #${closest.get(color).toString(16)} <input type="color" value="#${closest.get(color).toString(16)}"><br>`;
+        color = closest.get(color);
     }
-    if(exists){
+    if(c_exists.get(color)){
         const r = [];
         recipe(r, color);
         console.log("r", r);
@@ -153,6 +153,9 @@ function update(e){
         
         s += "* " +
         r.toReversed().map(v => mixers[v].map(c => base_colors_names[c]).join(",")).join("<br>* ");
+    }
+    else{
+        s += "The closest color is not obtainable, but it is supposed to be, so there is a bug in the Lab search C++ code."
     }
     output_el.innerHTML = s;
 }
@@ -202,6 +205,7 @@ function load_je(data){
     
     console.log("Loaded!");
     
+    last_color = -1;
     found = 0;
     for(let j = 0; j < _24; j++){
         if(c_exists.get(j)) found++;
