@@ -4,8 +4,6 @@
 #include <vector>
 #include <string>
 #include <stdfloat>
-#include <set>
-#include <algorithm>
 #include <math.h>
 #include <atomic>
 #include <csignal>
@@ -80,7 +78,7 @@ vector<char> whole_file(string file_in){
 }
 
 /** Colors used from 12w34a (when armor dyeing was first added) to 1.4.3. */
-uint* base_colors_1_2 = new uint[16]{
+uint base_colors_1_2[16] = {
     0xffffff, /* #ffffff white   */
     0x999999, /* #999999 l_gray  */
     0x4c4c4c, /* #4c4c4c gray    */
@@ -99,7 +97,7 @@ uint* base_colors_1_2 = new uint[16]{
     0xf2b2cc, /* #f2b2cc pink    */
 };
 /** Colors used from 1.4.3 to 17w06a. */
-uint* base_colors_1_4 = new uint[16]{
+uint base_colors_1_4[16] = {
     0xffffff, /* #ffffff white   */
     0x999999, /* #999999 l_gray  */
     0x4c4c4c, /* #4c4c4c gray    */
@@ -118,7 +116,7 @@ uint* base_colors_1_4 = new uint[16]{
     0xf27fa5, /* #f27fa5 pink    */
 };
 /** Colors used from 17w06a to now. */
-uint* base_colors = new uint[16]{
+uint base_colors[16] = {
     0xf9fffe, /* #f9fffe white   */
     0x9d9d97, /* #9d9d97 l_gray  */
     0x474f52, /* #474f52 gray    */
@@ -136,7 +134,7 @@ uint* base_colors = new uint[16]{
     0xc74ebd, /* #c74ebd magenta */
     0xf38baa, /* #f38baa pink    */
 };
-string* base_colors_names = new string[16]{
+string base_colors_names[16] = {
     string("white   "), /* #ffffff  0 */
     string("l_gray  "), /* #9d9d97  1 */
     string("gray    "), /* #474f52  2 */
@@ -533,7 +531,7 @@ uint in_progress_i = 0;
 void save_je(){
     uint save_size = (1<<24) * 4 + (1<<24) * 4 + (1<<24) + (1<<24) / 8;
     uchar* save_chars = new uchar[save_size];
-    // recipes, then last_cs, then c_exists;
+    // recipes, then last_cs, then step_cs, then c_exists;
     uint i = 0;
     for(uint j = 0; j < 1<<24; j++, i += 4){
         uint dyem = recipes->d[j];
@@ -1219,7 +1217,7 @@ int main(int argc, char const *argv[]){
         for(uint i = 0; i < (1 << 24); i++){
             if(step_cs->get(i) == step_i){
                 at_last_step++;
-                if(step_i > 9){
+                if(step_i > 12){
                     test_these.push_back(i);
                 }
             }
@@ -1271,6 +1269,10 @@ int main(int argc, char const *argv[]){
 
 
 /*
+5713438 colors can be obtained in versions from 17w06a to now.
+5691491 colors can be obtained in the 2x2 crafting grid.
+4200779 colors can be obtained in versions from 1.4.3 to 17w06a.
+
 g++ -O3 -fopenmp je.cpp -o je.exe -std=c++23
 
 JE results:

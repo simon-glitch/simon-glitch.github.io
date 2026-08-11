@@ -3,4 +3,5 @@ diary/secret/
 *.exe
 *.bin
 *.mcstructure
-mcw/color/je_res.zip
+mcw/color/*.zip
+mcw/color/*/*.zip

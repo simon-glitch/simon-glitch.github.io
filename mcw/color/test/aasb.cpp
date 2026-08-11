@@ -11,6 +11,9 @@
 using std::string;
 using std::vector;
 
+typedef unsigned int uint;
+typedef unsigned short ushort;
+typedef unsigned char uchar;
 
 const char* hex = "0123456789abcdef";
 string hex_c(char c){
@@ -22,6 +25,48 @@ string hex_c(char c){
     delete cc;
     return s;
 }
+
+uint base_colors[16] = {
+    0xf9fffe, /* #f9fffe white   */
+    0x9d9d97, /* #9d9d97 l_gray  */
+    0x474f52, /* #474f52 gray    */
+    0x1d1d21, /* #1d1d21 black   */
+    0x835432, /* #835432 brown   */
+    0xb02e26, /* #b02e26 red     */
+    0xf9801d, /* #f9801d orange  */
+    0xfed83d, /* #fed83d yellow  */
+    0x80c71f, /* #80c71f lime    */
+    0x5e7c16, /* #5e7c16 green   */
+    0x169c9c, /* #169c9c cyan    */
+    0x3ab3da, /* #3ab3da l_blue  */
+    0x3c44aa, /* #3c44aa blue    */
+    0x8932b8, /* #8932b8 purple  */
+    0xc74ebd, /* #c74ebd magenta */
+    0xf38baa, /* #f38baa pink    */
+};
+
+class Color_Exists{
+public:
+    uchar* d;
+    Color_Exists(){
+        d = new uchar[(1<<24) / 8]{0};
+        // for(uint i = 0; i < (1<<24) / 8; i++){
+        //     d[i] = 0;
+        // }
+    }
+    uchar get(uint idx){
+        uchar v = d[idx >> 3];
+        return (v & (((uchar) 1) << (idx & 7))) >> (idx & 7);
+    }
+    /** `value` should only be 1 bit */
+    void set(uint idx, uchar value){
+        d[idx >> 3] &= ~(((uchar) 1) << (idx & 7));
+        d[idx >> 3] |= value         << (idx & 7);
+    }
+    ~Color_Exists(){
+        delete[] d;
+    }
+};
 
 /*
 Break down of awesome.txt:
@@ -107,7 +152,7 @@ vector<char> whole_file(string file_in){
 
 
 string wow_file(int file_i, int hex_d){
-    string s = string("wow/awb");
+    string s = string("wow/ac");
     // std::cout << "s: " << s << std::endl;
     char* hex_ds = new char[hex_d + 1]{};
     hex_ds[hex_d] = 0;
@@ -152,26 +197,54 @@ void bring_on_the_wow(){
     };
     
     vector<char> awe_txt = whole_file("awesome.mcstructure");
-    vector<char> be_bin = whole_file("be_res.bin");
-    // gotta skip "Testing." = 8 chars;
-    int be_skip = 8;
+    vector<char> je_bin = whole_file("je_res.bin");
+    // gotta skip "Format: recipes, then last_cs, then c_exists\n" = 45 chars;
+    int je_skip = 45 + (1 << 24) * 2;
     
     // convert BE data to list of block indices; 0-15 is concrete; 16 is air; 17 is light block;
     // first pass: convert colors into concrete and air;
     // second pass: figure out which colors are contained by 6 other colors, and turn those into air;
     // third pass: replace all air adjacent to concrete with light blocks;
     
+    auto c_exists = Color_Exists();
     char* be0 = new char[1 << 24];
-    for(int i = 0; i < (1 << 24); i++){
-        be0[i] = be_bin[i + be_skip];
+    for(uint i = 0; i < (1 << 24); i++){
+        be0[i] = je_bin[i + je_skip];
     }
     char* be1 = new char[1 << 24];
-    for(int i = 0; i < (1 << 24); i++){
-        be1[i] = be0[i] ? (be0[i] & 0xf) : 0x10;
-        // be1[i] = (be0[i] & 0xf);
+    for(uint i = 0; i < (1 << 24); i++){
+        if(be0[i] == 0){
+            be1[i] = 0x10;
+        }
+        else{
+            uint closest = 0;
+            uint r = (i & 0xff0000) >> 16;
+            uint g = (i & 0x00ff00) >>  8;
+            uint b = (i & 0x0000ff);
+            for(uint j = 1; j < 16; j++){
+                uint color = base_colors[j];
+                uint close = base_colors[closest];
+                uint jr = (color & 0xff0000) >> 16;
+                uint jg = (color & 0x00ff00) >>  8;
+                uint jb = (color & 0x0000ff);
+                uint cr = (close & 0xff0000) >> 16;
+                uint cg = (close & 0x00ff00) >>  8;
+                uint cb = (close & 0x0000ff);
+                if((
+                    (jr - r) * (jr - r) +
+                    (jg - g) * (jg - g) +
+                    (jb - b) * (jb - b)
+                ) < (
+                    (cr - r) * (cr - r) +
+                    (cg - g) * (cg - g) +
+                    (cb - b) * (cb - b)
+                )) closest = j;
+            }
+            be1[i] = closest;
+        }
     }
     char* be2 = new char[1 << 24];
-    for(int i = 0; i < (1 << 24); i++){
+    for(uint i = 0; i < (1 << 24); i++){
         be2[i] = be1[i];
         int ir = (i & 0xff0000) >> 16;
         int ig = (i & 0x00ff00) >> 8;
@@ -190,7 +263,7 @@ void bring_on_the_wow(){
         ) be2[i] = 16;
     }
     char* be3 = new char[1 << 24];
-    for(int i = 0; i < (1 << 24); i++){
+    for(uint i = 0; i < (1 << 24); i++){
         be3[i] = be2[i];
         int ir = (i & 0xff0000) >> 16;
         int ig = (i & 0x00ff00) >> 8;
@@ -226,10 +299,8 @@ void bring_on_the_wow(){
         0x01,
     };
     char* be4 = new char[1 << 24];
-    for(int i = 0; i < (1 << 24); i++){
+    for(uint i = 0; i < (1 << 24); i++){
         be4[i] = reind[be3[i]];
-        // be4[i] = reind[be1[i]];
-        // be4[i] = reind[i % 18];
     }
     // we only need be4 from here;
     delete be0;
@@ -238,9 +309,9 @@ void bring_on_the_wow(){
     delete be3;
     
     
-    int i = 0;
-    int j = 0;
-    int found_size_i = 0;
+    uint i = 0;
+    uint j = 0;
+    uint found_size_i = 0;
     for(; i < awe_txt.size(); i++){
         if(i > 400) break;
         std::cout << "Reading " << int(awe_txt[i]) << ", j = " << j << std::endl;
@@ -260,7 +331,7 @@ void bring_on_the_wow(){
         abort();
     }
     j = 0;
-    int found_data_i = 0;
+    uint found_data_i = 0;
     for(; i < awe_txt.size(); i++){
         if(awe_txt[i] == data_str[j]){
             j++;
@@ -276,42 +347,42 @@ void bring_on_the_wow(){
     }
     
     // how many bits of r to put into file_i;
-    const int split_r = 2;
+    const uint split_r = 2;
     // how many bits of g to put into file_i;
-    const int split_g = 1;
+    const uint split_g = 1;
     // how many bits of b to put into file_i;
-    const int split_b = 2;
+    const uint split_b = 2;
     // number of RGB bits left;
-    const int split_data = 24 - (split_r + split_g + split_b);
-    const int and_1_r = ((1 << (8 - split_r)) - 1) << (split_data - (8 - split_r));
-    const int and_1_g = ((1 << (8 - split_g)) - 1) << (split_data - (8 - split_g) - (8 - split_r));
-    const int and_1_b = ((1 << (8 - split_b)) - 1) << (split_data - (8 - split_b) - (8 - split_g) - (8 - split_r));
-    const int and_2_r = ((1 << split_r) - 1) << (split_g + split_b);
-    const int and_2_g = ((1 << split_g) - 1) << (split_b);
-    const int and_2_b = ((1 << split_b) - 1);
-    const int shift_1_r = (split_data - (8 - split_r));
-    const int shift_1_g = (split_data - (8 - split_g) - (8 - split_r));
-    const int shift_1_b = (split_data - (8 - split_b) - (8 - split_g) - (8 - split_r));
-    const int shift_2_r = 8 - (split_r + split_g + split_b);
-    const int shift_2_g = 8 - (split_g + split_b);
-    const int shift_2_b = 8 - (split_b);
-    const int shift_l2_r = shift_2_r > 0 ?  shift_2_r : 0;
-    const int shift_l2_g = shift_2_g > 0 ?  shift_2_g : 0;
-    const int shift_l2_b = shift_2_b > 0 ?  shift_2_b : 0;
-    const int shift_r2_r = shift_2_r < 0 ? -shift_2_r : 0;
-    const int shift_r2_g = shift_2_g < 0 ? -shift_2_g : 0;
-    const int shift_r2_b = shift_2_b < 0 ? -shift_2_b : 0;
+    const uint split_data = 24 - (split_r + split_g + split_b);
+    const uint and_1_r = ((1 << (8 - split_r)) - 1) << (split_data - (8 - split_r));
+    const uint and_1_g = ((1 << (8 - split_g)) - 1) << (split_data - (8 - split_g) - (8 - split_r));
+    const uint and_1_b = ((1 << (8 - split_b)) - 1) << (split_data - (8 - split_b) - (8 - split_g) - (8 - split_r));
+    const uint and_2_r = ((1 << split_r) - 1) << (split_g + split_b);
+    const uint and_2_g = ((1 << split_g) - 1) << (split_b);
+    const uint and_2_b = ((1 << split_b) - 1);
+    const uint shift_1_r = (split_data - (8 - split_r));
+    const uint shift_1_g = (split_data - (8 - split_g) - (8 - split_r));
+    const uint shift_1_b = (split_data - (8 - split_b) - (8 - split_g) - (8 - split_r));
+    const uint shift_2_r = 8 - (split_r + split_g + split_b);
+    const uint shift_2_g = 8 - (split_g + split_b);
+    const uint shift_2_b = 8 - (split_b);
+    const uint shift_l2_r = shift_2_r > 0 ?  shift_2_r : 0;
+    const uint shift_l2_g = shift_2_g > 0 ?  shift_2_g : 0;
+    const uint shift_l2_b = shift_2_b > 0 ?  shift_2_b : 0;
+    const uint shift_r2_r = shift_2_r < 0 ? -shift_2_r : 0;
+    const uint shift_r2_g = shift_2_g < 0 ? -shift_2_g : 0;
+    const uint shift_r2_b = shift_2_b < 0 ? -shift_2_b : 0;
     
-    for(int file_i = 0; file_i < (1 << (split_r + split_g + split_b)); file_i++){
+    for(uint file_i = 0; file_i < (1 << (split_r + split_g + split_b)); file_i++){
         std::cout << "Try to make file name." << std::endl;
         string file_out = wow_file(file_i, 3);
         std::cout << "Where do it fail? 1" << std::endl;
         auto fout = std::ofstream(file_out, std::ios_base::binary);
         
         // do stuff before block indices section;
-        int size = awe_txt.size() - 16*16*16*4*2 + (1 << split_data)*4*2;
+        uint size = awe_txt.size() - 16*16*16*4*2 + (1 << split_data)*4*2;
         char* my_txt = new char[size];
-        for(int i = 0; i < found_data_i + 4; i++){
+        for(uint i = 0; i < found_data_i + 4; i++){
             my_txt[i] = awe_txt[i];
         }
         std::cout << "Where do it fail? 2" << std::endl;
@@ -341,16 +412,16 @@ void bring_on_the_wow(){
         
         std::cout << "Where do it fail? 3" << std::endl;
         // do stuff after block indices section;
-        const int after_i_in  = found_data_i + 6 + 16*16*16*4*2 + 0;
-        const int after_i_out = found_data_i + 6 + (1 << split_data)*4*2 + 4;
-        const int diff = after_i_out - after_i_in;
-        for(int i = after_i_out; i < size; i++){
+        const uint after_i_in  = found_data_i + 6 + 16*16*16*4*2 + 0;
+        const uint after_i_out = found_data_i + 6 + (1 << split_data)*4*2 + 4;
+        const uint diff = after_i_out - after_i_in;
+        for(uint i = after_i_out; i < size; i++){
             my_txt[i] = awe_txt[i + 4 - diff];
         }
         std::cout << "Where do it fail? 4" << std::endl;
         
         // now the data!
-        for(int i = 1; i < (1 << split_data); i++){
+        for(uint i = 1; i < (1 << split_data); i++){
             int ir = ((i & and_1_r) >> shift_1_r) | (((file_i & and_2_r) << shift_l2_r) >> shift_r2_r);
             int ig = ((i & and_1_g) >> shift_1_g) | (((file_i & and_2_g) << shift_l2_g) >> shift_r2_g);
             int ib = ((i & and_1_b) >> shift_1_b) | (((file_i & and_2_b) << shift_l2_b) >> shift_r2_b);
@@ -366,7 +437,7 @@ void bring_on_the_wow(){
         }
         std::cout << "Where do it fail? 5" << std::endl;
         // and the ffs at the end;
-        for(int i = 0; i < (1 << split_data); i++){
+        for(uint i = 0; i < (1 << split_data); i++){
             int ii = found_data_i + 11 + (i + (1 << split_data)) * 4;
             my_txt[ii    ] = 0xff;
             my_txt[ii + 1] = 0xff;
@@ -375,7 +446,7 @@ void bring_on_the_wow(){
         }
         
         // now write to file;
-        for(int i = 0; i < size; i++){
+        for(uint i = 0; i < size; i++){
             fout << my_txt[i];
         }
         
@@ -952,7 +1023,8 @@ ff29
 */
 
 int main(int argc, char const *argv[]){
-    give_me_them_colors();
+    bring_on_the_wow();
+    // give_me_them_colors();
     // potion_ids();
     
     return 0;
@@ -961,7 +1033,7 @@ int main(int argc, char const *argv[]){
 
 
 /*
-g++ aasb.cpp -O6 -o aasb.exe
+g++ aasb.cpp -O3 -o aasb.exe
 
 */
 
