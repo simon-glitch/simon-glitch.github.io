@@ -311,6 +311,8 @@ void recipe_examples(){
     // see_recipe("second to last cycle (19 dyes)", 9292674);
     // see_recipe("second to last cycle (19 dyes)", 13608744);
     
+    see_recipe("Base armor color: ", 0xA06540); /* #A06540 - Base armor color */
+    
     see_recipe("Default: ",                0x44aff5); /* #44aff5 - Modified Badlands Plateau, Modified Wooded Badlands Plateau, Desert Lakes, Stony Peaks, Modified Jungle Edge, Shattered Savanna Plateau, Lush Caves, Plains, Sunflower Plains, Dripstone Caves, Deep Dark, Dark Forest Hills, Tall Birch Hills, Old Growth Birch Forest, Meadow, Old Growth Spruce Taiga, Giant Spruce Taiga Hills, Legacy Frozen Ocean, Grove, Snowy Slopes, Frozen Peaks, Jagged Peaks */
     see_recipe("Badlands: ",               0x4e7f81); /* #4e7f81 - Badlands */
     see_recipe("Eroded Badlands: ",        0x497f99); /* #497f99 - Eroded Badlands */
@@ -487,7 +489,7 @@ int main(int argc, char const *argv[]){
 }
 
 /*
-g++ be.cpp -O6 -o be.exe
+g++ be.cpp -O3 -o be.exe
 
 second to last cycle (19 dyes):
 93c0dc: [white , l_blue, blue  , l_blue, cyan  , blue , l_blue, cyan  , l_blue, l_blue, blue  , cyan  , black , cyan  , cyan , cyan , black, black , cyan,]
@@ -500,17 +502,13 @@ The last 2 colors (20 dyes):
 * #a7b723 -> [lime,   orange, lime,  yellow, lime,   white,  lime,  lime,   lime,    white,  lime, white,  l_blue, l_blue, l_blue, white, white, white, yellow, lime,]
 * #beddb9 -> [white,  lime,   white, l_blue, l_blue, l_blue, white, purple, l_blue,  l_blue, blue, purple, l_blue, blue,   blue,   cyan,  black, cyan,  blue,   cyan,]
 
-console.log(Array(20).fill(0).map(()=>(Math.floor(Math.random()*2**24)).toString(16)).join("\n"))
+Base armor color: #a06540 -> [brown   ,brown   ,pink    ,yellow  ,orange  ,]
 
 white+l_gray  = #c6c6c3 -> [white,  l_gray,]
 gray+red      = #7b3e3c -> [red,    gray,  ]
 l_gray+yellow = #cdba6a -> [yellow, l_gray,]
 black+brown   = #503829 -> [brown,  black, ]
 red+lime      = #987a22 -> [red,    lime,  ]
-
-
-#919b98, #4a3a34, #642e64, #f2a132, #86bc45, #8f4222, #608154, #cab3d3, #759757
-#8d9d94, #493836, #663064, #f49f35, #85bf44, #9b4a24, #5e8154, #cbb7d4, #749256
 
 Recipe samples to test:
 * #9f6e30 -> [brown,   yellow,  black,   orange,  red,                            ]

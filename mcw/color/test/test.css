@@ -21,22 +21,22 @@ div{
 
 /* from the wiki */
 div{
-    color: #F0F0F0; /* white      */
-    color: #9D9D97; /* light gray */
-    color: #474F52; /* gray       */
-    color: #1D1D21; /* black      */
-    color: #835432; /* brown      */
-    color: #B02E26; /* red        */
-    color: #F9801D; /* orange     */
-    color: #FED83D; /* yellow     */
-    color: #80C71F; /* lime       */
-    color: #5E7C16; /* green      */
-    color: #169C9C; /* cyan       */
-    color: #3AB3DA; /* light blue */
-    color: #3C44AA; /* blue       */
-    color: #8932B8; /* purple     */
-    color: #C74EBD; /* magenta    */
-    color: #F38BAA; /* orange     */
+    color: #f9fffe; /* white      */
+    color: #9d9d97; /* lime       */
+    color: #474f52; /* yellow     */
+    color: #1d1d21; /* orange     */
+    color: #835432; /* blue       */
+    color: #b02e26; /* magenta    */
+    color: #f9801d; /* light gray */
+    color: #fed83d; /* brown      */
+    color: #80c71f; /* red        */
+    color: #5e7c16; /* purple     */
+    color: #169c9c; /* green      */
+    color: #3ab3da; /* black      */
+    color: #3c44aa; /* light blue */
+    color: #8932b8; /* cyan       */
+    color: #c74ebd; /* gray       */
+    color: #f38baa; /* orange     */
 }
 
 div{

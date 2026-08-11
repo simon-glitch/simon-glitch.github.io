@@ -26,7 +26,7 @@ using std::vector;
 using std::string;
 
 namespace je{
-typedef std::float32_t flot;
+typedef std::float32_t float32;
 typedef unsigned int uint;
 typedef unsigned short ushort;
 typedef unsigned char uchar;
@@ -81,41 +81,41 @@ vector<char> whole_file(string file_in){
 
 /** Colors used from 12w34a (when armor dyeing was first added) to 1.4.3. */
 uint* base_colors_1_2 = new uint[16]{
-    0xFFFFFF, /* #FFFFFF white   */
+    0xffffff, /* #ffffff white   */
     0x999999, /* #999999 l_gray  */
-    0x4C4C4C, /* #4C4C4C gray    */
+    0x4c4c4c, /* #4c4c4c gray    */
     0x191919, /* #191919 black   */
-    0x7F664C, /* #7F664C brown   */
-    0xCC4C4C, /* #CC4C4C red     */
-    0xF2B233, /* #F2B233 orange  */
-    0xE5E533, /* #E5E533 yellow  */
-    0x7FCC19, /* #7FCC19 lime    */
-    0x667F33, /* #667F33 green   */
-    0x4C99B2, /* #4C99B2 cyan    */
-    0x99B2F2, /* #99B2F2 l_blue  */
-    0x3366CC, /* #3366CC blue    */
-    0xB266E5, /* #B266E5 purple  */
-    0xE57FD8, /* #E57FD8 magenta */
-    0xF2B2CC, /* #F2B2CC pink    */
+    0x7f664c, /* #7f664c brown   */
+    0xcc4c4c, /* #cc4c4c red     */
+    0xf2b233, /* #f2b233 orange  */
+    0xe5e533, /* #e5e533 yellow  */
+    0x7fcc19, /* #7fcc19 lime    */
+    0x667f33, /* #667f33 green   */
+    0x4c99b2, /* #4c99b2 cyan    */
+    0x99b2f2, /* #99b2f2 l_blue  */
+    0x3366cc, /* #3366cc blue    */
+    0xb266e5, /* #b266e5 purple  */
+    0xe57fd8, /* #e57fd8 magenta */
+    0xf2b2cc, /* #f2b2cc pink    */
 };
 /** Colors used from 1.4.3 to 17w06a. */
 uint* base_colors_1_4 = new uint[16]{
-    0xFFFFFF, /* #FFFFFF white   */
+    0xffffff, /* #ffffff white   */
     0x999999, /* #999999 l_gray  */
-    0x4C4C4C, /* #4C4C4C gray    */
+    0x4c4c4c, /* #4c4c4c gray    */
     0x191919, /* #191919 black   */
-    0x664C33, /* #664C33 brown   */
+    0x664c33, /* #664c33 brown   */
     0x993333, /* #993333 red     */
-    0xD87F33, /* #D87F33 orange  */
-    0xE5E533, /* #E5E533 yellow  */
-    0x7FCC19, /* #7FCC19 lime    */
-    0x667F33, /* #667F33 green   */
-    0x4C7F99, /* #4C7F99 cyan    */
-    0x6699D8, /* #6699D8 l_blue  */
-    0x334CB2, /* #334CB2 blue    */
-    0x7F3FB2, /* #7F3FB2 purple  */
-    0xB24CD8, /* #B24CD8 magenta */
-    0xF27FA5, /* #F27FA5 pink    */
+    0xd87f33, /* #d87f33 orange  */
+    0xe5e533, /* #e5e533 yellow  */
+    0x7fcc19, /* #7fcc19 lime    */
+    0x667f33, /* #667f33 green   */
+    0x4c7f99, /* #4c7f99 cyan    */
+    0x6699d8, /* #6699d8 l_blue  */
+    0x334cb2, /* #334cb2 blue    */
+    0x7f3fb2, /* #7f3fb2 purple  */
+    0xb24cd8, /* #b24cd8 magenta */
+    0xf27fa5, /* #f27fa5 pink    */
 };
 /** Colors used from 17w06a to now. */
 uint* base_colors = new uint[16]{
@@ -437,6 +437,53 @@ bool operator> (const Mixer a, const Mixer b){
     );
 }
 
+/*
+Using mcsrc.dev, I found it:
+file: net/minecraft/world/item/component/DyedItemColor
+class: DyedItemColor
+method:
+public static DyedItemColor applyDyes(final @Nullable DyedItemColor currentDye, final List<DyeColor> dyes) {
+      int redTotal = 0;
+      int greenTotal = 0;
+      int blueTotal = 0;
+      int intensityTotal = 0;
+      int colorCount = 0;
+      if (currentDye != null) {
+         int red = ARGB.red(currentDye.rgb());
+         int green = ARGB.green(currentDye.rgb());
+         int blue = ARGB.blue(currentDye.rgb());
+         intensityTotal += Math.max(red, Math.max(green, blue));
+         redTotal += red;
+         greenTotal += green;
+         blueTotal += blue;
+         colorCount++;
+      }
+
+      for (DyeColor dye : dyes) {
+         int color = dye.getTextureDiffuseColor();
+         int red = ARGB.red(color);
+         int green = ARGB.green(color);
+         int blue = ARGB.blue(color);
+         intensityTotal += Math.max(red, Math.max(green, blue));
+         redTotal += red;
+         greenTotal += green;
+         blueTotal += blue;
+         colorCount++;
+      }
+
+      int red = redTotal / colorCount;
+      int green = greenTotal / colorCount;
+      int blue = blueTotal / colorCount;
+      float averageIntensity = (float)intensityTotal / colorCount;
+      float resultIntensity = Math.max(red, Math.max(green, blue));
+      red = (int)(red * averageIntensity / resultIntensity);
+      green = (int)(green * averageIntensity / resultIntensity);
+      blue = (int)(blue * averageIntensity / resultIntensity);
+      int rgb = ARGB.color(0, red, green, blue);
+      return new DyedItemColor(rgb);
+   }
+*/
+
 uint mix(uint color, Mixer mixer){
     uint r = (color & 0xff0000) >> 16;
     uint g = (color & 0x00ff00) >> 8;
@@ -447,13 +494,13 @@ uint mix(uint color, Mixer mixer){
     uint ar = tr / mixer.len;
     uint ag = tg / mixer.len;
     uint ab = tb / mixer.len;
-    flot avg_max = flot(mixer.tm + max(r, g, b)) / flot(mixer.len);
-    flot max_avg = max(ar, ag, ab);
+    float32 avg_max = float32(mixer.tm + max(r, g, b)) / float32(mixer.len);
+    float32 max_avg = max(ar, ag, ab);
     // note the order of operations matters here; you must multiply then divide;
     return (
-        (((uint) ((flot(ar) * avg_max) / max_avg)) << 16) |
-        (((uint) ((flot(ag) * avg_max) / max_avg)) <<  8) |
-        (((uint) ((flot(ab) * avg_max) / max_avg))      )
+        (((uint) ((float32(ar) * avg_max) / max_avg)) << 16) |
+        (((uint) ((float32(ag) * avg_max) / max_avg)) <<  8) |
+        (((uint) ((float32(ab) * avg_max) / max_avg))      )
     );
 }
 
@@ -1159,6 +1206,8 @@ int main(int argc, char const *argv[]){
         load_je();
     }
     
+    see_recipe("Base armor color: ", 0xA06540); /* #A06540 - Base armor color */
+    
     vector<uint> at_step = {};
     vector<uint> test_these = {};
     uint at_last_step = 1;
@@ -1222,7 +1271,7 @@ int main(int argc, char const *argv[]){
 
 
 /*
-g++ je.cpp -O6 -o je.exe
+g++ -O3 -fopenmp je.cpp -o je.exe -std=c++23
 
 JE results:
 
@@ -1230,25 +1279,28 @@ Main!
 mixer_c: 735470
 Loading...
 Loaded.
-Found 11070726 recipes with 0 steps.
-Found 605824 recipes with 1 steps.
-Found 5008434 recipes with 2 steps.
-Found 74930 recipes with 3 steps.
-Found 12834 recipes with 4 steps.
-Found 3263 recipes with 5 steps.
-Found 854 recipes with 6 steps.
-Found 244 recipes with 7 steps.
-Found 69 recipes with 8 steps.
-Found 25 recipes with 9 steps.
-Found 8 recipes with 10 steps.
+Found colors: 5713438
+Base armor color: a06540
+-> [
+  [black   ,brown   ,brown   ,red     ,orange  ,yellow  ,pink    ],
+  [black   ,black   ,black   ,black   ,black   ,cyan    ,cyan    ],
+]
+Recipe is correct.
+Found 11063778 recipes with 0 steps.
+Found 606315 recipes with 1 steps.
+Found 5015035 recipes with 2 steps.
+Found 74650 recipes with 3 steps.
+Found 12931 recipes with 4 steps.
+Found 3310 recipes with 5 steps.
+Found 851 recipes with 6 steps.
+Found 231 recipes with 7 steps.
+Found 72 recipes with 8 steps.
+Found 29 recipes with 9 steps.
+Found 9 recipes with 10 steps.
 Found 2 recipes with 11 steps.
 Found 2 recipes with 12 steps.
 Found 1 recipes with 13 steps.
 Found 0 recipes with 14 steps.
-
-11070726+605824+5008434+74930+12834+3263+854+244+69+25+8+2+2+1+0
--> 5706490 obtainable colors.
-
 one of the last found colors: 9b7b1b
 -> [
   [orange  ,green   ],
@@ -1274,7 +1326,7 @@ one of the last found colors: 9bcd1f
   [orange  ,yellow  ,yellow  ],
   [orange  ,lime    ,lime    ,lime    ],
   [orange  ,orange  ,orange  ,yellow  ,yellow  ,lime    ,lime    ,lime    ],
-  [orange  ,lime    ,lime    ,lime    ,lime    ],
+  [yellow  ,lime    ,lime    ,lime    ],
 ]
 Recipe is correct.
 one of the last found colors: a62d35
@@ -1316,7 +1368,7 @@ one of the last found colors: b9d321
   [orange  ,yellow  ,yellow  ],
   [orange  ,lime    ,lime    ,lime    ],
   [orange  ,orange  ,orange  ,yellow  ,yellow  ,lime    ,lime    ,lime    ],
-  [orange  ,lime    ,lime    ,lime    ,lime    ],
+  [yellow  ,lime    ,lime    ,lime    ],
 ]
 Recipe is correct.
 one of the last found colors: c3444f
@@ -1361,6 +1413,20 @@ one of the last found colors: ef7428
   [black   ,black   ,black   ,black   ,black   ,red     ,magenta ],
 ]
 Recipe is correct.
+one of the last found colors: f8fbb6
+-> [
+  [white   ],
+  [yellow  ],
+  [yellow  ],
+  [yellow  ,l_blue  ,l_blue  ,l_blue  ],
+  [l_blue  ,l_blue  ],
+  [yellow  ],
+  [lime    ,lime    ,lime    ,l_blue  ,l_blue  ],
+  [lime    ,lime    ,l_blue  ],
+  [lime    ,cyan    ,cyan    ,l_blue  ,l_blue  ,l_blue  ,l_blue  ],
+  [lime    ,lime    ,lime    ,lime    ,cyan    ],
+]
+Recipe is correct.
 one of the last found colors: abc31f
 -> [
   [orange  ,lime    ,lime    ,green   ],
@@ -1373,7 +1439,7 @@ one of the last found colors: abc31f
   [orange  ,yellow  ,yellow  ],
   [orange  ,lime    ,lime    ,lime    ],
   [orange  ,orange  ,orange  ,yellow  ,yellow  ,lime    ,lime    ,lime    ],
-  [orange  ,lime    ,lime    ,lime    ,lime    ],
+  [yellow  ,lime    ,lime    ,lime    ],
 ]
 Recipe is correct.
 one of the last found colors: ceb41f
@@ -1388,7 +1454,7 @@ one of the last found colors: ceb41f
   [orange  ,yellow  ,yellow  ],
   [orange  ,lime    ,lime    ,lime    ],
   [orange  ,orange  ,orange  ,yellow  ,yellow  ,lime    ,lime    ,lime    ],
-  [orange  ,lime    ,lime    ,lime    ,lime    ],
+  [yellow  ,lime    ,lime    ,lime    ],
 ]
 Recipe is correct.
 one of the last found colors: a2a51c
@@ -1404,7 +1470,7 @@ one of the last found colors: a2a51c
   [orange  ,yellow  ,yellow  ],
   [orange  ,lime    ,lime    ,lime    ],
   [orange  ,orange  ,orange  ,yellow  ,yellow  ,lime    ,lime    ,lime    ],
-  [orange  ,lime    ,lime    ,lime    ,lime    ],
+  [yellow  ,lime    ,lime    ,lime    ],
 ]
 Recipe is correct.
 one of the last found colors: bdc320
@@ -1420,7 +1486,7 @@ one of the last found colors: bdc320
   [orange  ,yellow  ,yellow  ],
   [orange  ,lime    ,lime    ,lime    ],
   [orange  ,orange  ,orange  ,yellow  ,yellow  ,lime    ,lime    ,lime    ],
-  [orange  ,lime    ,lime    ,lime    ,lime    ],
+  [yellow  ,lime    ,lime    ,lime    ],
 ]
 Recipe is correct.
 one of the last found colors: bc951b
@@ -1437,7 +1503,7 @@ one of the last found colors: bc951b
   [orange  ,yellow  ,yellow  ],
   [orange  ,lime    ,lime    ,lime    ],
   [orange  ,orange  ,orange  ,yellow  ,yellow  ,lime    ,lime    ,lime    ],
-  [orange  ,lime    ,lime    ,lime    ,lime    ],
+  [yellow  ,lime    ,lime    ,lime    ],
 ]
 Recipe is correct.
 
