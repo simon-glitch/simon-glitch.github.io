@@ -137,9 +137,10 @@ function update(e){
     last_color = color;
     
     const exists = c_exists.get(color);
-    let s = `Version: ${version}<br>`
-    let s = `${found} colors are obtainable.<br>`
-    let s = `Color is ${exists ? "" : "not"} obtainable.<br>`
+    let s = "";
+    s += `Version: ${version}<br>`;
+    s += `${found} colors are obtainable.<br>`;
+    s += `Color is ${exists ? "" : "not"} obtainable.<br>`;
     if(!exists){
         s += `Closest color in Lab space: #${closest.get(color).toString(16)}<br>`;
         // color = closest.get(color);
@@ -293,7 +294,7 @@ document.querySelector("#my_file_input").onchange = async function(event){
     load_je(raw_bytes);
 };
 
-let local_path = "./je_lab_main.zip";
+let local_path = "";
 async function load_local(){
     console.log("attempting to fetch local data");
     const response = await fetch(local_path);
@@ -303,13 +304,13 @@ async function load_local(){
     const raw_bytes = await handle_zip_file(buffer);
     load_je(raw_bytes);
 }
-load_local();
 
 function main(){
     version = "Colors used from 17w06a to now.";
     local_path = "./je_lab_main.zip";
     load_local();
 };
+main();
 document.querySelector("#load_main").onclick = main;
 document.querySelector("#load_2x2" ).onclick = ()=>{
     version = "Colors used from 17w06a to now (2x2 crafting grid).";
