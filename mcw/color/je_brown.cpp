@@ -180,6 +180,31 @@ public:
         delete[] d;
     }
 };
+struct Add_Brown_Attempt{
+    uint color;
+    uint last;
+    uint mixer_i;
+    uint brown_c;
+};
+class Color_Queue{
+public:
+    // this is a pointer because I use pointers elsewhere; also it makes shifting simple and free;
+    Color_Exists* exists;
+    vector<Add_Brown_Attempt> items;
+    Color_Queue(){
+        exists = new Color_Exists();
+        items = {};
+    }
+    void add(Add_Brown_Attempt item){
+        if(!exists->get(item.color)){
+            exists->set(item.color, 1);
+            items.push_back(item);
+        }
+    }
+    ~Color_Queue(){
+        delete exists;
+    }
+};
 
 class Mixer;
 uint mix(uint color, Mixer mixer);
@@ -485,14 +510,14 @@ auto step_cs = new Color_Steps();
 auto c_exists = new Color_Exists();
 auto prev_added = new Color_Exists();
 auto added_brown_0 = new Color_Exists();
-auto added_brown_1 = new Color_Exists();
-auto added_brown_2 = new Color_Exists();
-auto added_brown_3 = new Color_Exists();
-auto added_brown_4 = new Color_Exists();
-auto added_brown_5 = new Color_Exists();
-auto added_brown_6 = new Color_Exists();
-auto added_brown_7 = new Color_Exists();
-auto added_brown_8 = new Color_Exists();
+auto added_brown_1 = new Color_Queue();
+auto added_brown_2 = new Color_Queue();
+auto added_brown_3 = new Color_Queue();
+auto added_brown_4 = new Color_Queue();
+auto added_brown_5 = new Color_Queue();
+auto added_brown_6 = new Color_Queue();
+auto added_brown_7 = new Color_Queue();
+auto added_brown_8 = new Color_Queue();
 uint ic = 0;
 uint found = 0;
 uint in_progress_i = 0;
@@ -570,7 +595,25 @@ void load_je(){
     }
 }
 void save_je_in_progress(){
-    uint save_size = (1<<24) * 4 + (1<<24) * 4 + (1<<24) + (1<<24) / 8 + (1<<24) / 8 + (1<<24) / 8 * 9;
+    uint size_1 = added_brown_1->items.size();
+    uint size_2 = added_brown_2->items.size();
+    uint size_3 = added_brown_3->items.size();
+    uint size_4 = added_brown_4->items.size();
+    uint size_5 = added_brown_5->items.size();
+    uint size_6 = added_brown_6->items.size();
+    uint size_7 = added_brown_7->items.size();
+    uint size_8 = added_brown_8->items.size();
+    uint save_size = (1<<24) * 4 + (1<<24) * 4 + (1<<24) + (1<<24) / 8 + (1<<24) / 8 + (1<<24) / 8 * 9 +
+    sizeof(Add_Brown_Attempt) * (
+        size_1 +
+        size_2 +
+        size_3 +
+        size_4 +
+        size_5 +
+        size_6 +
+        size_7 +
+        size_8
+    ) + /* store the size of each vector, as a uint */ 4 * 9;
     uchar* save_chars = new uchar[save_size];
     // recipes, then last_cs, then c_exists;
     uint i = 0;
@@ -600,29 +643,189 @@ void save_je_in_progress(){
     for(uint j = 0; j < (1<<24) / 8; j++, i++){
         save_chars[i    ] = added_brown_0->d[j];
     }
-    for(uint j = 0; j < (1<<24) / 8; j++, i++){
-        save_chars[i    ] = added_brown_1->d[j];
+    save_chars[i    ] = (size_1 & 0xff000000u) >> 24u;
+    save_chars[i + 1] = (size_1 & 0x00ff0000u) >> 16u;
+    save_chars[i + 2] = (size_1 & 0x0000ff00u) >>  8u;
+    save_chars[i + 3] = (size_1 & 0x000000ffu);
+    i += 4;
+    for(uint j = 0; j < size_1; j++, i += 16){
+        save_chars[i    ] = (added_brown_1->items[j].color & 0xff000000u) >> 24u;
+        save_chars[i + 1] = (added_brown_1->items[j].color & 0x00ff0000u) >> 16u;
+        save_chars[i + 2] = (added_brown_1->items[j].color & 0x0000ff00u) >>  8u;
+        save_chars[i + 3] = (added_brown_1->items[j].color & 0x000000ffu);
+        save_chars[i + 4] = (added_brown_1->items[j].last & 0xff000000u) >> 24u;
+        save_chars[i + 5] = (added_brown_1->items[j].last & 0x00ff0000u) >> 16u;
+        save_chars[i + 6] = (added_brown_1->items[j].last & 0x0000ff00u) >>  8u;
+        save_chars[i + 7] = (added_brown_1->items[j].last & 0x000000ffu);
+        save_chars[i + 8] = (added_brown_1->items[j].mixer_i & 0xff000000u) >> 24u;
+        save_chars[i + 9] = (added_brown_1->items[j].mixer_i & 0x00ff0000u) >> 16u;
+        save_chars[i +10] = (added_brown_1->items[j].mixer_i & 0x0000ff00u) >>  8u;
+        save_chars[i +11] = (added_brown_1->items[j].mixer_i & 0x000000ffu);
+        save_chars[i +12] = (added_brown_1->items[j].brown_c & 0xff000000u) >> 24u;
+        save_chars[i +13] = (added_brown_1->items[j].brown_c & 0x00ff0000u) >> 16u;
+        save_chars[i +14] = (added_brown_1->items[j].brown_c & 0x0000ff00u) >>  8u;
+        save_chars[i +15] = (added_brown_1->items[j].brown_c & 0x000000ffu);
     }
-    for(uint j = 0; j < (1<<24) / 8; j++, i++){
-        save_chars[i    ] = added_brown_2->d[j];
+    save_chars[i    ] = (size_2 & 0xff000000u) >> 24u;
+    save_chars[i + 1] = (size_2 & 0x00ff0000u) >> 16u;
+    save_chars[i + 2] = (size_2 & 0x0000ff00u) >>  8u;
+    save_chars[i + 3] = (size_2 & 0x000000ffu);
+    i += 4;
+    for(uint j = 0; j < size_2; j++, i += 16){
+        save_chars[i    ] = (added_brown_2->items[j].color & 0xff000000u) >> 24u;
+        save_chars[i + 1] = (added_brown_2->items[j].color & 0x00ff0000u) >> 16u;
+        save_chars[i + 2] = (added_brown_2->items[j].color & 0x0000ff00u) >>  8u;
+        save_chars[i + 3] = (added_brown_2->items[j].color & 0x000000ffu);
+        save_chars[i + 4] = (added_brown_2->items[j].last & 0xff000000u) >> 24u;
+        save_chars[i + 5] = (added_brown_2->items[j].last & 0x00ff0000u) >> 16u;
+        save_chars[i + 6] = (added_brown_2->items[j].last & 0x0000ff00u) >>  8u;
+        save_chars[i + 7] = (added_brown_2->items[j].last & 0x000000ffu);
+        save_chars[i + 8] = (added_brown_2->items[j].mixer_i & 0xff000000u) >> 24u;
+        save_chars[i + 9] = (added_brown_2->items[j].mixer_i & 0x00ff0000u) >> 16u;
+        save_chars[i +10] = (added_brown_2->items[j].mixer_i & 0x0000ff00u) >>  8u;
+        save_chars[i +11] = (added_brown_2->items[j].mixer_i & 0x000000ffu);
+        save_chars[i +12] = (added_brown_2->items[j].brown_c & 0xff000000u) >> 24u;
+        save_chars[i +13] = (added_brown_2->items[j].brown_c & 0x00ff0000u) >> 16u;
+        save_chars[i +14] = (added_brown_2->items[j].brown_c & 0x0000ff00u) >>  8u;
+        save_chars[i +15] = (added_brown_2->items[j].brown_c & 0x000000ffu);
     }
-    for(uint j = 0; j < (1<<24) / 8; j++, i++){
-        save_chars[i    ] = added_brown_3->d[j];
+    save_chars[i    ] = (size_3 & 0xff000000u) >> 24u;
+    save_chars[i + 1] = (size_3 & 0x00ff0000u) >> 16u;
+    save_chars[i + 2] = (size_3 & 0x0000ff00u) >>  8u;
+    save_chars[i + 3] = (size_3 & 0x000000ffu);
+    i += 4;
+    for(uint j = 0; j < size_3; j++, i += 16){
+        save_chars[i    ] = (added_brown_3->items[j].color & 0xff000000u) >> 24u;
+        save_chars[i + 1] = (added_brown_3->items[j].color & 0x00ff0000u) >> 16u;
+        save_chars[i + 2] = (added_brown_3->items[j].color & 0x0000ff00u) >>  8u;
+        save_chars[i + 3] = (added_brown_3->items[j].color & 0x000000ffu);
+        save_chars[i + 4] = (added_brown_3->items[j].last & 0xff000000u) >> 24u;
+        save_chars[i + 5] = (added_brown_3->items[j].last & 0x00ff0000u) >> 16u;
+        save_chars[i + 6] = (added_brown_3->items[j].last & 0x0000ff00u) >>  8u;
+        save_chars[i + 7] = (added_brown_3->items[j].last & 0x000000ffu);
+        save_chars[i + 8] = (added_brown_3->items[j].mixer_i & 0xff000000u) >> 24u;
+        save_chars[i + 9] = (added_brown_3->items[j].mixer_i & 0x00ff0000u) >> 16u;
+        save_chars[i +10] = (added_brown_3->items[j].mixer_i & 0x0000ff00u) >>  8u;
+        save_chars[i +11] = (added_brown_3->items[j].mixer_i & 0x000000ffu);
+        save_chars[i +12] = (added_brown_3->items[j].brown_c & 0xff000000u) >> 24u;
+        save_chars[i +13] = (added_brown_3->items[j].brown_c & 0x00ff0000u) >> 16u;
+        save_chars[i +14] = (added_brown_3->items[j].brown_c & 0x0000ff00u) >>  8u;
+        save_chars[i +15] = (added_brown_3->items[j].brown_c & 0x000000ffu);
     }
-    for(uint j = 0; j < (1<<24) / 8; j++, i++){
-        save_chars[i    ] = added_brown_4->d[j];
+    save_chars[i    ] = (size_4 & 0xff000000u) >> 24u;
+    save_chars[i + 1] = (size_4 & 0x00ff0000u) >> 16u;
+    save_chars[i + 2] = (size_4 & 0x0000ff00u) >>  8u;
+    save_chars[i + 3] = (size_4 & 0x000000ffu);
+    i += 4;
+    for(uint j = 0; j < size_4; j++, i += 16){
+        save_chars[i    ] = (added_brown_4->items[j].color & 0xff000000u) >> 24u;
+        save_chars[i + 1] = (added_brown_4->items[j].color & 0x00ff0000u) >> 16u;
+        save_chars[i + 2] = (added_brown_4->items[j].color & 0x0000ff00u) >>  8u;
+        save_chars[i + 3] = (added_brown_4->items[j].color & 0x000000ffu);
+        save_chars[i + 4] = (added_brown_4->items[j].last & 0xff000000u) >> 24u;
+        save_chars[i + 5] = (added_brown_4->items[j].last & 0x00ff0000u) >> 16u;
+        save_chars[i + 6] = (added_brown_4->items[j].last & 0x0000ff00u) >>  8u;
+        save_chars[i + 7] = (added_brown_4->items[j].last & 0x000000ffu);
+        save_chars[i + 8] = (added_brown_4->items[j].mixer_i & 0xff000000u) >> 24u;
+        save_chars[i + 9] = (added_brown_4->items[j].mixer_i & 0x00ff0000u) >> 16u;
+        save_chars[i +10] = (added_brown_4->items[j].mixer_i & 0x0000ff00u) >>  8u;
+        save_chars[i +11] = (added_brown_4->items[j].mixer_i & 0x000000ffu);
+        save_chars[i +12] = (added_brown_4->items[j].brown_c & 0xff000000u) >> 24u;
+        save_chars[i +13] = (added_brown_4->items[j].brown_c & 0x00ff0000u) >> 16u;
+        save_chars[i +14] = (added_brown_4->items[j].brown_c & 0x0000ff00u) >>  8u;
+        save_chars[i +15] = (added_brown_4->items[j].brown_c & 0x000000ffu);
     }
-    for(uint j = 0; j < (1<<24) / 8; j++, i++){
-        save_chars[i    ] = added_brown_5->d[j];
+    save_chars[i    ] = (size_5 & 0xff000000u) >> 24u;
+    save_chars[i + 1] = (size_5 & 0x00ff0000u) >> 16u;
+    save_chars[i + 2] = (size_5 & 0x0000ff00u) >>  8u;
+    save_chars[i + 3] = (size_5 & 0x000000ffu);
+    i += 4;
+    for(uint j = 0; j < size_5; j++, i += 16){
+        save_chars[i    ] = (added_brown_5->items[j].color & 0xff000000u) >> 24u;
+        save_chars[i + 1] = (added_brown_5->items[j].color & 0x00ff0000u) >> 16u;
+        save_chars[i + 2] = (added_brown_5->items[j].color & 0x0000ff00u) >>  8u;
+        save_chars[i + 3] = (added_brown_5->items[j].color & 0x000000ffu);
+        save_chars[i + 4] = (added_brown_5->items[j].last & 0xff000000u) >> 24u;
+        save_chars[i + 5] = (added_brown_5->items[j].last & 0x00ff0000u) >> 16u;
+        save_chars[i + 6] = (added_brown_5->items[j].last & 0x0000ff00u) >>  8u;
+        save_chars[i + 7] = (added_brown_5->items[j].last & 0x000000ffu);
+        save_chars[i + 8] = (added_brown_5->items[j].mixer_i & 0xff000000u) >> 24u;
+        save_chars[i + 9] = (added_brown_5->items[j].mixer_i & 0x00ff0000u) >> 16u;
+        save_chars[i +10] = (added_brown_5->items[j].mixer_i & 0x0000ff00u) >>  8u;
+        save_chars[i +11] = (added_brown_5->items[j].mixer_i & 0x000000ffu);
+        save_chars[i +12] = (added_brown_5->items[j].brown_c & 0xff000000u) >> 24u;
+        save_chars[i +13] = (added_brown_5->items[j].brown_c & 0x00ff0000u) >> 16u;
+        save_chars[i +14] = (added_brown_5->items[j].brown_c & 0x0000ff00u) >>  8u;
+        save_chars[i +15] = (added_brown_5->items[j].brown_c & 0x000000ffu);
     }
-    for(uint j = 0; j < (1<<24) / 8; j++, i++){
-        save_chars[i    ] = added_brown_6->d[j];
+    save_chars[i    ] = (size_6 & 0xff000000u) >> 24u;
+    save_chars[i + 1] = (size_6 & 0x00ff0000u) >> 16u;
+    save_chars[i + 2] = (size_6 & 0x0000ff00u) >>  8u;
+    save_chars[i + 3] = (size_6 & 0x000000ffu);
+    i += 4;
+    for(uint j = 0; j < size_6; j++, i += 16){
+        save_chars[i    ] = (added_brown_6->items[j].color & 0xff000000u) >> 24u;
+        save_chars[i + 1] = (added_brown_6->items[j].color & 0x00ff0000u) >> 16u;
+        save_chars[i + 2] = (added_brown_6->items[j].color & 0x0000ff00u) >>  8u;
+        save_chars[i + 3] = (added_brown_6->items[j].color & 0x000000ffu);
+        save_chars[i + 4] = (added_brown_6->items[j].last & 0xff000000u) >> 24u;
+        save_chars[i + 5] = (added_brown_6->items[j].last & 0x00ff0000u) >> 16u;
+        save_chars[i + 6] = (added_brown_6->items[j].last & 0x0000ff00u) >>  8u;
+        save_chars[i + 7] = (added_brown_6->items[j].last & 0x000000ffu);
+        save_chars[i + 8] = (added_brown_6->items[j].mixer_i & 0xff000000u) >> 24u;
+        save_chars[i + 9] = (added_brown_6->items[j].mixer_i & 0x00ff0000u) >> 16u;
+        save_chars[i +10] = (added_brown_6->items[j].mixer_i & 0x0000ff00u) >>  8u;
+        save_chars[i +11] = (added_brown_6->items[j].mixer_i & 0x000000ffu);
+        save_chars[i +12] = (added_brown_6->items[j].brown_c & 0xff000000u) >> 24u;
+        save_chars[i +13] = (added_brown_6->items[j].brown_c & 0x00ff0000u) >> 16u;
+        save_chars[i +14] = (added_brown_6->items[j].brown_c & 0x0000ff00u) >>  8u;
+        save_chars[i +15] = (added_brown_6->items[j].brown_c & 0x000000ffu);
     }
-    for(uint j = 0; j < (1<<24) / 8; j++, i++){
-        save_chars[i    ] = added_brown_7->d[j];
+    save_chars[i    ] = (size_7 & 0xff000000u) >> 24u;
+    save_chars[i + 1] = (size_7 & 0x00ff0000u) >> 16u;
+    save_chars[i + 2] = (size_7 & 0x0000ff00u) >>  8u;
+    save_chars[i + 3] = (size_7 & 0x000000ffu);
+    i += 4;
+    for(uint j = 0; j < size_7; j++, i += 16){
+        save_chars[i    ] = (added_brown_7->items[j].color & 0xff000000u) >> 24u;
+        save_chars[i + 1] = (added_brown_7->items[j].color & 0x00ff0000u) >> 16u;
+        save_chars[i + 2] = (added_brown_7->items[j].color & 0x0000ff00u) >>  8u;
+        save_chars[i + 3] = (added_brown_7->items[j].color & 0x000000ffu);
+        save_chars[i + 4] = (added_brown_7->items[j].last & 0xff000000u) >> 24u;
+        save_chars[i + 5] = (added_brown_7->items[j].last & 0x00ff0000u) >> 16u;
+        save_chars[i + 6] = (added_brown_7->items[j].last & 0x0000ff00u) >>  8u;
+        save_chars[i + 7] = (added_brown_7->items[j].last & 0x000000ffu);
+        save_chars[i + 8] = (added_brown_7->items[j].mixer_i & 0xff000000u) >> 24u;
+        save_chars[i + 9] = (added_brown_7->items[j].mixer_i & 0x00ff0000u) >> 16u;
+        save_chars[i +10] = (added_brown_7->items[j].mixer_i & 0x0000ff00u) >>  8u;
+        save_chars[i +11] = (added_brown_7->items[j].mixer_i & 0x000000ffu);
+        save_chars[i +12] = (added_brown_7->items[j].brown_c & 0xff000000u) >> 24u;
+        save_chars[i +13] = (added_brown_7->items[j].brown_c & 0x00ff0000u) >> 16u;
+        save_chars[i +14] = (added_brown_7->items[j].brown_c & 0x0000ff00u) >>  8u;
+        save_chars[i +15] = (added_brown_7->items[j].brown_c & 0x000000ffu);
     }
-    for(uint j = 0; j < (1<<24) / 8; j++, i++){
-        save_chars[i    ] = added_brown_8->d[j];
+    save_chars[i    ] = (size_8 & 0xff000000u) >> 24u;
+    save_chars[i + 1] = (size_8 & 0x00ff0000u) >> 16u;
+    save_chars[i + 2] = (size_8 & 0x0000ff00u) >>  8u;
+    save_chars[i + 3] = (size_8 & 0x000000ffu);
+    i += 4;
+    for(uint j = 0; j < size_8; j++, i += 16){
+        save_chars[i    ] = (added_brown_8->items[j].color & 0xff000000u) >> 24u;
+        save_chars[i + 1] = (added_brown_8->items[j].color & 0x00ff0000u) >> 16u;
+        save_chars[i + 2] = (added_brown_8->items[j].color & 0x0000ff00u) >>  8u;
+        save_chars[i + 3] = (added_brown_8->items[j].color & 0x000000ffu);
+        save_chars[i + 4] = (added_brown_8->items[j].last & 0xff000000u) >> 24u;
+        save_chars[i + 5] = (added_brown_8->items[j].last & 0x00ff0000u) >> 16u;
+        save_chars[i + 6] = (added_brown_8->items[j].last & 0x0000ff00u) >>  8u;
+        save_chars[i + 7] = (added_brown_8->items[j].last & 0x000000ffu);
+        save_chars[i + 8] = (added_brown_8->items[j].mixer_i & 0xff000000u) >> 24u;
+        save_chars[i + 9] = (added_brown_8->items[j].mixer_i & 0x00ff0000u) >> 16u;
+        save_chars[i +10] = (added_brown_8->items[j].mixer_i & 0x0000ff00u) >>  8u;
+        save_chars[i +11] = (added_brown_8->items[j].mixer_i & 0x000000ffu);
+        save_chars[i +12] = (added_brown_8->items[j].brown_c & 0xff000000u) >> 24u;
+        save_chars[i +13] = (added_brown_8->items[j].brown_c & 0x00ff0000u) >> 16u;
+        save_chars[i +14] = (added_brown_8->items[j].brown_c & 0x0000ff00u) >>  8u;
+        save_chars[i +15] = (added_brown_8->items[j].brown_c & 0x000000ffu);
     }
     
     std::cout << "Saving " << save_size << " bytes (loop in progress) ..." << std::endl;
@@ -642,6 +845,7 @@ void save_je_in_progress(){
     delete[] save_chars;
 }
 void load_je_in_progress(){
+    // WIP;
     std::cout << "Loading (loop in progress)..." << std::endl;
     vector<char> saved = whole_file("je_res_in_progress.bin");
     
@@ -680,29 +884,94 @@ void load_je_in_progress(){
     for(uint j = 0; j < (1<<24) / 8; j++, i++){
         added_brown_0->d[j] = saved[i];
     }
-    for(uint j = 0; j < (1<<24) / 8; j++, i++){
-        added_brown_1->d[j] = saved[i];
+    uint size;
+    size = ((saved[i] << 24) | (saved[i + 1] << 16) | (saved[i + 2] << 8) | saved[i + 3]);
+    i += 4;
+    added_brown_1->items.clear();
+    for(uint j = 0; j < size; j++, i += 16){
+        added_brown_1->add({
+            uint((saved[i    ] << 24) | (saved[i + 1] << 16) | (saved[i + 2] << 8) | saved[i + 3]),
+            uint((saved[i + 4] << 24) | (saved[i + 5] << 16) | (saved[i + 6] << 8) | saved[i + 7]),
+            uint((saved[i + 8] << 24) | (saved[i + 9] << 16) | (saved[i +10] << 8) | saved[i +11]),
+            uint((saved[i +12] << 24) | (saved[i +13] << 16) | (saved[i +14] << 8) | saved[i +15])
+        });
     }
-    for(uint j = 0; j < (1<<24) / 8; j++, i++){
-        added_brown_2->d[j] = saved[i];
+    size = ((saved[i] << 24) | (saved[i + 1] << 16) | (saved[i + 2] << 8) | saved[i + 3]);
+    i += 4;
+    added_brown_2->items.clear();
+    for(uint j = 0; j < size; j++, i += 16){
+        added_brown_2->add({
+            uint((saved[i    ] << 24) | (saved[i + 1] << 16) | (saved[i + 2] << 8) | saved[i + 3]),
+            uint((saved[i + 4] << 24) | (saved[i + 5] << 16) | (saved[i + 6] << 8) | saved[i + 7]),
+            uint((saved[i + 8] << 24) | (saved[i + 9] << 16) | (saved[i +10] << 8) | saved[i +11]),
+            uint((saved[i +12] << 24) | (saved[i +13] << 16) | (saved[i +14] << 8) | saved[i +15])
+        });
     }
-    for(uint j = 0; j < (1<<24) / 8; j++, i++){
-        added_brown_3->d[j] = saved[i];
+    size = ((saved[i] << 24) | (saved[i + 1] << 16) | (saved[i + 2] << 8) | saved[i + 3]);
+    i += 4;
+    added_brown_3->items.clear();
+    for(uint j = 0; j < size; j++, i += 16){
+        added_brown_3->add({
+            uint((saved[i    ] << 24) | (saved[i + 1] << 16) | (saved[i + 2] << 8) | saved[i + 3]),
+            uint((saved[i + 4] << 24) | (saved[i + 5] << 16) | (saved[i + 6] << 8) | saved[i + 7]),
+            uint((saved[i + 8] << 24) | (saved[i + 9] << 16) | (saved[i +10] << 8) | saved[i +11]),
+            uint((saved[i +12] << 24) | (saved[i +13] << 16) | (saved[i +14] << 8) | saved[i +15])
+        });
     }
-    for(uint j = 0; j < (1<<24) / 8; j++, i++){
-        added_brown_4->d[j] = saved[i];
+    size = ((saved[i] << 24) | (saved[i + 1] << 16) | (saved[i + 2] << 8) | saved[i + 3]);
+    i += 4;
+    added_brown_4->items.clear();
+    for(uint j = 0; j < size; j++, i += 16){
+        added_brown_4->add({
+            uint((saved[i    ] << 24) | (saved[i + 1] << 16) | (saved[i + 2] << 8) | saved[i + 3]),
+            uint((saved[i + 4] << 24) | (saved[i + 5] << 16) | (saved[i + 6] << 8) | saved[i + 7]),
+            uint((saved[i + 8] << 24) | (saved[i + 9] << 16) | (saved[i +10] << 8) | saved[i +11]),
+            uint((saved[i +12] << 24) | (saved[i +13] << 16) | (saved[i +14] << 8) | saved[i +15])
+        });
     }
-    for(uint j = 0; j < (1<<24) / 8; j++, i++){
-        added_brown_5->d[j] = saved[i];
+    size = ((saved[i] << 24) | (saved[i + 1] << 16) | (saved[i + 2] << 8) | saved[i + 3]);
+    i += 4;
+    added_brown_5->items.clear();
+    for(uint j = 0; j < size; j++, i += 16){
+        added_brown_5->add({
+            uint((saved[i    ] << 24) | (saved[i + 1] << 16) | (saved[i + 2] << 8) | saved[i + 3]),
+            uint((saved[i + 4] << 24) | (saved[i + 5] << 16) | (saved[i + 6] << 8) | saved[i + 7]),
+            uint((saved[i + 8] << 24) | (saved[i + 9] << 16) | (saved[i +10] << 8) | saved[i +11]),
+            uint((saved[i +12] << 24) | (saved[i +13] << 16) | (saved[i +14] << 8) | saved[i +15])
+        });
     }
-    for(uint j = 0; j < (1<<24) / 8; j++, i++){
-        added_brown_6->d[j] = saved[i];
+    size = ((saved[i] << 24) | (saved[i + 1] << 16) | (saved[i + 2] << 8) | saved[i + 3]);
+    i += 4;
+    added_brown_6->items.clear();
+    for(uint j = 0; j < size; j++, i += 16){
+        added_brown_6->add({
+            uint((saved[i    ] << 24) | (saved[i + 1] << 16) | (saved[i + 2] << 8) | saved[i + 3]),
+            uint((saved[i + 4] << 24) | (saved[i + 5] << 16) | (saved[i + 6] << 8) | saved[i + 7]),
+            uint((saved[i + 8] << 24) | (saved[i + 9] << 16) | (saved[i +10] << 8) | saved[i +11]),
+            uint((saved[i +12] << 24) | (saved[i +13] << 16) | (saved[i +14] << 8) | saved[i +15])
+        });
     }
-    for(uint j = 0; j < (1<<24) / 8; j++, i++){
-        added_brown_7->d[j] = saved[i];
+    size = ((saved[i] << 24) | (saved[i + 1] << 16) | (saved[i + 2] << 8) | saved[i + 3]);
+    i += 4;
+    added_brown_7->items.clear();
+    for(uint j = 0; j < size; j++, i += 16){
+        added_brown_7->add({
+            uint((saved[i    ] << 24) | (saved[i + 1] << 16) | (saved[i + 2] << 8) | saved[i + 3]),
+            uint((saved[i + 4] << 24) | (saved[i + 5] << 16) | (saved[i + 6] << 8) | saved[i + 7]),
+            uint((saved[i + 8] << 24) | (saved[i + 9] << 16) | (saved[i +10] << 8) | saved[i +11]),
+            uint((saved[i +12] << 24) | (saved[i +13] << 16) | (saved[i +14] << 8) | saved[i +15])
+        });
     }
-    for(uint j = 0; j < (1<<24) / 8; j++, i++){
-        added_brown_8->d[j] = saved[i];
+    size = ((saved[i] << 24) | (saved[i + 1] << 16) | (saved[i + 2] << 8) | saved[i + 3]);
+    i += 4;
+    added_brown_8->items.clear();
+    for(uint j = 0; j < size; j++, i += 16){
+        added_brown_8->add({
+            uint((saved[i    ] << 24) | (saved[i + 1] << 16) | (saved[i + 2] << 8) | saved[i + 3]),
+            uint((saved[i + 4] << 24) | (saved[i + 5] << 16) | (saved[i + 6] << 8) | saved[i + 7]),
+            uint((saved[i + 8] << 24) | (saved[i + 9] << 16) | (saved[i +10] << 8) | saved[i +11]),
+            uint((saved[i +12] << 24) | (saved[i +13] << 16) | (saved[i +14] << 8) | saved[i +15])
+        });
     }
     in_progress_i = (
         (uchar(saved[i    ]) << 16) |
@@ -716,13 +985,13 @@ void load_je_in_progress(){
     }
 }
 
-void add(uint color, uint last, uint mix_d, Color_Exists*& added){
+void add(uint color, uint last, uint mix_d){
     if(c_exists->get(color)) return;
     recipes->set(color, mix_d);
     last_cs->set(color, last);
     step_cs->set(color, step_cs->get(last) + 1);
     c_exists->set(color, 1);
-    added->set(color, 1);
+    added_brown_0->set(color, 1);
     found++;
 }
 
@@ -737,12 +1006,6 @@ void cycle_init(){
     }
     in_progress_i = 0;
 }
-struct Add_Brown_Attempt{
-    uint color;
-    uint last;
-    uint mixer_i;
-    uint brown_c;
-};
 
 void cycle(){
     std::vector<uint> active_colors;
@@ -864,15 +1127,15 @@ void cycle(){
             {
                 for(const auto& item : local_attempts){
                     switch(item.brown_c){
-                        case 0: add(item.color, item.last, item.mixer_i, added_brown_0); break;
-                        case 1: add(item.color, item.last, item.mixer_i, added_brown_1); break;
-                        case 2: add(item.color, item.last, item.mixer_i, added_brown_2); break;
-                        case 3: add(item.color, item.last, item.mixer_i, added_brown_3); break;
-                        case 4: add(item.color, item.last, item.mixer_i, added_brown_4); break;
-                        case 5: add(item.color, item.last, item.mixer_i, added_brown_5); break;
-                        case 6: add(item.color, item.last, item.mixer_i, added_brown_6); break;
-                        case 7: add(item.color, item.last, item.mixer_i, added_brown_7); break;
-                        case 8: add(item.color, item.last, item.mixer_i, added_brown_8); break;
+                        case 0: add(item.color, item.last, item.mixer_i); break;
+                        case 1: added_brown_1->add(item); break;
+                        case 2: added_brown_2->add(item); break;
+                        case 3: added_brown_3->add(item); break;
+                        case 4: added_brown_4->add(item); break;
+                        case 5: added_brown_5->add(item); break;
+                        case 6: added_brown_6->add(item); break;
+                        case 7: added_brown_7->add(item); break;
+                        case 8: added_brown_8->add(item); break;
                     }
                 }
             }
@@ -894,7 +1157,7 @@ void cycle(){
     for(uint shift_c = 0; shift_c < 8 && added_c == 0; shift_c++){
         // cycle the pointers;
         Color_Exists* first = added_brown_0;
-        added_brown_0 = added_brown_1;
+        added_brown_0 = added_brown_1->exists;
         added_brown_1 = added_brown_2;
         added_brown_2 = added_brown_3;
         added_brown_3 = added_brown_4;
@@ -902,7 +1165,8 @@ void cycle(){
         added_brown_5 = added_brown_6;
         added_brown_6 = added_brown_7;
         added_brown_7 = added_brown_8;
-        added_brown_8 = first;
+        added_brown_8->exists = first;
+        added_brown_8->items.clear();
         // filter out existing colors;
         for(uint i = 0; i < 1<<24; i++){
             if(added_brown_0->get(i) && c_exists->get(i)){
@@ -1089,6 +1353,7 @@ int main(int argc, char const *argv[]){
         load_je();
     }
     
+    see_recipe("Temu version of brown: ", base_colors[0]); /* #835432 brown */
     see_recipe("Base armor color: ", 0xA06540); /* #A06540 - Base armor color */
     
     vector<uint> at_step = {};

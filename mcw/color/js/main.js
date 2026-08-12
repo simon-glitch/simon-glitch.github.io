@@ -65,7 +65,25 @@ const mixers = (function gen_mixers(dye_c, dye_lim){
     return mixers;
 })(16, 8);
 
-const base_colors = [
+const base_colors_je = [
+    0xf9fffe, /* #f9fffe white   */
+    0x9d9d97, /* #9d9d97 l_gray  */
+    0x474f52, /* #474f52 gray    */
+    0x1d1d21, /* #1d1d21 black   */
+    0x835432, /* #835432 brown   */
+    0xb02e26, /* #b02e26 red     */
+    0xf9801d, /* #f9801d orange  */
+    0xfed83d, /* #fed83d yellow  */
+    0x80c71f, /* #80c71f lime    */
+    0x5e7c16, /* #5e7c16 green   */
+    0x169c9c, /* #169c9c cyan    */
+    0x3ab3da, /* #3ab3da l_blue  */
+    0x3c44aa, /* #3c44aa blue    */
+    0x8932b8, /* #8932b8 purple  */
+    0xc74ebd, /* #c74ebd magenta */
+    0xf38baa, /* #f38baa pink    */
+];
+const base_colors_be = [
     0xf9fffe, /* #f9fffe white   */
     0x9d9d97, /* #9d9d97 l_gray  */
     0x474f52, /* #474f52 gray    */
@@ -116,7 +134,7 @@ const step_cs = new Color_Steps();
 // whether the color exists; it's easiest to encode this piece of data separately;
 const c_exists = new Color_Exists();
 
-function recipe(later_steps, color){
+function recipe_je(later_steps, color){
     const last = last_cs.get(color);
     later_steps.push(recipes.get(color));
     if(last === color){
@@ -124,6 +142,30 @@ function recipe(later_steps, color){
     }
     recipe(later_steps, last);
 }
+
+function recipe_be(later_steps, color){
+    const data = recipes.get(color);
+    // if(!(data & 0x80)) -> indicates the color does not exist but is not needed;
+    const dye_i = data & 0x0f;
+    const last = base_colors_be[dye_i];
+    const cr = (color & 0xff0000) >> 16;
+    const cg = (color & 0x00ff00) >> 8;
+    const cb = (color & 0x0000ff);
+    const lr = (last  & 0xff0000) >> 16;
+    const lg = (last  & 0x00ff00) >> 8;
+    const lb = (last  & 0x0000ff);
+    if(cr == lr && cg == lg && cb == lb){
+        // end of tail end recursion;
+        return;
+    }
+    later_steps.push(dye_i);
+    const r = (2 * cr - lr) + ((data & 0x40) >> 6);
+    const g = (2 * cg - lg) + ((data & 0x20) >> 5);
+    const b = (2 * cb - lb) + ((data & 0x10) >> 4);
+    // end of tail end recursion;
+    try_last((r << 16) | (g << 8) | b);
+}
+
 
 const color_el = document.querySelector("#target_color");
 const output_el = document.querySelector("#output");
