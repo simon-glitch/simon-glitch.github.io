@@ -321,14 +321,19 @@ document.querySelector("#load_2x2" ).onclick = ()=>{
     local_path = "./je_lab_2x2.zip" ;
     load_local();
 };
-document.querySelector("#load_1_4" ).onclick = ()=>{
-    version = "Colors used from 1.4.3 to 17w06a.";
-    local_path = "./je_lab_1_4.zip" ;
+document.querySelector("#load_briwb" ).onclick = ()=>{
+    version = "Colors used from 17w06a to now (using the minimum amount of brown dye).";
+    local_path = "./je_lab_12w34a.zip" ;
     load_local();
 };
-document.querySelector("#load_1_2" ).onclick = ()=>{
-    version = "Colors used from 12w34a (when armor dyeing was first added) to 1.4.3.";
-    local_path = "./je_lab_1_2.zip" ;
+document.querySelector("#load_1_4_3" ).onclick = ()=>{
+    version = "Colors used from 1.4.3 to 17w06a.";
+    local_path = "./je_lab_1_4_3.zip" ;
+    load_local();
+};
+document.querySelector("#load_12w34a" ).onclick = ()=>{
+    version = "Colors used from 12w34a (when armor dyeing was first added) to 1.4.3. The colors themselves were added in Beta 1.2, before armor dyeing was a mechanic.";
+    local_path = "./je_lab_12w34a.zip" ;
     load_local();
 };
 

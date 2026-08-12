@@ -77,7 +77,7 @@ vector<char> whole_file(string file_in){
     return data;
 }
 
-/** Colors used from 12w34a (when armor dyeing was first added) to 1.4.3. */
+/** Colors used from 12w34a (when armor dyeing was first added) to 1.4.3. The actual colors themselves were first added in beta 1.2, thus the name "1_2". */
 uint base_colors_1_2[16] = {
     0xffffff, /* #ffffff white   */
     0x999999, /* #999999 l_gray  */
