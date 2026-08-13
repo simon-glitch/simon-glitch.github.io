@@ -84,7 +84,7 @@ const base_colors_je = [
     0xf38baa, /* #f38baa pink    */
 ];
 const base_colors_be = [
-    0xf9fffe, /* #f9fffe white   */
+    0xf0f0f0, /* #f0f0f0 white   */
     0x9d9d97, /* #9d9d97 l_gray  */
     0x474f52, /* #474f52 gray    */
     0x1d1d21, /* #1d1d21 black   */
@@ -119,8 +119,27 @@ const base_colors_names = [
     "magenta",    /* #c74ebd 14 */
     "pink",       /* #f38baa 15 */
 ];
+const base_colors_images = [
+    "<img src='assets/white_dye.png'      alt='white'     >", /* #f9fffe */
+    "<img src='assets/light_gray_dye.png' alt='light_gray'>", /* #9d9d97 */
+    "<img src='assets/gray_dye.png'       alt='gray'      >", /* #474f52 */
+    "<img src='assets/black_dye.png'      alt='black'     >", /* #1d1d21 */
+    "<img src='assets/brown_dye.png'      alt='brown'     >", /* #835432 */
+    "<img src='assets/red_dye.png'        alt='red'       >", /* #b02e26 */
+    "<img src='assets/orange_dye.png'     alt='orange'    >", /* #f9801d */
+    "<img src='assets/yellow_dye.png'     alt='yellow'    >", /* #fed83d */
+    "<img src='assets/lime_dye.png'       alt='lime'      >", /* #80c71f */
+    "<img src='assets/green_dye.png'      alt='green'     >", /* #5e7c16 */
+    "<img src='assets/cyan_dye.png'       alt='cyan'      >", /* #169c9c */
+    "<img src='assets/light_blue_dye.png' alt='light_blue'>", /* #3ab3da */
+    "<img src='assets/blue_dye.png'       alt='blue'      >", /* #3c44aa */
+    "<img src='assets/purple_dye.png'     alt='purple'    >", /* #8932b8 */
+    "<img src='assets/magenta_dye.png'    alt='magenta'   >", /* #c74ebd */
+    "<img src='assets/pink_dye.png'       alt='pink'      >", /* #f38baa */
+];
 
-let loaded = false;
+let loaded_je = false;
+let loaded_be = false;
 let found = 0;
 let version = "";
 // index of the last mixer used;
@@ -140,12 +159,14 @@ function recipe_je(later_steps, color){
     if(last === color){
         return;
     }
-    recipe(later_steps, last);
+    recipe_je(later_steps, last);
 }
 
 function recipe_be(later_steps, color){
     const data = recipes.get(color);
-    // if(!(data & 0x80)) -> indicates the color does not exist but is not needed;
+    // if(!(data & 0x80)){
+    //     throw new Error("Color not found: " + color + ", steps: " + later_steps);
+    // }
     const dye_i = data & 0x0f;
     const last = base_colors_be[dye_i];
     const cr = (color & 0xff0000) >> 16;
@@ -163,15 +184,15 @@ function recipe_be(later_steps, color){
     const g = (2 * cg - lg) + ((data & 0x20) >> 5);
     const b = (2 * cb - lb) + ((data & 0x10) >> 4);
     // end of tail end recursion;
-    try_last((r << 16) | (g << 8) | b);
+    recipe_be(later_steps, (r << 16) | (g << 8) | b);
 }
 
 
 const color_el = document.querySelector("#target_color");
 const output_el = document.querySelector("#output");
 let last_color = -1;
-function update(e){
-    if(!loaded) return;
+function update_je(){
+    if(!loaded_je) return;
     
     const s_color = color_el.value;
     let color = Number("0x"+s_color.slice(1));
@@ -189,17 +210,51 @@ function update(e){
     }
     if(c_exists.get(color)){
         const r = [];
-        recipe(r, color);
+        recipe_je(r, color);
         console.log("r", r);
         console.log("mixers", r.map(v => mixers[v]));
         
         s += "* " +
-        r.toReversed().map(v => mixers[v].map(c => base_colors_names[c]).join(",")).join("<br>* ");
+        r.toReversed().map(v => mixers[v].map(c => base_colors_images[c]).join(",")).join("<br>* ");
     }
     else{
         s += "The closest color is not obtainable, but it is supposed to be, so there is a bug in the Lab search C++ code."
     }
     output_el.innerHTML = s;
+}
+function update_be(){
+    if(!loaded_be) return;
+    
+    const s_color = color_el.value;
+    let color = Number("0x"+s_color.slice(1));
+    if(color === last_color) return;
+    last_color = color;
+    
+    const exists = c_exists.get(color);
+    let s = "";
+    s += `Version: ${version}<br>`;
+    s += `${found} colors are obtainable.<br>`;
+    s += `Color is ${exists ? "" : "not"} obtainable.<br>`;
+    if(!exists){
+        s += `Closest color in Lab space: #${closest.get(color).toString(16)} <input type="color" value="#${closest.get(color).toString(16)}"><br>`;
+        color = closest.get(color);
+    }
+    if(c_exists.get(color)){
+        const r = [];
+        recipe_be(r, color);
+        console.log("r", r);
+        
+        s += "* " +
+        r.toReversed().map(c => base_colors_images[c]).join(", then ");
+    }
+    else{
+        s += "The closest color is not obtainable, but it is supposed to be, so there is a bug in the Lab search C++ code."
+    }
+    output_el.innerHTML = s;
+}
+function update(){
+    if(loaded_je) update_je();
+    if(loaded_be) update_be();
 }
 setInterval(update, 30);
 
@@ -253,8 +308,48 @@ function load_je(data){
         if(c_exists.get(j)) found++;
     }
     // yay other features should be able to work
-    loaded = true;
+    loaded_be = false;
+    loaded_je = true;
 }
+/** @param {Uint8Array} data */
+function load_be(data){
+    console.log("Loading...");
+    
+    const save_size = _24 + _24 * 4;
+    if(data.length !== save_size){
+        throw new RangeError(`Expected ${save_size} bytes, but got ${data.length} bytes.`);
+    }
+    
+    // data is SoA: recipes, then closest;
+    let i = 0;
+    // recipes themselves is a bitpacked AoS: c_exists bit, 3 parity bits, last_dye_i;
+    // but we don't need to process it much;
+    for(let j = 0; j < _24; j++, i++){
+        recipes.d[j] = data[i];
+        c_exists.set(j, (data[i] & 0x80) >> 7);
+    }
+    for(let j = 0; j < _24; j++, i += 4){
+        closest.d[j] = (
+            (data[i    ] << 24) |
+            (data[i + 1] << 16) |
+            (data[i + 2] <<  8) |
+            (data[i + 3]      )
+        );
+    }
+    
+    console.log("Loaded!");
+    
+    last_color = -1;
+    found = 0;
+    for(let j = 0; j < _24; j++){
+        if(c_exists.get(j)) found++;
+    }
+    loaded_je = false;
+    loaded_be = true;
+}
+
+/** @type {(data: Uint8Array) => void} */
+let load_e = load_je;
 
 async function stream_to_Uint8Array(stream){
     const reader = stream.getReader();
@@ -337,7 +432,7 @@ document.querySelector("#my_file_input").onchange = async function(event){
     
     const buffer = await file.arrayBuffer();
     const raw_bytes = await handle_zip_file(buffer);
-    load_je(raw_bytes);
+    load_e(raw_bytes);
 };
 
 let local_path = "";
@@ -348,34 +443,45 @@ async function load_local(){
     
     const buffer = await response.arrayBuffer();
     const raw_bytes = await handle_zip_file(buffer);
-    load_je(raw_bytes);
+    load_e(raw_bytes);
 }
 
 function main(){
+    load_e = load_je;
     version = "Colors used from 17w06a to now.";
     local_path = "./je_lab_main.zip";
     load_local();
 };
 main();
 document.querySelector("#load_main").onclick = main;
-document.querySelector("#load_2x2" ).onclick = ()=>{
+document.querySelector("#load_2x2").onclick = ()=>{
+    load_e = load_je;
     version = "Colors used from 17w06a to now (2x2 crafting grid).";
     local_path = "./je_lab_2x2.zip" ;
     load_local();
 };
-document.querySelector("#load_briwb" ).onclick = ()=>{
+document.querySelector("#load_brown").onclick = ()=>{
+    load_e = load_je;
     version = "Colors used from 17w06a to now (using the minimum amount of brown dye).";
     local_path = "./je_lab_12w34a.zip" ;
     load_local();
 };
-document.querySelector("#load_1_4_3" ).onclick = ()=>{
+document.querySelector("#load_1_4_3").onclick = ()=>{
+    load_e = load_je;
     version = "Colors used from 1.4.3 to 17w06a.";
     local_path = "./je_lab_1_4_3.zip" ;
     load_local();
 };
-document.querySelector("#load_12w34a" ).onclick = ()=>{
+document.querySelector("#load_12w34a").onclick = ()=>{
+    load_e = load_je;
     version = "Colors used from 12w34a (when armor dyeing was first added) to 1.4.3. The colors themselves were added in Beta 1.2, before armor dyeing was a mechanic.";
     local_path = "./je_lab_12w34a.zip" ;
+    load_local();
+};
+document.querySelector("#load_be").onclick = ()=>{
+    load_e = load_be;
+    version = "BE colors and cauldron recipes.";
+    local_path = "./be_lab.zip" ;
     load_local();
 };
 

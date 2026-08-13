@@ -3,10 +3,12 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include <set>
 #include "nanoflann.hpp"
 
 using std::vector;
 using std::string;
+using std::set;
 
 typedef unsigned int uint;
 typedef unsigned short ushort;
@@ -252,6 +254,58 @@ void load_je(){
         c_exists->d[j] = saved[i];
     }
 }
+void save_be(){
+    auto nums = set<uint>();
+    for(uint j = 0; j < 1<<24; j++){
+        nums.insert(recipes->d[j]);
+    }
+    std::cout << "Numbers found: ";
+    for(uint num : nums){
+        std::cout << num << ",";
+    }
+    std::cout << std::endl;
+    
+    uint save_size = (1<<24) + (1<<24) * 4;
+    uchar* save_chars = new uchar[save_size];
+    // recipes, then last_cs, then closest, then step_cs, then c_exists;
+    uint i = 0;
+    for(uint j = 0; j < 1<<24; j++, i++){
+        save_chars[i] = recipes->d[j];
+    }
+    for(uint j = 0; j < 1<<24; j++, i += 4){
+        uint last = closest->d[j];
+        save_chars[i    ] = (last & 0xff000000u) >> 24u;
+        save_chars[i + 1] = (last & 0x00ff0000u) >> 16u;
+        save_chars[i + 2] = (last & 0x0000ff00u) >>  8u;
+        save_chars[i + 3] = (last & 0x000000ffu);
+    }
+    
+    std::cout << "Saving " << save_size << " bytes ..." << std::endl;
+    
+    auto fout = std::ofstream("be_lab.bin", std::ios_base::binary);
+    fout.write(reinterpret_cast<char*>(save_chars), save_size);
+    
+    std::cout << "Saved." << std::endl;
+    
+    delete[] save_chars;
+}
+void load_be(){
+    std::cout << "Loading..." << std::endl;
+    vector<char> saved = whole_file("./be_res.bin");
+    
+    std::cout << "Loaded." << std::endl;
+    uint i = 0;
+    // skip past "Testing.";
+    i += 8;
+    // data is SoA: recipes, then closest;
+    // recipes themselves is a bitpacked AoS: c_exists bit, 3 parity bits, last_dye_i;
+    // but we don't need to process it much;
+    for(uint j = 0; j < 1<<24; j++, i++){
+        recipes->d[j] = uchar(saved[i]);
+        c_exists->set(j, (uchar(saved[i]) & 0x80) >> 7);
+    }
+}
+
 
 struct LabPoint{
     float l, a, b;
@@ -277,7 +331,8 @@ using KDTree = nanoflann::KDTreeSingleIndexAdaptor<
 >;
 
 int main(){
-    load_je();
+    // load_je();
+    load_be();
     init_labs();
     
     // some kind of magic data structure
@@ -343,7 +398,8 @@ int main(){
         }
     }
     
-    save_je();
+    // save_je();
+    save_be();
     
     uint* my_decode = new uint[256]{0};
     my_decode['0'] = 0x0; my_decode['1'] = 0x1; my_decode['2'] = 0x2; my_decode['3'] = 0x3;
@@ -357,7 +413,6 @@ int main(){
         std::cin >> c_hex;
         if(c_hex.size() == 0) break;
         
-        // fun fact: this code shouldn't be able to hit an error;
         uint your_c = 0;
         for(auto it = c_hex.begin(); it != c_hex.end(); it++){
             your_c *= 16;

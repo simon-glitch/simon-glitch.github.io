@@ -421,53 +421,6 @@ bool operator> (const Mixer a, const Mixer b){
     );
 }
 
-/*
-Using mcsrc.dev, I found it:
-file: net/minecraft/world/item/component/DyedItemColor
-class: DyedItemColor
-method:
-public static DyedItemColor applyDyes(final @Nullable DyedItemColor currentDye, final List<DyeColor> dyes) {
-      int redTotal = 0;
-      int greenTotal = 0;
-      int blueTotal = 0;
-      int intensityTotal = 0;
-      int colorCount = 0;
-      if (currentDye != null) {
-         int red = ARGB.red(currentDye.rgb());
-         int green = ARGB.green(currentDye.rgb());
-         int blue = ARGB.blue(currentDye.rgb());
-         intensityTotal += Math.max(red, Math.max(green, blue));
-         redTotal += red;
-         greenTotal += green;
-         blueTotal += blue;
-         colorCount++;
-      }
-
-      for (DyeColor dye : dyes) {
-         int color = dye.getTextureDiffuseColor();
-         int red = ARGB.red(color);
-         int green = ARGB.green(color);
-         int blue = ARGB.blue(color);
-         intensityTotal += Math.max(red, Math.max(green, blue));
-         redTotal += red;
-         greenTotal += green;
-         blueTotal += blue;
-         colorCount++;
-      }
-
-      int red = redTotal / colorCount;
-      int green = greenTotal / colorCount;
-      int blue = blueTotal / colorCount;
-      float averageIntensity = (float)intensityTotal / colorCount;
-      float resultIntensity = Math.max(red, Math.max(green, blue));
-      red = (int)(red * averageIntensity / resultIntensity);
-      green = (int)(green * averageIntensity / resultIntensity);
-      blue = (int)(blue * averageIntensity / resultIntensity);
-      int rgb = ARGB.color(0, red, green, blue);
-      return new DyedItemColor(rgb);
-   }
-*/
-
 uint mix(uint color, Mixer mixer){
     uint r = (color & 0xff0000) >> 16;
     uint g = (color & 0x00ff00) >> 8;
@@ -603,7 +556,7 @@ void save_je_in_progress(){
     uint size_6 = added_brown_6->items.size();
     uint size_7 = added_brown_7->items.size();
     uint size_8 = added_brown_8->items.size();
-    uint save_size = (1<<24) * 4 + (1<<24) * 4 + (1<<24) + (1<<24) / 8 + (1<<24) / 8 + (1<<24) / 8 * 9 +
+    uint save_size = (1<<24) * 4 + (1<<24) * 4 + (1<<24) + (1<<24) / 8 + (1<<24) / 8 + (1<<24) / 8 +
     sizeof(Add_Brown_Attempt) * (
         size_1 +
         size_2 +
@@ -613,7 +566,7 @@ void save_je_in_progress(){
         size_6 +
         size_7 +
         size_8
-    ) + /* store the size of each vector, as a uint */ 4 * 9;
+    ) + /* store the size of each vector, as a uint */ 4 * 8;
     uchar* save_chars = new uchar[save_size];
     // recipes, then last_cs, then c_exists;
     uint i = 0;
@@ -845,32 +798,25 @@ void save_je_in_progress(){
     delete[] save_chars;
 }
 void load_je_in_progress(){
-    // WIP;
     std::cout << "Loading (loop in progress)..." << std::endl;
-    vector<char> saved = whole_file("je_res_in_progress.bin");
-    
+    vector<char> signed_saved = whole_file("je_res_in_progress.bin");
+    vector<uchar> saved = {};
+    for(char c : signed_saved){
+        saved.push_back(c);
+    }
     std::cout << "Loaded." << std::endl;
     uint i = 0;
     // skip past "Format: recipes, then last_cs, then c_exists\n";
     for(; saved[i] != '\n'; i++);
     // skip '\n' itself;
     i++;
+    std::cout << "skipped " << i << " chars" << std::endl;
     // recipes, then last_cs, then c_exists;
     for(uint j = 0; j < 1<<24; j++, i += 4){
-        recipes->d[j] = (
-            (uchar(saved[i    ]) << 24) |
-            (uchar(saved[i + 1]) << 16) |
-            (uchar(saved[i + 2]) <<  8) |
-            (uchar(saved[i + 3]))
-        );
+        recipes->d[j] = ((saved[i    ]) << 24) | ((saved[i + 1]) << 16) | ((saved[i + 2]) <<  8) | ((saved[i + 3]));
     }
     for(uint j = 0; j < 1<<24; j++, i += 4){
-        last_cs->d[j] = (
-            (uchar(saved[i    ]) << 24) |
-            (uchar(saved[i + 1]) << 16) |
-            (uchar(saved[i + 2]) <<  8) |
-            (uchar(saved[i + 3]))
-        );
+        last_cs->d[j] = ((saved[i    ]) << 24) | ((saved[i + 1]) << 16) | ((saved[i + 2]) <<  8) | ((saved[i + 3]));
     }
     for(uint j = 0; j < 1<<24; j++, i++){
         step_cs->d[j] = saved[i];
@@ -884,7 +830,7 @@ void load_je_in_progress(){
     for(uint j = 0; j < (1<<24) / 8; j++, i++){
         added_brown_0->d[j] = saved[i];
     }
-    uint size;
+    uint size = 0;
     size = ((saved[i] << 24) | (saved[i + 1] << 16) | (saved[i + 2] << 8) | saved[i + 3]);
     i += 4;
     added_brown_1->items.clear();
@@ -1018,9 +964,10 @@ void cycle(){
     uint total_colors = active_colors.size();
     std::cout << "cycle " << ic << ": processing " << total_colors << " active colors across " << mixer_c << " mixers;" << std::endl;
     
-    uint chunk_size = 480;
+    uint chunk_size = 20;
     
     for(uint outer_i = in_progress_i; outer_i < total_colors; outer_i += chunk_size){
+        if(outer_i > 100) chunk_size = 480;
         if(interrupted){
             in_progress_i = outer_i;
             std::cout << "Ctrl+C detected! Pausing at color index " << in_progress_i << " on cycle " << ic << std::endl;
@@ -1322,15 +1269,15 @@ int main(int argc, char const *argv[]){
                 if(color == 0) brown_c++;
             }
             switch(brown_c){
-                case 0: add(i, i, mixer_i, added_brown_0); break;
-                case 1: add(i, i, mixer_i, added_brown_1); break;
-                case 2: add(i, i, mixer_i, added_brown_2); break;
-                case 3: add(i, i, mixer_i, added_brown_3); break;
-                case 4: add(i, i, mixer_i, added_brown_4); break;
-                case 5: add(i, i, mixer_i, added_brown_5); break;
-                case 6: add(i, i, mixer_i, added_brown_6); break;
-                case 7: add(i, i, mixer_i, added_brown_7); break;
-                case 8: add(i, i, mixer_i, added_brown_8); break;
+                case 0: add(i, i, mixer_i); break;
+                case 1: added_brown_1->add({i, i, mixer_i, 1}); break;
+                case 2: added_brown_2->add({i, i, mixer_i, 2}); break;
+                case 3: added_brown_3->add({i, i, mixer_i, 3}); break;
+                case 4: added_brown_4->add({i, i, mixer_i, 4}); break;
+                case 5: added_brown_5->add({i, i, mixer_i, 5}); break;
+                case 6: added_brown_6->add({i, i, mixer_i, 6}); break;
+                case 7: added_brown_7->add({i, i, mixer_i, 7}); break;
+                case 8: added_brown_8->add({i, i, mixer_i, 8}); break;
             }
         }
         ic = 0;
