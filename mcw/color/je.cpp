@@ -116,7 +116,7 @@ uint base_colors_1_4[16] = {
     0xf27fa5, /* #f27fa5 pink    */
 };
 /** Colors used from 17w06a to now. */
-uint base_colors[16] = {
+uint base_colors_main[16] = {
     0xf9fffe, /* #f9fffe white   */
     0x9d9d97, /* #9d9d97 l_gray  */
     0x474f52, /* #474f52 gray    */
@@ -133,6 +133,25 @@ uint base_colors[16] = {
     0x8932b8, /* #8932b8 purple  */
     0xc74ebd, /* #c74ebd magenta */
     0xf38baa, /* #f38baa pink    */
+};
+/** Colors used in standard CSS specification. */
+uint base_colors[16] = {
+    0xffffff, /* #ffffff white   */
+    0xd3d3d3, /* #d3d3d3 l_gray  */
+    0x808080, /* #808080 gray    */
+    0x000000, /* #000000 black   */
+    0xa52a2a, /* #a52a2a brown   */
+    0xff0000, /* #ff0000 red     */
+    0xffa500, /* #ffa500 orange  */
+    0xffff00, /* #ffff00 yellow  */
+    0x00ff00, /* #00ff00 lime    */
+    0x008000, /* #008000 green   */
+    0x00ffff, /* #00ffff cyan    */
+    0xadd8e6, /* #add8e6 l_blue  */
+    0x0000ff, /* #0000ff blue    */
+    0x800080, /* #800080 purple  */
+    0xff00ff, /* #ff00ff magenta */
+    0xffc0cb, /* #ffc0cb pink    */
 };
 string base_colors_names[16] = {
     string("white   "), /* #f9fffe  0 */
@@ -175,9 +194,6 @@ public:
     uchar* d;
     Color_Steps(){
         d = new uchar[1<<24]{0};
-        // for(uint i = 0; i < (1<<24); i++){
-        //     d[i] = 0;
-        // }
     }
     uchar get(uint idx){
         return d[idx];
@@ -194,9 +210,6 @@ public:
     uchar* d;
     Color_Exists(){
         d = new uchar[(1<<24) / 8]{0};
-        // for(uint i = 0; i < (1<<24) / 8; i++){
-        //     d[i] = 0;
-        // }
     }
     uchar get(uint idx){
         uchar v = d[idx >> 3];
@@ -280,29 +293,28 @@ public:
         len = a_len + 1;
         
         const uint test = 0x1f000000;
-        
-        // if(a_len < 3){
-        //     std::cout << "Mixer:" <<
-        //     " tr= " << tr <<
-        //     ", tg= " << tg <<
-        //     ", tb= " << tb <<
-        //     ", tm= " << tm <<
-        //     ", len= " << a_len <<
-        //     ", mix_d= " << mix_d <<
-        //     ", base= " << base() <<
-        //     ", colors= [";
-        //     if(a_len > 0) std::cout         << colors[0];
-        //     if(a_len > 1) std::cout << ", " << colors[1];
-        //     if(a_len > 2) std::cout << ", " << colors[2];
-        //     if(a_len > 3) std::cout << ", " << colors[3];
-        //     if(a_len > 4) std::cout << ", " << colors[4];
-        //     if(a_len > 5) std::cout << ", " << colors[5];
-        //     if(a_len > 6) std::cout << ", " << colors[6];
-        //     if(a_len > 7) std::cout << ", " << colors[7];
-        //     std::cout << "]" << std::endl;
-        // }
-        
-        // find_bounds();
+    }
+    vector<uint> to_colors(){
+        uint colors[8] = {};
+        uchar a_len = 0;
+        uchar z = (mix_d & 0xff000000) >> 24;
+        if(z > 0xf1){
+            a_len = z - 0xf1;
+            for(uchar i = 0; i < a_len; i++){
+                colors[i] = 0;
+            }
+        }
+        else{
+            uchar total = 0;
+            while(a_len < 8 && total < 16){
+                uchar big_endian_number = ((mix_d << (4*a_len)) & 0xf0000000) >> 28;
+                total += big_endian_number;
+                if(total >= 16) break;
+                colors[a_len] = total;
+                a_len++;
+            }
+        }
+        return vector<uint>(colors, colors + a_len);
     }
     void init(uint* colors, uint a_len){
         tr = 0;
@@ -327,37 +339,6 @@ public:
         len++;
         return c;
     }
-    /*
-    void find_bounds(){
-        float max_a = 0;
-        max_a = max(max_a, alpha(0xff, 0x00, 0x00));
-        max_a = max(max_a, alpha(0x00, 0xff, 0x00));
-        max_a = max(max_a, alpha(0xff, 0xff, 0x00));
-        max_a = max(max_a, alpha(0x00, 0x00, 0xff));
-        max_a = max(max_a, alpha(0xff, 0x00, 0xff));
-        max_a = max(max_a, alpha(0x00, 0xff, 0xff));
-        max_a = max(max_a, alpha(0xff, 0xff, 0xff));
-        
-        min_r = tr / len;
-        min_g = tg / len;
-        min_b = tb / len;
-        max_r = min(255, uint((max_a * float(tr + 0xff)) / float(len)));
-        max_g = min(255, uint((max_a * float(tg + 0xff)) / float(len)));
-        max_b = min(255, uint((max_a * float(tb + 0xff)) / float(len)));
-        // if(max_r >= 0x100){
-        //     std::cout << "Oh no! max_r is " << max_r << ". I didn't think that was possible." << std::endl;
-        // }
-        // if(max_g >= 0x100){
-        //     std::cout << "Oh no! max_g is " << max_g << ". I didn't think that was possible." << std::endl;
-        // }
-        // if(max_b >= 0x100){
-        //     std::cout << "Oh no! max_b is " << max_b << ". I didn't think that was possible." << std::endl;
-        // }
-        // if(max(max_r, max_g, max_b) >= 0x100){
-        //     abort();
-        // }
-    }
-    */
     float alpha(uint r, uint g, uint b){
         uint a_tr = tr + r;
         uint a_tg = tg + g;
@@ -374,7 +355,6 @@ public:
         uint colors[8] = {};
         uchar a_len = 0;
         uchar z = (mix_d & 0xff000000) >> 24;
-        // crazy zero check; but it's less crazy than the code i used to have here;
         if(z > 0xf1){
             a_len = z - 0xf1;
             for(uchar i = 0; i < a_len; i++){
@@ -552,7 +532,6 @@ void save_je(){
     std::cout << "Saving " << save_size << " bytes ..." << std::endl;
     
     auto fout = std::ofstream("je_res.bin", std::ios_base::binary);
-    fout << string("Format: recipes, then last_cs, then c_exists\n");
     for(i = 0; i < save_size; i++){
         fout << save_chars[i];
     }
@@ -564,13 +543,9 @@ void save_je(){
 void load_je(){
     std::cout << "Loading..." << std::endl;
     vector<char> saved = whole_file("je_res.bin");
-    
     std::cout << "Loaded." << std::endl;
+    
     uint i = 0;
-    // skip past "Format: recipes, then last_cs, then c_exists\n";
-    for(; saved[i] != '\n'; i++);
-    // skip '\n' itself;
-    i++;
     // recipes, then last_cs, then c_exists;
     for(uint j = 0; j < 1<<24; j++, i += 4){
         recipes->d[j] = (
@@ -630,7 +605,6 @@ void save_je_in_progress(){
     std::cout << "Saving " << save_size << " bytes (loop in progress) ..." << std::endl;
     
     auto fout = std::ofstream("je_res_in_progress.bin", std::ios_base::binary);
-    fout << string("Format: recipes, then last_cs, then c_exists\n");
     for(i = 0; i < save_size; i++){
         fout << save_chars[i];
     }
@@ -646,13 +620,9 @@ void save_je_in_progress(){
 void load_je_in_progress(){
     std::cout << "Loading (loop in progress)..." << std::endl;
     vector<char> saved = whole_file("je_res_in_progress.bin");
-    
     std::cout << "Loaded." << std::endl;
+    
     uint i = 0;
-    // skip past "Format: recipes, then last_cs, then c_exists\n";
-    for(; saved[i] != '\n'; i++);
-    // skip '\n' itself;
-    i++;
     // recipes, then last_cs, then c_exists;
     for(uint j = 0; j < 1<<24; j++, i += 4){
         recipes->d[j] = (
@@ -731,9 +701,10 @@ void cycle(){
     uint total_colors = active_colors.size();
     std::cout << "cycle " << ic << ": processing " << total_colors << " active colors across " << mixer_c << " mixers;" << std::endl;
     
-    uint chunk_size = 480;
-
+    uint chunk_size = 20;
+    
     for(uint outer_i = in_progress_i; outer_i < total_colors; outer_i += chunk_size){
+        if(outer_i > 100) chunk_size = 480;
         if(interrupted){
             in_progress_i = outer_i;
             std::cout << "Ctrl+C detected! Pausing at color index " << in_progress_i << " on cycle " << ic << std::endl;
@@ -1066,13 +1037,8 @@ public:
             std::cout << "color does not exist" << std::endl;
             return;
         }
-        // std::cout << "enter try_last" << std::endl;
-        // std::cout << "mixer id " << recipes->get(color) << std::endl;
-        // std::cout << "color = " << color << std::endl;
         uint dyem = mixers_a[recipes->get(color)].mix_d;
         uint last = last_cs->get(color);
-        // std::cout << "dyem = " << dyem << std::endl;
-        // std::cout << "last = " << last << std::endl;
         int cr = (color & 0xff0000) >> 16;
         int cg = (color & 0x00ff00) >> 8;
         int cb = (color & 0x0000ff);
@@ -1080,24 +1046,17 @@ public:
         int lg = (last  & 0x00ff00) >> 8;
         int lb = (last  & 0x0000ff);
         if(cr == lr && cg == lg && cb == lb){
-            // std::cout << "done? dye = " << dye_i << std::endl;
-            // std::cout << "cr = " << cr << std::endl;
-            // std::cout << "cg = " << cg << std::endl;
-            // std::cout << "cb = " << cb << std::endl;
             done_dyems = dyems;
             done_dyems.push_back(dyem);
             return;
         }
         if(depth == 0){
-            // std::cout << "depth = 0" << std::endl;
             return;
         }
         
         dyems.push_back(dyem);
         depth--;
-        // std::cout << "begin business" << std::endl;
         try_last(last);
-        // std::cout << "end business" << std::endl;
         depth++;
         dyems.pop_back();
     }
@@ -1144,7 +1103,6 @@ void see_recipe(string msg, uint i){
     }
     std::cout << msg << to_hex(i) << std::endl;
     
-    // std::cout << "Does this run? " << i << std::endl;
     Recipe find_boi = Recipe(i);
     find_boi.search();
     
@@ -1153,9 +1111,44 @@ void see_recipe(string msg, uint i){
         std::cout << "  " << Mixer(*it).recipe_step() << ",\n";
     }
     std::cout << "]" << std::endl;
-    verify(i, find_boi.done_dyems);
+    // verify(i, find_boi.done_dyems);
 }
-
+/*
+figure out how many dyes are needed for ALL colors;
+2835227 white    dye
+1015651 l_gray   dye
+1515375 gray     dye
+3348004 black    dye
+1358903 brown    dye
+2671843 red      dye
+3786967 orange   dye
+3383956 yellow   dye
+3604349 lime     dye
+2143816 green    dye
+2346214 cyan     dye
+3633479 l_blue   dye
+1920860 blue     dye
+2612243 purple   dye
+2225692 magenta  dye
+2507917 pink     dye
+*/
+void all_dye_c(){
+    uint dye_cs[16] = {0};
+    for(uint i = 0; i < (1<<24); i++){
+        if(!c_exists->get(i)) continue;
+        uint mixer_i = recipes->get(i);
+        if(mixer_i >= mixer_c){
+            std::cout << "Oh no! " << mixer_i << std::endl;
+        }
+        auto colors = mixers_a[mixer_i].to_colors();
+        for(auto& color: colors){
+            dye_cs[color]++;
+        }
+    }
+    for(uint i = 0; i < 16; i++){
+        std::cout << dye_cs[i] << " " << base_colors_names[i] << " dye" << std::endl;
+    }
+}
 
 int main(int argc, char const *argv[]){
     std::signal(SIGINT, signal_handler);
@@ -1199,7 +1192,9 @@ int main(int argc, char const *argv[]){
         load_je();
     }
     
+    save_je();
     see_recipe("Base armor color: ", 0xA06540); /* #A06540 - Base armor color */
+    all_dye_c();
     
     vector<uint> at_step = {};
     vector<uint> test_these = {};
@@ -1234,12 +1229,9 @@ int main(int argc, char const *argv[]){
     while(false){
         std::cout << "Which color would you like to search for (hex)?" << std::endl;
         string c_hex = "";
-        // cin seems to get completely stuck if you resize the terminal; which is completely outside my control;
-        // I really do want to make my own terminal library; like something that doesn't get stuck if you resize the terminal;
         std::cin >> c_hex;
         if(c_hex.size() == 0) break;
         
-        // fun fact: this code shouldn't be able to hit an error;
         uint your_c = 0;
         for(auto it = c_hex.begin(); it != c_hex.end(); it++){
             your_c *= 16;

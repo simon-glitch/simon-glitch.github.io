@@ -21,8 +21,30 @@
         </div>
         <div>
             <p id="output">Output recipe will go here.</p>
-            <script src="main.js"></script>
+            <!--
+Things I did for this project:
+* Figured out how to read cauldron dyed water colors from .mcstructure files. I also leaned many other things about the mcstructure files, but I couldn't quite figure out the binary JSON format it clearly uses.
+* Learned that BE uses a simple formula for dye mixing floor((current + added) / 2).
+* Got little endian and big endian mixed up, because .mcstructure files actually use both.
+* Got endianness mixed up in my own project a few times too.
+* Found all obtainable BE colors.
+* Tested recipes in BE extensively, to ensure correctness.
+* Made an in-game visualization of the obtainable colors, using blocks. So a 256x256x256 procedurally generated structure.
+* Learned that BE can load structures that are 256 blocks tall, but crashed if they are 64x256x64. There is probably a volume limit based on some kind of internal cache. The game will try to load the structure, fail silently, and then set the structure to an empty 1x1x1. Perfectly graceful.
+* Made an algorithm for all obtainable JE colors, but it is much more complex than BE and had many bugs.
+* Tested and tested until all the bugs were fixed.
+* Used the wrong value for white dye.
+* GCC seems to use 32 bit floats for float, at least on my machine, but the casting rules are not necessarily trustworthy.
+* Found the actual unobfuscated code for JE mixing using https://mcsrc.dev/.
+* Minor TODO: update the wiki to match variable names in the code.
+* Found all obtainable colors for JE.
+* Also found all obtainable colors in old versions of JE, and all colors obtainable from just the 2x2 crafting grid.
+* Most colors can be created from 2 crafting step in the 3x3 grid. And the 2x2 grid also isn't very restrictive.
+* There are 735470 combinations of dyes that can be put in the 3x3 crafting grid (16 choose 8), so there are 735470^2 = 540,916,120,900 two crafting step recipes.
+* In progress: search for color recipes using the minimum number of brown dyes. The code takes a few days to run. This just "sorts" the recipes, so the same number of colors are obtainable. This is intended for Superflat, where brown dyes can only be obtained directly from the wandering trader.
+            -->
         </div>
     </div>
+    <script src="main.js"></script>
 </body>
 </html>

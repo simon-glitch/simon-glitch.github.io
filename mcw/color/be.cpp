@@ -60,8 +60,6 @@ uint mix(uint a, uint b){
         ((((a & 0x0000ff) + (b & 0x0000ff)) >> 1) & 0x0000ff)
     );
 }
-
-// isn't there a way to put this on the stack instead of the heap? i don't remember what it is;
 uint* base_colors = new uint[16]{
     0xf0f0f0, /* #f0f0f0 white   */
     0x9d9d97, /* #9d9d97 l_gray  */
@@ -98,7 +96,6 @@ string* base_colors_names = new string[16]{
     string("magenta "), /* #c74ebd */
     string("pink    "), /* #f38baa */
 };
-
 
 auto recipes = new Color_Recipes();
 auto prev_added = new Color_Exists();
@@ -151,19 +148,6 @@ void cycle(){
     std::cout << "Added: " << added_c << std::endl;
     added_any = (added_c > 0);
 }
-
-/*
-5 + 10 -> 15 -> 7
-i see 10 and 7, want to find 5
-7 + (7 - 10) -> 4;
-4 will go to 5 correctly;
-
-6 + 11 -> 17 -> 8
-i see 11 and 8, want to find 6
-8 + (8 - 11) -> 5;
-
-
-*/
 
 class Recipe{
 public:
@@ -300,10 +284,12 @@ void save_be(){
     std::cout << "Saved." << std::endl;
 }
 void recipe_examples(){
+    /*
     for(uint i = 0; i < 1<<24; i++){
         if(!(prev_added->get(i))) continue;
         see_recipe(string("One of the last found colors: "), i);
     }
+    */
     
     // see_recipe("second to last cycle (19 dyes)", 9683164);
     // see_recipe("second to last cycle (19 dyes)", 2528946);
@@ -454,6 +440,19 @@ void graph_be(){
     
     delete graph;
 }
+// figure out how many dyes are needed for ALL colors;
+void all_dye_c(){
+    uint dye_cs[16] = {0};
+    for(uint i = 0; i < (1<<24); i++){
+        uchar r = recipes->get(i);
+        if(r & 0x80){
+            dye_cs[r & 0xf]++;
+        }
+    }
+    for(uint i = 0; i < 16; i++){
+        std::cout << dye_cs[i] << " " << base_colors_names[i] << " dye" << std::endl;
+    }
+}
 
 int main(int argc, char const *argv[]){
     for(uint i = 0; i < 16; i++){
@@ -472,11 +471,9 @@ int main(int argc, char const *argv[]){
         std::cout << "Found colors: " << found << std::endl;
     }
     
-    // prevent additional BE functions during JE;
-    if(argc == 0) return 0;
-    
     // save_be();
     recipe_examples();
+    all_dye_c();
     // graph_be();
     
     return 0;
@@ -489,6 +486,19 @@ int main(int argc, char const *argv[]){
 }
 
 /*
+
+If we changed the colors to their CSS equivalents, then all 16777216 colors are obtainable.
+* 16 can be made using 1 dye.
+* 126 can be made using 2 dyes.
+* 1538 can be made using 3 dyes.
+* 21602 can be made using 4 dyes.
+* 292653 can be made using 5 dyes.
+* 3134713 can be made using 6 dyes.
+* 9221551 can be made using 7 dyes.
+* 3782161 can be made using 8 dyes.
+* 322872 can be made using 9 dyes.
+About what you would expect.
+
 g++ be.cpp -O3 -o be.exe
 
 second to last cycle (19 dyes):

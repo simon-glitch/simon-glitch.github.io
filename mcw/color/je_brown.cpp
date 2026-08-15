@@ -180,7 +180,7 @@ public:
         delete[] d;
     }
 };
-struct Add_Brown_Attempt{
+struct Stuff_We_Use_For_Adding{
     uint color;
     uint last;
     uint mixer_i;
@@ -190,12 +190,12 @@ class Color_Queue{
 public:
     // this is a pointer because I use pointers elsewhere; also it makes shifting simple and free;
     Color_Exists* exists;
-    vector<Add_Brown_Attempt> items;
+    vector<Stuff_We_Use_For_Adding> items;
     Color_Queue(){
         exists = new Color_Exists();
         items = {};
     }
-    void add(Add_Brown_Attempt item){
+    void add(Stuff_We_Use_For_Adding item){
         if(!exists->get(item.color)){
             exists->set(item.color, 1);
             items.push_back(item);
@@ -557,7 +557,7 @@ void save_je_in_progress(){
     uint size_7 = added_brown_7->items.size();
     uint size_8 = added_brown_8->items.size();
     uint save_size = (1<<24) * 4 + (1<<24) * 4 + (1<<24) + (1<<24) / 8 + (1<<24) / 8 + (1<<24) / 8 +
-    sizeof(Add_Brown_Attempt) * (
+    sizeof(Stuff_We_Use_For_Adding) * (
         size_1 +
         size_2 +
         size_3 +
@@ -931,13 +931,13 @@ void load_je_in_progress(){
     }
 }
 
-void add(uint color, uint last, uint mix_d){
-    if(c_exists->get(color)) return;
-    recipes->set(color, mix_d);
-    last_cs->set(color, last);
-    step_cs->set(color, step_cs->get(last) + 1);
-    c_exists->set(color, 1);
-    added_brown_0->set(color, 1);
+void add(Stuff_We_Use_For_Adding item){
+    if(c_exists->get(item.color)) return;
+    recipes->set(item.color, item.mixer_i);
+    last_cs->set(item.color, item.last);
+    step_cs->set(item.color, step_cs->get(item.last) + 1);
+    c_exists->set(item.color, 1);
+    added_brown_0->set(item.color, 1);
     found++;
 }
 
@@ -979,8 +979,8 @@ void cycle(){
         
         #pragma omp parallel
         {
-            std::vector<Add_Brown_Attempt> local_attempts;
-            local_attempts.reserve(1024);
+            std::vector<Stuff_We_Use_For_Adding> local_attempts;
+            local_attempts.reserve(16);
             
             #pragma omp for schedule(dynamic, 16)
             for(uint c_idx = outer_i; c_idx < chunk_end; c_idx++){
@@ -1072,9 +1072,9 @@ void cycle(){
             
             #pragma omp critical
             {
-                for(const auto& item : local_attempts){
+                for(auto& item : local_attempts){
                     switch(item.brown_c){
-                        case 0: add(item.color, item.last, item.mixer_i); break;
+                        case 0: add(item); break;
                         case 1: added_brown_1->add(item); break;
                         case 2: added_brown_2->add(item); break;
                         case 3: added_brown_3->add(item); break;
@@ -1113,6 +1113,9 @@ void cycle(){
         added_brown_6 = added_brown_7;
         added_brown_7 = added_brown_8;
         added_brown_8->exists = first;
+        for(auto& item : added_brown_8->items){
+            add(item);
+        }
         added_brown_8->items.clear();
         // filter out existing colors;
         for(uint i = 0; i < 1<<24; i++){
@@ -1240,7 +1243,21 @@ void see_recipe(string msg, uint i){
     std::cout << "]" << std::endl;
     verify(i, find_boi.done_dyems);
 }
-
+// figure out how many dyes are needed for ALL colors;
+void all_dye_c(){
+    uint dye_cs[16] = {0};
+    for(uint i = 0; i < (1<<24); i++){
+        if(!c_exists->get(i)) continue;
+        uint mixer_i = recipes->get(i);
+        auto colors = mixers_a[mixer_i].to_colors();
+        for(auto& color: colors){
+            dye_cs[color]++;
+        }
+    }
+    for(uint i = 0; i < 16; i++){
+        std::cout << dye_cs[i] << " " << base_colors_names[i] << " dye" << std::endl;
+    }
+}
 
 int main(int argc, char const *argv[]){
     std::signal(SIGINT, signal_handler);
@@ -1269,7 +1286,7 @@ int main(int argc, char const *argv[]){
                 if(color == 0) brown_c++;
             }
             switch(brown_c){
-                case 0: add(i, i, mixer_i); break;
+                case 0: add({i, i, mixer_i}); break;
                 case 1: added_brown_1->add({i, i, mixer_i, 1}); break;
                 case 2: added_brown_2->add({i, i, mixer_i, 2}); break;
                 case 3: added_brown_3->add({i, i, mixer_i, 3}); break;
@@ -1302,6 +1319,7 @@ int main(int argc, char const *argv[]){
     
     see_recipe("Temu version of brown: ", base_colors[0]); /* #835432 brown */
     see_recipe("Base armor color: ", 0xA06540); /* #A06540 - Base armor color */
+    all_dye_c();
     
     vector<uint> at_step = {};
     vector<uint> test_these = {};
