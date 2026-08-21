@@ -25,6 +25,12 @@ Like now that I don't have internet I'm laughing at all of my own jokes.
 
 2:26 PM - I still have to take a shower so I'll do that right now.
 
+3:42 PM - Apparently, Hill Climb Racing has this fun little feature where it crashes in Year 4 Summer on Seasons. And what's great is if it crashes of if you close the game mid-run, your progress is not saved. I wish it saved progress every 30 seconds during runs, or something like that.
+
+4:33 PM - I'm feeling so tired. I guess I'll go back to sleep for a while.
+
+5:55 PM - I woke up. I kept having crazy dreams. Since I was conscious the entire time. While also actually sleeping. When I decided I want to wake up, I initialy woke up in a dream. But after a short minute, my subconscious caught on and let me out.
+
 # Hydra
 The Hydra parser has four heads, each corresponding to a type of tree it has to manage. These are:
 * Input AST
@@ -46,6 +52,43 @@ The 5 matching nodes are:
 * Layer: has matching data for the inside of the current node. The parser will go down into the current node recursively. This is required for matching structures in ASTs.
 
 Also for the record, I don't really believe in the idea of parsing text. I have lost all faith in that idea after trying to create parsers quite a few times before. I especially don't believe in the idea of tokens. A list of tokens is just a simple AST that is slightly more high level than a list of characters. My language definitions will all start with simple tokenization, but my point is that it's not that important.
+
+My genius insight I had is to state for each matching node type what the parser should do. It will have a `Match_Type`, which looks like this:
+```ts
+type Match_Type = {
+    on_enter: Hydra_Action,
+    on_succeed: Hydra_Action?,
+    on_fail: Hydra_Action?,
+    // when true, indicates this is the "Direct match" / leaf node type;
+    // leaf nodes have separate logic, but on_enter, on_succeed, and on_fail are still used;
+    is_leaf: boolean?,
+    // i might be able to use this to implement look behind logic;
+    // this action would run if any node (that shares an ancestor with this node but it not an ancestor of this node) fails;
+    on_sibling_fail: Hydra_Action?,
+}
+type Hydra_Action = {
+    input: Head_Action?,
+    output: Head_Action?,
+    parsing: Head_Action?,
+    // i think this might be a way to implement some more advanced features;
+    callback: Function?,
+}
+type Hydra_Action = {
+    source: Hnode_Action?,
+    target: Hnode_Action?,
+    move: Hmove?,
+    // used when move == Hnode.down;
+    index: number,
+}
+// these are all symbols;
+// Hnode means Hydra node;
+enum Hnode_Action = {Hnode.enter, Hnode.succeed, Hnode.fail};
+// these are all symbols;
+enum Hmove = {Hnode.up, Hnode.next, Hnode.down};
+
+```
+
+A `Hydra_Action` is used to tell Hydra what to do. This should minimize the amount of code, and thus minimize the number of bugs. This should also make it much easier for me to test things independently.
 
 ## Art
 For Hydra, I think I'm going to try to give it one of those cool text based drawings. Or I'll make the code itself be the shape of a hydra. That's what all of the cool programmers do.
