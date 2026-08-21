@@ -1384,17 +1384,70 @@ int main(int argc, char const *argv[]){
 
 
 /*
-5713438 colors can be obtained in versions from 17w06a to now.
-5691491 colors can be obtained in the 2x2 crafting grid.
-4200779 colors can be obtained in versions from 1.4.3 to 17w06a.
+g++ -O3 -fopenmp je_brown.cpp -o je_brown.exe -std=c++23
 
-g++ -O3 -fopenmp je.cpp -o je.exe -std=c++23
+JE brown results:
 
-JE results:
-
-
-
-
+Temu version of brown: 835432
+-> [
+  [gray    ,black   ,red     ,red     ,orange  ,green   ],
+  [black   ,black   ,black   ,black   ,black   ,cyan    ,cyan    ,cyan    ],
+]
+Recipe is correct.
+Base armor color: a06540
+-> [
+  [gray    ,red     ,red     ,red     ,orange  ,green   ],
+  [black   ,cyan    ,cyan    ,cyan    ,cyan    ,cyan    ,cyan    ,cyan    ],
+]
+Recipe is correct.
+0 brown    dye
+2814255 white    dye
+1094540 l_gray   dye
+1666096 gray     dye
+3623817 black    dye
+2972326 red      dye
+3939068 orange   dye
+3462082 yellow   dye
+3611616 lime     dye
+2335042 green    dye
+2288613 cyan     dye
+3587725 l_blue   dye
+1925938 blue     dye
+2627039 purple   dye
+2301555 magenta  dye
+2576134 pink     dye
+Found 11063778 recipes with 0 steps.
+Found 432871 recipes with 1 steps.
+Found 5187933 recipes with 2 steps.
+Found 75189 recipes with 3 steps.
+Found 12934 recipes with 4 steps.
+Found 3313 recipes with 5 steps.
+Found 852 recipes with 6 steps.
+Found 231 recipes with 7 steps.
+Found 72 recipes with 8 steps.
+Found 29 recipes with 9 steps.
+Found 9 recipes with 10 steps.
+Found 2 recipes with 11 steps.
+Found 2 recipes with 12 steps.
+Found 1 recipes with 13 steps.
+Found 0 recipes with 14 steps.
+one of the last found colors: bc951b
+-> [
+  [orange  ,orange  ,green   ,green   ],
+  [orange  ,lime    ,lime    ,green   ],
+  [orange  ,orange  ,lime    ,green   ],
+  [lime    ],
+  [orange  ,lime    ],
+  [orange  ,lime    ],
+  [orange  ,orange  ,lime    ,lime    ,lime    ,lime    ],
+  [lime    ,lime    ,lime    ],
+  [orange  ,orange  ],
+  [orange  ,yellow  ,yellow  ],
+  [orange  ,lime    ,lime    ,lime    ],
+  [orange  ,orange  ,orange  ,yellow  ,yellow  ,lime    ,lime    ,lime    ],
+  [orange  ,lime    ,lime    ,lime    ,lime    ],
+]
+Recipe is correct.
 
 */
 

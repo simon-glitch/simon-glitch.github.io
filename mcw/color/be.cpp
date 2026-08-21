@@ -486,6 +486,24 @@ int main(int argc, char const *argv[]){
 }
 
 /*
+g++ be.cpp -O3 -o be.exe
+
+500873 white    dye
+185052 l_gray   dye
+132255 gray     dye
+276143 black    dye
+131841 brown    dye
+306866 red      dye
+354230 orange   dye
+478895 yellow   dye
+405823 lime     dye
+193480 green    dye
+237551 cyan     dye
+401871 l_blue   dye
+228108 blue     dye
+242492 purple   dye
+299295 magenta  dye
+357334 pink     dye
 
 If we changed the colors to their CSS equivalents, then all 16777216 colors are obtainable.
 * 16 can be made using 1 dye.
@@ -498,8 +516,6 @@ If we changed the colors to their CSS equivalents, then all 16777216 colors are 
 * 3782161 can be made using 8 dyes.
 * 322872 can be made using 9 dyes.
 About what you would expect.
-
-g++ be.cpp -O3 -o be.exe
 
 second to last cycle (19 dyes):
 93c0dc: [white , l_blue, blue  , l_blue, cyan  , blue , l_blue, cyan  , l_blue, l_blue, blue  , cyan  , black , cyan  , cyan , cyan , black, black , cyan,]
@@ -953,71 +969,6 @@ ir = 15:
 
 BE results:
 
-Cycle 0
-Added: 120
-Found colors: 136
-Cycle 1
-Added: 1920
-Found colors: 2056
-Cycle 2
-Added: 30606
-Found colors: 32662
-Cycle 3
-Added: 449760
-Found colors: 482422
-Cycle 4
-Added: 2656378
-Found colors: 3138800
-Cycle 5
-Added: 1401502
-Found colors: 4540302
-Cycle 6
-Added: 157177
-Found colors: 4697479
-Cycle 7
-Added: 21106
-Found colors: 4718585
-Cycle 8
-Added: 7293
-Found colors: 4725878
-Cycle 9
-Added: 3286
-Found colors: 4729164
-Cycle 10
-Added: 1508
-Found colors: 4730672
-Cycle 11
-Added: 720
-Found colors: 4731392
-Cycle 12
-Added: 381
-Found colors: 4731773
-Cycle 13
-Added: 183
-Found colors: 4731956
-Cycle 14
-Added: 77
-Found colors: 4732033
-Cycle 15
-Added: 46
-Found colors: 4732079
-Cycle 16
-Added: 23
-Found colors: 4732102
-Cycle 17
-Added: 5
-Found colors: 4732107
-Cycle 18
-Added: 2
-Found colors: 4732109
-Cycle 19
-Added: 0
-Found colors: 4732109
-Saving...
-Saved.
-
-
-
 In ''Bedrock Edition'', there are 4732109 obtainable colors of dyed water. Different colors require a different number of dyes to make (the following numbers are all minimums):
 * 16      colors require 1  dye
 * 120     colors require 2  dyes
@@ -1039,8 +990,6 @@ In ''Bedrock Edition'', there are 4732109 obtainable colors of dyed water. Diffe
 * 23      colors require 18 dyes
 * 5       colors require 19 dyes
 * 2       colors require 20 dyes
-
-Adding any due to the cauldron 8 times in a row is guaranteed to set the cauldron's current color to that dye.
 
 */
 
