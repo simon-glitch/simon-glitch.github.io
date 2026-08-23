@@ -61,21 +61,25 @@ Jank combines the features of several other languages.
 * functions can have position arguments and named arguments (feature from Python);
 * arrow functions, each of which has its `this` bound to the `this` from its scope (feature from JavaScript);
 * values can be referenced with `&` and dereferenced with `*` (feature from C); however, this feature has some restrictions in interpreted mode; for example, only variables in the current scope can be referenced;
-* operators can be overloaded (a feature in many languages); `.`, `[ ... ]`, `[% ... %]`, assignments, and unary `&` are required to return references, while all other operators are not allowed to return references; `?`, `:`, `( ... )`, `{ ... }`, `(% ... %)`, `{% ... %}`, and unary `*` can not be overloaded;
+* operators can be overloaded (a feature in many languages); `.`, `[ ... ]`, `[% ... %]`, assignments, and unary `&` are required to return references, while all other operators are not allowed to return references; `?`, `:`, `( ... )`, `{ ... }`, `(% ... %)`, `{% ... %}`, and unary `*` can not be overloaded; operators of most basic builtins cannot be overloaded, even though other properties can;
 * binary `@@` exists as operators can be overloaded (feature from Python); `@` is used for keywords, is not an operator, and cannot be overloaded;
 * `#!` at the start of a file is treated as a comment (feature from JavaScript);
 * `x -> y` is a shorthand for `(*x).y` (feature from C); `->` on its own cannot be overloaded, but it will use the overloaded version of `.` when relevant;
 * `async` and `Promise` (feature from JavaScript);
 * template literals (feature from JavaScript), and string formatting (feature from Python); this also includes the more recent custom formatting from Python;
-* `??` and `?.` operators from JavaScript; `??` can be overrided, but `?.` cannot; `x?.y` will check for `x.isNullish` (an overridable property), and then it will check for `x.\.` (the override for the `.` operator); `??` will check for `x.\?\?` (the override for the `??` operator) and if it not found, it will use `x.isNullish`;
+* `??` and `?.` operators from JavaScript; `??` can be overloaded, but `?.` cannot; `x?.y` will check for `x.isNullish` (an overloadable property), and then it will check for `x.\.` (the overload for the `.` operator); `??` will check for `x.\?\?` (the overload for the `??` operator) and if it not found, it will use `x.isNullish`;
 * `expression for var_name in data` (list comprehension) from Python; there is no `of` keyword;
 * iterators, generators, and generator functions; Jank uses JavaScript's property names;
 * `Symbol` from JavaScript;
 * `__proto__`, `Object.prototype.isPrototypeOf`, `Symbol.hasInstance`, and other prototype nonsense from JavaScript; though Jank requires certain keywords to enable these features on custom types;
-* `==` does strict equality by reference unless an override is defined; `===` can be used to check if `x` and `y` have the same reference (feature from JavaScript); `is` is not an operator or keyword;
-* `Object` from JavaScript and `dict` from Python; a `dict` is just an object with a few methods changed; for example, `==` on objects will compare by reference, while `==` on dicts will compare by value; comparison by value for tuple, arrays, and objects will also work on recursive structures; as long as the effective graph has the same shape and all of the values are the same;
+* `==` does strict equality by reference unless an overload is defined; `===` can be used to check if `x` and `y` have the same reference (feature from JavaScript); `is` is not an operator or keyword;
+* `Object` and `Map` from JavaScript; and `dict` (see Basic types section); `==` on objects will compare by reference, while `==` on Maps and dicts will compare by value;
+* comparison by value for tuple, Arrays, Maps, and dicts also works on recursive structures; as long as the effective graph has the same shape and all of the values are the same;
 * `...` (spread operator) from JavaScript;
 * range indexing from Python; i.e. `my_array[start:end:increment]`, or `my_array[::]` to copy the array;
+* Equalities and inequalities can be chained. With `==`, `<`, `>`, `<=`, and `>=`, it will compare every pair of values left to right, and then and them using `&&`, while will use the overload for `&&` if needed; with `!=`, it will check each value `!=` to each value that comes after it, and use overloadable `&&`; with `!==` it will do the same thing, but without overidable `&&`; with `===` it compare every value to the reference it gets from the first value, and without overidable `&&`;
+* methods and functions can have multiple definitions with differen parameter and return types, and the correct one will be selected based on context;
+* functions can be bound (feature from JavaScript); see Binding section;
 
 Jank also has some unique features:
 * `boolean` has a null value, which is `maybe`;
@@ -86,7 +90,7 @@ Jank also has some unique features:
 * Jank has actual multithreading (in the interpreter), meaning it can use multiple CPU cores;
     * Jank does not have run to completion, since that would not work with multithreading;
 * `@backward` can be used to create backwards variables, as an alternative to using references; these variables can only be read using `@get`; see Example 2; a backward variable cannot be referenced (with unary `&`) or dereferenced;
-* As I alluded to before, some keywords start with `@`. This is to avoid filling the variable namespace with niche keywords. `@[something_invalid]` will result in `SyntaxError: @[something_invalid] is not a valid keyword`. Every keyword that does not normally require `@` can also be used with `@`, which might be useful in some very specific context.
+* as I alluded to before, some keywords start with `@`; this is to avoid filling the variable namespace with niche keywords; `@[something_invalid]` will result in `SyntaxError: @[something_invalid] is not a valid keyword`; every keyword that does not normally require `@` can also be used with `@`, which might be useful in some very specific context;
 * `@import` and `@export` are required for importing and exporting; the version without `@` does not work;
 * `[% ... %]` denotes **vectorized** list operations; so `[% 1,2,3 %] + 2 == [3,4,5]`; this is also useful with list comprehension;
     * `[do_stuff(x,y) for [x,y] in [[2,4,1,13,5], [0,2,1,2,84]]]` gives `[do_stuff(2,4), do_stuff(0,2)]`;
@@ -102,6 +106,9 @@ Jank also has some unique features:
 * `@@` can be used to get the cross product of arrays or tuples; so `[a,b,c] @@ [d,e,f] == [[a,d], [a,e], [a,f], [b,d], [b,e], [b,f], [c,d], [c,e], [c,f]]`; `[a,b,c] @@ [a,b,c] @@ [a,b,c]` would give an array of 27 arrays, each of which having 3 items;
 * arrays, tuple, and objects can be indexed like this as well: `my_array[1, 2, 3] == my_array[1][2][3]`; `.at` can also be used like this, so: `my_array.at(1, 2, 3) == my_array.at(1).at(2).at(3)`;
 * indexing can also be vectorized: `my_array[% 3,1,10 %] == [my_array[3], my_array[1], my_array[10]]`;
+* positional arguments of functions can be referenced with numbers; so `f(1 = 23, 0 = 100) == f(100, 23)`; this works because numbers are valid variable names; furthermore, `let 1 = 2;` would define a variable named "1"; accessing it requires `@n`; because numbers are numbers, you can also do math for them; so `@n(2 - 1)` would get the value for the variable naemd "1"; and `@n(f(x))`, would call `f`, and then look at its value and give you the variable whose name corresponds to that number; which is not jank at all, right? also, `my_stuff.@n(f(x)) == my_stuff[f(x)]`;
+* a class can extend from multiple parent classes at once;
+* a class can have multiple stages and then define members or methods as only existing during certain stages; by default, classes have the `constructing` stage during construction, and then enters the `final` stage after the constructor is done; the syntax `stage = name` sets the stage; the stage can also be seen as part of the type information, so other functions outside the class can require a certain stage; stages are usually 1 way, but you can make a stage 2 way with the `@2way` keyword; if a class extends multiple classes at once, and each of those have stages, it naively inherits the stages of both classes, which can result in some truly janky Jank code;
 
 # Example 2
 ```
@@ -141,6 +148,55 @@ Also, `@vectorize func_b` gives a function whose string is
 }
 ```
 and it is technically a separate function from `func_b`.
+
+# Basic types
+Jank has a reasonable number of basic types:
+* Immutable:
+    * `tuple`;
+    * `boolean`;
+    * `string`;
+    * `number`;
+    * `Symbol`;
+* Mutable:
+    * `Object`
+    * `Array`
+    * `Function`
+    * `Set`
+    * `Map`
+    * `dict`
+    * `list`
+    * `RegExp`
+    * `Date`
+
+Notes:
+* All of the type names only exist with the capitalization shown above.
+* `Map` uses `get` and `set`, while `dict` stores all of its properties on it directly; this means that trying to get properties that would normally be special properties just returns the corresponding entry; so `my_dict.constructor`, will look up the entry named "constructor", rather than giving the actual constructor; to get the special property, do `my_dict.@at("constructor")`; interally, this is just syntactic sugar.
+* `list` is implemented as a simple vector internally; `Array` is implemented as a deque, so inserting and removing from both ends is O(1);
+* All basic types give the string name of their constructor when you use `typeof` on them; an object of any other type will give the `typeof` for whichever basic type the other type was extended from.
+* It is not possible to extend from multiple basic types at once. Trying to do so gives a `ClassError`.
+* It is not possible to extend immutable basic types.
+
+`number` has a reasonable number of variants:
+* `int`   and `uint`,   each of which is 32 bits;
+* `long`  and `ulong`,  each of which is 64 bits;
+* `int16` and `uint16`, each of which is 16 bits;
+* `int8`  and `uint8`,  each of which is  8 bits;
+* `int4`  and `uint4`,  each of which is  4 bits;
+* `int1`, which is 1 bit; because it is only 1 bit, it is unsigned and there is no `uint1`;
+* `bigint`, which is arbitrary precision; it is also signed and has no unsigned form;
+* `float`, which is 64 bits;
+* `float32`, which is 32 bits;
+* `complex`, which uses 2 floats internally, in cartesian, making it 128 bits;
+* `bigfloat`, which is an arbitrary precision float; `bigfloat.standard` can be used to generate a subtype of `bigfloat`, with specific settings; this is useful for applications where you want to use a specific settings repeatedly; it is recommended to do `bs = bigfloat.standard(your_settings)`, because BS is reflective of the difficulties of arbitrary precision;
+
+# Binding
+Keyword functions are rebindable, but arrow functions are not. Arrow functions in classes and object literals bind permanently to the object instance. Attempting to rebind an arrow function throws a `BindingError`. So arrow functions are unrebindable.
+
+There is also the `@unrebindable` keyword, which does a similar thing. Interestingly, this can be put on a function that has not been bound yet. `this` default to `undefined`, rather than `window`, and if an unrebindable function has not been bound yet, then logically, it can be bound.
+
+A bound function does not have the same reference as the original, unless it was defined as unrebindable to begin with. So `f == f.bind(whatever) && f !== f.bind(whatever)`. This also applies to vectorized functions, so `f == @vectorize f && f !== @vectorize f`.
+
+Argument values can also be bound onto a function, unless it is unrebindable. This can be done with `f.bind(x = 2)`. If `x` is position, it binds the corresponding positional argument. Otherwise `x` is bound as a named argument. You can also do `f.bind(1 = 2)`, which will bind the second positional argument.
 
 # Locking
 The following four types of things can be locked:
