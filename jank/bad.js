@@ -1,7 +1,7 @@
 
+var [x,y] = [5,1];
 // JavaScript actually requires var to be on the same line;
 // no [x,y] = [x+1,y+2];
-var [x,y] = [5,1];
 // this works though, because var lets you do plain assignments;
 var [x,y] = [x+1,y+2];
 
