@@ -83,7 +83,9 @@ type Hydra_Action = {
     input: Head_Action?,
     output: Head_Action?,
     parsing: Head_Action?,
-    // i think this might be required;
+    // callback gets called before the Hydra_Action is called;
+    // when callback returns void, the rest of the Hydra_Action is executed normally;
+    // when callback returns a Hydra_Action, that is executed instead of the Hydra_Action containing callback; i.e. callback overrides the Hydra_Action (but only during this execution);
     callback: Function?,
 }
 type Head_Action = {
@@ -285,6 +287,7 @@ const M_Choice = new Match_Type({
     on_child_fail: new Hydra_Action({
         // try the next choice;
         parsing: Head_Action({move: Hnode.next}),
+        
     }),
     // fails automatically when it reaches the end of the list;
 });
