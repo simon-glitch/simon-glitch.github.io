@@ -134,7 +134,10 @@ class Hnode{
 }
 
 class Tree{
-    constructor(){
+    /** @param {Hydra} a_hydra the hydra this tree is a part of (each tree is one of the hydra's heads); */
+    constructor(a_hydra){
+        /** @type {Hydra} */
+        this.hydra = a_hydra;
         /** @type {Hnode} */
         this.root = new Hnode("root");
         /** @type {Hnode} */
@@ -178,6 +181,64 @@ class Tree{
             case Hnode.down: return this.can_down(index) ? (this.down(index), true) : false;
             case Hnode.next: return this.can_next() ? (this.next(), true) : false;
         }
+    }
+    /** @param {Head_Action} head_action */
+    execute(head_action){
+        const source = this.current;
+        let target = source;
+        if(head_action.move){
+            const succeeded = this.move(head_action.move);
+            if(!succeeded){
+                throw new RangeError("Failed to move in Tree.", {cause: {source, head_action}});
+            }
+            target = this.current;
+        }
+        if(Hnode.Hnode_Action.has(head_action.source)){
+            this.hydra.queue.push([source, head_action.source]);
+        }
+        if(Hnode.Hnode_Action.has(head_action.target)){
+            this.hydra.queue.push([target, head_action.target]);
+        }
+    }
+}
+class Parsing_Tree extends Tree{
+    /** @param {Hydra} a_hydra see Tree; */
+    constructor(a_hydra){
+        super(a_hydra);
+    }
+}
+class Language_Tree extends Tree{
+    /** @param {Hydra} a_hydra see Tree; */
+    constructor(a_hydra){
+        super(a_hydra);
+    }
+}
+
+class Hydra{
+    constructor(){
+        /** @type {Tree} */
+        this.input = new Tree(this);
+        /** @type {Tree} */
+        this.output = new Tree(this);
+        /** @type {Parsing_Tree} */
+        this.parsing = new Tree(this);
+        /** @type {Language_Tree} */
+        this.language = new Tree(this);
+        /** the queue of Hnode_Actions to execute @type {[Hnode, Symbol][]} */
+        this.queue = [];
+    }
+    /** @param {Hydra_Action} hydra_action */
+    execute(hydra_action){
+        if(hydra_action.input){
+            this.input.execute(hydra_action.input);
+        }
+        if(hydra_action.output){
+            this.output.execute(hydra_action.output);
+        }
+        if(hydra_action.parsing){
+            this.parsing.execute(hydra_action.parsing);
+        }
+        // handle queue logic, which is a bit daunting;
     }
 }
 
