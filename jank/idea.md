@@ -67,11 +67,15 @@ Jank combines the features of several other languages.
 * `x -> y` is a shorthand for `(*x).y` (feature from C); `->` on its own cannot be overloaded, but it will use the overloaded version of `.` when relevant;
 * `async` and `Promise` (feature from JavaScript);
 * template literals (feature from JavaScript), and string formatting (feature from Python); this also includes the more recent custom formatting from Python;
-* `??` and `?.` operators from JavaScript;
-* `expression for var_name in data` from Python;
+* `??` and `?.` operators from JavaScript; `??` can be overrided, but `?.` cannot; `x?.y` will check for `x.isNullish` (an overridable property), and then it will check for `x.\.` (the override for the `.` operator); `??` will check for `x.\?\?` (the override for the `??` operator) and if it not found, it will use `x.isNullish`;
+* `expression for var_name in data` (list comprehension) from Python; there is no `of` keyword;
 * iterators, generators, and generator functions; Jank uses JavaScript's property names;
 * `Symbol` from JavaScript;
 * `__proto__`, `Object.prototype.isPrototypeOf`, `Symbol.hasInstance`, and other prototype nonsense from JavaScript; though Jank requires certain keywords to enable these features on custom types;
+* `==` does strict equality by reference unless an override is defined; `===` can be used to check if `x` and `y` have the same reference (feature from JavaScript); `is` is not an operator or keyword;
+* `Object` from JavaScript and `dict` from Python; a `dict` is just an object with a few methods changed; for example, `==` on objects will compare by reference, while `==` on dicts will compare by value; comparison by value for tuple, arrays, and objects will also work on recursive structures; as long as the effective graph has the same shape and all of the values are the same;
+* `...` (spread operator) from JavaScript;
+* range indexing from Python; i.e. `my_array[start:end:increment]`, or `my_array[::]` to copy the array;
 
 Jank also has some unique features:
 * `boolean` has a null value, which is `maybe`;
@@ -82,6 +86,22 @@ Jank also has some unique features:
 * Jank has actual multithreading (in the interpreter), meaning it can use multiple CPU cores;
     * Jank does not have run to completion, since that would not work with multithreading;
 * `@backward` can be used to create backwards variables, as an alternative to using references; these variables can only be read using `@get`; see Example 2; a backward variable cannot be referenced (with unary `&`) or dereferenced;
+* As I alluded to before, some keywords start with `@`. This is to avoid filling the variable namespace with niche keywords. `@[something_invalid]` will result in `SyntaxError: @[something_invalid] is not a valid keyword`. Every keyword that does not normally require `@` can also be used with `@`, which might be useful in some very specific context.
+* `@import` and `@export` are required for importing and exporting; the version without `@` does not work;
+* `[% ... %]` denotes **vectorized** list operations; so `[% 1,2,3 %] + 2 == [3,4,5]`; this is also useful with list comprehension;
+    * `[do_stuff(x,y) for [x,y] in [[2,4,1,13,5], [0,2,1,2,84]]]` gives `[do_stuff(2,4), do_stuff(0,2)]`;
+    * `[do_stuff(x,y) for [% x,y %] in [[2,4,1,13,5], [0,2,1,2,84]]]` gives `[do_stuff(2,0), do_stuff(4,2), do_stuff(1,1), do_stuff(13,2), do_stuff(5,84)]`;
+    * `[do_stuff(x,y) for [x,y] in [[% 2,4,1,13,5 %], [% 0,2,1,2,84 %]]]` gives `[do_stuff(2,0), do_stuff(4,2), do_stuff(1,1), do_stuff(13,2), do_stuff(5,84)]`, because `[[% 2,4,1,13,5 %], [% 0,2,1,2,84 %]] == [[2,0], [4,2], [1,1], [13,2], [5,84]]`;
+    * `[do_stuff(x,y) for [% x,y %] in [% [2,4,1,13,5], [0,2,1,2,84] %]]` gives `[do_stuff([2,4,1,13,5], [0,2,1,2,84])]`;
+    * `[do_stuff(x,y) for [x,y] in [% [2,4,1,13,5], [0,2,1,2,84] %]]` gives `[[do_stuff(2,4)], [do_stuff(0,2)]]`; so the `%` does nothing;
+    * `[do_stuff(x,y) for [x,y] in [% [[2,4],[1,13]], [[0,2],[1,2]] %]]` gives `[[do_stuff(2,4), do_stuff(1,13)], [do_stuff(0,2), do_stuff(1,2)]]`;
+    * `[do_stuff(x,y) for [x,y] in [% 2,3 %]]` gives `[do_stuff(2,3)]`;
+    * unfortunately, tuples cannot the vectorized directly in the same way, since `(% ... %)` is the syntax for a regex literal; however, if tuple is called on a vectorized list, it will return a vectorized tuple object; so `tuple([% 1,2 %]) + 10 == (11,12)`;
+    * `[%%]` is the same as `new VectorizedArray()`; vectorized arrays actually keep their vectorization, even when put in other arrays; though they can change the way indexing works, which is intended, as shown in `[[% 2,4,1,13,5 %], [% 0,2,1,2,84 %]] == [[2,0], [4,2], [1,1], [13,2], [5,84]]`; `[%[% 2,4,1,13,5 %], [% 0,2,1,2,84 %]%] == [[2,4,1,13,5 %], [% 0,2,1,2,84]]`, but operations like `+` work differently on the former;
+    * by default, a vectorized array passed into a function just looks like an instance of `VectorizedArray`; however, `@vectorize` can be attached to the function definition, or to the function when it is called; see Example 3;
+* `@@` can be used to get the cross product of arrays or tuples; so `[a,b,c] @@ [d,e,f] == [[a,d], [a,e], [a,f], [b,d], [b,e], [b,f], [c,d], [c,e], [c,f]]`; `[a,b,c] @@ [a,b,c] @@ [a,b,c]` would give an array of 27 arrays, each of which having 3 items;
+* arrays, tuple, and objects can be indexed like this as well: `my_array[1, 2, 3] == my_array[1][2][3]`; `.at` can also be used like this, so: `my_array.at(1, 2, 3) == my_array.at(1).at(2).at(3)`;
+* indexing can also be vectorized: `my_array[% 3,1,10 %] == [my_array[3], my_array[1], my_array[10]]`;
 
 # Example 2
 ```
@@ -97,6 +117,30 @@ cool_stuff(res);
 console.log(res); // throws UsageError: backward variables must be accessed with @get;
 console.log(@get res); // works correctly;
 ```
+
+# Example 3
+```
+@vectorize function func_a(x){
+    do_stuff(x);
+}
+function func_b(x){
+    do_stuff(x);
+}
+let data = [% 4,3,6 %];
+
+// the following four are the same
+func_b(d) for d in data;
+func_a(data)
+@vectorize func_b(data);
+```
+
+Also, `@vectorize func_b` gives a function whose string is
+```
+@vectorize function func_b(x){
+    do_stuff(x);
+}
+```
+and it is technically a separate function from `func_b`.
 
 # Locking
 The following four types of things can be locked:
