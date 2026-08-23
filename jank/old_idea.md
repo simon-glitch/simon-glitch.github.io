@@ -1,3 +1,5 @@
+These are my old ideas for the Jank language. I don't know why it says "updated". Perhaps I shared this with Gemini, and thus the logic was that it was updated in comparison to the last incarnation.
+
 # Updated ideas for Jank programming language
 Jank is built on the ideas of many other languages, but some of its most notable features provide a lot of jankiness:
 * The craziest tech stack ever:

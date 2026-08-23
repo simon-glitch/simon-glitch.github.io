@@ -57,7 +57,7 @@ function myRef(idx) ref[string] {
 
 # Features
 Jank combines the features of several other languages.
-* Jank generally copies a lot of the property names and APIs from JavaScript, especially web APIs;
+* Jank generally copies a lot of the interfacts, property names, and APIs from JavaScript, especially the web APIs;
 * functions can have position arguments and named arguments (feature from Python);
 * arrow functions, each of which has its `this` bound to the `this` from its scope (feature from JavaScript);
 * values can be referenced with `&` and dereferenced with `*` (feature from C); however, this feature has some restrictions in interpreted mode; for example, only variables in the current scope can be referenced;
@@ -80,6 +80,7 @@ Jank combines the features of several other languages.
 * Equalities and inequalities can be chained. With `==`, `<`, `>`, `<=`, and `>=`, it will compare every pair of values left to right, and then and them using `&&`, while will use the overload for `&&` if needed; with `!=`, it will check each value `!=` to each value that comes after it, and use overloadable `&&`; with `!==` it will do the same thing, but without overidable `&&`; with `===` it compare every value to the reference it gets from the first value, and without overidable `&&`;
 * methods and functions can have multiple definitions with differen parameter and return types, and the correct one will be selected based on context;
 * functions can be bound (feature from JavaScript); see Binding section;
+* `const` from JavaScript, which only affects the outer reference; there is also const[] which affects the entire structure; and individual members and properties can be made const; doing this causes them to also be non-configurable (Jank copies JavaScript's entire `Object` interface);
 
 Jank also has some unique features:
 * `boolean` has a null value, which is `maybe`;
@@ -109,6 +110,7 @@ Jank also has some unique features:
 * positional arguments of functions can be referenced with numbers; so `f(1 = 23, 0 = 100) == f(100, 23)`; this works because numbers are valid variable names; furthermore, `let 1 = 2;` would define a variable named "1"; accessing it requires `@n`; because numbers are numbers, you can also do math for them; so `@n(2 - 1)` would get the value for the variable naemd "1"; and `@n(f(x))`, would call `f`, and then look at its value and give you the variable whose name corresponds to that number; which is not jank at all, right? also, `my_stuff.@n(f(x)) == my_stuff[f(x)]`;
 * a class can extend from multiple parent classes at once;
 * a class can have multiple stages and then define members or methods as only existing during certain stages; by default, classes have the `constructing` stage during construction, and then enters the `final` stage after the constructor is done; the syntax `stage = name` sets the stage; the stage can also be seen as part of the type information, so other functions outside the class can require a certain stage; stages are usually 1 way, but you can make a stage 2 way with the `@2way` keyword; if a class extends multiple classes at once, and each of those have stages, it naively inherits the stages of both classes, which can result in some truly janky Jank code;
+* modular functions (see section);
 
 # Example 2
 ```
@@ -219,4 +221,62 @@ When a class is locked, only one instance of that class can exist. Making it eff
 
 `@singleton` can be used on a function or class to make it a singleton function or class. When this is done, the function or class can be used outside async functions, but the singleton behavior will not be threadsafe, and the function of class will not be safe from race conditions;
 
+# Modular functions
+A modular function is a function with methods that rebind it (see binding). `@modular` can be used to make a function modular with ease. Here is an example:
+```
+function cool(main_arg, opt_1, opt_2, opt_3){
+    do_stuff_with_all_those_args;
+}
+const my_cool = cool.opt_2(" | ").opt_1(3);
+console.log(my_cool == cool && my_cool !== cool); // true;
+my_cool("whatever");
+my_cool(["a","b"]);
+my_cool("x", opt_2 = "hi"); // overrides opt_2 = " | ";
+cool("x", opt_1 = 3, opt_2 = " | "); // the same as my_cool("whatever");
+```
 
+Methods can also be configured to do this, and simply use this as their argument.
+```
+class My_Data{
+    @modular toString(opt_1, opt_2){
+        convert_your_data_to_a_string(obviously);
+    }
+}
+const my_d = new My_Data();
+const my_s = my_d.toString.opt_1(["+","-",".."]);
+my_d.some_mutating_method();
+my_d.inner_member = some_value;
+// my_s still points to my_data;
+console.log(my_s() == my_d.toString(opt_1 = ["+","-",".."])); //true;
+```
+
+All such methods also automatically have a static counterpart.
+```
+const my_ss = My_Data.toString.opt_1(["+","-",".."]);
+console.log(my_s() == my_ss(my_d)); //true;
+```
+
+Many of the methods of builtins are modular methods. Most notably, `Number.toString` and `Number.fromString`. There is no `Number.toFixed`, `Number.toExponential`, `Number.toPrecision`, or , `Number.toLocale`.
+* `Number.toString.locale` sets `locale` to `true` without needing to pass an argument.
+* `Number.toString.notLocale` sets `locale` to `false`.
+* `Number.toString.exponential` sets `exponential` to `true`, which forces scientific notation to be used.
+* `Number.toString.notExponential` sets `exponential` to `false`, which prevents scientific notation from being used.
+* `Number.toString.autoExponential` sets `exponential` to `maybe`, which causes scientific notation to be used based on an automatic condition (which is the default behavior).
+
+You can replicate this behavior on your own method like so:
+```
+class My_Data{
+    @modular toString(locale boolean, exponential boolean){
+        convert_your_data_to_a_string(obviously);
+    }
+    @arg locale(){locale = true;}
+    @arg notLocale(){locale = false;}
+    @arg exponential(){exponential = true;}
+    @arg notExponential(){exponential = false;}
+    @arg autoExponential(){exponential = maybe;}
+}
+```
+
+@arg defines a method on toString. `locale` and `exponential` are scoped in a closure of `ModularArgumentHandler`, however builtins like that are not directly accessible.
+
+# End
