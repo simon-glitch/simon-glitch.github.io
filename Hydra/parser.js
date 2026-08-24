@@ -271,52 +271,201 @@ class Hydra{
         }
     }
     process(){
-        // i am currently not implementing on_sibling_fail;
-        for(const [hnode, hnode_action] of this.queue){
-            let match_type = hnode.match_type;
-            switch(hnode_action){
-                case Hnode.enter:
-                    if(match_type.on_enter){
-                        this.execute(match_type.on_enter);
-                    }
-                break;
-                case Hnode.succeed:
-                    if(match_type.on_succeed){
-                        this.execute(match_type.on_succeed);
-                    }
-                break;
-                case Hnode.fail:
-                    if(match_type.on_fail){
-                        this.execute(match_type.on_fail);
-                    }
-                break;
+    // i am currently not implementing on_sibling_fail;
+    for(const [hnode, hnode_action] of this.queue){
+        let match_type = hnode.match_type;
+        switch(hnode_action){
+        case Hnode.enter:
+            if(match_type.match_type){
+                
             }
-            // TODO: make sure to move to the parent node so it works correctly;
-            if(hnode.parent){
-            const index = hnode.parent.tree.up();
-            match_type = hnode.parent.match_type;
-            switch(hnode_action){
-                case Hnode.enter:
-                    if(match_type.on_enter){
-                        this.execute(match_type.on_child_enter);
-                    }
-                break;
-                case Hnode.succeed:
-                    if(match_type.on_succeed){
-                        this.execute(match_type.on_child_succeed);
-                    }
-                break;
-                case Hnode.fail:
-                    if(match_type.on_fail){
-                        this.execute(match_type.on_child_fail);
-                    }
-                break;
+            if(match_type.on_enter){
+                this.execute(match_type.on_enter);
             }
-            hnode.parent.tree.down(index);
+        break;
+        case Hnode.succeed:
+            if(match_type.on_succeed){
+                this.execute(match_type.on_succeed);
             }
+        break;
+        case Hnode.fail:
+            if(match_type.on_fail){
+                this.execute(match_type.on_fail);
+            }
+        break;
+        }
+        // TODO: make sure to move to the parent node so it works correctly;
+        if(hnode.parent){
+        const index = hnode.parent.tree.up();
+        match_type = hnode.parent.match_type;
+        switch(hnode_action){
+            case Hnode.enter:
+                if(match_type.on_enter){
+                    this.execute(match_type.on_child_enter);
+                }
+            break;
+            case Hnode.succeed:
+                if(match_type.on_succeed){
+                    this.execute(match_type.on_child_succeed);
+                }
+            break;
+            case Hnode.fail:
+                if(match_type.on_fail){
+                    this.execute(match_type.on_child_fail);
+                }
+            break;
+        }
+        hnode.parent.tree.down(index);
         }
     }
+    }
 }
+
+class Leaf{
+    
+}
+class Choice{
+    
+}
+class List{
+    
+}
+class Multiple{
+    had_one = false;
+    static ONE = class ONE{
+        
+    }
+    static ONE_OR_MORE = class ONE_OR_MORE{
+        
+    }
+    static ZERO_OR_ONE = class ZERO_OR_ONE{
+        
+    }
+    static ZERO_OR_MORE = class ZERO_OR_MORE{
+        
+    }
+}
+class Layer{
+    entered = false;
+}
+
+const M_Leaf = new Match_Type({
+    type: Leaf,
+    match_type: true,
+});
+const M_Choice = new Match_Type({
+    type: Choice,
+    on_child_fail: new Hydra_Action({
+        // try the next choice;
+        parsing: new Head_Action({
+            move: Hnode.next,
+            on_move_fail: new Hydra_Action({
+                parsing: new Head_Action({source: Hnode.fail}),
+            }),
+        }),
+    }),
+    on_child_succeed: new Hydra_Action({
+        parsing: new Head_Action({source: Hnode.succeed}),
+    }),
+});
+const M_List = new Match_Type({
+    type: List,
+    on_child_succeed: new Hydra_Action({
+        input: new Head_Action({move: Hnode.next}),
+    }),
+    // when we reach the end of the list;
+    on_fail: new Hydra_Action({
+        // make this node succeed;
+        parsing: new Head_Action({source: Hnode.succeed}),
+    }),
+});
+// all of this shenanigans is to make sure a multiple with one, or (one or more), fails when zero are matched;
+const Multiple_Fail = new Hydra_Action({
+    parsing: new Head_Action({source: Hnode.fail}),
+});
+const Multiple_Succeed = new Hydra_Action({
+    parsing: new Head_Action({source: Hnode.succeed}),
+});
+// the four types of multiples are separated;
+const M_Multiple_ONE = new Match_Type({
+    type: Multiple.ONE,
+    // yeah this is pretty dumb, but it should be okay;
+    on_child_fail: new Hydra_Action({
+        parsing: new Head_Action({move: Hnode.fail}),
+    }),
+    on_child_succeed: new Hydra_Action({
+        parsing: new Head_Action({move: Hnode.succeed}),
+    }),
+});
+const M_Multiple_ONE_OR_MORE = new Match_Type({
+    type: Multiple.ONE_OR_MORE,
+    on_child_fail: new Hydra_Action({
+        /** @param {Multiple} node */
+        callback(node){
+            return node.had_one ? Multiple_Succeed : Multiple_Fail;
+        },
+    }),
+    on_child_succeed: new Hydra_Action({
+        input: new Head_Action({move: Hnode.next}),
+        // loop by entering this node again;
+        parsing: new Head_Action({source: Hnode.enter}),
+        /** @param {Multiple} node */
+        callback(node){
+            node.had_one = true;
+        },
+    }),
+});
+const M_Multiple_ZERO_OR_ONE = new Match_Type({
+    type: Multiple.ZERO_OR_ONE,
+    on_child_fail: new Hydra_Action({
+        // zero or one always succeeds;
+        parsing: new Head_Action({source: Hnode.succeed}),
+    }),
+    on_child_succeed: new Hydra_Action({
+        input: new Head_Action({move: Hnode.next}),
+        parsing: new Head_Action({source: Hnode.succeed}),
+    }),
+});
+const M_Multiple_ZERO_OR_MORE = new Match_Type({
+    type: Multiple.ZERO_OR_MORE,
+    on_child_fail: new Hydra_Action({
+        // zero or more always succeeds;
+        parsing: new Head_Action({source: Hnode.succeed}),
+    }),
+    on_child_succeed: new Hydra_Action({
+        input: new Head_Action({move: Hnode.next}),
+        // loop by entering this node again;
+        parsing: new Head_Action({source: Hnode.enter}),
+    }),
+});
+const M_Layer_Done = new Hydra_Action({
+    input: new Head_Action({move: Hnode.up}),
+    parsing: new Head_Action({move: Hnode.up}),
+});
+const M_Layer = new Match_Type({
+    type: Layer,
+    match_type: true,
+    // match type will cause this node to automatically succeed;
+    // we can catch that success and intercept it before parent nodes realize it;
+    on_succeed: new Hydra_Action({
+        input: new Head_Action({move: Hnode.down}),
+        parsing: new Head_Action({move: Hnode.down}),
+        // this jank setup allows the node to succeed multiple times, so we better prevent infinite loops;
+        /** @param {Layer} node */
+        callback(node){
+            if(node.entered) return M_Layer_Done;
+            node.entered = true;
+        },
+    }),
+    // simply do what the child does;
+    // M_Layer_Done will move the input head up;
+    on_child_fail: new Hydra_Action({
+        parsing: new Head_Action({source: Hnode.fail}),
+    }),
+    on_child_succeed: new Hydra_Action({
+        parsing: new Head_Action({source: Hnode.succeed}),
+    }),
+});
 
 
 
