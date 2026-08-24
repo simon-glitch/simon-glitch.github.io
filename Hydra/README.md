@@ -76,17 +76,23 @@ There are only two default behaviors:
 So, here is my currnet idea for how all of the matching types could be implemented:
 ```ts
 const M_Leaf = new Match_Type({
-    type: M_Leaf,
+    type: Leaf,
     match_type: true,
 });
 const M_Choice = new Match_Type({
     type: Choice,
     on_child_fail: new Hydra_Action({
         // try the next choice;
-        parsing: new Head_Action({move: Hnode.next}),
+        parsing: new Head_Action({
+            move: Hnode.next,
+            on_move_fail: new Hydra_Action({
+                parsing: new Head_Action({source: Hnode.fail}),
+            }),
+        }),
     }),
-    // does not fail automatically when it reaches the end of the list;
-    // TODO: add fail logic;
+    on_child_succeed: new Hydra_Action({
+        parsing: new Head_Action({source: Hnode.succeed}),
+    }),
 });
 const M_List = new Match_Type({
     type: List,
@@ -134,9 +140,11 @@ const M_Multiple_ONE_OR_MORE = new Match_Type({
 });
 const M_Multiple_ZERO_OR_ONE = new Match_Type({
     type: Multiple.ZERO_OR_ONE,
+    // TODO: implement this;
 });
 const M_Multiple_ZERO_OR_MORE = new Match_Type({
     type: Multiple.ZERO_OR_MORE,
+    // TODO: implement this;
 });
 const M_Layer_Done = new Hydra_Action({
     input: new Head_Action({move: Hnode.up}),

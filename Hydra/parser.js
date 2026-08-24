@@ -287,6 +287,7 @@ class Hydra{
                     }
                 break;
             }
+            // TODO: make sure to move to the parent node so it works correctly;
             if(hnode.parent){
             match_type = hnode.parent.match_type;
             switch(hnode_action){
