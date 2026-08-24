@@ -140,7 +140,9 @@ class Hnode{
     parent = null;
     /** @type {Match_Type} */
     match_type = null;
-    constructor(a_type, a_start, a_end){
+    constructor(a_tree, a_type, a_start, a_end){
+        /** @type {Tree} */
+        this.tree = a_tree;
         this.type = a_type;
         /** @type {Hnode[]} */
         this.children = [];
@@ -162,14 +164,16 @@ class Tree{
         /** @type {Hydra} */
         this.hydra = a_hydra;
         /** @type {Hnode} */
-        this.root = new Hnode("root");
+        this.root = new Hnode(this, "root");
         /** @type {Hnode} */
         this.current = this.root;
+        /** @type {number[]} */
         this.indices = [];
     }
+    /** @returns {number} the index the node was at; useful for going back down; */
     up(){
         this.current = this.current.parent;
-        this.indices.pop();
+        return this.indices.pop();
     }
     down(index = 0){
         this.current = this.current.children.at(index);
@@ -289,6 +293,7 @@ class Hydra{
             }
             // TODO: make sure to move to the parent node so it works correctly;
             if(hnode.parent){
+            const index = hnode.parent.tree.up();
             match_type = hnode.parent.match_type;
             switch(hnode_action){
                 case Hnode.enter:
@@ -307,6 +312,7 @@ class Hydra{
                     }
                 break;
             }
+            hnode.parent.tree.down(index);
             }
         }
     }

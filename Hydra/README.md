@@ -131,8 +131,9 @@ const M_Multiple_ONE_OR_MORE = new Match_Type({
         },
     }),
     on_child_succeed: new Hydra_Action({
-        // TODO: the engine does not loop the node for us so we have to do it ourselves;
         input: new Head_Action({move: Hnode.next}),
+        // loop by entering this node again;
+        parsing: new Head_Action({source: Hnode.enter}),
         callback(node: Multiple){
             node.had_one = true;
         },
@@ -140,11 +141,26 @@ const M_Multiple_ONE_OR_MORE = new Match_Type({
 });
 const M_Multiple_ZERO_OR_ONE = new Match_Type({
     type: Multiple.ZERO_OR_ONE,
-    // TODO: implement this;
+    on_child_fail: new Hydra_Action({
+        // zero or one always succeeds;
+        parsing: new Head_Action({source: Hnode.succeed}),
+    }),
+    on_child_succeed: new Hydra_Action({
+        input: new Head_Action({move: Hnode.next}),
+        parsing: new Head_Action({source: Hnode.succeed}),
+    }),
 });
 const M_Multiple_ZERO_OR_MORE = new Match_Type({
     type: Multiple.ZERO_OR_MORE,
-    // TODO: implement this;
+    on_child_fail: new Hydra_Action({
+        // zero or more always succeeds;
+        parsing: new Head_Action({source: Hnode.succeed}),
+    }),
+    on_child_succeed: new Hydra_Action({
+        input: new Head_Action({move: Hnode.next}),
+        // loop by entering this node again;
+        parsing: new Head_Action({source: Hnode.enter}),
+    }),
 });
 const M_Layer_Done = new Hydra_Action({
     input: new Head_Action({move: Hnode.up}),
@@ -164,7 +180,14 @@ const M_Layer = new Match_Type({
             node.entered = true;
         },
     }),
-    // TODO: add fail and succeed logic;
+    // simply do what the child does;
+    // M_Layer_Done will move the input head up;
+    on_child_fail: new Hydra_Action({
+        parsing: new Head_Action({source: Hnode.fail}),
+    }),
+    on_child_succeed: new Hydra_Action({
+        parsing: new Head_Action({source: Hnode.succeed}),
+    }),
 });
 ```
 
