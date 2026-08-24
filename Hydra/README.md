@@ -68,12 +68,10 @@ A `Hydra_Action` is used to tell Hydra what to do. This should minimize the amou
 `Hmove` indicates traveral of the corresponding tree. Since each matching step needs to traverse a varying number of the trees.
 
 ## Specific config
-I should note that `on_succeed` defaults to
-```ts
-const base_succeed = new Hydra_Action({
-    parsing: Head_Action({move: Hnode.up}),
-});
-```
+There are only two default behaviors:
+* if no actions are specified for target or source, enter the target;
+* `match_type == true` causes automatic succeed/fail based on the input node matching the type;
+* I'm not adding more because that would just be complicated. And complicated == impossible to comprehend, unfortunately.
 
 So, here is my currnet idea for how all of the matching types could be implemented:
 ```ts
@@ -87,7 +85,8 @@ const M_Choice = new Match_Type({
         // try the next choice;
         parsing: new Head_Action({move: Hnode.next}),
     }),
-    // fails automatically when it reaches the end of the list;
+    // does not fail automatically when it reaches the end of the list;
+    // TODO: add fail logic;
 });
 const M_List = new Match_Type({
     type: List,
@@ -126,8 +125,7 @@ const M_Multiple_ONE_OR_MORE = new Match_Type({
         },
     }),
     on_child_succeed: new Hydra_Action({
-        // if a node succeeds, the engine defaults to running the whole node again;
-        // however, we do need to advance in the input;
+        // TODO: the engine does not loop the node for us so we have to do it ourselves;
         input: new Head_Action({move: Hnode.next}),
         callback(node: Multiple){
             node.had_one = true;
@@ -158,6 +156,7 @@ const M_Layer = new Match_Type({
             node.entered = true;
         },
     }),
+    // TODO: add fail and succeed logic;
 });
 ```
 

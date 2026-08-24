@@ -33,10 +33,6 @@ class RecursionError extends Error{
 
 class Match_Type{
     constructor(o){
-        this.on_succeed = o.on_succeed ?? new Hydra_Action({
-            parsing: Head_Action({move: Hnode.up}),
-        });
-        
         this.match_type = Boolean(o.match_type);
         if(o.on_enter) this.on_enter = o.on_enter;
         if(o.on_fail) this.on_fail = o.on_fail;
