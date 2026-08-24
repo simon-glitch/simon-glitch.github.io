@@ -32,6 +32,19 @@ class RecursionError extends Error{
 };
 
 class Match_Type{
+    constructor(o){
+        this.on_succeed = o.on_succeed ?? new Hydra_Action({
+            parsing: Head_Action({move: Hnode.up}),
+        });
+        
+        this.match_type = Boolean(o.match_type);
+        if(o.on_enter) this.on_enter = o.on_enter;
+        if(o.on_fail) this.on_fail = o.on_fail;
+        if(o.on_child_enter) this.on_child_enter = o.on_child_enter;
+        if(o.on_child_succeed) this.on_child_succeed = o.on_child_succeed;
+        if(o.on_child_fail) this.on_child_fail = o.on_child_fail;
+        if(o.on_sibling_fail) this.on_sibling_fail = o.on_sibling_fail;
+    }
     /** the constructor this match type is associated with; */
     type = function Missing_Constructor(){
         throw new TypeError("this Match_Type is missing its constructor;");
@@ -54,6 +67,12 @@ class Match_Type{
     on_sibling_fail = null;
 }
 class Hydra_Action{
+    constructor(o){
+        if(o.input) this.input = o.input;
+        if(o.output) this.output = o.output;
+        if(o.parsing) this.parsing = o.parsing;
+        if(o.callback) this.callback = o.callback;
+    }
     /** @type {Head_Action?} */
     input = null;
     /** @type {Head_Action?} */
@@ -69,6 +88,12 @@ class Hydra_Action{
     callback = null;
 }
 class Head_Action{
+    constructor(o){
+        if(o.source) this.source = o.source;
+        if(o.target) this.target = o.target;
+        if(o.move) this.move = o.move;
+        this.index = Number(o.index);
+    }
     /**
      * source should be exclusive to parsing;
      * - `Hnode.none`, `Hnode.enter`, `Hnode.succeed`, or `Hnode.fail`
@@ -117,6 +142,8 @@ class Hnode{
     end = 0;
     /** @type {Hnode?} */
     parent = null;
+    /** @type {Match_Type} */
+    match_type = null;
     constructor(a_type, a_start, a_end){
         this.type = a_type;
         /** @type {Hnode[]} */
@@ -199,6 +226,10 @@ class Tree{
         if(Hnode.Hnode_Action.has(head_action.target)){
             this.hydra.queue.push([target, head_action.target]);
         }
+        // default behavior: enter the target;
+        if(!head_action.source && !head_action.target){
+            this.hydra.queue.push([target, Hnode.enter]);
+        }
     }
 }
 class Parsing_Tree extends Tree{
@@ -238,7 +269,49 @@ class Hydra{
         if(hydra_action.parsing){
             this.parsing.execute(hydra_action.parsing);
         }
-        // handle queue logic, which is a bit daunting;
+    }
+    process(){
+        // i am currently not implementing on_sibling_fail;
+        for(const [hnode, hnode_action] of this.queue){
+            let match_type = hnode.match_type;
+            switch(hnode_action){
+                case Hnode.enter:
+                    if(match_type.on_enter){
+                        this.execute(match_type.on_enter);
+                    }
+                break;
+                case Hnode.succeed:
+                    if(match_type.on_succeed){
+                        this.execute(match_type.on_succeed);
+                    }
+                break;
+                case Hnode.fail:
+                    if(match_type.on_fail){
+                        this.execute(match_type.on_fail);
+                    }
+                break;
+            }
+            if(hnode.parent){
+            match_type = hnode.parent.match_type;
+            switch(hnode_action){
+                case Hnode.enter:
+                    if(match_type.on_enter){
+                        this.execute(match_type.on_child_enter);
+                    }
+                break;
+                case Hnode.succeed:
+                    if(match_type.on_succeed){
+                        this.execute(match_type.on_child_succeed);
+                    }
+                break;
+                case Hnode.fail:
+                    if(match_type.on_fail){
+                        this.execute(match_type.on_child_fail);
+                    }
+                break;
+            }
+            }
+        }
     }
 }
 

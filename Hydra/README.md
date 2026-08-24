@@ -60,178 +60,18 @@ type Head_Action = {
 // Hnode means Hydra node;
 enum Hnode_Action = {Hnode.enter, Hnode.succeed, Hnode.fail};
 // these are all symbols;
-enum Hmove = {Hnode.up, Hnode.next, Hnode.down};
+enum Hmove = {Hnode.up, Hnode.down, Hnode.next};
 ```
 
 A `Hydra_Action` is used to tell Hydra what to do. This should minimize the amount of code, and thus minimize the number of bugs. This should also make it much easier for me to test things independently.
 
 `Hmove` indicates traveral of the corresponding tree. Since each matching step needs to traverse a varying number of the trees.
 
-## Expansion example
-If we expand the class out, we get the following, which I think demonstrates why I was having a hard time making a parser before. There are a lot of potential steps per matching step.
-```ts
-type Match_Type = {
-    type: Function,
-    match_type: boolean?,
-    on_enter: {
-        input: {
-            source: Hnode_Action?,
-            target: Hnode_Action?,
-            move: Hmove?,
-            index: number,
-        },
-        output: {
-            source: Hnode_Action?,
-            target: Hnode_Action?,
-            move: Hmove?,
-            index: number,
-        },
-        parsing: {
-            source: Hnode_Action?,
-            target: Hnode_Action?,
-            move: Hmove?,
-            index: number,
-        },
-        callback: Function?,
-    },
-    on_succeed: {
-        input: {
-            source: Hnode_Action?,
-            target: Hnode_Action?,
-            move: Hmove?,
-            index: number,
-        },
-        output: {
-            source: Hnode_Action?,
-            target: Hnode_Action?,
-            move: Hmove?,
-            index: number,
-        },
-        parsing: {
-            source: Hnode_Action?,
-            target: Hnode_Action?,
-            move: Hmove?,
-            index: number,
-        },
-        callback: Function?,
-    },
-    on_fail: {
-        input: {
-            source: Hnode_Action?,
-            target: Hnode_Action?,
-            move: Hmove?,
-            index: number,
-        },
-        output: {
-            source: Hnode_Action?,
-            target: Hnode_Action?,
-            move: Hmove?,
-            index: number,
-        },
-        parsing: {
-            source: Hnode_Action?,
-            target: Hnode_Action?,
-            move: Hmove?,
-            index: number,
-        },
-        callback: Function?,
-    },
-    on_child_enter: {
-        input: {
-            source: Hnode_Action?,
-            target: Hnode_Action?,
-            move: Hmove?,
-            index: number,
-        },
-        output: {
-            source: Hnode_Action?,
-            target: Hnode_Action?,
-            move: Hmove?,
-            index: number,
-        },
-        parsing: {
-            source: Hnode_Action?,
-            target: Hnode_Action?,
-            move: Hmove?,
-            index: number,
-        },
-        callback: Function?,
-    },
-    on_child_succeed: {
-        input: {
-            source: Hnode_Action?,
-            target: Hnode_Action?,
-            move: Hmove?,
-            index: number,
-        },
-        output: {
-            source: Hnode_Action?,
-            target: Hnode_Action?,
-            move: Hmove?,
-            index: number,
-        },
-        parsing: {
-            source: Hnode_Action?,
-            target: Hnode_Action?,
-            move: Hmove?,
-            index: number,
-        },
-        callback: Function?,
-    },
-    on_child_fail: {
-        input: {
-            source: Hnode_Action?,
-            target: Hnode_Action?,
-            move: Hmove?,
-            index: number,
-        },
-        output: {
-            source: Hnode_Action?,
-            target: Hnode_Action?,
-            move: Hmove?,
-            index: number,
-        },
-        parsing: {
-            source: Hnode_Action?,
-            target: Hnode_Action?,
-            move: Hmove?,
-            index: number,
-        },
-        callback: Function?,
-    },
-    on_sibling_fail: {
-        input: {
-            source: Hnode_Action?,
-            target: Hnode_Action?,
-            move: Hmove?,
-            index: number,
-        },
-        output: {
-            source: Hnode_Action?,
-            target: Hnode_Action?,
-            move: Hmove?,
-            index: number,
-        },
-        parsing: {
-            source: Hnode_Action?,
-            target: Hnode_Action?,
-            move: Hmove?,
-            index: number,
-        },
-        callback: Function?,
-    },
-}
-enum Hnode_Action = {Hnode.enter, Hnode.succeed, Hnode.fail};
-enum Hmove = {Hnode.up, Hnode.next, Hnode.down};
-```
-
-If you were to write a parser with only one head, you would need about half that number of lines, per each time you need to hardcode in a new grammar feature, minimum. Which could add up to a lot, and in my opinion, that is quite hard to debug.
-
 ## Specific config
 I should note that `on_succeed` defaults to
 ```ts
 const base_succeed = new Hydra_Action({
-    parsing: Head_Action({move: Hnode.next}),
+    parsing: Head_Action({move: Hnode.up}),
 });
 ```
 
@@ -245,38 +85,37 @@ const M_Choice = new Match_Type({
     type: Choice,
     on_child_fail: new Hydra_Action({
         // try the next choice;
-        parsing: Head_Action({move: Hnode.next}),
-        
+        parsing: new Head_Action({move: Hnode.next}),
     }),
     // fails automatically when it reaches the end of the list;
 });
 const M_List = new Match_Type({
     type: List,
     on_child_succeed: new Hydra_Action({
-        input: Head_Action({move: Hnode.next}),
+        input: new Head_Action({move: Hnode.next}),
     }),
     // when we reach the end of the list;
     on_fail: new Hydra_Action({
         // make this node succeed;
-        parsing: Head_Action({source: Hnode.succeed}),
+        parsing: new Head_Action({source: Hnode.succeed}),
     }),
 });
 // all of this shenanigans is to make sure a multiple with one, or (one or more), fails when zero are matched;
 const Multiple_Fail = new Hydra_Action({
-    parsing: Head_Action({source: Hnode.fail}),
+    parsing: new Head_Action({source: Hnode.fail}),
 });
 const Multiple_Succeed = new Hydra_Action({
-    parsing: Head_Action({source: Hnode.succeed}),
+    parsing: new Head_Action({source: Hnode.succeed}),
 });
 // the four types of multiples are separated;
 const M_Multiple_ONE = new Match_Type({
     type: Multiple.ONE,
     // yeah this is pretty dumb, but it should be okay;
     on_child_fail: new Hydra_Action({
-        parsing: Head_Action({move: Hnode.fail}),
+        parsing: new Head_Action({move: Hnode.fail}),
     }),
     on_child_succeed: new Hydra_Action({
-        parsing: Head_Action({move: Hnode.succeed}),
+        parsing: new Head_Action({move: Hnode.succeed}),
     }),
 });
 const M_Multiple_ONE_OR_MORE = new Match_Type({
@@ -289,7 +128,7 @@ const M_Multiple_ONE_OR_MORE = new Match_Type({
     on_child_succeed: new Hydra_Action({
         // if a node succeeds, the engine defaults to running the whole node again;
         // however, we do need to advance in the input;
-        input: Head_Action({move: Hnode.next}),
+        input: new Head_Action({move: Hnode.next}),
         callback(node: Multiple){
             node.had_one = true;
         },
@@ -302,7 +141,8 @@ const M_Multiple_ZERO_OR_MORE = new Match_Type({
     type: Multiple.ZERO_OR_MORE,
 });
 const M_Layer_Done = new Hydra_Action({
-    parsing: Head_Action({move: Hnode.next}),
+    input: new Head_Action({move: Hnode.up}),
+    parsing: new Head_Action({move: Hnode.up}),
 });
 const M_Layer = new Match_Type({
     type: Layer,
@@ -310,8 +150,8 @@ const M_Layer = new Match_Type({
     // match type will cause this node to automatically succeed;
     // we can catch that success and intercept it before parent nodes realize it;
     on_succeed: new Hydra_Action({
-        input: Head_Action({move: Hnode.down}),
-        parsing: Head_Action({move: Hnode.down}),
+        input: new Head_Action({move: Hnode.down}),
+        parsing: new Head_Action({move: Hnode.down}),
         // this jank setup allows the node to succeed multiple times, so we better prevent infinite loops;
         callback(node: Layer){
             if(node.entered) return M_Layer_Done;
