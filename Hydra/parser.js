@@ -375,31 +375,31 @@ const M_Layer = new Match_Type({
 });
 
 class Leaf{
-    static match_type = M_Leaf;
+    match_type = M_Leaf;
 }
 class Choice{
-    static match_type = M_Choice;
+    match_type = M_Choice;
 }
 class List{
-    static match_type = M_List;
+    match_type = M_List;
 }
 class Multiple{
     had_one = false;
     static ONE = class ONE{
-        static match_type = M_Multiple_ONE;
+        match_type = M_Multiple_ONE;
     }
     static ONE_OR_MORE = class ONE_OR_MORE{
-        static match_type = M_Multiple_ONE_OR_MORE;
+        match_type = M_Multiple_ONE_OR_MORE;
     }
     static ZERO_OR_ONE = class ZERO_OR_ONE{
-        static match_type = M_Multiple_ZERO_OR_ONE;
+        match_type = M_Multiple_ZERO_OR_ONE;
     }
     static ZERO_OR_MORE = class ZERO_OR_MORE{
-        static match_type = M_Multiple_ZERO_OR_MORE;
+        match_type = M_Multiple_ZERO_OR_MORE;
     }
 }
 class Layer{
-    static match_type = M_Layer;
+    match_type = M_Layer;
     entered = false;
 }
 
