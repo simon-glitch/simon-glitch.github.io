@@ -245,6 +245,31 @@ class Language_Tree extends Tree{
     }
 }
 
+/*
+things we should logically do in order to parse text:
+* enter the root Language_Hnode;
+* when we do this, we should see which Match_Type that Language_Hnode uses;
+* we should then run the on_enter logic;
+* the system should work like a stack, so if on_enter triggers an action, we should run that action;
+* then if that Match_Type has its mactch_type == true, we should see if the current input node has the same type as the language node;
+* and then run on_succeed or on_fail based on that;
+* again, if more actions are triggered, we should run them immediately;
+* logically, we should be all done after this, because the Match_Type is responsible for using the stack behavior to ensure that every node is processes and visited;
+* also, it is not possible to enter a Match_Type, nor process one directly, because they are abstract;
+* which makes everything confusing because Match_Type is the primary type and has the most important and basic information on it;
+
+Now I am getting very confused by the difference between the parsing tree and the language tree.
+* The language tree is actual language features and it technically a directed graph that can have loops.
+* The parsing tree is basically a document telling us which language nodes succeeded and in what structure they did.
+* So in a sense, the language tree is a type of input and the parsing tree is a type of output.
+* When we backtrack, we can use the parsing tree to solve ambiguous situations in the language tree. Since again, the language tree is a graph not a tree. To clarify, a node in the language tree can have multiple parents (though we will only store one because we won't need to read it anyways). While a node in the parsing tree can only have one parent. So the parsing tree answers about what actually happened in the language tree.
+
+Now that I've sorted this out, I am significantly more confused about how I'm supposed to implement any of this. And I have no idea whether I'm supposed to "process" language nodes or parsing nodes.
+
+Okay I've decided that I'm going to process parsing nodes, and create them procedurally. So when you call down or next on a parsing node, it creates the respective node automatically. I should also make it so each node deletes itself when it fails, but only after we've processed all events for that node.
+
+*/
+
 class Hydra{
     constructor(){
         /** @type {Tree} */
@@ -258,20 +283,20 @@ class Hydra{
         /** the queue of Hnode_Actions to execute @type {[Hnode, Symbol][]} */
         this.queue = [];
     }
-    /** @param {Match-Type} match_type logically this should be he only thing that matters at all; duh, right? */
-    do_something_important_which_translates_to_processing_the_match_type(match_type){
-        // things we should logically do in order to parse text:
-        // 1. enter the root Language_Hnode;
-        // when we do this, we should see which Match_Type that Language_Hnode uses;
-        // we should then run the on_enter logic;
-        // the system should work like a stack, so if on_enter triggers an action, we should run that action;
-        // then if that Match_Type has its mactch_type == true, we should see if the current input node has the same type as the language node;
-        // and then run on_succeed or on_fail based on that;
-        // again, if more actions are triggered, we should run them immediately;
-        // logically, we should be all done after this, because the Match_Type is responsible for using the stack behavior to ensure that every node is processes and visited;
-        // also, it is not possible to enter a Match_Type, nor process one directly, because they are abstract;
-        // which makes everything confusing because Match_Type is the primary type and has the most important and basic information on it;
+    /** @param {Parsing_Hnode} parsing_node it is pretty confusing, but this seems to be required; */
+    process(parsing_node){
+        // since we're using recursion / a stack of actions, perhaps it would make sense to add the action being executed as a second parameter;
+        // okay yes, I'll just do that;
+        const language_node = parsing_node.language_node;
+        const match_type = language_node.match_type;
+        // TODO: if move fails, the node should fail automatically;
+        // TODO: if a parsing node fails (for any reason), it should be pruned automatically, by leaving a blank node;
+        // * the blank node might be useful for more complex logic;
+        // * we also need to rewind the input and output when the parsing node fails;
+        // * so each parsing node needs to keep a list of the movements that it made;
+        // * and then we need to have methods on Tree to undo movements;
         
+        // fun fact: I use the term "we" because there are multiple thought processes going on in my head; bonus fun fact: I do not have DID;
     }
 }
 
@@ -295,6 +320,7 @@ const M_Choice = new Match_Type({
 const M_List = new Match_Type({
     on_child_succeed: new Hydra_Action({
         input: new Head_Action({move: Hnode.next}),
+        parsing: new Head_Action({move: Hnode.next}),
     }),
     // when we reach the end of the list;
     on_fail: new Hydra_Action({
