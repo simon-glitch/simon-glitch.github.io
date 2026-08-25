@@ -260,6 +260,17 @@ class Hydra{
     }
     /** @param {Match-Type} match_type logically this should be he only thing that matters at all; duh, right? */
     do_something_important_which_translates_to_processing_the_match_type(match_type){
+        // things we should logically do in order to parse text:
+        // 1. enter the root Language_Hnode;
+        // when we do this, we should see which Match_Type that Language_Hnode uses;
+        // we should then run the on_enter logic;
+        // the system should work like a stack, so if on_enter triggers an action, we should run that action;
+        // then if that Match_Type has its mactch_type == true, we should see if the current input node has the same type as the language node;
+        // and then run on_succeed or on_fail based on that;
+        // again, if more actions are triggered, we should run them immediately;
+        // logically, we should be all done after this, because the Match_Type is responsible for using the stack behavior to ensure that every node is processes and visited;
+        // also, it is not possible to enter a Match_Type, nor process one directly, because they are abstract;
+        // which makes everything confusing because Match_Type is the primary type and has the most important and basic information on it;
         
     }
 }
@@ -374,16 +385,19 @@ const M_Layer = new Match_Type({
     }),
 });
 
-class Leaf{
+class Language_Hnode extends Hnode{
+    
+}
+class Leaf extends Language_Hnode{
     match_type = M_Leaf;
 }
-class Choice{
+class Choice extends Language_Hnode{
     match_type = M_Choice;
 }
-class List{
+class List extends Language_Hnode{
     match_type = M_List;
 }
-class Multiple{
+class Multiple extends Language_Hnode{
     had_one = false;
     static ONE = class ONE{
         match_type = M_Multiple_ONE;
@@ -398,7 +412,7 @@ class Multiple{
         match_type = M_Multiple_ZERO_OR_MORE;
     }
 }
-class Layer{
+class Layer extends Language_Hnode{
     match_type = M_Layer;
     entered = false;
 }
