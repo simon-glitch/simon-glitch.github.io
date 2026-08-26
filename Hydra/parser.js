@@ -35,6 +35,7 @@ class Match_Type{
     constructor(o){
         this.match_type = Boolean(o.match_type);
         if(o.on_enter) this.on_enter = o.on_enter;
+        if(o.on_succeed) this.on_succeed = o.on_succeed;
         if(o.on_fail) this.on_fail = o.on_fail;
         if(o.on_child_enter) this.on_child_enter = o.on_child_enter;
         if(o.on_child_succeed) this.on_child_succeed = o.on_child_succeed;
@@ -89,6 +90,8 @@ class Head_Action{
         if(o.target) this.target = o.target;
         if(o.move) this.move = o.move;
         this.index = Number(o.index);
+        if(o.on_move_succeed) this.on_move_succeed = o.on_move_succeed;
+        if(o.on_move_fail) this.on_move_fail = o.on_move_fail;
     }
     /**
      * source should be exclusive to parsing;
@@ -110,6 +113,10 @@ class Head_Action{
     move = Hnode.none;
     /** used when `move == Hnode.down`; used as the argument for `Array.prototype.at`; */
     index = 0;
+    /** Triggers if move action succeeds. This is triggered on the Match_Type containing this Head_Action. @type {Hydra_Action?} */
+    on_move_succeed = null;
+    /** Triggers if move action fails. This is triggered on the Match_Type containing this Head_Action. @type {Hydra_Action?} */
+    on_move_fail = null;
 }
 /** Hnode stands for Hydra node; */
 class Hnode{
@@ -138,16 +145,14 @@ class Hnode{
     end = 0;
     /** @type {Hnode?} */
     parent = null;
+    /** for root nodes; @type {Tree?} */
+    tree = null;
     /** @type {Match_Type} */
     match_type = null;
-    constructor(a_tree, a_type, a_start, a_end){
-        /** @type {Tree} */
-        this.tree = a_tree;
+    constructor(a_type){
         this.type = a_type;
         /** @type {Hnode[]} */
         this.children = [];
-        this.start = a_start;
-        this.end = a_end;
     }
     /** @param {Hnode[]} a_children children to add to this Hnode; */
     add(a_children){
@@ -164,7 +169,8 @@ class Tree{
         /** @type {Hydra} */
         this.hydra = a_hydra;
         /** @type {Hnode} */
-        this.root = new Hnode(this, "root");
+        this.root = new Hnode("root");
+        this.root.tree = this;
         /** @type {Hnode} */
         this.current = this.root;
         /** @type {number[]} */
@@ -232,16 +238,78 @@ class Tree{
         }
     }
 }
-class Parsing_Tree extends Tree{
+
+class Language_Hnode extends Hnode{
+    static type = "language";
+    /** @type {Language_Hnode[]} */
+    children = [];
+    /** @type {Language_Hnode?} */
+    parent = null;
+    constructor(a_type = Language_Hnode.type){
+        super(a_type);
+    }
+}
+class Language_Tree extends Tree{
+    /** @type {Language_Hnode} */
+    root = null;
+    /** @type {Language_Hnode} */
+    current = null;
     /** @param {Hydra} a_hydra see Tree; */
     constructor(a_hydra){
         super(a_hydra);
     }
 }
-class Language_Tree extends Tree{
-    /** @param {Hydra} a_hydra see Tree; */
-    constructor(a_hydra){
+
+class Parsing_Hnode extends Hnode{
+    static type = "parsing";
+    /** @type {Parsing_Hnode[]} */
+    children = [];
+    /** @type {Parsing_Hnode?} */
+    parent = null;
+    constructor(a_language_node, a_type = Parsing_Hnode.type){
+        super(a_type);
+        /** @type {Language_Hnode} */
+        this.language_node = a_language_node;
+    }
+}
+class Parsing_Tree extends Tree{
+    /** @type {Parsing_Hnode} */
+    current = null;
+    /**
+     * @param {Language_Tree} a_language_tree the parsing tree uses this to automatically construct nodes;
+     * @param {Hydra} a_hydra see Tree;
+     */
+    constructor(a_hydra, a_language_tree){
         super(a_hydra);
+        this.language_tree = a_language_tree;
+        /** @type {Parsing_Hnode} */
+        this.root = new Parsing_Hnode(this.language_tree.root, this.root.type, this.root.start, this.root.end);
+        
+    }
+    can_down(index = 0){
+        return this.language_tree.can_down(index);
+    }
+    can_next(){
+        return this.language_tree.can_next();
+    }
+    down(index = 0){
+        if(super.can_down(index)){
+            return super.down(index);
+        }
+        this.current.children[index] = new Parsing_Hnode(
+            this.current.parent.language_node.children[index],
+        );
+        return super.down(index);
+    }
+    next(){
+        if(super.can_next()){
+            return super.next();
+        }
+        this.indices[this.indices.length - 1]++;
+        this.current.parent.children[this.indices.at(-1)] = new Parsing_Hnode(
+            this.current.parent.language_node.children[this.indices.at(-1)],
+        );
+        this.current = this.current.parent.children[this.indices.at(-1)];
     }
 }
 
@@ -276,12 +344,10 @@ class Hydra{
         this.input = new Tree(this);
         /** @type {Tree} */
         this.output = new Tree(this);
-        /** @type {Parsing_Tree} */
-        this.parsing = new Tree(this);
         /** @type {Language_Tree} */
-        this.language = new Tree(this);
-        /** the queue of Hnode_Actions to execute @type {[Hnode, Symbol][]} */
-        this.queue = [];
+        this.language = new Language_Tree(this);
+        /** @type {Parsing_Tree} */
+        this.parsing = new Parsing_Tree(this, this.language);
     }
     /** @param {Parsing_Hnode} parsing_node it is pretty confusing, but this seems to be required; */
     process(parsing_node){
@@ -289,14 +355,13 @@ class Hydra{
         // okay yes, I'll just do that;
         const language_node = parsing_node.language_node;
         const match_type = language_node.match_type;
-        // TODO: if move fails, the node should fail automatically;
+        // TODO: add on_move_fail and on_move_succeed;
         // TODO: if a parsing node fails (for any reason), it should be pruned automatically, by leaving a blank node;
         // * the blank node might be useful for more complex logic;
         // * we also need to rewind the input and output when the parsing node fails;
         // * so each parsing node needs to keep a list of the movements that it made;
         // * and then we need to have methods on Tree to undo movements;
         
-        // fun fact: I use the term "we" because there are multiple thought processes going on in my head; bonus fun fact: I do not have DID;
     }
 }
 
@@ -319,13 +384,22 @@ const M_Choice = new Match_Type({
 });
 const M_List = new Match_Type({
     on_child_succeed: new Hydra_Action({
-        input: new Head_Action({move: Hnode.next}),
-        parsing: new Head_Action({move: Hnode.next}),
-    }),
-    // when we reach the end of the list;
-    on_fail: new Hydra_Action({
-        // make this node succeed;
-        parsing: new Head_Action({source: Hnode.succeed}),
+        input: new Head_Action({
+            move: Hnode.next,
+            // when we reach the end of the input tree, fail;
+            on_move_fail: new Hydra_Action({
+                // make this node succeed;
+                parsing: new Head_Action({source: Hnode.fail}),
+            }),
+        }),
+        parsing: new Head_Action({
+            move: Hnode.next,
+            // when we reach the end of the list, succeed;
+            on_move_fail: new Hydra_Action({
+                // make this node succeed;
+                parsing: new Head_Action({source: Hnode.succeed}),
+            }),
+        }),
     }),
 });
 // all of this shenanigans is to make sure a multiple with one, or (one or more), fails when zero are matched;
@@ -411,9 +485,6 @@ const M_Layer = new Match_Type({
     }),
 });
 
-class Language_Hnode extends Hnode{
-    
-}
 class Leaf extends Language_Hnode{
     match_type = M_Leaf;
 }

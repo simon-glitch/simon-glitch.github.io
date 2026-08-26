@@ -5,3 +5,5 @@
 Perhaps my stomach is just having a hard time extracting calories. I think the McDonald's has chemicas that actively inhibit actual calorie extraction.
 
 6:24 PM - I am going to continue believing that it is probably my stomach, for now. I managed to sleep for like 10 or 11 hours today, and now I don't feel very sleepy. I do also feel burnt out, thinking about working on the Hydra parser. I will try to overcome my emotions. Since I should be able to do the project.
+
+7:38 PM - The Hydra parser is starting to feel like a game of whack-a-mole. Every time I think I have part of the architecture figured out, I realize multiple critical details that I haven't addressed at all.
