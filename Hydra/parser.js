@@ -147,8 +147,6 @@ class Hnode{
     parent = null;
     /** for root nodes; @type {Tree?} */
     tree = null;
-    /** @type {Match_Type} */
-    match_type = null;
     constructor(a_type){
         this.type = a_type;
         /** @type {Hnode[]} */
@@ -215,22 +213,29 @@ class Tree{
             case Hnode.next: return this.can_next() ? (this.next(), true) : false;
         }
     }
-    /** @param {Head_Action} head_action */
-    execute(head_action){
+    /**
+     * @param {Head_Action} head_action
+     * @param {Parsing_Hnode} parsing_node
+     */
+    execute(head_action, parsing_node){
         const source = this.current;
         let target = source;
         if(head_action.move){
             const succeeded = this.move(head_action.move);
+            if(succeeded && head_action.on_move_succeed){
+                this.hydra.execute(head_action.on_move_succeed, parsing_node);
+            }
             if(!succeeded){
-                throw new RangeError("Failed to move in Tree.", {cause: {source, head_action}});
+                if(!head_action.on_move_fail) throw new RangeError("Failed to move in Tree.", {cause: {source, head_action}});
+                this.hydra.execute(head_action.on_move_fail, parsing_node);
             }
             target = this.current;
         }
         if(Hnode.Hnode_Action.has(head_action.source)){
-            this.hydra.queue.push([source, head_action.source]);
+            this.hydra.node_action(head_action.source, source);
         }
         if(Hnode.Hnode_Action.has(head_action.target)){
-            this.hydra.queue.push([target, head_action.target]);
+            this.hydra.node_action(head_action.target, target);
         }
         // default behavior: enter the target;
         if(!head_action.source && !head_action.target){
@@ -241,6 +246,8 @@ class Tree{
 
 class Language_Hnode extends Hnode{
     static type = "language";
+    /** @type {Match_Type?} */
+    match_type = null;
     /** @type {Language_Hnode[]} */
     children = [];
     /** @type {Language_Hnode?} */
@@ -349,19 +356,68 @@ class Hydra{
         /** @type {Parsing_Tree} */
         this.parsing = new Parsing_Tree(this, this.language);
     }
+    /**
+     * @param {Hydra_Action} hydra_action
+     * @param {Parsing_Hnode} parsing_node
+     */
+    execute(hydra_action, parsing_node){
+        if(hydra_action.input)
+            this.input.execute(hydra_action.input, parsing_node);
+        if(hydra_action.output)
+            this.output.execute(hydra_action.output, parsing_node);
+        if(hydra_action.parsing)
+            this.parsing.execute(hydra_action.parsing, parsing_node);
+    }
     /** @param {Parsing_Hnode} parsing_node it is pretty confusing, but this seems to be required; */
-    process(parsing_node){
-        // since we're using recursion / a stack of actions, perhaps it would make sense to add the action being executed as a second parameter;
-        // okay yes, I'll just do that;
+    enter(parsing_node){
         const language_node = parsing_node.language_node;
         const match_type = language_node.match_type;
-        // TODO: add on_move_fail and on_move_succeed;
+        this.execute(match_type.on_enter, parsing_node);
+        // um, does this cover everything?
+    }
+    /**
+     * TODO: implement succeed logic;
+     * @param {Parsing_Hnode} parsing_node ;
+     */
+    succeed(parsing_node){
+        const language_node = parsing_node.language_node;
+        const match_type = language_node.match_type;
+        this.execute(match_type.on_succeed, parsing_node);
+        // I have no idea what else should be here; perhaps this should just do nothing;
+        // well I guess it needs to mark that the node succeeded;
+    }
+    /**
+     * TODO: implement fail logic;
+     * @param {Parsing_Hnode} parsing_node ;
+     */
+    fail(parsing_node){
+        const language_node = parsing_node.language_node;
+        const match_type = language_node.match_type;
+        this.execute(match_type.on_fail, parsing_node);
         // TODO: if a parsing node fails (for any reason), it should be pruned automatically, by leaving a blank node;
         // * the blank node might be useful for more complex logic;
         // * we also need to rewind the input and output when the parsing node fails;
         // * so each parsing node needs to keep a list of the movements that it made;
         // * and then we need to have methods on Tree to undo movements;
-        
+    }
+    /**
+     * This should be exclusive to parsing nodes.
+     * @param {Symbol} node_action `Hnode.enter`, `Hnode.succeed`, or `Hnode.fail`;
+     * @param {*} parsing_node the node the action is being executed on;
+     */
+    node_action(node_action, parsing_node){
+        if(node_action == Hnode.none){
+            throw new TypeError("Cannot execute action Hnode.none on an Hnode. You should specify an actual action.");
+        }
+        if(node_action == Hnode.enter){
+            this.enter(parsing_node);
+        }
+        if(node_action == Hnode.succeed){
+            this.succeed(parsing_node);
+        }
+        if(node_action == Hnode.fail){
+            this.fail(parsing_node);
+        }
     }
 }
 
