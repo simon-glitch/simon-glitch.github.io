@@ -31,6 +31,47 @@ class RecursionError extends Error{
     }
 };
 
+class Call_Node{
+    type = "";
+    constructor(a_obj, a_fn, a_args){
+        /** @type {any} */
+        this.obj = a_obj;
+        /** @type {Function} */
+        this.fn = a_fn;
+        /** @type {any[]} */
+        this.args = a_args;
+    }
+    /** @param {Call_Node[]} a_children children to add to this Call_Node; */
+    add(a_children){
+        for(const child in a_children){
+            this.children.push(child);
+            child.parent = this;
+        }
+    }
+}
+/**
+ * If you thought 4 kinds of trees was enough, you thought wrong. We forgot everyone's favorite kind of tree. The call tree. It's basically a history of every state the call stack has ever been in.
+ */
+class Call_Tree{
+    constructor(){
+        /** @type {Call_Node} */
+        this.root = new Call_Node("root");
+        this.root.tree = this;
+        /** @type {Call_Node} */
+        this.current = this.root;
+        /** @type {number[]} */
+        this.indices = [];
+    }
+    up(){
+        this.current = this.current.parent;
+    }
+    down(obj, fn, ...args){
+        const node = new Call_Node(obj, fn, args);
+        this.current.add([node]);
+        this.current = node;
+    }
+}
+
 class Match_Type{
     constructor(o){
         this.match_type = Boolean(o.match_type);
@@ -357,9 +398,11 @@ class Parsing_Tree extends Output_Tree{
         if(super.can_down(index)){
             return super.down(index);
         }
-        this.current.children[index] = new Parsing_Hnode(
+        const node = new Parsing_Hnode(
             this.current.parent.language_node.children[index],
         );
+        this.current.children[index] = node;
+        node.parent = this.current;
         return super.down(index);
     }
     next(){
@@ -367,9 +410,11 @@ class Parsing_Tree extends Output_Tree{
             return super.next();
         }
         this.indices[this.indices.length - 1]++;
-        this.current.parent.children[this.indices.at(-1)] = new Parsing_Hnode(
+        const node = new Parsing_Hnode(
             this.current.parent.language_node.children[this.indices.at(-1)],
         );
+        this.current.parent.children[this.indices.at(-1)] = node;
+        node.parent = this.current.parent;
         this.current = this.current.parent.children[this.indices.at(-1)];
     }
 }
