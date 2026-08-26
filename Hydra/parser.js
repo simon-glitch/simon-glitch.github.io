@@ -187,6 +187,10 @@ class Tree{
         this.indices[this.indices.length - 1]++;
         this.current = this.current.parent.children[this.indices.at(-1)];
     }
+    prev(){
+        this.indices[this.indices.length - 1]--;
+        this.current = this.current.parent.children[this.indices.at(-1)];
+    }
     can_up(){
         return Boolean(this.current.parent);
     }
@@ -208,7 +212,7 @@ class Tree{
         // completely normal JS code; it only requires you to be familiar with like 4 different features of JS;
         switch(direction){
             case Hnode.none: return true;
-            case Hnode.up: return this.can_up() ? (this.up(), true) : false;
+            case Hnode.up  : return this.can_up() ? (this.up(), true) : false;
             case Hnode.down: return this.can_down(index) ? (this.down(index), true) : false;
             case Hnode.next: return this.can_next() ? (this.next(), true) : false;
         }
@@ -221,7 +225,19 @@ class Tree{
         const source = this.current;
         let target = source;
         if(head_action.move){
-            const succeeded = this.move(head_action.move);
+            // I have decided to inline this.move, in order to get the index from this.up;
+            // I tried doing it with return values, but I thought that was too jank;
+            if(!Hnode.Hmove.has(head_action.move)){
+                throw TypeError(`${head_action.move} is not a valid direction;`);
+            }
+            succeed = true;
+            switch(head_action.move){
+                case Hnode.none: break;
+                case Hnode.up  : succeeded = (this.can_up() ? (head_action.index = this.up(), true) : false); break;
+                case Hnode.down: succeeded = (this.can_down(head_action.index) ? (this.down(head_action.index), true) : false); break;
+                case Hnode.next: succeeded = (this.can_next() ? (this.next(), true) : false); break;
+            }
+            
             if(succeeded && head_action.on_move_succeed){
                 this.hydra.execute(head_action.on_move_succeed, parsing_node);
             }
@@ -241,6 +257,41 @@ class Tree{
         if(!head_action.source && !head_action.target){
             this.hydra.queue.push([target, Hnode.enter]);
         }
+    }
+    /**
+     * Undo the movement in the head_action, but not anything else.
+     * @param {Head_Action} head_action
+     */
+    undo(head_action){
+        if(!head_action.move) return;
+        
+        switch(head_action.move){
+            case Hnode.none: break;
+            case Hnode.up  : this.down(head_action.index); break;
+            case Hnode.down: this.up(); break;
+            case Hnode.next: this.prev(); break;
+        }
+    }
+}
+
+class Output_Tree extends Tree{
+    /** @param {Hydra} a_hydra see Tree; */
+    constructor(a_hydra){
+        super(a_hydra);
+    }
+    /**
+     * Undo the movement in the head_action, but not anything else.
+     * @param {Head_Action} head_action
+     */
+    undo(head_action){
+        // what do you mean jank code? I've never written any jank code in my life;
+        // this code only has like 5 levels of jank, okay?
+        // I don't care if the official standard says 4 levels is enough to qualify as jank;
+        // my code has to be an exception to that rule, somehow;
+        // because I said so; hehehe;
+        if(head_action.move === Hnode.down)
+            this.current.parent.children[this.indices.at(-1)] = BLANK_NODE;
+        super.undo(head_action);
     }
 }
 
@@ -269,6 +320,8 @@ class Language_Tree extends Tree{
 
 class Parsing_Hnode extends Hnode{
     static type = "parsing";
+    /** @type {Symbol} `Hnode.none`, `Hnode.enter`, `Hnode.succeed`, or `Hnode.fail`; starts as `Hnode.none`; */
+    status = Hnode.none;
     /** @type {Parsing_Hnode[]} */
     children = [];
     /** @type {Parsing_Hnode?} */
@@ -279,7 +332,8 @@ class Parsing_Hnode extends Hnode{
         this.language_node = a_language_node;
     }
 }
-class Parsing_Tree extends Tree{
+const BLANK_NODE = new Parsing_Hnode("BLANK");
+class Parsing_Tree extends Output_Tree{
     /** @type {Parsing_Hnode} */
     current = null;
     /**
@@ -349,18 +403,25 @@ class Hydra{
     constructor(){
         /** @type {Tree} */
         this.input = new Tree(this);
-        /** @type {Tree} */
-        this.output = new Tree(this);
+        /** @type {Output_Tree} */
+        this.output = new Output_Tree(this);
         /** @type {Language_Tree} */
         this.language = new Language_Tree(this);
         /** @type {Parsing_Tree} */
         this.parsing = new Parsing_Tree(this, this.language);
+        /** The history of what actions each parsing node has triggered. This is used to undo movements in the trees. @type {Map<Parsing_Hnode, Hydra_Action[]>} */
+        this.history = new Map();
     }
     /**
      * @param {Hydra_Action} hydra_action
      * @param {Parsing_Hnode} parsing_node
      */
     execute(hydra_action, parsing_node){
+        if(!this.history.has(parsing_node)){
+            this.history.set(parsing_node, []);
+        }
+        this.history.get(parsing_node).push(hydra_action);
+        
         if(hydra_action.input)
             this.input.execute(hydra_action.input, parsing_node);
         if(hydra_action.output)
@@ -368,11 +429,36 @@ class Hydra{
         if(hydra_action.parsing)
             this.parsing.execute(hydra_action.parsing, parsing_node);
     }
+    /**
+     * Undo the movements in the hydra_action, but not anything else.
+     * @param {Hydra_Action} hydra_action
+     */
+    undo(hydra_action){
+        if(hydra_action.input)
+            this.input.undo(hydra_action.input);
+        if(hydra_action.output)
+            this.output.undo(hydra_action.output);
+        if(hydra_action.parsing)
+            this.parsing.undo(hydra_action.parsing);
+    }
     /** @param {Parsing_Hnode} parsing_node it is pretty confusing, but this seems to be required; */
     enter(parsing_node){
         const language_node = parsing_node.language_node;
         const match_type = language_node.match_type;
+        parsing_node.status = Hnode.enter;
         this.execute(match_type.on_enter, parsing_node);
+        // TODO: add logic for matching the input type and language node type is match_type.match_type == true;
+        if(match_type.match_type){
+            if(language_node.type === this.input.current.type){
+                // I am using node_action here so the "undo movements on fail logic" will be properly handled;
+                // well or at least I think I should be doing that, but I haven't run the code yet,
+                // so it is really a mystery what I should or should not do;
+                this.node_action(Hnode.succeed, parsing_node);
+            }
+            else{
+                this.node_action(Hnode.fail, parsing_node)
+            }
+        }
         // um, does this cover everything?
     }
     /**
@@ -382,9 +468,9 @@ class Hydra{
     succeed(parsing_node){
         const language_node = parsing_node.language_node;
         const match_type = language_node.match_type;
+        parsing_node.status = Hnode.succeed;
         this.execute(match_type.on_succeed, parsing_node);
         // I have no idea what else should be here; perhaps this should just do nothing;
-        // well I guess it needs to mark that the node succeeded;
     }
     /**
      * TODO: implement fail logic;
@@ -393,12 +479,8 @@ class Hydra{
     fail(parsing_node){
         const language_node = parsing_node.language_node;
         const match_type = language_node.match_type;
+        parsing_node.status = Hnode.fail;
         this.execute(match_type.on_fail, parsing_node);
-        // TODO: if a parsing node fails (for any reason), it should be pruned automatically, by leaving a blank node;
-        // * the blank node might be useful for more complex logic;
-        // * we also need to rewind the input and output when the parsing node fails;
-        // * so each parsing node needs to keep a list of the movements that it made;
-        // * and then we need to have methods on Tree to undo movements;
     }
     /**
      * This should be exclusive to parsing nodes.
@@ -417,6 +499,11 @@ class Hydra{
         }
         if(node_action == Hnode.fail){
             this.fail(parsing_node);
+        }
+        if(parsing_node.status === Hnode.fail){
+            for(const hydra_action of this.history.get(parsing_node).toReversed()){
+                this.undo(hydra_action);
+            }
         }
     }
 }
