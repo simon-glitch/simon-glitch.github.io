@@ -42,8 +42,8 @@ class Call_Node{
         this.args = a_args;
     }
     /** @param {Call_Node[]} a_children children to add to this Call_Node; */
-    add(a_children){
-        for(const child in a_children){
+    add(...a_children){
+        for(const child of a_children){
             this.children.push(child);
             child.parent = this;
         }
@@ -67,7 +67,7 @@ class Call_Tree{
     }
     down(obj, fn, ...args){
         const node = new Call_Node(obj, fn, args);
-        this.current.add([node]);
+        this.current.add(node);
         this.current = node;
     }
 }
@@ -194,8 +194,8 @@ class Hnode{
         this.children = [];
     }
     /** @param {Hnode[]} a_children children to add to this Hnode; */
-    add(a_children){
-        for(const child in a_children){
+    add(...a_children){
+        for(const child of a_children){
             this.children.push(child);
             child.parent = this;
         }
@@ -315,27 +315,6 @@ class Tree{
     }
 }
 
-class Output_Tree extends Tree{
-    /** @param {Hydra} a_hydra see Tree; */
-    constructor(a_hydra){
-        super(a_hydra);
-    }
-    /**
-     * Undo the movement in the head_action, but not anything else.
-     * @param {Head_Action} head_action
-     */
-    undo(head_action){
-        // what do you mean jank code? I've never written any jank code in my life;
-        // this code only has like 5 levels of jank, okay?
-        // I don't care if the official standard says 4 levels is enough to qualify as jank;
-        // my code has to be an exception to that rule, somehow;
-        // because I said so; hehehe;
-        if(head_action.move === Hnode.down)
-            this.current.parent.children[this.indices.at(-1)] = BLANK_NODE;
-        super.undo(head_action);
-    }
-}
-
 class Language_Hnode extends Hnode{
     static type = "language";
     /** @type {Match_Type?} */
@@ -344,6 +323,10 @@ class Language_Hnode extends Hnode{
     children = [];
     /** @type {Language_Hnode?} */
     parent = null;
+    /** type for new node to add to output tree; the node is added as a child of output.current; @type {string | ((input: Hnode) => string) | undefined} */
+    output_type = undefined;
+    /** Head_Action for the output tree; executed BEFORE the new node is added; @type {Head_Action?} */
+    output_action = null;
     constructor(a_type = Language_Hnode.type){
         super(a_type);
     }
@@ -356,6 +339,17 @@ class Language_Tree extends Tree{
     /** @param {Hydra} a_hydra see Tree; */
     constructor(a_hydra){
         super(a_hydra);
+    }
+}
+
+/** Class to store information about created nodes. */
+class Node_Creation{
+    /** index of the created node within the parent's children list; */
+    index = 0;
+    constructor(a_parent, a_index){
+        /** index of the created node within the parent's children list; @type {Hnode} */
+        this.parent = a_parent;
+        this.index = a_index;
     }
 }
 
@@ -374,7 +368,7 @@ class Parsing_Hnode extends Hnode{
     }
 }
 const BLANK_NODE = new Parsing_Hnode("BLANK");
-class Parsing_Tree extends Output_Tree{
+class Parsing_Tree extends Tree{
     /** @type {Parsing_Hnode} */
     current = null;
     /**
@@ -398,6 +392,10 @@ class Parsing_Tree extends Output_Tree{
         if(super.can_down(index)){
             return super.down(index);
         }
+        if(!this.hydra.history.has(this)){
+            this.hydra.history.set(this, []);
+        }
+        this.hydra.history.get(this).push(new Node_Creation(this.current, index));
         const node = new Parsing_Hnode(
             this.current.parent.language_node.children[index],
         );
@@ -409,13 +407,18 @@ class Parsing_Tree extends Output_Tree{
         if(super.can_next()){
             return super.next();
         }
-        this.indices[this.indices.length - 1]++;
+        const index = this.indices.at(-1) + 1;
+        this.indices[this.indices.length - 1] = index;
+        if(!this.hydra.history.has(this)){
+            this.hydra.history.set(this, []);
+        }
+        this.hydra.history.get(this).push(new Node_Creation(this.current.parent, index));
         const node = new Parsing_Hnode(
-            this.current.parent.language_node.children[this.indices.at(-1)],
+            this.current.parent.language_node.children[index],
         );
-        this.current.parent.children[this.indices.at(-1)] = node;
+        this.current.parent.children[index] = node;
         node.parent = this.current.parent;
-        this.current = this.current.parent.children[this.indices.at(-1)];
+        this.current = this.current.parent.children[index];
     }
 }
 
@@ -448,8 +451,8 @@ class Hydra{
     constructor(){
         /** @type {Tree} */
         this.input = new Tree(this);
-        /** @type {Output_Tree} */
-        this.output = new Output_Tree(this);
+        /** @type {Tree} */
+        this.output = new Tree(this);
         /** @type {Language_Tree} */
         this.language = new Language_Tree(this);
         /** @type {Parsing_Tree} */
@@ -530,7 +533,7 @@ class Hydra{
     /**
      * This should be exclusive to parsing nodes.
      * @param {Symbol} node_action `Hnode.enter`, `Hnode.succeed`, or `Hnode.fail`;
-     * @param {*} parsing_node the node the action is being executed on;
+     * @param {Parsing_Hnode} parsing_node the node the action is being executed on;
      */
     node_action(node_action, parsing_node){
         if(node_action == Hnode.none){
@@ -544,6 +547,15 @@ class Hydra{
         }
         if(node_action == Hnode.fail){
             this.fail(parsing_node);
+        }
+        if(parsing_node.status === Hnode.succeed){
+            const ln = parsing_node.language_node;
+            if(ln.output_type){
+                const type = (typeof ln.output_type === "function") ? ln.output_type(this.input.current) : String(ln.output_type);
+                if(ln.output_action) this.output.execute(ln.output_action);
+                this.history.get(parsing_node).push(new Node_Creation(this.output.current, this.output.current.length));
+                this.output.current.add(new Hnode(type));
+            }
         }
         if(parsing_node.status === Hnode.fail){
             for(const hydra_action of this.history.get(parsing_node).toReversed()){
