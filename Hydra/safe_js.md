@@ -20,11 +20,13 @@ The policies are:
 * Cannot get `constructor` of non-Object. The user can only read the `constructor` property on their own custom classes, and on any instance they make of plain `Object`. If trying to get `constructor` of an arbitrary builtin, the user will instead usually get "Cannot access property of builtin because it is not whitelisted.". However, if the constructor property was whitelisted, which would be dumb, it would still be disallowed, since "Cannot get `constructor` of non-Object." includes all objects not defined by the user.
 * Cannot access arbitrary properties of an object with an undetermined type. This is because it needs to verify the object's type for some of the earlier policies.
 * Where `Function.propotype.call / apply / bind` is used, the parser will rerun static type evaluation. Therefore, the user cannot pass undetermined values of `thisArg` into them.
+* Cannot access property of object because it might be a non-Object. This is similar to the other rules. If the type checker can't prove the object is an instance of Object or a user defined class, then accessing its properties might be illegal because they might not be whitelisted.
 
 Fun notes:
 * Allowing user code to contain more calls to `eval` and `Function` should be reasonable under this system. Since each call would run the same checks. `(function(){}).constructor` is not allowed, but referencing `Function` directly would be, if you include `Function` in `myWindow`.
 * `Object.defineProperty` and similar methods will be allowed as long as the user is allowed to read and write to those properties on the sepcific object.
 * Psuedo classes are allowed. Meaning the user can use generic functions as constructors. Modifying `__proto__` and `constructor` on user defined objects is also allowed.
+* `__defineGetter__`, `__defineSetter__`, `__lookupGetter__`, `__lookupSetter__`, `__proto__`, `constructor`, `hasOwnProperty`, `isPrototypeOf`, `propertyIsEnumerable`, `toLocaleString`, `toString`, and `valueOf` on the `Object` prototype are always allowed.
 
 # Infinite loops
 I think checking for infinite loops is pointless. For example, loops with infinite branching or recursion are not feasible to detect. Also, regular expressions can be designed to take a stupidly long time to execute. Like `(((((((((.+)\9+)\8+)\7+)\6+)\5+)\4+)\3+)\2+)\1+`, which checks for a string whose length can be factored into the product of 9 numbers (with the first factor being 1 or more, and all other factors being 2 or more). To match a string of length n, the runtime is O(n^10), which is basically infinite.
