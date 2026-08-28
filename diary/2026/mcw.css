@@ -1,19 +1,95 @@
+/* Base CSS */
+.ext-discussiontools-visualenhancements-enabled .ext-discussiontools-init-section.mw-heading2 { margin-top: 24px; margin-bottom: 0px; }
 
-:root{
-    --comment-background-color-0: hsl(10, 70%, 66%);
-    --comment-background-color-1: hsl(47, 70%, 65%);
-    --comment-background-color-2: hsl(87, 70%, 46%);
-    --comment-background-color-3: hsl(156, 70%, 43%);
-    --comment-background-color-4: hsl(185, 70%, 46%);
-    --comment-background-color-5: hsl(230, 70%, 74%);
-    --comment-background-color-6: hsl(275, 70%, 69%);
-    --comment-background-color-7: hsl(315, 70%, 57%);
-    --comment-border-color-0: hsl(10, 100%, 64%);
-    --comment-border-color-1: hsl(47, 100%, 62%);
-    --comment-border-color-2: hsl(87, 100%, 44%);
-    --comment-border-color-3: hsl(156, 100%, 41%);
-    --comment-border-color-4: hsl(185, 100%, 44%);
-    --comment-border-color-5: hsl(230, 100%, 71%);
-    --comment-border-color-6: hsl(275, 100%, 67%);
-    --comment-border-color-7: hsl(315, 100%, 49%);
+.ext-discussiontools-ui-replyWidget-footer, .ext-discussiontools-init-timestamplink, .ext-discussiontools-init-timestamplink:visited, .ext-discussiontools-init-timestamplink:active, .ext-discussiontools-init-pageframe-latestcomment, .ext-discussiontools-visualenhancements-enabled .ext-discussiontools-init-section-metaitem { color: var(--content-secondary-text-color,var(--color-placeholder,#72777d)); }
+
+body.ext-discussiontools-visualenhancements-enabled dl:not(:has(dt:first-child)) { --reply-odd: var(--_reply-odd); --reply-even: var(--_reply-even); background: var(--reply-odd,var(--comment-background-color-alternate)) var(--reply-even,var(--comment-background-color)); padding-bottom: 0.5em; border-left: 1px dotted var(--comment-border-color); }
+
+body.ext-discussiontools-visualenhancements-enabled dd { margin-left: 1em; margin-inline-start: 1em; }
+
+body.ext-discussiontools-visualenhancements-enabled :is(dl:has(+ dl), dl dl) { margin-bottom: -0.5em; }
+
+body.ext-discussiontools-visualenhancements-enabled dl > * { --_reply-odd: var(--reply-even); --_reply-even: var(--reply-odd); padding-right: 1em; }
+
+body.ext-discussiontools-visualenhancements-enabled dd:first-child:not(:has(> dl:first-child)) { margin-top: 0.5em; padding-top: 0.5em; border-top: 1px dotted var(--comment-border-color); }
+
+body.ext-discussiontools-visualenhancements-enabled dd:last-child { margin-bottom: 0px; }
+
+body.ext-discussiontools-visualenhancements-enabled dd:not(:last-child):has([data-mw-comment-end]) { margin-bottom: 0.5em; padding-bottom: 0.5em; border-bottom: 1px dotted var(--comment-border-color); }
+
+body.ext-discussiontools-visualenhancements-enabled dl:not(:has(+ dl > dd)) { margin-right: -1em; }
+
+body.ext-discussiontools-visualenhancements-enabled :is(.mw-parser-output, .mw-parser-output :not(dl, dd)) > dl:not(:has(dt:first-child)) { border-right: 1px dotted var(--comment-border-color); }
+
+body.ext-discussiontools-visualenhancements-enabled :is(.mw-parser-output, .mw-parser-output :not(dl, dd)) > dl:not(:has(dt:first-child), :has(+ dl > dd)) { width: calc(100% - 2px); border-bottom: 1px dotted var(--comment-border-color); }
+
+/* My CSS */
+.ext-discussiontools-init-timestamplink {
+    font-size: 8px;
+    white-space: nowrap;
 }
+
+.wgl-theme-dark .mw-parser-output .external {
+    color: rgb(192, 121, 255);
+}
+
+.mw-parser-output {
+    --_reply-off: ;
+    --_reply-0o8: initial;
+    --_reply-1o8: var(--_reply-off);
+    --_reply-2o8: var(--_reply-off);
+    --_reply-3o8: var(--_reply-off);
+    --_reply-4o8: var(--_reply-off);
+    --_reply-5o8: var(--_reply-off);
+    --_reply-6o8: var(--_reply-off);
+    --_reply-7o8: var(--_reply-off);
+    --comment-background-color-0: hsl(10,70%,76%);
+    --comment-background-color-1: hsl(36,70%,75%);
+    --comment-background-color-2: hsl(74,68%,75%);
+    --comment-background-color-3: hsl(160,73%,56%);
+    --comment-background-color-4: hsl(192,70%,54%);
+    --comment-background-color-5: hsl(251,70%,80%);
+    --comment-background-color-6: hsl(299,70%,75%);
+    --comment-background-color-7: hsl(325,75%,78%);
+    --comment-border-color-0: hsl(10,100%,51%);
+    --comment-border-color-1: hsl(38,100%,49%);
+    --comment-border-color-2: hsl(66,100%,34%);
+    --comment-border-color-3: hsl(156,100%,31%);
+    --comment-border-color-4: hsl(201,100%,34%);
+    --comment-border-color-5: hsl(259,100%,71%);
+    --comment-border-color-6: hsl(293,100%,67%);
+    --comment-border-color-7: hsl(321,100%,49%);
+}
+
+dl, dd {
+    border-width: 2px !important;
+}
+
+body.ext-discussiontools-visualenhancements-enabled dl {
+    --reply-0o8: var(--_reply-0o8);
+    --reply-1o8: var(--_reply-1o8);
+    --reply-2o8: var(--_reply-2o8);
+    --reply-3o8: var(--_reply-3o8);
+    --reply-4o8: var(--_reply-4o8);
+    --reply-5o8: var(--_reply-5o8);
+    --reply-6o8: var(--_reply-6o8);
+    --reply-7o8: var(--_reply-7o8);
+    background: var(--reply-0o8,var(--comment-background-color-0)) var(--reply-1o8,var(--comment-background-color-1)) var(--reply-2o8,var(--comment-background-color-2)) var(--reply-3o8,var(--comment-background-color-3)) var(--reply-4o8,var(--comment-background-color-4)) var(--reply-5o8,var(--comment-background-color-5)) var(--reply-6o8,var(--comment-background-color-6)) var(--reply-7o8,var(--comment-background-color-7)) !important;
+    --comment-border-color: var(--reply-0o8,var(--comment-border-color-0)) var(--reply-1o8,var(--comment-border-color-1)) var(--reply-2o8,var(--comment-border-color-2)) var(--reply-3o8,var(--comment-border-color-3)) var(--reply-4o8,var(--comment-border-color-4)) var(--reply-5o8,var(--comment-border-color-5)) var(--reply-6o8,var(--comment-border-color-6)) var(--reply-7o8,var(--comment-border-color-7)) !important;
+}
+
+body.ext-discussiontools-visualenhancements-enabled dl > dd {
+    --_reply-0o8: var(--reply-7o8);
+    --_reply-1o8: var(--reply-0o8);
+    --_reply-2o8: var(--reply-1o8);
+    --_reply-3o8: var(--reply-2o8);
+    --_reply-4o8: var(--reply-3o8);
+    --_reply-5o8: var(--reply-4o8);
+    --_reply-6o8: var(--reply-5o8);
+    --_reply-7o8: var(--reply-6o8);
+}
+
+body {
+    font-family: Tahoma;
+}
+

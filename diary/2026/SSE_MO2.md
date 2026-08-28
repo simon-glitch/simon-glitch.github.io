@@ -1,6 +1,7 @@
 
 Well, here is the full instructions:
 0. If you downloaded Skyrim from Epic Games, you might be screwed since I didn't see a version of Script Extender for it.
+    Make sure to delete the !Downloads folder in Skyrim if it exists. It stores 26 GB of copies of the game's data, and you don't need it. It's just a temporary folder used to initially download the game. **If you forget** this step, you will have to delete !Downloads from Root Builder's backup folder as well. The !Downloads folder also significantly slows down MO2's VFS, especially on closing.
 1. Move Skyrim to a folder that is not in Program Files or App Data. For example, make a new folder called C:\Games. Make sure any other files involved are also not in Program Files or App Data.
 2. Thorough out this process we will have to do a lot of downloading and uploadng, which are different things. In general, you first have to download something from Nexus mods. Then you have to install it by doing other things on your computer.
 3. Now, in order to download things from Nexus, we need to sign up first. So go ahead and do that.
