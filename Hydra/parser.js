@@ -205,7 +205,7 @@ class Hnode{
     }
     load(o){
         if(o.type) this.type = o.type;
-        if(o.children) this.add(o.children.map(
+        if(o.children) this.add(...o.children.map(
             c => (new Hnode()).load(c)
         ));
         if(!isNaN(o.start)) this.start = Number(o.start);
