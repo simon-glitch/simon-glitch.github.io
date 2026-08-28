@@ -34,6 +34,8 @@ class RecursionError extends Error{
 class Call_Node{
     type = "";
     constructor(a_obj, a_fn, a_args){
+        /** @type {Call_Node[]} */
+        this.children = [];
         /** @type {any} */
         this.obj = a_obj;
         /** @type {Function} */
@@ -159,6 +161,7 @@ class Head_Action{
     /** Triggers if move action fails. This is triggered on the Match_Type containing this Head_Action. @type {Hydra_Action?} */
     on_move_fail = null;
 }
+
 /** Hnode stands for Hydra node; */
 class Hnode{
     static none    = Symbol("Hnode.none"   );
@@ -169,18 +172,18 @@ class Hnode{
     static down    = Symbol("Hnode.down"   );
     static next    = Symbol("Hnode.next"   );
     // JavaScript classes evaluate static and prototype items in order while creating the class, so this works;
-    static Hnode_Action = new Set([
-        Hnode.none,
+    static Hnode_Action_E = new Set([
         Hnode.enter,
         Hnode.succeed,
         Hnode.fail,
     ]);
-    static Hmove = new Set([
-        Hnode.none,
+    static Hmove_E = new Set([
         Hnode.up,
         Hnode.down,
         Hnode.next,
     ]);
+    static Hnode_Action = new Set([Hnode.none, ...Hnode.Hnode_Action_E]);
+    static Hmove = new Set([Hnode.none, ...Hnode.Hmove_E]);
     type = "";
     start = 0;
     end = 0;
@@ -200,8 +203,16 @@ class Hnode{
             child.parent = this;
         }
     }
+    load(o){
+        if(o.type) this.type = o.type;
+        if(o.children) this.add(o.children.map(
+            c => (new Hnode()).load(c)
+        ));
+        if(!isNaN(o.start)) this.start = Number(o.start);
+        if(!isNaN(o.end)) this.end = Number(o.end);
+        return this;
+    }
 }
-
 class Tree{
     /** @param {Hydra} a_hydra the hydra this tree is a part of (each tree is one of the hydra's heads); */
     constructor(a_hydra){
@@ -271,7 +282,7 @@ class Tree{
             if(!Hnode.Hmove.has(head_action.move)){
                 throw TypeError(`${head_action.move} is not a valid direction;`);
             }
-            succeed = true;
+            let succeeded = true;
             switch(head_action.move){
                 case Hnode.none: break;
                 case Hnode.up  : succeeded = (this.can_up() ? (head_action.index = this.up(), true) : false); break;
@@ -279,24 +290,26 @@ class Tree{
                 case Hnode.next: succeeded = (this.can_next() ? (this.next(), true) : false); break;
             }
             
-            if(succeeded && head_action.on_move_succeed){
+            if(succeeded && Hnode.Hnode_Action_E.has(head_action.on_move_succeed)){
+                console.log("on_move_succeed");
                 this.hydra.execute(head_action.on_move_succeed, parsing_node);
             }
             if(!succeeded){
-                if(!head_action.on_move_fail) throw new RangeError("Failed to move in Tree.", {cause: {source, head_action}});
+                if(!Hnode.Hnode_Action_E.has(head_action.on_move_fail)) throw new RangeError("Failed to move in Tree.", {cause: {source, head_action}});
+                console.log("on_move_fail");
                 this.hydra.execute(head_action.on_move_fail, parsing_node);
             }
             target = this.current;
         }
-        if(Hnode.Hnode_Action.has(head_action.source)){
+        if(Hnode.Hnode_Action_E.has(head_action.source)){
             this.hydra.node_action(head_action.source, source);
         }
-        if(Hnode.Hnode_Action.has(head_action.target)){
+        if(Hnode.Hnode_Action_E.has(head_action.target)){
             this.hydra.node_action(head_action.target, target);
         }
         // default behavior: enter the target;
         if(!head_action.source && !head_action.target){
-            this.hydra.queue.push([target, Hnode.enter]);
+            this.hydra.node_action(Hnode.enter, target);
         }
     }
     /**
@@ -313,10 +326,19 @@ class Tree{
             case Hnode.next: this.prev(); break;
         }
     }
+    load(o){
+        if(o){
+            if(o.root) this.root.load(o.root);
+            if(o.indices) this.indices = o.indices;
+        }
+        return this;
+    }
 }
 
 class Language_Hnode extends Hnode{
     static type = "language";
+    /** @type {string | undefined} */
+    parsing_type = undefined;
     /** @type {Match_Type?} */
     match_type = null;
     /** @type {Language_Hnode[]} */
@@ -329,6 +351,18 @@ class Language_Hnode extends Hnode{
     output_action = null;
     constructor(a_type = Language_Hnode.type){
         super(a_type);
+    }
+    load(o){
+        super.load(o);
+        if(o.parsing_type) this.parsing_type = o.parsing_type;
+        if(o.match_type) this.match_type = new Match_Type(o.match_type);
+        if(o.output_type !== undefined) this.output_type = (
+            typeof o.output_type === "function" ?
+            o.output_type :
+            String(o.output_type)
+        );
+        if(o.output_action) this.output_action = new Head_Action(o.output_action);
+        return this;
     }
 }
 class Language_Tree extends Tree{
@@ -361,8 +395,8 @@ class Parsing_Hnode extends Hnode{
     children = [];
     /** @type {Parsing_Hnode?} */
     parent = null;
-    constructor(a_language_node, a_type = Parsing_Hnode.type){
-        super(a_type);
+    constructor(a_language_node, a_type){
+        super(a_type ?? a_language_node.parsing_type ?? Parsing_Hnode.type);
         /** @type {Language_Hnode} */
         this.language_node = a_language_node;
     }
@@ -422,39 +456,17 @@ class Parsing_Tree extends Tree{
     }
 }
 
-/*
-things we should logically do in order to parse text:
-* enter the root Language_Hnode;
-* when we do this, we should see which Match_Type that Language_Hnode uses;
-* we should then run the on_enter logic;
-* the system should work like a stack, so if on_enter triggers an action, we should run that action;
-* then if that Match_Type has its mactch_type == true, we should see if the current input node has the same type as the language node;
-* and then run on_succeed or on_fail based on that;
-* again, if more actions are triggered, we should run them immediately;
-* logically, we should be all done after this, because the Match_Type is responsible for using the stack behavior to ensure that every node is processes and visited;
-* also, it is not possible to enter a Match_Type, nor process one directly, because they are abstract;
-* which makes everything confusing because Match_Type is the primary type and has the most important and basic information on it;
-
-Now I am getting very confused by the difference between the parsing tree and the language tree.
-* The language tree is actual language features and it technically a directed graph that can have loops.
-* The parsing tree is basically a document telling us which language nodes succeeded and in what structure they did.
-* So in a sense, the language tree is a type of input and the parsing tree is a type of output.
-* When we backtrack, we can use the parsing tree to solve ambiguous situations in the language tree. Since again, the language tree is a graph not a tree. To clarify, a node in the language tree can have multiple parents (though we will only store one because we won't need to read it anyways). While a node in the parsing tree can only have one parent. So the parsing tree answers about what actually happened in the language tree.
-
-Now that I've sorted this out, I am significantly more confused about how I'm supposed to implement any of this. And I have no idea whether I'm supposed to "process" language nodes or parsing nodes.
-
-Okay I've decided that I'm going to process parsing nodes, and create them procedurally. So when you call down or next on a parsing node, it creates the respective node automatically. I should also make it so each node deletes itself when it fails, but only after we've processed all events for that node.
-
-*/
-
 class Hydra{
-    constructor(){
+    constructor(o){
         /** @type {Tree} */
         this.input = new Tree(this);
+        this.input.load(o?.input);
         /** @type {Tree} */
         this.output = new Tree(this);
+        this.output.load(o?.output);
         /** @type {Language_Tree} */
         this.language = new Language_Tree(this);
+        this.language.load(o?.language);
         /** @type {Parsing_Tree} */
         this.parsing = new Parsing_Tree(this, this.language);
         /** The history of what actions each parsing node has triggered. This is used to undo movements in the trees. @type {Map<Parsing_Hnode, Hydra_Action[]>} */
@@ -713,4 +725,73 @@ class Layer extends Language_Hnode{
     match_type = M_Layer;
     entered = false;
 }
+
+const call_tree = new Call_Tree();
+
+// the Call_Tree_ification beam;
+const method_names = [
+    "add",
+    "load",
+    "up",
+    "down",
+    "next",
+    "prev",
+    "can_up",
+    "can_down",
+    "can_next",
+    "move",
+    "execute",
+    "undo",
+    "enter",
+    "succeed",
+    "fail",
+    "node_action",
+];
+const call_tree_ified = Symbol("call_tree_ified");
+function call_tree_ify(obj){
+    function add(prop){
+        const value = obj[prop];
+        if(typeof value !== "function") return;
+        if(obj[prop][call_tree_ified]) return;
+        obj[prop] = function(){
+            // console.log("this", this);
+            call_tree.down(this, value, arguments);
+            const res = value.apply(this, arguments);
+            call_tree.up();
+            return res;
+        }
+        obj[prop][call_tree_ified] = true;
+        obj[prop].toString = function(){
+            return "Call_Tree_ified " + value;
+        }
+    }
+    for(const prop of method_names){
+        add(prop);
+    }
+}
+function call_tree_ify_a(cs){
+    for(const c of cs){
+        call_tree_ify(c.prototype);
+    }
+}
+call_tree_ify_a([
+    Match_Type,
+    Hydra_Action,
+    Head_Action,
+    Hnode,
+    Tree,
+    Language_Hnode,
+    Language_Tree,
+    Node_Creation,
+    Parsing_Hnode,
+    Parsing_Tree,
+    Hydra,
+    Leaf,
+    Choice,
+    List,
+    Multiple,
+    Layer,
+]);
+
+
 
