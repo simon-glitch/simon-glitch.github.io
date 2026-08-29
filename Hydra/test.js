@@ -12,9 +12,10 @@ hydra.execute(new Hydra_Action({
     input: new Head_Action({
         move: Hnode.down,
     }),
-}));
+}), hydra.parsing.root);
 
 const leaf = new Leaf("b");
+leaf.output_type = "hi";
 
 hydra.language.load({root:{children:[leaf]}});
 hydra.parsing.down();

@@ -67,7 +67,7 @@ class Call_Tree{
     up(){
         this.current = this.current.parent;
     }
-    down(obj, fn, ...args){
+    down(obj, fn, args){
         const node = new Call_Node(obj, fn, args);
         this.current.add(node);
         this.current = node;
@@ -432,10 +432,10 @@ class Parsing_Tree extends Tree{
         if(super.can_down(index)){
             return super.down(index);
         }
-        if(!this.hydra.history.has(this)){
-            this.hydra.history.set(this, []);
+        if(!this.hydra.history.has(this.current)){
+            this.hydra.history.set(this.current, []);
         }
-        this.hydra.history.get(this).push(new Node_Creation(this.current, index));
+        this.hydra.history.get(this.current).push(new Node_Creation(this.current, index));
         const node = new Parsing_Hnode(
             this.current.language_node.children[index],
         );
@@ -501,9 +501,13 @@ class Hydra{
     }
     /**
      * Undo the movements in the hydra_action, but not anything else.
-     * @param {Hydra_Action} hydra_action
+     * @param {Hydra_Action | Node_Creation} hydra_action
      */
     undo(hydra_action){
+        if(hydra_action instanceof Node_Creation){
+            hydra_action.parent.children[hydra_action.index] = BLANK_NODE;
+            return;
+        }
         if(hydra_action.input)
             this.input.undo(hydra_action.input);
         if(hydra_action.output)
@@ -575,14 +579,19 @@ class Hydra{
             if(ln.output_type){
                 const type = (typeof ln.output_type === "function") ? ln.output_type(this.input.current) : String(ln.output_type);
                 if(ln.output_action) this.output.execute(ln.output_action);
+                if(!this.history.has(parsing_node)){
+                    this.history.set(parsing_node, []);
+                }
                 this.history.get(parsing_node).push(new Node_Creation(this.output.current, this.output.current.length));
                 this.output.current.add(new Hnode(type));
             }
+            parsing_node.status = Hnode.none;
         }
         if(parsing_node.status === Hnode.fail){
             for(const hydra_action of this.history.get(parsing_node).toReversed()){
                 this.undo(hydra_action);
             }
+            parsing_node.status = Hnode.none;
         }
     }
 }
