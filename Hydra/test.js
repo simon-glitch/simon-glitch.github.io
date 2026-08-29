@@ -14,6 +14,12 @@ hydra.execute(new Hydra_Action({
     }),
 }));
 
+const leaf = new Leaf("b");
+
+hydra.language.load({root:{children:[leaf]}});
+hydra.parsing.down();
+hydra.node_action(Hnode.enter, hydra.parsing.current);
+
 console.log(call_tree);
 
 

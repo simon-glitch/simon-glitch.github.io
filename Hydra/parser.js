@@ -206,7 +206,7 @@ class Hnode{
     load(o){
         if(o.type) this.type = o.type;
         if(o.children) this.add(...o.children.map(
-            c => (new Hnode()).load(c)
+            c => (c instanceof this.constructor ? c : (new this.constructor()).load(c))
         ));
         if(!isNaN(o.start)) this.start = Number(o.start);
         if(!isNaN(o.end)) this.end = Number(o.end);
@@ -328,6 +328,7 @@ class Tree{
     }
     load(o){
         if(o){
+            console.log("this", this);
             if(o.root) this.root.load(o.root);
             if(o.indices) this.indices = o.indices;
         }
@@ -373,6 +374,10 @@ class Language_Tree extends Tree{
     /** @param {Hydra} a_hydra see Tree; */
     constructor(a_hydra){
         super(a_hydra);
+        this.root = new Language_Hnode("root");
+        this.current = this.root;
+        console.log("root?", this.root);
+        console.log("current?", this.current);
     }
 }
 
@@ -404,6 +409,8 @@ class Parsing_Hnode extends Hnode{
 const BLANK_NODE = new Parsing_Hnode("BLANK");
 class Parsing_Tree extends Tree{
     /** @type {Parsing_Hnode} */
+    root = null;
+    /** @type {Parsing_Hnode} */
     current = null;
     /**
      * @param {Language_Tree} a_language_tree the parsing tree uses this to automatically construct nodes;
@@ -412,9 +419,8 @@ class Parsing_Tree extends Tree{
     constructor(a_hydra, a_language_tree){
         super(a_hydra);
         this.language_tree = a_language_tree;
-        /** @type {Parsing_Hnode} */
-        this.root = new Parsing_Hnode(this.language_tree.root, this.root.type, this.root.start, this.root.end);
-        
+        this.root = new Parsing_Hnode(this.language_tree.root, "root");
+        this.current = this.root;
     }
     can_down(index = 0){
         return this.language_tree.can_down(index);
@@ -431,7 +437,7 @@ class Parsing_Tree extends Tree{
         }
         this.hydra.history.get(this).push(new Node_Creation(this.current, index));
         const node = new Parsing_Hnode(
-            this.current.parent.language_node.children[index],
+            this.current.language_node.children[index],
         );
         this.current.children[index] = node;
         node.parent = this.current;
@@ -460,23 +466,27 @@ class Hydra{
     constructor(o){
         /** @type {Tree} */
         this.input = new Tree(this);
-        this.input.load(o?.input);
         /** @type {Tree} */
         this.output = new Tree(this);
-        this.output.load(o?.output);
         /** @type {Language_Tree} */
         this.language = new Language_Tree(this);
-        this.language.load(o?.language);
         /** @type {Parsing_Tree} */
         this.parsing = new Parsing_Tree(this, this.language);
         /** The history of what actions each parsing node has triggered. This is used to undo movements in the trees. @type {Map<Parsing_Hnode, Hydra_Action[]>} */
         this.history = new Map();
+        if(o) this.load(o);
+    }
+    load(o){
+        if(o.input) this.input.load(o.input);
+        if(o.output) this.output.load(o.output);
+        if(o.language) this.language.load(o.language);
     }
     /**
      * @param {Hydra_Action} hydra_action
      * @param {Parsing_Hnode} parsing_node
      */
     execute(hydra_action, parsing_node){
+        if(!hydra_action) return;
         if(!this.history.has(parsing_node)){
             this.history.set(parsing_node, []);
         }
@@ -699,6 +709,10 @@ const M_Layer = new Match_Type({
 
 class Leaf extends Language_Hnode{
     match_type = M_Leaf;
+    constructor(a_type){
+        super(a_type);
+        this.parsing_type = "parsing_leaf";
+    }
 }
 class Choice extends Language_Hnode{
     match_type = M_Choice;
