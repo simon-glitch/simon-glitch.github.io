@@ -196,16 +196,20 @@ class Hnode{
         /** @type {Hnode[]} */
         this.children = [];
     }
+    /** @param {Hnode[]} child child to add to this Hnode; */
+    add(child){
+        this.children.push(child);
+        child.parent = this;
+    }
     /** @param {Hnode[]} a_children children to add to this Hnode; */
-    add(...a_children){
+    add_m(a_children){
         for(const child of a_children){
-            this.children.push(child);
-            child.parent = this;
+            this.add(child);
         }
     }
     load(o){
         if(o.type) this.type = o.type;
-        if(o.children) this.add(...o.children.map(
+        if(o.children) this.add_m(o.children.map(
             c => (c instanceof this.constructor ? c : (new this.constructor()).load(c))
         ));
         if(!isNaN(o.start)) this.start = Number(o.start);
@@ -562,20 +566,21 @@ class Hydra{
      * @param {Parsing_Hnode} parsing_node the node the action is being executed on;
      */
     node_action(node_action, parsing_node){
-        if(node_action == Hnode.none){
+        if(node_action === Hnode.none){
             throw new TypeError("Cannot execute action Hnode.none on an Hnode. You should specify an actual action.");
         }
-        if(node_action == Hnode.enter){
+        if(node_action === Hnode.enter){
             this.enter(parsing_node);
         }
-        if(node_action == Hnode.succeed){
+        if(node_action === Hnode.succeed){
             this.succeed(parsing_node);
         }
-        if(node_action == Hnode.fail){
+        if(node_action === Hnode.fail){
             this.fail(parsing_node);
         }
         if(parsing_node.status === Hnode.succeed){
             const ln = parsing_node.language_node;
+            // TODO: add up and down logic to output gen;
             if(ln.output_type){
                 const type = (typeof ln.output_type === "function") ? ln.output_type(this.input.current) : String(ln.output_type);
                 if(ln.output_action) this.output.execute(ln.output_action);
@@ -718,35 +723,100 @@ const M_Layer = new Match_Type({
 
 class Leaf extends Language_Hnode{
     match_type = M_Leaf;
-    constructor(a_type){
-        super(a_type);
+    constructor(o){
+        super(o.match_type);
         this.parsing_type = "parsing_leaf";
+        this.add_m(o.children);
     }
 }
 class Choice extends Language_Hnode{
     match_type = M_Choice;
+    constructor(o){
+        super("choice");
+        this.parsing_type = "parsing_choice";
+        this.add_m(o.children);
+    }
 }
 class List extends Language_Hnode{
     match_type = M_List;
+    constructor(o){
+        super("list");
+        this.parsing_type = "parsing_list";
+        this.add_m(o.children);
+    }
 }
 class Multiple extends Language_Hnode{
     had_one = false;
-    static ONE = class ONE{
+    constructor(o){
+        super("multiple");
+        this.parsing_type = "parsing_multiple";
+        this.add_m(o.children);
+    }
+    static ONE = class ONE extends Multiple{
         match_type = M_Multiple_ONE;
+        constructor(o){super(o);}
     }
-    static ONE_OR_MORE = class ONE_OR_MORE{
+    static ONE_OR_MORE = class ONE_OR_MORE extends Multiple{
         match_type = M_Multiple_ONE_OR_MORE;
+        constructor(o){super(o);}
     }
-    static ZERO_OR_ONE = class ZERO_OR_ONE{
+    static ZERO_OR_ONE = class ZERO_OR_ONE extends Multiple{
         match_type = M_Multiple_ZERO_OR_ONE;
+        constructor(o){super(o);}
     }
-    static ZERO_OR_MORE = class ZERO_OR_MORE{
+    static ZERO_OR_MORE = class ZERO_OR_MORE extends Multiple{
         match_type = M_Multiple_ZERO_OR_MORE;
+        constructor(o){super(o);}
     }
 }
 class Layer extends Language_Hnode{
     match_type = M_Layer;
     entered = false;
+    constructor(o){
+        super(o.match_type);
+        this.parsing_type = "parsing_layer";
+        this.add_m(o.children);
+    }
+}
+
+class Parser{
+    /** The source text. */
+    source = "";
+    constructor(o){
+        this.source = o.source ?? this.source;
+        /** @type {Hydra[]} */
+        this.steps = o.steps.map(c => {
+            if(c instanceof Hydra) return c;
+            return new Hydra({language: {root: c}});
+        });
+        if(this.steps.length === 0){
+            throw new TypeError("Parser requires at least one parsing step.");
+        }
+        for(let i = 1; i < this.steps.length; i++){
+            const o_i = o.steps?.[i]?.input;
+            if(o_i && !o.steps?.[i - 1]?.output){
+                this.steps[i - 1].output = this.steps[i].input;
+            }
+            if(!o_i) this.steps[i].input = this.steps[i - 1].output;
+        }
+    }
+    chars(){
+        const tree = this.steps[0].input;
+        tree.current.children = [];
+        for(const char in this.source){
+            const outer = new Hnode("char");
+            const inner = new Hnode(char);
+            outer.add(inner);
+            tree.current.add(outer);
+        }
+    }
+    parse(){
+        for(const hydra of this.steps){
+            hydra.input.down();
+            hydra.parsing.down();
+            hydra.execute(Hnode.enter, hydra.parsing.current);
+        }
+    }
 }
 
 const call_tree = new Call_Tree();
@@ -769,6 +839,8 @@ const method_names = [
     "succeed",
     "fail",
     "node_action",
+    "chars",
+    "parse",
 ];
 const call_tree_ified = Symbol("call_tree_ified");
 function call_tree_ify(obj){
@@ -814,6 +886,7 @@ call_tree_ify_a([
     List,
     Multiple,
     Layer,
+    Parser,
 ]);
 
 
