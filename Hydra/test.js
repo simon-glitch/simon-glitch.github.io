@@ -14,7 +14,7 @@ hydra.execute(new Hydra_Action({
     }),
 }), hydra.parsing.root);
 
-const leaf = new Leaf("b");
+const leaf = new Leaf({type: "b"});
 leaf.output_type = "hi";
 
 hydra.language.load({root:{children:[leaf]}});

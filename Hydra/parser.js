@@ -203,7 +203,7 @@ class Hnode{
     }
     /** @param {Hnode[]} a_children children to add to this Hnode; */
     add_m(a_children){
-        for(const child of a_children){
+        if(a_children) for(const child of a_children){
             this.add(child);
         }
     }
@@ -354,6 +354,8 @@ class Language_Hnode extends Hnode{
     output_type = undefined;
     /** Head_Action for the output tree; executed BEFORE the new node is added; @type {Head_Action?} */
     output_action = null;
+    /** whether the new node gets its own branch in the output tree; @type {boolean} */
+    output_branch = false;
     constructor(a_type = Language_Hnode.type){
         super(a_type);
     }
@@ -367,6 +369,7 @@ class Language_Hnode extends Hnode{
             String(o.output_type)
         );
         if(o.output_action) this.output_action = new Head_Action(o.output_action);
+        this.output_branch = Boolean(o.output_branch);
         return this;
     }
 }
@@ -521,13 +524,26 @@ class Hydra{
     }
     /** @param {Parsing_Hnode} parsing_node it is pretty confusing, but this seems to be required; */
     enter(parsing_node){
-        const language_node = parsing_node.language_node;
-        const match_type = language_node.match_type;
+        const ln = parsing_node.language_node;
+        const match_type = ln.match_type;
         parsing_node.status = Hnode.enter;
+        
+        if(ln.output_type){
+            const type = (typeof ln.output_type === "function") ? ln.output_type(this.input.current) : String(ln.output_type);
+            if(!this.history.has(parsing_node)){
+                this.history.set(parsing_node, []);
+            }
+            this.history.get(parsing_node).push(new Node_Creation(this.output.current, this.output.current.length));
+            this.output.current.add(new Hnode(type));
+            if(ln.output_branch){
+                this.output.down(-1);
+                this.history.get(parsing_node).push(new Hydra_Action({output: new Head_Action({move: Hnode.down})}));
+            }
+        }
+        
         this.execute(match_type.on_enter, parsing_node);
-        // TODO: add logic for matching the input type and language node type is match_type.match_type == true;
         if(match_type.match_type){
-            if(language_node.type === this.input.current.type){
+            if(ln.type === this.input.current.type){
                 // I am using node_action here so the "undo movements on fail logic" will be properly handled;
                 // well or at least I think I should be doing that, but I haven't run the code yet,
                 // so it is really a mystery what I should or should not do;
@@ -537,10 +553,13 @@ class Hydra{
                 this.node_action(Hnode.fail, parsing_node)
             }
         }
+        if(ln.output_branch){
+            const index = this.output.up();
+            this.history.get(parsing_node).push(new Hydra_Action({output: new Head_Action({move: Hnode.up, index})}));
+        }
         // um, does this cover everything?
     }
     /**
-     * TODO: implement succeed logic;
      * @param {Parsing_Hnode} parsing_node ;
      */
     succeed(parsing_node){
@@ -551,7 +570,6 @@ class Hydra{
         // I have no idea what else should be here; perhaps this should just do nothing;
     }
     /**
-     * TODO: implement fail logic;
      * @param {Parsing_Hnode} parsing_node ;
      */
     fail(parsing_node){
@@ -579,9 +597,9 @@ class Hydra{
             this.fail(parsing_node);
         }
         if(parsing_node.status === Hnode.succeed){
+            /* Actually I don't need this, since I can handle it in enter;
             const ln = parsing_node.language_node;
-            // TODO: add up and down logic to output gen;
-            if(ln.output_type){
+            if(!ln.output_branch && ln.output_type){
                 const type = (typeof ln.output_type === "function") ? ln.output_type(this.input.current) : String(ln.output_type);
                 if(ln.output_action) this.output.execute(ln.output_action);
                 if(!this.history.has(parsing_node)){
@@ -590,6 +608,7 @@ class Hydra{
                 this.history.get(parsing_node).push(new Node_Creation(this.output.current, this.output.current.length));
                 this.output.current.add(new Hnode(type));
             }
+            */
             parsing_node.status = Hnode.none;
         }
         if(parsing_node.status === Hnode.fail){
@@ -724,7 +743,7 @@ const M_Layer = new Match_Type({
 class Leaf extends Language_Hnode{
     match_type = M_Leaf;
     constructor(o){
-        super(o.match_type);
+        super(o.type);
         this.parsing_type = "parsing_leaf";
         this.add_m(o.children);
     }
@@ -773,7 +792,7 @@ class Layer extends Language_Hnode{
     match_type = M_Layer;
     entered = false;
     constructor(o){
-        super(o.match_type);
+        super(o.type);
         this.parsing_type = "parsing_layer";
         this.add_m(o.children);
     }
