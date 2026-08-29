@@ -184,6 +184,7 @@ class Hnode{
     ]);
     static Hnode_Action = new Set([Hnode.none, ...Hnode.Hnode_Action_E]);
     static Hmove = new Set([Hnode.none, ...Hnode.Hmove_E]);
+    load_constructor = Hnode;
     type = "";
     start = 0;
     end = 0;
@@ -210,7 +211,7 @@ class Hnode{
     load(o){
         if(o.type) this.type = o.type;
         if(o.children) this.add_m(o.children.map(
-            c => (c instanceof this.constructor ? c : (new this.constructor()).load(c))
+            c => (c instanceof this.constructor ? c : (new this.load_constructor()).load(c))
         ));
         if(!isNaN(o.start)) this.start = Number(o.start);
         if(!isNaN(o.end)) this.end = Number(o.end);
@@ -332,7 +333,6 @@ class Tree{
     }
     load(o){
         if(o){
-            console.log("this", this);
             if(o.root) this.root.load(o.root);
             if(o.indices) this.indices = o.indices;
         }
@@ -342,6 +342,7 @@ class Tree{
 
 class Language_Hnode extends Hnode{
     static type = "language";
+    load_constructor = Language_Hnode;
     /** @type {string | undefined} */
     parsing_type = undefined;
     /** @type {Match_Type?} */
@@ -352,8 +353,6 @@ class Language_Hnode extends Hnode{
     parent = null;
     /** type for new node to add to output tree; the node is added as a child of output.current; @type {string | ((input: Hnode) => string) | undefined} */
     output_type = undefined;
-    /** Head_Action for the output tree; executed BEFORE the new node is added; @type {Head_Action?} */
-    output_action = null;
     /** whether the new node gets its own branch in the output tree; @type {boolean} */
     output_branch = false;
     constructor(a_type = Language_Hnode.type){
@@ -368,7 +367,6 @@ class Language_Hnode extends Hnode{
             o.output_type :
             String(o.output_type)
         );
-        if(o.output_action) this.output_action = new Head_Action(o.output_action);
         this.output_branch = Boolean(o.output_branch);
         return this;
     }
@@ -383,8 +381,6 @@ class Language_Tree extends Tree{
         super(a_hydra);
         this.root = new Language_Hnode("root");
         this.current = this.root;
-        console.log("root?", this.root);
-        console.log("current?", this.current);
     }
 }
 
@@ -401,6 +397,7 @@ class Node_Creation{
 
 class Parsing_Hnode extends Hnode{
     static type = "parsing";
+    load_constructor = Parsing_Hnode;
     /** @type {Symbol} `Hnode.none`, `Hnode.enter`, `Hnode.succeed`, or `Hnode.fail`; starts as `Hnode.none`; */
     status = Hnode.none;
     /** @type {Parsing_Hnode[]} */
@@ -413,7 +410,7 @@ class Parsing_Hnode extends Hnode{
         this.language_node = a_language_node;
     }
 }
-const BLANK_NODE = new Parsing_Hnode("BLANK");
+const BLANK_NODE = new Parsing_Hnode({}, "BLANK");
 class Parsing_Tree extends Tree{
     /** @type {Parsing_Hnode} */
     root = null;
@@ -745,7 +742,7 @@ class Leaf extends Language_Hnode{
     constructor(o){
         super(o.type);
         this.parsing_type = "parsing_leaf";
-        this.add_m(o.children);
+        this.load(o);
     }
 }
 class Choice extends Language_Hnode{
@@ -753,7 +750,7 @@ class Choice extends Language_Hnode{
     constructor(o){
         super("choice");
         this.parsing_type = "parsing_choice";
-        this.add_m(o.children);
+        this.load(o);
     }
 }
 class List extends Language_Hnode{
@@ -761,7 +758,7 @@ class List extends Language_Hnode{
     constructor(o){
         super("list");
         this.parsing_type = "parsing_list";
-        this.add_m(o.children);
+        this.load(o);
     }
 }
 class Multiple extends Language_Hnode{
@@ -769,7 +766,7 @@ class Multiple extends Language_Hnode{
     constructor(o){
         super("multiple");
         this.parsing_type = "parsing_multiple";
-        this.add_m(o.children);
+        this.load(o);
     }
     static ONE = class ONE extends Multiple{
         match_type = M_Multiple_ONE;
@@ -794,7 +791,7 @@ class Layer extends Language_Hnode{
     constructor(o){
         super(o.type);
         this.parsing_type = "parsing_layer";
-        this.add_m(o.children);
+        this.load(o);
     }
 }
 
@@ -806,7 +803,7 @@ class Parser{
         /** @type {Hydra[]} */
         this.steps = o.steps.map(c => {
             if(c instanceof Hydra) return c;
-            return new Hydra({language: {root: c}});
+            return new Hydra({language: {root: {children: [c]}}});
         });
         if(this.steps.length === 0){
             throw new TypeError("Parser requires at least one parsing step.");
@@ -831,6 +828,7 @@ class Parser{
     }
     parse(){
         for(const hydra of this.steps){
+            console.log("parsing hydra", hydra);
             hydra.input.down();
             hydra.parsing.down();
             hydra.execute(Hnode.enter, hydra.parsing.current);
