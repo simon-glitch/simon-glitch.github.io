@@ -530,14 +530,15 @@ class Hydra{
             if(!this.history.has(parsing_node)){
                 this.history.set(parsing_node, []);
             }
-            this.history.get(parsing_node).push(new Node_Creation(this.output.current, this.output.current.length));
+            this.history.get(parsing_node).push(new Node_Creation(this.output.current, this.output.current.children.length));
             this.output.current.add(new Hnode(type));
-            if(ln.output_branch){
-                this.output.down(-1);
-                this.history.get(parsing_node).push(new Hydra_Action({output: new Head_Action({move: Hnode.down})}));
-            }
         }
-        
+        if(ln.output_branch){
+            this.output.down(-1);
+            // so I am pretty sure I should NOT track the history, because if I do, it causes the output tree to go up twice but only down once on fail;
+            // this.history.get(parsing_node).push(new Hydra_Action({output: new Head_Action({move: Hnode.down})}));
+        }
+           
         this.execute(match_type.on_enter, parsing_node);
         if(match_type.match_type){
             if(ln.type === this.input.current.type){
@@ -551,8 +552,9 @@ class Hydra{
             }
         }
         if(ln.output_branch){
+            // this is a very jank way 
             const index = this.output.up();
-            this.history.get(parsing_node).push(new Hydra_Action({output: new Head_Action({move: Hnode.up, index})}));
+            // this.history.get(parsing_node).push(new Hydra_Action({output: new Head_Action({move: Hnode.up, index})}));
         }
         // um, does this cover everything?
     }
@@ -594,18 +596,6 @@ class Hydra{
             this.fail(parsing_node);
         }
         if(parsing_node.status === Hnode.succeed){
-            /* Actually I don't need this, since I can handle it in enter;
-            const ln = parsing_node.language_node;
-            if(!ln.output_branch && ln.output_type){
-                const type = (typeof ln.output_type === "function") ? ln.output_type(this.input.current) : String(ln.output_type);
-                if(ln.output_action) this.output.execute(ln.output_action);
-                if(!this.history.has(parsing_node)){
-                    this.history.set(parsing_node, []);
-                }
-                this.history.get(parsing_node).push(new Node_Creation(this.output.current, this.output.current.length));
-                this.output.current.add(new Hnode(type));
-            }
-            */
             parsing_node.status = Hnode.none;
         }
         if(parsing_node.status === Hnode.fail){
@@ -831,7 +821,7 @@ class Parser{
             console.log("parsing hydra", hydra);
             hydra.input.down();
             hydra.parsing.down();
-            hydra.execute(Hnode.enter, hydra.parsing.current);
+            hydra.node_action(Hnode.enter, hydra.parsing.current);
         }
     }
 }

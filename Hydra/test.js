@@ -1,3 +1,4 @@
+/** @import parser.js */
 
 function test_1(){
     const hydra = new Hydra({input: {root: {
@@ -8,16 +9,16 @@ function test_1(){
             type: "c",
         },],
     },},});
-
+    
     hydra.execute(new Hydra_Action({
         input: new Head_Action({
             move: Hnode.down,
         }),
     }), hydra.parsing.root);
-
+    
     const leaf = new Leaf({type: "b"});
     leaf.output_type = "hi";
-
+    
     hydra.language.load({root:{children:[leaf]}});
     hydra.parsing.down();
     hydra.node_action(Hnode.enter, hydra.parsing.current);
