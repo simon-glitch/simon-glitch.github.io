@@ -538,7 +538,7 @@ class Hydra{
             // so I am pretty sure I should NOT track the history, because if I do, it causes the output tree to go up twice but only down once on fail;
             // this.history.get(parsing_node).push(new Hydra_Action({output: new Head_Action({move: Hnode.down})}));
         }
-           
+        
         this.execute(match_type.on_enter, parsing_node);
         if(match_type.match_type){
             if(ln.type === this.input.current.type){
