@@ -1,0 +1,174 @@
+These are my ideas for feature additions and changes to ''[[Minecraft]]''.
+
+== Small things ==
+* Kiln: a furnace variant that smelts everything blast furnaces and smokers don't smelt, at double speed. Crafted with 8 [[terracotta]].
+* [[Clay]] can now be smelted into terracotta on the [[campfire]], allowing the kiln to be obtained in [[Superflat]] on ''[[Bedrock Edition]]''.
+* [[Flint]] block, which can be smelted into [[cobblestone]].
+* Dropping an [[anvil]] onto blocks will crush them if applicable: [[stone]] or [[sandstone]] -> cobblestone, cobblestone -> [[gravel]], gravel or [[glass]] -> sand.
+* The [[mason]] can sell [[buckets of lava]], which cost a bucket and a stack of [[emerald block]]s.
+* Altogether, the above changes allow the player to go to [[the Nether]] in Superflat on ''Bedrock Edition''.
+* For added fun, there is a new setting: "craftable end portals". This allows the [[end portal frame]] to be crafted. It costs 3 [[ender pearl]]s, 5 [[blocks of gold]], and a [[Nether star]]. This allows the player to go to [[the End]] in Superflat, which is crazy. This setting also makes [[end portal frame]]s breakable. They take twice as long to break as [[obsidian]], and require a [[netherite pickaxe]].
+
+=== Amethyst ===
+The [[cleric]] villager now sells [[amethyst shards]] at the master level.
+
+[[Observer]]s and [[comparator]]s are now crafted with amethyst shards instead of [[nether quartz]]. [[Daylight detector]]s still require nether quartz though.
+
+=== Item Wand ===
+Crafted with 2 [[amethyst shards]] and 1 [[copper ingot]]. While holding this, the player can right click a chest to desposit items into the chest using the [[copper golem]]'s sorting logic. Works on all other inventory blocks too, except [[furnace]]s. Also increases the player's item pick up radius by 100%, while held.
+
+== Trivial mode ==
+* It's like Peaceful mode, but better in every way.
+* The player cannot die, even by falling in the void.
+* There is a respawn button in the pause menu.
+* Keep inventory is always enabled.
+* Hostile mobs spawn as if on Hard mode.
+* Villagers are not attacked by zombies and their variants.
+* Creepers and ghasts cannot blow up containers, like chests. Other explosions work normally.
+* The Ender Dragon does not break blocks in the End.
+* Other mob griefing still happens.
+
+== Hoppers ==
+The copper hopper, which only picks up items if it can insert those items into a chest that has that type of item, matching the copper golem. It also checks down a chain of copper hoppers, so it is smart.
+
+The golden hopper, which just has one slot but moves 16 items per redstone tick (and moves them one by one, so it is really fast with nonstacking items). If the golden hopper is redstone powered, it will keep one item in it as a filter. This actually works for non-stackable items by just magically keeping the filter item in the hopper and pushing matching non-stackable items straight through the hopper.
+
+The netherite hopper (1 iron hopper + 1 netherite ingot), which has 15 slots, and has the same speed and logic as the normal hopper. But what's fun about it is can pull items from two blocks above it, and deposit items to two blocks below it. It also will drop items directly on the ground if there is air below it.
+
+== Elytra ==
+* [[Elytra]] can now be enhanted with any Protection [[enchantment]].
+* New Kinetic Protection, which protects against [[kinetic]] damage, 8% per level, up to a max of 90% (which is 11.25 levels). It is considered a type of Protection enchantment. It can be put on any armor piece. Note normal Protection blocks 4% of kinetic damage per level. It is added with Kinetic Protection before applying the 90% cap.
+* New Kinetic Stability enchantment, which is exclusive with protection enchantments, and can only be put on an Elytra. Kinetic stability widens the range of angles where the player does not take kinetic damage, making it easier to fly along the sides of walls or through tight tunnels.
+* Elytra can now be enchanted with Depth Strider, which stacks with the effect on leggings, and makes it easier for the player to fly through water, as long as the player is flying fast enough.
+
+== Terracotta piston ==
+The terracotta piston is crafted like a regular piston, but with cobblestone replaced with terracotta.
+
+First lets review normal piston behavior. Assume the piston faces to the right in these diagrams.
+* Piston or sticky piston pushing:
+    * [Piston] [Unpushable block]: piston does nothing.
+    * [Piston] [Block]: piston pushes the block.
+    * [Unpushable block] [Piston] [Unpushable block]: piston does nothing. The block behind the piston does not matter.
+    * [Unpushable block] [Piston] [Block]: piston pushes the block. The block behind the piston does not matter.
+* Piston or sticky piston pulling:
+    * Normal piston just retracts no matter what is around it.
+    * If a sticky piston cannot pull a block pack, it will retract its head without pulling any blocks.
+
+Now here is the new terracotta piston behavior:
+* Terracotta piston or sticky terracotta piston pushing:
+    * [Piston] [Unpushable block]: piston does nothing.
+    * [Block] [Piston] [Block]: piston pushes itself back, pushing the block behind it as well. Whether the block in front of the piston is pushable or not does not matter.
+    * [Block] [Piston] [Air]: piston pushes its head into the air.
+    * [Unpushable block] [Piston] [Block]: piston pushes the block in front of it.
+    * [Unpushable block] [Piston] [Unpushable block]: piston does nothing.
+* Terracotta piston or sticky terracotta piston pulling:
+    * Normal terracotta piston will pull itself forward when retracting. It will also pull blocks connected to it with slime or honey. If too many blocks are connected to it, it will just leave the blocks behind.
+    * Sticky terracotta piston is sticky on all sides except the head. So it will stick to all blocks around its body, and then use the pulling logic described on the previous line.
+
+There is also the glazed terracotta piston, crafted with glazed terracotta, or made by smelting a terracotta piston (only works for the colored ones). This block can push and pull glazed terracotta, slime, honey, and other pistons, but it cannot push or pull any other blocks. The game actually extends this logic through honey and slime blocks, which is somewhat confusing, but not too crazy.
+
+Now here is the new glazed terracotta piston behavior:
+* Glazed terracotta piston or sticky glazed terracotta piston pushing:
+    * [Piston] [Unpushable block]: piston does nothing.
+    * [Piston] [Block]: piston pushes the block.
+    * [Unpushable block] [Piston] [Unpushable block]: piston does nothing. The block behind the piston does not matter.
+    * [Unpushable block] [Piston] [Block]: piston pushes the block. The block behind the piston does not matter.
+* Glazed terracotta piston or sticky glazed terracotta piston pulling:
+    * Normal piston just retracts no matter what is around it.
+    * If a sticky piston cannot pull a block pack, it will fail to retract. So the sticky glazed terracotta piston is very similar to the normal sticky piston, but with that one tiny difference.
+
+"Light gray sticky glazed terracotta piston" has a very long name, longer than any name currently in Minecraft.
+
+== Better spyglass ==
+A [[projectile]] can be placed in the [[spyglass]] to see where that projectile would land. This actually moves the camera to the location, allowing the player to see farther away than normal. This would probably only be added for some projectiles. The [[fire charge]] and [[wind charge]] go in a straight line, so they might need a distance limit.
+
+The projectile could be placed in the spyglass using a special menu while using the spyglass, and then launched from it by holding the use button. This launches the projectile in the exact direction the spyglass was looking.
+
+Using a spyglass with another item inside it makes the spyglass return to normal. It does not destroy the spyglass, and the spyglass has no [[durability]].
+
+Specific items:
+* [[Ender pearl]]: Makes pearls safer to use. Launching an ender pearl from the spyglass would make it behave as if it was thrown normally, but the player would be able to see where it is going to land first.
+* [[Arrow]] and [[firework]]: Cannot be used directly inside the spyglass. Instead a [[bow]] or [[crossbow]] must be used inside it and then that item will launch the arrow or firework.
+* [[Chorus fruit]]: Could be placed in the spyglass, and then the player could see where it will teleport them when eaten, and eat it from the spyglass.
+* [[Map]]: Creates a box on the horizon showing where the map is, making it easier to use a map of a place that is very far away. Markers on the map would also show up as vertical lines in the spyglass, making navigation more intuitive.
+* [[Compass]]: Creates a vertical line in the spyglass showing where the compass points to. Works the same for [[lodestone compass]] and [[recovery compass]].
+* [[Bed]] and [[respawn anchor]]: Creates a vertical line in the spyglass showing where the player's respawn point is, if it's in the same [[dimension]].
+
+== Easier eyes of ender ==
+The eye of ender is somewhat difficult to use and not intuitive to a new player. This suggestion fixes that.
+
+The [[eye of ender]] can no longer be thrown, and now creates a 3D glowing arrow when held. This arrow points directly to the nearest [[stronghold]]. This does not use the item, so the player can do this as much as they want. The {{ctrl|use}} button now makes the arrow flash to a bigger size momentarily, unless the eye is used on a block, like an [[end portal frame]] or [[item frame]].
+
+For further convenience, the eye of ender could be programmed to point to the portal room instead of the starting stair well of the stronghold.
+
+This would also make things easier for speedrunners since they would no longer have to argue about calculators and stronghold coordinates as much.
+
+== Better villager trade rebalance ==
+Here is my idea for improved [[Villager Trade Rebalancing]].
+
+When a [[villager]] reaches maximum level, a reroll button appears in its trading UI, near the trading XP bar.
+* This button can be used to reroll a single trade.
+* Upon rerolling, the XP bar resets and the button disappears.
+* The villager will keep its level though. The bar can then be filled with 50 more XP.
+* Once full, the reroll button will appear again.
+* This allows the player to reroll any number of trades, one at a time.
+* [[Trading#Level|Trading XP]] should not be confused with normal [[XP]].
+
+Villagers can now repair [[armor]], [[tool]]s, and [[weapon]]s.
+* At Novice level they can only repair wooden tools, leather armor, golden equipment and non-tiered equipment.
+* At Apparentice level, they can repair stone tools, chainmail armor, and copper equipment.
+* At Journeyman level, they can repair iron equipment.
+* At Expert level, they can repair diamond equipment.
+* At Master level, they can repair netherite equipment.
+* The [[turtle shell]], [[elytra]], [[trident]], [[mace]], [[brush]], and [[shears]] are all considered non-tiered.
+* Repair via villager costs no experience or materials, just emeralds.
+* Repair via villager is done in a new repair slot in the trading UI.
+* [[Toolsmith]]s and [[weaponsmith]]s can repair tools and weapons. Either profession can be used to repair both tools and weapons.
+* [[Armorer]]s can repair armor.
+* The [[wandering trader]] can also repair any item.
+* A [[bow]] with [[Infinity]] can also be repaired under the same system.
+
+[[Anvil mechanics]]:
+* Repairing a tool with an anvil (not combining two tools) now resets the penalty / repair cost of the tool. Repairing via villager also does this.
+* Combining tools in an anvil does not reset the repair cost.
+* There is no longer a "too expensive" limit.
+* Renaming always costs 1 level and does not increase the penalty / repair cost.
+
+Other changes:
+* [[Mending]] has been removed, since villager repairs replace it.
+* [[Librarian]]s are now twice as likely to sell "useful" books. Specifically: [[Unbreaking]], [[Efficiency]], [[Fortune]], [[Silk Touch]], [[Sharpness]], [[Looting]], [[Fire Aspect]], [[Protection]], [[Feather Falling]], and [[Depth Strider]].
+
+=== Selling trash ===
+''Credit: [[User:GameCatastrophe|GameCatastrophe]]''
+
+[[Villager]]s should do more actual trading alongside buying and selling, given that they only "trade" with currency as of right now. What would be really interesting would be if you could give large sets of mismatched items, perhaps through [[bundle]]s, to a [[wandering trader]]. Then the wandering trader would give you raw material items such as [[ingot]]s/[[nugget]]s of [[copper]], [[iron]], or [[gold]], plus [[diamond]]s or [[emerald]]s, that he sees as equal in value. It won't be a get-rich-quick way to farm these materials, as each trader will only take a certain amount of each item (he takes less amounts of useless items) and will only give, like, 1 piece of coal per stack of easily renewable item like seeds. But this would give you incentive to hold on to the random trash like the single [[mossy cobblestone stairs]] you have in your chests for some reason and give it to the trader the next time he comes around.
+
+== End Update ==
+{{wip}}
+{{See also|User:Amethyst hhh/End Update}}
+
+This is my idea for an End Update.
+
+First, some new block variants:
+* Glowing obsidian. It cannot be pushed directly by pistons, but it can be moved using slime or honey blocks.
+* [[Slab]]s, [[stairs]], and [[wall]]s for [[concrete]], [[glass]], all [[mineral blocks]], [[calcite]], [[netherrack]], [[endstone]], [[obsidian]]
+** These can all be made in the [[stonecutter]].
+* The [[saw]], which works like the stonecutter but for [[Planks|wood]].
+* Walls for [[purpur]] and [[dark prismarine]].
+* All brick blocks that could reasonably be chiseled or cracked.
+* Slabs and stairs for [[dirt]], all of its variants, [[sand]], [[gravel]], [[concrete powder]], [[concrete powder]]
+
+Void features:
+* Voidite (block)
+** Can be placed in the air like the [[floatato]].
+** Found at the bottom of end islands.
+* Voibucket (item)
+** A [[bucket]] that cannot be filled and deletes liquids when used. Crafted from voidite.
+** It is intended for bulk clearing of water and lava.
+* Ghosting (status effect)
+** Brewed from voidite.
+** Makes the player immune to all splash and lingering potions and attacks, and void damage.
+** Also prevents the player from being able to do melee attacks or shoot projectiles.
+** Other damage like freezing and fire still effect the player.
+** This effect also causes the player to lose air bubbles as if in [[water]].
+
