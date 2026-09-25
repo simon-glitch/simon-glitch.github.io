@@ -32,7 +32,6 @@ class RecursionError extends Error{
 };
 
 class Call_Node{
-    type = "";
     constructor(a_obj, a_fn, a_args){
         /** @type {Call_Node[]} */
         this.children = [];
@@ -440,6 +439,8 @@ class Parsing_Tree extends Tree{
             this.hydra.history.set(this.current, []);
         }
         this.hydra.history.get(this.current).push(new Node_Creation(this.current, index));
+        console.log("ln", this.current.language_node);
+        console.log("index", index);
         const node = new Parsing_Hnode(
             this.current.language_node.children[index],
         );
@@ -708,8 +709,8 @@ const M_Layer = new Match_Type({
     // match type will cause this node to automatically succeed;
     // we can catch that success and intercept it before parent nodes realize it;
     on_succeed: new Hydra_Action({
-        input: new Head_Action({move: Hnode.down}),
-        parsing: new Head_Action({move: Hnode.down}),
+        input: new Head_Action({move: Hnode.down, index: 0,}),
+        parsing: new Head_Action({move: Hnode.down, index: 0,}),
         // this jank setup allows the node to succeed multiple times, so we better prevent infinite loops;
         /** @param {Layer} node */
         callback(node){
@@ -727,6 +728,9 @@ const M_Layer = new Match_Type({
     }),
 });
 
+/*
+So when one of these has output_type, we have to handle quite a bit of logic. First of all, the parsing node has to look at its corresponding language node. If there is an output type, then the parsing node must create and store a corresponding output node for that individual parsing node. Now when does this happen? An output node is created strictly immediately after a parsing node is created. When we move into a parsing node, we should do the corresponding movement for its output node. What's annoying is this means we actually need to check if two parsing nodes share a parent. So I'll add a move_to function (native to Tree), which moves to a node that is either a sibling, child, or parent of current.
+*/
 class Leaf extends Language_Hnode{
     match_type = M_Leaf;
     constructor(o){

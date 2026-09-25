@@ -26,7 +26,15 @@ function test_1(){
 }
 function test_2(){
     const parser = new Parser({source: "Example text.", steps: [
-        new Leaf({type: "E", output_type: "example E", output_branch: true}),
+        new Leaf({type: "E", output_type: "example E"}),
+    ]});
+    parser.chars();
+    parser.parse();
+    console.log(parser);
+}
+function test_3(){
+    const parser = new Parser({source: "Example text.", steps: [
+        new Layer({type: "char", children: [new Leaf({type: "E", output_type: "example E"})]}),
     ]});
     parser.chars();
     parser.parse();
@@ -34,7 +42,8 @@ function test_2(){
 }
 
 // test_1();
-test_2();
+// test_2();
+test_3();
 console.log(call_tree);
 
 
