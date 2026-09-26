@@ -155,9 +155,9 @@ class Head_Action{
     move = Hnode.none;
     /** used when `move == Hnode.down`; used as the argument for `Array.prototype.at`; */
     index = 0;
-    /** Triggers if move action succeeds. This is triggered on the Match_Type containing this Head_Action. @type {Hydra_Action?} */
+    /** triggers if move action succeeds; this is triggered at the Match_Type level on the corresponding parsing node; @type {Hydra_Action?} */
     on_move_succeed = null;
-    /** Triggers if move action fails. This is triggered on the Match_Type containing this Head_Action. @type {Hydra_Action?} */
+    /** triggers if move action fails; this is triggered at the Match_Type level on the corresponding parsing node; @type {Hydra_Action?} */
     on_move_fail = null;
 }
 
@@ -189,7 +189,7 @@ class Hnode{
     end = 0;
     /** @type {Hnode?} */
     parent = null;
-    /** for root nodes; @type {Tree?} */
+    /** each root node points to its tree; @type {Tree?} */
     tree = null;
     constructor(a_type){
         this.type = a_type;
@@ -383,12 +383,12 @@ class Language_Tree extends Tree{
     }
 }
 
-/** Class to store information about created nodes. */
+/** Class to store information about a node when it is created, so it can be destroyed if a parsing node fails. */
 class Node_Creation{
     /** index of the created node within the parent's children list; */
     index = 0;
     constructor(a_parent, a_index){
-        /** index of the created node within the parent's children list; @type {Hnode} */
+        /** the parent node; we need to know this so we can remove this node from its children list @type {Hnode} */
         this.parent = a_parent;
         this.index = a_index;
     }
@@ -431,7 +431,11 @@ class Parsing_Tree extends Tree{
     can_next(){
         return this.language_tree.can_next();
     }
+    // TOOD: add overload for up that handles output nodes;
     down(index = 0){
+        // TODO: create output node if needed;
+        // TODO: tell the parsing node that it has a corresponding output node;
+        
         if(super.can_down(index)){
             return super.down(index);
         }
@@ -449,6 +453,9 @@ class Parsing_Tree extends Tree{
         return super.down(index);
     }
     next(){
+        // TODO: create output node if needed;
+        // TODO: tell the parsing node that it has a corresponding output node;
+        
         if(super.can_next()){
             return super.next();
         }
@@ -477,7 +484,7 @@ class Hydra{
         this.language = new Language_Tree(this);
         /** @type {Parsing_Tree} */
         this.parsing = new Parsing_Tree(this, this.language);
-        /** The history of what actions each parsing node has triggered. This is used to undo movements in the trees. @type {Map<Parsing_Hnode, Hydra_Action[]>} */
+        /** The history of what actions each parsing node has triggered. This is used to undo movements in the trees. This is a map because you might want to undo actions in a different order. However in the current project, actions will always be undone in order (which for undoing means A,B,C would be undone in the order C,B,A). @type {Map<Parsing_Hnode, Hydra_Action[]>} */
         this.history = new Map();
         if(o) this.load(o);
     }
@@ -499,13 +506,13 @@ class Hydra{
         
         if(hydra_action.input)
             this.input.execute(hydra_action.input, parsing_node);
-        if(hydra_action.output)
-            this.output.execute(hydra_action.output, parsing_node);
         if(hydra_action.parsing)
             this.parsing.execute(hydra_action.parsing, parsing_node);
+        if(hydra_action.output)
+            this.output.execute(hydra_action.output, parsing_node);
     }
     /**
-     * Undo the movements in the hydra_action, but not anything else.
+     * Undo the movements in the hydra_action, or undo the creation of the parsing/output node.
      * @param {Hydra_Action | Node_Creation} hydra_action
      */
     undo(hydra_action){
@@ -520,12 +527,13 @@ class Hydra{
         if(hydra_action.parsing)
             this.parsing.undo(hydra_action.parsing);
     }
-    /** @param {Parsing_Hnode} parsing_node it is pretty confusing, but this seems to be required; */
+    /** @param {Parsing_Hnode} parsing_node this used to be confusing to past me; but future me thinks it makes sense; I have given some thought, and it seems almost obvious; almost; */
     enter(parsing_node){
         const ln = parsing_node.language_node;
         const match_type = ln.match_type;
         parsing_node.status = Hnode.enter;
         
+        // TODO: rewrite this;
         if(ln.output_type){
             const type = (typeof ln.output_type === "function") ? ln.output_type(this.input.current) : String(ln.output_type);
             if(!this.history.has(parsing_node)){
@@ -539,6 +547,7 @@ class Hydra{
             // so I am pretty sure I should NOT track the history, because if I do, it causes the output tree to go up twice but only down once on fail;
             // this.history.get(parsing_node).push(new Hydra_Action({output: new Head_Action({move: Hnode.down})}));
         }
+        // end TODO;
         
         this.execute(match_type.on_enter, parsing_node);
         if(match_type.match_type){
@@ -552,12 +561,16 @@ class Hydra{
                 this.node_action(Hnode.fail, parsing_node)
             }
         }
+        
+        // TODO: rewrite this;
         if(ln.output_branch){
             // this is a very jank way 
             const index = this.output.up();
             // this.history.get(parsing_node).push(new Hydra_Action({output: new Head_Action({move: Hnode.up, index})}));
         }
+        // end TODO;
         // um, does this cover everything?
+        // no; there is also callback (that is another TODO);
     }
     /**
      * @param {Parsing_Hnode} parsing_node ;
@@ -567,7 +580,7 @@ class Hydra{
         const match_type = language_node.match_type;
         parsing_node.status = Hnode.succeed;
         this.execute(match_type.on_succeed, parsing_node);
-        // I have no idea what else should be here; perhaps this should just do nothing;
+        // I wish succeed and fail were arbitrary labels; the current code doesn't really treat them as different;
     }
     /**
      * @param {Parsing_Hnode} parsing_node ;
@@ -580,6 +593,7 @@ class Hydra{
     }
     /**
      * This should be exclusive to parsing nodes.
+     * - Bro, a lot of things are exclusive ot parsing nodes.
      * @param {Symbol} node_action `Hnode.enter`, `Hnode.succeed`, or `Hnode.fail`;
      * @param {Parsing_Hnode} parsing_node the node the action is being executed on;
      */
