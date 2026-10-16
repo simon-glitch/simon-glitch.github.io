@@ -463,7 +463,7 @@ document.querySelector("#load_2x2").onclick = ()=>{
 document.querySelector("#load_brown").onclick = ()=>{
     load_e = load_je;
     version = "Colors used from 17w06a to now (using the minimum amount of brown dye).";
-    local_path = "./je_lab_12w34a.zip" ;
+    local_path = "./je_lab_brown.zip" ;
     load_local();
 };
 document.querySelector("#load_1_4_3").onclick = ()=>{
