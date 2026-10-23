@@ -331,8 +331,8 @@ using KDTree = nanoflann::KDTreeSingleIndexAdaptor<
 >;
 
 int main(){
-    // load_je();
-    load_be();
+    load_je();
+    // load_be();
     init_labs();
     
     // some kind of magic data structure
@@ -398,8 +398,8 @@ int main(){
         }
     }
     
-    // save_je();
-    save_be();
+    save_je();
+    // save_be();
     
     uint* my_decode = new uint[256]{0};
     my_decode['0'] = 0x0; my_decode['1'] = 0x1; my_decode['2'] = 0x2; my_decode['3'] = 0x3;
