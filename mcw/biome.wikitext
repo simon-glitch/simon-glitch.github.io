@@ -1,0 +1,575 @@
+
+{| class="wikitable calculator-container calculatorgadget-enabled" style="display: none; text-align: center; margin: 0;"
+! Temperature<ref>Temperature values determine temperature zones:
+−1.0 ≤ T0 ≤ −0.45
+−0.45 ≤ T1 ≤ −0.15
+−0.15 ≤ T2 ≤ 0.2
+0.2 ≤ T3 ≤ 0.55
+0.55 ≤ T4 ≤ 1.0
+A temperature outside of [−1.0, 1.0] will inherit the nearest temperature zone.</ref> !! Humidity<ref>Humidity values determine humidity zones:
+−1.0 ≤ H0 ≤ −0.35
+−0.35 ≤ H1 ≤ −0.1
+−0.1 ≤ H2 ≤ 0.1
+0.1 ≤ H3 ≤ 0.3
+0.3 ≤ H4 ≤ 1.0
+A humidity outside of [−1.0, 1.0] will inherit the nearest humidity zone.</ref> !! Continentalness<ref>Continentalness values determine continentalness zones:
+−1.2 ≤ C0 ≤ −1.05
+−1.05 ≤ C1 ≤ −0.455
+−0.455 ≤ C2 ≤ −0.19
+−0.19 ≤ C3 ≤ −0.11
+−0.11 ≤ C4 ≤ 0.03
+0.03 ≤ C5 ≤ 0.3
+0.3 ≤ C6 ≤ 1.0
+A continentalness outside of [−1.2, 1.0] will inherit the nearest continentalness zone.</ref> !! Erosion<ref>Erosion values determine erosion zones:
+−1.0 ≤ E0 ≤ −0.78
+−0.78 ≤ E1 ≤ −0.375
+−0.375 ≤ E2 ≤ −0.2225
+−0.2225 ≤ E3 ≤ 0.05
+0.05 ≤ E4 ≤ 0.45
+0.45 ≤ E5 ≤ 0.55
+0.55 ≤ E6 ≤ 1.0
+An erosion outside of [−1.0, 1.0] will inherit the nearest erosion zone.</ref> !! Peaks and Valleys<ref>PV = 1−|(3|weirdness|)−2|. PV values determine PV zones:
+−1.0 ≤ PV0 ≤ −0.85
+−0.85 ≤ PV1 ≤ −0.2
+−0.2 ≤ PV2 ≤ 0.2
+0.2 ≤ PV3 ≤ 0.7
+0.7 ≤ PV4 ≤ 1.0
+A PV outside of [−1.0, 1.0] will inherit the nearest PV zone.</ref> !! Weirdness
+|-
+| {{
+Simplecalc|type=range|min=0|max=4|step=1|id=sT|formula=sTn|default=0}} {{
+Simplecalc|type=number|min=0|max=4|step=1|id=sTn|formula=
+ifnan(tv,ndT,
+ifgreater(tv,-0.45)+
+ifgreater(tv,-0.15)+
+ifgreater(tv,0.2)+
+ifgreater(tv,0.55))|default=0}}<br>
+T = {{Simplecalc|type=text|id=xT|size=7|placeholder=-1 to 1|formula=
+ifnan(tv,
+ifzero(sT,-0.725,
+ifzero(sT-1,-0.3,
+ifzero(sT-2,0.025,
+ifzero(sT-3,0.375,0.775)))),
+ifzero(sT-
+ifnan(tv,0,
+ifgreater(tv,-0.45)+
+ifgreater(tv,-0.15)+
+ifgreater(tv,0.2)+
+ifgreater(tv,0.55)),tv,
+ifzero(sT,-0.725,
+ifzero(sT-1,-0.3,
+ifzero(sT-2,0.025,
+ifzero(sT-3,0.375,0.775))))))|NaN-text=}}
+| {{
+Simplecalc|type=range|min=0|max=4|step=1|id=sH|formula=sHn|default=0}} {{
+Simplecalc|type=number|min=0|max=4|step=1|id=sHn|formula=
+ifnan(hv,ndH,
+ifgreater(hv,-0.35)+
+ifgreater(hv,-0.1)+
+ifgreater(hv,0.1)+
+ifgreater(hv,0.3))|default=0}}<br>H = {{Simplecalc|type=text|id=xH|size=7|placeholder=-1 to 1|formula=
+ifnan(hv,
+ifzero(sH,-0.675,
+ifzero(sH-1,-0.225,
+ifzero(sH-2,0,
+ifzero(sH-3,0.2,0.65)))),
+ifzero(sH-
+ifnan(hv,0,
+ifgreater(hv,-0.35)+
+ifgreater(hv,-0.1)+
+ifgreater(hv,0.1)+
+ifgreater(hv,0.3)),hv,
+ifzero(sH,-0.675,
+ifzero(sH-1,-0.225,
+ifzero(sH-2,0,
+ifzero(sH-3,0.2,0.65))))))|NaN-text=}} || {{
+Simplecalc|type=range|min=0|max=6|step=1|id=sC|formula=sCn|default=0}} {{
+Simplecalc|type=number|min=0|max=6|step=1|id=sCn|formula=
+ifnan(cv,ndC,
+ifgreater(cv,-1.05)+
+ifgreater(cv,-0.455)+
+ifgreater(cv,-0.19)+
+ifgreater(cv,-0.11)+
+ifgreater(cv,0.03)+
+ifgreater(cv,0.3))|default=0}}<br>C = {{
+Simplecalc|type=text|id=xC|size=7|placeholder=-1 to 1|formula=
+ifnan(cv,
+ifzero(sC,-1.125,
+ifzero(sC-1,-0.7525,
+ifzero(sC-2,-0.3225,
+ifzero(sC-3,-0.15,
+ifzero(sC-4,-0.04,
+ifzero(sC-5,0.165,0.65)))))),
+ifzero(sC-
+ifnan(cv,0,
+ifgreater(cv,-1.05)+
+ifgreater(cv,-0.455)+
+ifgreater(cv,-0.19)+
+ifgreater(cv,-0.11)+
+ifgreater(cv,0.03)+
+ifgreater(cv,0.3)),cv,
+ifzero(sC,-1.125,
+ifzero(sC-1,-0.7525,
+ifzero(sC-2,-0.3225,
+ifzero(sC-3,-0.15,
+ifzero(sC-4,-0.04,
+ifzero(sC-5,0.165,0.65))))))))|NaN-text=}}
+| {{
+Simplecalc|type=range|min=0|max=6|step=1|id=sE|formula=sEn|default=0}} {{
+Simplecalc|type=number|min=0|max=6|step=1|id=sEn|formula=
+ifnan(ev,ndE,
+ifgreater(ev,-0.78)+
+ifgreater(ev,-0.375)+
+ifgreater(ev,-0.2225)+
+ifgreater(ev,0.05)+
+ifgreater(ev,0.45)+
+ifgreater(ev,0.55))|default=0}}<br>E = {{
+Simplecalc|type=text|id=xE|size=7|placeholder=-1 to 1|formula=
+ifnan(ev,
+ifzero(sE,-0.89,
+ifzero(sE-1,-0.5775,
+ifzero(sE-2,-0.29875,
+ifzero(sE-3,-0.08625,
+ifzero(sE-4,0.25,
+ifzero(sE-5,0.5,0.775)))))),
+ifzero(sE-
+ifnan(ev,0,
+ifgreater(ev,-0.78)+
+ifgreater(ev,-0.375)+
+ifgreater(ev,-0.2225)+
+ifgreater(ev,0.05)+
+ifgreater(ev,0.45)+
+ifgreater(ev,0.55)),ev,
+ifzero(sE,-0.89,
+ifzero(sE-1,-0.5775,
+ifzero(sE-2,-0.29875,
+ifzero(sE-3,-0.08625,
+ifzero(sE-4,0.25,
+ifzero(sE-5,0.5,0.775))))))))|NaN-text=}}
+| {{
+Simplecalc|type=range|min=0|max=4|step=1|id=sP|formula=sPn|default=0}} {{
+Simplecalc|type=number|min=0|max=4|step=1|id=sPn|formula=
+ifnan(wv,ndP,
+ifgreater(abs(wv)*15,13.9999999,2,
+ifgreater((1-abs(3*abs(wv)-2)),-0.85)+
+ifgreater((1-abs(3*abs(wv)-2)),-0.2)+
+ifgreater((1-abs(3*abs(wv)-2)),0.2)+
+ifgreater((1-abs(3*abs(wv)-2)),0.7)))|default=0}}<br>W = {{
+Simplecalc|type=text|id=xW|size=7|placeholder=-1 to 1|formula=
+ifnan(wv,
+ifzero(wpos,-1,1)*
+ifzero(sP,0.025,
+ifzero(sP-1,0.1583,
+ifzero(sP-2,0.3333,
+ifzero(sP-3,0.4833,0.6167)))),
+ifzero(
+ifgreater(abs(wv)*15,13.9999999,2,
+ifgreater((1-abs(3*abs(wv)-2)),-0.85)+
+ifgreater((1-abs(3*abs(wv)-2)),-0.2)+
+ifgreater((1-abs(3*abs(wv)-2)),0.2)+
+ifgreater((1-abs(3*abs(wv)-2)),0.7))-sP,
+ifzero(wv,0,
+ifzero(wpos,-1,1)*abs(wv)),
+ifzero(wpos,-1,1)*
+ifzero(sP,0.025,
+ifzero(sP-1,0.1583,
+ifzero(sP-2,0.3333,
+ifzero(sP-3,0.4833,0.6167))))))|NaN-text=}}
+| style="text-align: center; vertical-align: middle;" | <div style="display: flex; justify-content: center; align-items: center;">{{
+Simplecalc codex checkbox|id=wpos|label=+|formula=
+ifnan(wv,wd,
+ifzero(wv,wd,
+ifgreater(wv,0)))}}</div>
+|-
+| colspan="6" style="text-align: center; vertical-align: middle; padding: 0.75em; border-width: 3px;" |
+{{Simplecalc|type=hidden|id=tv|formula=
+ifgreater(abs(xT),9.9999999,xT/10000,xT)|default=0}}
+{{Simplecalc|type=hidden|id=ndT|formula=sTn|default=0}}
+{{Simplecalc|type=hidden|id=hv|formula=
+ifgreater(abs(xH),9.9999999,xH/10000,xH)|default=0}}
+{{Simplecalc|type=hidden|id=ndH|formula=sHn|default=0}}
+{{Simplecalc|type=hidden|id=cv|formula=
+ifgreater(abs(xC),9.9999999,xC/10000,xC)|default=0}}
+{{Simplecalc|type=hidden|id=ndC|formula=sCn|default=0}}
+{{Simplecalc|type=hidden|id=ev|formula=
+ifgreater(abs(xE),9.9999999,xE/10000,xE)|default=0}}
+{{Simplecalc|type=hidden|id=ndE|formula=sEn|default=0}}
+{{Simplecalc|type=hidden|id=wv|formula=
+ifgreater(abs(xW),9.9999999,xW/10000,xW)|default=0}}
+{{Simplecalc|type=hidden|id=ndP|formula=sPn|default=0}}
+{{Simplecalc|type=hidden|id=wd|formula=wpos|default=0}}
+{{Simplecalc|type=hidden|id=wplus|formula=or(
+    ifnan(wv, wpos, 
+    ifzero(wv, wpos, 
+    ifgreater(wv, 0))), and(
+    ifequal(sP, 0), and(
+    ifless(sE, 2), 
+    ifgreater(sC, 4))))|default=0}}
+{{Simplecalc|type=hidden|id=fBadlands|formula=
+    ifzero(
+    ifgreater(sH, 2), 
+    ifzero(and(
+    ifless(sH, 2), wplus), 5, 4), 3)|default=0}}
+{{Simplecalc|type=hidden|id=fSnowy|formula=
+    ifzero(
+    ifgreater(sH, 2), 
+    ifzero(
+    ifgreater(sH, 0), 
+    ifzero(wplus, 25, 26), 25), 8)|default=0}}
+{{Simplecalc|type=hidden|id=fBeach|formula=
+    ifzero(
+    ifequal(sT, 0), 
+    ifzero(
+    ifequal(sT, 4), 24, 6), 23)|default=0}}
+{{Simplecalc|type=hidden|id=fShattered|formula=
+    ifzero(
+    ifequal(sT, 4), 
+    ifzero(
+    ifequal(sT, 3), 
+    ifzero(
+    ifgreater(sH, 2), 
+    ifzero(and(
+    ifless(sH, 2), 
+    ifless(sT, 2)), 33, 32), 31), 
+    ifzero(
+    ifless(sH, 2), 
+    ifzero(
+    ifequal(sH, 2), 
+    ifzero(wplus, 14, 
+    ifzero(
+    ifequal(sH, 4), 12, 13)), 
+    ifzero(wplus, 11, 10)), 9)), 6)|default=0}}
+{{Simplecalc|type=hidden|id=fMiddle|formula=
+    ifzero(
+    ifequal(sT, 4), 
+    ifzero(
+    ifequal(sT, 0), 
+    ifzero(
+    ifequal(sT, 3), 
+    ifzero(
+    ifequal(sH, 1), 
+    ifzero(
+    ifequal(sH, 2), 
+    ifzero(
+    ifequal(sH, 0), 
+    ifzero(
+    ifequal(sT, 1), 
+    ifzero(
+    ifequal(sH, 4), 
+    ifzero(wplus, 22, 21), 20), 
+    ifzero(
+    ifequal(sH, 3), 
+    ifzero(wplus, 19, 18), 7)), 
+    ifzero(wplus, 
+    ifzero(
+    ifequal(sT, 1), 17, 10), 
+    ifzero(
+    ifequal(sT, 1), 16, 15))), 11), 10), 
+    ifzero(
+    ifless(sH, 2), 
+    ifzero(
+    ifequal(sH, 2), 
+    ifzero(wplus, 14, 
+    ifzero(
+    ifequal(sH, 3), 13, 12)), 
+    ifzero(wplus, 11, 10)), 9)), 
+    ifzero(
+    ifequal(sH, 4), 
+    ifzero(and(
+    ifequal(sH, 2), wplus), fSnowy, 8), 7)), 6)|default=0}}
+{{Simplecalc|type=hidden|id=fPlateau|formula=
+    ifzero(
+    ifequal(sT, 4), 
+    ifzero(
+    ifequal(sT, 0), 
+    ifzero(
+    ifequal(sT, 3), 
+    ifzero(
+    ifequal(sH, 4), 
+    ifzero(and(
+    ifequal(sT, 2), wplus), 
+    ifzero(and(
+    ifequal(sT, 1), and(
+    ifequal(sH, 0), wplus)), 
+    ifzero(and(and(
+    ifequal(sH, 2), not(wplus)), 
+    ifequal(sT, 1)), 
+    ifzero(and(
+    ifequal(sT, 1), and(
+    ifequal(sH, 3), not(wplus))), 30, 7), 11), 29), 
+    ifzero(
+    ifless(sH, 2), 
+    ifzero(
+    ifequal(sH, 2), 22, 11), 29)), 
+    ifzero(
+    ifequal(sT, 2), 
+    ifzero(wplus, 19, 18), 28)), 
+    ifzero(
+    ifless(sH, 2), 
+    ifzero(
+    ifless(sH, 4), 14, 11), 27)), fSnowy), fBadlands)|default=0}}
+{{Simplecalc|type=hidden|id=fLandLow|formula=
+    ifzero(and(
+    ifequal(sP, 2), or(and(
+    ifgreater(sC, 3), 
+    ifequal(sE, 0)), and(
+    ifequal(sC, 6), 
+    ifequal(sE, 1)))), 
+    ifzero(or(and(
+    ifequal(sE, 0), or(
+    ifequal(sP, 4), and(
+    ifequal(sP, 3), 
+    ifgreater(sC, 4)))), and(
+    ifequal(sE, 1), and(
+    ifgreater(sC, 4), 
+    ifequal(sP, 4)))), 
+    ifzero(and(
+    ifless(sP, 3), 
+    ifequal(sC, 3)), 
+    ifzero(or(and(
+    ifequal(sE, 1), and(
+    ifgreater(sC, 4), 
+    ifequal(sP, 3))), or(and(
+    ifequal(sE, 0), 
+    ifequal(sP, 2)), and(
+    ifequal(sE, 0), and(
+    ifequal(sP, 3), 
+    ifequal(sC, 4))))), 
+    ifzero(and(
+    ifequal(sC, 4), 
+    ifequal(sP, 1)), 
+    ifzero(and(
+    ifequal(sC, 3), 
+    ifequal(sP, 3)), 
+    ifzero(
+    ifequal(sT, 4), 
+    ifzero(
+    ifequal(sT, 0), fMiddle, 
+    ifzero(
+    ifless(sH, 2), 38, 37)), fBadlands), fMiddle), 
+    ifzero(
+    ifequal(sT, 4), fMiddle, fBadlands)), 
+    ifzero(
+    ifgreater(sT, 2), 
+    ifzero(
+    ifless(sH, 2), 38, 37), fPlateau)), 41), 
+    ifzero(
+    ifequal(sT, 4), 
+    ifzero(
+    ifequal(sT, 3), 
+    ifzero(wplus, 36, 35), 34), fBadlands)), 
+    ifzero(or(and(
+    ifgreater(sT, 2), 
+    ifequal(sE, 0)), and(
+    ifgreater(sT, 0), 
+    ifequal(sE, 1))), 
+    ifzero(
+    ifgreater(sH, 1), 37, 38), fPlateau))|default=0}}
+{{Simplecalc|type=hidden|id=fLandMid|formula=
+    ifzero(and(
+    ifequal(sE, 2), and(
+    ifequal(sC, 3), 
+    ifless(sP, 3))), 
+    ifzero(and(
+    ifequal(sE, 3), and(
+    ifequal(sC, 3), 
+    ifequal(sP, 1))), fMiddle, fBeach), 41)|default=0}}
+{{Simplecalc|type=hidden|id=fLandHigh|formula=
+    ifzero(
+    ifequal(sC, 3), 
+    ifzero(and(and(
+    ifgreater(sT, 0), 
+    ifequal(sE, 6)), and(
+    ifless(sP, 3), 
+    ifgreater(sC, 3))), 
+    ifzero(and(
+    ifequal(sE, 5), and(
+    ifgreater(sP, 1), 
+    ifgreater(sC, 4))), 
+    ifzero(and(and(
+    ifgreater(sT, 1), 
+    ifless(sH, 4)), and(wplus, and(
+    ifequal(sE, 5), 
+    ifequal(sC, 4)))), 
+    ifzero(and(
+    ifequal(sE, 5), 
+    ifequal(sP, 4)), fMiddle, fShattered), 42), fShattered), 
+    ifzero(
+    ifgreater(sT, 2), 40, 39)), 
+    ifzero(and(and(
+    ifequal(sE, 5), wplus), and(
+    ifless(sH, 4), 
+    ifgreater(sT, 1))), 
+    ifzero(or(and(or(
+    ifequal(sE, 4), 
+    ifequal(sE, 6)), 
+    ifequal(sP, 1)), and(
+    ifless(sP, 3), not(wplus))), 
+    ifzero(and(
+    ifequal(sE, 5), 
+    ifequal(sP, 4)), fMiddle, fShattered), fBeach), 42))|default=0}}
+{{Simplecalc|type=hidden|id=fLandValley|formula=
+    ifzero(and(
+    ifequal(sE, 6), 
+    ifgreater(sC, 3)), 
+    ifzero(and(
+    ifless(sE, 2), 
+    ifgreater(sC, 4)), 
+    ifzero(
+    ifequal(sT, 0), 2, 1), 
+    ifzero(
+    ifequal(sT, 4), fMiddle, fBadlands)), 
+    ifzero(
+    ifgreater(sT, 2), 
+    ifzero(
+    ifgreater(sT, 0), 1, 40), 39))|default=0}}
+{{Simplecalc|type=hidden|id=fLand|formula=
+    ifzero(
+    ifequal(sP, 0), 
+    ifzero(and(or(
+    ifequal(sE, 3), 
+    ifequal(sE, 2)), 
+    ifgreater(sC, 4)), 
+    ifzero(
+    ifless(sE, 2), 
+    ifzero(
+    ifless(sE, 4), fLandHigh, fLandMid), fLandLow), 
+    ifzero(or(or(and(
+    ifgreater(sP, 2), 
+    ifequal(sE, 2)), and(
+    ifgreater(sP, 2), and(
+    ifequal(sC, 6), 
+    ifequal(sE, 3)))), and(
+    ifequal(sP, 2), and(
+    ifequal(sC, 6), 
+    ifequal(sE, 2)))), 
+    ifzero(
+    ifequal(sT, 4), fMiddle, fBadlands), fPlateau)), fLandValley)|default=0}}
+{{Simplecalc|type=hidden|id=biomeid|formula=
+    ifzero(
+    ifequal(sC, 0), 
+    ifzero(
+    ifequal(sC, 1), 
+    ifzero(
+    ifequal(sC, 2), fLand, 
+    ifzero(
+    ifequal(sT, 0), 
+    ifzero(
+    ifequal(sT, 1), 
+    ifzero(
+    ifequal(sT, 2), 
+    ifzero(
+    ifequal(sT, 3), 48, 52), 51), 50), 49)), 
+    ifzero(
+    ifequal(sT, 0), 
+    ifzero(
+    ifequal(sT, 1), 
+    ifzero(
+    ifequal(sT, 2), 
+    ifzero(
+    ifequal(sT, 3), 48, 47), 46), 45), 44)), 43)|default=0}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 1)|1={{BiomeLink|Frozen River}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 2)|1={{BiomeLink|River}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 3)|1={{BiomeLink|Wooded Badlands}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 4)|1={{BiomeLink|Eroded Badlands}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 5)|1={{BiomeLink|Badlands}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 6)|1={{BiomeLink|Desert}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 7)|1={{BiomeLink|Taiga}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 8)|1={{BiomeLink|Snowy Taiga}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 9)|1={{BiomeLink|Savanna}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 10)|1={{BiomeLink|Plains}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 11)|1={{BiomeLink|Forest}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 12)|1={{BiomeLink|Sparse Jungle}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 13)|1={{BiomeLink|Bamboo Jungle}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 14)|1={{BiomeLink|Jungle}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 15)|1={{BiomeLink|Dappled Forest}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 16)|1={{BiomeLink|Sunflower Plains}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 17)|1={{BiomeLink|Flower Forest}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 18)|1={{BiomeLink|Old Growth Pine Taiga}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 19)|1={{BiomeLink|Old Growth Spruce Taiga}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 20)|1={{BiomeLink|Dark Forest}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 21)|1={{BiomeLink|Old Growth Birch Forest}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 22)|1={{BiomeLink|Birch Forest}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 23)|1={{BiomeLink|Snowy Beach}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 24)|1={{BiomeLink|Beach}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 25)|1={{BiomeLink|Snowy Plains}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 26)|1={{BiomeLink|Ice Spikes}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 27)|1={{BiomeLink|Savanna Plateau}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 28)|1={{BiomeLink|Pale Garden}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 29)|1={{BiomeLink|Cherry Grove}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 30)|1={{BiomeLink|Meadow}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 31)|1={{BiomeLink|Windswept Forest}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 32)|1={{BiomeLink|Windswept Gravelly Hills}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 33)|1={{BiomeLink|Windswept Hills}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 34)|1={{BiomeLink|Stony Peaks}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 35)|1={{BiomeLink|Frozen Peaks}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 36)|1={{BiomeLink|Jagged Peaks}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 37)|1={{BiomeLink|Snowy Slopes}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 38)|1={{BiomeLink|Grove}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 39)|1={{BiomeLink|Mangrove Swamp}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 40)|1={{BiomeLink|Swamp}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 41)|1={{BiomeLink|Stony Shore}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 42)|1={{BiomeLink|Windswept Savanna}}}}
+{{simplecalc-hideifzero|formula=
+	ifequal(biomeid, 43)|1={{BiomeLink|Mushroom Fields}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 44)|1={{BiomeLink|Deep Frozen Ocean}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 45)|1={{BiomeLink|Deep Cold Ocean}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 46)|1={{BiomeLink|Deep Ocean}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 47)|1={{BiomeLink|Deep Lukewarm Ocean}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 48)|1={{BiomeLink|Warm Ocean}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 49)|1={{BiomeLink|Frozen Ocean}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 50)|1={{BiomeLink|Cold Ocean}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 51)|1={{BiomeLink|Ocean}}}}
+{{simplecalc-hideifzero|starthidden=1|formula=
+	ifequal(biomeid, 52)|1={{BiomeLink|Lukewarm Ocean}}}}
+|}
