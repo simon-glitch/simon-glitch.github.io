@@ -1,0 +1,6 @@
+#THCEWD-inputs{
+    display: flex;
+}
+#THCEWD-inputs > div > input[type="range"]{
+    width: 6em;
+}
