@@ -38,15 +38,23 @@
         </div>
         <p><em>Biome:</em> <span id="res_biome">Not yet calculated.</span></p>
         <table id="noise-tool">
+            <tr><th colspan="3">Seed: <input type="text" id="seed-input"> <button id="seed-load">Load</button></th></tr>
             <tr><th>Layer</th><th>Pan</th><th>Canvas</th></tr>
             <tr><td><button id="B_L">Biomes</button></td><td><button id="B_P"></button></td><td rowspan="6"><canvas></canvas></td></tr>
-            <tr><td><button id="C_L">Cont</button></td><td><button id="C_P"></button></td></tr>
-            <tr><td><button id="E_L">Eros</button></td><td><button id="E_P"></button></td></tr>
-            <tr><td><button id="T_L">Temp</button></td><td><button id="T_P"></button></td></tr>
-            <tr><td><button id="H_L">Humid</button></td><td><button id="H_P"></button></td></tr>
-            <tr><td><button id="W_L">Weird</button></td><td><button id="W_P"></button></td></tr>
+            <tr><td><button id="T_L">Temp  </button></td><td><button id="T_P"></button></td></tr>
+            <tr><td><button id="H_L">Humid </button></td><td><button id="H_P"></button></td></tr>
+            <tr><td><button id="C_L">Cont  </button></td><td><button id="C_P"></button></td></tr>
+            <tr><td><button id="E_L">Eros  </button></td><td><button id="E_P"></button></td></tr>
+            <tr><td><button id="W_L">Weird </button></td><td><button id="W_P"></button></td></tr>
             <tr><td colspan="3">Cave biomes: <input type="checkbox" id="cave-biomes"></td></tr>
         </table>
+        <div id="explanation">
+            <h3>Noise Panning Tool</h3>
+            <p>The table above is the Noise Panning Tool&#8482;&#65039;. The "Layer" column lets you select a which THCEW layer to view. The pan tool lets you select which layer to pan. The "Biomes" row is for viewing the biomes layer. Its pan button will pan all layers together, which can also be through of as just panning the world.</p>
+            <p>The seed input must be a valid <code>BigInt</code> string between <code>-9223372036854775808</code> and <code>9223372036854775807</code>.</p>
+            <p><i><a href="http://minecraft.wiki/w/Bedrock_Edition">Bedrock Edition</a></i> has the same terrain generation as <i><a href="http://minecraft.wiki/w/Java_Edition">Java Edition</a></i>, so this tool should technically, currently work for both.</p>
+            <p>This tool is made for the <i>Minecraft Wiki</i>, so no credit needs to be given to anyone.</p>
+        </div>
     </div>
     <script src="discrete.js"></script>
     <script src="biome.js"></script>

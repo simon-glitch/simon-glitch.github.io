@@ -1,5 +1,9 @@
 #THCEWD-inputs{
     display: flex;
+    flex-wrap: wrap;
+}
+#THCEWD-inputs > div{
+    margin-inline-end: 1em;
 }
 #THCEWD-inputs > div > input[type="range"]{
     width: 6em;
@@ -15,7 +19,7 @@ canvas{
     text-align: center;
 }
 #noise-tool button{
-    width: 2em;
+    min-width: 2em;
     height: 1.5em;
     border-radius: 0.2em;
     border: 1.5px solid #50485a;
@@ -23,6 +27,13 @@ canvas{
 #noise-tool button.selected{
     border: 2px solid #110022;
 }
-#C_P, #E_P, #T_P, #H_P, #W_P{
+#B_P, #C_P, #E_P, #T_P, #H_P, #W_P{
     background-color: #18ffdc;
+}
+code{
+    font-weight: bold;
+    color: #e81e46;
+}
+p{
+    margin: 0;
 }
