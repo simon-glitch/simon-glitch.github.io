@@ -42,7 +42,23 @@ function biome(T, H, C, E, W, D){
     if(dC === 0) return "Mushroom Fields";
     if(dC === 1) return ["Frozen Ocean", "Cold Ocean", "Ocean", "Lukewarm Ocean", "Warm Ocean"][dT];
     if(dC === 2) return ["Deep Frozen Ocean", "Deep Cold Ocean", "Deep Ocean", "Deep Lukewarm Ocean", "Warm Ocean"][dT];
-    /*
+    
+    const middle = "Middle biomes";
+    const plateau = "Plateau biomes";
+    const beach = "Beach biomes";
+    const shattered = "Shattered biomes";
+    const badland = dT === 4 ? "Badland biomes" : "Middle biomes";
+    const mbeach = W < 0 ? "Beach biomes" : "Middle biomes";
+    const river = dT === 0 ? "Frozen River" : "River";
+    const slopes = dH < 2 ? "Snowy Slopes" : "Grove";
+    const slopes2 = dT === 4 ? "Badland biomes" : dT > 0 ? "Middle biomes" : slopes;
+    const slopes3 = dT >= 3 ? "Plateau biomes" : slopes;
+    const peaks = dT === 4 ? "Badland biomes" : dT === 3 ? "Stony Peaks" : W < 0 ? "Jagged Peaks" : "Frozen Peaks";
+    const savanna = W < 0 || dT < 2 || dH === 4 ? (dPV === 4 ? "Shattered biomes" : "Middle biomes") : "Windswept Savanna";
+    const swamp = dT < 3 ? "Swamp" : "Mangrove Swamp"
+    const mswamp = dT === 0 ? "Middle biomes" : swamp;
+    const rswamp = dT === 0 ? "Frozen River" : swamp;
+        /*
 0 other
 1 Middle biomes
 2 Middle/Badland biomes
@@ -56,104 +72,95 @@ This is based on me just looking at the items in the table on the wiki that don'
 0000
 1000
 0000
+
 0022
 0200
 0000
 1000
 0000
+
 0000
 0122
 0123
 1133
 1133
+
 0000
 4122
 1122
 1123
 1123
+
 0000
 4111
 5111
 1111
 1111
+
 0000
 0011
 0066
 0066
 0066
+
 0000
-4400
-5500
+4000
+5000
 1111
 1111
     */
-    const quick_inland = "00220200000010000000002202000000100000000000012201231133113300004122112211231123000041115111111111110000001100660066006600004400550011111111"[E*20 + PV*4 + (dC-3)];
-    let inland = "";
-    if(quick_inland === "1") inland = "Middle biomes";
-    if(quick_inland === "2") inland = dT === 4 ? "Badland biomes" : "Middle biomes";
-    if(quick_inland === "3") inland = "Plateau biomes";
-    if(quick_inland === "4") inland = "Beach biomes";
-    if(quick_inland === "5") inland = W < 0 ? "Beach biomes" : "Middle biomes";
-    if(quick_inland === "6") inland = "Shattered biomes";
-    if(inland === ""){
-    const river = dT === 0 ? "Frozen River" : "River";
-    const slopes = dH < 2 ? "Snowy Slopes" : "Grove";
-    const slopes2 = dT === 4 ? "Badland biomes" : dT > 0 ? "Middle biomes" : slopes;
-    const slopes3 = dT >= 3 ? "Plateau biomes" : slopes;
-    const peaks = dT === 4 ? "Badland biomes" : dT === 3 ? "Stony Peaks" : W < 0 ? "Jagged Peaks" : "Frozen Peaks";
-    const savanna = W < 0 || dT < 2 || dH === 4 ? (dPV === 4 ? "Shattered biomes" : "Middle biomes") : "Windswept Savanna";
-    inland = [
+    let inland = [
       [
-        [river, river, "", ""],
-        ["Stony Shore", "", slopes2, slopes2],
+        [river, river, badland, badland],
+        ["Stony Shore", badland, slopes2, slopes2],
         ["Stony Shore", slopes3, slopes3, slopes3],
-        ["", slopes3, peaks, peaks],
+        [middle, slopes3, peaks, peaks],
         [peaks, peaks, peaks, peaks],
       ],
       [
-        [river, river, "", ""],
-        ["Stony Shore", "", slopes2, slopes2],
+        [river, river, badland, badland],
+        ["Stony Shore", badland, slopes2, slopes2],
         ["Stony Shore", slopes2, dT>0 ? "Plateau biomes" : slopes, dT>0 ? "Plateau biomes" : slopes],
-        ["", slopes2, slopes3, slopes3],
+        [middle, slopes2, slopes3, slopes3],
         [slopes2, slopes2, peaks, peaks],
       ],
       [
         [river, river, river, river],
-        ["Stony Shore", "", "", ""],
-        ["Stony Shore", "", "", ""],
-        [""],
-        [""],
+        ["Stony Shore", middle, badland, badland],
+        ["Stony Shore", middle, badland, plateau],
+        [badland, badland, plateau, plateau],
+        [badland, badland, plateau, plateau],
       ],
       [
         [river, river, river, river],
-        [""],
-        [""],
-        [""],
-        [""],
+        [beach, middle, badland, badland],
+        [middle, middle, badland, badland],
+        [middle, middle, badland, plateau],
+        [middle, middle, badland, plateau],
       ],
       [
         [river, river, river, river],
-        [""],
-        [""],
-        [""],
-        [""],
+        [beach, middle, middle, middle],
+        [mbeach, middle, middle, middle],
+        [middle, middle, middle, middle],
+        [middle, middle, middle, middle],
       ],
       [
         [river, river, river, river],
-        [W<0 ? "Beach biomes" : savanna, savanna, "", ""],
-        [W<0 ? "Beach biomes" : savanna, savanna, "", ""],
-        [savanna, savanna, "", ""],
-        [savanna, savanna, "", ""],
+        [W<0 ? "Beach biomes" : savanna, savanna, middle, middle],
+        [W<0 ? "Beach biomes" : savanna, savanna, shattered, shattered],
+        [savanna, savanna, shattered, shattered],
+        [savanna, savanna, shattered, shattered],
       ],
       [
-        [river, dT === 0 ? "Frozen River" : dT < 3 ? "Swamp" : "Mangrove Swamp"],
-        ["", dT === 0 ? "Middle biomes" : dT < 3 ? "Swamp" : "Mangrove Swamp"],
-        ["", dT === 0 ? "Middle biomes" : dT < 3 ? "Swamp" : "Mangrove Swamp"],
-        [""],
-        [""],
+        [river, rswamp, rswamp, rswamp],
+        [beach, mswamp, mswamp, mswamp],
+        [mbeach, mswamp, mswamp, mswamp],
+        [middle, middle, middle, middle],
+        [middle, middle, middle, middle],
       ],
-    ][dE][dPV][dC-3] || inland;
-    }
+    ][dE][dPV][dC-3] || "Unknown / Error";
+    
     if(inland === "Beach biomes") inland = ["Snowy Beach", "Beach", "Beach", "Beach", "Desert"][dT];
     if(inland === "Badland biomes") inland = [W<0 ? "Badlands" : "Eroded Badlands", W<0 ? "Badlands" : "Eroded Badlands", "Badlands", "Wooded Badlands", "Wooded Badlands"][dH];
     if(inland === "Middle biomes") inland = [

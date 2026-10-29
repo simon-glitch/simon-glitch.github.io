@@ -8,38 +8,39 @@
 </head>
 <body>
     <div id="app">
+        <p><em>Noise values:</em></p>
         <div id="THCEWD-inputs">
             <div id="T-input">
-                <p><input type="range" min="0" max="4" step="1"> <input class="discrete" type="number" min="0" max="4" step="1"></p>
+                <p>T: <input type="range" min="0" max="4" step="1"> <input class="discrete" type="number" min="0" max="4" step="1"></p>
                 <p>Raw: <input class="raw" type="number" min="-1" max="1"></p>
             </div>
             <div id="H-input">
-                <p><input type="range" min="0" max="4" step="1"> <input class="discrete" type="number" min="0" max="4" step="1"></p>
+                <p>H: <input type="range" min="0" max="4" step="1"> <input class="discrete" type="number" min="0" max="4" step="1"></p>
                 <p>Raw: <input class="raw" type="number" min="-1" max="1"></p>
             </div>
             <div id="C-input">
-                <p><input type="range" min="0" max="6" step="1"> <input class="discrete" type="number" min="0" max="6" step="1"></p>
+                <p>C: <input type="range" min="0" max="6" step="1"> <input class="discrete" type="number" min="0" max="6" step="1"></p>
                 <p>Raw: <input class="raw" type="number" min="-1.1" max="1"></p>
             </div>
             <div id="E-input">
-                <p><input type="range" min="0" max="6" step="1"> <input class="discrete" type="number" min="0" max="6" step="1"></p>
+                <p>E: <input type="range" min="0" max="6" step="1"> <input class="discrete" type="number" min="0" max="6" step="1"></p>
                 <p>Raw: <input class="raw" type="number" min="-1" max="1"></p>
             </div>
             <div id="W-input">
-                <p><input type="range" min="-4" max="4" step="1"> <input class="discrete" type="number" min="-4" max="4" step="1"></p>
+                <p>W: <input type="range" min="-4" max="4" step="1"> <input class="discrete" type="number" min="-4" max="4" step="1"></p>
                 <p>Raw: <input class="raw" type="number" min="-0.66666666666666662965923251249478198587894439697265625" max="0.66666666666666662965923251249478198587894439697265625"></p>
-                <p>PV: <input type="number" min="-1" max="1"></p>
+                <p>PV: <input class="raw-PV" type="number" min="-1" max="1"></p>
             </div>
             <div id="D-input">
-                <p><input type="range" min="0" max="3" step="1"> <input class="discrete" type="number" min="0" max="3" step="1"></p>
+                <p>D: <input type="range" min="0" max="3" step="1"> <input class="discrete" type="number" min="0" max="3" step="1"></p>
                 <p>Raw: <input class="raw" type="number" min="0" max="1.2"></p>
             </div>
         </div>
-        <canvas></canvas>
+        <p><em>Biome:</em> <span id="res_biome">Not yet calculated.</span></p>
     </div>
     <script src="discrete.js"></script>
     <script src="biome.js"></script>
-    <script src="noise.js"></script>
+    <!-- <script src="noise.js"></script> -->
     <script src="main.js"></script>
 </body>
 </html>

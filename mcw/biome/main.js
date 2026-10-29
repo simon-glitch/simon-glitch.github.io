@@ -120,13 +120,17 @@ const biome_mapper = new Map(Object.entries({
 }));
 
 /* I could not find the colors used by chunkbase in its JS. Yeah, I just spent several minutes looking for them. I like doing things my own way, you know. */
-
-const app = document.querySelector("#app");
+const app = {};
+const res_biome = document.querySelector("#res_biome");
+function update_res_biome(){
+    if(!app.ready) return;
+    res_biome.innerText = biome(app.T_in.value, app.H_in.value, app.C_in.value, app.E_in.value, app.W_in.value, app.D_in.value);
+}
 
 // this script does no input validation, because HTML does it for us;
 class Slider_Handler{
     constructor(id, min_max, a_discrete){
-        this.discrete = a_discrete;
+        this.discrete_a = a_discrete;
         this.discrete_b = [min_max[0], ...a_discrete, min_max[1]];
         this.value = 0;
         this.el = document.querySelector("#" + id);
@@ -134,16 +138,76 @@ class Slider_Handler{
         this.discrete = this.el.querySelector("input.discrete");
         this.raw = this.el.querySelector("input.raw");
         this.set_discrete(0);
+        const that = this;
+        this.range.onchange = this.range.oninput = function(){that.set_discrete(this.value);};
+        this.discrete.onchange = this.discrete.oninput = function(){that.set_discrete(this.value);};
+        this.raw.onchange = this.raw.oninput = function(){that.set_raw(this.value);};
     }
     set_discrete(x){
-        this.value = this.discrete_b[x]
+        x = Number(x);
+        this.value = (this.discrete_b[x] + this.discrete_b[x+1]) / 2;
+        this.raw.value = this.value;
+        this.range.value = x;
+        this.discrete.value = x;
+        update_res_biome();
     }
-    
+    set_raw(x){
+        x = Number(x);
+        const dx = discrete(x, this.discrete_a);
+        this.value = x;
+        this.raw.value = this.value;
+        this.range.value = dx;
+        this.discrete.value = dx;
+        update_res_biome();
+    }
 }
 const T_in = new Slider_Handler("T-input", [-1, 1], discrete_T);
 const H_in = new Slider_Handler("H-input", [-1, 1], discrete_H);
 const C_in = new Slider_Handler("C-input", [-1.1, 1], discrete_C);
 const E_in = new Slider_Handler("E-input", [-1, 1], discrete_E);
 const D_in = new Slider_Handler("D-input", [0, 1], discrete_D);
+// okay the way I'm doing W is a bit weird, but also it's fine;
 const W_in = new Slider_Handler("W-input", [-0.66666666666666662965923251249478198587894439697265625, 0.66666666666666662965923251249478198587894439697265625], discrete_W);
+// W is unique, since it is used to calculate PV, which is a different but still useful value;
+W_in.raw_PV = W_in.el.querySelector("input.raw-PV");
+W_in.set_discrete = function set_discrete(x){
+    x = Number(x);
+    this.value = (this.discrete_b[x+4] + this.discrete_b[x+5]) / 2;
+    this.raw.value = this.value;
+    this.raw_PV.value = 1 - Math.abs(3*Math.abs(this.value) - 2);
+    this.range.value = x;
+    this.discrete.value = x;
+    update_res_biome();
+};
+W_in.set_raw = function set_raw(x){
+    x = Number(x);
+    const dx = discrete(x, this.discrete_a);
+    this.value = x;
+    this.raw.value = this.value;
+    this.raw_PV.value = 1 - Math.abs(3*Math.abs(this.value) - 2);
+    this.range.value = dx;
+    this.discrete.value = dx;
+    update_res_biome();
+};
+W_in.set_PV = function set_raw(y){
+    y = Number(y);
+    // we only use the inner V of the graph; and we keep the current sign of W; W=0 is treated as sign=1;
+    const x = (y+1)/3 * (Math.sign(this.value) || 1);
+    const dx = discrete(x, this.discrete_a);
+    this.value = x;
+    this.raw.value = this.value;
+    this.raw_PV.value = y;
+    this.range.value = dx;
+    this.discrete.value = dx;
+};
+W_in.raw_PV.onchange = W_in.raw_PV.oninput = function(){W_in.set_raw_PV(this.value);};
+
+app.T_in = T_in;
+app.H_in = H_in;
+app.C_in = C_in;
+app.E_in = E_in;
+app.W_in = W_in;
+app.D_in = D_in;
+app.ready = true;
+update_res_biome();
 
