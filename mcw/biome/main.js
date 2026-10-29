@@ -161,11 +161,11 @@ class Slider_Handler{
         update_res_biome();
     }
 }
-const T_in = new Slider_Handler("T-input", [-1, 1], discrete_T);
-const H_in = new Slider_Handler("H-input", [-1, 1], discrete_H);
-const C_in = new Slider_Handler("C-input", [-1.1, 1], discrete_C);
+const T_in = new Slider_Handler("T-input", [-1, 1.5], discrete_T);
+const H_in = new Slider_Handler("H-input", [-1, 1.5], discrete_H);
+const C_in = new Slider_Handler("C-input", [-1.1, 1.5], discrete_C);
 const E_in = new Slider_Handler("E-input", [-1, 1], discrete_E);
-const D_in = new Slider_Handler("D-input", [0, 1], discrete_D);
+const D_in = new Slider_Handler("D-input", [0, 1.5], discrete_D);
 // okay the way I'm doing W is a bit weird, but also it's fine;
 const W_in = new Slider_Handler("W-input", [-0.66666666666666662965923251249478198587894439697265625, 0.66666666666666662965923251249478198587894439697265625], discrete_W);
 // W is unique, since it is used to calculate PV, which is a different but still useful value;
@@ -219,13 +219,13 @@ const selected = {
 };
 function layer_handler(){
     if(this === selected.layer) return;
-    selected.layer.classList.remove("selected");
+    if(selected.layer) selected.layer.classList.remove("selected");
     this.classList.add("selected");
     selected.layer = this;
 }
 function pan_handler(){
     if(this === selected.pan) return;
-    selected.pan.classList.remove("selected");
+    if(selected.pan) selected.pan.classList.remove("selected");
     this.classList.add("selected");
     selected.pan = this;
 }
@@ -260,3 +260,105 @@ const pan_map = new Map([
     [document.querySelector("#H_P"), function(dx, dz){biome_noise.H_O.x += dx; biome_noise.H_O.z += dz}],
     [document.querySelector("#W_P"), function(dx, dz){biome_noise.W_O.x += dx; biome_noise.W_O.z += dz}],
 ]);
+
+// gotta use .checked;
+const cave_biomes = document.querySelector("#cave-biomes");
+const seed_input = document.querySelector("#seed-input");
+const seed_load = document.querySelector("#seed-load");
+seed_load.onclick = function(){
+    let v = 0n;
+    try{
+        v = BigInt(seed_input.value.replace(/n$/, ""));
+    }
+    catch(_){/* we'll just override it with zero; */}
+    const min = -1n << 63n;
+    const max = (1n >> 63n) - 1n;
+    if(v < min) v = min;
+    if(v > max) v = max;
+    seed_input.value = String(v);
+}
+
+const settings = {
+    width: 600,
+    height: 600,
+    mspf: 100,
+    frame_id: -1,
+    running: false,
+    ready: false,
+    prev: {x: NaN, y: NaN},
+    curr: {x: NaN, y: NaN},
+    on_frame(){/* placeholder */},
+    frame(){
+        // minor stupid-proofing;
+        if(!this.ready) return;
+        if(!this.running) return;
+        this.ready = false;
+        this.on_frame?.();
+        this.ready = true;
+    },
+    play(){
+        if(this.running) return;
+        this.running = true;
+        this.frame_id = window.setInterval(this.frame, this.mspf);
+    },
+    pause(){
+        if(!this.running) return;
+        this.running = false;
+        window.clearInterval(this.frame_id);
+        this.frame_id = -1;
+    },
+};
+settings.c = document.querySelector("canvas");
+settings.ctx = settings.c.getContext("2d");
+
+settings.c.ontouchstart = function(e){
+    if(e.touches.length !== 1){
+        settings.prev.x = NaN;
+        settings.prev.y = NaN;
+        return;
+    };
+    settings.prev.x = e.touches[0].clientX;
+    settings.prev.y = e.touches[0].clientY;
+}
+settings.c.ontouchend = function(e){
+    settings.prev.x = NaN;
+    settings.prev.y = NaN;
+}
+settings.c.ontouchmove = function(e){
+    if(e.touches.length !== 1){
+        settings.prev.x = NaN;
+        settings.prev.y = NaN;
+        return;
+    };
+    if(isNaN(settings.prev.x) || isNaN(settings.prev.y)) return;
+    settings.curr.x = e.touches[0].clientX;
+    settings.curr.y = e.touches[0].clientY;
+}
+settings.c.onmousedown = function(e){
+    settings.prev.x = e.clientX;
+    settings.prev.y = e.clientY;
+}
+settings.c.onmouseup = function(e){
+    settings.prev.x = NaN;
+    settings.prev.y = NaN;
+}
+settings.c.onmousemove = function(e){
+    if(isNaN(settings.prev.x) || isNaN(settings.prev.y)) return;
+    settings.curr.x = e.clientX;
+    settings.curr.y = e.clientY;
+}
+
+settings.on_frame = function(){
+    // panning!
+    // behold, variation 37 of this beautiful boilerplate code;
+    if(!(isNaN(settings.prev.x) || isNaN(settings.prev.y) ||
+        isNaN(settings.curr.x) || isNaN(settings.curr.y))){
+        const dx = settings.prev.x - settings.curr.x;
+        const dy = settings.prev.y - settings.curr.y;
+        settings.prev.x = settings.curr.x;
+        settings.prev.y = settings.curr.y;
+        pan_map[selected.pan](dx, dy);
+    }
+    // I'll start by just drawing the C noise map for reference;
+}
+

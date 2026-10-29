@@ -4,7 +4,7 @@ function range_check([x, min, max]){
     if(isNaN(max)) max = min;
     return x >= min && x <= max;
 }
-function range_checks(rcs){
+function range_checks(...rcs){
     for(const rc of rcs){
         if(!range_check(rc)) return false;
     }
