@@ -211,3 +211,52 @@ app.D_in = D_in;
 app.ready = true;
 update_res_biome();
 
+const selected = {
+    /** @type {HTMLButtonElement} */
+    layer: null,
+    /** @type {HTMLButtonElement} */
+    pan: null,
+};
+function layer_handler(){
+    if(this === selected.layer) return;
+    selected.layer.classList.remove("selected");
+    this.classList.add("selected");
+    selected.layer = this;
+}
+function pan_handler(){
+    if(this === selected.pan) return;
+    selected.pan.classList.remove("selected");
+    this.classList.add("selected");
+    selected.pan = this;
+}
+
+layer_handler.apply(document.querySelector("#B_L"));
+pan_handler.apply(document.querySelector("#B_P"));
+
+document.querySelector("#B_L").onclick = layer_handler;
+document.querySelector("#C_L").onclick = layer_handler;
+document.querySelector("#E_L").onclick = layer_handler;
+document.querySelector("#T_L").onclick = layer_handler;
+document.querySelector("#H_L").onclick = layer_handler;
+document.querySelector("#W_L").onclick = layer_handler;
+document.querySelector("#B_P").onclick = pan_handler;
+document.querySelector("#C_P").onclick = pan_handler;
+document.querySelector("#E_P").onclick = pan_handler;
+document.querySelector("#T_P").onclick = pan_handler;
+document.querySelector("#H_P").onclick = pan_handler;
+document.querySelector("#W_P").onclick = pan_handler;
+
+const pan_map = new Map([
+    [document.querySelector("#B_P"), function(dx, dz){
+        biome_noise.C_O.x += dx; biome_noise.C_O.z += dz;
+        biome_noise.E_O.x += dx; biome_noise.E_O.z += dz;
+        biome_noise.T_O.x += dx; biome_noise.T_O.z += dz;
+        biome_noise.H_O.x += dx; biome_noise.H_O.z += dz;
+        biome_noise.W_O.x += dx; biome_noise.W_O.z += dz;
+    }],
+    [document.querySelector("#C_P"), function(dx, dz){biome_noise.C_O.x += dx; biome_noise.C_O.z += dz}],
+    [document.querySelector("#E_P"), function(dx, dz){biome_noise.E_O.x += dx; biome_noise.E_O.z += dz}],
+    [document.querySelector("#T_P"), function(dx, dz){biome_noise.T_O.x += dx; biome_noise.T_O.z += dz}],
+    [document.querySelector("#H_P"), function(dx, dz){biome_noise.H_O.x += dx; biome_noise.H_O.z += dz}],
+    [document.querySelector("#W_P"), function(dx, dz){biome_noise.W_O.x += dx; biome_noise.W_O.z += dz}],
+]);

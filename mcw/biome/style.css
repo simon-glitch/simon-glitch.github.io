@@ -4,3 +4,25 @@
 #THCEWD-inputs > div > input[type="range"]{
     width: 6em;
 }
+canvas{
+    image-rendering: pixelated;
+    border: 3px double #00c853;
+}
+#noise-tool th{
+    padding: 0 0.5em;
+}
+#noise-tool td{
+    text-align: center;
+}
+#noise-tool button{
+    width: 2em;
+    height: 1.5em;
+    border-radius: 0.2em;
+    border: 1.5px solid #50485a;
+}
+#noise-tool button.selected{
+    border: 2px solid #110022;
+}
+#C_P, #E_P, #T_P, #H_P, #W_P{
+    background-color: #18ffdc;
+}

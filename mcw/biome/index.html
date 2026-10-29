@@ -37,10 +37,20 @@
             </div>
         </div>
         <p><em>Biome:</em> <span id="res_biome">Not yet calculated.</span></p>
+        <table id="noise-tool">
+            <tr><th>Layer</th><th>Pan</th><th>Canvas</th></tr>
+            <tr><td><button id="B_L">Biomes</button></td><td><button id="B_P"></button></td><td rowspan="6"><canvas></canvas></td></tr>
+            <tr><td><button id="C_L">Cont</button></td><td><button id="C_P"></button></td></tr>
+            <tr><td><button id="E_L">Eros</button></td><td><button id="E_P"></button></td></tr>
+            <tr><td><button id="T_L">Temp</button></td><td><button id="T_P"></button></td></tr>
+            <tr><td><button id="H_L">Humid</button></td><td><button id="H_P"></button></td></tr>
+            <tr><td><button id="W_L">Weird</button></td><td><button id="W_P"></button></td></tr>
+            <tr><td colspan="3">Cave biomes: <input type="checkbox" id="cave-biomes"></td></tr>
+        </table>
     </div>
     <script src="discrete.js"></script>
     <script src="biome.js"></script>
-    <!-- <script src="noise.js"></script> -->
+    <script src="noise.js"></script>
     <script src="main.js"></script>
 </body>
 </html>

@@ -58,57 +58,6 @@ function biome(T, H, C, E, W, D){
     const swamp = dT < 3 ? "Swamp" : "Mangrove Swamp"
     const mswamp = dT === 0 ? "Middle biomes" : swamp;
     const rswamp = dT === 0 ? "Frozen River" : swamp;
-        /*
-0 other
-1 Middle biomes
-2 Middle/Badland biomes
-3 Plateau biomes
-4 Beach biomes
-5 Middle/Beach biomes
-6 Shattered biomes
-This is based on me just looking at the items in the table on the wiki that don't have specific biomes.
-0022
-0200
-0000
-1000
-0000
-
-0022
-0200
-0000
-1000
-0000
-
-0000
-0122
-0123
-1133
-1133
-
-0000
-4122
-1122
-1123
-1123
-
-0000
-4111
-5111
-1111
-1111
-
-0000
-0011
-0066
-0066
-0066
-
-0000
-4000
-5000
-1111
-1111
-    */
     let inland = [
       [
         [river, river, badland, badland],
