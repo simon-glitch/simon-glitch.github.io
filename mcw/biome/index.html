@@ -38,7 +38,7 @@
         </div>
         <p><em>Biome:</em> <span id="res_biome">Not yet calculated.</span></p>
         <table id="noise-tool">
-            <tr><th colspan="3">Seed: <input type="text" id="seed-input"> <button id="seed-load">Load</button></th></tr>
+            <tr><th colspan="3">Seed: <input type="text" id="seed-input"> <button id="seed-load">Load</button> <button id="draw-btn" onclick="app_state.running = true; app_state.frame(); app_state.running = false;">Draw</button></th></tr>
             <tr><th>Layer</th><th>Pan</th><th>Canvas</th></tr>
             <tr><td><button id="B_L">Biomes</button></td><td><button id="B_P"></button></td><td rowspan="6"><canvas></canvas></td></tr>
             <tr><td><button id="T_L">Temp  </button></td><td><button id="T_P"></button></td></tr>

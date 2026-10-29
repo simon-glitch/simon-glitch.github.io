@@ -51,7 +51,7 @@ class Noise_Layer{
         
         // this should give pseudo-random per-octave permutations/offsets matching Minecraft;
         // according to Gemini;
-        this.amplitudes = Array(octaves).fill(0).map((_,i) => 0.5**i);
+        this.amplitudes = Array(octaves.length).fill(0).map((_,i) => 0.5**i);
     }
     
     // Gemini decided to use a coherent noise function placeholder;
@@ -83,6 +83,7 @@ class Noise_Layer{
 class Biome_Noise{
     constructor(){
         // I'm using this as a singleton since I only need one active at a time :shrug:;
+        this.set_seed(0);
     }
     set_seed(world_seed){
         // Minecraft derives separate internal seeds for each noise type using large prime constants;
@@ -111,13 +112,17 @@ class Biome_Noise{
         const scale = 0.25;
         return noise_layer.noise(x * scale, z * scale);
     }
+    /**
+     * @param {number} x x coordinate relative to the canvas;
+     * @param {number} z z coordinate relative to the canvas;
+     */
     noises(x, z){
         return {
-            C: this.noises(x + this.C_O.x, z + this.C_O.z, this.C_N),
-            E: this.noises(x + this.E_O.x, z + this.E_O.z, this.E_N),
-            T: this.noises(x + this.T_O.x, z + this.T_O.z, this.T_N),
-            H: this.noises(x + this.H_O.x, z + this.H_O.z, this.H_N),
-            W: this.noises(x + this.W_O.x, z + this.W_O.z, this.W_N),
+            C: this.noise(x + this.C_O.x, z + this.C_O.z, this.C_N),
+            E: this.noise(x + this.E_O.x, z + this.E_O.z, this.E_N),
+            T: this.noise(x + this.T_O.x, z + this.T_O.z, this.T_N),
+            H: this.noise(x + this.H_O.x, z + this.H_O.z, this.H_N),
+            W: this.noise(x + this.W_O.x, z + this.W_O.z, this.W_N),
         }
     }
 }

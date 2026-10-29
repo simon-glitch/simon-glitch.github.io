@@ -211,23 +211,65 @@ app.D_in = D_in;
 app.ready = true;
 update_res_biome();
 
-const selected = {
-    /** @type {HTMLButtonElement} */
-    layer: null,
-    /** @type {HTMLButtonElement} */
-    pan: null,
+const app_state = {
+    selected: {
+        /** @type {HTMLButtonElement} */
+        layer: null,
+        /** @type {HTMLButtonElement} */
+        pan: null,
+    },
+    seed: 0,
+    width: 600,
+    height: 600,
+    mspf: 100,
+    frame_id: -1,
+    running: false,
+    ready: true,
+    prev: {x: NaN, y: NaN},
+    curr: {x: NaN, y: NaN},
+    /** @type {HTMLCanvasElement} */
+    c: null,
+    /** @type {CanvasRenderingContext2D} */
+    ctx: null,
+    on_frame(){/* placeholder */},
+    frame(){
+        // minor stupid-proofing;
+        if(!this.ready) return;
+        if(!this.running) return;
+        this.ready = false;
+        try{
+            this.on_frame?.();
+        }
+        catch(e){
+            console.error(e);
+        }
+        this.ready = true;
+    },
+    play(){
+        if(this.running) return;
+        this.running = true;
+        this.frame_id = window.setInterval(this.frame.bind(this), this.mspf);
+    },
+    pause(){
+        if(!this.running) return;
+        this.running = false;
+        window.clearInterval(this.frame_id);
+        this.frame_id = -1;
+    },
 };
 function layer_handler(){
-    if(this === selected.layer) return;
-    if(selected.layer) selected.layer.classList.remove("selected");
+    const S = app_state.selected;
+    if(this === S.layer) return;
+    if(S.layer) S.layer.classList.remove("selected");
     this.classList.add("selected");
-    selected.layer = this;
+    S.layer = this;
 }
 function pan_handler(){
-    if(this === selected.pan) return;
-    if(selected.pan) selected.pan.classList.remove("selected");
+    const S = app_state.selected;
+    if(this === S.pan) return;
+    if(S.pan) S.pan.classList.remove("selected");
     this.classList.add("selected");
-    selected.pan = this;
+    S.pan = this;
 }
 
 layer_handler.apply(document.querySelector("#B_L"));
@@ -272,93 +314,89 @@ seed_load.onclick = function(){
     }
     catch(_){/* we'll just override it with zero; */}
     const min = -1n << 63n;
-    const max = (1n >> 63n) - 1n;
+    const max = (1n << 63n) - 1n;
     if(v < min) v = min;
     if(v > max) v = max;
     seed_input.value = String(v);
+    if(app_state.seed !== v){
+        app_state.seed = v;
+        biome_noise.set_seed(v);
+    }
 }
 
-const settings = {
-    width: 600,
-    height: 600,
-    mspf: 100,
-    frame_id: -1,
-    running: false,
-    ready: false,
-    prev: {x: NaN, y: NaN},
-    curr: {x: NaN, y: NaN},
-    on_frame(){/* placeholder */},
-    frame(){
-        // minor stupid-proofing;
-        if(!this.ready) return;
-        if(!this.running) return;
-        this.ready = false;
-        this.on_frame?.();
-        this.ready = true;
-    },
-    play(){
-        if(this.running) return;
-        this.running = true;
-        this.frame_id = window.setInterval(this.frame, this.mspf);
-    },
-    pause(){
-        if(!this.running) return;
-        this.running = false;
-        window.clearInterval(this.frame_id);
-        this.frame_id = -1;
-    },
-};
-settings.c = document.querySelector("canvas");
-settings.ctx = settings.c.getContext("2d");
+app_state.c = document.querySelector("canvas");
+app_state.ctx = app_state.c.getContext("2d");
+// I can't figure out how to use this without wifi: app_state.c.setAttribute("willReadFrequently", true);
 
-settings.c.ontouchstart = function(e){
+app_state.c.ontouchstart = function(e){
     if(e.touches.length !== 1){
-        settings.prev.x = NaN;
-        settings.prev.y = NaN;
+        app_state.prev.x = NaN;
+        app_state.prev.y = NaN;
         return;
     };
-    settings.prev.x = e.touches[0].clientX;
-    settings.prev.y = e.touches[0].clientY;
+    app_state.prev.x = e.touches[0].clientX;
+    app_state.prev.y = e.touches[0].clientY;
 }
-settings.c.ontouchend = function(e){
-    settings.prev.x = NaN;
-    settings.prev.y = NaN;
+app_state.c.ontouchend = function(){
+    app_state.prev.x = NaN;
+    app_state.prev.y = NaN;
 }
-settings.c.ontouchmove = function(e){
+app_state.c.ontouchmove = function(e){
     if(e.touches.length !== 1){
-        settings.prev.x = NaN;
-        settings.prev.y = NaN;
+        app_state.prev.x = NaN;
+        app_state.prev.y = NaN;
         return;
     };
-    if(isNaN(settings.prev.x) || isNaN(settings.prev.y)) return;
-    settings.curr.x = e.touches[0].clientX;
-    settings.curr.y = e.touches[0].clientY;
+    if(isNaN(app_state.prev.x) || isNaN(app_state.prev.y)) return;
+    app_state.curr.x = e.touches[0].clientX;
+    app_state.curr.y = e.touches[0].clientY;
 }
-settings.c.onmousedown = function(e){
-    settings.prev.x = e.clientX;
-    settings.prev.y = e.clientY;
+app_state.c.onmousedown = function(e){
+    app_state.prev.x = e.clientX;
+    app_state.prev.y = e.clientY;
 }
-settings.c.onmouseup = function(e){
-    settings.prev.x = NaN;
-    settings.prev.y = NaN;
+app_state.c.onmouseup = function(){
+    app_state.prev.x = NaN;
+    app_state.prev.y = NaN;
 }
-settings.c.onmousemove = function(e){
-    if(isNaN(settings.prev.x) || isNaN(settings.prev.y)) return;
-    settings.curr.x = e.clientX;
-    settings.curr.y = e.clientY;
+app_state.c.onmousemove = function(e){
+    if(isNaN(app_state.prev.x) || isNaN(app_state.prev.y)) return;
+    app_state.curr.x = e.clientX;
+    app_state.curr.y = e.clientY;
 }
 
-settings.on_frame = function(){
+window.setInterval(function(){
     // panning!
     // behold, variation 37 of this beautiful boilerplate code;
-    if(!(isNaN(settings.prev.x) || isNaN(settings.prev.y) ||
-        isNaN(settings.curr.x) || isNaN(settings.curr.y))){
-        const dx = settings.prev.x - settings.curr.x;
-        const dy = settings.prev.y - settings.curr.y;
-        settings.prev.x = settings.curr.x;
-        settings.prev.y = settings.curr.y;
-        pan_map[selected.pan](dx, dy);
+    if(!(isNaN(app_state.prev.x) || isNaN(app_state.prev.y) ||
+        isNaN(app_state.curr.x) || isNaN(app_state.curr.y))){
+        const dx = Math.round(app_state.prev.x - app_state.curr.x);
+        const dy = Math.round(app_state.prev.y - app_state.curr.y);
+        app_state.prev.x = app_state.curr.x;
+        app_state.prev.y = app_state.curr.y;
+        pan_map.get(app_state.selected.pan)(dx, dy);
     }
+}, 20);
+
+app_state.on_frame = function(){
     // I'll start by just drawing the C noise map for reference;
+    const c = app_state.c;
+    const ctx = app_state.ctx;
+    if(c.width !== app_state.width) c.width = app_state.width;
+    if(c.height !== app_state.height) c.height = app_state.height;
+    const D = ctx.getImageData(0, 0, c.width, c.height);
+    const d = D.data;
+    for(let ii = 0, iy = 0; iy < c.height; iy++){
+        for(let ix = 0; ix < c.width; ix++, ii += 4){
+            const BN = biome_noise.noises(ix, iy);
+            d[ii + 0] = Math.round((BN.T + 1) * 255/2);
+            d[ii + 1] = Math.round((BN.H + 1) * 255/2);
+            d[ii + 2] = Math.round((BN.W + 1) * 255/2);
+            d[ii + 3] = 255;
+        }
+    }
+    ctx.putImageData(D, 0, 0);
 }
 
+// app_state.play();
+window.app_state = app_state;
