@@ -17,6 +17,7 @@ class Java_Random{
         this.seed = (this.seed * 0x5DEECE66Dn + 0xBn) & 0xFFFFFFFFFFFFn;
         return Number(this.seed >> (48n - BigInt(bits)));
     }
+    /** return value is in range from 0 to bound-1; */
     next_int(bound){
         let r = this.next(31);
         let m = bound - 1;
@@ -26,12 +27,16 @@ class Java_Random{
         }
         else{
             let u = r;
+            // this looks like it ensures perfect uniformity;
+            // though maybe it does some other weird thing;
+            // though any other idea sounds completely useless to me;
             while(u - (r = u % bound) + m < 0){
                 u = this.next(31);
             }
         }
         return r;
     }
+    /** return value is in range from 0 to 1-2**-53; */
     next_double(){
         const high = BigInt(this.next(26));
         const low = BigInt(this.next(27));
@@ -47,7 +52,7 @@ class Noise_Layer{
     constructor(seed, octaves){
         this.octaves = octaves;
         // unused since Gemini is apparently scared of perlin noise;
-        const PRNG = new Java_Random(seed);
+        this.seed = BigInt(seed);
         
         // this should give pseudo-random per-octave permutations/offsets matching Minecraft;
         // according to Gemini;
@@ -59,8 +64,9 @@ class Noise_Layer{
     // which is really stupid; i want the noise that Minecraft actually uses; not a formula that's not seed dependent;
     // though this could maybe still be informative;
     // but also the inability to change with the seed makes this less informative;
+    // so since Gemini's placeholder was so damn bad, I just erased it XD;
     raw_noise(x, y){
-        return (Math.sin(x * 12.9898 + y * 78.233) * 43758.5453) % 1;
+        return Math.sin(x);
     }
     noise(x, y){
         let total = 0;
@@ -68,7 +74,7 @@ class Noise_Layer{
         let max = 0;
         
         for(let i = 0; i < this.octaves.length; i++){
-            let amp = this.amplitudes[i];
+            const amp = this.amplitudes[i];
             total += this.raw_noise(x * freq, y * freq) * amp;
             max += amp;
             freq *= 2;
@@ -109,7 +115,7 @@ class Biome_Noise{
      * @param {Noise_Layer} noise_layer ;
      */
     noise(x, z, noise_layer){
-        const scale = 0.25;
+        const scale = 0.025;
         return noise_layer.noise(x * scale, z * scale);
     }
     /**

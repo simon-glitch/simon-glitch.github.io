@@ -219,8 +219,8 @@ const app_state = {
         pan: null,
     },
     seed: 0,
-    width: 600,
-    height: 600,
+    width: 150,
+    height: 150,
     mspf: 100,
     frame_id: -1,
     running: false,
@@ -340,6 +340,8 @@ app_state.c.ontouchstart = function(e){
 app_state.c.ontouchend = function(){
     app_state.prev.x = NaN;
     app_state.prev.y = NaN;
+    app_state.curr.x = NaN;
+    app_state.curr.y = NaN;
 }
 app_state.c.ontouchmove = function(e){
     if(e.touches.length !== 1){
@@ -358,6 +360,8 @@ app_state.c.onmousedown = function(e){
 app_state.c.onmouseup = function(){
     app_state.prev.x = NaN;
     app_state.prev.y = NaN;
+    app_state.curr.x = NaN;
+    app_state.curr.y = NaN;
 }
 app_state.c.onmousemove = function(e){
     if(isNaN(app_state.prev.x) || isNaN(app_state.prev.y)) return;
@@ -398,5 +402,6 @@ app_state.on_frame = function(){
     ctx.putImageData(D, 0, 0);
 }
 
-// app_state.play();
+seed_load.onclick();
+app_state.play();
 window.app_state = app_state;
