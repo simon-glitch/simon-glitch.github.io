@@ -44,6 +44,19 @@ class Java_Random{
     }
 }
 
+const c1 = new OffscreenCanvas(200, 200);
+const c2 = new OffscreenCanvas(200, 200);
+const c3 = new OffscreenCanvas(200, 200);
+const ctx1 = c1.getContext("2d");
+const ctx2 = c2.getContext("2d");
+const ctx3 = c3.getContext("2d");
+ctx1.drawImage(document.querySelector("#biome1"), 0, 0);
+ctx2.drawImage(document.querySelector("#biome2"), 0, 0);
+ctx3.drawImage(document.querySelector("#biome3"), 0, 0);
+const D1 = ctx1.getImageData(0, 0, 200, 200);
+const D2 = ctx2.getImageData(0, 0, 200, 200);
+const D3 = ctx3.getImageData(0, 0, 200, 200);
+
 /**
  * Simplified Perlin Octave Noise Sampler resembling Minecraft's layout.
  * Minecraft shifts sample coordinates based on seed-hashed octave offsets.
@@ -66,6 +79,11 @@ class Noise_Layer{
     // but also the inability to change with the seed makes this less informative;
     // so since Gemini's placeholder was so damn bad, I just erased it XD;
     raw_noise(x, y){
+        if(this.data){
+            x = Math.round(((x % 200) + 200) % 200)
+            y = Math.round(((y % 200) + 200) % 200)
+            return this.data[4*(200*y + x)] * 2/255 - 1;
+        }
         return Math.sin(x);
     }
     noise(x, y){
@@ -97,16 +115,22 @@ class Biome_Noise{
         const base_seed = BigInt(world_seed);
         // Offsets/Seeds mapped from net.minecraft.world.gen.noise.NoiseParametersKeys???
         // well, maybe that's where they are from;
-        this.C_N = new Noise_Layer(Number(base_seed ^ 0x3n), [1, 1, 2, 4]);
-        this.E_N = new Noise_Layer(Number(base_seed ^ 0x5n), [1, 1, 2]);
         this.T_N = new Noise_Layer(Number(base_seed ^ 0x1n), [1, 2, 1]);
         this.H_N = new Noise_Layer(Number(base_seed ^ 0x2n), [1, 1, 1]);
+        this.C_N = new Noise_Layer(Number(base_seed ^ 0x3n), [1, 1, 2, 4]);
+        this.E_N = new Noise_Layer(Number(base_seed ^ 0x5n), [1, 1, 2]);
         this.W_N = new Noise_Layer(Number(base_seed ^ 0x4n), [1, 2, 4, 8]);
+        this.T_N.data = D1.data;
+        this.H_N.data = D2.data;
+        this.C_N.data = D3.data;
+        this.E_N.data = D2.data;
+        this.W_N.data = D3.data;
+        
         // these are so you can pan the noise maps separately in the tool;
-        this.C_O = {x: 0, z:0};
-        this.E_O = {x: 0, z:0};
         this.T_O = {x: 0, z:0};
         this.H_O = {x: 0, z:0};
+        this.C_O = {x: 0, z:0};
+        this.E_O = {x: 0, z:0};
         this.W_O = {x: 0, z:0};
     }
     /**
@@ -115,7 +139,7 @@ class Biome_Noise{
      * @param {Noise_Layer} noise_layer ;
      */
     noise(x, z, noise_layer){
-        const scale = 0.025;
+        const scale = 0.6667;
         return noise_layer.noise(x * scale, z * scale);
     }
     /**
