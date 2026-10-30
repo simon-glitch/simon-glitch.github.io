@@ -44,6 +44,7 @@ class Java_Random{
     }
 }
 
+// ignore these images; I was just playing around;
 const c1 = new OffscreenCanvas(200, 200);
 const c2 = new OffscreenCanvas(200, 200);
 const c3 = new OffscreenCanvas(200, 200);
@@ -57,35 +58,97 @@ const D1 = ctx1.getImageData(0, 0, 200, 200);
 const D2 = ctx2.getImageData(0, 0, 200, 200);
 const D3 = ctx3.getImageData(0, 0, 200, 200);
 
+class Perlin_Noise_Sampler{
+    constructor(seed){
+        const rand = new Java_Random(seed);
+        
+        // initialize permutation table (256 elements, duplicated to 512);
+        this.p = new Uint8Array(512);
+        const p = new Uint8Array(256);
+        for (let i = 0; i < 256; i++) p[i] = i;
+        
+        // standard shuffling;
+        for(let i = 255; i > 0; i--){
+            const target = rand.next_int(i + 1);
+            const temp = p[i];
+            p[i] = p[target];
+            p[target] = temp;
+        }
+        
+        for(let i = 0; i < 256; i++){
+            this.p[i] = p[i];
+            this.p[256 + i] = p[i];
+        }
+        
+        // Minecraft's perlin sampler adds random fixed float offsets per octave sampler;
+        this.offsetX = rand.next_double() * 256.0;
+        this.offsetY = rand.next_double() * 256.0;
+        this.offsetZ = rand.next_double() * 256.0;
+    }
+    
+    fade(t){
+        return t * t * t * (t * (t * 6 - 15) + 10);
+    }
+    lerp(t, a, b){
+        return a + t * (b - a);
+    }
+    grad(hash, x, y, z){
+        const h = hash & 15;
+        const u = h < 8 ? x : y;
+        const v = h < 4 ? y : (h === 12 || h === 14 ? x : z);
+        return ((h & 1) === 0 ? u : -u) + ((h & 2) === 0 ? v : -v);
+    }
+    
+    sample(x, y, z = 0){
+        x += this.offsetX;
+        y += this.offsetY;
+        z += this.offsetZ;
+        
+        const X = Math.floor(x) & 255;
+        const Y = Math.floor(y) & 255;
+        const Z = Math.floor(z) & 255;
+        
+        x -= Math.floor(x);
+        y -= Math.floor(y);
+        z -= Math.floor(z);
+        
+        const u = this.fade(x);
+        const v = this.fade(y);
+        const w = this.fade(z);
+        
+        const A = this.p[X] + Y, AA = this.p[A] + Z, AB = this.p[A + 1] + Z;
+        const B = this.p[X + 1] + Y, BA = this.p[B] + Z, BB = this.p[B + 1] + Z;
+        
+        return this.lerp(w,
+            this.lerp(v,
+                this.lerp(u, this.grad(this.p[AA], x, y, z), this.grad(this.p[BA], x - 1, y, z)),
+                this.lerp(u, this.grad(this.p[AB], x, y - 1, z), this.grad(this.p[BB], x - 1, y - 1, z))
+            ),
+            this.lerp(v,
+                this.lerp(u, this.grad(this.p[AA + 1], x, y, z - 1), this.grad(this.p[BA + 1], x - 1, y, z - 1)),
+                this.lerp(u, this.grad(this.p[AB + 1], x, y - 1, z - 1), this.grad(this.p[BB + 1], x - 1, y - 1, z - 1))
+            )
+        );
+    }
+}
+
 /**
- * Simplified Perlin Octave Noise Sampler resembling Minecraft's layout.
- * Minecraft shifts sample coordinates based on seed-hashed octave offsets.
+ * Updated Noise_Layer using true Perlin octaves linked to seed permutations.
  */
 class Noise_Layer{
     constructor(seed, octaves){
         this.octaves = octaves;
-        // unused since Gemini is apparently scared of perlin noise;
         this.seed = BigInt(seed);
         
-        // this should give pseudo-random per-octave permutations/offsets matching Minecraft;
-        // according to Gemini;
-        this.amplitudes = Array(octaves.length).fill(0).map((_,i) => 0.5**i);
+        // Minecraft generates an individual perlin sampler for each octave using derived seed hashes;
+        this.samplers = octaves.map((_, i) => {
+            // Simple deterministic sub-seed variation per octave
+            return new Perlin_Noise_Sampler(Number(this.seed + BigInt(i * 31)));
+        });
+        
+        this.amplitudes = Array(octaves.length).fill(0).map((_, i) => 0.5 ** i);
     }
     
-    // Gemini decided to use a coherent noise function placeholder;
-    // instead of just normal perlin noise;
-    // which is really stupid; i want the noise that Minecraft actually uses; not a formula that's not seed dependent;
-    // though this could maybe still be informative;
-    // but also the inability to change with the seed makes this less informative;
-    // so since Gemini's placeholder was so damn bad, I just erased it XD;
-    raw_noise(x, y){
-        if(this.data){
-            x = Math.round(((x % 200) + 200) % 200)
-            y = Math.round(((y % 200) + 200) % 200)
-            return this.data[4*(200*y + x)] * 2/255 - 1;
-        }
-        return Math.sin(x);
-    }
     noise(x, y){
         let total = 0;
         let freq = 1;
@@ -93,11 +156,13 @@ class Noise_Layer{
         
         for(let i = 0; i < this.octaves.length; i++){
             const amp = this.amplitudes[i];
-            total += this.raw_noise(x * freq, y * freq) * amp;
+            // amplitude and frequency are used like this to generate procedural worlds in lots of games;
+            total += this.samplers[i].sample(x * freq, y * freq, 0) * amp;
             max += amp;
             freq *= 2;
         }
-        return total / max; // Normalized between roughly -1 and 1
+        // keeps the output between -1 and 1;
+        return total / max;
     }
 }
 
@@ -120,11 +185,6 @@ class Biome_Noise{
         this.C_N = new Noise_Layer(Number(base_seed ^ 0x3n), [1, 1, 2, 4]);
         this.E_N = new Noise_Layer(Number(base_seed ^ 0x5n), [1, 1, 2]);
         this.W_N = new Noise_Layer(Number(base_seed ^ 0x4n), [1, 2, 4, 8]);
-        this.T_N.data = D1.data;
-        this.H_N.data = D2.data;
-        this.C_N.data = D3.data;
-        this.E_N.data = D2.data;
-        this.W_N.data = D3.data;
         
         // these are so you can pan the noise maps separately in the tool;
         this.T_O = {x: 0, z:0};
@@ -134,12 +194,11 @@ class Biome_Noise{
         this.W_O = {x: 0, z:0};
     }
     /**
-     * Scaled down typically by a factor of 0.25 (Quarter-resolution sampling used by MC)
-     * - typically? the wiki implies it is ALWAYS scaled down by that factor;
+     * literally just scaling the thing;
      * @param {Noise_Layer} noise_layer ;
      */
     noise(x, z, noise_layer){
-        const scale = 0.6667;
+        const scale = 0.025;
         return noise_layer.noise(x * scale, z * scale);
     }
     /**
@@ -148,10 +207,10 @@ class Biome_Noise{
      */
     noises(x, z){
         return {
-            C: this.noise(x + this.C_O.x, z + this.C_O.z, this.C_N),
-            E: this.noise(x + this.E_O.x, z + this.E_O.z, this.E_N),
             T: this.noise(x + this.T_O.x, z + this.T_O.z, this.T_N),
             H: this.noise(x + this.H_O.x, z + this.H_O.z, this.H_N),
+            C: this.noise(x + this.C_O.x, z + this.C_O.z, this.C_N),
+            E: this.noise(x + this.E_O.x, z + this.E_O.z, this.E_N),
             W: this.noise(x + this.W_O.x, z + this.W_O.z, this.W_N),
         }
     }

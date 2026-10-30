@@ -50,15 +50,15 @@ const biome_colors = new Map(Object.entries({
  */
 const biome_mapper = new Map(Object.entries({
     "Ocean"                   : "",
-    "Deep Ocean"              : "",
+    "Deep Ocean"              : "Ocean",
     "Warm Ocean"              : "",
     "Lukewarm Ocean"          : "",
-    "Deep lukewarm Ocean"     : "",
+    "Deep Lukewarm Ocean"     : "",
     "Cold Ocean"              : "",
     "Deep Cold Ocean"         : "",
-    "Frozen Ocean"            : "",
+    "Frozen Ocean"            : "Cold Ocean",
     "Deep Frozen Ocean"       : "",
-    "Mushroom Fields"         : "",
+    "Mushroom Fields"         : "The End",
     "Jagged Peaks"            : "Mountains",
     "Frozen Peaks"            : "Snowy Mountains",
     "Stony Peaks"             : "Mountains",
@@ -72,9 +72,9 @@ const biome_mapper = new Map(Object.entries({
     "Forest"                  : "",
     "Flower Forest"           : "",
     "Taiga"                   : "",
-    "Old Growth Pine taiga"   : "Giant Tree Taiga",
-    "Old Growth Spruce taiga" : "Giant Tree Taiga",
-    "Snowy taiga"             : "",
+    "Old Growth Pine Taiga"   : "Giant Tree Taiga",
+    "Old Growth Spruce Taiga" : "Giant Tree Taiga",
+    "Snowy Taiga"             : "",
     "Birch Forest"            : "",
     "Old Growth Birch Forest" : "Forest",
     "Dark Forest"             : "",
@@ -108,7 +108,7 @@ const biome_mapper = new Map(Object.entries({
     "Ice Caves"               : "Mountains",
     "The Void"                : "The End",
     "Nether Wastes"           : "",
-    "Soul Sand valley"        : "Nether Wastes",
+    "Soul Sand Valley"        : "Nether Wastes",
     "Crimson Forest"          : "Nether Wastes",
     "Warped Forest"           : "Nether Wastes",
     "Basalt deltas"           : "Nether Wastes",
@@ -393,9 +393,11 @@ app_state.on_frame = function(){
     for(let ii = 0, iy = 0; iy < c.height; iy++){
         for(let ix = 0; ix < c.width; ix++, ii += 4){
             const BN = biome_noise.noises(ix, iy);
-            d[ii + 0] = Math.round((BN.T + 1) * 255/2);
-            d[ii + 1] = Math.round((BN.H + 1) * 255/2);
-            d[ii + 2] = Math.round((BN.W + 1) * 255/2);
+            const B = biome(BN.T, BN.H, BN.C, BN.E, BN.W, 0);
+            const C = biome_colors.get(biome_mapper.get(B) || B) || "#000000";
+            d[ii + 0] = Number("0x" + C.slice(1,3));
+            d[ii + 1] = Number("0x" + C.slice(3,5));
+            d[ii + 2] = Number("0x" + C.slice(5,7));
             d[ii + 3] = 255;
         }
     }
