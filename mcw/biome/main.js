@@ -220,7 +220,7 @@ const app_state = {
     seed: 0,
     width: 300,
     height: 300,
-    scale: 3333,
+    scale: 10000,
     mspf: 300,
     frame_id: -1,
     running: false,
@@ -374,8 +374,8 @@ window.setInterval(function(){
     // behold, variation 37 of this beautiful boilerplate code;
     if(!(isNaN(app_state.prev.x) || isNaN(app_state.prev.y) ||
         isNaN(app_state.curr.x) || isNaN(app_state.curr.y))){
-        const dx = Math.round(app_state.prev.x - app_state.curr.x);
-        const dy = Math.round(app_state.prev.y - app_state.curr.y);
+        const dx = Math.round((app_state.prev.x - app_state.curr.x) * app_state.scale);
+        const dy = Math.round((app_state.prev.y - app_state.curr.y) * app_state.scale);
         app_state.prev.x = app_state.curr.x;
         app_state.prev.y = app_state.curr.y;
         pan_map.get(app_state.selected.pan)(dx, dy);
