@@ -58,16 +58,18 @@ const D1 = ctx1.getImageData(0, 0, 200, 200);
 const D2 = ctx2.getImageData(0, 0, 200, 200);
 const D3 = ctx3.getImageData(0, 0, 200, 200);
 
-class Perlin_Noise_Sampler{
-    constructor(seed){
-        const rand = new Java_Random(seed);
+class Perlin_Noise{
+    constructor(rand, first_octave, amplitudes, base_amplitude){
+        this.first_octave = first_octave;
+        this.amplitudes = amplitudes;
+        this.base_amplitude = base_amplitude;
         
-        // initialize permutation table (256 elements, duplicated to 512);
-        this.p = new Uint8Array(512);
+        const n = amplitudes.length;
+        this.noiseLevels = [];
+        
+        // Initialize permutation table and octaves
         const p = new Uint8Array(256);
-        for (let i = 0; i < 256; i++) p[i] = i;
-        
-        // standard shuffling;
+        for(let i = 0; i < 256; i++) p[i] = i;
         for(let i = 255; i > 0; i--){
             const target = rand.next_int(i + 1);
             const temp = p[i];
@@ -75,15 +77,27 @@ class Perlin_Noise_Sampler{
             p[target] = temp;
         }
         
+        this.p = new Uint8Array(512);
         for(let i = 0; i < 256; i++){
             this.p[i] = p[i];
             this.p[256 + i] = p[i];
         }
-        
-        // Minecraft's perlin sampler adds random fixed float offsets per octave sampler;
-        this.offsetX = rand.next_double() * 256.0;
-        this.offsetY = rand.next_double() * 256.0;
-        this.offsetZ = rand.next_double() * 256.0;
+
+        for(let i = 0; i < n; i++){
+            if(amplitudes[i] !== 0.0){
+                this.noiseLevels.push({
+                    offsetX: rand.next_double() * 256.0,
+                    offsetY: rand.next_double() * 256.0,
+                    offsetZ: rand.next_double() * 256.0
+                });
+            }
+            else{
+                this.noiseLevels.push(null);
+            }
+        }
+
+        this.lowestFreqInputFactor = Math.pow(2.0, first_octave);
+        this.lowestFreqValueFactor = Math.pow(2.0, n - 1) / (Math.pow(2.0, n) - 1.0);
     }
     
     fade(t){
@@ -92,126 +106,127 @@ class Perlin_Noise_Sampler{
     lerp(t, a, b){
         return a + t * (b - a);
     }
-    grad(hash, x, y, z){
+    
+    grad(hash, x, y, z) {
         const h = hash & 15;
         const u = h < 8 ? x : y;
         const v = h < 4 ? y : (h === 12 || h === 14 ? x : z);
         return ((h & 1) === 0 ? u : -u) + ((h & 2) === 0 ? v : -v);
     }
     
-    sample(x, y, z = 0){
-        x += this.offsetX;
-        y += this.offsetY;
-        z += this.offsetZ;
+    sample_octave(level, x, y, z){
+        const off = this.noiseLevels[level];
+        if (!off) return 0;
         
-        const X = Math.floor(x) & 255;
-        const Y = Math.floor(y) & 255;
-        const Z = Math.floor(z) & 255;
+        const px = x + off.offsetX;
+        const py = y + off.offsetY;
+        const pz = z + off.offsetZ;
         
-        x -= Math.floor(x);
-        y -= Math.floor(y);
-        z -= Math.floor(z);
+        const X = Math.floor(px) & 255;
+        const Y = Math.floor(py) & 255;
+        const Z = Math.floor(pz) & 255;
         
-        const u = this.fade(x);
-        const v = this.fade(y);
-        const w = this.fade(z);
+        const xf = px - Math.floor(px);
+        const yf = py - Math.floor(py);
+        const zf = pz - Math.floor(pz);
+        
+        const u = this.fade(xf);
+        const v = this.fade(yf);
+        const w = this.fade(zf);
         
         const A = this.p[X] + Y, AA = this.p[A] + Z, AB = this.p[A + 1] + Z;
         const B = this.p[X + 1] + Y, BA = this.p[B] + Z, BB = this.p[B + 1] + Z;
         
         return this.lerp(w,
             this.lerp(v,
-                this.lerp(u, this.grad(this.p[AA], x, y, z), this.grad(this.p[BA], x - 1, y, z)),
-                this.lerp(u, this.grad(this.p[AB], x, y - 1, z), this.grad(this.p[BB], x - 1, y - 1, z))
+                this.lerp(u, this.grad(this.p[AA], xf, yf, zf), this.grad(this.p[BA], xf - 1, yf, zf)),
+                this.lerp(u, this.grad(this.p[AB], xf, yf - 1, zf), this.grad(this.p[BB], xf - 1, yf - 1, zf))
             ),
             this.lerp(v,
-                this.lerp(u, this.grad(this.p[AA + 1], x, y, z - 1), this.grad(this.p[BA + 1], x - 1, y, z - 1)),
-                this.lerp(u, this.grad(this.p[AB + 1], x, y - 1, z - 1), this.grad(this.p[BB + 1], x - 1, y - 1, z - 1))
+                this.lerp(u, this.grad(this.p[AA + 1], xf, yf, zf - 1), this.grad(this.p[BA + 1], xf - 1, yf, zf - 1)),
+                this.lerp(u, this.grad(this.p[AB + 1], xf, yf - 1, zf - 1), this.grad(this.p[BB + 1], xf - 1, yf - 1, zf - 1))
             )
         );
     }
+
+    getValue(x, y, z = 0){
+        let total = 0;
+        let freq = this.lowestFreqInputFactor;
+        let valFactor = this.lowestFreqValueFactor;
+
+        for(let i = 0; i < this.amplitudes.length; i++){
+            const amp = this.amplitudes[i];
+            if(amp !== 0.0){
+                total += amp * this.sample_octave(i, x * freq, y * freq, z * freq) * valFactor;
+            }
+            freq *= 2.0;
+        }
+        return total * this.base_amplitude;
+    }
 }
 
 /**
- * Updated Noise_Layer using true Perlin octaves linked to seed permutations.
+ * Literally just two perline noises added together.
  */
-class Noise_Layer{
-    constructor(seed, octaves){
-        this.octaves = octaves;
-        this.seed = BigInt(seed);
-        
-        // Minecraft generates an individual perlin sampler for each octave using derived seed hashes;
-        this.samplers = octaves.map((_, i) => {
-            // Simple deterministic sub-seed variation per octave
-            return new Perlin_Noise_Sampler(Number(this.seed + BigInt(i * 31)));
-        });
-        
-        this.amplitudes = Array(octaves.length).fill(0).map((_, i) => 0.5 ** i);
+class Double_Perlin_Noise{
+    constructor(world_seed, first_octave, amplitudes, base_amplitude){
+        // Minecraft derives two sub-seeds from the main seed;
+        const rand = new Java_Random(world_seed);
+        this.first = new Perlin_Noise(rand, first_octave, amplitudes, base_amplitude);
+        this.second = new Perlin_Noise(rand, first_octave, amplitudes, base_amplitude);
     }
     
     noise(x, y){
-        let total = 0;
-        let freq = 1;
-        let max = 0;
+        // from the game's code
+        const amplitude = 0.16666666666666666;
+        const scale = 0.0003;
+        const x_s = x * scale;
+        const y_s = y * scale;
         
-        for(let i = 0; i < this.octaves.length; i++){
-            const amp = this.amplitudes[i];
-            // amplitude and frequency are used like this to generate procedural worlds in lots of games;
-            total += this.samplers[i].sample(x * freq, y * freq, 0) * amp;
-            max += amp;
-            freq *= 2;
-        }
-        // keeps the output between -1 and 1;
-        return total / max;
+        const val1 = this.first.getValue(x_s, y_s, 0);
+        const val2 = this.second.getValue(x_s, y_s, 0);
+        
+        return (val1 + val2) * amplitude;
     }
 }
 
 /**
- * T, H, C, E, W Biome Noise Generator
+ * Official Overworld Climate & Ridge Noise Parameters
  */
 class Biome_Noise{
     constructor(){
-        // I'm using this as a singleton since I only need one active at a time :shrug:;
         this.set_seed(0);
     }
+    
     set_seed(world_seed){
-        // Minecraft derives separate internal seeds for each noise type using large prime constants;
-        // but our PRNG only uses 1 prime number, so maybe Gemini is wrong about this too;
-        const base_seed = BigInt(world_seed);
-        // Offsets/Seeds mapped from net.minecraft.world.gen.noise.NoiseParametersKeys???
-        // well, maybe that's where they are from;
-        this.T_N = new Noise_Layer(Number(base_seed ^ 0x1n), [1, 2, 1]);
-        this.H_N = new Noise_Layer(Number(base_seed ^ 0x2n), [1, 1, 1]);
-        this.C_N = new Noise_Layer(Number(base_seed ^ 0x3n), [1, 1, 2, 4]);
-        this.E_N = new Noise_Layer(Number(base_seed ^ 0x5n), [1, 1, 2]);
-        this.W_N = new Noise_Layer(Number(base_seed ^ 0x4n), [1, 2, 4, 8]);
+        const base = BigInt(world_seed);
         
-        // these are so you can pan the noise maps separately in the tool;
-        this.T_O = {x: 0, z:0};
-        this.H_O = {x: 0, z:0};
-        this.C_O = {x: 0, z:0};
-        this.E_O = {x: 0, z:0};
-        this.W_O = {x: 0, z:0};
-    }
-    /**
-     * literally just scaling the thing;
-     * @param {Noise_Layer} noise_layer ;
-     */
-    noise(x, z, noise_layer){
-        const scale = 0.025;
-        return noise_layer.noise(x * scale, z * scale);
+        // from the game's JSON definitions: first_octave, amplitudes, base_amplitude;
+        this.T_N = new Double_Perlin_Noise(Number(base ^ 0x1n), -9, [1.0, 1.0, 1.0, 1.0], 1.0);
+        this.H_N = new Double_Perlin_Noise(Number(base ^ 0x2n), -7, [1.0, 1.0], 1.0);
+        this.C_N = new Double_Perlin_Noise(Number(base ^ 0x3n), -9, [1.0, 1.0, 2.0, 2.0, 2.0, 1.0, 1.0, 1.0, 1.0], 0.9238953151129549);
+        this.E_N = new Double_Perlin_Noise(Number(base ^ 0x4n), -9, [1.0, 1.0, 0.0, 1.0, 1.0], 0.8141367096280879);
+        // called ridges.json;
+        this.W_N = new Double_Perlin_Noise(Number(base ^ 0x5n), -7, [1.0, 2.0, 1.0, 0.0, 0.0, 0.0], 0.9147152149950137);
+        
+        this.T_O = {x: 0, z: 0};
+        this.H_O = {x: 0, z: 0};
+        this.C_O = {x: 0, z: 0};
+        this.E_O = {x: 0, z: 0};
+        this.W_O = {x: 0, z: 0};
     }
     /**
      * @param {number} x x coordinate relative to the canvas;
      * @param {number} z z coordinate relative to the canvas;
      */
     noises(x, z){
+        const scale = 2;
         return {
-            T: this.noise(x + this.T_O.x, z + this.T_O.z, this.T_N),
-            H: this.noise(x + this.H_O.x, z + this.H_O.z, this.H_N),
-            C: this.noise(x + this.C_O.x, z + this.C_O.z, this.C_N),
-            E: this.noise(x + this.E_O.x, z + this.E_O.z, this.E_N),
-            W: this.noise(x + this.W_O.x, z + this.W_O.z, this.W_N),
+            T: this.T_N.noise(scale*(x + this.T_O.x), scale*(z + this.T_O.z)),
+            H: this.H_N.noise(scale*(x + this.H_O.x), scale*(z + this.H_O.z)),
+            C: this.C_N.noise(scale*(x + this.C_O.x), scale*(z + this.C_O.z)),
+            E: this.E_N.noise(scale*(x + this.E_O.x), scale*(z + this.E_O.z)),
+            W: this.W_N.noise(scale*(x + this.W_O.x), scale*(z + this.W_O.z)),
         }
     }
 }

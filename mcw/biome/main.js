@@ -10,7 +10,7 @@ const biome_colors = new Map(Object.entries({
     "Forest"                : "#056621",
     "Taiga"                 : "#0b6659",
     "Swamp"                 : "#07f9b2",
-    "River"                 : "#0000ff",
+    "River"                 : "#dedef8",
     "Snowy Tundra"          : "#ffffff",
     "Snowy Mountains"       : "#a0a0a0",
     "Beach"                 : "#fade55",
@@ -120,7 +120,6 @@ const biome_mapper = new Map(Object.entries({
 }));
 
 /* I could not find the colors used by chunkbase in its JS. Yeah, I just spent several minutes looking for them. I like doing things my own way, you know. */
-const app = {};
 const res_biome = document.querySelector("#res_biome");
 function update_res_biome(){
     if(!app.ready) return;
@@ -219,9 +218,10 @@ const app_state = {
         pan: null,
     },
     seed: 0,
-    width: 150,
-    height: 150,
-    mspf: 100,
+    width: 300,
+    height: 300,
+    scale: 3333,
+    mspf: 300,
     frame_id: -1,
     running: false,
     ready: true,
@@ -392,7 +392,7 @@ app_state.on_frame = function(){
     const d = D.data;
     for(let ii = 0, iy = 0; iy < c.height; iy++){
         for(let ix = 0; ix < c.width; ix++, ii += 4){
-            const BN = biome_noise.noises(ix, iy);
+            const BN = biome_noise.noises(ix * app_state.scale, iy * app_state.scale);
             const B = biome(BN.T, BN.H, BN.C, BN.E, BN.W, 0);
             const C = biome_colors.get(biome_mapper.get(B) || B) || "#000000";
             d[ii + 0] = Number("0x" + C.slice(1,3));
