@@ -138,6 +138,7 @@ const base_colors_images = [
     "<img src='assets/pink_dye.png'       alt='pink'      >", /* #f38baa */
 ];
 
+let loaded_brown = false;
 let loaded_je = false;
 let loaded_be = false;
 let found = 0;
@@ -215,7 +216,11 @@ function update_je(){
         console.log("mixers", r.map(v => mixers[v]));
         
         s += "* " +
-        r.toReversed().map(v => mixers[v].map(c => base_colors_images[c]).join(",")).join("<br>* ");
+        r.toReversed().map(v => mixers[v].map(c => base_colors_images[
+            loaded_brown ? 
+            (c === 0 ? 4 : c < 5 ? c - 1 : c) :
+            c
+        ]).join(",")).join("<br>* ");
     }
     else{
         s += "The closest color is not obtainable, but it is supposed to be, so there is a bug in the Lab search C++ code."
@@ -447,6 +452,7 @@ async function load_local(){
 }
 
 function main(){
+    loaded_brown = false;
     load_e = load_je;
     version = "Colors used from 17w06a to now.";
     local_path = "./je_lab_main.zip";
@@ -455,30 +461,35 @@ function main(){
 main();
 document.querySelector("#load_main").onclick = main;
 document.querySelector("#load_2x2").onclick = ()=>{
+    loaded_brown = false;
     load_e = load_je;
     version = "Colors used from 17w06a to now (2x2 crafting grid).";
     local_path = "./je_lab_2x2.zip" ;
     load_local();
 };
 document.querySelector("#load_brown").onclick = ()=>{
+    loaded_brown = true;
     load_e = load_je;
     version = "Colors used from 17w06a to now (using the minimum amount of brown dye).";
     local_path = "./je_lab_brown.zip" ;
     load_local();
 };
 document.querySelector("#load_1_4_3").onclick = ()=>{
+    loaded_brown = false;
     load_e = load_je;
     version = "Colors used from 1.4.3 to 17w06a.";
     local_path = "./je_lab_1_4_3.zip" ;
     load_local();
 };
 document.querySelector("#load_12w34a").onclick = ()=>{
+    loaded_brown = false;
     load_e = load_je;
     version = "Colors used from 12w34a (when armor dyeing was first added) to 1.4.3. The colors themselves were added in Beta 1.2, before armor dyeing was a mechanic.";
     local_path = "./je_lab_12w34a.zip" ;
     load_local();
 };
 document.querySelector("#load_be").onclick = ()=>{
+    loaded_brown = false;
     load_e = load_be;
     version = "BE colors and cauldron recipes.";
     local_path = "./be_lab.zip" ;
