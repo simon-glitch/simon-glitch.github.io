@@ -3,20 +3,24 @@
 class globals {
     static i := 0
     static n := 1000000
-    static d := 10
+    static d := 1000
     static p := 0
 }
 
 
 click_f(){
-    Click
+    ; Click
+    Click "Down"
+    Sleep 200
+    Click "Up"
+    
     globals.i := globals.i + 1
     if(globals.i >= globals.n){
         SetTimer(click_f, 0)
     }
 }
 
-PgUp::
+!1::
 {
     globals.i := 0
     SetTimer(click_f, globals.d * 2**globals.p)
@@ -30,7 +34,7 @@ PgUp::
 }
 
 #HotIf globals.i < globals.n
-PgDn::
+!2::
 {
     globals.i := globals.n
 }
